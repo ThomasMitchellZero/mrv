@@ -3,10 +3,11 @@
     flex-direction: row;
     width: 100%;
     background-color: #102169;
-    padding: 0.25rem 1rem;
+    padding: 0rem
 
 }
 
 .icon{
     height: 2rem;
+    padding: .25rem;
 }

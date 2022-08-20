@@ -1,0 +1,17 @@
+.headertab{
+    appearance: none;
+    border-width: 0px 0px 4px 0px;
+    border-style: solid;
+    border-color: #fff;
+    color: #fff;
+    margin: 0rem 0.5rem;
+    padding: 0rem 0rem;
+    background-color: transparent;
+    font-weight: 500;
+    height: 100%;
+}
+
+.active{
+    border-color: #0091ff;
+    color: #0091ff;
+}
