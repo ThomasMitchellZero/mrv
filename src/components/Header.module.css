@@ -1,0 +1,12 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #102169;
+    padding: 0.25rem 1rem;
+
+}
+
+.icon{
+    height: 2rem;
+}
