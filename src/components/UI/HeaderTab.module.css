@@ -1,8 +1,8 @@
 .headertab{
     appearance: none;
-    border-width: 0px 0px 4px 0px;
+    border-width: 0px 0px 2px 0px;
     border-style: solid;
-    border-color: #fff;
+    border-color: transparent;
     color: #fff;
     margin: 0rem 0.5rem;
     padding: 0rem 0rem;
