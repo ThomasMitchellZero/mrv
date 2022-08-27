@@ -1,9 +1,9 @@
-import classes from "./Header.module.css";
+import classes from "./GlobalNav.module.css"
 import pagoda from "../assets/lowes-logo.svg";
-import HeaderTab from "./UI/HeaderTab";
+import NavTab from "./UI/NavTab";
 import { useState } from "react";
 
-const Header = () => {
+const GlobalNav = () => {
   const [activeTab, setActiveTab] = useState("Homepage");
 
   const tabClickHandler = (event) => {
@@ -22,23 +22,21 @@ const Header = () => {
 
   const tabJSX = tabList.map((item) => {
     return (
-      <HeaderTab
+      <NavTab
         id={item.id}
         onClick={tabClickHandler}
         active={item.id === activeTab}
-        orca="whale"
         key={item.id}
-      >
-      </HeaderTab>
+      />
     );
   });
 
   return (
-    <div className={classes.header}>
+    <div className={classes.globalnav}>
       <img className={classes.icon} src={pagoda} alt="Lowes Pagoda" />
       <div>{tabJSX}</div>
     </div>
   );
 };
 
-export default Header;
+export default GlobalNav;

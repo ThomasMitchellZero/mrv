@@ -1,10 +1,10 @@
 import "./App.css";
-import Header from "./components/Header";
+import GlobalNav from "./components/GlobalNav";
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      <GlobalNav />
       <p>Hello Returns</p>
     </div>
   );
