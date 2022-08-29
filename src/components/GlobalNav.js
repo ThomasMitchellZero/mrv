@@ -4,7 +4,7 @@ import NavTab from "./UI/NavTab";
 import { useState } from "react";
 
 const GlobalNav = () => {
-  const [activeTab, setActiveTab] = useState("Homepage");
+  const [activeTab, setActiveTab] = useState("Returns");
 
   const tabClickHandler = (event) => {
     event.preventDefault();

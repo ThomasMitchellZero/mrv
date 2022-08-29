@@ -1,4 +1,9 @@
 *{
-  font-family:  Roboto, sans-serif;
+  font-family:  Roboto;
 }
 
+.divider{
+  background-color: #999;
+  height: 1px;
+  width: 100%
+}

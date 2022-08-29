@@ -1,0 +1,24 @@
+.titlebar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0rem .5rem;
+    box-sizing: border-box;
+}
+
+.iconholder{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    background-color: aqua;
+}
+
+.titlebar p{
+    text-align: center;
+    width: 100%;
+}
