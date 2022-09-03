@@ -1,0 +1,11 @@
+.tableheading{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon{
+    color: brown;
+    font-size: 1.25rem;
+    margin: 0rem .25rem
+}
