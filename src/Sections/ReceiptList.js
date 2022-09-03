@@ -1,10 +1,12 @@
 import TitleBar from "../components/UI/TitleBar"
+import Table from "../components/UI/Table/Table"
 
 const ReceiptList = () =>{
     return <div>
         <TitleBar
-            lefticon = "">Receipt List</TitleBar>
+            lefticon = "back">Receipt List</TitleBar>
         <p>Receipt List (coming soon)</p>
+        <Table></Table>
     </div>
 }
 
