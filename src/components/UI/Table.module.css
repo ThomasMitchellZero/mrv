@@ -1,0 +1,26 @@
+table{
+    box-sizing: border-box;
+    background-color:transparent;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    border-radius: .25rem .25rem 0rem 0rem;
+    overflow: hidden;
+}
+
+thead{
+    text-align: left;
+    background-color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+    height: 4.5rem;
+}
+
+th{padding: 0rem 2rem}
+
+td{padding: 0rem 2rem}
+
+tbody tr{
+    border-bottom: 1px solid #e0e0e0;
+    height: 4.5rem;
+}

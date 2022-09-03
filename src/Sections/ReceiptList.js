@@ -1,5 +1,5 @@
 import TitleBar from "../components/UI/TitleBar"
-import Table from "../components/UI/Table/Table"
+import Table from "../components/UI/Table"
 
 const ReceiptList = () =>{
     return <div>
