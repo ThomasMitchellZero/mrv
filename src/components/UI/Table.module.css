@@ -9,10 +9,12 @@ table{
 }
 
 thead{
-    text-align: left;
-    background-color: #e0e0e0;
     font-size: 1rem;
     font-weight: 500;
+    color: #000;
+    opacity: 87%;
+    text-align: left;
+    background-color: #e0e0e0;
     height: 4.5rem;
 }
 
@@ -21,6 +23,10 @@ th{padding: 0rem 2rem}
 td{padding: 0rem 2rem}
 
 tbody tr{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    opacity: 87%;
     border-bottom: 1px solid #e0e0e0;
     height: 4.5rem;
 }

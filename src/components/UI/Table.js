@@ -1,4 +1,5 @@
 import classes from "./Table.module.css";
+import TableHeading from "./TableHeading";
 
 const Table = (props) => {
   return (
@@ -7,14 +8,16 @@ const Table = (props) => {
       <table>
         <thead>
           <tr>
-            <th>One Head</th>
-            <th>Two Head</th>
+            <TableHeading>One Head</TableHeading>
+            <TableHeading>Two Head</TableHeading>
+            <th>Three Head</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>123</td>
             <td>this and this and that</td>
+            <td>ad-123</td>
           </tr>
         </tbody>
       </table>
