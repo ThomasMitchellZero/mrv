@@ -5,7 +5,13 @@
 }
 
 .icon{
-    color: brown;
+    color: #000;
+    opacity: 87%;
     font-size: 1.25rem;
     margin: 0rem .25rem
+}
+
+.active{
+    color: #003baf;
+    opacity: 100%;
 }
