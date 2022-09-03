@@ -2,6 +2,7 @@ import "./App.css";
 import GlobalNav from "./components/GlobalNav";
 import TitleBar from "./components/UI/TitleBar"
 import { MdOutlineClose } from "react-icons/md";
+import ReceiptList from "./Sections/ReceiptList";
 
 
 
@@ -14,6 +15,7 @@ function App() {
       <GlobalNav />
       <p>Hello Returns</p>
       <TitleBar lefticon={close}>The Title</TitleBar>
+      <ReceiptList />
     </div>
   );
 }
