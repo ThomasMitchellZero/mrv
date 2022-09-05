@@ -19,7 +19,7 @@ const Table = (props) => {
       this.onClick = onClick;
     }
   }
-  
+
   const headingList = [
     new HeadingListItem("Sale Date", false, true),
     new HeadingListItem("Invoice #", false, true),
@@ -38,7 +38,7 @@ const Table = (props) => {
 
   // figure out how to handle the presence of the trash can so this isn't a big old mess.
 
-  const headings = headingList.map((item) => {
+  const tableHeadings = headingList.map((item) => {
     return (
       <TableHeading
         key={item.id}
@@ -52,16 +52,44 @@ const Table = (props) => {
     );
   });
 
+  
+
+  const tableContents = [
+    {
+      saleDate: "10 Jan 2022",
+      invoice: 12333,
+      store: 2233,
+      lineItems: 2,
+      total: "$123.45",
+    },
+    {
+      saleDate: "13 Jan 2022",
+      invoice: 14373,
+      store: 2233,
+      lineItems: 4,
+      total: "$420.69",
+    },
+  ];
 
 
-
+  const tableRows = tableContents.map((item) => {
+    return (
+      <tr key={item.invoice}>
+        <td>{item.saleDate}</td>
+        <td>{item.invoice}</td>
+        <td>{item.store}</td>
+        <td>{item.lineItems}</td>
+        <td>{item.total}</td>
+      </tr>
+    );
+  });
 
   return (
     <div>
       <p>Sur La Table</p>
       <table>
         <thead>
-          <tr>{headings}</tr>
+          <tr>{tableHeadings}</tr>
         </thead>
         <tbody>
           <tr>
@@ -71,6 +99,7 @@ const Table = (props) => {
             <td>ad-123</td>
             <td>ad-123</td>
           </tr>
+          {tableRows}
         </tbody>
       </table>
     </div>
