@@ -18,7 +18,10 @@ thead{
     height: 4.5rem;
 }
 
-th{padding: 0rem 2rem}
+th{
+    padding: 0rem 2rem;
+    font-weight: inherit;
+}
 
 td{padding: 0rem 2rem}
 

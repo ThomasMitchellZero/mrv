@@ -4,20 +4,17 @@ import { useState } from "react";
 
 const TableHeading = (props) => {
 
+// might be worth looking at doing the arrow state as a single object?
   const [isActive, setIsActive] = useState(false);
   const [isDescending, setIsDescending] = useState(true);
 
-    // might be worth looking at doing the arrow state as a single object?
-
-  const activeStatus = () => {
-    return isActive ? `${classes.active}` : "";
-  };
+  const iconClasses = `${classes.icon} ${isActive ? `${classes.active}` : ""}`
 
   const downArrow = (
-    <MdArrowDownward className={`${classes.icon} ${activeStatus()}`} />
+    <MdArrowDownward className={iconClasses} />
   );
   const upArrow = (
-    <MdArrowUpward className={`${classes.icon} ${activeStatus()}`} />
+    <MdArrowUpward className={iconClasses} />
   );
 
   const clickHandler = (event) => {
