@@ -1,0 +1,29 @@
+24 Sep 2022
+
+    -Explore what I need to do to use heredity in CSS.  Max 1 hour, option to continue if I feel like I am close to the answer.
+        -I am not close to an answer.
+
+    -Organize the tables so that inputs <th> and <tr> use a similar structure
+
+    -Make the tables use a flex-basis so I can alter the sizes.
+
+    -Table should be universal.  Lots of other parts of the app use a table, and I want them all to be configurations of this.
+
+        -Some <td> will be components.
+        -Some <td> will have multiple elements
+        -Need to be able to take unknown number of <td> in each <tr>
+        -Incorporate flex-basis into <th>
+
+
+Auto space:  74 + 28 (102) + x = 231   x = 129
+
+10% space:  35 + 28 (63) + x = 138     x = 75
+
+---
+
+Auto space:  74 + 28 (102) + x = 312   x = 210
+
+10% space:  35 + 28 (63) + x = 139     x = 76
+
+OK, so... kind of! 138.5 = 10% of total page width of 1385.  
+
