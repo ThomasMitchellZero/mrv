@@ -20,9 +20,9 @@ const TableHeading = (props) => {
   const clickHandler = (event) => {
     console.log(event.target);
   };
-
+//style={{marginRight: spacing + 'em'}} when using JSX.
   return (
-    <th onClick={clickHandler}>
+    <th onClick={clickHandler} style={{width: `${props.flexing}`}}>
       <div className={classes.tableheading}>
         <p>{props.children}</p>
         {isDescending ? downArrow : upArrow}

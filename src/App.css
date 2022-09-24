@@ -7,3 +7,7 @@
   height: 1px;
   width: 100%
 }
+
+.App{
+  min-width: 900px;
+}

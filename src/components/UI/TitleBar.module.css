@@ -22,3 +22,8 @@
     text-align: center;
     width: 100%;
 }
+
+.test{
+    composes: titlebar;
+    font-size: 3rem;
+}

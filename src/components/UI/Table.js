@@ -9,31 +9,14 @@ const Table = (props) => {
     console.log(origin);
   };
 
-  /*
 
-  class HeadingListItem {
-    constructor(id, active, descending, onClick) {
-      this.id = id;
-      this.active = active;
-      this.descending = descending;
-      this.onClick = onClick;
-    }
-  }
-
+  // I don't understand how the space is being apportioned here.
   const headingList = [
-    new HeadingListItem("Sale Date", false, true),
-    new HeadingListItem("Invoice #", false, true),
-    new HeadingListItem("Store #", false, true),
-    new HeadingListItem("Line Items", false, true),
-  ];
-
-*/
-  const headingList = [
-    { id: "Sale Date", active: false, descending: true },
-    { id: "Invoice #", active: false, descending: true },
-    { id: "Store #", active: false, descending: true },
-    { id: "Line Items", active: false, descending: true },
-    { id: "Total", active: false, descending: true },
+    { id: "Sale Date", active: false, descending: true, flexing: "auto" },
+    { id: "Invoice #", active: false, descending: true, flexing: "auto" },
+    { id: "Store #", active: false, descending: true, flexing: "auto" },
+    { id: "Line Items", active: false, descending: true, flexing: "auto" },
+    { id: "Total", active: false, descending: true, flexing: "10%" },
   ];
 
   // figure out how to handle the presence of the trash can so this isn't a big old mess.
@@ -45,14 +28,13 @@ const Table = (props) => {
         id={item.id}
         active={item.active}
         descending={item.descending}
+        flexing={item.flexing}
         onClick={handleHeadingClick}
       >
         {item.id}
       </TableHeading>
     );
   });
-
-  
 
   const tableContents = [
     {
@@ -71,6 +53,28 @@ const Table = (props) => {
     },
   ];
 
+  /*
+
+  This is my idea but none of it has been checked.
+
+  const trBuilder = (singleRowArray) => {
+    singleRowArray.map((item) => {
+      return <td>{item}</td>;
+    });
+  };
+
+  const tbodyBuilder = (tableRowArray)=>{
+    tableRowArray.map((item)=>{
+      return(
+        <tr>{trBuilder(item)}</tr>
+      )
+    })
+  }
+
+
+
+
+  */
 
   const tableRows = tableContents.map((item) => {
     return (
