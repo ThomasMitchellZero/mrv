@@ -15,15 +15,17 @@
         -Incorporate flex-basis into <th>
 
 
-Auto space:  74 + 28 (102) + x = 231   x = 129
-
-10% space:  35 + 28 (63) + x = 138     x = 75
-
----
 
 Auto space:  74 + 28 (102) + x = 312   x = 210
 
 10% space:  35 + 28 (63) + x = 139     x = 76
 
 OK, so... kind of! 138.5 = 10% of total page width of 1385.  
+
+AFAICT, it's taking up 10% of the parent width, and that doesn't account for padding.  If I change the padding to 0, the element stays the same size.
+
+
+-Port over the images from Figma.
+
+-Create a second list for scanned items.
 

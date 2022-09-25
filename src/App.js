@@ -1,6 +1,7 @@
 import "./App.css";
 import GlobalNav from "./components/GlobalNav";
 import ReceiptList from "./Sections/ReceiptList";
+import ScannedItemList from "./Sections/ScannedItemList";
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
     <div className="App">
       <GlobalNav />
       <ReceiptList />
+      <ScannedItemList />
     </div>
   );
 }
