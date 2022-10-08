@@ -3,7 +3,8 @@
     flex-direction: row;
     width: 100%;
     background-color: #102169;
-    padding: 0rem
+    padding: 0rem;
+    height: auto;
 
 }
 

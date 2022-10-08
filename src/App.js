@@ -3,14 +3,14 @@ import GlobalNav from "./components/GlobalNav";
 
 import ProductContext from "./product-context";
 import { useContext } from "react";
-import ScannedItemDetailCard from "./Sections/ScannedItemDetailCard";
+import ThirtyPanel from "./components/UI/ThirtyPanel";
 
 function App() {
   const ctx = useContext(ProductContext);
   return (
     <div className="App">
       <GlobalNav />
-      <ScannedItemDetailCard product={ctx.topload_washer}></ScannedItemDetailCard>
+      <ThirtyPanel></ThirtyPanel>
     </div>
   );
 }

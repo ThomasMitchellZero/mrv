@@ -1,0 +1,10 @@
+.thirty_panel{
+    display: flex;
+    flex-direction: column;
+    background-color: chartreuse;
+    height: 100%;
+}
+
+.main_content{
+    height: 100%;
+}
