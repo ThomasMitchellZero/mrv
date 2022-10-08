@@ -1,4 +1,16 @@
 .badge{
-    font-size: .875rem;
+    display: flex;
     height: 1.75rem;
+    align-items: center;
+    box-sizing: border-box;
+    border: 2px solid #c6c6c6;
+    border-radius: 4px;
+    padding: 0px 8px;
+    margin: 0rem .5rem 0rem 0rem;
+    font-size: .875rem;
+    color: #262626;
+}
+
+.badge p{
+    padding: 0;
 }

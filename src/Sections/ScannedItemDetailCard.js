@@ -1,7 +1,12 @@
 import classes from "./ScannedItemDetailCard.module.css";
+import ProductBadge from "../components/UI/ProductBadge";
 
 const ScannedItemDetailCard = (props) => {
   const product = props.product;
+
+  const badges = product.categories.map((item)=>{
+    return <ProductBadge>{item}</ProductBadge>
+  })
 
   return (
     <div className={classes.card}>
@@ -11,6 +16,9 @@ const ScannedItemDetailCard = (props) => {
           {`Item # ${product.itemNum} \u00A0 \u00A0 Model # ${product.modelNum}`}
         </p>
         <p className="description">{product.description}</p>
+        <div className={classes.badgeContainer}>
+            {badges}
+        </div>
       </div>
     </div>
   );

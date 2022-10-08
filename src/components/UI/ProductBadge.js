@@ -1,7 +1,11 @@
-import classes from "./ProductBadge.module.css"
+import classes from "./ProductBadge.module.css";
 
-const ProductBadge = (props)=>{
-    return <div className={classes.badge}>
-        <p>{props.children}</p>
+const ProductBadge = (props) => {
+  return (
+    <div className={classes.badge}>
+      <p>{props.children}</p>
     </div>
-}
+  );
+};
+
+export default ProductBadge;

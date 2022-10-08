@@ -46,7 +46,7 @@ const ProductContext = React.createContext({
     itemNum: "120975",
     modelNum: "RT3301",
     description: "American Standard Grand Duke II with Ultra-Flush",
-    categories: ["Stock"],
+    categories: ["Stock","Special Order"],
   },
 });
 
