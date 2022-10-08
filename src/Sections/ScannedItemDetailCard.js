@@ -5,7 +5,7 @@ const ScannedItemDetailCard = (props) => {
   const product = props.product;
 
   const badges = product.categories.map((item)=>{
-    return <ProductBadge>{item}</ProductBadge>
+    return <ProductBadge key={item}>{item}</ProductBadge>
   })
 
   return (

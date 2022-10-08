@@ -2,13 +2,13 @@
 .card{
     display: flex;
     flex-direction: row;
-    margin: auto 0rem;
-
+    margin: .5rem 0rem;
 }
 
 .card img{
     height: 72px;
     width: 72px;
+    margin: .5rem 0rem;
 }
 .textContainer{
     display: flex;
