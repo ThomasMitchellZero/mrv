@@ -1,6 +1,5 @@
 *{
   font-family:  Roboto;
-  height: 100%;
 }
 
 .divider{
@@ -10,5 +9,8 @@
 }
 
 .App{
+  display: flex;
+  flex-direction: column;
   min-width: 900px;
+  height: inherit;
 }

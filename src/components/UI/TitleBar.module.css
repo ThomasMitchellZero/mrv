@@ -1,8 +1,8 @@
 .titlebar{
     display: flex;
     align-items: center;
+    flex: 0 0 3rem;
     width: 100%;
-    height: 3rem;
     font-size: 1.25rem;
     font-weight: 500;
     padding: 0rem .5rem;
@@ -21,9 +21,4 @@
 .titlebar p{
     text-align: center;
     width: 100%;
-}
-
-.test{
-    composes: titlebar;
-    font-size: 3rem;
 }

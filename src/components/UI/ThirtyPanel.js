@@ -5,7 +5,8 @@ import TitleBar from "./TitleBar";
 const ThirtyPanel = (props) => {
   return (
     <div className={classes.thirty_panel}>
-      <TitleBar>Test</TitleBar>
+      <TitleBar>Title</TitleBar>
+      <div className={classes.spacer}></div>
       <div className={classes.main_content}></div>
       <FooterContainer></FooterContainer>
     </div>

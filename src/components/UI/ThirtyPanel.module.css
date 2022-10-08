@@ -5,6 +5,12 @@
     height: 100%;
 }
 
+.spacer{
+    background-color: blueviolet;
+    flex: 0 0 100px;
+}
+
 .main_content{
     height: 100%;
+    background-color: darkgoldenrod;
 }

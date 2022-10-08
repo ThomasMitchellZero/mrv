@@ -1,4 +1,5 @@
 .footer_container{
     background-color: brown;
     height: 124px;
+    flex: 0 0 124px;
 }
