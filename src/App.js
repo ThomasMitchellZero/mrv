@@ -3,14 +3,14 @@ import GlobalNav from "./components/GlobalNav";
 
 import ProductContext from "./product-context";
 import { useContext } from "react";
-import ThirtyPanel from "./components/UI/ThirtyPanel";
+import BasePanel from "./components/UI/BasePanel";
 
 function App() {
   const ctx = useContext(ProductContext);
   return (
     <div className="App">
       <GlobalNav />
-      <ThirtyPanel></ThirtyPanel>
+      <BasePanel></BasePanel>
     </div>
   );
 }

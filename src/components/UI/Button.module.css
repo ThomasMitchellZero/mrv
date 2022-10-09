@@ -1,0 +1,43 @@
+.baseButton{
+    font-weight: 500;
+    box-sizing: border-box;
+    border-width: 1.5px;
+    height: 2rem;
+    border-radius: 4px;
+    padding: 0rem 1rem;
+    margin: 0rem 0.5rem
+}
+
+.primary{
+    color: #fff;
+    background-color: blue;
+    border: none;
+}
+
+.secondary{
+    color:blue;
+    background-color: #fff;
+    border-color: blue;
+}
+
+.tertiary{
+    color: blue;
+    background-color: transparent;
+    border: none;
+
+}
+
+.baseButton:hover{
+    opacity: 80%;
+}
+
+.primary__disabled{
+    color: #fff;
+    background-color: #555;
+    border: none;
+}
+
+.secondary__disabled{
+    color:#555;
+    border-color: #555;
+}
