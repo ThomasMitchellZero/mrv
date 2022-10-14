@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <GlobalNav />
-      <ScanReceipts />
+      <ScanReceipts></ScanReceipts>
     </div>
   );
 }
