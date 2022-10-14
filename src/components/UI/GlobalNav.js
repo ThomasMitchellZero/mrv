@@ -1,6 +1,6 @@
 import classes from "./GlobalNav.module.css"
-import pagoda from "../assets/lowes-logo.svg";
-import NavTab from "./UI/NavTab";
+import pagoda from "../../assets/lowes-logo.svg";
+import NavTab from "./NavTab";
 import { useState } from "react";
 
 const GlobalNav = () => {

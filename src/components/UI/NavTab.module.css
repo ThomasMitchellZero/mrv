@@ -1,6 +1,6 @@
 .navtab{
     appearance: none;
-    border-width: 0px 0px 2px 0px;
+    border-width: 4px 0px 4px 0px;
     border-style: solid;
     border-color: transparent;
     color: #fff;
@@ -12,6 +12,7 @@
 }
 
 .active{
-    border-color: #0091ff;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid #0091ff;
     color: #0091ff;
 }
