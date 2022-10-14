@@ -15,17 +15,31 @@
         -Incorporate flex-basis into <th>
 
 
+14 Oct 2022
 
-Auto space:  74 + 28 (102) + x = 312   x = 210
+-Add button to button container, figure out how to control positioning.
 
-10% space:  35 + 28 (63) + x = 139     x = 76
+-see if React elements can be controlled like HTML elements via CSS.  If not, make alternate plan.
+    -It seems they cannot.
 
-OK, so... kind of! 138.5 = 10% of total page width of 1385.  
+-Next test - see if I can add a non-modular CSS class in case I need to control that way?  
+    -Also cannot.  I think if I need to, I can pass styles via props.  No idea if this is best or not.  
 
-AFAICT, it's taking up 10% of the parent width, and that doesn't account for padding.  If I change the padding to 0, the element stays the same size.
+-Where am I stuck and spinning my wheels?
+
+    - I need the footer container to be able to accept an arbitrary collection of contents.  Could be buttons, could be price summary, could be nothing at all.
+    
+    With that in mind, I really need to be able to style the Footer contents as well.  I can't know in advance where to align the buttons, how many, etc.  
+
+    - I WANT (but do not need) each base panel to have everything needed: header, contents, and footer.  
+
+    -Conflict:  the <BasePanel> component accepts one set of children, which will fill the content area.  
+
+    -So one way to do it would be to define the footer contents in the section configuration component, and then pass that down via a prop.  AFAICT I can also do any styling in that parent as well.  
+
+    -The other option would be to just make each panel separately.  I guess this is technically violating DRY, but the parts I'm 'repeating' are some pretty simple CSS that I don't think I'm going to mess up.  I think this is the move.  I am also very proud of myself for systematically figuring this out, and I have earned a smoke tonight.  And still 2:30(+?) to go!
+
+    
 
 
--Port over the images from Figma.
-
--Create a second list for scanned items.
 
