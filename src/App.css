@@ -13,4 +13,19 @@
   flex-direction: column;
   min-width: 900px;
   height: inherit;
+  background-color: #e6e9f0;
+}
+
+/* standard behavior for 70 and 30 panels */
+
+.seventy_panel{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 70%;
+}
+
+.thirty_panel{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 30%;
 }

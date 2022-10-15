@@ -32,10 +32,10 @@ const GlobalNav = () => {
   });
 
   return (
-    <div className={classes.globalnav}>
+    <nav className={classes.globalnav}>
       <img className={classes.icon} src={pagoda} alt="Lowes Pagoda" />
       <div>{tabJSX}</div>
-    </div>
+    </nav>
   );
 };
 

@@ -7,18 +7,21 @@
     font-weight: 500;
     padding: 0rem .5rem;
     box-sizing: border-box;
+    background-color: #fff;
+    
 }
 
 .iconholder{
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
-    width: 2rem;
+    flex: 0 0 2rem;
+
     background-color: aqua;
 }
 
-.titlebar p{
+p{
     text-align: center;
     width: 100%;
 }
