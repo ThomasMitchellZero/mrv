@@ -45,6 +45,22 @@
 
 -I need to convert my nav bar into the HTML <nav> component
 
+-OK, stuck again!  Let's do this!
+
+    Objective - I want the tabs in <GlobalNav> to be able to handle URL requests because I will eventually need this.
+
+    Problem - When I changed the tabs to the <NavLink> compnent from React-Router, the styling got all weird.
+
+    Options:
+        -I could fiddle with the CSS in the existing file to see if I can make what I have work.
+
+        -AFAICT the <NavLink> does everything I need OOtB.  I could try to do my mapping to <NavLinks> in the NavBar and do the styling in the NavBar CSS.  
+
+            -Does <Navlink> accept an ID? - YES
+            -Does it allow other styling or is it just text?  - I think so?
+
+
+
     
 
 
