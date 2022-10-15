@@ -39,6 +39,12 @@
 
     -The other option would be to just make each panel separately.  I guess this is technically violating DRY, but the parts I'm 'repeating' are some pretty simple CSS that I don't think I'm going to mess up.  I think this is the move.  I am also very proud of myself for systematically figuring this out, and I have earned a smoke tonight.  And still 2:30(+?) to go!
 
+
+
+-I need to implement the react-router-dom in my file
+
+-I need to convert my nav bar into the HTML <nav> component
+
     
 
 
