@@ -1,14 +1,16 @@
+import { NavLink } from "react-router-dom";
 import classes from "./NavTab.module.css";
+
 
 const NavTab = (props) => {
   return (
-    <button
+    <NavLink
       id={props.id}
       onClick={props.onClick}
       className={`${classes.navtab} ${props.active ? classes.active : ""}`}
     >
       {props.id}
-    </button>
+    </NavLink>
   );
 };
 

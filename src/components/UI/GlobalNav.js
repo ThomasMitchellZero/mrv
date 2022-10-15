@@ -24,10 +24,10 @@ const GlobalNav = () => {
     return (
       <NavTab
         id={item.id}
-        onClick={tabClickHandler}
-        active={item.id === activeTab}
-        key={item.id}
-      />
+        className={`navtab`}
+        isActive={item.id === activeTab}>
+      </NavTab>
+
     );
   });
 
@@ -40,3 +40,14 @@ const GlobalNav = () => {
 };
 
 export default GlobalNav;
+
+/*
+      <NavTab
+        id={item.id}
+        onClick={tabClickHandler}
+        active={item.id === activeTab}
+        key={item.id}
+      />
+
+
+*/

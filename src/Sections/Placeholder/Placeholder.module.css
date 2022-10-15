@@ -1,0 +1,27 @@
+section{
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content{
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 2rem;
+    color: #666;
+    text-align: center;
+}
+
+.content p{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}

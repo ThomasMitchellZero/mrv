@@ -15,8 +15,8 @@ const TitleBar = (props) => {
   const righticon = iconHandler(props.righticon)
 
   return (
-    <div>
-      <div className={classes.titlebar}>
+    <div className={classes.titlebar}>
+      <div className={classes.content}>
         <div className={classes.iconholder}>{lefticon}</div>
         <p>{props.children}</p>
         <div className={classes.iconholder}>{righticon}</div>
