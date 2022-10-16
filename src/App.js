@@ -15,10 +15,11 @@ function App() {
     <div className="App">
       <GlobalNav />
       <Routes>
+
         <Route path="home" element={<Placeholder>Home</Placeholder>}/>
         <Route path="orders" element={<Placeholder>Orders</Placeholder>}/>
         <Route path="showroom" element={<Placeholder>Showroom</Placeholder>}/>
-        <Route path="returns" element={<Placeholder>Returns</Placeholder>}/>
+        <Route path="returns" element={<ScanReceipts/>}></Route>
       </Routes>
     </div>
   );
