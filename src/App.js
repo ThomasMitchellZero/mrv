@@ -1,17 +1,25 @@
 import "./App.css";
-import GlobalNav from "./components/UI/GlobalNav";
 
 import ProductContext from "./product-context";
 import { useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+
+import GlobalNav from "./components/UI/GlobalNav";
 import ScanReceipts from "./Sections/Scan_Receipts/ScanReceipts";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
 function App() {
   const ctx = useContext(ProductContext);
+
   return (
     <div className="App">
       <GlobalNav />
-      <Placeholder>Home</Placeholder>
+      <Routes>
+        <Route path="/" element={<Placeholder>Home</Placeholder>}/>
+        <Route path="orders" element={<Placeholder>Orders</Placeholder>}/>
+        <Route path="showroom" element={<Placeholder>Showroom</Placeholder>}/>
+        <Route path="returns" element={<Placeholder>Returns</Placeholder>}/>
+      </Routes>
     </div>
   );
 }

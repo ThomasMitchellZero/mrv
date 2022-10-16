@@ -1,4 +1,4 @@
-import classes from "./GlobalNav.module.css"
+import classes from "./GlobalNav.module.css";
 import pagoda from "../../assets/lowes-logo.svg";
 import NavTab from "./NavTab";
 import { useState } from "react";
@@ -8,7 +8,7 @@ const GlobalNav = () => {
 
   const tabClickHandler = (event) => {
     event.preventDefault();
-    const eTarget = event.target.id
+    const eTarget = event.target.id;
     console.log(event.target.id);
     setActiveTab(eTarget);
   };
@@ -24,10 +24,10 @@ const GlobalNav = () => {
     return (
       <NavTab
         id={item.id}
-        className={`navtab`}
-        isActive={item.id === activeTab}>
-      </NavTab>
-
+        onClick={tabClickHandler}
+        active={item.id === activeTab}
+        key={item.id}
+      />
     );
   });
 
@@ -42,12 +42,12 @@ const GlobalNav = () => {
 export default GlobalNav;
 
 /*
-      <NavTab
-        id={item.id}
-        onClick={tabClickHandler}
-        active={item.id === activeTab}
-        key={item.id}
-      />
 
+
+            <NavTab
+        id={item.id}
+        className={`navtab`}
+        isActive={item.id === activeTab}>
+      </NavTab>
 
 */
