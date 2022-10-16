@@ -59,6 +59,18 @@
             -Does <Navlink> accept an ID? - YES
             -Does it allow other styling or is it just text?  - I think so?
 
+16 Oct 2022
+
+    -Got the V6.x update working with surprisingly little trouble.  
+
+    -Next is the nav bar. 
+        -I need to convert the buttons to <NavLink> components
+        -I need to style the NavLink components just like their previous custom peers.
+        -I think I can get rid of the custom state tracking.  AFAICT the stock <NavLink> component handles that, and in any case each page will have a different URL.
+
+    -Then I can finally get started on some page building?
+
+    -The Scan Items sidesheet elements are going to need routes as well.
 
 
     
