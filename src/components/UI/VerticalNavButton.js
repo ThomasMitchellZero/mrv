@@ -1,17 +1,26 @@
-import classes from "./VerticalNavButton.module.css"
-import { Link } from "react-router-dom"
-import Email from "../../assets/lowes-icons/Line-Icons/Email.svg"
-import Truck from "../../assets/lowes-icons/Line-Icons/Truck.svg"
-import { BoxLineIcon, EmailLineIcon }from "../../assets/lowes-icons/Line-Icons/LineIcons"
+import classes from "./VerticalNavButton.module.css";
+import { Link } from "react-router-dom";
+import Email from "../../assets/lowes-icons/Line-Icons/Email.svg";
+import Truck from "../../assets/lowes-icons/Line-Icons/Truck.svg";
+import {
+  BoxLineIcon,
+  EmailLineIcon,
+  Ztest,
+} from "../../assets/lowes-icons/Line-Icons/LineIcons";
+import { MdArrowBack } from "react-icons/md";
 
+const VerticalNavButton = (props) => {
+  // const buttonStyle = {}
+  return (
+    <Link className={classes.main}>
+      <div className={classes.icon1}>
+        <Ztest size="100%" fill="aqua" />
+      </div>
 
-const VerticalNavButton = (props) =>{
-    // const buttonStyle = {}
-    return <Link className={classes.main}>
-        <BoxLineIcon className={classes.icon1} />
-        <p>{props.label}</p>
-        <EmailLineIcon className={classes.icon2}/>
+      <p>{props.label}</p>
+      <MdArrowBack className={classes.icon2} />
     </Link>
-}
+  );
+};
 
-export default VerticalNavButton
+export default VerticalNavButton;

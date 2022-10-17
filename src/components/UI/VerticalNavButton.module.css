@@ -1,13 +1,40 @@
 .main{
-    border-radius: .5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    background-color: coral;
+    height: auto;
+    border-radius: .5rem;
+    border: solid 2px #e0e7f5;
+    box-sizing: border-box;
+    text-decoration: none 1rem;
+    color: #333;
 }
 
 .icon1{
-    height: 1.5rem;
+    margin: 1rem;
+    fill: aqua;
+    flex-shrink: 0;
+    flex-grow: 0;
+    height: 3.5rem;
 }
 
 .icon2{
     height: 1rem;
 }
+
+
+.main p{
+    width: 100%;
+    padding: 0px;
+    margin: 0rem;
+    text-align: left;
+    font-size: 1rem;
+
+}
+
+/*
+
+#102169;
+
+*/
