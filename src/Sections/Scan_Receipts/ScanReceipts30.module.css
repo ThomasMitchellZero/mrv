@@ -1,4 +1,5 @@
 .scan_receipts_30{
     height: inherit;
-    width: inherit;
+    width: 100%;
+    box-sizing: border-box;
 }

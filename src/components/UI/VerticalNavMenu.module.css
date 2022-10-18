@@ -1,6 +1,9 @@
-.main{
+.verticalnavmenu{
     display:flex;
     flex-direction: column;
     background-color: #fff;
     height: inherit;
+    width: inherit;
+    padding: 1rem;
+    box-sizing: border-box;
 }
