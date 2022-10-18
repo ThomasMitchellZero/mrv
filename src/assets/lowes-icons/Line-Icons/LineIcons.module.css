@@ -1,4 +1,6 @@
-.lineIcon{
-    height: 24px;
-    color: #000
+.vectorIcon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }

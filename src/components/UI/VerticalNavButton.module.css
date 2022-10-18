@@ -1,4 +1,4 @@
-.main{
+.container{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -12,18 +12,18 @@
 }
 
 .icon1{
-    margin: 1rem;
+    margin: .5rem;
     fill: aqua;
     flex: 0 0 1.5rem;
 }
 
 .icon2{
+    margin: .5rem;
     flex: 0 0 1rem;
-    margin: 1rem;
 }
 
 
-.main p{
+.container p{
     width: 100%;
     padding: 0px;
     margin: 0rem;
