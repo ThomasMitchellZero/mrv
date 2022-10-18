@@ -3,18 +3,12 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: auto;
+    height: 3rem;
     border-radius: .5rem;
     border: solid 2px #e0e7f5;
     box-sizing: border-box;
     text-decoration: none;
     color: #333;
-}
-
-.icon1{
-    margin: .5rem;
-    fill: aqua;
-    flex: 0 0 1.5rem;
 }
 
 .icon2{
