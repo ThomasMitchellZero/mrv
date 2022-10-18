@@ -6,19 +6,30 @@ import {
   ExchangeLineIcon,
   PhoneLineIcon,
   PrintLineIcon,
-  XmarkLineIcon
+  XmarkLineIcon,
+  AddCartLineIcon,
+  CloseLineIcon,
+  LookupLineIcon,
+  ReceiptLineIcon,
+  SlashCartLineIcon,
+  SlashCashLineIcon,
 } from "../../assets/lowes-icons/Line-Icons/LineIcons";
-import { MdArrowBack } from "react-icons/md";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const VerticalNavButton = (props) => {
   // const buttonStyle = {}
   return (
-    <Link className={classes.main}>
-      <PrintLineIcon className={classes.icon1}/>
+    <Link className={classes.container}>
+      <SlashCashLineIcon className={classes.icon1} />
       <p>{props.label}</p>
-      <MdArrowBack className={classes.icon2} />
+      <MdKeyboardArrowRight className={classes.icon2} />
     </Link>
   );
 };
 
 export default VerticalNavButton;
+
+/*
+      {props.mainIcon}
+
+*/

@@ -72,6 +72,10 @@
 
     -The Scan Items sidesheet elements are going to need routes as well.
 
+18 Oct 2022
+
+    -The Nav Menu buttons need the ability to have an icon specified on creation.  Options:  
+
 
     
 
