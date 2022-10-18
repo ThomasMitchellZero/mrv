@@ -14,9 +14,7 @@
 .icon1{
     margin: 1rem;
     fill: aqua;
-    flex-shrink: 0;
-    flex-grow: 0;
-    height: 3.5rem;
+    flex: 0 0 1.5rem
 }
 
 .icon2{
