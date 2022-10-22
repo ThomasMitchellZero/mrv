@@ -2,10 +2,11 @@ import classes from "./VerticalNavButton.module.css";
 import { Link } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
+
 const VerticalNavButton = (props) => {
-  // const buttonStyle = {}
+
   return (
-    <Link className={classes.container}>
+    <Link to={props.to} className={classes.container}>
       {props.mainIcon}
       <p>{props.label}</p>
       <MdKeyboardArrowRight className={classes.icon2} />
@@ -14,8 +15,3 @@ const VerticalNavButton = (props) => {
 };
 
 export default VerticalNavButton;
-
-/*
-      {props.mainIcon}
-
-*/

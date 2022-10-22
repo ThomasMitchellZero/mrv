@@ -27,34 +27,3 @@ const GlobalNav = () => {
 };
 
 export default GlobalNav;
-
-/*
-
-
-      <NavTab
-        id={item.id}
-        onClick={tabClickHandler}
-        active={item.id === activeTab}
-        key={item.id}
-      />
-
-
-            <NavTab
-        id={item.id}
-        className={`navtab`}
-        isActive={item.id === activeTab}>
-      </NavTab>
-
-
-
-  //this is my old state tracker for the nav tabs.
-  const [activeTab, setActiveTab] = useState("Returns");
-
-  const tabClickHandler = (event) => {
-    event.preventDefault();
-    const eTarget = event.target.id;
-    console.log(event.target.id);
-    setActiveTab(eTarget);
-  };
-
-*/
