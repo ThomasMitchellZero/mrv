@@ -13,7 +13,3 @@ const ScanReceipts = (props) => {
 };
 
 export default ScanReceipts;
-
-//    <ScanReceipts30></ScanReceipts30>
-
-//    <DeliveryReturn30></DeliveryReturn30>

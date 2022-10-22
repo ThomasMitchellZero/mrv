@@ -15,7 +15,7 @@ import {
   SlashCartLineIcon,
 } from "../../assets/lowes-icons/Line-Icons/LineIcons";
 
-const ScanReceipts30 = (props) => {
+const ReturnsActions30 = (props) => {
   return (
     <div className={`thirty_panel ${classes.scan_receipts_30}`}>
       <TitleBar>Actions</TitleBar>
@@ -55,7 +55,7 @@ const ScanReceipts30 = (props) => {
   );
 };
 
-export default ScanReceipts30;
+export default ReturnsActions30;
 
 
 /* 

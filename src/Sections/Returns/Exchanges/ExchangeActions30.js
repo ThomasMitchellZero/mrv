@@ -9,7 +9,7 @@ import {
   ExchangeLineIcon,
 } from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
-const DeliveryReturn30 = (props) => {
+const ExchangeActions30 = (props) => {
   return (
     <section className={`thirty_panel ${classes.container}`}>
       <TitleBar lefticon="back">Delivery Return / Exchange</TitleBar>
@@ -28,4 +28,4 @@ const DeliveryReturn30 = (props) => {
   );
 };
 
-export default DeliveryReturn30;
+export default ExchangeActions30;

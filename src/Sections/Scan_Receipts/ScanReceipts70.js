@@ -6,8 +6,8 @@ import ScanGraphic from "./ScanGraphic/ScanGraphic";
 
 const ScanReciepts70 = () => {
   return (
-    <div className={`seventy_panel ${classes.scan_receipts_70}`}>
-      <TitleBar>Scan Receipts</TitleBar>
+    <div className={`seventy_panel ${classes.container}`}>
+      <TitleBar lefticon="close">Scan Receipts</TitleBar>
       <div className={classes.main_content}>
         <ScanGraphic
           graphic="Universal"
