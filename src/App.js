@@ -8,6 +8,8 @@ import Main from "./components/UI/Main";
 import ScanReceipts from "./Sections/Scan_Receipts/ScanReceipts";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
+import Returns from "./Sections/Returns/Returns";
+
 function App() {
   const ctx = useContext(ProductContext);
 
@@ -22,12 +24,14 @@ function App() {
             path="showroom"
             element={<Placeholder>Showroom</Placeholder>}
           />
-          <Route path="returns" element={<ScanReceipts />}>
-            <Route
-              path="nosale"
-              element={<Placeholder>No Sale</Placeholder>}
-            ></Route>
+
+          <Route path="returns" element={<Returns />}>
+            <Route index element={<ScanReceipts></ScanReceipts>}></Route>
+            <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
+              <Route index></Route>
+            </Route>
           </Route>
+          
         </Route>
       </Routes>
     </div>

@@ -9,7 +9,7 @@ const Main = (props) => {
     isActive ? `${classes.navlink} ${classes.active}` : classes.navlink;
 
   return (
-    <main>
+    <main className={classes.container}>
       <nav className={classes.globalnav}>
         <img className={classes.icon} src={pagoda} alt="Lowes Pagoda" />
 
