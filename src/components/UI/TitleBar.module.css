@@ -24,7 +24,8 @@
     align-items: center;
     justify-content: center;
     flex: 0 0 2rem;
-    background-color: aqua;
+    color: #333333;
+
 }
 
 .content p{
