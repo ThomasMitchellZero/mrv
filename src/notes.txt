@@ -102,12 +102,42 @@
     OK!  Long list of things to work on today!  Wish I were as clear and excited now as I was when I was trying to sleep at 6:00 a.m.  :/
 
     -First, going to try an experiment of starting with something I know I can crush to get into the groove.  
+        -Experiment seems to have gone very well.  I am 100% dialed in and excited to work.
 
-    -I need to figure out a way to add items to the cart
+    ROUTING
 
-    -Need to understand <Outlet> and how to use it.
-        -May need to re-factor the app to use Outlet with the Nav bar.
+        -Need to understand <Outlet> and how to use it.
+            -May need to re-factor the app to use Outlet with the Nav bar.
+        
+        -Can I get the whole page to change via a child URL?
+            -AFAICT, the answer is no.  I think that you only use a child route if you want to change part of the parent?
+
+        -How do I make part but not all of a page change via URL?
+
+    CONTEXT
+
+        -Do I want the scanned list to be a separate context?  If so, how to reference more than one context?
+
+        -I need to figure out a way to add items to the cart.  This will probably be a form.
+
+    1:30 evaluation:  
+
+        -I THINK I have the answer to my immediate routing questions.  I think what I should do is test to make sure I've got it with the <Outlet> component.  If it is working as expected:
+            -Do I diagram one of the Router components?  It would be good to solidify the knowledge, but I haven't gotten a lot of pixels on the screen and that's what I really need to do.
+
+        -I think I should plan to restructure the app based on what I've learned.  
+            -I think all flows should have a parent URL - Returns, Exchanges, etc.
+            -Some of my components, especially the ones with 30-70 panels, are going to need some Outlet organization.
+            -Returns will need to be a parent URL.  
+
+        -For <Outlet> My understanding:  Each parent can have a single outlet.  I can have any number of potential children to fill that outlet, but I can't say "put these children here and those children there" based on URL.  
+
+        -After test and restructure, what to work on next?  Got to keep in mind that I am probably showing this to Kristin on Monday.
+            -Scanned Item list?
+                -Pros:  
+                    -at some point, even in Exchanges, I'm going to have to have entered items.
+                    -That is a really cool feature and I don't think it can be matched in Axure.
+                -Cons:  
+                    -It's not directly related to Returns and it might look like this process is too slow. 
+
     
-    -Can I get the whole page to change via a child URL?
-
-    -How do I make part but not all of a page change via URL?
