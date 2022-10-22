@@ -76,8 +76,38 @@
 
     -The Nav Menu buttons need the ability to have an icon specified on creation.  Options:  
 
+21 Oct 2022
 
+    -Routes:
+
+        -I need to figure out how to do sub-routes - like 
+        "localhost:3000/base/branch"
+            -I think if I just place the sub-route in the main route, it will work.
+
+        
+        -I need to figure out how to do routes that are part of a page: like if I want 70-panel to stay the same but 30-panel to change based on route.
+
+    OK.  I notice I am confused.
+
+    I now have the No Sale button linked to the /nosale route in my code.  When I click the No Sale button, the URL changes to 
+    localhost:3000/returns/nosale   which is what I expect.
+
+    However, I set that route to include a page element, that page element does not appear the URL changes.  
+        -First.  Do I have any examples of parent routes also rendering elements?  
+
+    -Gonna stop for tonight.  I think that this section haswsxs the answer:  https://www.robinwieruch.de/react-router-nested-routes/
+
+
+22 Oct 2022
+    OK!  Long list of things to work on today!  Wish I were as clear and excited now as I was when I was trying to sleep at 6:00 a.m.  :/
+
+    -First, going to try an experiment of starting with something I know I can crush to get into the groove.  
+
+    -I need to figure out a way to add items to the cart
+
+    -Need to understand <Outlet> and how to use it.
+        -May need to re-factor the app to use Outlet with the Nav bar.
     
+    -Can I get the whole page to change via a child URL?
 
-
-
+    -How do I make part but not all of a page change via URL?
