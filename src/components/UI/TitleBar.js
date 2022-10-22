@@ -3,7 +3,6 @@ import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const TitleBar = (props) => {
-  
   const iconHandler = (str) => {
     if (str === "close") {
       return <MdOutlineClose />;
@@ -18,9 +17,13 @@ const TitleBar = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        <div className={classes.iconholder}>{lefticon}</div>
+        <Link to={props.lefturl} className={classes.iconholder}>
+          {lefticon}
+        </Link>
         <p>{props.children}</p>
-        <Link className={classes.iconholder}>{righticon}</Link>
+        <Link to={props.righturl} className={classes.iconholder}>
+          {righticon}
+        </Link>
       </div>
 
       <div className="divider"></div>

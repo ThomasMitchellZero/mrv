@@ -32,7 +32,6 @@ function App() {
             <Route index element={<ScanReceipts></ScanReceipts>}></Route>
             <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
               <Route index element={<ReturnsActions30 />}></Route>
-              <Route path="main" element={<ReturnsActions30 />}></Route>
               <Route path="exchange" element={<ExchangeActions30 />}></Route>
             </Route>
           </Route>

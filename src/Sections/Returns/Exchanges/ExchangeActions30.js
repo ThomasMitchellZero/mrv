@@ -12,7 +12,7 @@ import {
 const ExchangeActions30 = (props) => {
   return (
     <section className={`thirty_panel ${classes.container}`}>
-      <TitleBar lefticon="back">Delivery Return / Exchange</TitleBar>
+      <TitleBar lefturl={".."} lefticon="back">Delivery Return / Exchange</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
           mainIcon={<TruckLineIcon className={classes.mainicon} />}
