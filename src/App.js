@@ -4,7 +4,7 @@ import ProductContext from "./product-context";
 import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import GlobalNav from "./components/UI/GlobalNav";
+import Main from "./components/UI/Main";
 import ScanReceipts from "./Sections/Scan_Receipts/ScanReceipts";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
@@ -13,16 +13,21 @@ function App() {
 
   return (
     <div className="App">
-      <GlobalNav />
       <Routes>
-        <Route path="home" element={<Placeholder>Home</Placeholder>} />
-        <Route path="orders" element={<Placeholder>Orders</Placeholder>} />
-        <Route path="showroom" element={<Placeholder>Showroom</Placeholder>} />
-        <Route path="returns" element={<ScanReceipts />}>
+        <Route path="/" element={<Main />}>
+          <Route index element={<Placeholder>Home</Placeholder>} />
+          <Route path="home" element={<Placeholder>Home</Placeholder>} />
+          <Route path="orders" element={<Placeholder>Orders</Placeholder>} />
           <Route
-            path="nosale"
-            element={<Placeholder>No Sale</Placeholder>}
-          ></Route>
+            path="showroom"
+            element={<Placeholder>Showroom</Placeholder>}
+          />
+          <Route path="returns" element={<ScanReceipts />}>
+            <Route
+              path="nosale"
+              element={<Placeholder>No Sale</Placeholder>}
+            ></Route>
+          </Route>
         </Route>
       </Routes>
     </div>
