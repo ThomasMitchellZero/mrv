@@ -140,4 +140,25 @@
                 -Cons:  
                     -It's not directly related to Returns and it might look like this process is too slow. 
 
+    OK, now 3:30.  At the moment, I do not feel like fiddlefucking around with routing any more.  I want to get some stuff on the screen, and I've got my eye on item entry.  I need:
+
+        -A form that accepts item number
+            -looks for a match in product context
+            -If found, adds to basket
+            -If not found, gives an error.
+
+        -A context scoped to Returns that records all successful item entries... or could it be a state?
+
+        -A table that shows all items in the transaction
+            -A component for the the individual LIs.
+        
+        -the 70 panel should conditionally render either the Scan CTA or the table, depending on if there are any items scanned.
+
+        -First, I think I need a Returns component to track the state.  The contents will change a lot based on what phase of the process the user is in, and I also need to keep track of the state.
+
+        
+
+    
+
+
     
