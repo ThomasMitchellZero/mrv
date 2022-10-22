@@ -22,7 +22,7 @@ const Main = (props) => {
         <NavLink to="showroom" className={linkStyle}>
           Showroom
         </NavLink>
-        <NavLink to="returns" className={linkStyle}>
+        <NavLink to="returns/scan_receipts" className={linkStyle}>
           Returns
         </NavLink>
       </nav>

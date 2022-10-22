@@ -1,13 +1,13 @@
-import classes from "./DeliveryReturn30.module.css";
+import classes from "./ExchangeNav30.module.css";
 
-import TitleBar from "../../components/UI/TitleBar";
-import VerticalNavButton from "../../components/UI/VerticalNavButton";
-import FooterContainer from "../../components/UI/FooterContainer";
-import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
+import TitleBar from "../../../components/UI/TitleBar";
+import VerticalNavButton from "../../../components/UI/VerticalNavButton";
+import FooterContainer from "../../../components/UI/FooterContainer";
+import VerticalNavMenu from "../../../components/UI/VerticalNavMenu";
 import {
   TruckLineIcon,
   ExchangeLineIcon,
-} from "../../assets/lowes-icons/Line-Icons/LineIcons";
+} from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const DeliveryReturn30 = (props) => {
   return (

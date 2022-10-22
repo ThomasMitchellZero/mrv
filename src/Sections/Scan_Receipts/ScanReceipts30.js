@@ -43,6 +43,7 @@ const ScanReceipts30 = (props) => {
         />
         <VerticalNavButton
           label="Exchange"
+          to="exchange"
           mainIcon={<ExchangeLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
@@ -56,3 +57,13 @@ const ScanReceipts30 = (props) => {
 };
 
 export default ScanReceipts30;
+
+
+/* 
+
+              <Route index element={<ScanReceipts30 />}></Route>
+              <Route path="main" element={<ScanReceipts30 />}></Route>
+              <Route path="exchange" element={<ExchangeNav30 />}></Route>
+
+
+*/
