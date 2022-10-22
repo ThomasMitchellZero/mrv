@@ -10,7 +10,7 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 
 // Returns
 import Returns from "./Sections/Returns/Returns";
-import ScanReceipts30 from "./Sections/Scan_Receipts/ScanReceipts30";
+import ReturnsActions30 from "./Sections/Scan_Receipts/ReturnsActions30";
 import ExchangeNav30 from "./Sections/Returns/Exchanges/ExchangeNav30";
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
           <Route path="returns" element={<Returns />}>
             <Route index element={<ScanReceipts></ScanReceipts>}></Route>
             <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
-              <Route index element={<ScanReceipts30 />}></Route>
-              <Route path="main" element={<ScanReceipts30 />}></Route>
+              <Route index element={<ReturnsActions30 />}></Route>
+              <Route path="main" element={<ReturnsActions30 />}></Route>
               <Route path="exchange" element={<ExchangeNav30 />}></Route>
             </Route>
           </Route>

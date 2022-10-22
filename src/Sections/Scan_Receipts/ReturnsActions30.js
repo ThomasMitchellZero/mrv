@@ -1,4 +1,4 @@
-import classes from "./ScanReceipts30.module.css";
+import classes from "./ReturnsActions30.module.css";
 
 import TitleBar from "../../components/UI/TitleBar";
 import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
@@ -34,7 +34,6 @@ const ScanReceipts30 = (props) => {
         />
         <VerticalNavButton
           label="No Sale"
-          to="nosale"
           mainIcon={<SlashCashLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
