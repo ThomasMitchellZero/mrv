@@ -8,7 +8,10 @@ import Main from "./components/UI/Main";
 import ScanReceipts from "./Sections/Scan_Receipts/ScanReceipts";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
+// Returns
 import Returns from "./Sections/Returns/Returns";
+import ScanReceipts30 from "./Sections/Scan_Receipts/ScanReceipts30";
+import ExchangeNav30 from "./Sections/Returns/Exchanges/ExchangeNav30";
 
 function App() {
   const ctx = useContext(ProductContext);
@@ -28,10 +31,11 @@ function App() {
           <Route path="returns" element={<Returns />}>
             <Route index element={<ScanReceipts></ScanReceipts>}></Route>
             <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
-              <Route index></Route>
+              <Route index element={<ScanReceipts30 />}></Route>
+              <Route path="main" element={<ScanReceipts30 />}></Route>
+              <Route path="exchange" element={<ExchangeNav30 />}></Route>
             </Route>
           </Route>
-          
         </Route>
       </Routes>
     </div>
