@@ -11,7 +11,7 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 // Returns
 import Returns from "./Sections/Returns/Returns";
 import ReturnsActions30 from "./Sections/Scan_Receipts/ReturnsActions30";
-import ExchangeNav30 from "./Sections/Returns/Exchanges/ExchangeNav30";
+import ExchangeActions30 from "./Sections/Returns/Exchanges/ExchangeActions30";
 
 function App() {
   const ctx = useContext(ProductContext);
@@ -33,7 +33,7 @@ function App() {
             <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
               <Route index element={<ReturnsActions30 />}></Route>
               <Route path="main" element={<ReturnsActions30 />}></Route>
-              <Route path="exchange" element={<ExchangeNav30 />}></Route>
+              <Route path="exchange" element={<ExchangeActions30 />}></Route>
             </Route>
           </Route>
         </Route>

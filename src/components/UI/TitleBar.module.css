@@ -1,4 +1,4 @@
-.titlebar{
+.container{
     display: flex;
     flex-direction: column;
     width: 100%
@@ -18,6 +18,7 @@
 }
 
 .iconholder{
+    text-decoration: none;
     height: 2rem;
     display: flex;
     align-items: center;
@@ -26,7 +27,7 @@
     background-color: aqua;
 }
 
-p{
+.content p{
     text-align: center;
     width: 100%;
 }

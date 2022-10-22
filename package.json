@@ -1,4 +1,4 @@
-{
+{ 
   "name": "returns",
   "version": "0.1.0",
   "private": true,
@@ -37,4 +37,5 @@
       "last 1 safari version"
     ]
   }
+  
 }

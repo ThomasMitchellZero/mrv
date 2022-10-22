@@ -1,4 +1,4 @@
-import classes from "./ExchangeNav30.module.css";
+import classes from "./ExchangeActions30.module.css"
 
 import TitleBar from "../../../components/UI/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
@@ -12,7 +12,7 @@ import {
 const DeliveryReturn30 = (props) => {
   return (
     <section className={`thirty_panel ${classes.container}`}>
-      <TitleBar>Delivery Return / Exchange</TitleBar>
+      <TitleBar lefticon="back">Delivery Return / Exchange</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
           mainIcon={<TruckLineIcon className={classes.mainicon} />}
