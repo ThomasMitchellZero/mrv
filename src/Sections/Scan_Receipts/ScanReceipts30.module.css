@@ -3,3 +3,9 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.mainicon{
+    margin: .5rem;
+    fill: #102169;
+    flex: 0 0 1.5rem;
+}
