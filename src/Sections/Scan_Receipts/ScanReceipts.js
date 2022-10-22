@@ -8,7 +8,7 @@ const ScanReceipts = (props) => {
     <div className={classes.scan_receipts}>
       <ScanReciepts70></ScanReciepts70>
 
-      <ScanReceipts30></ScanReceipts30>
+      <DeliveryReturn30></DeliveryReturn30>
     </div>
   );
 };

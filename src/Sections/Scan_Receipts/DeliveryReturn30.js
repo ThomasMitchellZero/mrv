@@ -11,15 +11,15 @@ import {
 
 const DeliveryReturn30 = (props) => {
   return (
-    <section className={`.thirty_panel ${classes.container}`}>
+    <section className={`thirty_panel ${classes.container}`}>
       <TitleBar>Delivery Return / Exchange</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
-          mainIcon={TruckLineIcon}
+          mainIcon={<TruckLineIcon className={classes.mainicon} />}
           label={"Schedule Return Pickup Only"}
         />
         <VerticalNavButton
-          mainIcon={ExchangeLineIcon}
+          mainIcon={<ExchangeLineIcon className={classes.mainicon} />}
           label={"Schedule Exchange"}
         />
       </VerticalNavMenu>

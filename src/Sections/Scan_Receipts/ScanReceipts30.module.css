@@ -1,4 +1,6 @@
 .scan_receipts_30{
+    display: flex;
+    flex-direction: column;
     height: inherit;
     width: 100%;
     box-sizing: border-box;
@@ -9,3 +11,4 @@
     fill: #102169;
     flex: 0 0 1.5rem;
 }
+
