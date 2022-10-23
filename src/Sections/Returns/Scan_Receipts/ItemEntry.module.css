@@ -6,11 +6,12 @@
     flex-direction: column;
     background-color: #ffffff;
     padding: 1.5rem;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .button{
-    padding: 1rem;
+    margin: 0rem 1rem;
+    width: 100%
 }
 
 .quantity_container{

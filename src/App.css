@@ -88,9 +88,11 @@
 
 .base_input{
   appearance: none;
-  height: 2.5rem;
+  box-sizing: border-box;
+  height: 2.75rem;
   border: 1px solid #BBBBBB;
   border-radius: 4px;
+  padding: 1px 8px;
 }
 
 .base_input:focus{

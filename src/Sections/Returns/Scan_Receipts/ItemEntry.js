@@ -31,7 +31,7 @@ const ItemEntry = (props) => {
         <button
           form={props.id}
           type="submit"
-          className="baseButton primary large"
+          className={`baseButton primary large ${classes.button}`}
         >
           Add Item
         </button>
