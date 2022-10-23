@@ -1,6 +1,6 @@
 import classes from "./ScanReceipts70.module.css";
-import TitleBar from "../../components/UI/TitleBar";
-import Footer from "../../components/UI/FooterContainer"
+import TitleBar from "../../../components/UI/TitleBar";
+import Footer from "../../../components/UI/FooterContainer"
 import ScanGraphic from "./ScanGraphic/ScanGraphic";
 
 
