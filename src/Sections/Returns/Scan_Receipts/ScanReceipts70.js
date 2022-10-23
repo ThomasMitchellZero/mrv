@@ -9,29 +9,32 @@ import ReturnItemTable from "./ReturnItemTable/ReturnItemTable";
 import Table from "../../../components/UI/Table";
 
 const ScanReciepts70 = () => {
-  // OK, so it looks like I can pass multiple props via useOutletContext as either an array or an object.
+
 
   const test = useOutletContext();
-  console.log(test);
 
-  /*
-
-        { product: 100, quantity: 3, id: idGenerator() },
-
-        key={item.id}
-        id={item.id}
-        active={item.active}
-        descending={item.descending}
-        flexing={item.flexing}
-        onClick={item.handleHeadingClick}
-  */
 
   const itemTableHeadings = [
     { id: "ID #", active: false, descending: true, flexing: "auto" },
     { id: "Product Number", active: false, descending: true, flexing: "auto" },
     { id: "Trash", active: false, descending: true, flexing: "auto" },
-    
   ];
+
+  const nestedObjArr = [
+    { product: 100, quantity: 3, id: 12345 },
+    { product: 200, quantity: 1, id: 227443 },
+    { product: 300, quantity: 3, id: 333333 },
+  ];
+
+  const itemListTableRower = (line) => {
+    return (
+      <tr key={line.id}>
+        <td>{line.id}</td>
+        <td>{line.product}</td>
+        <td>X</td>
+      </tr>
+    );
+  };
 
   //use the .filter() method to remove an item from an array.
 
@@ -39,7 +42,11 @@ const ScanReciepts70 = () => {
     <div className={`seventy_panel ${classes.container}`}>
       <TitleBar lefticon="close">Scan Receipts</TitleBar>
       <div className={classes.main_content}>
-        <Table tableHeadingArray={itemTableHeadings}></Table>
+        <Table
+          tableHeadingArray={itemTableHeadings}
+          rowFunction={itemListTableRower}
+          tableBodyArray={nestedObjArr}
+        ></Table>
       </div>
       <Footer></Footer>
     </div>
