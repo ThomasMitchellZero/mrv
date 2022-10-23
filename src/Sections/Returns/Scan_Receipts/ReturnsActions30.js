@@ -26,6 +26,7 @@ const ReturnsActions30 = (props) => {
         />
         <VerticalNavButton
           label="Item Entry"
+          to="item_entry"
           mainIcon={<AddCartLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
@@ -56,7 +57,6 @@ const ReturnsActions30 = (props) => {
 };
 
 export default ReturnsActions30;
-
 
 /* 
 

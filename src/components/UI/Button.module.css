@@ -27,6 +27,11 @@
 
 }
 
+.large{
+    height: 3.5rem;
+    font-size: 1.25rem;
+}
+
 .baseButton:hover{
     opacity: 80%;
 }

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Main from "./components/UI/Main";
-import ScanReceipts from "./Sections/Returns/Scan_Receipts/ScanReceipts"
+import ScanReceipts from "./Sections/Returns/Scan_Receipts/ScanReceipts";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
 // Returns
@@ -34,6 +34,7 @@ function App() {
             <Route path="scan_receipts" element={<ScanReceipts></ScanReceipts>}>
               <Route index element={<ReturnsActions30 />}></Route>
               <Route path="exchange" element={<ExchangeActions30 />}></Route>
+              <Route path="item_entry" element={<ItemEntry />}></Route>
             </Route>
           </Route>
         </Route>
