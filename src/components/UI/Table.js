@@ -17,23 +17,29 @@ const Table = (props) => {
     );
   });
 
-  const nestedData = [[12345, 200, "X"], [22222, 300, "X"], [33333, 400, "X"]]
+  const nestedObjArr=[
+    { product: 100, quantity: 3, id: 557743 },
+    { product: 200, quantity: 1, id: 227443 },
+    { product: 300, quantity: 3, id: 333333 },
+  ]
 
-  const tableRower = (line) => {
-    return line.map((item) => {
-      return <td key={item}>{item}</td>;
+  const objectColumnizer = (rowfunction, array) => {
+    return array.map((item) => {
+      return rowfunction(item);
     });
   };
 
+  const testRowObjer = (line) => {
+    return (
+      <tr key={line.id}>
+        <td>{line.id}</td>
+        <td>{line.product}</td>
+        <td>X</td>
+      </tr>
+    );
+  };
 
-  const tableColumnizer = (array)=>{
-    return array.map((line)=>{
-      return <tr key={line[0]}>{tableRower(line)}</tr>
-    })
-  }
-
-  const test = tableColumnizer(nestedData);
-  console.log(test);
+  const test = objectColumnizer(testRowObjer, nestedObjArr);
 
   return (
     <div>
@@ -42,9 +48,7 @@ const Table = (props) => {
         <thead>
           <tr>{tableHeadings}</tr>
         </thead>
-        <tbody>
-          {test}
-        </tbody>
+        <tbody>{test}</tbody>
       </table>
     </div>
   );
