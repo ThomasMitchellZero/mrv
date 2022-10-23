@@ -182,6 +182,11 @@
 
             -Item keys need to be a product number, not a name.  
 
+    3:30.  Kind of spinning my wheels again.  What NEEDS to happen first is to update the product-context to use numbers as keys.
+
+    Next, I need to figure out how to get a product-context object via its key.
+
+    Then, I can get to work on a <LI> that populates based on that.
 
 
     

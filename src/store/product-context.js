@@ -19,7 +19,7 @@ import washer_img from "../assets/product-images/washer.png";
 
 
 const ProductContext = React.createContext({
-  faucet: {
+  100: {
     img: faucet_img,
     price: 15.99,
     itemNum: "332233",
@@ -27,15 +27,7 @@ const ProductContext = React.createContext({
     description: "Two handle classic faucet in wrought iron",
     categories: ["Stock"],
   },
-  frontload_washer: {
-    img: frontload_washer_img,
-    price: 400.00,
-    itemNum: "207442",
-    modelNum: "SFL456",
-    description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
-    categories: ["Stock","Delivery"],
-  },
-  flowers: {
+  200: {
     img: flowers_img,
     price: 4.99,
     itemNum: "450213",
@@ -43,7 +35,7 @@ const ProductContext = React.createContext({
     description: "Phillipine white lillies with terra-cotta pot",
     categories: ["Live Goods"],
   },
-  hoses: {
+  300: {
     img: hoses_img,
     price: 8.75,
     itemNum: "332233",
@@ -52,7 +44,7 @@ const ProductContext = React.createContext({
     categories: ["Stock"],
   },
 
-  toilet: {
+  400: {
     img: toilet_img,
     price: 8.75,
     itemNum: "120975",
@@ -60,12 +52,20 @@ const ProductContext = React.createContext({
     description: "American Standard Grand Duke II with Ultra-Flush",
     categories: ["Stock","Special Order"],
   },
-  topload_washer: {
+  900: {
     img: topload_washer_img,
     price: 500.00,
     itemNum: "595975",
     modelNum: "STL301",
     description: "Samsung 7.1-cu ft Reversible Side Load Washer",
+    categories: ["Stock","Delivery"],
+  },
+  910: {
+    img: frontload_washer_img,
+    price: 400.00,
+    itemNum: "207442",
+    modelNum: "SFL456",
+    description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
     categories: ["Stock","Delivery"],
   },
 

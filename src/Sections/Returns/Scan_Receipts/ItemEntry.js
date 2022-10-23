@@ -21,7 +21,6 @@ const ItemEntry = (props) => {
           <input
             type="number"
             id="item_quantity"
-            placeholder="#"
             className={`base_input ${classes.itemquantity}`}
           ></input>
         </div>

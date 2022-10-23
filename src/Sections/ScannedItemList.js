@@ -20,8 +20,6 @@ const ScannedItemList = (props) => {
   
     return (
     <div>
-      <TitleBar
-        lefticon="back"></TitleBar>
       <Table
         tableHeadingArray={headingList}
         ></Table>

@@ -2,8 +2,6 @@ import classes from "./Table.module.css";
 import TableHeading from "./TableHeading";
 
 const Table = (props) => {
-
-
   const tableHeadings = props.tableHeadingArray.map((item) => {
     return (
       <TableHeading
@@ -18,6 +16,17 @@ const Table = (props) => {
       </TableHeading>
     );
   });
+
+  const tableData = [12345, 200, "X"];
+
+  const tableRower = (line) => {
+    return line.map((item) => {
+      return <td>{item}</td>;
+    });
+  };
+
+  const test = tableRower(tableData);
+  console.log(test);
 
   return (
     <div>
@@ -34,7 +43,7 @@ const Table = (props) => {
             <td>ad-123</td>
             <td>ad-123</td>
           </tr>
-          {props.tableBodyContents}
+          <tr>{test}</tr>
         </tbody>
       </table>
     </div>

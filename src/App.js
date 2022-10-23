@@ -1,7 +1,5 @@
 import "./App.css";
 
-import ProductContext from "./store/product-context";
-import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Main from "./components/UI/Main";
