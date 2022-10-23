@@ -17,15 +17,22 @@ const Table = (props) => {
     );
   });
 
-  const tableData = [12345, 200, "X"];
+  const nestedData = [[12345, 200, "X"], [22222, 300, "X"], [33333, 400, "X"]]
 
   const tableRower = (line) => {
     return line.map((item) => {
-      return <td>{item}</td>;
+      return <td key={item}>{item}</td>;
     });
   };
 
-  const test = tableRower(tableData);
+
+  const tableColumnizer = (array)=>{
+    return array.map((line)=>{
+      return <tr key={line[0]}>{tableRower(line)}</tr>
+    })
+  }
+
+  const test = tableColumnizer(nestedData);
   console.log(test);
 
   return (
@@ -36,14 +43,7 @@ const Table = (props) => {
           <tr>{tableHeadings}</tr>
         </thead>
         <tbody>
-          <tr>
-            <td>123</td>
-            <td>this and this and that</td>
-            <td>ad-123</td>
-            <td>ad-123</td>
-            <td>ad-123</td>
-          </tr>
-          <tr>{test}</tr>
+          {test}
         </tbody>
       </table>
     </div>
