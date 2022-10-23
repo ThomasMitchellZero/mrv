@@ -156,6 +156,13 @@
 
         -First, I think I need a Returns component to track the state.  The contents will change a lot based on what phase of the process the user is in, and I also need to keep track of the state.
 
+    Wrapping it up for the day.  I didn't want to spend the whole afternoon on routing, but... I did, and the stuff I worked on is stuff that I need eventually.  
+
+23 Oct 2022
+
+    -Back to playing with my code Legos!  First task is going to be creating the input form for Item Lookup.
+
+    
         
 
     

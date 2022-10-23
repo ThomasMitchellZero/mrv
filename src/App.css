@@ -22,10 +22,17 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 70%;
+  box-sizing: border-box;
 }
 
 .thirty_panel{
   display: flex;
   flex-direction: column;
   flex: 1 1 30%;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+input{
+  border-radius: 4px;
 }
