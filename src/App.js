@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider>
+
         <Routes>
           <Route path="/" element={<Main />}>
             <Route index element={<Placeholder>Home</Placeholder>} />
@@ -42,7 +42,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </ProductContext.Provider>
+
     </div>
   );
 }

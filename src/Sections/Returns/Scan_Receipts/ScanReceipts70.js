@@ -9,7 +9,7 @@ const ScanReciepts70 = () => {
 
   // OK, so it looks like I can pass multiple props via useOutletContext as either an array or an object.
   const test = useOutletContext()
-  console.log(test.alpha)
+
   return (
     <div className={`seventy_panel ${classes.container}`}>
       <TitleBar lefticon="close">Scan Receipts</TitleBar>

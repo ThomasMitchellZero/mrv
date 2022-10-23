@@ -5,13 +5,12 @@ import { useContext } from "react";
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
-  const cart = "cat"
-  const meal = {a:1, b:2}
+  console.log(productContext)
 
   return (
     <main className={classes.container}>
 
-        <Outlet context={{alpha: cart, bravo: meal}}/>
+        <Outlet context={"a"}/>
 
     </main>
   );
