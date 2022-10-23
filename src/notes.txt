@@ -162,6 +162,28 @@
 
     -Back to playing with my code Legos!  First task is going to be creating the input form for Item Lookup.
 
+    -Got the base input up and running.  Now I have a decsion to make.  I don't think I need a button component.  I think I could actually do that in CSS, and in the meantime the prop-passing is getting to be a little much.  I think I will do this, but set myself a time limit.  
+
+    -1:45pm Got basically what I want for the input field.  Now I need to get into some data-moving stuff.  I need:  
+
+        Returns:
+
+            -A state in <Returns> that tracks the current Cart.  
+
+            -A table that shows the current items.
+                -table must map from an entry in product-context.
+                -I'm going to need a custom LI for the scanned-items table.
+
+            -The items must come from the product-context 
+
+            -First, let me just test getting the product-context in Returns.
+
+        product-context:
+
+            -Item keys need to be a product number, not a name.  
+
+
+
     
         
 
