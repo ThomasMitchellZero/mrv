@@ -1,6 +1,6 @@
 import classes from "./ScanGraphic.module.css";
-import Universal from "../../../assets/lowes-icons/Picture-Icons/universal-scan.svg";
-import Blank from "../../../assets/lowes-icons/Picture-Icons/blank.svg";
+import Universal from "../../../../assets/lowes-icons/Picture-Icons/universal-scan.svg";
+import Blank from "../../../../assets/lowes-icons/Picture-Icons/blank.svg";
 
 const ScanGraphic = (props) => {
   const graphicSelector = (input) => {

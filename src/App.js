@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Main from "./components/UI/Main";
-import ScanReceipts from "./Sections/Scan_Receipts/ScanReceipts";
+import ScanReceipts from "./Sections/Returns/Scan_Receipts/ScanReceipts"
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
 // Returns
