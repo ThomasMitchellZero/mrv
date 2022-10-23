@@ -11,12 +11,16 @@ const Returns = () => {
   };
 
   const [cart, editCart] = useState([
-    { product: 100, quantity: 3, id: idGenerator() },
+    { product: 100, quantity: 3, id: 12345 },
+    { product: 200, quantity: 1, id: 227443 },
+    { product: 300, quantity: 3, id: 333333 },
   ]);
 
   return (
     <main className={classes.container}>
-      <Outlet context={[cart, editCart]} />
+      <Outlet
+        context={{ cart: cart, editcart: editCart, idGenerator: idGenerator }}
+      />
     </main>
   );
 };

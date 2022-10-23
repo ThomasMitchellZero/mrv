@@ -11,7 +11,8 @@ import Table from "../../../components/UI/Table";
 const ScanReciepts70 = () => {
 
 
-  const test = useOutletContext();
+  const returnsContext = useOutletContext();
+  console.log(returnsContext.cart)
 
 
   const itemTableHeadings = [
