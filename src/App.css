@@ -47,18 +47,18 @@
 
 .baseButton.primary{
   color: #fff;
-  background-color: red;
+  background-color: blue;
   border: none;
 }
 
 .baseButton.secondary{
-  color:red;
+  color: blue;
   background-color: #fff;
-  border-color: red;
+  border-color: blue;
 }
 
 .baseButton.tertiary{
-  color: red;
+  color: blue;
   background-color: transparent;
   border: none;
 
@@ -86,7 +86,14 @@
 
 /*  Input CSS  */
 
-input{
+.base_input{
+  appearance: none;
+  height: 2.5rem;
+  border: 1px solid #BBBBBB;
   border-radius: 4px;
+}
+
+.base_input:focus{
+  outline: 2px solid blue;
 }
 
