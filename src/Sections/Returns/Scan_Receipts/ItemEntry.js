@@ -17,7 +17,7 @@ const ItemEntry = (props) => {
           className={`base_input ${classes.itemsearch}`}
         ></input>
         <div className={classes.quantity_container}>
-          <label for="item_quantity">Qty.</label>
+          <label htmlFor="item_quantity">Qty.</label>
           <input
             type="number"
             id="item_quantity"
