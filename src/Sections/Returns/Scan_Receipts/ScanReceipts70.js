@@ -9,11 +9,8 @@ import ReturnItemTable from "./ReturnItemTable/ReturnItemTable";
 import Table from "../../../components/UI/Table";
 
 const ScanReciepts70 = () => {
-
-
   const returnsContext = useOutletContext();
-  console.log(returnsContext.cart)
-
+  console.log(returnsContext.cart);
 
   const itemTableHeadings = [
     { id: "ID #", active: false, descending: true, flexing: "auto" },
@@ -32,7 +29,9 @@ const ScanReciepts70 = () => {
       <tr key={line.id}>
         <td>{line.id}</td>
         <td>{line.product}</td>
-        <td>X</td>
+        <td>
+          <button id={line.id} onClick={returnsContext.handleDelete}>X</button>
+        </td>
       </tr>
     );
   };
