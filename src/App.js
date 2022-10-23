@@ -10,8 +10,9 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 
 // Returns
 import Returns from "./Sections/Returns/Returns";
-import ReturnsActions30 from "./Sections/Scan_Receipts/ReturnsActions30";
+import ReturnsActions30 from "./Sections/Returns/Scan_Receipts/ReturnsActions30";
 import ExchangeActions30 from "./Sections/Returns/Exchanges/ExchangeActions30";
+import ItemEntry from "./Sections/Returns/Scan_Receipts/ItemEntry";
 
 function App() {
   const ctx = useContext(ProductContext);
