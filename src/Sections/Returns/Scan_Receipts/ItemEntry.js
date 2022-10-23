@@ -2,7 +2,6 @@ import classes from "./ItemEntry.module.css"
 
 import TitleBar from "../../../components/UI/TitleBar"
 import FooterContainer from "../../../components/UI/FooterContainer"
-import Button from "../../../components/UI/Button"
 
 const ItemEntry = ()=>{
     return <form className={`thirty_panel`}>
@@ -11,8 +10,8 @@ const ItemEntry = ()=>{
 
         </div>
         <FooterContainer>
-            <Button  buttonType="primary" buttonSize="large" className={classes.button}>Add Item</Button>
-        </FooterContainer>
+            <button type="button" className="baseButton primary large">Add Item</button>
+        </FooterContainer> 
     </form>
 }
 
