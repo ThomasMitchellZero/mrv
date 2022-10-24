@@ -6,14 +6,11 @@ import { useOutletContext } from "react-router-dom";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-// state and handlers to track the user inputs
+// props inherited from the parent, since this is an Outlet.
 const ItemEntry = (props) => {
   const scanReceiptsContext = useOutletContext();
 
-  const testContextFunc = scanReceiptsContext.testContextFunc;
-
-  scanReceiptsContext.testContextFunc(22);
-
+// state and handlers to track the user inputs
   const [formState, setFormState] = useState({
     formItemNum: "",
     formQuantity: "",
@@ -34,6 +31,8 @@ const ItemEntry = (props) => {
   const submitHandler = (event)=>{
     event.preventDefault()
     scanReceiptsContext.handleAddItem(formState)
+
+    setFormState({formQuantity:"", formItemNum:""})
   }
 
   return (

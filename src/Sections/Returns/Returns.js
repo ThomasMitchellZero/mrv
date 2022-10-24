@@ -16,13 +16,6 @@ const Returns = () => {
     { productCode: 300, quantity: 3, scanID: 333333 },
   ]);
 
-  /*
-
-    formItemNum: undefined,
-    formQuantity: undefined,
-
-*/
-
   const handleAddItem = (itemObj) => {
     const newItem = {
       productCode: itemObj.formItemNum,
@@ -33,11 +26,6 @@ const Returns = () => {
     editCart((currentCart) => {
       return [...currentCart, newItem];
     });
-  };
-
-  // this is just a test.
-  const testContextFunc = (localvar) => {
-    console.log(localvar);
   };
 
   const handleDelete = (event) => {
@@ -61,7 +49,6 @@ const Returns = () => {
           idGenerator: idGenerator,
           handleDelete: handleDelete,
           handleAddItem: handleAddItem,
-          testContextFunc: testContextFunc,
         }}
       />
     </main>
