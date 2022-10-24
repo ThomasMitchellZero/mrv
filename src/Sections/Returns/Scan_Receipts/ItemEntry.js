@@ -1,6 +1,6 @@
 import classes from "./ItemEntry.module.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import TitleBar from "../../../components/UI/TitleBar";
@@ -10,11 +10,23 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 const ItemEntry = (props) => {
   const scanReceiptsContext = useOutletContext();
 
-// state and handlers to track the user inputs
+  // state and handlers to track the user inputs
   const [formState, setFormState] = useState({
     formItemNum: "",
     formQuantity: "",
+    formFilled: false,
   });
+
+  const formFillChecker = () => {
+    const isFilled =
+      formState.formItemNum !== "" && formState.formQuantity !== "";
+
+    setFormState((prevState) => {
+      return { ...prevState, formFilled: isFilled };
+    });
+  };
+
+  useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity]);
 
   const itemNumChangeHandler = (event) => {
     setFormState((prevState) => {
@@ -28,19 +40,15 @@ const ItemEntry = (props) => {
     });
   };
 
-  const submitHandler = (event)=>{
-    event.preventDefault()
-    scanReceiptsContext.handleAddItem(formState)
+  const submitHandler = (event) => {
+    event.preventDefault();
+    scanReceiptsContext.handleAddItem(formState);
 
-    setFormState({formQuantity:"", formItemNum:""})
-  }
+    setFormState({ formQuantity: "", formItemNum: "" });
+  };
 
   return (
-    <form
-      id={props.id}
-      className={`thirty_panel`}
-      onSubmit={submitHandler}
-    >
+    <form id={props.id} className={`thirty_panel`} onSubmit={submitHandler}>
       <TitleBar lefticon="back" lefturl="..">
         Item Entry
       </TitleBar>
