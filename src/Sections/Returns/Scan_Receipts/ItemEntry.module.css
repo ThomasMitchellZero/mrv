@@ -14,7 +14,7 @@
     width: 100%
 }
 
-.quantity_container{
+.subcontainer{
 
     display: flex;
     flex-direction: column;
@@ -34,6 +34,6 @@
 }
 
 .itemquantity{
-    width: 3rem;
+    width: 6rem;
 
 }

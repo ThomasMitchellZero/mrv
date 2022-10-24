@@ -16,8 +16,9 @@ const Returns = () => {
     { product: 300, quantity: 3, id: 333333 },
   ]);
 
-
+  
   const handleDelete = (event) => {
+    // should the id-getter be at a lower level?  It might not be universal?
     const clickedID = event.currentTarget.id;
     
     const newCart = cart.filter((entry) => {

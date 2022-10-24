@@ -2,6 +2,13 @@
   font-family:  Roboto;
 }
 
+.warning_text{
+  font-size: .75rem;
+  color: red;
+  padding: 0px;
+  margin: 0px;
+}
+
 .divider{
   background-color: #999;
   height: 1px;
