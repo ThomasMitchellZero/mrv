@@ -17,13 +17,17 @@ const ScanReciepts70 = () => {
     { id: "Trash", active: false, descending: true, flexing: "auto" },
   ];
 
+  //     { productCode: 300, quantity: 3, scanID: 333333 },
+
   const itemListTableRower = (line) => {
     return (
-      <tr key={line.id}>
-        <td>{line.id}</td>
-        <td>{line.product}</td>
+      <tr key={line.scanID}>
+        <td>{line.scanID}</td>
+        <td>{line.productCode}</td>
         <td>
-          <button id={line.id} onClick={returnsContext.handleDelete}>X</button>
+          <button id={line.scanID} onClick={returnsContext.handleDelete}>
+            X
+          </button>
         </td>
       </tr>
     );

@@ -11,10 +11,28 @@ const Returns = () => {
   };
 
   const [cart, editCart] = useState([
-    { product: 100, quantity: 3, id: 12345 },
-    { product: 200, quantity: 1, id: 227443 },
-    { product: 300, quantity: 3, id: 333333 },
+    { productCode: 100, quantity: 3, scanID: 12345 },
+    { productCode: 200, quantity: 1, scanID: 227443 },
+    { productCode: 300, quantity: 3, scanID: 333333 },
   ]);
+
+/*
+
+    formItemNum: undefined,
+    formQuantity: undefined,
+
+*/
+
+  const handleAddItem = (itemObj)=>{
+    const newItem={
+      product: itemObj.formItemNum
+
+    }
+
+    editCart((currentCart)=>{
+      return [...currentCart, ]
+    })
+  }
 
   
   const handleDelete = (event) => {
@@ -22,7 +40,7 @@ const Returns = () => {
     const clickedID = event.currentTarget.id;
     
     const newCart = cart.filter((entry) => {
-      return (entry.id.toString() !== clickedID);
+      return (entry.scanID.toString() !== clickedID);
     });
 
     console.log(newCart)
