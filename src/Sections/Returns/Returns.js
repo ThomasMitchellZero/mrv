@@ -16,35 +16,40 @@ const Returns = () => {
     { productCode: 300, quantity: 3, scanID: 333333 },
   ]);
 
-/*
+  /*
 
     formItemNum: undefined,
     formQuantity: undefined,
 
 */
 
-  const handleAddItem = (itemObj)=>{
-    const newItem={
-      product: itemObj.formItemNum
+  const handleAddItem = (itemObj) => {
+    const newItem = {
+      productCode: itemObj.formItemNum,
+      quantity: itemObj.formQuantity,
+      scanID: idGenerator(),
+    };
 
-    }
+    editCart((currentCart) => {
+      return [...currentCart, newItem];
+    });
+  };
 
-    editCart((currentCart)=>{
-      return [...currentCart, ]
-    })
-  }
+  // this is just a test.
+  const testContextFunc = (localvar) => {
+    console.log(localvar);
+  };
 
-  
   const handleDelete = (event) => {
     // should the id-getter be at a lower level?  It might not be universal?
     const clickedID = event.currentTarget.id;
-    
+
     const newCart = cart.filter((entry) => {
-      return (entry.scanID.toString() !== clickedID);
+      return entry.scanID.toString() !== clickedID;
     });
 
-    console.log(newCart)
-    editCart(newCart)
+    console.log(newCart);
+    editCart(newCart);
   };
 
   return (
@@ -55,6 +60,8 @@ const Returns = () => {
           editcart: editCart,
           idGenerator: idGenerator,
           handleDelete: handleDelete,
+          handleAddItem: handleAddItem,
+          testContextFunc: testContextFunc,
         }}
       />
     </main>

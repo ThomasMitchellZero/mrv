@@ -188,6 +188,82 @@
 
     Then, I can get to work on a <LI> that populates based on that.
 
+24 Oct 2022:
+
+    Things I could do today:
+
+
+        X -I need a way to show an invalid item entry in the Item Entry form. 
+
+        -Get the Add Item form working.
+
+            -I'm going to do this first because I think making the LI will be easier.  I need:
+
+                - a function in Returns that gets the values of Item Number and Quantity.
+
+                -I need a function that checks 
+
+        -Create the full Item List LI
+
+    Ok, getting some major fucking meltdowns when trying to use the AddItemHandler() function from Returns.  First, potential issues:
+
+        -I know very little about forms and there are a few things I could be doing wrong.
+
+            -Submission behavior is set in the form, not the Submit button.
+            -I haven't used preventDefault() anywhere.
+            -I'm not referencing an event and the examples I see online appear to do this.
+            -I still don't know why I'm using a <form> instead of just some input states.
+            -Something else.
+
+        -I've never passed a properties through multiple Outlet contexts.  In theory it should work no different from prop drilling, but I've never done it and I could messing up the technicalities.
+
+        -This whole idea of using routes for nested outlets might be stupid.  I might be better off with fewer URLs and conditional rendering.
+
+            -I guess I should think about this one first, since its implications are the largest and it will cause the most rework if I change my mind.
+
+            KEEP THE URLS
+
+                +The main benefit of URLs is that if I am testing, I can send someone a URL and have them start right at the source.
+
+                    -That's not how the real app works.  Users expect to click through.
+
+                    -The other model I have in my mind is to have one URL per page, and then do all variations through conditional rendering.  If that is the case, I could still direct users to the nearest URL and let them click through from there.
+                
+                +The URLs are actually kind of nice.  The ability to click and make <thing> be on the page is pretty cool.
+
+                +If this is training then I should be preparing for the worst-case.  When I am navigating websites, the URLs are changing all the time.  I might need that capability.
+
+                    -This is training, but we need output.  It's better to get it working in a non-ideal way and then figure out the rest later.
+
+                + This is what we have now.  We need to make progress.  Major reworks when running into snags is not a good habit to be in.  Figuring out how to make what we have work is what is likely to get us moving again the quickest.
+
+            ---
+
+            1 URL per page
+                + This is familiar.  I'm pretty sure I know how to make it work.
+
+                    -It also means we won't be learning as much.
+
+                + It is a simpler conceptual model.  If we get stuck, no one is coming to help us.  The fewer moving parts we don't understand, the easier it will be to find problems.
+
+                + Makes it easier to try that component composition model, which we've also been wanting to understand.
+
+        OK.  Here's my compromise.  I'm going to spend an hour trying to un-fuck what I have.  If I'm still stuck, I will re-evaluate 1 URL per Page, and I plan to use 1UpP for the future work.
+
+            -Test 1:  Pass a function down and run it using a local var as an argument.
+                Took a little fiddlefucking but works fine.
+
+            -Test 2:  Check the form examples, look for deviations, address them.
+
+                Well.  I solved it?  I changed the submission to happen from the form, I added a local function with event.preventDefault() and I had that function call the AddItemHandler function from Returns, and now it's working flawlessly.  I do not know why.
+
+
+
+
+            
+
+
+
 
     
         
