@@ -8,8 +8,8 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 // state and handlers to track the user inputs
 const ItemEntry = (props) => {
   const [formState, setFormState] = useState({
-    formItemNum: undefined,
-    formQuantity: undefined,
+    formItemNum: "",
+    formQuantity: "",
   });
 
   const itemNumChangeHandler = (event) => {
@@ -32,7 +32,7 @@ const ItemEntry = (props) => {
       <section className={classes.maincontent}>
         <div className={classes.subcontainer}>
           <input
-            type="text"
+            type="number"
             id="item_num"
             placeholder="Item #, UPC#, or Speed Code"
             className={`base_input ${classes.itemsearch}`}
