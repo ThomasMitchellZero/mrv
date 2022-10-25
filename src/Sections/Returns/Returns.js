@@ -16,6 +16,25 @@ const Returns = () => {
     { productCode: 300, quantity: 3, scanID: 333333 },
   ]);
 
+  const productContextMatcher = (itemNum) => {
+    if (productContext[itemNum]) {
+      return productContext[itemNum];
+    } else {
+      return false;
+    }
+  };
+
+  const demo = {
+    invoice: 12345,
+    img: "pic",
+    itemNum : 12345,
+    condition: "Good",
+    price: 12.99,
+    quantity: 12,
+    totalPrice: 44.55,
+    declineCode: 123,
+  }
+
   const handleAddItem = (itemObj) => {
     const newItem = {
       productCode: itemObj.formItemNum,
