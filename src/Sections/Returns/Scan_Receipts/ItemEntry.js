@@ -17,6 +17,7 @@ const ItemEntry = (props) => {
     formFilled: false,
   });
 
+  // updates the formFilled property after checking that both inputs are filled
   const formFillChecker = () => {
     const isFilled =
       formState.formItemNum !== "" && formState.formQuantity !== "";
@@ -26,6 +27,7 @@ const ItemEntry = (props) => {
     });
   };
 
+  // triggers formFillChecker whenever either input field changes.
   useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity]);
 
   const itemNumChangeHandler = (event) => {
@@ -46,6 +48,28 @@ const ItemEntry = (props) => {
 
     setFormState({ formQuantity: "", formItemNum: "" });
   };
+
+
+  // buttons for the input form
+  const activeButton = (
+    <button
+      form={props.id}
+      type="submit"
+      className={`baseButton primary large ${classes.button}`}
+    >
+      Add Item
+    </button>
+  );
+
+  const inactiveButton = (
+    <button
+      disabled="true"
+      form={props.id}
+      className={`baseButton primary__disabled large ${classes.button}`}
+    >
+      Add Item
+    </button>
+  );
 
   return (
     <form id={props.id} className={`thirty_panel`} onSubmit={submitHandler}>
@@ -78,6 +102,16 @@ const ItemEntry = (props) => {
       </section>
 
       <FooterContainer>
+        {formState.formFilled ? activeButton : inactiveButton}
+      </FooterContainer>
+    </form>
+  );
+};
+
+export default ItemEntry;
+
+/*
+
         <button
           form={props.id}
           type="submit"
@@ -85,9 +119,5 @@ const ItemEntry = (props) => {
         >
           Add Item
         </button>
-      </FooterContainer>
-    </form>
-  );
-};
 
-export default ItemEntry;
+*/
