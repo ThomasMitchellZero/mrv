@@ -2,6 +2,7 @@ import classes from "./Returns.module.css";
 import { Outlet } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { useContext, useState } from "react";
+import toilet_img from "../../assets/product-images/toilet.png";
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
@@ -11,9 +12,21 @@ const Returns = () => {
   };
 
   const [cart, editCart] = useState([
-
+    {
+      productData: {
+        img: toilet_img,
+        price: 8.75,
+        itemNum: "400",
+        modelNum: "RT3301",
+        description: "American Standard Grand Duke II with Ultra-Flush",
+        categories: ["Stock", "Special Order"],
+      },
+      scanDetails: {
+        quantity: "1",
+        scanID: 511415,
+      },
+    },
   ]);
-
 
   const productContextMatcher = (itemNum) => {
     if (productContext[itemNum]) {
@@ -23,27 +36,16 @@ const Returns = () => {
     }
   };
 
-  const demo = {
-    invoice: 12345,
-    img: "pic",
-    itemNum: 12345,
-    condition: "Good",
-    price: 12.99,
-    quantity: 12,
-    totalPrice: 44.55,
-    declineCode: 123,
-  };
-
+  // combines the scan data and the data from the corresponding product, then updates the cart state.
   const handleAddItem = (itemObj) => {
     const newItem = {
       productData: productContextMatcher(itemObj.formItemNum),
-      scanDetails:{
+      scanDetails: {
         quantity: itemObj.formQuantity,
         scanID: idGenerator(),
-      }
+      },
     };
 
-    console.log(newItem);
     editCart((currentCart) => {
       return [...currentCart, newItem];
     });

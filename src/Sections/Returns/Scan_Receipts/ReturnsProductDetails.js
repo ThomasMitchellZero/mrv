@@ -18,6 +18,7 @@ const ReturnsProductDetail = (props) => {
 
   return (
     <main className={classes.container}>
+    <img src={productData.img} alt="test"></img>
       <p>{productData.modelNum}</p>
     </main>
   );
