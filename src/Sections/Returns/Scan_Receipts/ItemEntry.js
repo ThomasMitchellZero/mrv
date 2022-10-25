@@ -63,7 +63,7 @@ const ItemEntry = (props) => {
 
   const inactiveButton = (
     <button
-      disabled="true"
+      disabled={true}
       form={props.id}
       className={`baseButton primary__disabled large ${classes.button}`}
     >

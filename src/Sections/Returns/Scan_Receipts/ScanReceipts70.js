@@ -5,14 +5,14 @@ import classes from "./ScanReceipts70.module.css";
 import TitleBar from "../../../components/UI/TitleBar";
 import Footer from "../../../components/UI/FooterContainer";
 import ScanGraphic from "./ScanGraphic/ScanGraphic";
-import ReturnItemTable from "./ReturnItemTable/ReturnItemTable";
 import Table from "../../../components/UI/Table";
+import ReturnsProductDetail from "./ReturnsProductDetails";
 
 const ScanReciepts70 = () => {
   const returnsContext = useOutletContext();
 
   const itemTableHeadings = [
-    { id: "ID #", active: false, descending: true, flexing: "auto" },
+    { id: "Product Detail", active: false, descending: true, flexing: "auto" },
     { id: "Product Number", active: false, descending: true, flexing: "auto" },
     { id: "Trash", active: false, descending: true, flexing: "auto" },
   ];
@@ -21,9 +21,9 @@ const ScanReciepts70 = () => {
 
   const itemListTableRower = (line) => {
     return (
-      <tr key={line.scanID}>
-        <td>{line.scanID}</td>
-        <td>{line.productCode}</td>
+      <tr key={line.scanDetails.scanID}>
+        <td><ReturnsProductDetail productData={line.productData}/></td>
+        <td>{line.scanDetails.quantity}</td>
         <td>
           <button id={line.scanID} onClick={returnsContext.handleDelete}>
             X

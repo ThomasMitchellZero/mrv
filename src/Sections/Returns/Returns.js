@@ -11,10 +11,9 @@ const Returns = () => {
   };
 
   const [cart, editCart] = useState([
-    { productCode: 100, quantity: 3, scanID: 12345 },
-    { productCode: 200, quantity: 1, scanID: 227443 },
-    { productCode: 300, quantity: 3, scanID: 333333 },
+
   ]);
+
 
   const productContextMatcher = (itemNum) => {
     if (productContext[itemNum]) {
@@ -27,21 +26,24 @@ const Returns = () => {
   const demo = {
     invoice: 12345,
     img: "pic",
-    itemNum : 12345,
+    itemNum: 12345,
     condition: "Good",
     price: 12.99,
     quantity: 12,
     totalPrice: 44.55,
     declineCode: 123,
-  }
+  };
 
   const handleAddItem = (itemObj) => {
     const newItem = {
-      productCode: itemObj.formItemNum,
-      quantity: itemObj.formQuantity,
-      scanID: idGenerator(),
+      productData: productContextMatcher(itemObj.formItemNum),
+      scanDetails:{
+        quantity: itemObj.formQuantity,
+        scanID: idGenerator(),
+      }
     };
 
+    console.log(newItem);
     editCart((currentCart) => {
       return [...currentCart, newItem];
     });

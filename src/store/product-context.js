@@ -22,7 +22,7 @@ const ProductContext = React.createContext({
   100: {
     img: faucet_img,
     price: 15.99,
-    itemNum: "332233",
+    itemNum: "100",
     modelNum: "DR3345",
     description: "Two handle classic faucet in wrought iron",
     categories: ["Stock"],
@@ -30,7 +30,7 @@ const ProductContext = React.createContext({
   200: {
     img: flowers_img,
     price: 4.99,
-    itemNum: "450213",
+    itemNum: "200",
     modelNum: "BB9FF1",
     description: "Phillipine white lillies with terra-cotta pot",
     categories: ["Live Goods"],
@@ -38,7 +38,7 @@ const ProductContext = React.createContext({
   300: {
     img: hoses_img,
     price: 8.75,
-    itemNum: "332233",
+    itemNum: "300",
     modelNum: "DR3345",
     description: "Replacement hoses for Samsung refrigerator",
     categories: ["Stock"],
@@ -47,7 +47,7 @@ const ProductContext = React.createContext({
   400: {
     img: toilet_img,
     price: 8.75,
-    itemNum: "120975",
+    itemNum: "400",
     modelNum: "RT3301",
     description: "American Standard Grand Duke II with Ultra-Flush",
     categories: ["Stock","Special Order"],
@@ -55,7 +55,7 @@ const ProductContext = React.createContext({
   900: {
     img: topload_washer_img,
     price: 500.00,
-    itemNum: "595975",
+    itemNum: "900",
     modelNum: "STL301",
     description: "Samsung 7.1-cu ft Reversible Side Load Washer",
     categories: ["Stock","Delivery"],
@@ -63,7 +63,7 @@ const ProductContext = React.createContext({
   910: {
     img: frontload_washer_img,
     price: 400.00,
-    itemNum: "207442",
+    itemNum: "910",
     modelNum: "SFL456",
     description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
     categories: ["Stock","Delivery"],
