@@ -280,7 +280,23 @@ Big list of things I need to do:
 26 Oct 2022:
 
     -Working on the CSS for the product component.
-    
+    -or... maybe not.  Might be the validator.
+        -I'm pretty sure I can validate with what I have.  The question is when.
+
+            -I could validate on Submit, which is kind of a lousy experience but would be easy to implement.
+
+            -I could validate inline, but when?
+                -De-focus is really nice, but if they do it second then I miss my validation.
+                    -I could make item number unavailable until a valid item is entered?  Overkill?
+
+                -I could track in the state, and make the button unavilable until there's a valid number?
+                    -but then what triggers the message?
+                
+                -I think no matter what, I need to check as the text is being entered, and so I need a state to track that.
+
+
+
+
 
 
 
