@@ -18,7 +18,7 @@ const ReturnsProductDetail = (props) => {
 
   return (
     <main className={classes.container}>
-    <img src={productData.img} alt="test"></img>
+    <img src={productData.img} alt="test" className={classes.productImage}></img>
       <p>{productData.modelNum}</p>
     </main>
   );
