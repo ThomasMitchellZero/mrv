@@ -1,3 +1,18 @@
+Big list of things I need to do:
+
+    -Validate entered item number in Item Entry panel
+
+    -Fix the CSS for the Scanned Item List
+        -position chart on the screen
+        -relative sizes of the columns
+        -Make the Scanned Item List scrollable
+
+    
+
+
+
+//////////////
+
 24 Sep 2022
 
     -Explore what I need to do to use heredity in CSS.  Max 1 hour, option to continue if I feel like I am close to the answer.
@@ -256,6 +271,16 @@
             -Test 2:  Check the form examples, look for deviations, address them.
 
                 Well.  I solved it?  I changed the submission to happen from the form, I added a local function with event.preventDefault() and I had that function call the AddItemHandler function from Returns, and now it's working flawlessly.  I do not know why.
+
+25 Oct 2022:
+
+    -Goal for today is to try and get the Product Detail component working.
+        -Render the component in the list, populated by a prop.
+        
+26 Oct 2022:
+
+    -Working on the CSS for the product component.
+    
 
 
 
