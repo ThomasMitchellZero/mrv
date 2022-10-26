@@ -72,6 +72,7 @@ const Returns = () => {
           idGenerator: idGenerator,
           handleDelete: handleDelete,
           handleAddItem: handleAddItem,
+          productContextMatcher:productContextMatcher,
         }}
       />
     </main>

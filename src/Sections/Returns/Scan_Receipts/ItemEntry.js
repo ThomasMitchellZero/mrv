@@ -10,10 +10,12 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 const ItemEntry = (props) => {
   const scanReceiptsContext = useOutletContext();
 
+  
   // state and handlers to track the user inputs
   const [formState, setFormState] = useState({
     formItemNum: "",
     formQuantity: "",
+    formItemValid: false,
     formFilled: false,
   });
 
@@ -30,9 +32,26 @@ const ItemEntry = (props) => {
   // triggers formFillChecker whenever either input field changes.
   useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity]);
 
+  /*
+
+    const itemValidChecker = ()=>{
+    const validity = scanReceiptsContext.productContextMatcher(formState.formItemNum)
+    if(validity){
+
+    }
+  }
+  
+  */
+
   const itemNumChangeHandler = (event) => {
+    const input = event.target.value;
+
+    const validity = scanReceiptsContext.productContextMatcher(input)
+      ? true
+      : false;
+
     setFormState((prevState) => {
-      return { ...prevState, formItemNum: event.target.value };
+      return { ...prevState, formItemNum: input, formItemValid: validity };
     });
   };
 
@@ -48,7 +67,6 @@ const ItemEntry = (props) => {
 
     setFormState({ formQuantity: "", formItemNum: "" });
   };
-
 
   // buttons for the input form
   const activeButton = (
