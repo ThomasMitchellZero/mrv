@@ -10,7 +10,6 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 const ItemEntry = (props) => {
   const scanReceiptsContext = useOutletContext();
 
-  
   // state and handlers to track the user inputs
   const [formState, setFormState] = useState({
     formItemNum: "",
@@ -20,9 +19,12 @@ const ItemEntry = (props) => {
   });
 
   // updates the formFilled property after checking that both inputs are filled
+  // could this be cleaner as useReducer?
   const formFillChecker = () => {
     const isFilled =
-      formState.formItemNum !== "" && formState.formQuantity !== "";
+      formState.formItemNum !== "" &&
+      formState.formQuantity !== "" &&
+      formState.formItemValid;
 
     setFormState((prevState) => {
       return { ...prevState, formFilled: isFilled };
@@ -30,18 +32,8 @@ const ItemEntry = (props) => {
   };
 
   // triggers formFillChecker whenever either input field changes.
-  useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity]);
+  useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity, formState.formItemValid]);
 
-  /*
-
-    const itemValidChecker = ()=>{
-    const validity = scanReceiptsContext.productContextMatcher(formState.formItemNum)
-    if(validity){
-
-    }
-  }
-  
-  */
 
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
