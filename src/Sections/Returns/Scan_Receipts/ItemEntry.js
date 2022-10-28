@@ -96,7 +96,7 @@ const ItemEntry = (props) => {
             onChange={itemNumChangeHandler}
             value={formState.formItemNum}
           />
-          <p className={`warning_text`}>Placeholder</p>
+          <p className={`warning_text`}>{(formState.formItemValid?"":"Enter Valid Item Number")}</p>
         </div>
 
         <div className={classes.subcontainer}>
