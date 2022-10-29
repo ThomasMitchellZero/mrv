@@ -7,17 +7,14 @@ import toilet_img from "../../assets/product-images/toilet.png";
 const returnsReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-      console.log(action.payload)
-      console.log(state)
       const newItemList = [...state.items, action.payload];
-      console.log([newItemList])
       return { ...state, items: newItemList };
     case "REMOVE_ITEM":
       return {...state, items: action.payload };
     case "CLEAR_SESSION":
       return { items: [], invoices: [] };
     default:
-      return state;
+      throw new Error(`Unknown action type: ${action.type}`)
   }
 };
 
