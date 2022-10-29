@@ -56,10 +56,9 @@ const Returns = () => {
     const clickedID = event.currentTarget.id;
 
     const newCart = cart.filter((entry) => {
-      return entry.scanID.toString() !== clickedID;
+      return entry.scanDetails.scanID.toString() !== clickedID;
     });
 
-    console.log(newCart);
     editCart(newCart);
   };
 
