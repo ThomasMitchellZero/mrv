@@ -39,9 +39,9 @@ const Returns = () => {
   // combines the scan data and the data from the corresponding product, then updates the cart state.
   const handleAddItem = (itemObj) => {
     const newItem = {
-      productData: productContextMatcher(itemObj.formItemNum),
+      productData: productContextMatcher(itemObj.itemNum),
       scanDetails: {
-        quantity: itemObj.formQuantity,
+        quantity: itemObj.quantity,
         scanID: idGenerator(),
       },
     };

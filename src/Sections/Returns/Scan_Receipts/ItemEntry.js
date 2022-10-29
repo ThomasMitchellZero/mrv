@@ -1,39 +1,44 @@
 import classes from "./ItemEntry.module.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
+const formReducer = (state, action) => {
+  switch (action.type) {
+    case "ITEM_NUM":
+      return {
+        ...state,
+        itemNum: action.payload.input,
+        itemValid: action.payload.validity,
+      };
+    case "QUANTITY":
+      return { ...state, quantity: action.payload };
+    case "VALIDATE_FORM":
+      let validity = state.quantity && state.itemValid ? true : false;
+      console.log(validity)
+      return { ...state, formValid:(validity) };
+    case "CLEAR_FORM":
+      return { itemNum: "", quantity: "", itemValid: false, formValid: false };
+    default:
+      return state;
+  }
+};
+
 // props inherited from the parent, since this is an Outlet.
+
 const ItemEntry = (props) => {
+  // props inherited from the parent, since this is an Outlet.
   const scanReceiptsContext = useOutletContext();
 
-  // state and handlers to track the user inputs
-  const [formState, setFormState] = useState({
-    formItemNum: "",
-    formQuantity: "",
-    formItemValid: false,
-    formFilled: false,
+  const [formState, dispatchForm] = useReducer(formReducer, {
+    itemNum: "",
+    quantity: "",
+    itemValid: false,
+    formValid: false,
   });
-
-  // updates the formFilled property after checking that both inputs are filled
-  // could this be cleaner as useReducer?
-  const formFillChecker = () => {
-    const isFilled =
-      formState.formItemNum !== "" &&
-      formState.formQuantity !== "" &&
-      formState.formItemValid;
-
-    setFormState((prevState) => {
-      return { ...prevState, formFilled: isFilled };
-    });
-  };
-
-  // triggers formFillChecker whenever either input field changes.
-  useEffect(formFillChecker, [formState.formItemNum, formState.formQuantity, formState.formItemValid]);
-
 
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
@@ -42,23 +47,31 @@ const ItemEntry = (props) => {
       ? true
       : false;
 
-    setFormState((prevState) => {
-      return { ...prevState, formItemNum: input, formItemValid: validity };
+    dispatchForm({
+      type: "ITEM_NUM",
+      payload: { input: input, validity: validity },
     });
+    dispatchForm({type:"VALIDATE_FORM"})
   };
 
   const quantityChangeHandler = (event) => {
-    setFormState((prevState) => {
-      return { ...prevState, formQuantity: event.target.value };
+    dispatchForm({
+      type: "QUANTITY",
+      payload: event.target.value,
     });
+    dispatchForm({type:"VALIDATE_FORM"})
   };
+  
 
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log(formState)
     scanReceiptsContext.handleAddItem(formState);
 
-    setFormState({ formQuantity: "", formItemNum: "" });
+    dispatchForm("CLEAR_FORM");
   };
+
+
 
   // buttons for the input form
   const activeButton = (
@@ -94,9 +107,11 @@ const ItemEntry = (props) => {
             placeholder="Item #, UPC#, or Speed Code"
             className={`base_input ${classes.itemsearch}`}
             onChange={itemNumChangeHandler}
-            value={formState.formItemNum}
+            value={formState.itemNum}
           />
-          <p className={`warning_text`}>{(formState.formItemValid?"":"Enter Valid Item Number")}</p>
+          <p className={`warning_text`}>
+            {formState.itemValid ? "" : "Enter Valid Item Number"}
+          </p>
         </div>
 
         <div className={classes.subcontainer}>
@@ -106,13 +121,13 @@ const ItemEntry = (props) => {
             id="item_quantity"
             className={`base_input ${classes.itemquantity}`}
             onChange={quantityChangeHandler}
-            value={formState.formQuantity}
+            value={formState.quantity}
           />
         </div>
       </section>
 
       <FooterContainer>
-        {formState.formFilled ? activeButton : inactiveButton}
+        {formState.formValid ? activeButton : inactiveButton}
       </FooterContainer>
     </form>
   );
@@ -121,13 +136,5 @@ const ItemEntry = (props) => {
 export default ItemEntry;
 
 /*
-
-        <button
-          form={props.id}
-          type="submit"
-          className={`baseButton primary large ${classes.button}`}
-        >
-          Add Item
-        </button>
 
 */

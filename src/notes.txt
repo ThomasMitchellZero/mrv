@@ -294,6 +294,18 @@ Big list of things I need to do:
                 
                 -I think no matter what, I need to check as the text is being entered, and so I need a state to track that.
 
+27 Oct 2022
+    -This might be stupid, but I'm trying to re-arrange my input form to use a reducer instead of a state.  I don't actually know why except that reducers are supposedly better for complex states.
+
+28 Oct 2022
+    -I got stuck last night, and I think I understand the reason why.  I can make Item Entry work just fine with a reducer.  My problem is that I don't understand why I should be using the reducer instead of a state.  I really can't see any advantages.  It just looks like a different syntax for accomplishing the same thing.
+
+        -I think the very first task of the day should be to get it running again with the Reducer.  After that I can decide how much time to spend on learning.
+
+
+
+
+
 
 
 
