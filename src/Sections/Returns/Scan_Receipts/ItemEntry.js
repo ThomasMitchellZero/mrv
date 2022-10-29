@@ -64,7 +64,6 @@ const ItemEntry = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    console.log(formState)
     scanReceiptsContext.handleAddItem(formState);
 
     dispatchForm("CLEAR_FORM");

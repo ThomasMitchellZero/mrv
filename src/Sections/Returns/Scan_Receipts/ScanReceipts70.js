@@ -40,7 +40,7 @@ const ScanReciepts70 = () => {
         <Table
           tableHeadingArray={itemTableHeadings}
           rowFunction={itemListTableRower}
-          tableBodyArray={returnsContext.cart}
+          tableBodyArray={returnsContext.session.items}
         ></Table>
       </div>
       <Footer></Footer>
