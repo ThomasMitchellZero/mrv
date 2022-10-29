@@ -6,15 +6,22 @@ import toilet_img from "../../assets/product-images/toilet.png";
 
 const returnsReducer = (state, action) => {
   switch (action.type) {
+
     case "ADD_ITEM":
       const newItemList = [...state.items, action.payload];
       return { ...state, items: newItemList };
+
     case "REMOVE_ITEM":
-      return {...state, items: action.payload };
+      const newItemsList = state.items.filter((entry) => {
+        return entry.scanDetails.scanID.toString() !== action.payload;
+      });
+      return { ...state, items: newItemsList };
+
     case "CLEAR_SESSION":
       return { items: [], invoices: [] };
+
     default:
-      throw new Error(`Unknown action type: ${action.type}`)
+      throw new Error(`Unknown action type: ${action.type}`);
   }
 };
 
@@ -66,14 +73,9 @@ const Returns = () => {
   };
 
   const handleRemoveItem = (event) => {
-    // should the id-getter be at a lower level?  It might not be universal?
+
     const clickedID = event.currentTarget.id;
-
-    const newItems = session.items.filter((entry) => {
-      return entry.scanDetails.scanID.toString() !== clickedID;
-    });
-
-    dispatchSession({ type: "REMOVE_ITEM", payload: newItems });
+    dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
   };
 
   return (
