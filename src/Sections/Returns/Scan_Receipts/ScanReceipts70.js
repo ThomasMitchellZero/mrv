@@ -17,7 +17,7 @@ const ScanReciepts70 = () => {
     { id: "Trash", active: false, descending: true, flexing: "auto" },
   ];
 
-  //     { productCode: 300, quantity: 3, scanID: 333333 },
+  //        scanDetails: {quantity: "1", scanID: 511415}
 
   const itemListTableRower = (line) => {
     return (
@@ -25,7 +25,7 @@ const ScanReciepts70 = () => {
         <td><ReturnsProductDetail productData={line.productData}/></td>
         <td>{line.scanDetails.quantity}</td>
         <td>
-          <button id={line.scanID} onClick={returnsContext.handleDelete}>
+          <button id={line.scanDetails.scanID} onClick={returnsContext.handleDelete}>
             X
           </button>
         </td>

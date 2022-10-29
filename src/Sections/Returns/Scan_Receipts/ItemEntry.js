@@ -1,6 +1,6 @@
 import classes from "./ItemEntry.module.css";
 
-import { useState, useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import TitleBar from "../../../components/UI/TitleBar";
@@ -18,7 +18,6 @@ const formReducer = (state, action) => {
       return { ...state, quantity: action.payload };
     case "VALIDATE_FORM":
       let validity = state.quantity && state.itemValid ? true : false;
-      console.log(validity)
       return { ...state, formValid:(validity) };
     case "CLEAR_FORM":
       return { itemNum: "", quantity: "", itemValid: false, formValid: false };
@@ -110,7 +109,7 @@ const ItemEntry = (props) => {
             value={formState.itemNum}
           />
           <p className={`warning_text`}>
-            {formState.itemValid ? "" : "Enter Valid Item Number"}
+            {formState.itemValid ? " " : "Enter Valid Item Number"}
           </p>
         </div>
 
