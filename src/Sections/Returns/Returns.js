@@ -13,7 +13,7 @@ const returnsReducer = (state, action) => {
       console.log([newItemList])
       return { ...state, items: newItemList };
     case "REMOVE_ITEM":
-      return { ...state };
+      return {...state, items: action.payload };
     case "CLEAR_SESSION":
       return { items: [], invoices: [] };
     default:

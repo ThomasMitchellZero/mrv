@@ -66,7 +66,7 @@ const ItemEntry = (props) => {
     event.preventDefault();
     scanReceiptsContext.handleAddItem(formState);
 
-    dispatchForm("CLEAR_FORM");
+    dispatchForm({type:"CLEAR_FORM"});
   };
 
 
