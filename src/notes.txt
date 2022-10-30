@@ -301,7 +301,83 @@ Big list of things I need to do:
     -I got stuck last night, and I think I understand the reason why.  I can make Item Entry work just fine with a reducer.  My problem is that I don't understand why I should be using the reducer instead of a state.  I really can't see any advantages.  It just looks like a different syntax for accomplishing the same thing.
 
         -I think the very first task of the day should be to get it running again with the Reducer.  After that I can decide how much time to spend on learning.
+    1:00
+    -Time's kind of getting away from me here.  I just really have not had great luck with Maddie the last few sessions, although I haven't been super great about following procedure, either.
 
+        -I need to choose here:
+
+            1. I could change Returns to use a reducer instead of a state.  
+                + If I'm not changing the logic, this -shoudn't- take too much time.
+                + Once I figure out the value of Reducer, this is the thing I'm most likely to need to change at the cost of significant re-work.
+                
+                -The application is working fine right now.  This is more non-progress.
+
+            2. Experiments and reading to find out the purpose of UseReducer().
+
+                + Biggest potential payoff in terms of new understanding.  Right now I don't know why Reducer is better and so I can't design in a way that takes advantage.
+                
+                - Not immediately needed for anything.
+
+                - Success and progress are ill-defined so not satisfying. Most likely to result in a completely wasted day.
+
+            3. Fix the appearance of the table and its list items.
+                + This is the one thing on the list that I KNOW has to be done.
+                + It's satisfying and could help get me into the groove.
+
+                - Is likely to need rework if I ever do Item 1.  
+
+        -I think the compromise is to do Item 1, but restrict it to JUST replicating what I'm doing with useState.  No exceptions.  I'm going to make that change, then decide if there's anything I want to modify.  Setting a 45 minute timer to help focus me.
+
+            -One deviation.  I'm going to put all the items in an Items object because eventually I will need to keep track of at least a Receipts object too.  Since I can't imagine not needing this, it's a time-saver to do it now.
+    
+    3:30:
+        -Well, that took way too long, but finally got the Returns state working through Reducer.  
+
+            -The next, obvious question is if I can move more of the state-change logic into the Reducer.
+                -It's working, so I don't know if that's the best use of my time.
+                -I don't know what the best practices are, so I'm not even sure it's a good use of my time.  
+
+            -I'm gonna take a SHORT break, then devote 20 minutes to Googling to see what I can find on best practices.  If nothing's clear, I'll move on to more visible work.
+
+            -OK.  From the examples I've seen, the Reducer function TENDS to be pretty simple - 
+
+            -The plot thickens.  It is true that I am not using Redux, but IIRC most of the useReducer() approach was developed from Redux.  Redux recommends that as much logic as possible be placed into the Reducer.  
+
+                -This was just a comment from StackOverflow, but it made so much sense to me.  Paraphrasing:  determine whether or not to dispatch in the action creator, but do all other logic in the reducer.
+
+            -Is it stupid to refactor the Returns logic into the Reducer?  Probably.  Am I going to do it anyway?  Also probably.
+
+                -Well, that was completely painless.  Took one try and ten minutes.  :/
+        
+    Going to do some work on the styling next.  
+
+        -A little sidetracked again.  I found a way to make the scrolling happen but it had a really weird effect where it was making the whole table grow outside the bounds of the flex box.
+
+            -I am actually wondering if it's not happening at the level of the <tr>
+
+30 Dec 2022
+    OK, gotta get in and beat this boss.
+
+        Approaches:
+
+            -The CSS for the table is all over the place.  Who coded this shit?
+            I need to decide if I am going to have global CSS for the table, or if I am going to keep it with the component?
+
+                -I don't know of any other tables I plan to make, but I could be wrong.  If I do make another table, I could always override that with local CSS, but that's kind of inelegant.  I like the idea of having one style per chart, so I think that's what I'm going to do.
+
+            -I THINK it's some part of the table, and specifically its size, that is causing the overflow.  Everything was fine until the table got big.
+
+            -So first move is going to be refactoring the table's style.  
+
+    OK.  Why am I stuck?
+    
+        -First problem was that the table's height was behaving unpredictably.  
+
+        -Second problem is that the horizontal layout appears to be behaving strangely and I don't know why.
+
+        -Now I am wondering if I should even be using tables at all.  
+
+        -
 
 
 
