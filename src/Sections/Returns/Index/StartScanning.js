@@ -5,10 +5,13 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 
 const StartScanning = () => {
   return (
-    <main className={`seventy_panel ${classes.container}`}>
-
+    <main className={`${classes.container}`}>
       <section>
-        <ScanGraphic graphic="Universal" mainText="Start Scanning" subText="You may scan or enter multiple receipts or items"></ScanGraphic>
+        <ScanGraphic
+          graphic="Universal"
+          mainText="Start Scanning"
+          subText="You may scan or enter multiple receipts or items"
+        ></ScanGraphic>
       </section>
       <FooterContainer></FooterContainer>
     </main>

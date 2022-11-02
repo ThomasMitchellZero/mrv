@@ -22,7 +22,7 @@ const ReturnsActions30 = (props) => {
   const navigate = useNavigate()
 
   return (
-    <div className={`thirty_panel ${classes.scan_receipts_30}`}>
+    <div className={`${classes.container}`}>
       <TitleBar>Actions</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
@@ -65,10 +65,6 @@ const ReturnsActions30 = (props) => {
 export default ReturnsActions30;
 
 /* 
-
-              <Route index element={<ScanReceipts30 />}></Route>
-              <Route path="main" element={<ScanReceipts30 />}></Route>
-              <Route path="exchange" element={<ExchangeNav30 />}></Route>
 
 
 */
