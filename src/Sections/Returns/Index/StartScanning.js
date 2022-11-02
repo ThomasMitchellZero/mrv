@@ -2,7 +2,6 @@ import classes from "./StartScanning.module.css";
 
 import ScanGraphic from "./ScanGraphic/ScanGraphic";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import TitleBar from "../../../components/UI/TitleBar";
 
 const StartScanning = () => {
   return (

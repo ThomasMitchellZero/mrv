@@ -5,6 +5,8 @@ import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
 import VerticalNavButton from "../../components/UI/VerticalNavButton";
 import FooterContainer from "../../components/UI/FooterContainer";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   ReceiptLineIcon,
   AddCartLineIcon,
@@ -16,11 +18,15 @@ import {
 } from "../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const ReturnsActions30 = (props) => {
+
+  const navigate = useNavigate()
+
   return (
     <div className={`thirty_panel ${classes.scan_receipts_30}`}>
       <TitleBar>Actions</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
+          onClick={()=> navigate("..")}
           label="Receipt Entry"
           mainIcon={<ReceiptLineIcon className={classes.mainicon} />}
         />

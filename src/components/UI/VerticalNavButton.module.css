@@ -9,6 +9,8 @@
     box-sizing: border-box;
     text-decoration: none;
     color: #333;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .icon2{
