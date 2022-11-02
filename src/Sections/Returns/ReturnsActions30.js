@@ -1,9 +1,9 @@
 import classes from "./ReturnsActions30.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
-import VerticalNavMenu from "../../../components/UI/VerticalNavMenu";
-import VerticalNavButton from "../../../components/UI/VerticalNavButton";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import TitleBar from "../../components/UI/TitleBar";
+import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
+import VerticalNavButton from "../../components/UI/VerticalNavButton";
+import FooterContainer from "../../components/UI/FooterContainer";
 
 import {
   ReceiptLineIcon,
@@ -13,7 +13,7 @@ import {
   CloseLineIcon,
   ExchangeLineIcon,
   SlashCartLineIcon,
-} from "../../../assets/lowes-icons/Line-Icons/LineIcons";
+} from "../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const ReturnsActions30 = (props) => {
   return (

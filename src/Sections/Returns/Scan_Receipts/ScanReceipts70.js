@@ -39,9 +39,7 @@ const ScanReciepts70 = () => {
     <div className={`seventy_panel ${classes.container}`}>
       <TitleBar lefticon="close">Scan Receipts</TitleBar>
       <div className={classes.main_content}>
-        <ScanItems>
-          
-        </ScanItems>
+        <ScanReciepts70></ScanReciepts70>
       </div>
       <Footer></Footer>
     </div>
