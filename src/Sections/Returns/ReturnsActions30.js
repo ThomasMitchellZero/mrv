@@ -22,7 +22,7 @@ const ReturnsActions30 = (props) => {
   const navigate = useNavigate()
 
   return (
-    <div className={`${classes.container}`}>
+    <section className={`${classes.container}`}>
       <TitleBar>Actions</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
@@ -58,7 +58,7 @@ const ReturnsActions30 = (props) => {
         />
       </VerticalNavMenu>
       <FooterContainer></FooterContainer>
-    </div>
+    </section>
   );
 };
 

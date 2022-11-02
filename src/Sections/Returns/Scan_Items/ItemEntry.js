@@ -1,7 +1,6 @@
 import classes from "./ItemEntry.module.css";
 
 import { useReducer } from "react";
-import { useOutletContext } from "react-router-dom";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
@@ -30,7 +29,7 @@ const formReducer = (state, action) => {
 
 const ItemEntry = (props) => {
   // props inherited from the parent, since this is an Outlet.
-  const scanReceiptsContext = useOutletContext();
+  const returnsContext = props.returnsContext
 
   const [formState, dispatchForm] = useReducer(formReducer, {
     itemNum: "",
@@ -42,7 +41,7 @@ const ItemEntry = (props) => {
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
 
-    const validity = scanReceiptsContext.productContextMatcher(input)
+    const validity = returnsContext.productContextMatcher(input)
       ? true
       : false;
 
@@ -64,7 +63,7 @@ const ItemEntry = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    scanReceiptsContext.handleAddItem(formState);
+    returnsContext.handleAddItem(formState);
 
     dispatchForm({type:"CLEAR_FORM"});
   };
@@ -93,7 +92,7 @@ const ItemEntry = (props) => {
   );
 
   return (
-    <form id={props.id} className={`thirty_panel`} onSubmit={submitHandler}>
+    <form id={props.id} className={classes.container} onSubmit={submitHandler}>
       <TitleBar lefticon="back" lefturl="..">
         Item Entry
       </TitleBar>
