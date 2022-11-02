@@ -8,6 +8,8 @@ import ScanGraphic from "./ScanGraphic/ScanGraphic";
 import Table from "../../../components/UI/Table";
 import ReturnsProductDetail from "./ReturnsProductDetails";
 
+import ScanItems from "../Scan_Items/ScanItems";
+
 const ScanReciepts70 = () => {
   const returnsContext = useOutletContext();
 
@@ -37,11 +39,9 @@ const ScanReciepts70 = () => {
     <div className={`seventy_panel ${classes.container}`}>
       <TitleBar lefticon="close">Scan Receipts</TitleBar>
       <div className={classes.main_content}>
-        <Table
-          tableHeadingArray={itemTableHeadings}
-          rowFunction={itemListTableRower}
-          tableBodyArray={returnsContext.session.items}
-        ></Table>
+        <ScanItems>
+          
+        </ScanItems>
       </div>
       <Footer></Footer>
     </div>
@@ -51,11 +51,6 @@ const ScanReciepts70 = () => {
 export default ScanReciepts70;
 
 /*
-
-        <ScanGraphic
-          graphic="Universal"
-          mainText="Start Scanning"
-          subText="You may scan or enter multiple receipts or items"></ScanGraphic>
 
 
 */

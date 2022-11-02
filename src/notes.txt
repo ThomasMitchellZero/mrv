@@ -355,7 +355,7 @@ Big list of things I need to do:
 
             -I am actually wondering if it's not happening at the level of the <tr>
 
-30 Dec 2022
+30 Oct 2022
     OK, gotta get in and beat this boss.
 
         Approaches:
@@ -377,18 +377,70 @@ Big list of things I need to do:
 
         -Now I am wondering if I should even be using tables at all.  
 
-        -
+        -I've rolled back all changes so I can think clearly about this.
+
+            -ReactTable might be better.  It seems to be very well liked.  I don't know what the benefits are, but if I keep working on the stock table I might find myself stuck.
+
+            -IF my normal table can:
+
+                -fit within the confines of the page
+                -scroll
+                -let me set columns, or at least respond to different content sizes
+
+            Then the stock table is fine.  
+
+        -I think I am going to try with react-table.  My main reason is that it has a sorting feature, which would be nice not to have to build.
+
+        https://react-table-v7.tanstack.com/docs/quick-start
+
+
+1 Nov 2022
+
+    -I got the react-table working from the example.  However, at least right now it looks pretty overwhelming to me.  Like, there's a lot of stuff in the code that I just don't understand what it is or why it is there.
+
+        -Let's just dig in a little bit here.  I would hate to give up so close to the end.
+
+            -First.  That scary object at the start was just object de-structuring.  I added in an additional variable that I got from the TableInstance object and it printed as expected.
+
+            -Second.  You can populate from a nested object.  I tried it with the sample data and it worked as expected: "parent.child"  so that isn't my problem.
+
+    -My main concern is that I am depending on something I didn't build and don't understand, so if I get stuck I don't have a great way of fixing it.
+
+2 Nov 2022
+
+    -I finally got use-table working. Right now, I don't see it.  It literally looks exactly like what I had before.  The main draw feature is that it is supposedly easy to sort the columns, but I'm not planning to do that any time soon.  
+    
+    -If I come back to this, the keys I need to remember are that memoizing the data arrays and the names of the props/object thingy(?) passed to the useTable() function turned out to be very important.
+
+    const tableInstance = useTable({ columns, data });
+
+    I think I'm just going to roll with the stock table and try to figure out why it wasn't working.  
+
+        -Was this a mistake?  I think so.  The best defense I can make is that this package appears to be more capable and if I could have made it work with little effort, it might have been worth it.
+
+        -The best criticism I can make is that even from the start, I didn't see a way that this would solve my immediate problem: scrolling and LIs not fitting on screen.  As soon as it became apparent that this was going to be a lot of extra complexity, I should have abandoned it.
+
+        I need  to be very suspicious of the 'IDK, I just want to' feeling.
+
+    -So, on to the table.
+
+        -I don't understand why my table was such a disaster, and there are so many interactions that I think I'll have trouble finding the problem.  I think the right move is to start with the 70 panel, and build the chart up from scratch.
+
+    -Before I get into that, I think I need to make an architecture decision or else I'll need to do more fiddling.
+
+        I want the /returns URL to be an entry point.  The 70 and 30 panels should be handled by conditional rendering.  From /retuns you can navigate to deeper URLs, but until you choose a path the page should just be conditional rendering.
+
+            -The first thing I will need to change is that I need the 30 panel to be able to do conditional rendering.
+            
+                -To do that, I will need to track the active state.  Maybe with a reducer?
+
+                -If they don't already do this, I need the button component to accept different onClick() functions.  Sometimes it's going to be a state+conditional render change, other times it will be a URL change.
 
 
 
 
 
-
-
-
-
-
-
+    
             
 
 
