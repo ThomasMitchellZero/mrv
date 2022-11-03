@@ -26,23 +26,7 @@ const sessionReducer = (state, action) => {
   }
 };
 
-// controls the active 30-panel
-const active30Reducer = (state, action) => {
-  switch (action.type) {
-    case "Default":
-      return{}
-    default:
-      throw new Error(`There is no 30 panel called  type: ${action.type}`);
-  }
-};
 
-// controls the active 70-panel
-const active70Reducer = (state, action) => {
-  switch (action.type) {
-    default:
-      throw new Error(`There is no 70 panel called  type: ${action.type}`);
-  }
-};
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
@@ -98,9 +82,6 @@ const Returns = () => {
     dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
   };
 
-  //Functions for managing active 30 panel
-
-  //Functions for managing active 70 panel
 
   return (
     <main className={classes.container}>

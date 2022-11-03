@@ -1,6 +1,6 @@
-import classes from "./ItemEntry.module.css";
+import classes from "./ItemEntry30.module.css";
 
-import { useReducer } from "react";
+import { useReducer, } from "react";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";

@@ -1,4 +1,4 @@
-import classes from "./ReturnsActions30.module.css";
+import classes from "./Actions30.module.css";
 
 import TitleBar from "../../components/UI/TitleBar";
 import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
@@ -17,7 +17,7 @@ import {
   SlashCartLineIcon,
 } from "../../assets/lowes-icons/Line-Icons/LineIcons";
 
-const ReturnsActions30 = (props) => {
+const Actions30 = (props) => {
 
   const navigate = useNavigate()
 
@@ -62,7 +62,7 @@ const ReturnsActions30 = (props) => {
   );
 };
 
-export default ReturnsActions30;
+export default Actions30;
 
 /* 
 

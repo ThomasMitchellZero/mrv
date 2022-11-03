@@ -1,4 +1,4 @@
-import classes from "./StartScanning.module.css";
+import classes from "./StartScanning70.module.css";
 
 import ScanGraphic from "./ScanGraphic/ScanGraphic";
 import FooterContainer from "../../../components/UI/FooterContainer";

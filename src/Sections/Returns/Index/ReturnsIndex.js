@@ -1,28 +1,49 @@
 import classes from "./ReturnsIndex.module.css";
 
 // 30 panel components
-import ReturnsActions30 from "../ReturnsActions30";
-import ItemEntry from "../Scan_Items/ItemEntry";
+import Actions30 from "../Actions30";
+import ItemEntry from "../Add_Items/ItemEntry30";
+import InvoiceEntry from "../Add_Invoices/InvoiceEntry30";
 
 
-import StartScanning from "./StartScanning";
+import StartScanning from "./StartScanning70";
 
-import { useReducer,  } from "react";
+import { useReducer, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
-// controls the active 30-panel
-const active30Reducer = (state, action) => {
-  switch (action.type) {
-    case "Default":
-      return{}
-    default:
-      throw new Error(`There is no 30 panel called  type: ${action.type}`);
-  }
+
+const startingState = {
+  state30: <Actions30 />,
+  state70: <StartScanning />,
 };
 
-// controls the active 70-panel
-const active70Reducer = (state, action) => {
+const panelsReducer = (state, action) => {
   switch (action.type) {
+
+    // 30 panel actions
+
+    case "Actions": {
+      return { ...state, state30: <Actions30 /> };
+    }
+
+    case "Item_Entry": {
+      return { ...state, state30: <ItemEntry /> };
+    }
+
+    case "Invoice_Entry": {
+
+      return { ...state, state30: <InvoiceEntry/> };
+    }
+
+    // 70 Panel Actions
+
+
+    // 70 + 30 Panel Actions
+
+    case "Start":{
+      return { ...state, state30: <InvoiceEntry/>, state70: <StartScanning /> };
+    }
+
     default:
       throw new Error(`There is no 70 panel called  type: ${action.type}`);
   }
@@ -32,13 +53,23 @@ const ReturnsIndex = (props) => {
 
   const returnsContext = useOutletContext();
 
+  const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, startingState);
+
+  // I could create an object of all possible panel components with key names matched to names
+
+  // panelState.30panel[keyname]
+
+  const thirty_panels ={
+    actions: <Actions30 panelsReducer={panelsReducer}/>
+  }
+
   return (
     <main className={classes.container}>
       <section className={`seventy_panel ${classes.session_info}`}>
-        <StartScanning />
+        {activePanels.state70}
       </section>
       <section className={`thirty_panel ${classes.action_menu}`}>
-        <ItemEntry returnsContext={returnsContext}/>
+        {activePanels.state30}
       </section>
     </main>
   );
