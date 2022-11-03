@@ -26,6 +26,8 @@ const panelsReducer = (state, action) => {
 const ReturnsIndex = (props) => {
   const returnsContext = useOutletContext();
 
+  
+
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "start_scanning",

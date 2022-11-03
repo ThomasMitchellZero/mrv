@@ -436,7 +436,20 @@ Big list of things I need to do:
 
                 -If they don't already do this, I need the button component to accept different onClick() functions.  Sometimes it's going to be a state+conditional render change, other times it will be a URL change.
 
+                -OK, I got it.  Figured out how to do navigation via a function.  This was the site that solved it for me:
 
+                https://www.kindacode.com/article/programmatically-navigate-using-react-router/
+
+3 Nov, 2022
+
+    -Next little question: should I control the Returns Index 70 and 30 panels with one or two reducers?  
+        - as far as I know, they are completely independent, so there's no reason to pair them.  
+
+        - It's not that much harder to make it all one reducer, and if I'm wrong I could see just wanting one.
+
+    -The question now is: do I have a skinny Reducer and let the lower-level components set the state via payload, or do I try to get as much of that logic in the Reducer as possible?
+        -I feel like the answer is the skinny reducer.  I think that gives me maximum flexibility to determine what is getting rendered.  
+            
 
 
 
