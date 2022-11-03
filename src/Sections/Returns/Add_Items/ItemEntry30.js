@@ -30,6 +30,7 @@ const formReducer = (state, action) => {
 const ItemEntry30 = (props) => {
   // props inherited from the parent, since this is an Outlet.
   const returnsContext = props.returnsContext
+  console.log(returnsContext)
 
   const [formState, dispatchForm] = useReducer(formReducer, {
     itemNum: "",

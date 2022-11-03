@@ -10,56 +10,47 @@ import StartScanning from "./StartScanning70";
 import { useReducer, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 
-
 const panelsReducer = (state, action) => {
   switch (action.type) {
-    // 30 panel actions
-
-    case "Actions": {
-      return { ...state, state30: "actions" };
-    }
-
-    case "Item_Entry": {
-      return { ...state, state30: <ItemEntry30 /> };
-    }
-
-    case "Invoice_Entry": {
-      return { ...state, state30: <InvoiceEntry30 /> };
-    }
-
-    // 70 Panel Actions
-
-    // 70 + 30 Panel Actions
-
-    case "Start": {
-      return {
-      };
+    case "setPanels": {
+      const new30 = action.payload.set30 ? action.payload.set30 : state.state30;
+      const new70 = action.payload.set70 ? action.payload.set70 : state.state70;
+      return { ...state, state30: new30, state70: new70 };
     }
 
     default:
-      throw new Error(`There is no 70 panel called  type: ${action.type}`);
+      throw new Error(`There is no panel called  type: ${action.type}`);
   }
 };
 
 const ReturnsIndex = (props) => {
   const returnsContext = useOutletContext();
 
-  const [activePanels, dispatchActivePanels] = useReducer(
-    panelsReducer,
-    {
-      state30: "actions",
-      state70: "start_scanning",
-    }
-  );
+  const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
+    state30: "actions",
+    state70: "start_scanning",
+  });
 
   const thirty_panels = {
-    actions: <Actions30 panelsReducer={dispatchActivePanels} />,
-    item_entry: <ItemEntry30 panelsReducer={dispatchActivePanels} />,
-    invoice_entry: <ItemEntry30 panelsReducer={dispatchActivePanels} />,
+    actions: <Actions30 dispatchActivePanels={dispatchActivePanels} />,
+    item_entry: (
+      <ItemEntry30
+        dispatchActivePanels={dispatchActivePanels}
+        returnsContext={returnsContext}
+      />
+    ),
+    invoice_entry: (
+      <InvoiceEntry30
+        dispatchActivePanels={dispatchActivePanels}
+        returnsContext={returnsContext}
+      />
+    ),
   };
 
   const seventy_panels = {
-    start_scanning: <StartScanning panelsReducer={dispatchActivePanels} />,
+    start_scanning: (
+      <StartScanning dispatchActivePanelsr={dispatchActivePanels} />
+    ),
   };
 
   return (

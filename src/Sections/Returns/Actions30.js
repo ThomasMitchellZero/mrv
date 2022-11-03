@@ -18,21 +18,33 @@ import {
 } from "../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const Actions30 = (props) => {
+  // panel dispatcher from ReturnsIndex
+  const dispatchActivePanels = props.dispatchActivePanels;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <section className={`${classes.container}`}>
       <TitleBar>Actions</TitleBar>
       <VerticalNavMenu>
         <VerticalNavButton
-          onClick={()=> navigate("..")}
+          onClick={() =>
+            dispatchActivePanels({
+              type: "setPanels",
+              payload: { set30: "invoice_entry" },
+            })
+          }
           label="Receipt Entry"
           mainIcon={<ReceiptLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
           label="Item Entry"
-          to="item_entry"
+          onClick={() =>
+            dispatchActivePanels({
+              type: "setPanels",
+              payload: { set30: "item_entry" },
+            })
+          }
           mainIcon={<AddCartLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
@@ -54,6 +66,7 @@ const Actions30 = (props) => {
         />
         <VerticalNavButton
           label="Empty Cart"
+          onClick={() => navigate("..")}
           mainIcon={<SlashCartLineIcon className={classes.mainicon} />}
         />
       </VerticalNavMenu>
