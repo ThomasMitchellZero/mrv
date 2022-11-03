@@ -1,6 +1,6 @@
 import classes from "./ItemEntry30.module.css";
 
-import { useReducer, } from "react";
+import { useReducer } from "react";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
@@ -17,7 +17,7 @@ const formReducer = (state, action) => {
       return { ...state, quantity: action.payload };
     case "VALIDATE_FORM":
       let validity = state.quantity && state.itemValid ? true : false;
-      return { ...state, formValid:(validity) };
+      return { ...state, formValid: validity };
     case "CLEAR_FORM":
       return { itemNum: "", quantity: "", itemValid: false, formValid: false };
     default:
@@ -29,8 +29,9 @@ const formReducer = (state, action) => {
 
 const ItemEntry30 = (props) => {
   // props inherited from the parent, since this is an Outlet.
-  const returnsContext = props.returnsContext
-  console.log(returnsContext)
+  const returnsContext = props.returnsContext;
+
+  const dispatchActivePanels = props.dispatchActivePanels;
 
   const [formState, dispatchForm] = useReducer(formReducer, {
     itemNum: "",
@@ -42,15 +43,13 @@ const ItemEntry30 = (props) => {
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
 
-    const validity = returnsContext.productContextMatcher(input)
-      ? true
-      : false;
+    const validity = returnsContext.productContextMatcher(input) ? true : false;
 
     dispatchForm({
       type: "ITEM_NUM",
       payload: { input: input, validity: validity },
     });
-    dispatchForm({type:"VALIDATE_FORM"})
+    dispatchForm({ type: "VALIDATE_FORM" });
   };
 
   const quantityChangeHandler = (event) => {
@@ -58,18 +57,15 @@ const ItemEntry30 = (props) => {
       type: "QUANTITY",
       payload: event.target.value,
     });
-    dispatchForm({type:"VALIDATE_FORM"})
+    dispatchForm({ type: "VALIDATE_FORM" });
   };
-  
 
   const submitHandler = (event) => {
     event.preventDefault();
     returnsContext.handleAddItem(formState);
 
-    dispatchForm({type:"CLEAR_FORM"});
+    dispatchForm({ type: "CLEAR_FORM" });
   };
-
-
 
   // buttons for the input form
   const activeButton = (
@@ -94,7 +90,15 @@ const ItemEntry30 = (props) => {
 
   return (
     <form id={props.id} className={classes.container} onSubmit={submitHandler}>
-      <TitleBar lefticon="back" lefturl="..">
+      <TitleBar
+        lefticon="back"
+        left_onClick={() =>
+          dispatchActivePanels({
+            type: "setPanels",
+            payload: { set30: "actions" },
+          })
+        }
+      >
         Item Entry
       </TitleBar>
       <section className={classes.maincontent}>

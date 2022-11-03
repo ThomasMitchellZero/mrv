@@ -1,6 +1,6 @@
 import classes from "./TitleBar.module.css";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
-import { Link } from "react-router-dom";
+
 
 const TitleBar = (props) => {
   const iconHandler = (str) => {
@@ -17,13 +17,13 @@ const TitleBar = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        <Link to={props.lefturl} className={classes.iconholder}>
+        <button onClick={props.left_onClick} className={classes.iconholder}>
           {lefticon}
-        </Link>
+        </button>
         <p>{props.children}</p>
-        <Link to={props.righturl} className={classes.iconholder}>
+        <button onClick={props.right_onClick} className={classes.iconholder}>
           {righticon}
-        </Link>
+        </button>
       </div>
 
       <div className="divider"></div>
@@ -35,4 +35,4 @@ export default TitleBar;
 
 //  <div className={classes.iconholder}>{lefticon}</div>
 
-//  <Link className={classes.iconholder}>{lefticon}</Link>
+//  <button className={classes.iconholder}>{lefticon}</button>
