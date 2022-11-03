@@ -1,7 +1,8 @@
 .container{
     display: flex;
     flex-direction: column;
-    width: 100%
+    width: 100%;
+    color: #333333
 }
 
 .content{
@@ -18,13 +19,21 @@
 }
 
 .iconholder{
+
+    appearance: none;
     text-decoration: none;
-    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 2rem;
     flex: 0 0 2rem;
-    color: #333333;
+    padding: 0px;
+    color: #555555;
+    cursor: pointer;
+
+    border: 0 solid transparent;
+    background-color: transparent;
+
 
 }
 

@@ -1,17 +1,29 @@
-import classes from "./InvoiceEntry30.module.css"
+import classes from "./InvoiceEntry30.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar"
-import FooterContainer from "../../../components/UI/FooterContainer"
+import TitleBar from "../../../components/UI/TitleBar";
+import FooterContainer from "../../../components/UI/FooterContainer";
 
-const InvoiceEntry30 = (props)=>{
-    return <section className={classes.container}>
-        <TitleBar>Enter Receipt</TitleBar>
-        <section>
+const InvoiceEntry30 = (props) => {
+    
+  const dispatchActivePanels = props.dispatchActivePanels;
 
-        </section>
-        <FooterContainer></FooterContainer>
-
+  return (
+    <section className={classes.container}>
+      <TitleBar
+        lefticon="back"
+        left_onClick={() =>
+          dispatchActivePanels({
+            type: "setPanels",
+            payload: { set30: "actions" },
+          })
+        }
+      >
+        Enter Receipt
+      </TitleBar>
+      <section></section>
+      <FooterContainer></FooterContainer>
     </section>
-}
+  );
+};
 
-export default InvoiceEntry30
+export default InvoiceEntry30;

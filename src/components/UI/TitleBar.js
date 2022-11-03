@@ -5,9 +5,9 @@ import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 const TitleBar = (props) => {
   const iconHandler = (str) => {
     if (str === "close") {
-      return <MdOutlineClose />;
+      return <MdOutlineClose fontSize="1.5rem"/>;
     } else if (str === "back") {
-      return <MdArrowBack />;
+      return <MdArrowBack fontSize="1.5rem"/>;
     } else return null;
   };
 
