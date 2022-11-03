@@ -27,7 +27,7 @@ const formReducer = (state, action) => {
 
 // props inherited from the parent, since this is an Outlet.
 
-const ItemEntry = (props) => {
+const ItemEntry30 = (props) => {
   // props inherited from the parent, since this is an Outlet.
   const returnsContext = props.returnsContext
 
@@ -130,7 +130,7 @@ const ItemEntry = (props) => {
   );
 };
 
-export default ItemEntry;
+export default ItemEntry30;
 
 /*
 
