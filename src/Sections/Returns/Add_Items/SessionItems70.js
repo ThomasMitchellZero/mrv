@@ -11,7 +11,13 @@ const SessionItems70 = (props) => {
 
   const ctxTestData = returnsContext.session.testData;
 
-  console.log(ctxTestData)
+  const tableData = ctxTestData.map((item)=>{
+    return <tr key={item.id}>
+      <td>{item.id}</td>
+      <td>{item.content}</td>
+      <td>{item.date}</td>
+    </tr>
+  })
 
   return ctxItems.length <= 0 ? (
     <StartScanning />
@@ -21,9 +27,14 @@ const SessionItems70 = (props) => {
       <section className={classes.mainContent}>
         <table>
           <thead>
+            <tr>
+              <th>Column 1</th>
+              <th>Second Column</th>
+              <th>Le Troisieme</th>
+            </tr>
           </thead>
           <tbody>
-
+            {tableData}
           </tbody>
         </table>
       </section>

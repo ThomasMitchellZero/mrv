@@ -32,17 +32,22 @@ const Returns = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
-  const testDataMaker = (length)=>{
-    let output =[]
-    for (let i=0; i < length; i++){
-      output = [...output, {id: i, content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}]
+  const testDataMaker = (length) => {
+    let output = [];
+    for (let i = 0; i < length; i++) {
+      output = [
+        ...output,
+        {
+          id: i,
+          content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          date: "5 August 1983",
+        },
+      ];
     }
-    return output
-  }
+    return output;
+  };
 
-  const testData = testDataMaker(55)
-
-  console.log(testData)
+  const testData = testDataMaker(55);
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: [
