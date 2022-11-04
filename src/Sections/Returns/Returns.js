@@ -4,7 +4,6 @@ import ProductContext from "../../store/product-context";
 import { useContext, useReducer } from "react";
 import toilet_img from "../../assets/product-images/toilet.png";
 
-
 // controls the Session object
 const sessionReducer = (state, action) => {
   switch (action.type) {
@@ -26,14 +25,24 @@ const sessionReducer = (state, action) => {
   }
 };
 
-
-
 const Returns = () => {
   const productContext = useContext(ProductContext);
 
   const idGenerator = () => {
     return Math.floor(Math.random() * 1000000);
   };
+
+  const testDataMaker = (length)=>{
+    let output =[]
+    for (let i=0; i < length; i++){
+      output = [...output, {id: i, content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"}]
+    }
+    return output
+  }
+
+  const testData = testDataMaker(55)
+
+  console.log(testData)
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: [
@@ -53,6 +62,7 @@ const Returns = () => {
       },
     ],
     invoices: [],
+    testData: testData,
   });
 
   // Functions for managing Session
@@ -80,7 +90,6 @@ const Returns = () => {
     const clickedID = event.currentTarget.id;
     dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
   };
-
 
   return (
     <main className={classes.container}>

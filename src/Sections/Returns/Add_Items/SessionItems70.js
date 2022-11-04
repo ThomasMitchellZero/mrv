@@ -9,7 +9,9 @@ const SessionItems70 = (props) => {
 
   const ctxItems = returnsContext.session.items;
 
+  const ctxTestData = returnsContext.session.testData;
 
+  console.log(ctxTestData)
 
   return ctxItems.length <= 0 ? (
     <StartScanning />
@@ -17,7 +19,13 @@ const SessionItems70 = (props) => {
     <section className={classes.container}>
       <TitleBar>Scanned Items</TitleBar>
       <section className={classes.mainContent}>
+        <table>
+          <thead>
+          </thead>
+          <tbody>
 
+          </tbody>
+        </table>
       </section>
       <FooterContainer></FooterContainer>
     </section>
