@@ -17,11 +17,11 @@ const TitleBar = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        <button onClick={props.left_onClick} className={classes.iconholder}>
+        <button type="button" onClick={props.left_onClick} className={classes.iconholder}>
           {lefticon}
         </button>
         <p>{props.children}</p>
-        <button onClick={props.right_onClick} className={classes.iconholder}>
+        <button type="button" onClick={props.right_onClick} className={classes.iconholder}>
           {righticon}
         </button>
       </div>

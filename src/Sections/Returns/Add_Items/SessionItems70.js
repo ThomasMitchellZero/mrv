@@ -9,7 +9,9 @@ const SessionItems70 = (props) => {
 
   const ctxItems = returnsContext.session.items;
 
-  return ctxItems.length === 0 ? (
+
+
+  return ctxItems.length <= 0 ? (
     <StartScanning />
   ) : (
     <section className={classes.container}>

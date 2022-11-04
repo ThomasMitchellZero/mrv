@@ -31,6 +31,8 @@ const ItemEntry30 = (props) => {
   // props inherited from the parent, since this is an Outlet.
   const returnsContext = props.returnsContext;
 
+  console.log(returnsContext)
+
   const dispatchActivePanels = props.dispatchActivePanels;
 
   const [formState, dispatchForm] = useReducer(formReducer, {
@@ -80,6 +82,7 @@ const ItemEntry30 = (props) => {
 
   const inactiveButton = (
     <button
+      type="button"
       disabled={true}
       form={props.id}
       className={`baseButton primary__disabled large ${classes.button}`}

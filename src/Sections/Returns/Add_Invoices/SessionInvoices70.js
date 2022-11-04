@@ -9,7 +9,7 @@ const SessionInvoices70 = (props) => {
 
   const ctxInvoices = returnsContext.session.invoices;
 
-  return ctxInvoices.length === 0 ? (
+  return ctxInvoices ? (
     <StartScanning />
   ) : (
     <section className={classes.container}>
