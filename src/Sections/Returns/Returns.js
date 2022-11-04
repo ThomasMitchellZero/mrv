@@ -50,7 +50,6 @@ const Returns = () => {
           quantity: "1",
           scanID: 511415,
         },
-        title: "Firstimus",
       },
     ],
     invoices: [],

@@ -5,7 +5,10 @@ import Actions30 from "../Actions30";
 import ItemEntry30 from "../Add_Items/ItemEntry30";
 import InvoiceEntry30 from "../Add_Invoices/InvoiceEntry30";
 
+//70 Panel components
 import StartScanning from "./StartScanning70";
+import SessionItems70 from "../Add_Items/SessionItems70";
+import SessionInvoices70 from "../Add_Invoices/SessionInvoices70";
 
 import { useReducer, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -26,11 +29,9 @@ const panelsReducer = (state, action) => {
 const ReturnsIndex = (props) => {
   const returnsContext = useOutletContext();
 
-  
-
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
-    state70: "start_scanning",
+    state70: "session_items",
   });
 
   const thirty_panels = {
@@ -50,8 +51,18 @@ const ReturnsIndex = (props) => {
   };
 
   const seventy_panels = {
-    start_scanning: (
-      <StartScanning dispatchActivePanelsr={dispatchActivePanels} />
+    start_scanning: <StartScanning />,
+    session_items: (
+      <SessionItems70
+        dispatchActivePanels={dispatchActivePanels}
+        returnsContext={returnsContext}
+      />
+    ),
+    session_invoices: (
+      <SessionInvoices70
+        dispatchActivePanels={dispatchActivePanels}
+        returnsContext={returnsContext}
+      />
     ),
   };
 

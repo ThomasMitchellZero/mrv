@@ -31,7 +31,7 @@ const Actions30 = (props) => {
           onClick={() =>
             dispatchActivePanels({
               type: "setPanels",
-              payload: { set30: "invoice_entry" },
+              payload: { set30: "invoice_entry", set70: "session_invoices" },
             })
           }
           label="Receipt Entry"
@@ -42,7 +42,7 @@ const Actions30 = (props) => {
           onClick={() =>
             dispatchActivePanels({
               type: "setPanels",
-              payload: { set30: "item_entry" },
+              payload: { set30: "item_entry", set70: "session_items" },
             })
           }
           mainIcon={<AddCartLineIcon className={classes.mainicon} />}
