@@ -4,7 +4,7 @@ import FooterContainer from "../../components/UI/FooterContainer";
 
 const Placeholder = (props) => {
   return (
-    <section>
+    <section className={classes.container}>
       <TitleBar>{props.children}</TitleBar>
       <div className={classes.content}>Coming Soon</div>
       <FooterContainer></FooterContainer>
