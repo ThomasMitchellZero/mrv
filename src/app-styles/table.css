@@ -1,11 +1,12 @@
+
+
 table{
     box-sizing: border-box;
     background-color:transparent;
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
     border-radius: .25rem .25rem 0rem 0rem;
-    overflow: hidden;
 }
 
 thead{
@@ -33,3 +34,8 @@ tbody tr{
     border-bottom: 1px solid #e0e0e0;
     height: 4.5rem;
 }
+
+/*
+
+
+*/

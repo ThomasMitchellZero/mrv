@@ -41,56 +41,6 @@
   height: 100%;
 }
 
-/* Button CSS*/
-
-.baseButton{
-  font-weight: 500;
-  box-sizing: border-box;
-  border-width: 1.5px;
-  height: 2rem;
-  border-radius: 4px;
-  padding: 0rem 1rem;
-  margin: 0rem 0.5rem
-}
-
-.baseButton.primary{
-  color: #fff;
-  background-color: blue;
-  border: none;
-}
-
-.baseButton.secondary{
-  color: blue;
-  background-color: #fff;
-  border-color: blue;
-}
-
-.baseButton.tertiary{
-  color: blue;
-  background-color: transparent;
-  border: none;
-
-}
-
-.baseButton.large{
-  height: 3.5rem;
-  font-size: 1.25rem;
-}
-
-.baseButton:hover{
-  opacity: 80%;
-}
-
-.baseButton.primary__disabled{
-  color: #fff;
-  background-color: #555;
-  border: none;
-}
-
-.baseButton.secondary__disabled{
-  color:#555;
-  border-color: #555;
-}
 
 /*  Input CSS  */
 
@@ -106,4 +56,3 @@
 .base_input:focus{
   outline: 2px solid blue;
 }
-

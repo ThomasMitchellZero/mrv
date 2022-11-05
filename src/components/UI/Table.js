@@ -1,4 +1,3 @@
-import classes from "./Table.module.css";
 import TableHeading from "./TableHeading";
 
 const Table = (props) => {
