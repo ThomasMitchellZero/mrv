@@ -2,15 +2,15 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    flex: 1 1 0rem;
 }
 
 .maincontent{
-    height: 100%;
-    width: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    flex: 1 1 0rem;
+    width: 100%;
     background-color: #ffffff;
     padding: 1.5rem;
     gap: 1.5rem;
