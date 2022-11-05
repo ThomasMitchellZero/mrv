@@ -20,7 +20,7 @@ const TableHeading = (props) => {
   const clickHandler = (event) => {
     console.log(event.target);
   };
-//style={{marginRight: spacing + 'em'}} when using JSX.
+
   return (
     <th onClick={clickHandler} style={{width: `${props.flexing}`}}>
       <div className={classes.tableheading}>

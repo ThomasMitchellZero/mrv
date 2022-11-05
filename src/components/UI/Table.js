@@ -1,9 +1,8 @@
 import TableHeading from "./TableHeading";
 
-const Table = (props) => {
-
+const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction }) => {
   // populates the table heading from an array of objects
-  const tableHeadings = props.tableHeadingArray.map((item) => {
+  let tableHeadings = tableHeadingArray.map((item) => {
     return (
       <TableHeading
         key={item.id}
@@ -18,13 +17,12 @@ const Table = (props) => {
     );
   });
 
-  const tableBodyFiller = (rowfunction, array) => {
-    return array.map((item) => {
-      return rowfunction(item);
-    });
-  };
-
-  const tableBody = tableBodyFiller(props.rowFunction, props.tableBodyArray);
+  if (hasItemAction) {
+    tableHeadings = [
+      ...tableHeadings,
+      <th key="spacer" style={{ width: "2rem", height: "1rem" }} />,
+    ];
+  }
 
   return (
     <div>
@@ -32,7 +30,7 @@ const Table = (props) => {
         <thead>
           <tr>{tableHeadings}</tr>
         </thead>
-        <tbody>{tableBody}</tbody>
+        <tbody>{tableBodyArray}</tbody>
       </table>
     </div>
   );
