@@ -11,13 +11,15 @@ const SessionItems70 = (props) => {
 
   const ctxTestData = returnsContext.session.testData;
 
-  const tableData = ctxTestData.map((item)=>{
-    return <tr key={item.id}>
-      <td>{item.id}</td>
-      <td>{item.content}</td>
-      <td>{item.date}</td>
-    </tr>
-  })
+  const tableData = ctxTestData.map((item) => {
+    return (
+      <tr key={item.id}>
+        <td>{item.id}</td>
+        <td>{item.content}</td>
+        <td>{item.date}</td>
+      </tr>
+    );
+  });
 
   return ctxItems.length <= 0 ? (
     <StartScanning />
@@ -25,18 +27,18 @@ const SessionItems70 = (props) => {
     <section className={classes.container}>
       <TitleBar>Scanned Items</TitleBar>
       <section className={classes.mainContent}>
-        <table>
-          <thead>
-            <tr>
-              <th>Column 1</th>
-              <th>Second Column</th>
-              <th>Le Troisieme</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData}
-          </tbody>
-        </table>
+        <div className={classes.tableWindow}>
+          <table>
+            <thead>
+              <tr>
+                <th>Column 1</th>
+                <th>Second Column</th>
+                <th>Le Troisieme</th>
+              </tr>
+            </thead>
+            <tbody>{tableData}</tbody>
+          </table>
+        </div>
       </section>
       <FooterContainer></FooterContainer>
     </section>

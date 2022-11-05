@@ -1,19 +1,25 @@
 .container{
     display: flex;
     flex-direction: column;
-    flex-grow: 0;
-    width: 100%;
-    height: 100%;
+    flex: 1 1 0rem;
 }
 
 .mainContent{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    flex: 1 1 0rem;
     background-color: #FFFFFF;
-    overflow: auto;
 
+    padding: 1rem;
+
+}
+
+.tableWindow{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1 1 0rem;
+    overflow: auto;
 }
 
 .container table{

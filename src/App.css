@@ -28,7 +28,7 @@
 .seventy_panel{
   display: flex;
   flex-direction: column;
-  flex: 1 1 70%;
+  flex: 7 7 0rem;
   height: 100%;
   box-sizing: border-box;
 }
@@ -36,7 +36,7 @@
 .thirty_panel{
   display: flex;
   flex-direction: column;
-  flex: 1 1 30%;
+  flex: 3 3 0rem;
   box-sizing: border-box;
   height: 100%;
 }
