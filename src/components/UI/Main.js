@@ -2,7 +2,7 @@ import classes from "./Main.module.css";
 
 import { NavLink, Outlet } from "react-router-dom";
 
-import pagoda from "../../assets/lowes-logo.svg"
+import pagoda from "../../assets/lowes-logo.svg";
 
 const Main = (props) => {
   const linkStyle = ({ isActive }) =>
@@ -10,9 +10,9 @@ const Main = (props) => {
 
   return (
     <main className={classes.container}>
+
       <nav className={classes.globalnav}>
         <img className={classes.icon} src={pagoda} alt="Lowes Pagoda" />
-
         <NavLink to="home" className={linkStyle}>
           Homepage
         </NavLink>
@@ -26,17 +26,17 @@ const Main = (props) => {
           Returns
         </NavLink>
       </nav>
+      <div className={classes.dummySpacer} />
       <Outlet />
+      <div className={classes.mainBlerb}>{props.children}</div>
     </main>
   );
 };
 
-export default Main
+export default Main;
 
 /*
 
-<Route exact path="/">
-    <Redirect to="/home" />
-</Route>
+
 
 */

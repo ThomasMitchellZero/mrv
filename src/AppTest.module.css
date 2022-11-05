@@ -1,0 +1,7 @@
+.horizontalContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background-color: darkgray;
+  height: 100%;
+}

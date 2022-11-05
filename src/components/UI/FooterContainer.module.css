@@ -1,6 +1,5 @@
 .container{
-    background-color: transparent;
-    height: 124px;
+    background-color: palevioletred;
     display: flex;
     flex-direction: row;
     align-items: center;
