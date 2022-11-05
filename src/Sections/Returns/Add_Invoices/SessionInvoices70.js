@@ -45,7 +45,7 @@ const SessionInvoices70 = ({returnsContext, dispatchActivePanels}) => {
     <StartScanning />
   ) : (
     <section className={classes.container}>
-      <TitleBar>Scanned Items</TitleBar>
+      <TitleBar>Scanned Invoices</TitleBar>
       <section className={classes.mainContent}>
         <div className={classes.tableWindow}>
         <p>Receipt List (coming soon)</p>

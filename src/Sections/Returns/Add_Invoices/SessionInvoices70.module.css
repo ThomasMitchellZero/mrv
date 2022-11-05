@@ -8,7 +8,16 @@
 .mainContent{
     display: flex;
     flex-direction: column;
-    width: 100%;
     flex: 1 1 0rem;
     background-color: #FFFFFF;
+    padding: 1rem;
+
+}
+
+.tableWindow{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1 1 0rem;
+    overflow: auto;
 }
