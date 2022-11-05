@@ -66,7 +66,22 @@ const Returns = () => {
         },
       },
     ],
-    invoices: [],
+    invoices: [
+      {
+        saleDate: new Date(2022, 6, 13),
+        invoice: 12333,
+        store: 2233,
+        lineItems: 2,
+        total: "$123.45",
+      },
+      {
+        saleDate: new Date(2022, 1, 19),
+        invoice: 14373,
+        store: 2233,
+        lineItems: 4,
+        total: "$420.69",
+      },
+    ],
     testData: testData,
   });
 

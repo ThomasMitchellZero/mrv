@@ -16,22 +16,7 @@ const SessionItems70 = (props) => {
     console.log(origin);
   };
 
-  
-  /*
-        <TableHeading
-        key={item.id}
-        id={item.id}
-        active={item.active}
-        descending={item.descending}
-        flexing={item.flexing}
-        onClick={item.handleHeadingClick}
-      >
-        {item.id}
-      </TableHeading>
-    );
-  });
 
-    */
 
   const headingList = [
     { id: "Sale Date", active: false, descending: true, flexing: "auto" },
@@ -100,15 +85,36 @@ export default SessionItems70;
 
 /*
 
-          <table>
-            <thead>
-              <tr>
-                <th>Column 1</th>
-                <th>Second Column</th>
-                <th>Le Troisieme</th>
-              </tr>
-            </thead>
-            <tbody>{tableData}</tbody>
-          </table>
+  const tableContentsArr = [
+    {
+      saleDate: new Date(2022, 6, 13),
+      invoice: 12333,
+      store: 2233,
+      lineItems: 2,
+      total: "$123.45",
+    },
+    {
+      saleDate: new Date(2022, 1, 19),
+      invoice: 14373,
+      store: 2233,
+      lineItems: 4,
+      total: "$420.69",
+    },
+  ];
+
+  const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
+
+  const tableBodyContents = tableContentsArr.map((item) => {
+    return (
+      <tr key={item.invoice}>
+        <td>{item.saleDate.toLocaleDateString("en-US", dateOptions)}</td>
+        <td>{item.invoice}</td>
+        <td>{item.store}</td>
+        <td>{item.lineItems}</td>
+        <td>{item.total}</td>
+        <td>x</td>
+      </tr>
+    );
+  });
 
 */
