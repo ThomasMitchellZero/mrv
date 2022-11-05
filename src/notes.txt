@@ -440,7 +440,7 @@ Big list of things I need to do:
 
                 https://www.kindacode.com/article/programmatically-navigate-using-react-router/
 
-3 Nov, 2022
+3 Nov 2022
 
     -Next little question: should I control the Returns Index 70 and 30 panels with one or two reducers?  
         - as far as I know, they are completely independent, so there's no reason to pair them.  
@@ -451,18 +451,38 @@ Big list of things I need to do:
         -I feel like the answer is the skinny reducer.  I think that gives me maximum flexibility to determine what is getting rendered.  
             
 
+4 Nov 2022
+
+    -Having slept on  it, I think the right approach to the cart is to conditionally render the Invoice and Items tables based on the session.  If there is anything in the table, we render the table.  If not, we render the Scan screen.
+
+    -OK, got it working.  The next thing to to is to start hacking away at the table.  I think the approach is just going to be: build a very long table, styling as I go, and see where the problem is.
 
 
+    -Things to try - 
+        -convert <tbody> to flex
+
+        -App.js class main container seems to be the right height for the blue area, but is somehow flexing beyond that.  Why?
+
+        -if absolutely nothing else is working, try clearing out most of .App and putting the table as close as possible to the top of the tree.  This will at least allow me to try out different approaches without having to change 15 different layers of children.
     
-            
+        -I know exactly why I'm avoiding getting started.  I'm pretty sure making the table into <flex> won't work and then I'm back to frustration.  But there's no alternative.  I am blocked.  However long this problem takes to solve, I can't proceed until it is.  
+
+            -OK.  I made the simple version.  It works exactly like I want :/  But I guess that means I can find the mistake somewhere in here?
+
+            -Added in the horizontal container, which I really expected was goign to be the source of all the problems.  Again, working perfectly as expected.
+
+            -Another clue.  AFAICT, the faulty offset is exactly the height of the nav bar.  Something is not counting that in the percentage.
+
+            -Also.  When I take out the nav bar, the size is porportioned correctly.  WTF?
+
+        -Holy shitballs.  I got it.  I'm actually not sure what was tripping me up.  It was some combination of three things.  
+            -First, for a flex item:    height: 100%   is relative to the parent, so if I have other items with defined sizes in there eating up space, I could get overflow.  The correct way to do it is:
+                flex: 1 1 0rem.
+
+            -The second thing, the reason why I didn't see changes earlier, is that    flex: 1 1 0    is not actually a valid input.  The third argument needs to include a unit, like rem or %.  Otherwise, I think it just compiles to 'auto' which would explain why I was seeing no response - it was just being its default self.
+
+            -Finally.  Not sure if I grasped this or not, but the   flex:   property determines how this element behaves RELATIVE TO ITS PARENT.  I was trying to make the table a flex-item and getting weird shit, but that's wrong.  It is a flex item already.  All children of a flex box are flex items, whether they themselves flex or not, and I can use any flex-item properties on them.
 
 
 
 
-    
-        
-
-    
-
-
-    
