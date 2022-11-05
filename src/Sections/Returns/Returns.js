@@ -25,6 +25,7 @@ const sessionReducer = (state, action) => {
   }
 };
 
+//Returns Component
 const Returns = () => {
   const productContext = useContext(ProductContext);
 
@@ -32,6 +33,7 @@ const Returns = () => {
     return Math.floor(Math.random() * 1000000);
   };
 
+  // Generates a long list of numbers to test scrolling.
   const testDataMaker = (length) => {
     let output = [];
     for (let i = 0; i < length; i++) {
@@ -49,6 +51,7 @@ const Returns = () => {
 
   const testData = testDataMaker(55);
 
+  // Primary reducer for tracking Items and Invoices.
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: [
       {
@@ -85,7 +88,7 @@ const Returns = () => {
     testData: testData,
   });
 
-  // Functions for managing Session
+  // Checks to see if an item is in the catelog.
   const productContextMatcher = (itemNum) => {
     if (productContext[itemNum]) {
       return productContext[itemNum];
@@ -93,6 +96,7 @@ const Returns = () => {
       return false;
     }
   };
+
 
   const handleAddItem = (itemObj) => {
     const newItem = {

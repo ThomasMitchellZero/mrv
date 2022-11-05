@@ -487,5 +487,7 @@ Big list of things I need to do:
 
     -Next up is to get the custom table working.  I'm going to try my existing custom table and see if it works.
 
-    
+        -Custom table is working, accepting data from Returns context, and adding and deleting properly.  Next step will be to wire the Product Detail section together, but that should be pretty easy.
+
+        -If you told me this morning that this is what I'd have at the end of the day, I'd take that outcome in an instant.  :)
 

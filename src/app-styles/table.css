@@ -20,11 +20,11 @@ thead{
 }
 
 th{
-    padding: 0rem 2rem;
+    padding: 0rem .5rem;
     font-weight: inherit;
 }
 
-td{padding: 0rem 2rem}
+td{padding: 0rem .5rem}
 
 tbody tr{
     font-size: 1rem;
