@@ -1,0 +1,69 @@
+
+
+    I think we need to tracking three states: Unmatched Items, Unmatched Purchases, Matches.
+
+    ENTER ITEM:
+        ItemNum{
+            qty,
+            product-details
+        }
+
+        if: Unmatched Items contains that item number, += the quantity 
+        else: add that item to the Unmatched Items
+
+    OK.  I think I can fix the item part for now.  
+
+
+    DELETE ITEM:
+             it all goes away.
+
+    //Receipts section IS NOT FIGURED OUT.  I am leaving this here so I don't get stuck for the day.
+
+    The hard part is that I need to organize the receipt in such a way that I can easily check check items and their quantities against the list of scanned items...
+
+    But I also need a way to easily delete every item that came on the receipt.
+
+        Enter Receipt:
+            Each receipt will have some metadata (date, invoice num, etc.) and then an array of the items purchased.
+
+            [itemNum1, ItemNum2, etc]
+
+            ItemNum: {
+                Invoice:
+                Prices: {
+                    "12.99": 3,
+                "14.50": 4,
+                }
+            }
+
+            If there is a matching itemNum and price, Qty ++.  Otherwise, add a new price: quantity key-value pair.
+
+            I think I can use the Object.entries() method to get the keys if I need them.  I don't have to get super into it now, but if I want there are ways to sort the keys, so I could start with highest first.
+
+            //Also, if I don't account for the edge case where an invoice has the same item at multiple prices, this gets a lot easier.
+
+            A thought.  Maybe this is hacky, but I could make each key a string composed of    "ItemNum-price-transaction": quantity
+            
+            and then parse the string apart for comparison?  That's also fairly easy to sort?
+
+            or, I make the ReceiptedItems like:
+
+            {
+                ItemNum: 100
+                price: 12.99
+                quantity: 10
+            }
+
+
+
+
+
+
+        MATCH RECEIPT
+            For each receipt item:
+                If there is a matching item number in the Scanned Items Session:
+
+        
+
+        DELETE RECEIPT
+            I think the way to do this is: when I delete a receipt, go through the Unmatched Receipts list, find each item that matches the ItemNum and price, and then delete that many.  Maybe I don't need to keep track of how many are going in?
