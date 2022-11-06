@@ -545,15 +545,15 @@ Big list of things I need to do:
     I think if I'm going to do this, my plan should be to ONLY keep the object in the state.  The only time I convert it to an array is right before I need to render something.  The object is always the SSoT.
 
     Right now, I will need to change:
-        -the SSoT state in Returns
+        X-the SSoT state in Returns
             -to be an object instead of an array.
-        -the function that adds a new entry in Returns
+        X-the function that adds a new entry in Returns
             -to add an object instead of an array.
             -to check if this item already exists.
         -the Returns function that removes an item.
             -Remove by key instead of filtering?
-        -the Returns function that checks for a match?
-        -the Add Items window?
+        X-the Returns function that checks for a match?
+        X-the Add Items window?
         -The table that renders all scanned items to convert the array into 
 
 

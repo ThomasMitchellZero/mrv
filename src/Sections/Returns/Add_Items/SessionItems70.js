@@ -7,7 +7,8 @@ import ReturnsProductDetail from "../Add_Invoices/ReturnsProductDetails";
 import Table from "../../../components/UI/Table";
 
 const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
-  const ctxItems = returnsContext.session.items;
+  // items are stored in an object.  This makes an array so they can be iterated.
+  const ctxItems = Object.values(returnsContext.session.items);
 
   const headingList = [
     { id: "Invoice #", active: false, descending: true, flexing: "auto" },
@@ -20,21 +21,18 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
 
 
   /*
-        {
-        productData: {
-          img: toilet_img,
-          price: 8.75,
-          itemNum: "400",
-          modelNum: "RT3301",
-          description: "American Standard Grand Duke II with Ultra-Flush",
-          categories: ["Stock", "Special Order"],
-        },
-        scanDetails: {
-          quantity: "1",
-          scanID: 511415,
-        },
+      400: {
+        quantity: 1,
+        img: toilet_img,
+        price: 8.75,
+        itemNum: "400",
+        modelNum: "RT3301",
+        description: "American Standard Grand Duke II with Ultra-Flush",
+        categories: ["Stock", "Special Order"],
       },
   */
+
+  
 
   // this thing is getting huge.  It be better as a component?
   const tableBodyContents = ctxItems.map((line)=>{
