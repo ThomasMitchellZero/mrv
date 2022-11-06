@@ -14,10 +14,12 @@ const sessionReducer = (state, action) => {
       return { ...state, items: newItemList };
 
     case "REMOVE_ITEM":
-      const newItemsList = state.items.filter((entry) => {
-        return entry.scanDetails.scanID.toString() !== action.payload;
-      });
-      return { ...state, items: newItemsList };
+
+      let ItemsList = state.items;
+
+      delete ItemsList[action.payload];
+
+      return { ...state, items: ItemsList };
 
     case "CLEAR_SESSION":
       return { items: [], invoices: [] };
@@ -94,13 +96,12 @@ const Returns = () => {
     }
   };
 
-
   const handleAddItem = (itemObj) => {
-
     // checks if this item is already in session and returns quantity based on result.
-    const oldQuantity = `${itemObj.itemNum}` in session.items
-      ? session.items[itemObj.itemNum].quantity
-      : 0;
+    const oldQuantity =
+      `${itemObj.itemNum}` in session.items
+        ? session.items[itemObj.itemNum].quantity
+        : 0;
 
     const newItem = {
       ...productContextMatcher(itemObj.itemNum),
