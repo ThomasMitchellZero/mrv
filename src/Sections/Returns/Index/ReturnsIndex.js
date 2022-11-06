@@ -68,7 +68,9 @@ const ReturnsIndex = (props) => {
 
   return (
     <main className={classes.container}>
-
+      <section className={`seventy_panel ${classes.session_info}`}>
+        {seventy_panels[activePanels.state70]}
+      </section>
       <section className={`thirty_panel ${classes.action_menu}`}>
         {thirty_panels[activePanels.state30]}
       </section>

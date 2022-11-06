@@ -19,7 +19,6 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     { id: "Decline Code", active: false, descending: true, flexing: "auto" },
   ];
 
-
   /*
       400: {
         quantity: 1,
@@ -36,22 +35,22 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
 
   // this thing is getting huge.  It be better as a component?
   const tableBodyContents = ctxItems.map((line)=>{
-    const price = Number(line.productData.price) 
-    const quantity = Number(line.scanDetails.quantity)
+    const price = Number(line.price) 
+    const quantity = Number(line.quantity)
     const total = (price * quantity).toFixed(2)
     return (
 
-      <tr key={line.scanDetails.scanID}>
-        <td>{line.scanDetails.scanID}</td>
+      <tr key={line.itemNum}>
+        <td>{line.itemNum}</td>
         <td>
-          <ReturnsProductDetail productData={line.productData} />
+          <ReturnsProductDetail productData={line} />
         </td>
         <td>{quantity}</td>
         <td>{price}</td>
         <td>{total}</td>
         <td>
           <button
-            id={line.scanDetails.scanID}
+            id={line.itemNum}
             onClick={returnsContext.handleDelete}
           >
             X
