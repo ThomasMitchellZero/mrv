@@ -25,10 +25,9 @@ const formReducer = (state, action) => {
   }
 };
 
-// props inherited from the parent, since this is an Outlet.
 
 const ItemEntry30 = (props) => {
-  // props inherited from the parent, since this is an Outlet.
+  // props inherited from the parent
   const returnsContext = props.returnsContext;
 
   const dispatchActivePanels = props.dispatchActivePanels;

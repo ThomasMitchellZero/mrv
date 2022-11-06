@@ -8,7 +8,9 @@ import toilet_img from "../../assets/product-images/toilet.png";
 const sessionReducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM":
-      const newItemList = [...state.items, action.payload];
+      const newKey = action.payload.itemNum;
+
+      const newItemList = { ...state.items, [newKey]: action.payload };
       return { ...state, items: newItemList };
 
     case "REMOVE_ITEM":
@@ -53,22 +55,17 @@ const Returns = () => {
 
   // Primary reducer for tracking Items and Invoices.
   const [session, dispatchSession] = useReducer(sessionReducer, {
-    items: [
-      {
-        productData: {
-          img: toilet_img,
-          price: 8.75,
-          itemNum: "400",
-          modelNum: "RT3301",
-          description: "American Standard Grand Duke II with Ultra-Flush",
-          categories: ["Stock", "Special Order"],
-        },
-        scanDetails: {
-          quantity: "1",
-          scanID: 511415,
-        },
+    items: {
+      400: {
+        quantity: 1,
+        img: toilet_img,
+        price: 8.75,
+        itemNum: "400",
+        modelNum: "RT3301",
+        description: "American Standard Grand Duke II with Ultra-Flush",
+        categories: ["Stock", "Special Order"],
       },
-    ],
+    },
     invoices: [
       {
         saleDate: new Date(2022, 6, 13),
@@ -99,12 +96,15 @@ const Returns = () => {
 
 
   const handleAddItem = (itemObj) => {
+
+    // checks if this item is already in session and returns quantity based on result.
+    const oldQuantity = `${itemObj.itemNum}` in session.items
+      ? session.items[itemObj.itemNum].quantity
+      : 0;
+
     const newItem = {
-      productData: productContextMatcher(itemObj.itemNum),
-      scanDetails: {
-        quantity: itemObj.quantity,
-        scanID: idGenerator(),
-      },
+      ...productContextMatcher(itemObj.itemNum),
+      quantity: oldQuantity + parseInt(itemObj.quantity),
     };
 
     dispatchSession({ type: "ADD_ITEM", payload: newItem });
@@ -131,7 +131,6 @@ const Returns = () => {
 };
 
 export default Returns;
-
 
 /*
 
