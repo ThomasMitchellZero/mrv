@@ -1,6 +1,9 @@
 import TableHeading from "./TableHeading";
 
-const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction }) => {
+const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction, tableLayout }) => {
+
+  const layoutInput = (typeof tableLayout==="string")?tableLayout:"auto"
+
   // populates the table heading from an array of objects
   let tableHeadings = tableHeadingArray.map((item) => {
     return (
@@ -9,7 +12,7 @@ const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction }) => {
         id={item.id}
         active={item.active}
         descending={item.descending}
-        flexing={item.flexing}
+        width={item.width}
         onClick={item.handleHeadingClick}
       >
         {item.id}
@@ -23,6 +26,8 @@ const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction }) => {
       <th key="spacer" style={{ width: "2rem", height: "1rem" }} />,
     ];
   }
+
+
 
   return (
     <div>

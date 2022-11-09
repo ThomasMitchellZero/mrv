@@ -22,7 +22,7 @@ const TableHeading = (props) => {
   };
 
   return (
-    <th onClick={clickHandler} style={{width: `${props.flexing}`}}>
+    <th onClick={clickHandler} style={{width: `${props.width}`}}>
       <div className={classes.tableheading}>
         <p>{props.children}</p>
         {isDescending ? downArrow : upArrow}

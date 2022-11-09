@@ -8,15 +8,15 @@ import Table from "../../../components/UI/Table";
 
 const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   // items are stored in an object.  This makes an array so they can be iterated.
-  const ctxItems = Object.values(returnsContext.session.items);
+  const ctxItems = Object.values(returnsContext.session.items).reverse();
 
   const headingList = [
-    { id: "Invoice #", active: false, descending: true, flexing: "auto" },
-    { id: "Product Details", active: false, descending: true, flexing: "auto" },
-    { id: "Unit Price", active: false, descending: true, flexing: "auto" },
-    { id: "Qty", active: false, descending: true, flexing: "auto" },
-    { id: "Total Price", active: false, descending: true, flexing: "auto" },
-    { id: "Decline Code", active: false, descending: true, flexing: "auto" },
+    { id: "Invoice #", active: false, descending: true, width: "auto" },
+    { id: "Product Details", active: false, descending: true, width: "30%" },
+    { id: "Unit $", active: false, descending: true, width: "auto" },
+    { id: "Qty", active: false, descending: true, width: "8%" },
+    { id: "Total $", active: false, descending: true, width: "auto" },
+    { id: "Decline Code", active: false, descending: true, width: "16%" },
   ];
 
   /*
@@ -41,13 +41,15 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     return (
 
       <tr key={line.itemNum}>
-        <td>{line.itemNum}</td>
+        <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
         </td>
+
+        <td>{`$ ${price}`}</td>
         <td>{quantity}</td>
-        <td>{price}</td>
-        <td>{total}</td>
+        <td>{`$ ${total}`}</td>
+        <td>{`- -`}</td>
         <td>
           <button
             id={line.itemNum}
