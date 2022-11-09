@@ -16,6 +16,11 @@ const ReturnsProductDetail = (props) => {
 
   */
 
+  console.log(productData)
+  const productStatus = productData.categories.map((item) => {
+    return <div className={classes.product_status}>{item}</div>;
+  });
+
   return (
     <main className={classes.container}>
       <img
@@ -32,6 +37,7 @@ const ReturnsProductDetail = (props) => {
         <div className={classes.product_description}>
           {productData.description}
         </div>
+        <div className={classes.status_container}>{productStatus}</div>
       </section>
     </main>
   );

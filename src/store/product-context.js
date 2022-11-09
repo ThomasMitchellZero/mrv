@@ -41,7 +41,7 @@ const ProductContext = React.createContext({
     itemNum: "300",
     modelNum: "DR3345",
     description: "Replacement hoses for Samsung refrigerator",
-    categories: ["Stock"],
+    categories: [],
   },
 
   400: {
