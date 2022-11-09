@@ -84,36 +84,13 @@ export default SessionItems70;
 
 /*
 
-  const tableContentsArr = [
-    {
-      saleDate: new Date(2022, 6, 13),
-      invoice: 12333,
-      store: 2233,
-      lineItems: 2,
-      total: "$123.45",
-    },
-    {
-      saleDate: new Date(2022, 1, 19),
-      invoice: 14373,
-      store: 2233,
-      lineItems: 4,
-      total: "$420.69",
-    },
-  ];
-
-  const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
-
-  const tableBodyContents = tableContentsArr.map((item) => {
-    return (
-      <tr key={item.invoice}>
-        <td>{item.saleDate.toLocaleDateString("en-US", dateOptions)}</td>
-        <td>{item.invoice}</td>
-        <td>{item.store}</td>
-        <td>{item.lineItems}</td>
-        <td>{item.total}</td>
-        <td>x</td>
-      </tr>
-    );
-  });
-
+          <button
+            id={line.itemNum}
+            onClick={returnsContext.dispatchSession({
+              type: "REMOVE_ITEM",
+              payload: line.itemNum,
+            })}
+          >
+            X
+          </button>
 */
