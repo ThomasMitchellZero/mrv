@@ -11,12 +11,12 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxItems = Object.values(returnsContext.session.items).reverse();
 
   const headingList = [
-    { id: "Invoice #", active: false, descending: true, width: "auto" },
-    { id: "Product Details", active: false, descending: true, width: "30%" },
-    { id: "Unit $", active: false, descending: true, width: "auto" },
+    { id: "Invoice #", active: false, descending: true, width: "10%" },
+    { id: "Product Details", active: false, descending: true, width: "35%" },
+    { id: "Unit $", active: false, descending: true, width: "10%" },
     { id: "Qty", active: false, descending: true, width: "8%" },
-    { id: "Total $", active: false, descending: true, width: "auto" },
-    { id: "Decline Code", active: false, descending: true, width: "16%" },
+    { id: "Total $", active: false, descending: true, width: "12%" },
+    { id: "Decline Code", active: false, descending: true, width: "auto" },
   ];
 
   /*

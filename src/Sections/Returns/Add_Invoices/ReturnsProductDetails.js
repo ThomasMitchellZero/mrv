@@ -23,11 +23,15 @@ const ReturnsProductDetail = (props) => {
         alt="test"
         className={classes.productImage}
       ></img>
-      <section className={classes.vertical_container}></section>
-      <section>
-        {productData.modelNum}
-        <div style={{width:"1rem"}}/>
-        {productData.itemNum}
+      <section className={classes.vertical_container}>
+        <section className={classes.numbers}>
+          {`Model #${productData.modelNum}`}
+          <div style={{ width: "0.75rem" }} />
+          {`Item #${productData.itemNum}`}
+        </section>
+        <div className={classes.product_description}>
+          {productData.description}
+        </div>
       </section>
     </main>
   );
