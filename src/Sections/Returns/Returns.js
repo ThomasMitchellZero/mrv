@@ -1,6 +1,7 @@
 import classes from "./Returns.module.css";
 import { Outlet } from "react-router-dom";
 import ProductContext from "../../store/product-context";
+import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import toilet_img from "../../assets/product-images/toilet.png";
 
@@ -32,6 +33,8 @@ const sessionReducer = (state, action) => {
 //Returns Component
 const Returns = () => {
   const productContext = useContext(ProductContext);
+  const invoiceContext = useContext(InvoiceContext);
+  console.log(invoiceContext.AAA.invoiceDetails.store)
 
   const idGenerator = () => {
     return Math.floor(Math.random() * 1000000);
