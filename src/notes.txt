@@ -556,6 +556,28 @@ Big list of things I need to do:
         X-the Add Items window?
         -The table that renders all scanned items to convert the array into 
 
+17 Nov 2022
+
+    I'm back!  Been a while since I wrote, but I was actually figuring out how to do matching with wireframes in Figma.  Time not wasted.
+
+    My next move is to turn all that thinking into action.
+        - I am going to need to make sure I have a structure for everything.
+
+            -Items
+            -Invoices
+            -Unmatched
+            -MatchEligble
+            -Matched
+
+            and in context:
+            -InvoiceCatalog
+            -ProductCatalog
+        
+
+
+
+
+
     
 
 
