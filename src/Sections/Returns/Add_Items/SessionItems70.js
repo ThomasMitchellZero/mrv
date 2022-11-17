@@ -31,36 +31,32 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
       },
   */
 
-  
-
   // this thing is getting huge.  It be better as a component?
-  const tableBodyContents = ctxItems.map((line)=>{
-    const price = Number(line.price) 
-    const quantity = Number(line.quantity)
-    const total = (price * quantity).toFixed(2)
+  const tableBodyContents = ctxItems.map((line) => {
+    const price = Number(line.price);
+    const quantity = Number(line.quantity);
+    const total = (price * quantity).toFixed(2);
     return (
-
       <tr key={line.itemNum}>
         <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
         </td>
 
-        <td>{`$ ${price}`}</td>
-        <td>{quantity}</td>
-        <td>{`$ ${total}`}</td>
+        <td className={classes.cost}>{`$ ${price}`}</td>
+        <td>
+          <div className="number_bubble"> {quantity}</div>
+        </td>
+        <td className={classes.cost}>{`$ ${total}`}</td>
         <td>{`- -`}</td>
         <td>
-          <button
-            id={line.itemNum}
-            onClick={returnsContext.handleDelete}
-          >
+          <button id={line.itemNum} onClick={returnsContext.handleDelete}>
             X
           </button>
         </td>
       </tr>
     );
-  })
+  });
 
   return ctxItems.length <= 0 ? (
     <StartScanning />

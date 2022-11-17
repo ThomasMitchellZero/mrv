@@ -16,7 +16,6 @@ const ReturnsProductDetail = (props) => {
 
   */
 
-  console.log(productData)
   const productStatus = productData.categories.map((item) => {
     return <div className={classes.product_status}>{item}</div>;
   });

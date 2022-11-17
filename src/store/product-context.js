@@ -37,7 +37,7 @@ const ProductContext = React.createContext({
   },
   300: {
     img: hoses_img,
-    price: 8.75,
+    price: 15.75,                                       
     itemNum: "300",
     modelNum: "DR3345",
     description: "Replacement hoses for Samsung refrigerator",
@@ -46,10 +46,10 @@ const ProductContext = React.createContext({
 
   400: {
     img: toilet_img,
-    price: 8.75,
+    price: 995.00,
     itemNum: "400",
-    modelNum: "RT3301",
-    description: "American Standard Grand Duke II with Ultra-Flush",
+    modelNum: "RT3301", 
+    description: "American Standard Grand Duke II with Royal Flush",
     categories: ["Stock","Special Order"],
   },
   900: {

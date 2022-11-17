@@ -1,6 +1,7 @@
 import "./App.css";
 import "./app-styles/table.css"
 import "./app-styles/buttons.css"
+import "./app-styles/specialtext.css"
 
 import { Route, Routes } from "react-router-dom";
 
