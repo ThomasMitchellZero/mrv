@@ -3,7 +3,7 @@ import classes from "./SessionItems70.module.css";
 import StartScanning from "../Index/StartScanning70";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import ReturnsProductDetail from "../Add_Invoices/ReturnsProductDetails";
+import ReturnsProductDetail from "./ReturnsProductDetails"
 import Table from "../../../components/UI/Table";
 
 const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
