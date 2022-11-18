@@ -66,31 +66,9 @@ const ItemEntry30 = (props) => {
     dispatchForm({ type: "CLEAR_FORM" });
   };
 
-  // buttons for the input form
-  const activeButton = (
-    <button
-      form={props.id}
-      type="submit"
-      className={`baseButton primary large ${classes.button}`}
-    >
-      Add Item
-    </button>
-  );
-
-  const inactiveButton = (
-    <button
-      type="button"
-      disabled={true}
-      form={props.id}
-      className={`baseButton primary__disabled large ${classes.button}`}
-    >
-      Add Item
-    </button>
-  );
-
   //check and see what props.id is doing.  right now it seems useless?
   return (
-    <form id={props.id} className={classes.container} onSubmit={submitHandler}>
+    <form id={"item_form"} className={classes.container} onSubmit={submitHandler}>
       <TitleBar
         lefticon="back"
         left_onClick={() =>
@@ -130,7 +108,15 @@ const ItemEntry30 = (props) => {
       </section>
 
       <FooterContainer>
-        {formState.formValid ? activeButton : inactiveButton}
+        {formState.formValid ? (
+          <button
+            form="item_form"
+            type="submit"
+            className={`baseButton primary large ${classes.button}`}
+          >
+            Add Item
+          </button>
+        ) : null}
       </FooterContainer>
     </form>
   );

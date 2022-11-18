@@ -22,7 +22,12 @@ const formReducer = (state, action) => {
       };
 
     case "CLEAR_INPUTS":
-      return {};
+      return {
+        ...state,
+        invoiceNum: "",
+        invoiceValid: false,
+        formValid: false,
+      };
 
     default:
       return state;
@@ -52,8 +57,16 @@ const InvoiceEntry30 = (props) => {
     dispatchForm({ type: "VALIDATE_FORM" });
   };
 
+  const submitHandler = () => {
+    dispatchForm({type: "CLEAR_INPUTS"})
+  };
+
   return (
-    <form id="invoiceForm" className={classes.container}>
+    <form
+      onSubmit={submitHandler}
+      id="invoiceForm"
+      className={classes.container}
+    >
       <TitleBar
         lefticon="back"
         left_onClick={() =>
@@ -77,11 +90,11 @@ const InvoiceEntry30 = (props) => {
       <FooterContainer>
         {formState.formValid ? (
           <button
-            form={"invoiceForm"}
+            form="invoiceForm"
             type="submit"
             className={`baseButton primary large ${classes.button}`}
           >
-            Add Item
+            Add Invoice
           </button>
         ) : null}
       </FooterContainer>

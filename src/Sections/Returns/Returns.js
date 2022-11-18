@@ -61,35 +61,11 @@ const Returns = () => {
   // Primary reducer for tracking Items and Invoices.
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
-    items: {
-      400: {
-        quantity: 1,
-        img: toilet_img,
-        price: 8.75,
-        itemNum: "400",
-        modelNum: "RT3301",
-        description: "American Standard Grand Duke II with Ultra-Flush",
-        categories: ["Stock", "Special Order"],
-      },
-    },
-    invoices: [
-      {
-        saleDate: new Date(2022, 6, 13),
-        invoice: 12333,
-        store: 2233,
-        lineItems: 2,
-        total: "$123.45",
-      },
-      {
-        saleDate: new Date(2022, 1, 19),
-        invoice: 14373,
-        store: 2233,
-        lineItems: 4,
-        total: "$420.69",
-      },
-    ],
+    items: {},
+    invoices: {},
     testData: testData,
   });
+
 
   // Checks to see if an item is in the catelog.
   const productContextMatcher = (itemNum) => {
@@ -100,7 +76,7 @@ const Returns = () => {
     }
   };
 
-  // going to try to make this universal.
+  // might be duplicate, check and delete if so.
   const invoiceContextMatcher = (itemNum) => {
     if (invoiceContext[itemNum]) {
       return invoiceContext[itemNum];
@@ -108,6 +84,16 @@ const Returns = () => {
       return false;
     }
   };
+
+  const invoiceValidator = (invoiceNum) =>{
+    const invoiceValidity ={
+      isUnique: false,
+      isInContext:false,
+    }
+    if (invoiceContext[invoiceNum]){ invoiceValidity.isInContext = true}
+    if (!session.invoices[invoiceNum]){invoiceValidity.isUnique = true}
+    return invoiceValidity
+  }
 
   const handleAddItem = (itemObj) => {
     // checks if this item is already in session and returns quantity based on result.
@@ -123,6 +109,10 @@ const Returns = () => {
 
     dispatchSession({ type: "ADD_ITEM", payload: newItem });
   };
+
+  const handleAddInvoice = ( )=>{
+
+  }
 
   // I would like to delete this and use the reducer from the button in the LE but it gives an error and I don't know why.
   const handleRemoveItem = (event) => {
@@ -141,6 +131,7 @@ const Returns = () => {
           handleAddItem: handleAddItem,
           productContextMatcher: productContextMatcher,
           invoiceContextMatcher: invoiceContextMatcher,
+          invoiceValidator: invoiceValidator,
         }}
       />
     </main>

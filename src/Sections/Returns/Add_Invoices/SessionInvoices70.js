@@ -9,6 +9,8 @@ const SessionInvoices70 = ({returnsContext, dispatchActivePanels}) => {
 
   const ctxInvoices = returnsContext.session.invoices;
 
+  const invoiceArray = []
+
   const handleHeadingClick = (event) => {
     const origin = event.target;
     console.log(origin);
@@ -27,7 +29,8 @@ const SessionInvoices70 = ({returnsContext, dispatchActivePanels}) => {
 
   const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
 
-  const tableBodyContents = ctxInvoices.map((item) => {
+  // this is a blank array for debugging.  Needs to be fixed later.
+  const tableBodyContents = invoiceArray.map((item) => {
     return (
       <tr key={item.invoice}>
         <td>{item.saleDate.toLocaleDateString("en-US", dateOptions)}</td>
@@ -40,8 +43,9 @@ const SessionInvoices70 = ({returnsContext, dispatchActivePanels}) => {
     );
   });
 
+  console.log(invoiceArray.length)
 
-  return ctxInvoices.length <= 0 ? (
+  return invoiceArray.length === 0 ? (
     <StartScanning />
   ) : (
     <section className={classes.container}>
