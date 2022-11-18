@@ -572,7 +572,8 @@ Big list of things I need to do:
             and in context:
             -InvoiceCatalog
             -ProductCatalog
-        
+    
+    -Wait.  I actually do get to start with something easy!  I need an invoice entry.
 
 
 

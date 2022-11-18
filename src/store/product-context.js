@@ -17,7 +17,6 @@ import wallwart_img from "../assets/product-images/wall-wart.png";
 import washer_img from "../assets/product-images/washer.png";
 
 
-
 const ProductContext = React.createContext({
   100: {
     img: faucet_img,

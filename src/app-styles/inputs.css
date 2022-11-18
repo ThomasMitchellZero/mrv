@@ -1,0 +1,14 @@
+/*  Input CSS  */
+
+.base_input{
+    appearance: none;
+    box-sizing: border-box;
+    height: 2.75rem;
+    border: 1px solid #BBBBBB;
+    border-radius: 4px;
+    padding: 1px 8px;
+  }
+  
+  .base_input:focus{
+    outline: 2px solid blue;
+  }
