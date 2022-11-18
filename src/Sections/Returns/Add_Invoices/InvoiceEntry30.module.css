@@ -8,7 +8,9 @@
 .container section{
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     width: 100%;
     flex: 1 1 0rem;
     background-color: #ffffff;
+    padding: 1.5rem;
 }

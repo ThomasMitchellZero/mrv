@@ -59,6 +59,7 @@ const Returns = () => {
   const testData = testDataMaker(55);
 
   // Primary reducer for tracking Items and Invoices.
+
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: {
       400: {
@@ -99,6 +100,15 @@ const Returns = () => {
     }
   };
 
+  // going to try to make this universal.
+  const invoiceContextMatcher = (itemNum) => {
+    if (invoiceContext[itemNum]) {
+      return invoiceContext[itemNum];
+    } else {
+      return false;
+    }
+  };
+
   const handleAddItem = (itemObj) => {
     // checks if this item is already in session and returns quantity based on result.
     const oldQuantity =
@@ -130,6 +140,7 @@ const Returns = () => {
           handleDelete: handleRemoveItem,
           handleAddItem: handleAddItem,
           productContextMatcher: productContextMatcher,
+          invoiceContextMatcher: invoiceContextMatcher,
         }}
       />
     </main>
