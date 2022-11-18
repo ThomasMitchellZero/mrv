@@ -14,3 +14,8 @@
     background-color: #ffffff;
     padding: 1.5rem;
 }
+
+.button{
+    margin: 0rem 1rem;
+    flex: 1 1 0rem;
+}

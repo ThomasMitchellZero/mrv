@@ -18,7 +18,7 @@
 
 .button{
     margin: 0rem 1rem;
-    width: 100%
+    flex: 1 1 0rem;
 }
 
 .subcontainer{

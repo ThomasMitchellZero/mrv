@@ -6,7 +6,7 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 
 const formReducer = (state, action) => {
   switch (action.type) {
-    case "INVOICE_NUM": 
+    case "INVOICE_NUM":
       return {
         ...state,
         invoiceNum: action.payload.input,
@@ -15,14 +15,15 @@ const formReducer = (state, action) => {
 
     case "VALIDATE_FORM":
       // currently overkill, but will need later if I add date/store.
-      const formValidity = state.invoiceValid ? true : false
+      const formValidity = state.invoiceValid ? true : false;
       return {
-        ...state, formValid: formValidity
-      }
-    
-    case "CLEAR_INPUTS": 
+        ...state,
+        formValid: formValidity,
+      };
+
+    case "CLEAR_INPUTS":
       return {};
-    
+
     default:
       return state;
   }
@@ -42,7 +43,6 @@ const InvoiceEntry30 = (props) => {
   // Handles user inputs to the invoice.
   const invoiceNumChangeHandler = (event) => {
     const input = event.target.value.toUpperCase();
-
     const validity = returnsContext.invoiceContextMatcher(input) ? true : false;
 
     dispatchForm({
@@ -74,7 +74,17 @@ const InvoiceEntry30 = (props) => {
           className={`base_input`}
         />
       </section>
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+        {formState.formValid ? (
+          <button
+            form={"invoiceForm"}
+            type="submit"
+            className={`baseButton primary large ${classes.button}`}
+          >
+            Add Item
+          </button>
+        ) : null}
+      </FooterContainer>
     </form>
   );
 };
