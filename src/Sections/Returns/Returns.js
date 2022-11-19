@@ -41,7 +41,6 @@ const Returns = () => {
 
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
-  console.log(invoiceContext.AAA.invoiceDetails.store);
 
   const idGenerator = () => {
     return Math.floor(Math.random() * 1000000);
@@ -69,7 +68,7 @@ const Returns = () => {
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: {},
-    invoices: { AAA: {} },
+    invoices: {},
     testData: testData,
   });
 

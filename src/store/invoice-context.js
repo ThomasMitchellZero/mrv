@@ -44,7 +44,7 @@ const InvoiceContext = React.createContext({
     },
     products: {
       200: { quantity: 99, price: 44.15 },
-      300: { quantity: 99, price: 24.15 },
+      //300: { quantity: 99, price: 24.15 },
     },
   },
   DDD: {

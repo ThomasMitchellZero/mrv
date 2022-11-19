@@ -26,7 +26,7 @@ const panelsReducer = (state, action) => {
   }
 };
 
-const ReturnsIndex = (props) => {
+const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
 
 

@@ -12,7 +12,6 @@ const InvoiceEntry30 = (props) => {
 
   const dispatchActivePanels = props.dispatchActivePanels;
   const dispatchSession = returnsContext.dispatchSession;
-  console.log(dispatchSession);
 
 //// FORM STATE AND REDUCER ////
 
