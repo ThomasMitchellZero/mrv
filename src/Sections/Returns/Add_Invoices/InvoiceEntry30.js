@@ -10,12 +10,14 @@ const formReducer = (state, action) => {
       return {
         ...state,
         invoiceNum: action.payload.input,
-        invoiceValid: action.payload.validity,
+        invoiceInContext: action.payload.isInContext,
+        invoiceIsUnique: action.payload.isUnique,
       };
 
     case "VALIDATE_FORM":
       // currently overkill, but will need later if I add date/store.
-      const formValidity = state.invoiceValid ? true : false;
+      const formValidity =
+        state.invoiceInContext && state.invoiceIsUnique ? true : false;
       return {
         ...state,
         formValid: formValidity,
@@ -25,7 +27,8 @@ const formReducer = (state, action) => {
       return {
         ...state,
         invoiceNum: "",
-        invoiceValid: false,
+        invoiceInContext: false,
+        invoiceIsUnique: false,
         formValid: false,
       };
 
@@ -41,6 +44,8 @@ const InvoiceEntry30 = (props) => {
 
   const [formState, dispatchForm] = useReducer(formReducer, {
     invoiceNum: "",
+    invoiceInContext: false,
+    invoiceIsUnique: false,
     invoiceValid: false,
     formValid: false,
   });
@@ -48,17 +53,26 @@ const InvoiceEntry30 = (props) => {
   // Handles user inputs to the invoice.
   const invoiceNumChangeHandler = (event) => {
     const input = event.target.value.toUpperCase();
-    const validity = returnsContext.invoiceContextMatcher(input) ? true : false;
+    const validityObj = returnsContext.invoiceValidator(input);
 
     dispatchForm({
       type: "INVOICE_NUM",
-      payload: { input: input, validity: validity },
+      payload: { ...validityObj, input: input },
     });
     dispatchForm({ type: "VALIDATE_FORM" });
   };
 
-  const submitHandler = () => {
-    dispatchForm({type: "CLEAR_INPUTS"})
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatchForm({ type: "CLEAR_INPUTS" });
+  };
+
+  const errorTextHandler = () => {
+    if (!formState.invoiceInContext) {
+      return "Enter a valid invoice number";
+    } else if (!formState.invoiceIsUnique) {
+      return "This invoice has already been entered";
+    } else return "";
   };
 
   return (
@@ -86,6 +100,9 @@ const InvoiceEntry30 = (props) => {
           value={formState.invoiceNum}
           className={`base_input`}
         />
+        <p className={`warning_text ${classes.warningText}`}>
+          {errorTextHandler()}
+        </p>
       </section>
       <FooterContainer>
         {formState.formValid ? (

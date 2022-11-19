@@ -62,7 +62,7 @@ const Returns = () => {
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: {},
-    invoices: {},
+    invoices: {AAA:{}},
     testData: testData,
   });
 
@@ -111,7 +111,7 @@ const Returns = () => {
   };
 
   const handleAddInvoice = ( )=>{
-
+    //Start here tomorrow.
   }
 
   // I would like to delete this and use the reducer from the button in the LE but it gives an error and I don't know why.
