@@ -1,6 +1,7 @@
 import classes from "./InvoiceEntry30.module.css";
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 
+import InvoiceContext from "../../../store/invoice-context";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
@@ -38,7 +39,10 @@ const formReducer = (state, action) => {
 };
 
 const InvoiceEntry30 = (props) => {
+  
   const returnsContext = props.returnsContext;
+  const sessionInvoices = returnsContext.session.invoices
+  const invoiceContext = useContext(InvoiceContext);
 
   const dispatchActivePanels = props.dispatchActivePanels;
 
@@ -48,7 +52,7 @@ const InvoiceEntry30 = (props) => {
     invoiceIsUnique: false,
     invoiceValid: false,
     formValid: false,
-  });
+  }); 
 
   // Handles user inputs to the invoice.
   const invoiceNumChangeHandler = (event) => {

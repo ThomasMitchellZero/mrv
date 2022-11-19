@@ -573,7 +573,69 @@ Big list of things I need to do:
             -InvoiceCatalog
             -ProductCatalog
     
-    -Wait.  I actually do get to start with something easy!  I need an invoice entry.
+    -Wait.  I actually do get to start with something easy!  I need an invoice entry.  
+
+    -OK, next up.  For an invoice to be added, it needs to pass 2 checks.   
+        -that it is in the context.
+        -that it hasn't already been used.
+    
+        -Maybe what I need to do is change the context checker to check both.  I'm sure that would be a better user experience because it gives the user the tools to resolve it.
+
+-19 Nov, 2022
+
+    -I'm also going to try something new here.  Like programming mindfulness.  When I find myself not typing, I should either start writing code or come to this file and start writing to get unstuck.  Like, no self-shaming, just gently return the focus to the work.
+
+    -Today's engine-starter.  I'm going to make the text that describes the error states for Enter Invoice.
+
+    -Next, I need to add each new added invoice to the list.
+
+    -I think after that, I will get into the three derived states.
+
+    -12:20.  No mystery here.  I know exactly why I am stuck.  I would LIKE to have  ALL state-setting logic inside the reducer function.  Then I wouldn't have to export any state-setting functions.  I could just export the reducer function and control everything that happens with action.type.
+
+        -Benefits:
+            + A lot fewer functions to export and track down.  I'll know what the function is setting state and what level it is occuring at, assumign I name things well.  
+            + Complexity Creep is has the potential to be a huge problem for me, since I'm the one that has to solve every problem.
+            + I -THINK- that's actually cleaner code, and if I want this to be a demo piece that is important.
+            + If I don't do it now and change my mind later, this gets a lot harder.
+
+        -Risks:
+            -I don't know if this approach will work.  I haven't really seen it done, and that should give me pause.
+
+            -I really need to be making progress.  It's been a long time and I still haven't progresses beyond the Index URL for returns.
+
+            -One of the things Harrison got into trouble with for Solo was that he was constantly tearing up old track because he figured out a new, better way to do things.
+
+        Moving the statement inside the component function seems to work fine.  Now, what does that get me?
+
+            -In the reducer, I can now call other functions that exist inside the component function, like checking if an item in the Product Catelog.  
+
+            -I don't think I can directly call a second function that changes the state.  I think once the Switch statement returns, the state updates, the component re-renders, and we're back to zero.
+
+                -How to do sequential updates, like validations?
+
+                -Not sure useEffect is appropriate for this.  The documentation seems to suggest that this shouldn't really be used for state-setting.
+
+                -I guess I could do all my updating at once.  Like, if I've got an input change, I could get that in the payload, do the validation, and then assign both the new input and the new validity status in the State object.
+
+            -I think some functions, like checks to see if something is in the catalog, would have to be passed down.  Or could they live within their respective contexts?
+
+            -Still not sure what the answer is, but I am definitely engaged and interested now :)
+
+            -Maybe the thing to do would be to try it with Invoices, and then see how it extends.
+
+            -I think I'm gonna try it.  New objective:
+                -Session state should be updatable using just the Reducer function.
+                -Anything not changing the session should be defined at the lowest possible level that covers all children.
+                    -What about validation functions?  Could I do validation in the component?
+                    -I could.  I can 
+
+
+
+
+
+
+
 
 
 
