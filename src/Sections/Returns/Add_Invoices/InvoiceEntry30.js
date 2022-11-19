@@ -11,6 +11,8 @@ const InvoiceEntry30 = (props) => {
   const invoiceContext = useContext(InvoiceContext);
 
   const dispatchActivePanels = props.dispatchActivePanels;
+  const dispatchSession = returnsContext.dispatchSession;
+  console.log(dispatchSession);
 
 //// FORM STATE AND REDUCER ////
 
@@ -81,6 +83,7 @@ const formReducer = (state, action) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    dispatchSession({type: "ADD_INVOICE", payload: formState.invoiceNum})
     dispatchForm({ type: "CLEAR_INPUTS" });
   };
 

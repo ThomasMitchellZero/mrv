@@ -24,9 +24,8 @@ const Returns = () => {
         return { ...state, items: ItemsList };
   
       case "ADD_INVOICE":
-        const invoiceNum = action.payload.invoiceNum
-        const newInvoices = {...state.invoices }
-        return{...state, }
+        const invoiceNum = action.payload
+        return{...state, invoices:{...state.invoices, [invoiceNum]:{}}}
   
       case "CLEAR_SESSION":
         return { items: [], invoices: [] };
@@ -113,7 +112,6 @@ const Returns = () => {
           handleDelete: handleRemoveItem,
           handleAddItem: handleAddItem,
           productContextMatcher: productContextMatcher,
-
         }}
       />
     </main>
