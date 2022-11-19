@@ -14,11 +14,11 @@ const Returns = () => {
         return { ...state, items: newItemList };
 
       case "REMOVE_ITEM":
-        let ItemsList = state.items;
+        let itemsList = state.items;
 
-        delete ItemsList[action.payload];
+        delete itemsList[action.payload];
 
-        return { ...state, items: ItemsList };
+        return { ...state, items: itemsList };
 
       case "ADD_INVOICE":
         const invoiceNum = action.payload;
@@ -30,6 +30,12 @@ const Returns = () => {
             [invoiceNum]: { ...invoiceDetails },
           },
         };
+
+      case "REMOVE_INVOICE":
+        let invoiceList = state.invoices;
+        console.log(action.payload);
+        delete invoiceList[action.payload]
+        return{...state, invoiceList}
 
       case "CLEAR_SESSION":
         return { items: [], invoices: [] };

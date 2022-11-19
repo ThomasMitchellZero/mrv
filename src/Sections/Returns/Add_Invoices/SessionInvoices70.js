@@ -7,16 +7,18 @@ import Table from "../../../components/UI/Table";
 
 const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxInvoices = returnsContext.session.invoices;
+  const dispatchSession = returnsContext.dispatchSession
+  console.log(returnsContext);
 
   const invoiceArray = Object.entries(ctxInvoices).reverse();
 
   const handleDelete = (event) => {
-    const origin = event.target;
-    console.log(origin.id)
+    const origin = event.target.id;
+    dispatchSession({type: "REMOVE_INVOICE", payload:origin})
   };
 
   /*
-  
+  Sample Invoice
   AAA: {
     invoiceDetails: {
       store: 1234,
@@ -60,9 +62,8 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
 
   const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
 
-//// CREATES JSX ARRAY FOR THE INVOICE TABLE ////
+  //// CREATES JSX ARRAY FOR THE INVOICE TABLE ////
   const tableBodyContents = invoiceArray.map((item) => {
-
     // readies the content for each <td>
     const itemKey = item[0];
     const itemDetails = item[1].invoiceDetails;
@@ -90,7 +91,9 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
     );
   });
 
-  return (
+  return invoiceArray.length === 0 ? (
+    <StartScanning />
+  ) : (
     <section className={classes.container}>
       <TitleBar>Scanned Invoices</TitleBar>
       <section className={classes.mainContent}>
