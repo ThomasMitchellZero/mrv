@@ -102,26 +102,6 @@ const Returns = () => {
     dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
   };
 
-  //// SESSION INVOICE LIST FUNCTIONS ////
-
-  const invoiceValidator = (invoiceNum) => {
-    const invoiceValidity = {
-      isUnique: false,
-      isInContext: false,
-    };
-    if (invoiceContext[invoiceNum]) {
-      invoiceValidity.isInContext = true;
-    }
-    if (!session.invoices[invoiceNum]) {
-      invoiceValidity.isUnique = true;
-    }
-    return invoiceValidity;
-  };
-
-
-
-
-
 
   return (
     <main className={classes.container}>
@@ -133,7 +113,7 @@ const Returns = () => {
           handleDelete: handleRemoveItem,
           handleAddItem: handleAddItem,
           productContextMatcher: productContextMatcher,
-          invoiceValidator: invoiceValidator,
+
         }}
       />
     </main>
@@ -143,6 +123,13 @@ const Returns = () => {
 export default Returns;
 
 /*
+
+
+
+
+
+
+
 
 
 */

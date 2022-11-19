@@ -5,9 +5,19 @@ import InvoiceContext from "../../../store/invoice-context";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
+const InvoiceEntry30 = (props) => {
+  const returnsContext = props.returnsContext;
+  const sessionInvoices = returnsContext.session.invoices;
+  const invoiceContext = useContext(InvoiceContext);
+
+  const dispatchActivePanels = props.dispatchActivePanels;
+
+//// FORM STATE AND REDUCER ////
+
 const formReducer = (state, action) => {
   switch (action.type) {
     case "INVOICE_NUM":
+
       return {
         ...state,
         invoiceNum: action.payload.input,
@@ -30,7 +40,6 @@ const formReducer = (state, action) => {
         invoiceNum: "",
         invoiceInContext: false,
         invoiceIsUnique: false,
-        formValid: false,
       };
 
     default:
@@ -38,30 +47,34 @@ const formReducer = (state, action) => {
   }
 };
 
-const InvoiceEntry30 = (props) => {
-  
-  const returnsContext = props.returnsContext;
-  const sessionInvoices = returnsContext.session.invoices
-  const invoiceContext = useContext(InvoiceContext);
-
-  const dispatchActivePanels = props.dispatchActivePanels;
-
   const [formState, dispatchForm] = useReducer(formReducer, {
     invoiceNum: "",
     invoiceInContext: false,
     invoiceIsUnique: false,
-    invoiceValid: false,
     formValid: false,
-  }); 
+  });
+
 
   // Handles user inputs to the invoice.
   const invoiceNumChangeHandler = (event) => {
     const input = event.target.value.toUpperCase();
-    const validityObj = returnsContext.invoiceValidator(input);
+
+      const inputObj = {
+        input: input,
+        isUnique: false,
+        isInContext: false,
+      };
+
+      if(invoiceContext[input]){
+        inputObj.isInContext = true
+      }
+      if(!sessionInvoices[input]){
+        inputObj.isUnique = true;
+      }
 
     dispatchForm({
       type: "INVOICE_NUM",
-      payload: { ...validityObj, input: input },
+      payload: inputObj,
     });
     dispatchForm({ type: "VALIDATE_FORM" });
   };
