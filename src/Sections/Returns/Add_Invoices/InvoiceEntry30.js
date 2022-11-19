@@ -85,7 +85,7 @@ const InvoiceEntry30 = (props) => {
         lefticon="back"
         left_onClick={() =>
           dispatchActivePanels({
-            type: "setPanels",
+            type: "SET_PANELS",
             payload: { set30: "actions" },
           })
         }

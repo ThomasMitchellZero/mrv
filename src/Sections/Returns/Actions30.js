@@ -30,7 +30,7 @@ const Actions30 = (props) => {
         <VerticalNavButton
           onClick={() =>
             dispatchActivePanels({
-              type: "setPanels",
+              type: "SET_PANELS",
               payload: { set30: "invoice_entry", set70: "session_invoices" },
             })
           }
@@ -41,7 +41,7 @@ const Actions30 = (props) => {
           label="Item Entry"
           onClick={() =>
             dispatchActivePanels({
-              type: "setPanels",
+              type: "SET_PANELS",
               payload: { set30: "item_entry", set70: "session_items" },
             })
           }

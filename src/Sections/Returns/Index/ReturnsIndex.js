@@ -15,7 +15,7 @@ import { useOutletContext } from "react-router-dom";
 
 const panelsReducer = (state, action) => {
   switch (action.type) {
-    case "setPanels": {
+    case "SET_PANELS": {
       const new30 = action.payload.set30 ? action.payload.set30 : state.state30;
       const new70 = action.payload.set70 ? action.payload.set70 : state.state70;
       return { ...state, state30: new30, state70: new70 };
