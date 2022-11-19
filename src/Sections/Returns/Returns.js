@@ -4,32 +4,36 @@ import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 
-
 const Returns = () => {
-
   const sessionReducer = (state, action) => {
-
     switch (action.type) {
       case "ADD_ITEM":
         const newKey = action.payload.itemNum;
-  
+
         const newItemList = { ...state.items, [newKey]: action.payload };
         return { ...state, items: newItemList };
-  
+
       case "REMOVE_ITEM":
         let ItemsList = state.items;
-  
+
         delete ItemsList[action.payload];
-  
+
         return { ...state, items: ItemsList };
-  
+
       case "ADD_INVOICE":
-        const invoiceNum = action.payload
-        return{...state, invoices:{...state.invoices, [invoiceNum]:{}}}
-  
+        const invoiceNum = action.payload;
+        const invoiceDetails = invoiceContext[invoiceNum];
+        return {
+          ...state,
+          invoices: {
+            ...state.invoices,
+            [invoiceNum]: { ...invoiceDetails },
+          },
+        };
+
       case "CLEAR_SESSION":
         return { items: [], invoices: [] };
-  
+
       default:
         throw new Error(`Unknown action type: ${action.type}`);
     }
@@ -61,7 +65,7 @@ const Returns = () => {
 
   const testData = testDataMaker(55);
 
-//// Primary reducer for tracking Items and Invoices. ////
+  //// Primary reducer for tracking Items and Invoices. ////
 
   const [session, dispatchSession] = useReducer(sessionReducer, {
     items: {},
@@ -100,7 +104,6 @@ const Returns = () => {
     const clickedID = event.currentTarget.id;
     dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
   };
-
 
   return (
     <main className={classes.container}>
