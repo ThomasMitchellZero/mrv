@@ -8,7 +8,7 @@ const [cash, inStoreCredit, applePay, payPal, check] = [
   "Check",
 ];
 
-const products = [100, 200, 300, 400, 900, 910];
+//products = 100, 200, 300, 400, 900, 910
 
 const InvoiceContext = React.createContext({
   AAA: {

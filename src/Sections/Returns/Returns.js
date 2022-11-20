@@ -5,12 +5,25 @@ import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 
 const Returns = () => {
+  const productContext = useContext(ProductContext);
+  const invoiceContext = useContext(InvoiceContext);
+
   const sessionReducer = (state, action) => {
     switch (action.type) {
       case "ADD_ITEM":
         const newKey = action.payload.itemNum;
+        const itemInfo = productContext[newKey];
+        let newQuantity = parseInt(action.payload.quantity);
 
-        const newItemList = { ...state.items, [newKey]: action.payload };
+        //if item already exists in the state, add new qty to existing qty.
+        if (state.items[newKey]) {
+          newQuantity += state.items[newKey].quantity;
+        }
+
+        const newItemList = {
+          ...state.items,
+          [newKey]: { ...itemInfo, quantity: newQuantity },
+        };
         return { ...state, items: newItemList };
 
       case "REMOVE_ITEM":
@@ -34,8 +47,8 @@ const Returns = () => {
       case "REMOVE_INVOICE":
         let invoiceList = state.invoices;
         console.log(action.payload);
-        delete invoiceList[action.payload]
-        return{...state, invoiceList}
+        delete invoiceList[action.payload];
+        return { ...state, invoiceList };
 
       case "CLEAR_SESSION":
         return { items: [], invoices: [] };
@@ -45,12 +58,6 @@ const Returns = () => {
     }
   };
 
-  const productContext = useContext(ProductContext);
-  const invoiceContext = useContext(InvoiceContext);
-
-  const idGenerator = () => {
-    return Math.floor(Math.random() * 1000000);
-  };
 
   // Generates a long list of numbers to test scrolling.
   const testDataMaker = (length) => {
@@ -78,33 +85,6 @@ const Returns = () => {
     testData: testData,
   });
 
-  //// SESSION ITEM LIST FUNCTIONS ////
-
-  // Checks to see if an item is in the catelog.
-  const productContextMatcher = (itemNum) => {
-    if (productContext[itemNum]) {
-      return productContext[itemNum];
-    } else {
-      return false;
-    }
-  };
-
-//Start here.  See if this can be moved into the Reducer and the ItemEntry30 component.
-
-  const handleAddItem = (itemObj) => {
-    // checks if this item is already in session and returns quantity based on result.
-    const oldQuantity =
-      `${itemObj.itemNum}` in session.items
-        ? session.items[itemObj.itemNum].quantity
-        : 0;
-
-    const newItem = {
-      ...productContextMatcher(itemObj.itemNum),
-      quantity: oldQuantity + parseInt(itemObj.quantity),
-    };
-
-    dispatchSession({ type: "ADD_ITEM", payload: newItem });
-  };
 
 
   return (
@@ -113,9 +93,6 @@ const Returns = () => {
         context={{
           session: session,
           dispatchSession: dispatchSession,
-          idGenerator: idGenerator,
-          handleAddItem: handleAddItem,
-          productContextMatcher: productContextMatcher,
         }}
       />
     </main>

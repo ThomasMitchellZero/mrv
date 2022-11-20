@@ -1,54 +1,69 @@
 import classes from "./ItemEntry30.module.css";
 
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 
+import ProductContext from "../../../store/product-context";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "ITEM_NUM":
-      return {
-        ...state,
-        itemNum: action.payload.input,
-        itemValid: action.payload.validity,
-      };
-    case "QUANTITY":
-      return { ...state, quantity: action.payload };
-    case "VALIDATE_FORM":
-      let validity = state.quantity && state.itemValid ? true : false;
-      return { ...state, formValid: validity };
-    case "CLEAR_FORM":
-      return { itemNum: "", quantity: "", itemValid: false, formValid: false };
-    default:
-      return state;
-  }
-};
 
 
 const ItemEntry30 = (props) => {
   // props inherited from the parent
   const returnsContext = props.returnsContext;
-
-
+  const productContext = useContext(ProductContext);
+  const dispatchSession = returnsContext.dispatchSession;
 
   const dispatchActivePanels = props.dispatchActivePanels;
 
-  const [formState, dispatchForm] = useReducer(formReducer, {
+  const defaultState = {
     itemNum: "",
     quantity: "",
     itemValid: false,
     formValid: false,
-  });
+  };
+
+  const formReducer = (state, action) => {
+    switch (action.type) {
+
+      case "ITEM_NUM":
+        return {
+          ...state,
+          itemNum: action.payload.input,
+          itemValid: action.payload.itemValid,
+        };
+      case "QUANTITY":
+        return { ...state, quantity: action.payload };
+
+      case "VALIDATE_FORM":
+        let formValidity = state.quantity && state.itemValid ? true : false;
+        return { ...state, formValid: formValidity };
+
+      case "CLEAR_FORM":
+        return defaultState
+
+      default:
+        return state;
+    }
+  };
+
+  const [formState, dispatchForm] = useReducer(formReducer, defaultState);
+
+  const productContextMatcher = (itemNum) => {
+    if (productContext[itemNum]) {
+      return productContext[itemNum];
+    } else {
+      return false;
+    }
+  };
 
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
 
-    const validity = returnsContext.productContextMatcher(input) ? true : false;
+    const itemValidity = productContextMatcher(input) ? true : false;
 
     dispatchForm({
       type: "ITEM_NUM",
-      payload: { input: input, validity: validity },
+      payload: { input: input, itemValid: itemValidity },
     });
     dispatchForm({ type: "VALIDATE_FORM" });
   };
@@ -63,14 +78,23 @@ const ItemEntry30 = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    returnsContext.handleAddItem(formState);
+    const itemPayload = {
+      itemNum: formState.itemNum,
+      quantity: formState.quantity
+    }
+
+    dispatchSession({type:"ADD_ITEM", payload: itemPayload})
 
     dispatchForm({ type: "CLEAR_FORM" });
   };
 
   //check and see what props.id is doing.  right now it seems useless?
   return (
-    <form id={"item_form"} className={classes.container} onSubmit={submitHandler}>
+    <form
+      id={"item_form"}
+      className={classes.container}
+      onSubmit={submitHandler}
+    >
       <TitleBar
         lefticon="back"
         left_onClick={() =>
@@ -87,6 +111,7 @@ const ItemEntry30 = (props) => {
           <input
             type="number"
             id="item_num"
+            autoFocus={true}
             placeholder="Item #, UPC#, or Speed Code"
             className={`base_input ${classes.itemsearch}`}
             onChange={itemNumChangeHandler}
@@ -127,5 +152,13 @@ const ItemEntry30 = (props) => {
 export default ItemEntry30;
 
 /*
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    returnsContext.handleAddItem(formState);
+
+    dispatchForm({ type: "CLEAR_FORM" });
+  };
+
 
 */
