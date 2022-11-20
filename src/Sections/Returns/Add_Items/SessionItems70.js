@@ -3,12 +3,15 @@ import classes from "./SessionItems70.module.css";
 import StartScanning from "../Index/StartScanning70";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import ReturnsProductDetail from "./ReturnsProductDetails"
+import ReturnsProductDetail from "./ReturnsProductDetails";
 import Table from "../../../components/UI/Table";
 
 const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   // items are stored in an object.  This makes an array so they can be iterated.
+
   const ctxItems = Object.values(returnsContext.session.items).reverse();
+
+  const dispatchSession = returnsContext.dispatchSession;
 
   const headingList = [
     { id: "Invoice #", active: false, descending: true, width: "10%" },
@@ -50,7 +53,15 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         <td className={classes.cost}>{`$ ${total}`}</td>
         <td>{`- -`}</td>
         <td>
-          <button id={line.itemNum} onClick={returnsContext.handleDelete}>
+          <button
+            id={line.itemNum}
+            onClick={() =>
+              dispatchSession({
+                type: "REMOVE_ITEM",
+                payload: line.itemNum,
+              })
+            }
+          >
             X
           </button>
         </td>
