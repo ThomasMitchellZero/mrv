@@ -89,6 +89,8 @@ const Returns = () => {
     }
   };
 
+//Start here.  See if this can be moved into the Reducer and the ItemEntry30 component.
+
   const handleAddItem = (itemObj) => {
     // checks if this item is already in session and returns quantity based on result.
     const oldQuantity =
@@ -104,11 +106,6 @@ const Returns = () => {
     dispatchSession({ type: "ADD_ITEM", payload: newItem });
   };
 
-  // I would like to delete this and use the reducer from the button in the LI but it gives an error and I don't know why.
-  const handleRemoveItem = (event) => {
-    const clickedID = event.currentTarget.id;
-    dispatchSession({ type: "REMOVE_ITEM", payload: clickedID });
-  };
 
   return (
     <main className={classes.container}>
@@ -117,7 +114,6 @@ const Returns = () => {
           session: session,
           dispatchSession: dispatchSession,
           idGenerator: idGenerator,
-          handleDelete: handleRemoveItem,
           handleAddItem: handleAddItem,
           productContextMatcher: productContextMatcher,
         }}

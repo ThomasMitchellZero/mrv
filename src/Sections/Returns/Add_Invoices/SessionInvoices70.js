@@ -11,29 +11,8 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
 
   const invoiceArray = Object.entries(ctxInvoices).reverse();
 
-  const handleDelete = (event) => {
-    const origin = event.target.id;
-    dispatchSession({type: "REMOVE_INVOICE", payload:origin})
-  };
 
-  /*
-  Sample Invoice
-  AAA: {
-    invoiceDetails: {
-      store: 1234,
-      date: new Date(2022, 8, 13),
-      payment: cash,
-    },
-    products: {
-      100: { quantity: 8, price: 44.15 },
-      300: { quantity: 2, price: 24.15 },
-      400: { quantity: 10, price: 13.15 },
-    },
-  },
-  
-  */
-
-  // Array containing info to make the table header
+  // Array containing info to populate the table header
   const headingList = [
     { id: "Sale Date", active: false, descending: true, flexing: "auto" },
     { id: "Invoice #", active: false, descending: true, flexing: "auto" },
@@ -59,11 +38,14 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   
   */
 
-  const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
+  
 
   //// CREATES JSX ARRAY FOR THE INVOICE TABLE ////
   const tableBodyContents = invoiceArray.map((item) => {
-    // readies the content for each <td>
+
+    // vars containing the content for each <td>
+    const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
+    
     const itemKey = item[0];
     const itemDetails = item[1].invoiceDetails;
     const productList = Object.values(item[1].products);
@@ -82,7 +64,15 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
         <td>{lineItemQty}</td>
         <td>{totalPrice.toFixed(2)}</td>
         <td>
-          <button id={itemKey} onClick={handleDelete}>
+        <button
+            id={itemKey}
+            onClick={() =>
+              dispatchSession({
+                type: "REMOVE_INVOICE",
+                payload: itemKey,
+              })
+            }
+          >
             X
           </button>
         </td>
