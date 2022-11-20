@@ -13,65 +13,65 @@ const InvoiceEntry30 = (props) => {
   const dispatchActivePanels = props.dispatchActivePanels;
   const dispatchSession = returnsContext.dispatchSession;
 
-//// FORM STATE AND REDUCER ////
+  //// FORM STATE AND REDUCER ////
 
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INVOICE_NUM":
-
-      return {
-        ...state,
-        invoiceNum: action.payload.input,
-        invoiceInContext: action.payload.isInContext,
-        invoiceIsUnique: action.payload.isUnique,
-      };
-
-    case "VALIDATE_FORM":
-      // currently overkill, but will need later if I add date/store.
-      const formValidity =
-        state.invoiceInContext && state.invoiceIsUnique ? true : false;
-      return {
-        ...state,
-        formValid: formValidity,
-      };
-
-    case "CLEAR_INPUTS":
-      return {
-        ...state,
-        invoiceNum: "",
-        invoiceInContext: false,
-        invoiceIsUnique: false,
-      };
-
-    default:
-      return state;
-  }
-};
-
-  const [formState, dispatchForm] = useReducer(formReducer, {
+  const defaultState = {
     invoiceNum: "",
     invoiceInContext: false,
     invoiceIsUnique: false,
     formValid: false,
-  });
+  };
 
+  const formReducer = (state, action) => {
+    switch (action.type) {
+      case "INVOICE_NUM":
+        return {
+          ...state,
+          invoiceNum: action.payload.input,
+          invoiceInContext: action.payload.isInContext,
+          invoiceIsUnique: action.payload.isUnique,
+        };
+
+      case "VALIDATE_FORM":
+        // currently overkill, but will need later if I add date/store.
+        const formValidity =
+          state.invoiceInContext && state.invoiceIsUnique ? true : false;
+        return {
+          ...state,
+          formValid: formValidity,
+        };
+
+      case "CLEAR_INPUTS":
+        return {
+          ...state,
+          ...defaultState,
+        };
+
+      default:
+        return state;
+    }
+  };
+
+  const [formState, dispatchForm] = useReducer(formReducer, {
+    ...defaultState,
+  });
 
   // Handles user inputs to the invoice.
   const invoiceNumChangeHandler = (event) => {
     const input = event.target.value.toUpperCase();
 
-      const inputObj = {
-        input: input,
-        isUnique: false,
-        isInContext: false,
-      };
+    const inputObj = {
+      input: input,
+      isUnique: false,
+      isInContext: false,
+    };
 
-      if(invoiceContext[input]){
-        inputObj.isInContext = true
-      }
-      if(!sessionInvoices[input]){
-        inputObj.isUnique = true;
-      }
+    if (invoiceContext[input]) {
+      inputObj.isInContext = true;
+    }
+    if (!sessionInvoices[input]) {
+      inputObj.isUnique = true;
+    }
 
     dispatchForm({
       type: "INVOICE_NUM",
@@ -82,7 +82,7 @@ const formReducer = (state, action) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatchSession({type: "ADD_INVOICE", payload: formState.invoiceNum})
+    dispatchSession({ type: "ADD_INVOICE", payload: formState.invoiceNum });
     dispatchForm({ type: "CLEAR_INPUTS" });
   };
 

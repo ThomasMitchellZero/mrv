@@ -8,7 +8,6 @@ import Table from "../../../components/UI/Table";
 const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxInvoices = returnsContext.session.invoices;
   const dispatchSession = returnsContext.dispatchSession
-  console.log(returnsContext);
 
   const invoiceArray = Object.entries(ctxInvoices).reverse();
 
