@@ -8,6 +8,35 @@ const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
 
+  // Generates a long list of numbers to test scrolling.
+  const testDataMaker = (length) => {
+    let output = [];
+    for (let i = 0; i < length; i++) {
+      output = [
+        ...output,
+        {
+          id: i,
+          content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          date: "5 August 1983",
+        },
+      ];
+    }
+    return output;
+  };
+
+  const testData = testDataMaker(55);
+
+  //// RETURNS SESSION REDUCER ////
+
+  const defaultSessionState = {
+    items: {},
+    invoices: {},
+    unmatched: {},
+    matchEligible: {},
+    matched: {},
+    testData: testData,
+  };
+
   const sessionReducer = (state, action) => {
     switch (action.type) {
       case "ADD_ITEM":
@@ -51,41 +80,16 @@ const Returns = () => {
         return { ...state, invoiceList };
 
       case "CLEAR_SESSION":
-        return { items: [], invoices: [] };
+        return defaultSessionState;
 
       default:
         throw new Error(`Unknown action type: ${action.type}`);
     }
   };
 
+  //// RETURNS SESSION STATE ////
 
-  // Generates a long list of numbers to test scrolling.
-  const testDataMaker = (length) => {
-    let output = [];
-    for (let i = 0; i < length; i++) {
-      output = [
-        ...output,
-        {
-          id: i,
-          content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-          date: "5 August 1983",
-        },
-      ];
-    }
-    return output;
-  };
-
-  const testData = testDataMaker(55);
-
-  //// Primary reducer for tracking Items and Invoices. ////
-
-  const [session, dispatchSession] = useReducer(sessionReducer, {
-    items: {},
-    invoices: {},
-    testData: testData,
-  });
-
-
+  const [session, dispatchSession] = useReducer(sessionReducer, defaultSessionState);
 
   return (
     <main className={classes.container}>
