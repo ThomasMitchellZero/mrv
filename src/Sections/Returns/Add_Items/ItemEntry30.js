@@ -48,6 +48,7 @@ const ItemEntry30 = (props) => {
 
   const [formState, dispatchForm] = useReducer(formReducer, defaultState);
 
+  // checks to see if product exists in the Products context.
   const productContextMatcher = (itemNum) => {
     if (productContext[itemNum]) {
       return productContext[itemNum];
@@ -56,6 +57,7 @@ const ItemEntry30 = (props) => {
     }
   };
 
+  //updates the local state whenever the Item Num input changes.
   const itemNumChangeHandler = (event) => {
     const input = event.target.value;
 
@@ -68,6 +70,7 @@ const ItemEntry30 = (props) => {
     dispatchForm({ type: "VALIDATE_FORM" });
   };
 
+    //updates the local state whenever the Quantity input changes.
   const quantityChangeHandler = (event) => {
     dispatchForm({
       type: "QUANTITY",
@@ -76,6 +79,7 @@ const ItemEntry30 = (props) => {
     dispatchForm({ type: "VALIDATE_FORM" });
   };
 
+  // Adds the item and quantity to the top Returns state via dispatch.
   const submitHandler = (event) => {
     event.preventDefault();
     const itemPayload = {
@@ -88,7 +92,7 @@ const ItemEntry30 = (props) => {
     dispatchForm({ type: "CLEAR_FORM" });
   };
 
-  //check and see what props.id is doing.  right now it seems useless?
+
   return (
     <form
       id={"item_form"}
