@@ -628,13 +628,93 @@ Big list of things I need to do:
                 -Session state should be updatable using just the Reducer function.
                 -Anything not changing the session should be defined at the lowest possible level that covers all children.
                     -What about validation functions?  Could I do validation in the component?
-                    -I could.  I can 
+                    -I could.  I can.
+            
+        5:00 - slowly chugging along, but I haven't gotten majorly stuck yet.  I think the next thing I need to do is populate the Invoices table, because the next thing after that is being able to delete invoices.
+
+        Alternatively, I could try and move / clean up via reducer the Items table, but that thing is working OK right now and I think I'm gonna pass.  I think the time for that will be when it comes time to populate the derived lists.
+
+22 Nov 2022
+    Making decent progress on completing the move to dispatching.  
+        For adding an item, here's what needs to happen.
+            -Get item number + quantity from the ItemEntry30 component
+            -If itemNum does not exist in sessionItems, add it.
+            -update quantity.
+
+    -Next, I want to make three sample objects, one each for Unmatched, MatchEligible, and Matched.
+
+    -OK, so now.  How to handle this updating?  
+
+    -Raw list > derived list > matched list.  I suppose I could:
+        -have a function that generates each derived list
+        -have a function that generates the matched list
+        -Whenever Items or Invoices is updated, I call those two functions, then update the state with all three.  
+        -I guess my only reservation is that I'm doing a LOT of work in the reducer, but I don't know any reason why that wouldn't be OK.
+
+        -Alternatively, I could have separate functions to update EACH state object, but I think then I'm back to having to pass named functions back down the chain.
+
+        If I do this:  one of my lists won't be in the state yet.  Either the soon-to-be Unmatched or MatchEligible will be a variable that hasn't been added to state yet.  Will this work?
+
+            -the only purpose of UM and ME is so that I'm not double-counting either items or receipted items.
+            
+            -I DO NOT need to maintain UM and ME.  In fact, I definitely don't want to.  
+                -I need to conceptually grasp that these two are re-generated with every state change.  
+
+            -I do at least need to keep the Unmatched list, or else I can't give store credit.
+            -I think I also need to end up with the Matched list in the state, since 
+
+    Fuuuuuuuuck.  I think I might have just screwed myself.  I don't know if I can call outside functions in the reducers.  
+
+        -Remember.  This is an ASSUMPTION.  We've gotten into trouble like this before.  Let's check this assumption before we blow everything up.  At the very least, I don't know WHY it wouldn't work.
+
+        -OK.  I have not fucked myself.  I am really glad I checked my assumptions because otherwise I would have had to redo a shitload of work.  Good on me for learning from past mistakes.  I'm calling it a day.
+
+23 Nov, 2022
+    Having a little trouble getting engaged with the work, but what else is new?
+
+    -One thing giving me pause right now.  Do I want to generate a Match-Eligible list, or do I want to to the matching directly from the invoice list?
+        -IF I match directly from the invoice list, I will be left with three neat little buckets:
+            -A revised invoice list, with all the returned contents subtracted.
+            -An unmatched list, which will get store credit
+            -A matched list, which will be refunded in kind.  
+        
+        The last two, I will have already.  The first  item, the revised Invoice list, I could then push directly to the existing invoice list.
+
+            -So basically, this is a question of whether I want to update the invoice list or not.
+
+            Argument in favor:
+                + I can probably do it.  Searching for matches is going to be harder, and sorting prices highest to lowest is going to be MUCH harder, but I think I could do it.
+
+                + If I ever do want this feature in the future, I will have to do a lot of uprooting to get it.
+
+                    -Or will I?  I'm not consuming the invoices that aren't matched anywhere, so I think the only code affected would be the matching function.  
+
+                + If I am every showing code in a portfolio review, I might get asked why I don't have this.  "It was too much work" might be a difficult answer.  
+
+                I think I need to get moving on this.  Pushing unmatched back into the store is deep into "Nice to have"
+
+                I'm good with back-burnering it for now.
+
+    For the time being, I'm going to move the function into a separate file.  I'm really just testing the JS code and this makes it a lot easier to debug in the terminal.  
+
+        -Having spent some time with it, I'm really, seriously considering the option to just look for matches in the invoice list directly.  The path TO the items sold is a little longer, but I really don't think it's all that much harder.
+
+        -Do I want to account for the possiblity of more than one price for the same item on an invoice?
+            -on the one hand, no.  On the other hand, it's not that much more code?  
+
+24 Nov 2022
+
+    I need to do a little thinking here.  
+        -AFAICT, I should NEVER reference anything from the two loop arrays other than keys.  
+        -I should never be modifying anything other than the three derived objects - Unmatched Items, Modified Invoices, and Matched.
+        -AFAICT, I should only be referencing these as well?
 
 
+    Well, kind of hard to believe but I've finally got it working.  At least on my sample data, it handled a variety of scenarios.  I think I've been working on this damn thing for at least 2 weeks.  
+    
+    -I'm gonna try leaving this one as a module and importing it into Returns.  I think it will be a little easier to debug if it's a standalone file?  
 
-
-
-
+    -I'm losing velocity here and I know exactly why it's happening.  I'm afraid that if something goes wrong in the Returns context I will have no way to fix it.  I'm riding a high from my progress and I'm afraid of the crash.  Litany of Gendlin.  I might as well find out.
 
 
 
