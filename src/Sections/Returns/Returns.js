@@ -37,9 +37,42 @@ const Returns = () => {
     testData: testData,
   };
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const generateUnmatched = (list) => {
     return { ...list };
   };
+
+  const generateMatchEligible = (invoiceList) => {
+    // makes a new array of the invoices so we can loop through it.
+    const matchArr = Object.entries(invoiceList);
+    let matchEligible = {};
+
+    // for each invoice in the new Invoice Array
+    matchArr.forEach((invoice) => {
+      // make the invoice's products into an iterable array.
+      const currentInvoiceProducts = Object.entries(invoice[1].products);
+
+      currentInvoiceProducts.forEach((productArr) => {
+        const currentKey = productArr[0];
+        const currentVal = productArr[1];
+
+        //if item number already exists in MatchEligible, spread those existing objects into the array with the current value.
+        const newProductArr = matchEligible[currentKey]
+          ? [...matchEligible[currentKey], currentVal]
+          : [currentVal];
+
+        // add the updated key/value pair to the matchEligible object.
+        matchEligible = { ...matchEligible, [currentKey]: newProductArr };
+      });
+    });
+    return matchEligible;
+  };
+
+const generateUnmatched_invoices = (invoiceList)=>{
+
+}
+
+
   /*
 
   const unmatched = {
@@ -77,36 +110,56 @@ const Returns = () => {
 
 */
 
-  const generateMatchEligible = (invoiceList) => {
-    // makes a new array of the invoices so we can loop through it.
-    const matchArr = Object.entries(invoiceList);
-    let matchEligible = {};
+  const matchMaker = (itemList, invoiceList) => {
+    const unmatched_invoices = invoiceList
+    const unmatched_items = generateUnmatched(itemList);
 
-    // for each invoice in the new Invoice Array
-    matchArr.forEach((invoice) => {
-      // make the invoice's products into an iterable array.
-      const currentInvoiceProducts = Object.entries(invoice[1].products);
+    const unmatched_itemArr = Object.entries(unmatched_items);
+    const unmatched_invoiceArr = Object.entries(unmatched_invoices)
 
-      currentInvoiceProducts.forEach((productArr) => {
+    //loop through the Unmatched items.
+    unmatched_itemArr.forEach((unmatchedItem) => {
+      const UM_itemKey = unmatchedItem[0];
+      const UM_itemQty = unmatchedItem[1].quantity;
 
-        const currentKey = productArr[0];
-        const currentVal = productArr[1];
+      // loop through the Unmatched invoices
+      unmatched_invoiceArr.forEach((unmatchedInvoice)=>{
 
-        //if item number already exists in MatchEligible, spread those existing objects into the array with the current value.
-        const newProductArr = matchEligible[currentKey]
-          ? [...matchEligible[currentKey], currentVal]
-          : [currentVal];
+      })
+      if (matchEligible[UM_itemKey]) {
 
+        /*
+          [
+            { quantity: 6, price: 21.21, payment: "credit" },
+            { quantity: 8, price: 23.23, payment: "debit" },
+          ],
+        */
+
+        // an array pf all transactions for that tiem.
+        const ME_Item = Object.values(matchEligible[UM_itemKey]);
           
-        // add the updated key/value pair to the matchEligible object.
-        matchEligible = {...matchEligible, [currentKey]:newProductArr}
-      });
+          // Loop through all the transactions in this item.  Using a for loop because we need the index.
+          for(let i=0; i<ME_Item.length; i++){
+            
+            const ME_itemQty = ME_Item[i].quantity
+            
+            if(ME_itemQty > UM_itemQty){
 
+            } else if(ME_itemQty < UM_itemQty){
+
+            } else {
+
+            }
+
+            
+          }
+
+
+      }
     });
-    console.log(matchEligible);
   };
 
-  const matchMaker = (unmatched, matchEligible) => {};
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   const sessionReducer = (state, action) => {
     switch (action.type) {
