@@ -1,9 +1,9 @@
 import classes from "./Actions30.module.css";
 
-import TitleBar from "../../components/UI/TitleBar";
-import VerticalNavMenu from "../../components/UI/VerticalNavMenu";
-import VerticalNavButton from "../../components/UI/VerticalNavButton";
-import FooterContainer from "../../components/UI/FooterContainer";
+import TitleBar from "../../../components/UI/TitleBar";
+import VerticalNavMenu from "../../../components/UI/VerticalNavMenu";
+import VerticalNavButton from "../../../components/UI/VerticalNavButton";
+import FooterContainer from "../../../components/UI/FooterContainer";
 
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ import {
   CloseLineIcon,
   ExchangeLineIcon,
   SlashCartLineIcon,
-} from "../../assets/lowes-icons/Line-Icons/LineIcons";
+} from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const Actions30 = (props) => {
   // panel dispatcher from ReturnsIndex

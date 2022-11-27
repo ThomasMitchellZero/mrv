@@ -1,7 +1,7 @@
 import classes from "./ReturnsIndex.module.css";
 
 // 30 panel components
-import Actions30 from "../Actions30";
+import Actions30 from "./Actions30";
 import ItemEntry30 from "../Add_Items/ItemEntry30";
 import InvoiceEntry30 from "../Add_Invoices/InvoiceEntry30";
 

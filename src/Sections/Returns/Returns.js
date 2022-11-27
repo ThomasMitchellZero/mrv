@@ -33,17 +33,17 @@ const Returns = () => {
     items: {},
     invoices: {},
     unmatched: {},
-    matchEligible: {},
+    modified_invoices: {},
     matched: {},
     testData: testData,
   };
 
   const sessionReducer = (state, action) => {
     switch (action.type) {
-      case "ADD_ITEM":
+      case "ADD_ITEM": {
         const newKey = action.payload.itemNum;
-        const itemInfo = productContext[newKey];
-        const sessionInvoices = state.invoices;
+        const itemInfo = {...productContext[newKey]};
+        const sessionInvoices = {...state.invoices}
         let newQuantity = parseInt(action.payload.quantity);
 
         //if item already exists in the state, add new qty to existing qty.
@@ -56,34 +56,70 @@ const Returns = () => {
           [newKey]: { ...itemInfo, quantity: newQuantity },
         };
 
-        const derivedStates = matchMaker(newItemList, sessionInvoices)
-        console.log(derivedStates)
-
-        return { ...state, items: newItemList };
-
-      case "REMOVE_ITEM":
-        let itemsList = state.items;
-
-        delete itemsList[action.payload];
-
-        return { ...state, items: itemsList };
-
-      case "ADD_INVOICE":
-        const invoiceNum = action.payload;
-        const invoiceDetails = invoiceContext[invoiceNum];
-        const newInvoices = { ...state.invoices, [invoiceNum]: invoiceDetails };
-        //generateMatchEligible(newInvoices);
+        const derivedStates = matchMaker(newItemList, sessionInvoices);
 
         return {
           ...state,
-          invoices: newInvoices,
+          items: newItemList,
+          unmatched: derivedStates.unmatched,
+          modified_invoices: derivedStates.modified_invoices,
+          matched: derivedStates.matched,
+        };
+      }
+
+      case "REMOVE_ITEM": {
+        const sessionInvoices = {...state.invoices}
+        let newItemList = {...state.items};
+
+        delete newItemList[action.payload];
+
+        const derivedStates = matchMaker(newItemList, sessionInvoices);
+
+        return {
+          ...state,
+          items: newItemList,
+          unmatched: derivedStates.unmatched,
+          modified_invoices: derivedStates.modified_invoices,
+          matched: derivedStates.matched,
+        };
+      }
+
+      case "ADD_INVOICE": {
+        const sessionItems = {...state.items};
+
+        const invoiceNum = action.payload;
+        const invoiceInfo = {...invoiceContext[invoiceNum]};
+        const newInvoiceList = {
+          ...state.invoices,
+          [invoiceNum]: invoiceInfo,
         };
 
-      case "REMOVE_INVOICE":
-        let invoiceList = state.invoices;
-        console.log(action.payload);
-        delete invoiceList[action.payload];
-        return { ...state, invoiceList };
+        const derivedStates = matchMaker(sessionItems, newInvoiceList);
+
+        return {
+          ...state,
+          invoices: newInvoiceList,
+          unmatched: derivedStates.unmatched,
+          modified_invoices: derivedStates.modified_invoices,
+          matched: derivedStates.matched,
+        };
+      }
+
+      case "REMOVE_INVOICE": {
+        const sessionItems = {...state.items};
+        let newInvoiceList = {...state.invoices};
+        delete newInvoiceList[action.payload];
+
+        const derivedStates = matchMaker(sessionItems, newInvoiceList);
+
+        return {
+          ...state,
+          invoices: newInvoiceList,
+          unmatched: derivedStates.unmatched,
+          modified_invoices: derivedStates.modified_invoices,
+          matched: derivedStates.matched,
+        };
+      }
 
       case "CLEAR_SESSION":
         return defaultSessionState;

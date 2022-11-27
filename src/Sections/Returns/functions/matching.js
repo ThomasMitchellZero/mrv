@@ -1,8 +1,11 @@
 // Function for matching returned items with session invoices.
 
+import cloneDeep from "lodash.clonedeep";
+
 const matchMaker = (itemList, invoiceList) => {
-    const modified_invoices = invoiceList;
-    const unmatched_items = itemList;
+    const modified_invoices = cloneDeep(invoiceList);
+    const unmatched_items = cloneDeep(itemList);
+    
     let matched_items = {};
   
     //loop through the Unmatched items.
@@ -60,7 +63,7 @@ const matchMaker = (itemList, invoiceList) => {
     return {
       matched: matched_items,
       unmatched: unmatched_items,
-      newInvoices: modified_invoices,
+      modified_invoices: modified_invoices,
     };
   };
   
