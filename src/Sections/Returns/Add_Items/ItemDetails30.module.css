@@ -7,7 +7,7 @@
  .mainContent{
   display: flex;
   flex-direction: column;
-  flex: auto;
+  flex: 1 1 0rem;
   background-color: #FFFFFF;
   padding: 1rem;
  }
@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: row;
   flex: 0 0 auto;
-
   justify-content: space-between;
  }
 
@@ -37,12 +36,35 @@
   padding: 0rem;
   color: #333333;
  }
- 
+
  .picAndQty h3{
   font-size: .75rem;
   margin: 0rem .5rem;
   padding: 0rem;
   color: #666666;
+ }
+
+ .itemCodes{
+  display: flex;
+  flex-direction: row;
+  font-size: .875rem;
+  color: #666666;
+  white-space: nowrap;
+ }
+
+ .itemDescription{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0rem;
+  gap: .75rem;
+ }
+
+ .itemDescription p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  word-break: break-word;
+  color: #333333;
+  margin: 0rem;
  }
 
  .button{

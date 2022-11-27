@@ -17,7 +17,11 @@ const ReturnsProductDetail = (props) => {
   */
 
   const productStatus = productData.categories.map((item) => {
-    return <div key={item} className={classes.product_status}>{item}</div>;
+    return (
+      <div key={item} className={classes.product_status}>
+        {item}
+      </div>
+    );
   });
 
   return (
@@ -29,9 +33,9 @@ const ReturnsProductDetail = (props) => {
       ></img>
       <section className={classes.vertical_container}>
         <section className={classes.numbers}>
-          {`Model #${productData.modelNum}`}
-          <div style={{ width: "0.75rem" }} />
           {`Item #${productData.itemNum}`}
+          <div style={{ width: "0.75rem" }} />
+          {`Model #${productData.modelNum}`}
         </section>
         <div className={classes.product_description}>
           {productData.description}
