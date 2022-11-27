@@ -46,36 +46,37 @@ const ReturnsIndex = () => {
 
   const thirty_panels = {
     actions: <Actions30 dispatchActivePanels={dispatchActivePanels} />,
-    item_entry: (
+    "item_entry": (
       <ItemEntry30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
       />
     ),
-    invoice_entry: (
-      <InvoiceEntry30
-        dispatchActivePanels={dispatchActivePanels}
-        returnsContext={returnsContext}
-      />
-    ),
-    item_details: (
+    "item_details": (
       <ItemDetails30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
         activeItem={activePanels.stateDetails}
       />
     ),
+    "invoice_entry": (
+      <InvoiceEntry30
+        dispatchActivePanels={dispatchActivePanels}
+        returnsContext={returnsContext}
+      />
+    ),
+
   };
 
   const seventy_panels = {
-    start_scanning: <StartScanning />,
-    session_items: (
+    "start_scanning": <StartScanning />,
+    "session_items": (
       <SessionItems70
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
       />
     ),
-    session_invoices: (
+    "session_invoices": (
       <SessionInvoices70
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
@@ -88,7 +89,9 @@ const ReturnsIndex = () => {
       <section className={`seventy_panel`}>
         {seventy_panels[activePanels.state70]}
       </section>
-      <section className={`thirty_panel`}>{thirty_panels.item_details}</section>
+      <section className={`thirty_panel`}>
+        {thirty_panels[activePanels.state30]}
+      </section>
     </main>
   );
 };

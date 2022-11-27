@@ -3,10 +3,22 @@ import classes from "./ItemDetails30.module.css";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-const ItemDetails30 = ({activeItem, dispatchActivePanels, returnsContext}) => {
+const ItemDetails30 = ({
+  activeItem,
+  dispatchActivePanels,
+  returnsContext,
+}) => {
   return (
     <form className={classes.container}>
-      <TitleBar lefticon="close" left_onClick="">
+      <TitleBar
+        lefticon="close"
+        left_onClick={() =>
+          dispatchActivePanels({
+            type: "SET_PANELS",
+            payload: { set30: "item_entry" },
+          })
+        }
+      >
         ItemDetails
       </TitleBar>
       <section className={classes.mainContent}>
