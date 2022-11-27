@@ -716,8 +716,144 @@ Big list of things I need to do:
 
     -I'm losing velocity here and I know exactly why it's happening.  I'm afraid that if something goes wrong in the Returns context I will have no way to fix it.  I'm riding a high from my progress and I'm afraid of the crash.  Litany of Gendlin.  I might as well find out.
 
+    -So.  It is KIND of working, but I am getting some weird behavior.  It *LOOKS* like I am somehow modifying the session items and invoices, which should never happen.  
+
+        -I notice I am confused.  What is happening that I do not expect?
+
+            -First, the sessionInvoices state is being modified, which should never happen.  Even more frustrating, session Items are not modified if they are a lower quantity but they are if they are higher?
+
+            -Third, if I enter an item quantity lower than the qty on the invoice, that item and the corresponding quantity appear in Matched.  The item appears to be finding a match.
+
+            -Finally, if the item quantity is higher than the invoice qty, no matched item appears in Matched object, but the unmatched Item is reduced by the correct amount.
+
+        -I don't know what is going on, but the first problem seems the most significant.  No matter what, I need to figure out why that is happening because matchmaking should NEVER alter session states.
+
+        -I'm gonna call it a night.  I'm actually feeling pretty good.  This is a puzzle, but I'm pretty confident the matchmaker is working fine and that was by FAR the most uncertain part.
+
+26 Nov 2022
+    -Back in the saddle after Thanksgiving.  NGL, I'm expecting today to be hard.  I know that I am especially vulnerable to time-wasters when I'm not sure how to procreed.  I can't get success-feeling from good sources so I give into my hunger for stimulation from crap.  
+    
+    -Today can be a good test of meta problem-solving skills.  This really is a unique opportunity to see if I can make good decisions without knowing the answers.  I want to get good results, but all I can control for certain is making good decisions.  
+
+    -The good news is that I HOPE this will be the last hard thing I have to do for a while.  
+
+    -How to attack this problem?
+
+        -I could attack the problem with a bunch of console.log()  It's crude and offers a pretty limited view of what is happening inside the app, but I know I can make it work.
+
+        -I could look more into how to debug React applications.  IF there is a really good way to do this, I think it would be my ideal.  It was so helpful when I was making the matchMaker() module to be able to step through the code line by line, make predictions, and see all the variables changing.  
+
+            Risks:
+            -I don't actually know if this will help anything.  I could just come up empty and have nothing to show for the time.
+
+            -I don't actually have a clear picture in my mind of why my current de-bugging tools are unsatisfactory.  
+
+        -I could re-structure the app.  I actually have no idea if having lots of logic in the Dispatcher is good practice.  
+
+            -Like, I could make a case that what I am doing is clear because I've got one action type per input.  User adds an item => do every step involved in adding an item.  
+
+            But I don't know if that's right.  Maybe having one top-level function per action, and once dispatch action per state-change is more logical?
+
+            -This seems like the most risky option.  It is DEFINITELY a lot of work, and without knowing where the problem is coming from, I don't actually know if this solves it.  
+
+            -It also feels like giving up in a way I don't like.  It isn't actually identifying the problem.  It's just throwing away a lot of code and hoping that the problem was contained in what I got rid of.  Worth a try if I am TRULY stuck, but this ought to be a last resort.
+
+    -Here's what I'm going to do.  I'm going to allow myself 30 minutes to do Googling on how to debug React apps.  Highest potential payout, and if I whiff I'm not out a lot of time.  If it looks promising I can extend, but if not I will then move onto console.log()
+
+    -Web searching has indicated that eitehr IDE or Chrome dev tools are common approaches to debugging, although console.log() works too.  I think the case for the dev tool debuggers looks stronger because the people who prefer it generally described why, while the console.loggers didn't really elaborate.
+
+    -Next question is - debug in Chrome, or in the IDE?  
 
 
+    -OK, so one issue identified in Chrome:  I am passing through a LOT of React framework code that I didn't write and don't especially care about.  This might have been the reason I gave up on this in the past.
+
+        -My working hypothesis is that at least at macro scale, I shouldn't be stepping though line by line - I should be using F8 to jump to the next breakpoint and then crawl line by line if I need to.
+
+    -Current working understanding:
+        F8 - either pauses or resumes operation.  I think this proceeds to the next stopping point?  Generally, this jumps me to the next breakpoint?
+        F10 - goes to the next function within this particular scope, or up one scope level if it is the last?
+        F11 - most specific, step by step ahead?
+
+    -By clicking the appropriate JS filename in the Call Stack tree, I can switch scopes.  This is really helpful because I previously didn't know how to see values outside of the current block.
+
+    2:00 - Made no progress on the problem, but I feel good about the decisions I've made so far.  I've engaged with the work.  
+
+    OK, I think I've identified where at least one problem is occurring.  After I've evaluated the larger of the two qtys, AFAICT that is when the bad change happens.
+
+        -Somehow, when I change the Invoice quantity, I'm changing the actual invoice, not the thing I thought was a copy.  Even nuttier, the change is happening in the Context, too.  How is that even possible?
+    
+    -According to what I've found, I should not be mutating state in the reducer function.  Why?  No idea.  
+        -Am I mutating state?  
+
+    -This article has some clues:  https://dev.to/il3ven/common-error-accidentally-mutating-state-in-react-4ndg#:~:text=In%20simple%20terms%20it%20means,Here%20are%20two%20examples.
+
+    -Assuming I comprehend correctly, this is telling me 2 important things.
+
+        -First, consider: 
+            const newState = oldState;
+            newState += 1;
+
+            According to this, modifying the newState will actually modify the old state.  It's definitely possible that I'm doing that somewhere.
+
+        -Second, using the Spread operator should prevent this:
+
+            const newState = {...oldState}.  Now, my new state should be a separate copy.
+
+        -OK.  I have an idea.  I wonder if this is all happening because I am not spreading the Invoice Content into a new object.  If I am modifying the context, that might explain why the Invoice state is changing.  It pulls the details from the context, so if I make a change upstream then I might pull in the bad change later.  It would also explain why I'm getting less weird behavior from items, because although I made the same mistake, I'm not changing any values that are stored in the Item context.  Let me at least give it a shot.
+
+            -Didn't work.  Still having the same error.
+
+    4:45: did some Googling and took a walk and I think I have at least a partial answer.  
+
+        const Alpha = {
+            val1: 20
+            val2: {
+                a: 30;
+                b: 40;
+            }
+        }
+
+        const Beta = Alpha;
+
+        Beta is not a copy of Alpha.  Beta is just a pointer to Alpha.  If I make a change to Beta, that change appears in Alpha, too.  If instead I try:
+
+        const Beta = {...Alpha}
+
+        I can change the value of val1 and val2 in Beta without affecting Alpha.  But if I change the values in   Beta.val2.a   those changes will actually appear in Alpha.  Level 1 and level 2 are now separate, but Level 3 is still pointing back to the original.
+
+        This makes sense.  It explains why, despite all my redundant top-level spreading, I'm still modifying the quantity in the product-context store.  Unless I spread absolutely every level, I'm still pointing at the original value.
+
+        That also explains why some of the guides I found encourage us to make states as flat as possible.
+
+        So.  What to do.  
+
+        -I could manually spread everything, but that seems like a huge pain in the dick.  Or is it?  I really just need to spread the Invoices, and I think I just have to do it once?
+
+        -Related: I could try and flatten the invoices, but it could get kind of fucky with the products, since I never know in advance how many there are.
+        
+        -There is a workaround, which seems to involve converting the object to JSON and then parsing that JSON.  That apparently works because I've seen it suggested in a few spots.  It does seem kind of hacky and apparently doesn't work with methods or circular references.  Right now I don't THINK I have either, so this is the lowest-impact way to move forward.  
+
+        -I'm sure I could find some kind of 3rd-party library that does deep copies.  Lodash CloneDeep appears to be pretty popular.
+
+    That brings me to my second question, whether I should have multiple reducers (called 'slices'), each controlling one property of the state.  I like the idea, but it seems like I would have to do a lot of learning to make it work.  
+
+        -OK.  It's almost 6:00 and I'm losing steam here.  I think what I am going to do is try to get the deepClone working and then call it a day.
+
+        OK.  It's working.  I tried some tests and didn't find any unexpected result.  I think it is actually working.  Let's call it a day.
+
+27 Nov 2022
+    Sunday Fun Day!  A couple things I need to be able to do.  I need to:
+        -When a product LI is clicked, console.log its details
+        -Create a side panel that displays product details when given a product number.
+        -Add buttons that allow me to track disposition.
+        -Store disposition in state
+        -Validate disposition requirements.
+    
+
+
+    
+
+    
 
 
 
