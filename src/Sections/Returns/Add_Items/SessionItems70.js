@@ -40,13 +40,18 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
 
-    const handleClick = (number) => {
-      console.log(number);
-    };
 
     // Each <tr> is clickable, and contains a clickable Delete button.  event.stopPropagation() keeps the <tr> click event from executing after Delete is clicked.
     return (
-      <tr key={line.itemNum} onClick={() => handleClick(line.itemNum)}>
+      <tr
+        key={line.itemNum}
+        onClick={() =>
+          dispatchActivePanels({
+            type: "SET_PANELS",
+            payload: { set30: "item_details:", details: line.itemNum, },
+          })
+        }
+      >
         <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
@@ -66,7 +71,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
                 type: "REMOVE_ITEM",
                 payload: line.itemNum,
               });
-              event.stopPropagation()
+              event.stopPropagation();
             }}
           >
             X
