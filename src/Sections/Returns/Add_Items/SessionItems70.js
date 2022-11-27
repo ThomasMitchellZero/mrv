@@ -39,8 +39,14 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     const price = Number(line.price);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
+
+    const handleClick = (number) => {
+      console.log(number);
+    };
+
+    // Each <tr> is clickable, and contains a clickable Delete button.  event.stopPropagation() keeps the <tr> click event from executing after Delete is clicked.
     return (
-      <tr key={line.itemNum}>
+      <tr key={line.itemNum} onClick={() => handleClick(line.itemNum)}>
         <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
@@ -55,12 +61,13 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         <td>
           <button
             id={line.itemNum}
-            onClick={() =>
+            onClick={(event) => {
               dispatchSession({
                 type: "REMOVE_ITEM",
                 payload: line.itemNum,
-              })
-            }
+              });
+              event.stopPropagation()
+            }}
           >
             X
           </button>
@@ -93,13 +100,7 @@ export default SessionItems70;
 
 /*
 
-          <button
-            id={line.itemNum}
-            onClick={returnsContext.dispatchSession({
-              type: "REMOVE_ITEM",
-              payload: line.itemNum,
-            })}
-          >
-            X
-          </button>
+
+
+
 */

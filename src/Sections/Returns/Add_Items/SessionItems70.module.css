@@ -25,3 +25,6 @@
     overflow: auto;
 }
 
+.tableWindow tr{
+    cursor: pointer;
+}

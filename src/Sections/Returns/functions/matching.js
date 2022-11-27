@@ -56,7 +56,7 @@ const matchMaker = (itemList, invoiceList) => {
           }
           matched_items = { ...matched_items, [itemNum]: newMatchedArr };
         }
-        // end of loop through invoice keys.
+        // end of loop through invoice keys. 
       });
     });
   
