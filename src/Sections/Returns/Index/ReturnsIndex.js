@@ -19,18 +19,14 @@ const panelsReducer = (state, action) => {
     case "SET_PANELS": {
       const new30 = action.payload.set30 ? action.payload.set30 : state.state30;
       const new70 = action.payload.set70 ? action.payload.set70 : state.state70;
-      const newContent30 = action.payload.content30
-        ? action.payload.content30
-        : state.content30;
-      const newContent70 = action.payload.content30
-        ? action.payload.content30
-        : state.content30;
+      const newDetails = action.payload.details
+        ? action.payload.details
+        : state.stateDetails;
 
       return {
         state30: new30,
         state70: new70,
-        content30: newContent30,
-        content70: newContent70,
+        stateDetails: newDetails,
       };
     }
 
@@ -45,8 +41,7 @@ const ReturnsIndex = () => {
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "session_items",
-    content30: {},
-    content70: {},
+    stateDetails: 200,
   });
 
   const thirty_panels = {
@@ -67,6 +62,7 @@ const ReturnsIndex = () => {
       <ItemDetails30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
+        activeItem={activePanels.stateDetails}
       />
     ),
   };
@@ -92,9 +88,7 @@ const ReturnsIndex = () => {
       <section className={`seventy_panel`}>
         {seventy_panels[activePanels.state70]}
       </section>
-      <section className={`thirty_panel`}>
-        {thirty_panels.item_details}
-      </section>
+      <section className={`thirty_panel`}>{thirty_panels.item_details}</section>
     </main>
   );
 };
