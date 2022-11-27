@@ -45,7 +45,6 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
       <tr
         key={line.itemNum}
         onClick={() => {
-          console.log(line.itemNum);
           dispatchActivePanels({
             type: "SET_PANELS",
             payload: { set30: "item_details", details: line.itemNum },
