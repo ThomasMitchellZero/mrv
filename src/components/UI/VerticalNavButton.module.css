@@ -15,7 +15,9 @@
 
 .icon2{
     margin: .5rem;
-    flex: 0 0 1rem;
+    font-size: 10rem;
+    flex: 0 0 1.25rem;
+    color: #333
 }
 
 
