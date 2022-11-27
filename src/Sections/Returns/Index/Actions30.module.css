@@ -4,6 +4,15 @@
     flex: 1 1 0rem;
 }
 
+.buttonBox{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    background-color: #FFFFFF;
+    padding: 1rem;
+    gap: 1rem;
+}
+
 .mainicon{
     margin: .5rem;
     fill: #102169;

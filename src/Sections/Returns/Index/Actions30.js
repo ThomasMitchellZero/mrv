@@ -1,7 +1,6 @@
 import classes from "./Actions30.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
-import VerticalNavMenu from "../../../components/UI/VerticalNavMenu";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
@@ -26,7 +25,7 @@ const Actions30 = (props) => {
   return (
     <section className={`${classes.container}`}>
       <TitleBar>Actions</TitleBar>
-      <VerticalNavMenu>
+      <section className={classes.buttonBox}>
         <VerticalNavButton
           onClick={() =>
             dispatchActivePanels({
@@ -69,7 +68,7 @@ const Actions30 = (props) => {
           onClick={() => navigate("..")}
           mainIcon={<SlashCartLineIcon className={classes.mainicon} />}
         />
-      </VerticalNavMenu>
+      </section>
       <FooterContainer></FooterContainer>
     </section>
   );
