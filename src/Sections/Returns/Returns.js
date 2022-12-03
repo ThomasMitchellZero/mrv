@@ -138,6 +138,12 @@ const Returns = () => {
         };
       }
 
+      case "ITEM_DISPOSITION":{
+        const itemNum = action.payload.itemNum;
+        return{...state.items[itemNum].disposition, ...action.payload.dispoObj}
+      }
+
+
       case "CLEAR_SESSION":
         return defaultSessionState;
 
