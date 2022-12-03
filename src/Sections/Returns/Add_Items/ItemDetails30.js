@@ -87,13 +87,7 @@ const ItemDetails30 = ({
     );
   };
 
-  /*
-          case "ITEM_DISPOSITION":{
-        const itemNum = action.payload.itemNum;
-        return{...state.items[itemNum].disposition, ...action.payload.dispoObj}
-      }
 
-  */
 
   const handleInputQty = (event) => {
     // deal with changes to the input field
@@ -109,7 +103,7 @@ const ItemDetails30 = ({
   };
 
   return (
-    <form className={classes.container}>
+    <section className={classes.container}>
       <TitleBar
         lefticon="close"
         left_onClick={() =>
@@ -211,7 +205,7 @@ const ItemDetails30 = ({
           Placeholder
         </button>
       </FooterContainer>
-    </form>
+    </section>
   );
 };
 
