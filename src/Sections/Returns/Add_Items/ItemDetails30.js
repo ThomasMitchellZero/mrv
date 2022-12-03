@@ -158,6 +158,7 @@ const ItemDetails30 = ({
               className={`base_input`}
               placeholder="Qty."
               style={{ width: "4rem" }}
+              value={sessionItem.disposition[dispoState.defectiveReason]}
             />
           </section>
           <div className="divider" />

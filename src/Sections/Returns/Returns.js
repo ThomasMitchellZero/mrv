@@ -48,12 +48,12 @@ const Returns = () => {
         // could this be an empty object?
         let newDisposition = {
           doesntWork: 0,
-          missingParts: 0,
           broken: 0,
-          cosmetic: 0,
           unpackaged: 0,
-          used: 0,
           warranty: 0,
+          missingParts: 0,
+          cosmetic: 0,
+          used: 0,
         };
 
         //if item already exists in the state...
