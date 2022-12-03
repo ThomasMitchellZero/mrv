@@ -55,7 +55,7 @@
  .itemDescription{
   display: flex;
   flex-direction: column;
-  flex: 1 1 0rem;
+  flex: 0 0 auto;
   gap: .75rem;
  }
 
@@ -67,7 +67,51 @@
   margin: 0rem;
  }
 
+ .returnReason{ 
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  gap: 1rem;
+
+ }
+ .returnReason h1{
+  font-size: 1rem;
+  font-weight: 400;
+  color: #333333;
+  padding: 0rem;
+  margin: 0rem;
+ }
+
+ .returnReason button {
+  margin: 0rem;
+  height: 2.75rem;
+ }
+
+ .returnReason section{
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 auto;
+  gap: 1rem;
+
+ }
+
  .button{
    flex: 1 1 0rem;
    margin: 0rem 1rem;
+ }
+
+ .dispoColumns{
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 auto;
+  gap: 1rem
+ }
+
+ .dispoColumns section{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0rem;
+  background-color: aqua;
+  gap: 1rem;
  }

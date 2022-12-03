@@ -49,3 +49,7 @@
     color:#555;
     border-color: #555;
   }
+
+  .baseButton.secondary .active{
+    background-color: #E6ECF9;
+  }

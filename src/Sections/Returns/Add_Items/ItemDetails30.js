@@ -4,6 +4,8 @@ import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import ItemEntry30 from "./ItemEntry30";
 
+import { useReducer } from "react";
+
 // BUG Reminder:  If I delete the current item being referenced in ItemDetails, the program crashes because ItemDetails is now referencing something that's no longer there.
 
 const ItemDetails30 = ({
@@ -13,6 +15,32 @@ const ItemDetails30 = ({
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
 
+  const defaultState = {
+    active: "unwanted",
+    unwanted: sessionItem.quantity,
+    doesntWork: 0,
+    missingParts: 0,
+    broken: 0,
+    cosmetic: 0,
+    unpackaged: 0,
+    used: 0,
+    warranty: 0,
+  };
+
+  const dispositionReducer = (state, action) => {
+    switch (action.type) {
+      case "SET_DISPOSITION": {
+        return {};
+      }
+      default:
+        throw new Error(`Unknown action type: ${action.type}`);
+    }
+  };
+
+  const [itemDisposition, dispatchDisposition] = useReducer(
+    dispositionReducer,
+    defaultState
+  );
   /*
 
     300: {
@@ -25,6 +53,27 @@ const ItemDetails30 = ({
   },
   
   */
+
+  const handleDispoClick = (name) => {};
+
+  const DispoButton = (label, stateProp) => {
+    const isActive = itemDisposition.active === stateProp ? "active" : ""
+    return (
+      <button
+        onClick={() => {
+          handleDispoClick(stateProp);
+        }}
+        id={stateProp}
+        className={`baseButton secondary ${isActive}`}
+      >
+        {label}
+      </button>
+    );
+  };
+
+  const handleInputQty = ()=> {
+    // deal with changes to the input field
+  }
 
   return (
     <form className={classes.container}>
@@ -55,7 +104,34 @@ const ItemDetails30 = ({
           </div>
           <p className={classes.description}>{sessionItem.description}</p>
         </section>
+        <section className={classes.returnReason}>
+          <h1>Why is customer returning this item?</h1>
+          <section>
+            <button className={`baseButton secondary`}>Didn't Want</button>
+            <button className={`baseButton secondary`}>
+              Damaged/Defective
+            </button>
+            <input
+              disabled={true}
+              className={`base_input`}
+              placeholder="Qty."
+              style={{ width: "4rem" }}
+            />
+          </section>
+          <div className="divider" />
+        </section>
+        <section className={classes.disposition}>
+          <section className={classes.dispoColumns}>
+            <section>
+              <button className={`baseButton secondary`}></button>
+            </section>
+            <section>
+              <button className={`baseButton secondary`}></button>
+            </section>
+          </section>
+        </section>
       </section>
+
       <FooterContainer>
         <button className={`baseButton primary large ${classes.button}`}>
           Placeholder
