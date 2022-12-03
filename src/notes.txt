@@ -843,12 +843,79 @@ Big list of things I need to do:
 
 27 Nov 2022
     Sunday Fun Day!  A couple things I need to be able to do.  I need to:
-        -When a product LI is clicked, console.log its details
+        X-When a product LI is clicked, console.log its details
         -Create a side panel that displays product details when given a product number.
+        X-figure out why TF my icons keep shrinking.
         -Add buttons that allow me to track disposition.
         -Store disposition in state
         -Validate disposition requirements.
+        X-Get rid of Vertical Nav component.  It's not doing anything.
     
+    For the side panel:  I think I need to change the ReturnsIndex file to accept two additional payload properties.  
+
+    a little stuck.  Right now, the dispatch function of the ReturnsIndex container only accepts which panel to switch to.  It does not accept details.
+
+    I think I could just have a payload.contents property in my state.  I actually don't think I need to maintain it at all.  I just need to get it up so I can pass it back down to the item details page.  
+
+    2:45 - panel navigation is now working correctly. 
+
+    3:25 - I was feeling a little disinterest before my break, but I'm feeling pretty good right now.  Engaged and ready to get back to it.
+
+    4:15 - I no longer feel good.  I'm feeling high effort gravity and a low comprehension radius.  Gonna finish this session and call it a day.
+
+28 Nov 2022
+
+    Next, I think I need to add the disposition state.
+        -There are 7 possible damaged dispositions plus one Didn't Want / Need.  
+        -The sum of all dispositions cannot exceed the number of entered items.  
+        -DW/DN can be calculated last, since it is just the total number minus sum of all DD dispositions.
+
+        -When D/D is selected, there should be a default active state.  Either the first one in the list, or the last one selected.  
+
+        -Selecting any disposition should display its current quantity in the input field.  Changing the input field should change both.
+
+30 Nov 2022
+
+    -not coding, this is actually for my job.  
+    -First, I need to figure out if I can import things from Figma to Axure.
+    -I should also see if I can load Kristin's previous test file.  If there are components in there, I could probably use them.
+    -Next, I will make the assets as I go.  I think that I will try to build the flow along with the assets.
+    -For the flow, I should try  to reuse screens as much as possible.  Like, if the different options all run through the same screen, I should link to 1 screen 4x, not make 4 copies of it.  
+    -Just really need to focus on turning into the work.  I won't get a clearer day than today so I would love to bag up most / all of it today.
+
+1 Dec 2022
+
+    -Again, forced to work at work.  Laaaaaame.  Writing for 69420.
+    -I want to start with the scenario selector.  I think that's the hardest piece.  
+    -Beyond that, I'm going to go through the flow and try to get at least a low-function version of the sad path.
+    -I'm going to be interrupted at 3:00 today for Post Purchase staff meeting, and I think after that I'll work on the SOS Restocking fee project.
+    
+3 Dec 2022
+
+    -Back to the real work! I need to remember that the 4 (and even the 20) are not time limits.  I think that for this, some extra writing could really save me some work. !coding !== !working.  Today I would really like to get Item Disposition done.  A few things I know I need:
+
+        -Disposition is going to live with the scanned items, so I know I need a way to store it there.  I also need a dispatch action to handle it.
+            -Should the disposition include ALL categories, or just the ones that have a value?  
+            -I think I'm going to have it track all values.  That will make the code a little cleaner.
+
+        -How to incorporate disposition into the matching?  I don't know, but this only really affects the return price so it's not super urgent.  Another thing to keep in mind - AFAICT, the only two categories we care about for Returns are Didn't Want and Defective.  If I really want to shortcut the process, I could just track those.
+
+        -The real action is going to be in the disposition 30 panel itself.
+
+            In the 30 panel state, I need to store:
+                -Which tab is active
+                -If Defective, which disposition is active.
+                -MAYBE disposition quantity, separate from Session State? 
+
+            -I need active tabs.
+            -I need a way to read the stored disposition from the Session items state.  
+            - I need a way to get the sum of all item dispositions, and that sum cannot exceed the total item quantity.
+            -Whenever a Defective disposition is selected, I need to:
+                -read its current quantity from the Session Items Disposition object.
+                -Display that quantity in the Sessions Disposition object.
+                -Check that this dispo quantity + all others does not exceed scanned quantity for this item.
+                -Update the item.disposition[whatever] property.
+
 
 
     
