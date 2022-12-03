@@ -15,20 +15,29 @@ const ItemDetails30 = ({
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
 
-  const defaultState = {
-    active: "unwanted",
-    unwanted: sessionItem.quantity,
-    doesntWork: 0,
+  /*
+
+  { doesntWork: 0,
     missingParts: 0,
     broken: 0,
     cosmetic: 0,
     unpackaged: 0,
     used: 0,
-    warranty: 0,
+    warranty: 0,}
+  
+  */
+
+  const defaultState = {
+    activeTab: "unwanted",
+    defectiveReason: "doesntWork",
+    newDisposition: {},
   };
 
   const dispositionReducer = (state, action) => {
     switch (action.type) {
+      case "SET_TAB": {
+        return { ...state, activeTab: action.payload };
+      }
       case "SET_DISPOSITION": {
         return {};
       }
@@ -37,12 +46,12 @@ const ItemDetails30 = ({
     }
   };
 
-  const [itemDisposition, dispatchDisposition] = useReducer(
+  const [dispoState, dispatchDisposition] = useReducer(
     dispositionReducer,
     defaultState
   );
-  /*
 
+  /*
     300: {
     img: hoses_img,
     price: 15.75,                                       
@@ -56,8 +65,10 @@ const ItemDetails30 = ({
 
   const handleDispoClick = (name) => {};
 
+  const handleTabClick = (event) => {};
+
   const DispoButton = (label, stateProp) => {
-    const isActive = itemDisposition.active === stateProp ? "active" : ""
+    const isActive = dispoState.active === stateProp ? "active" : "";
     return (
       <button
         onClick={() => {
@@ -71,9 +82,9 @@ const ItemDetails30 = ({
     );
   };
 
-  const handleInputQty = ()=> {
+  const handleInputQty = () => {
     // deal with changes to the input field
-  }
+  };
 
   return (
     <form className={classes.container}>
@@ -89,6 +100,7 @@ const ItemDetails30 = ({
         Item Details
       </TitleBar>
       <section className={classes.mainContent}>
+        {/* Item Description */}
         <section className={classes.itemDescription}>
           <section className={classes.picAndQty}>
             <img src={sessionItem.img} alt="Product"></img>
@@ -104,11 +116,37 @@ const ItemDetails30 = ({
           </div>
           <p className={classes.description}>{sessionItem.description}</p>
         </section>
+
+        {/* Return Reason Section */}
         <section className={classes.returnReason}>
           <h1>Why is customer returning this item?</h1>
           <section>
-            <button className={`baseButton secondary`}>Didn't Want</button>
-            <button className={`baseButton secondary`}>
+            <button
+              type="button"
+              className={`baseButton secondary ${
+                dispoState.activeTab === "unwanted" ? "active" : ""
+              }`}
+              onClick={() => {
+                dispatchDisposition({
+                  type: "SET_TAB",
+                  payload: "unwanted",
+                });
+              }}
+            >
+              Didn't Want
+            </button>
+            <button
+              type="button"
+              className={`baseButton secondary ${
+                dispoState.activeTab === "defective" ? "active" : ""
+              }`}
+              onClick={() => {
+                dispatchDisposition({
+                  type: "SET_TAB",
+                  payload: "defective",
+                });
+              }}
+            >
               Damaged/Defective
             </button>
             <input
@@ -120,6 +158,8 @@ const ItemDetails30 = ({
           </section>
           <div className="divider" />
         </section>
+
+        {/* Disposition Section */}
         <section className={classes.disposition}>
           <section className={classes.dispoColumns}>
             <section>

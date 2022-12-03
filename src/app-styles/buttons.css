@@ -13,18 +13,18 @@
   
   .baseButton.primary{
     color: #fff;
-    background-color: blue;
+    background-color: #003BAF;
     border: none;
   }
   
   .baseButton.secondary{
-    color: blue;
+    color: #003BAF;
     background-color: #fff;
-    border-color: blue;
+    border-color: #003BAF;
   }
   
   .baseButton.tertiary{
-    color: blue;
+    color: #003BAF;
     background-color: transparent;
     border: none;
   
@@ -50,6 +50,6 @@
     border-color: #555;
   }
 
-  .baseButton.secondary .active{
+  .baseButton.secondary.active{
     background-color: #E6ECF9;
   }

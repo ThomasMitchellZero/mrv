@@ -885,7 +885,7 @@ Big list of things I need to do:
 
 1 Dec 2022
 
-    -Again, forced to work at work.  Laaaaaame.  Writing for 69420.
+    -Again, forced to work at work.  Laaaaaame.  Writing for 69-420.
     -I want to start with the scenario selector.  I think that's the hardest piece.  
     -Beyond that, I'm going to go through the flow and try to get at least a low-function version of the sad path.
     -I'm going to be interrupted at 3:00 today for Post Purchase staff meeting, and I think after that I'll work on the SOS Restocking fee project.
@@ -894,20 +894,21 @@ Big list of things I need to do:
 
     -Back to the real work! I need to remember that the 4 (and even the 20) are not time limits.  I think that for this, some extra writing could really save me some work. !coding !== !working.  Today I would really like to get Item Disposition done.  A few things I know I need:
 
-        -Disposition is going to live with the scanned items, so I know I need a way to store it there.  I also need a dispatch action to handle it.
+        X -Disposition is going to live with the scanned items, so I know I need a way to store it there.  I also need a dispatch action to handle it.
             -Should the disposition include ALL categories, or just the ones that have a value?  
             -I think I'm going to have it track all values.  That will make the code a little cleaner.
 
-        -How to incorporate disposition into the matching?  I don't know, but this only really affects the return price so it's not super urgent.  Another thing to keep in mind - AFAICT, the only two categories we care about for Returns are Didn't Want and Defective.  If I really want to shortcut the process, I could just track those.
+        -How to incorporate disposition into the matching?  I don't know, but this only really affects the return price so it's not super urgent.  Another thing to keep in mind - AFAICT, I really only need to track the total quantity and the Defective quantity.  If I really want to shortcut the process, I could just track those.
 
         -The real action is going to be in the disposition 30 panel itself.
 
             In the 30 panel state, I need to store:
                 -Which tab is active
                 -If Defective, which disposition is active.
-                -MAYBE disposition quantity, separate from Session State? 
+                -I need to track a dispoObj, since that part of the payload is what will be used to update the session Item disposition.  
+                
+                
 
-            -I need active tabs.
             -I need a way to read the stored disposition from the Session items state.  
             - I need a way to get the sum of all item dispositions, and that sum cannot exceed the total item quantity.
             -Whenever a Defective disposition is selected, I need to:
@@ -915,6 +916,10 @@ Big list of things I need to do:
                 -Display that quantity in the Sessions Disposition object.
                 -Check that this dispo quantity + all others does not exceed scanned quantity for this item.
                 -Update the item.disposition[whatever] property.
+    
+    -12:20 - not doing super great on time.  I'm definitely distracted by that Spinnaker Bradner watch I just found, plus the fact that Mom is waiting on me to make a Christmas request.
+
+        -I think the thing to do next is to handle the Tabs and whichever Defective button is selected in the ItemDetails page.  I know I'm going to need that and it doesn't require me to make any hard decisions right now :)
 
 
 
