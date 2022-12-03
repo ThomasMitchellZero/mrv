@@ -42,18 +42,35 @@ const Returns = () => {
     switch (action.type) {
       case "ADD_ITEM": {
         const newKey = action.payload.itemNum;
-        const itemInfo = {...productContext[newKey]};
-        const sessionInvoices = {...state.invoices}
+        const itemInfo = { ...productContext[newKey] };
+        const sessionInvoices = { ...state.invoices };
         let newQuantity = parseInt(action.payload.quantity);
+        // could this be an empty object?
+        let newDisposition = {
+          doesntWork: 0,
+          missingParts: 0,
+          broken: 0,
+          cosmetic: 0,
+          unpackaged: 0,
+          used: 0,
+          warranty: 0,
+        };
 
-        //if item already exists in the state, add new qty to existing qty.
+        //if item already exists in the state...
         if (state.items[newKey]) {
+          // add existing quantity to new quantity
           newQuantity += state.items[newKey].quantity;
+          // add any existing dispositions to the new disposition.
+          newDisposition = { ...state.items[newKey].disposition };
         }
 
         const newItemList = {
           ...state.items,
-          [newKey]: { ...itemInfo, quantity: newQuantity },
+          [newKey]: {
+            ...itemInfo,
+            quantity: newQuantity,
+            disposition: newDisposition,
+          },
         };
 
         const derivedStates = matchMaker(newItemList, sessionInvoices);
@@ -68,8 +85,8 @@ const Returns = () => {
       }
 
       case "REMOVE_ITEM": {
-        const sessionInvoices = {...state.invoices}
-        let newItemList = {...state.items};
+        const sessionInvoices = { ...state.invoices };
+        let newItemList = { ...state.items };
 
         delete newItemList[action.payload];
 
@@ -85,10 +102,10 @@ const Returns = () => {
       }
 
       case "ADD_INVOICE": {
-        const sessionItems = {...state.items};
+        const sessionItems = { ...state.items };
 
         const invoiceNum = action.payload;
-        const invoiceInfo = {...invoiceContext[invoiceNum]};
+        const invoiceInfo = { ...invoiceContext[invoiceNum] };
         const newInvoiceList = {
           ...state.invoices,
           [invoiceNum]: invoiceInfo,
@@ -106,8 +123,8 @@ const Returns = () => {
       }
 
       case "REMOVE_INVOICE": {
-        const sessionItems = {...state.items};
-        let newInvoiceList = {...state.invoices};
+        const sessionItems = { ...state.items };
+        let newInvoiceList = { ...state.invoices };
         delete newInvoiceList[action.payload];
 
         const derivedStates = matchMaker(sessionItems, newInvoiceList);
