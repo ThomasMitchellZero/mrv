@@ -15,17 +15,15 @@ const ItemDetails30 = ({
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
 
-  /*
-
-  { doesntWork: 0,
-    missingParts: 0,
+  const refDispoObj = {
+    doesntWork: 0,
     broken: 0,
-    cosmetic: 0,
     unpackaged: 0,
     used: 0,
-    warranty: 0,}
-  
-  */
+    missingParts: 0,
+    cosmetic: 0,
+    warranty: 0,
+  };
 
   const defaultState = {
     activeTab: "unwanted",
@@ -39,7 +37,7 @@ const ItemDetails30 = ({
         return { ...state, activeTab: action.payload };
       }
       case "SET_DISPOSITION": {
-        return {};
+        return { ...state, defectiveReason: action.payload.dispoType };
       }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
@@ -63,18 +61,24 @@ const ItemDetails30 = ({
   
   */
 
-  const handleDispoClick = (name) => {};
+  const handleDispoClick = (name) => {
+    dispatchDisposition({
+      type: "SET_DISPOSITION",
+      payload: { dispoType: name },
+    });
+  };
 
-  const handleTabClick = (event) => {};
+  // reusable button to set item's dispositions
+  const DispoButton = (label, reasonKey) => {
 
-  const DispoButton = (label, stateProp) => {
-    const isActive = dispoState.active === stateProp ? "active" : "";
+    const isActive = dispoState.defectiveReason === reasonKey ? "active" : "";
     return (
       <button
+        type="button"
         onClick={() => {
-          handleDispoClick(stateProp);
+          handleDispoClick(reasonKey);
         }}
-        id={stateProp}
+        id={reasonKey}
         className={`baseButton secondary ${isActive}`}
       >
         {label}
@@ -160,16 +164,23 @@ const ItemDetails30 = ({
         </section>
 
         {/* Disposition Section */}
-        <section className={classes.disposition}>
-          <section className={classes.dispoColumns}>
-            <section>
-              <button className={`baseButton secondary`}></button>
-            </section>
-            <section>
-              <button className={`baseButton secondary`}></button>
+        {dispoState.activeTab !== "defective" ? null : (
+          <section className={classes.defectiveDispo}>
+            <section className={classes.dispoColumns}>
+              <section>
+                {DispoButton("Doesn't Work", "doesntWork")}
+                {DispoButton("Broken", "broken")}
+                {DispoButton("Out Of Package", "unpackaged")}
+                {DispoButton("Warranty", "warranty")}
+              </section>
+              <section>
+                {DispoButton("Missing Parts", "missingParts")}
+                {DispoButton("Cosmetic", "cosmetic")}
+                {DispoButton("Used", "used")}
+              </section>
             </section>
           </section>
-        </section>
+        )}
       </section>
 
       <FooterContainer>
@@ -182,3 +193,20 @@ const ItemDetails30 = ({
 };
 
 export default ItemDetails30;
+
+/*
+
+  const refDispoObj = {
+    doesntWork: 0,
+    broken: 0,
+    unpackaged: 0,
+    warranty: 0,
+
+    missingParts: 0,
+    cosmetic: 0,
+    used: 0,
+
+  };
+
+
+*/
