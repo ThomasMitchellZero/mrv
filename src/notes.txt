@@ -921,6 +921,16 @@ Big list of things I need to do:
 
         -I think the thing to do next is to handle the Tabs and whichever Defective button is selected in the ItemDetails page.  I know I'm going to need that and it doesn't require me to make any hard decisions right now :)
 
+    2:00 - I am kind of hitting a wall here and I suspect it's because I haven't been eating.  I think the actual most productive thing I could do is take a few minutes, slam some food, and take a SHORT walk.
+
+    2:30 - back at it.  First little task will be to populate the dispo buttons and make them activate with a click.
+
+        -Now, potentially the hardest task.
+            - the thing I want to do is pull the quantity directly out of the session Item state, and have the input update it directly.  The reason I want to do this is because AFAICT I don't actually have a button to submit this form, and I think that would be frustrating to have to remember to submit or else your item is lost.   Can it be done?
+
+        -If I can get it working, a QoL addition I want to add is to have the test reflect the qty scanned.  But that is later.
+
+        -I might also move the Quantity input into the Condition Picker?  It's not like it can be interacted with elsewhere?
 
 
     

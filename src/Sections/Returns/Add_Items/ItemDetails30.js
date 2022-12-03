@@ -14,6 +14,8 @@ const ItemDetails30 = ({
   returnsContext,
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
+  const dispatchSession = returnsContext.dispatchSession;
+  console.log(returnsContext);
 
   const refDispoObj = {
     doesntWork: 0,
@@ -70,7 +72,6 @@ const ItemDetails30 = ({
 
   // reusable button to set item's dispositions
   const DispoButton = (label, reasonKey) => {
-
     const isActive = dispoState.defectiveReason === reasonKey ? "active" : "";
     return (
       <button
@@ -86,8 +87,25 @@ const ItemDetails30 = ({
     );
   };
 
-  const handleInputQty = () => {
+  /*
+          case "ITEM_DISPOSITION":{
+        const itemNum = action.payload.itemNum;
+        return{...state.items[itemNum].disposition, ...action.payload.dispoObj}
+      }
+
+  */
+
+  const handleInputQty = (event) => {
     // deal with changes to the input field
+    const inputQty = event.target.value;
+    dispatchSession({
+      type: "ITEM_DISPOSITION",
+      payload: {
+        itemNum: activeItem,
+        reason: dispoState.defectiveReason,
+        inputQty: inputQty,
+      },
+    });
   };
 
   return (
@@ -154,11 +172,15 @@ const ItemDetails30 = ({
               Damaged/Defective
             </button>
             <input
-              disabled={true}
+              type="number"
+              min={0}
+              disabled={false}
               className={`base_input`}
               placeholder="Qty."
               style={{ width: "4rem" }}
               value={sessionItem.disposition[dispoState.defectiveReason]}
+              onChange={handleInputQty}
+              onFocus={(event)=>{event.target.select()}}
             />
           </section>
           <div className="divider" />

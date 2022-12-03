@@ -4,6 +4,7 @@ import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import matchMaker from "./functions/matching";
+import cloneDeep from "lodash.clonedeep";
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
@@ -138,11 +139,17 @@ const Returns = () => {
         };
       }
 
-      case "ITEM_DISPOSITION":{
-        const itemNum = action.payload.itemNum;
-        return{...state.items[itemNum].disposition, ...action.payload.dispoObj}
-      }
+      case "ITEM_DISPOSITION": {
 
+        const itemNum = action.payload.itemNum;
+        const reason = action.payload.reason;
+        const newQty = parseInt(action.payload.inputQty);
+
+        let newItems = cloneDeep(state.items)
+        newItems[itemNum].disposition[reason] = newQty
+
+        return { ...state, items: newItems};
+      }
 
       case "CLEAR_SESSION":
         return defaultSessionState;
