@@ -1,11 +1,17 @@
-Big list of things I need to do:
+Ongoing TO FIX list:
 
-    -Validate entered item number in Item Entry panel
+    -Entered items ending in ".00" are being rounded off instead of displaying 2 decimal places.
+    
+    -When I hit Enter on keyboard for Item or Invoice entry panels, the form submits anyways even though it isn't valid.
 
-    -Fix the CSS for the Scanned Item List
-        -position chart on the screen
-        -relative sizes of the columns
-        -Make the Scanned Item List scrollable
+    -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
+
+    -Product Details <th> in SessionItems70 is actually correctly aligned, but it looks like it isn't.  Figure out a way to either include space or customize margin / padding.
+
+    -Invoice column in in SessionItems70 currently displays nothing.  This is a stupid feature, but figure out a different approach.
+
+
+
 
     
 
@@ -302,6 +308,7 @@ Big list of things I need to do:
 
         -I think the very first task of the day should be to get it running again with the Reducer.  After that I can decide how much time to spend on learning.
     1:00
+
     -Time's kind of getting away from me here.  I just really have not had great luck with Maddie the last few sessions, although I haven't been super great about following procedure, either.
 
         -I need to choose here:
@@ -478,7 +485,7 @@ Big list of things I need to do:
             -Also.  When I take out the nav bar, the size is porportioned correctly.  WTF?
 
         -Holy shitballs.  I got it.  I'm actually not sure what was tripping me up.  It was some combination of three things.  
-            -First, for a flex item:    height: 100%   is relative to the parent, so if I have other items with defined sizes in there eating up space, I could get overflow.  The correct way to do it is:
+            -First, for a flex item:    height: 100%   is relative to the PARENT, so if I have other items with defined sizes in there eating up space, I could get overflow.  The correct way to do it is:
                 flex: 1 1 0rem.
 
             -The second thing, the reason why I didn't see changes earlier, is that    flex: 1 1 0    is not actually a valid input.  The third argument needs to include a unit, like rem or %.  Otherwise, I think it just compiles to 'auto' which would explain why I was seeing no response - it was just being its default self.
@@ -987,9 +994,11 @@ Big list of things I need to do:
 
     3:15 - back after it.  I'm proud of myself.  I kept my short break short, and I'm still feeling pretty good.
 
-        -I'm gonna get the 2 completed 30-panels done, and then dig into the disposition setter.
+        -I'm gonna get the 3 completed 30-panels done, and then dig into the disposition setter.
 
-        
+        -Ok, all the cleanup is done.  I'm back at the starting line.  
+
+
 
 
 
