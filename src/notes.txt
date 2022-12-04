@@ -965,6 +965,30 @@ Big list of things I need to do:
 
         -Almost right on cue, I am sick of coding.  For tomorrow:  I want to start on some standardized text styles.  I think I will apply them to this work and MAYBE add them retroactively.
     
+-4 Dec 2022
+
+    Today might be a struggle.  I slept like absolute shit last night because I lost control of my mind and couldn't stop thinking about that Haikyuu point-buy-team building game.  I also need to not think about the game today.  It sounds funny to say that I have to avoid fantasy football like heroin and I do play it for laughs, but like, I legit lost control.  "Just a little more, I'm sure this next idea will crack the problem"  I genuinely wish I'd never found it.
+
+    OK, on to the work.
+
+    First things first.  I'm going to make a list of some important pages, check them for common text styles, and try to create a CSS file to capture the important ones.  This will not be fun, but I'm redoing a LOT of work with these damn text styles and I would really like to stop it.  This will not be fun, but if I don't do this now it's going to be re-work later and this task MUST be done at some point.  At the end of 20, I would like to have a list on the way.
+
+        Just wrapped up the 20, and I think I have the list.  Honestly doesn't look as bad as I expected (although that's partially because I haven't built as much UI as I hoped.)
+
+        Next thing to do is see if I can find some guidelines about how to name things, like what tags to use and such.
+
+        -Looks like it's just <p>, <h*>, and possibly label.  
+
+        -I think the next thing to do is to create some default elements in a CSS text style file and get after it from there.  I'll do one more 20-minute run and then start a longer one for the reassignment.
+
+        
+
+
+
+
+    
+
+
 
 
 
