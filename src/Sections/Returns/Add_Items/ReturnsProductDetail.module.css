@@ -17,32 +17,20 @@
 .numbers{
     display: flex;
     flex-direction: row;
-    font-size: .875rem;
-    color: #666666;
     white-space: nowrap;
 }
 
-.product_description{
+.product_description p{
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 1rem;
 }
 
 .status_container{
     display: flex;
     flex-direction: row;
     gap: .375rem;
-}
-
-.product_status{
-    font-size: .875rem;
-    flex: 0 0 auto;
-    padding: .125rem .375rem;
-
-    border: 1px solid #666666;
-    border-radius: 4px;
 }
 
 img.productImage{

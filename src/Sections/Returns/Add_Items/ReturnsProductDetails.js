@@ -3,22 +3,11 @@ import classes from "./ReturnsProductDetail.module.css";
 const ReturnsProductDetail = (props) => {
   const productData = props.productData;
 
-  /*
-  
-  400: {
-    img: toilet_img,
-    price: 8.75,
-    itemNum: "400",
-    modelNum: "RT3301",
-    description: "American Standard Grand Duke II with Ultra-Flush",
-    categories: ["Stock","Special Order"],
-  },
 
-  */
-
+  // products have an array containing their type.  This maps them.
   const productStatus = productData.categories.map((item) => {
     return (
-      <div key={item} className={classes.product_status}>
+      <div key={item} className={'product_status'}>
         {item}
       </div>
     );
@@ -33,12 +22,12 @@ const ReturnsProductDetail = (props) => {
       ></img>
       <section className={classes.vertical_container}>
         <section className={classes.numbers}>
-          {`Item #${productData.itemNum}`}
+          <h5>{`Item #${productData.itemNum}`}</h5>
           <div style={{ width: "0.75rem" }} />
-          {`Model #${productData.modelNum}`}
+          <h5>{`Model #${productData.modelNum}`}</h5>
         </section>
         <div className={classes.product_description}>
-          {productData.description}
+          <p>{productData.description}</p>
         </div>
         <div className={classes.status_container}>{productStatus}</div>
       </section>

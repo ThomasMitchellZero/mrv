@@ -2,7 +2,7 @@
 /* Primary Text Styles*/
 
 p {
-    font-size: .875rem;
+    font-size: 1rem;
     font-weight: 400;
     color: #333333;
     padding: 0rem;
@@ -34,7 +34,10 @@ h4 {
 
 h5 {
     font-size: .875rem;
+    font-weight: 400;
     color: #666666;
+    padding: 0rem;
+    margin: 0rem;
 }
 
 
@@ -56,3 +59,10 @@ h5 {
     margin: 0px;
   }
 
+.product_status{
+    font-size: .875rem;
+    flex: 0 0 auto;
+    padding: .125rem .375rem;
+    border: 1px solid #666666;
+    border-radius: 4px;
+}
