@@ -983,7 +983,14 @@ Big list of things I need to do:
 
         -OK. Gotta go through the files and look for text fuckery. This task is going to suck, but I just need to dive in and make it happen.  One way out!
 
-    -related to nothing, but I also need to remember that part of the reason the UI hasn't moved in a month is because I also had to solve the flexbox / table scrolling problem.  That involved a lot of knowledge-building and rework.  
+        -related to nothing, but I also need to remember that part of the reason the UI hasn't moved in a month is because I also had to solve the flexbox / table scrolling problem.  That involved a lot of knowledge-building and rework.  
+
+    3:15 - back after it.  I'm proud of myself.  I kept my short break short, and I'm still feeling pretty good.
+
+        -I'm gonna get the 2 completed 30-panels done, and then dig into the disposition setter.
+
+        
+
 
 
 
