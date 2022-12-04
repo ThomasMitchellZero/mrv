@@ -12,7 +12,7 @@
   padding: 1rem;
  }
  
-
+/*  Item Pic and Description */
  .picAndQty{
   display: flex;
   flex-direction: row;
@@ -26,29 +26,14 @@
 
  .picAndQty div{
   display: flex;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
- }
-
- .picAndQty h1{
-  font-size: 2rem;
-  margin: 0rem;
-  padding: 0rem;
-  color: #333333;
- }
-
- .picAndQty h3{
-  font-size: .75rem;
-  margin: 0rem .5rem;
-  padding: 0rem;
-  color: #666666;
  }
 
  .itemCodes{
   display: flex;
   flex-direction: row;
-  font-size: .875rem;
-  color: #666666;
   white-space: nowrap;
  }
 
@@ -59,13 +44,12 @@
   gap: .75rem;
  }
 
- .itemDescription p {
-  font-size: 1.25rem;
-  font-weight: 500;
+ .itemDescription h4 {
   word-break: break-word;
-  color: #333333;
-  margin: 0rem;
+
  }
+
+/*  Return Reason Inputs */
 
  .returnReason{ 
   margin-top: 2rem;

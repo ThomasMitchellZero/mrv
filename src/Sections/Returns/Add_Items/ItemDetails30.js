@@ -114,21 +114,22 @@ const ItemDetails30 = ({
         Item Details
       </TitleBar>
       <section className={classes.mainContent}>
+
         {/* Item Description */}
         <section className={classes.itemDescription}>
           <section className={classes.picAndQty}>
             <img src={sessionItem.img} alt="Product"></img>
             <div>
-              <h3>Total Qty.</h3>
-              <h1>{sessionItem.quantity}</h1>
+              <h5>Total Qty.</h5>
+              <h2>{sessionItem.quantity}</h2>
             </div>
           </section>
           <div className={classes.itemCodes}>
-            {`Item # ${sessionItem.itemNum}`}
+            <h5>{`Item # ${sessionItem.itemNum}`}</h5>
             <div style={{ width: "0.75rem" }} />
-            {`Model # ${sessionItem.modelNum}`}
+            <h5>{`Model # ${sessionItem.modelNum}`}</h5>
           </div>
-          <p className={classes.description}>{sessionItem.description}</p>
+          <h4>{sessionItem.description}</h4>
         </section>
 
         {/* Return Reason Section */}
