@@ -14,7 +14,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   const dispatchSession = returnsContext.dispatchSession;
 
   const headingList = [
-    { id: "Invoice #", active: false, descending: true, width: "10%" },
+    { id: "Invoice", active: false, descending: true, width: "10%" },
     { id: "Product Details", active: false, descending: true, width: "35%" },
     { id: "Unit $", active: false, descending: true, width: "10%" },
     { id: "Qty", active: false, descending: true, width: "8%" },
@@ -34,13 +34,13 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
       },
   */
 
-  // this thing is getting huge.  It be better as a component?
+
   const tableBodyContents = ctxItems.map((line) => {
     const price = Number(line.price);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
 
-    // Each <tr> is clickable, and contains a clickable Delete button.  event.stopPropagation() keeps the <tr> click event from executing after Delete is clicked.
+
     return (
       <tr
         key={line.itemNum}
@@ -56,11 +56,11 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
           <ReturnsProductDetail productData={line} />
         </td>
 
-        <td className={classes.cost}>{`$ ${price}`}</td>
+        <td><h4>{`$ ${price}`}</h4></td>
         <td>
           <div className="number_bubble"> {quantity}</div>
         </td>
-        <td className={classes.cost}>{`$ ${total}`}</td>
+        <td><h4>{`$ ${total}`}</h4></td>
         <td>{`- -`}</td>
         <td>
           <button
@@ -70,6 +70,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
                 type: "REMOVE_ITEM",
                 payload: line.itemNum,
               });
+              /* Each <tr> is clickable, and contains a clickable Delete button.  event.stopPropagation() keeps the <tr> click event from executing after Delete is clicked.*/
               event.stopPropagation();
             }}
           >
