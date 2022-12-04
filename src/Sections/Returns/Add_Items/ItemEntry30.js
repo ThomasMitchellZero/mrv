@@ -127,7 +127,8 @@ const ItemEntry30 = (props) => {
         </div>
 
         <div className={classes.subcontainer}>
-          <label htmlFor="item_quantity">Qty.</label>
+          
+          <label htmlFor="item_quantity"><h5>Qty.</h5></label>
           <input
             type="number"
             id="item_quantity"
