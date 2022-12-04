@@ -87,8 +87,6 @@ const ItemDetails30 = ({
     );
   };
 
-
-
   const handleInputQty = (event) => {
     // deal with changes to the input field
     const inputQty = event.target.value;
@@ -165,17 +163,6 @@ const ItemDetails30 = ({
             >
               Damaged/Defective
             </button>
-            <input
-              type="number"
-              min={0}
-              disabled={false}
-              className={`base_input`}
-              placeholder="Qty."
-              style={{ width: "4rem" }}
-              value={sessionItem.disposition[dispoState.defectiveReason]}
-              onChange={handleInputQty}
-              onFocus={(event)=>{event.target.select()}}
-            />
           </section>
           <div className="divider" />
         </section>
@@ -183,6 +170,27 @@ const ItemDetails30 = ({
         {/* Disposition Section */}
         {dispoState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
+            <section className={classes.dispo_descriptor}>
+              <div>
+                <h1 className="TBD">
+                  Select item condition and enter quantity
+                </h1>
+                <input
+                  type="number"
+                  min={0}
+                  disabled={false}
+                  className={`base_input`}
+                  placeholder="Qty."
+                  style={{ width: "4rem" }}
+                  value={sessionItem.disposition[dispoState.defectiveReason]}
+                  onChange={handleInputQty}
+                  onFocus={(event) => {
+                    event.target.select();
+                  }}
+                />
+              </div>
+              <h1 className="TBD">Red Helper Text TBD</h1>
+            </section>
             <section className={classes.dispoColumns}>
               <section>
                 {DispoButton("Doesn't Work", "doesntWork")}

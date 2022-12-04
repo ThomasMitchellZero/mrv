@@ -96,16 +96,22 @@
 
  }
 
- .button{
-   flex: 1 1 0rem;
-   margin: 0rem 1rem;
+ .dispo_descriptor{
+  display: flex;
+  flex-direction: column;
+ }
+
+ .dispo_descriptor div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
  }
 
  .dispoColumns{
   display: flex;
   flex-direction: row;
   flex: 0 0 auto;
-  gap: 1rem
+  gap: .75rem
  }
 
  .dispoColumns section{
@@ -113,5 +119,13 @@
   flex-direction: column;
   flex: 1 1 0rem;
   background-color: aqua;
-  gap: 1rem;
+  gap: .75rem;
  }
+
+ .dispoColumns button{
+
+    flex: 0 0 2.75rem;
+    margin: 0rem;
+
+ }
+

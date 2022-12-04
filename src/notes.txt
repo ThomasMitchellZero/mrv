@@ -932,10 +932,38 @@ Big list of things I need to do:
 
         -I might also move the Quantity input into the Condition Picker?  It's not like it can be interacted with elsewhere?
 
-        
+    5:55 - I have actually accomplished what I set out to do today.  I'm not sure how it happened except I kept doing the next thing and suddenly the problem was gone.  I'm also very proud of myself for identifying the fact that I was replacing the state with just the item and disposition.  I feel like I could go for another three hours, which experience has taught me means that I'm about 40 minutes from being sick of coding :P
 
-    
+    I also learned a new pattern.  You can real-time update an outside state just as easily as a state within the component.  No theoretical reason why it shouldn't work, I guess, but I'll be a lot more comfortable in the future because I know it works.  When I'm taking my walk and thinking about how to be a better coder, I should think about why this correct answer wasn't my initial thought.
 
+    Maybe it's the Adderall but I'm legit feeling amazing right now.  I would have accepted partial progress as a good day, and I actually solved the whole thing.  Now I just need to decide which QoL improvements are my highest priority.  Options are:
+
+        -Figure out the quantity validation.  This should probably be the choice as it is the only one that is actually necessary for the project to function right.
+
+        -Show quantities on all the disposition buttons.  Might be worth putton off because it's not necessary but would be a GREAT get-into-flow starter for tomorrow.  Might need useEffect because I don't want appearance changing as the user is typing.  This will be the trickiest part for sure.
+
+        -Figure out how to use refs.  There are a number of inputs that I would really like to autofocus given various conditions, but again, nice-to-have.
+
+        -The buttons do need CSS, but it's tempting to leave it out since it doesn't affect anything else.  Necessary, but no dependencies.
+
+        -I actually do still have a frog to eat, and that's figuring out where to put the input field.  I could definitely leave it.  I actually probably should leave it, because it reflects the app as it currently exists.  
+
+        -I should also change the input so it's inactive when the Unwanted tab is selected.  Right now, any input there changes the current Reason quantity, which is not what I want.  Also, Didn't Want should never be adjustable.  It's just what's left over.
+
+        -At some point I do need to go through ItemDetail30 and make sure it's well-commented.
+
+    Gonna do the quantity validation.  It's the logical choice.  First, I think this validation can live in the Item Details component.
+
+        -I will need to loop through the disposition array and get the sum.  But when?  Maybe prior to input?  I think I can set a max value to the input field, and that would be nice to know.
+
+        -The other question is a UX question. 
+            -First, how do I handle a situation where the user inputs a quantity larger than the undisposed quantity?  If I just set a max they can't screw it up, but there's no indication why they can't enter the number they want to.
+
+            Also, I think I need to use the max?  The state is being updated as they type, so if they exceed the max, I can't have them just going ahead with that value in the input field.
+
+            Finally, how do I show the number of undisposed items?  If you don't know that, you don't know the max you can enter.
+
+        -Almost right on cue, I am sick of coding.  For tomorrow:  I want to start on some standardized text styles.  I think I will apply them to this work and MAYBE add them retroactively.
     
 
 
