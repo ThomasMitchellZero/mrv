@@ -20,7 +20,7 @@ const TitleBar = (props) => {
         <button type="button" onClick={props.left_onClick} className={classes.iconholder}>
           {lefticon}
         </button>
-        <p>{props.children}</p>
+        <h3>{props.children}</h3>
         <button type="button" onClick={props.right_onClick} className={classes.iconholder}>
           {righticon}
         </button>

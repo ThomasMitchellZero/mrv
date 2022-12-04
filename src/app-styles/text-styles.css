@@ -1,0 +1,58 @@
+
+/* Primary Text Styles*/
+
+p {
+    font-size: .875rem;
+    font-weight: 400;
+    color: #333333;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 0rem;
+    padding: 0rem;
+    color: #333333
+    }
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0rem;
+    padding: 0rem;
+    color: #333333
+}
+
+h4 {
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+h5 {
+    font-size: .875rem;
+    color: #666666;
+}
+
+
+/* Special Designations*/
+
+.number_bubble{
+    flex: 0 0 auto;
+    width: min-content;
+    font-size: 1rem;
+    background-color: #CCCCCC;
+    padding: .25rem .675rem;
+    border-radius: 20rem
+}
+
+.warning_text{
+    font-size: .75rem;
+    color: red;
+    padding: 0px;
+    margin: 0px;
+  }
+
