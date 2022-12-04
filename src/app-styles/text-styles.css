@@ -9,6 +9,14 @@ p {
     margin: 0rem;
 }
 
+td{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333333;
+    padding: 0rem 0.5rem;
+    margin: 0rem;
+}
+
 h2 {
     font-size: 2rem;
     margin: 0rem;
@@ -59,7 +67,7 @@ h5 {
     margin: 0px;
   }
 
-.product_status{
+  .product_status{
     font-size: .875rem;
     flex: 0 0 auto;
     padding: .125rem .375rem;

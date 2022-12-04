@@ -981,7 +981,9 @@ Big list of things I need to do:
 
         -I think the next thing to do is to create some default elements in a CSS text style file and get after it from there.  I'll do one more 20-minute run and then start a longer one for the reassignment.
 
-        
+        -OK. Gotta go through the files and look for text fuckery. This task is going to suck, but I just need to dive in and make it happen.  One way out!
+
+    -related to nothing, but I also need to remember that part of the reason the UI hasn't moved in a month is because I also had to solve the flexbox / table scrolling problem.  That involved a lot of knowledge-building and rework.  
 
 
 
