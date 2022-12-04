@@ -211,7 +211,7 @@ const ItemDetails30 = ({
       </section>
 
       <FooterContainer>
-        <button className={`baseButton primary large ${classes.button}`}>
+        <button className={`baseButton primary large ${classes.continueButton}`}>
           Placeholder
         </button>
       </FooterContainer>
