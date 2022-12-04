@@ -189,7 +189,7 @@ const ItemDetails30 = ({
                   }}
                 />
               </div>
-              <p className="warning-text"></p>
+              <p className="warning-text">Sample Warning Text</p>
             </section>
 
             {/* Disposition Buttons */}
