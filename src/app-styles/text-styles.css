@@ -51,7 +51,7 @@ h5 {
 
 /* Special Designations*/
 
-.number_bubble{
+.number-bubble{
     flex: 0 0 auto;
     width: min-content;
     font-size: 1rem;
@@ -60,14 +60,14 @@ h5 {
     border-radius: 20rem
 }
 
-.warning_text{
+.warning-text{
     font-size: .75rem;
     color: red;
     padding: 0px;
     margin: 0px;
-  }
+}
 
-  .product_status{
+.product-status{
     font-size: .875rem;
     flex: 0 0 auto;
     padding: .125rem .375rem;

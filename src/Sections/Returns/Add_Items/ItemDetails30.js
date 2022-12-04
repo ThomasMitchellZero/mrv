@@ -114,7 +114,6 @@ const ItemDetails30 = ({
         Item Details
       </TitleBar>
       <section className={classes.mainContent}>
-
         {/* Item Description */}
         <section className={classes.itemDescription}>
           <section className={classes.picAndQty}>
@@ -134,7 +133,7 @@ const ItemDetails30 = ({
 
         {/* Return Reason Section */}
         <section className={classes.returnReason}>
-          <h1>Why is customer returning this item?</h1>
+          <p>Why is customer returning this item?</p>
           <section>
             <button
               type="button"
@@ -171,11 +170,11 @@ const ItemDetails30 = ({
         {/* Disposition Section */}
         {dispoState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
+
+            {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
               <div>
-                <h1 className="TBD">
-                  Select item condition and enter quantity
-                </h1>
+                <p> Select item condition and enter quantity</p>
                 <input
                   type="number"
                   min={0}
@@ -190,8 +189,10 @@ const ItemDetails30 = ({
                   }}
                 />
               </div>
-              <h1 className="TBD">Red Helper Text TBD</h1>
+              <p className="warning-text"></p>
             </section>
+
+            {/* Disposition Buttons */}
             <section className={classes.dispoColumns}>
               <section>
                 {DispoButton("Doesn't Work", "doesntWork")}

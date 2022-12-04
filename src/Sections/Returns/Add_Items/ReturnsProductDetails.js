@@ -7,7 +7,7 @@ const ReturnsProductDetail = (props) => {
   // products have an array containing their type.  This maps them.
   const productStatus = productData.categories.map((item) => {
     return (
-      <div key={item} className={'product_status'}>
+      <div key={item} className={'product-status'}>
         {item}
       </div>
     );

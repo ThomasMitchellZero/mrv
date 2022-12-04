@@ -119,7 +119,7 @@ const InvoiceEntry30 = (props) => {
           value={formState.invoiceNum}
           className={`base_input`}
         />
-        <p className={`warning_text`}>
+        <p className={`warning-text`}>
           {errorTextHandler()}
         </p>
       </section>

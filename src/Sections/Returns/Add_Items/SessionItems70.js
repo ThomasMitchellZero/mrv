@@ -58,7 +58,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
 
         <td><h4>{`$ ${price}`}</h4></td>
         <td>
-          <div className="number_bubble"> {quantity}</div>
+          <div className="number-bubble"> {quantity}</div>
         </td>
         <td><h4>{`$ ${total}`}</h4></td>
         <td>{`- -`}</td>
