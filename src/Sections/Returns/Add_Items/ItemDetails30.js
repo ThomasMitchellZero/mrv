@@ -119,21 +119,21 @@ const ItemDetails30 = ({
           <section className={classes.picAndQty}>
             <img src={sessionItem.img} alt="Product"></img>
             <div>
-              <h5>Total Qty.</h5>
-              <h2>{sessionItem.quantity}</h2>
+              <h3>Total Qty.</h3>
+              <h1>{sessionItem.quantity}</h1>
             </div>
           </section>
           <div className={classes.itemCodes}>
-            <h5>{`Item # ${sessionItem.itemNum}`}</h5>
+            {`Item # ${sessionItem.itemNum}`}
             <div style={{ width: "0.75rem" }} />
-            <h5>{`Model # ${sessionItem.modelNum}`}</h5>
+            {`Model # ${sessionItem.modelNum}`}
           </div>
-          <h4>{sessionItem.description}</h4>
+          <p className={classes.description}>{sessionItem.description}</p>
         </section>
 
         {/* Return Reason Section */}
         <section className={classes.returnReason}>
-          <p>Why is customer returning this item?</p>
+          <h1>Why is customer returning this item?</h1>
           <section>
             <button
               type="button"
@@ -170,11 +170,11 @@ const ItemDetails30 = ({
         {/* Disposition Section */}
         {dispoState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
-
-            {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
               <div>
-                <p> Select item condition and enter quantity</p>
+                <h1 className="TBD">
+                  Select item condition and enter quantity
+                </h1>
                 <input
                   type="number"
                   min={0}
@@ -189,10 +189,8 @@ const ItemDetails30 = ({
                   }}
                 />
               </div>
-              <p className="warning-text">Sample Warning Text</p>
+              <h1 className="TBD">Red Helper Text TBD</h1>
             </section>
-
-            {/* Disposition Buttons */}
             <section className={classes.dispoColumns}>
               <section>
                 {DispoButton("Doesn't Work", "doesntWork")}
@@ -211,7 +209,7 @@ const ItemDetails30 = ({
       </section>
 
       <FooterContainer>
-        <button className={`baseButton primary large ${classes.continueButton}`}>
+        <button className={`baseButton primary large ${classes.button}`}>
           Placeholder
         </button>
       </FooterContainer>

@@ -5,6 +5,7 @@ import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import ReturnsProductDetail from "./ReturnsProductDetails";
 import Table from "../../../components/UI/Table";
+import RefundTotal from "../../../components/UI/RefundTotal";
 
 const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   // items are stored in an object.  This makes an array so they can be iterated.
@@ -96,7 +97,9 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
           ></Table>
         </div>
       </section>
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+        <RefundTotal />
+      </FooterContainer>
     </section>
   );
 };

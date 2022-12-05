@@ -6,7 +6,6 @@ import ProductContext from "../../../store/product-context";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-
 const ItemEntry30 = (props) => {
   // props inherited from the parent
   const returnsContext = props.returnsContext;
@@ -24,7 +23,6 @@ const ItemEntry30 = (props) => {
 
   const formReducer = (state, action) => {
     switch (action.type) {
-
       case "ITEM_NUM":
         return {
           ...state,
@@ -39,7 +37,7 @@ const ItemEntry30 = (props) => {
         return { ...state, formValid: formValidity };
 
       case "CLEAR_FORM":
-        return defaultState
+        return defaultState;
 
       default:
         return state;
@@ -70,7 +68,7 @@ const ItemEntry30 = (props) => {
     dispatchForm({ type: "VALIDATE_FORM" });
   };
 
-    //updates the local state whenever the Quantity input changes.
+  //updates the local state whenever the Quantity input changes.
   const quantityChangeHandler = (event) => {
     dispatchForm({
       type: "QUANTITY",
@@ -84,14 +82,13 @@ const ItemEntry30 = (props) => {
     event.preventDefault();
     const itemPayload = {
       itemNum: formState.itemNum,
-      quantity: formState.quantity
-    }
+      quantity: formState.quantity,
+    };
 
-    dispatchSession({type:"ADD_ITEM", payload: itemPayload})
+    dispatchSession({ type: "ADD_ITEM", payload: itemPayload });
 
     dispatchForm({ type: "CLEAR_FORM" });
   };
-
 
   return (
     <form
@@ -127,8 +124,9 @@ const ItemEntry30 = (props) => {
         </div>
 
         <div className={classes.subcontainer}>
-          
-          <label htmlFor="item_quantity"><h5>Qty.</h5></label>
+          <label htmlFor="item_quantity">
+            <h5>Qty.</h5>
+          </label>
           <input
             type="number"
             id="item_quantity"
