@@ -109,7 +109,7 @@ const InvoiceEntry30 = (props) => {
           })
         }
       >
-        Enter Receipt TEST
+        Enter Receipt
       </TitleBar>
       <section>
         <input
