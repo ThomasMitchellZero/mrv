@@ -12,7 +12,13 @@ Ongoing TO FIX list:
 
 
 
+//// Github Pages Deployment ////
 
+Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
+
+https://github.com/gitname/react-gh-pages
+
+I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
     
 
 
