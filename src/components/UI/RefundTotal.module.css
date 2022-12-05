@@ -1,4 +1,28 @@
 .container {
     display: flex;
     flex-direction: row;
+    flex: 1 1 0rem;
+    justify-content: right;
+    background-color: aquamarine;
+    gap: 1rem;
+    height: 100%;
+
+}
+
+.container > section{
+    display: flex;
+    flex: 0 1 10rem;
+    flex-direction: column;
+    justify-content: center;
+    background-color: bisque;
+    
+}
+
+.refundText{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 auto;
+    background-color: darkgoldenrod;
 }
