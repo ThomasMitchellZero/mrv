@@ -2,7 +2,6 @@ import classes from "./ItemDetails30.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import ItemEntry30 from "./ItemEntry30";
 
 import { useReducer } from "react";
 
@@ -119,21 +118,21 @@ const ItemDetails30 = ({
           <section className={classes.picAndQty}>
             <img src={sessionItem.img} alt="Product"></img>
             <div>
-              <h3>Total Qty.</h3>
-              <h1>{sessionItem.quantity}</h1>
+              <h5>Total Qty.</h5>
+              <h2>{sessionItem.quantity}</h2>
             </div>
           </section>
           <div className={classes.itemCodes}>
-            {`Item # ${sessionItem.itemNum}`}
+            <h5>{`Item # ${sessionItem.itemNum}`}</h5>
             <div style={{ width: "0.75rem" }} />
-            {`Model # ${sessionItem.modelNum}`}
+            <h5>{`Model # ${sessionItem.modelNum}`}</h5>
           </div>
-          <p className={classes.description}>{sessionItem.description}</p>
+          <h4>{sessionItem.description}</h4>
         </section>
 
         {/* Return Reason Section */}
         <section className={classes.returnReason}>
-          <h1>Why is customer returning this item?</h1>
+          <p>Why is customer returning this item?</p>
           <section>
             <button
               type="button"
@@ -170,11 +169,11 @@ const ItemDetails30 = ({
         {/* Disposition Section */}
         {dispoState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
+
+            {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
               <div>
-                <h1 className="TBD">
-                  Select item condition and enter quantity
-                </h1>
+                <p> Select item condition and enter quantity</p>
                 <input
                   type="number"
                   min={0}
@@ -189,8 +188,10 @@ const ItemDetails30 = ({
                   }}
                 />
               </div>
-              <h1 className="TBD">Red Helper Text TBD</h1>
+              <p className="warning-text">Sample Warning Text</p>
             </section>
+
+            {/* Disposition Buttons */}
             <section className={classes.dispoColumns}>
               <section>
                 {DispoButton("Doesn't Work", "doesntWork")}
@@ -209,7 +210,7 @@ const ItemDetails30 = ({
       </section>
 
       <FooterContainer>
-        <button className={`baseButton primary large ${classes.button}`}>
+        <button className={`baseButton primary large ${classes.continueButton}`}>
           Placeholder
         </button>
       </FooterContainer>

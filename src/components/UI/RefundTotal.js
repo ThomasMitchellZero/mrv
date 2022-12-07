@@ -5,7 +5,7 @@ const RefundTotal = ({ dataObj }) => {
     return (
       <section className={classes.refundText}>
         <p>{label}</p>
-        <h4>{value}</h4>
+        <h4>{value.toFixed(2)}</h4>
       </section>
     );
   };
@@ -14,8 +14,12 @@ const RefundTotal = ({ dataObj }) => {
       <section className={classes.itemizedColumn}>
         {refundText("Declined", 0.00)}
         {refundText("Subtotal", 123.00)}
+        {refundText("Tax", 3.00)}
       </section>
-      <section className={classes.totalColumn}></section>
+      <section className={classes.totalColumn}>
+        <h5>Refund Total</h5>
+        <h2>{2200.13.toFixed(2)}</h2>
+      </section>
     </section>
   );
 };
