@@ -9,6 +9,7 @@ const RefundTotal = ({ dataObj }) => {
       </section>
     );
   };
+  
   return (
     <section className={classes.container}>
       <section className={classes.itemizedColumn}>

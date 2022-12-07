@@ -1018,9 +1018,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
 
 
-
+-7 Dec 2022.  
+    Well, for some reason, I seem to have lost my styling changes in the Item Details section.  I'm not sure how, because they were present in the working protoype I showed Liz.  And also some but not all of my styling in RefundTotal?  And my notes from 7 Dec.
     
+    I was at least able to roll back and address whatever the problem was with the ItemDetails.
 
+    Next, I need to figure out what's wrong with the RefundTotal.
 
 
 
