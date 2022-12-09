@@ -1025,6 +1025,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Next, I need to figure out what's wrong with the RefundTotal.
 
+    Remember to change Returns reducer to make sure it re-evaluates if the disposition changes.
+
 
 
 
