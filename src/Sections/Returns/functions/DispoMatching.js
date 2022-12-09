@@ -1,6 +1,6 @@
 // Function for matching returned items with session invoices.
 
-import cloneDeep from "lodash.clonedeep";
+//import cloneDeep from "lodash.clonedeep";
 
 const itemsState = {
   100: {
@@ -12,7 +12,7 @@ const itemsState = {
       missingParts: 0,
       cosmetic: 0,
       used: 0,
-      unwanted: 4,
+      unwanted: 0,
     },
   }, // more in invoice
   200: {
@@ -93,8 +93,7 @@ const invoiceState = {
   },
 };
 
-
-    /*
+/*
 
     Matched looks like:
     
@@ -115,15 +114,16 @@ const invoiceState = {
 
 const matchMaker = (itemList, invoiceList) => {
   //The three derived states we will create
-  const modified_invoices = cloneDeep(invoiceList);
-  const unmatched_items = cloneDeep(itemList);
+  //const modified_invoices = cloneDeep(invoiceList);
+  //const unmatched_items = cloneDeep(itemList);
+
+  const modified_invoices = invoiceList;
+  const unmatched_items = itemList;
   let matched_items = {};
 
   //loop through the Unmatched items.
   Object.keys(unmatched_items).forEach((itemNum) => {
     let newMatchedItemArr = [];
-
-
 
     //loop through the Unmatched invoices ///////////////
     Object.keys(modified_invoices).forEach((invoiceNum) => {
@@ -137,54 +137,59 @@ const matchMaker = (itemList, invoiceList) => {
 
         let newMatchedObj = {
           price: itemInInvoice.price,
-          payment: modified_invoices.products.payment,
+          payment: modified_invoices[invoiceNum].invoiceDetails.payment,
           disposition: {},
         };
 
         //loop through that item's dispositions
-        Object.keys(itemNum.disposition).forEach((loopDispo) => {
-          // maybe add a check to see if the item is still in the invoice so I don't keep looping if its' already been zeroed out?
+        Object.keys(unmatched_items[itemNum].disposition).forEach(
+          (loopDispo) => {
+            // maybe add a check to see if the item is still in the invoice so I don't keep looping if its' already been zeroed out?
 
-          //quantities being compared
-          let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
-          let sold_Qty = itemInInvoice.quantity;
+            // FOR TOMORROW - I crashed here because I'm now referring to an item that no longer exists.  I either need to add a check or delete the item at a higher closure.
 
-          //The matched quantity is the smaller of the Qtys
-          const matchedQty = dispo_qty > sold_Qty ? sold_Qty : dispo_qty;
+            //quantities being compared
+            let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
+            let sold_Qty = itemInInvoice.quantity;
 
-          // Subtract matchedQty from {unmatched_items} and {modifed_invoices}Invoices.
-          if (dispo_qty > sold_Qty) {
-            dispo_qty -= matchedQty;
-            delete modified_invoices[invoiceNum].products[itemNum];
-          } else {
-            dispo_qty -= matchedQty;
-            sold_Qty -= matchedQty;
+            //The matched quantity is the smaller of the Qtys
+            const matchedQty = Math.min(dispo_qty, sold_Qty);
+
+            // Subtract matchedQty from {unmatched_items} and {modifed_invoices}Invoices.
+            if (dispo_qty < sold_Qty) {
+              unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+              itemInInvoice.quantity -= matchedQty;
+            } else {
+              unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+              delete modified_invoices[invoiceNum].products[itemNum];
+            }
+
+            //Add the matched value to the future Matched dispositions obj if the match isn't 0.
+            if (matchedQty) {
+              newMatchedObj.disposition[loopDispo] = matchedQty;
+            }
+
+            // check if this unmatched item has any remaning non-zero dispos
+            const hasNonZero = Object.values(
+              unmatched_items[itemNum].disposition
+            ).some((i) => {
+              return i !== 0;
+            });
+
+            // if there are no remaining umatched units, delete item from Unmatched,
+            if (!hasNonZero) {
+              delete unmatched_items[itemNum];
+            }
           }
+        ); // end of loop through item dispositions.
 
-          //Add the matched value to the future Matched dispositions obj.
-          newMatchedObj.disposition[loopDispo] = matchedQty;
-
-          // if all disposition values are zero, there are no remaining umatched items, so delete this item.
-          if (
-            // !, because this returns true if any are non-zero.
-            !Object.values(unmatched_items[itemNum].disposition).includes(
-              (i) => {
-                return i !== 0;
-              }
-            )
-          ) {
-            delete unmatched_items[itemNum]
-          }
-
-        }); // end of loop through item dispositions.
-        
         // add the new Obj matched from the invoice to this matched item's arr
-        newMatchedItemArr.push(newMatchedObj)
+        newMatchedItemArr.push(newMatchedObj);
       }
     }); // end of loop through invoice keys.
 
     // add the completed array of matches for this item to {matched_items}
-    matched_items[itemNum] = newMatchedItemArr
+    matched_items[itemNum] = newMatchedItemArr;
   }); // end of loop through unmatched items.
 
   return {
