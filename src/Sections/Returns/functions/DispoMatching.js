@@ -4,6 +4,8 @@
 
 const itemsState = {
   100: {
+    // more in invoice
+    quantity: 4,
     disposition: {
       doesntWork: 0,
       broken: 2,
@@ -12,10 +14,10 @@ const itemsState = {
       missingParts: 0,
       cosmetic: 0,
       used: 0,
-      unwanted: 0,
     },
-  }, // more in invoice
+  },
   200: {
+    // more in scanned, match in second
     disposition: {
       doesntWork: 5,
       broken: 5,
@@ -24,34 +26,11 @@ const itemsState = {
       missingParts: 0,
       cosmetic: 0,
       used: 0,
-      unwanted: 0,
     },
-  }, // more in scanned, match in second
+  },
   300: {
-    disposition: {
-      doesntWork: 1,
-      broken: 1,
-      unpackaged: 0,
-      warranty: 0,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-      unwanted: 0,
-    },
-  }, // equal in invoice
-  900: {
-    disposition: {
-      doesntWork: 0,
-      broken: 3,
-      unpackaged: 0,
-      warranty: 2,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-      unwanted: 0,
-    },
-  }, // scanned > both invoices
-  910: {
+    // equal in invoice
+    quantity: 2,
     disposition: {
       doesntWork: 1,
       broken: 0,
@@ -60,9 +39,35 @@ const itemsState = {
       missingParts: 0,
       cosmetic: 0,
       used: 0,
-      unwanted: 0,
     },
-  }, // no matches
+  },
+  900: {
+    // scanned > both invoices
+    quantity: 5,
+    disposition: {
+      doesntWork: 0,
+      broken: 0,
+      unpackaged: 0,
+      warranty: 2,
+      missingParts: 0,
+      cosmetic: 0,
+      used: 0,
+    },
+  },
+
+  910: {
+    // no matches
+    quantity: 5,
+    disposition: {
+      doesntWork: 1,
+      broken: 0,
+      unpackaged: 0,
+      warranty: 0,
+      missingParts: 0,
+      cosmetic: 0,
+      used: 0,
+    },
+  },
 };
 
 const invoiceState = {
@@ -76,7 +81,7 @@ const invoiceState = {
       100: { quantity: 8, price: 44.15 },
       300: { quantity: 2, price: 24.15 },
       500: { quantity: 10, price: 13.15 },
-      900: { quantity: 1, price: 13.15 },
+      900: { quantity: 1, price: 876.15 },
     },
   },
 
@@ -123,6 +128,19 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   Object.keys(unmatched_items).forEach((itemNum) => {
+    // before we can start we need to compute the Unwanted total.
+    // first, get sum of all dispositions
+    const dispo_total = Object.values(itemNum.disposition).reduce(
+      (total, i) => {
+        return total + i;
+      }
+    );
+
+    // anything without a dispo is unwanted, so we subract total dispos from Unwanted.  Should never be negative but I'm checking to be sure.
+    const unwantedTotal = Math.max(itemNum.quantity - dispo_total, 0);
+    itemNum.disposition.unwanted = unwantedTotal;
+
+    // this will be the Array of matched objects.
     let newMatchedItemArr = [];
 
     //loop through the Unmatched invoices ///////////////
@@ -144,9 +162,7 @@ const matchMaker = (itemList, invoiceList) => {
         //loop through that item's dispositions
         Object.keys(unmatched_items[itemNum].disposition).forEach(
           (loopDispo) => {
-            // maybe add a check to see if the item is still in the invoice so I don't keep looping if its' already been zeroed out?
-
-            // FOR TOMORROW - I crashed here because I'm now referring to an item that no longer exists.  I either need to add a check or delete the item at a higher closure.
+            // FOR TOMORROW - I crashed here because once I delete an Unmatched item with no remaining dispositions,  I'm now referring to an itemNum that no longer exists.  I either need to add a check or delete the item at a higher closure.
 
             //quantities being compared
             let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
@@ -169,22 +185,23 @@ const matchMaker = (itemList, invoiceList) => {
               newMatchedObj.disposition[loopDispo] = matchedQty;
             }
 
-            // check if this unmatched item has any remaning non-zero dispos
-            const hasNonZero = Object.values(
-              unmatched_items[itemNum].disposition
-            ).some((i) => {
-              return i !== 0;
-            });
-
-            // if there are no remaining umatched units, delete item from Unmatched,
-            if (!hasNonZero) {
-              delete unmatched_items[itemNum];
-            }
           }
         ); // end of loop through item dispositions.
 
         // add the new Obj matched from the invoice to this matched item's arr
         newMatchedItemArr.push(newMatchedObj);
+
+        // check if this unmatched item has any remaning non-zero dispos
+        const hasNonZero = Object.values(
+          unmatched_items[itemNum].disposition
+        ).some((i) => {
+          return i !== 0;
+        });
+
+        // if there are no remaining umatched units, delete item from Unmatched,
+        if (!hasNonZero) {
+          delete unmatched_items[itemNum];
+        }
       }
     }); // end of loop through invoice keys.
 
@@ -203,8 +220,9 @@ matchMaker(itemsState, invoiceState);
 
 /*
 
+
   
-  */
+*/
 
 /*  THIS IS ALL TEST DATA
   

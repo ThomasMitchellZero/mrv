@@ -1027,7 +1027,68 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Remember to change Returns reducer to make sure it re-evaluates if the disposition changes.
 
+10 Dec, 2022
 
+    69-420:  I think the DispoMatcher is actually in pretty good shape.  I got about halfway through it on Thursday and it was mostly doing what I expected.  The 'Watch' section in VS Code is really nice, and I need to find its equivalent in Chrome.  (Update:  the feature exists in Chrome.  I haven't used it yet, but the terminology is the same)
+
+    I also feel slow, dumb, and heavy, so worried about today's outcome.
+
+    -Get the matching module to account for dispositions.
+
+    -Add a check to the Dispositions to make sure that total dispositions are always equal to items entered.
+    
+    -Figure out how to handle the Unwanted items.  I either recompute every time or else I need to store total items entered separately.  
+
+    -Make sure that changes to dispositions are triggering the Matching process.  IIRC matching only happens when an item is added.
+        -A side note to this process.  I might want to ditch having a separate Action for changing dispositions, and just handle it as an 'ADD_ITEM'
+
+    -I think I'm going to start with the Quantity / Dispositions question.  It's not a HUGE change, but it will affect how I do the matching so I might as well do it first.
+
+        -Right now, I'm kind of thinking I should track total quantity separately.  I need it for:
+            -the display table.
+            -I need to have a total to calculate Unwanted, since it's always the remainder.  If I don't store it, I have to re-derive it.
+            -I need to store a total to calculate the upper limit.
+            -In the MatchMaker, it would simplify the check if there are any items remaining.  
+
+        -Looks pretty clear right now that I should store the total.
+
+        -Next question is how to store Unwanted.  Options are:  
+
+            -A method that, by hand, names all of the properties EXCEPT Unwanted and sets Unwanted to total - (result of the method)
+                -This is pretty reliable but kind of crude?
+
+            -Copy the object, delete Unwanted, sum all remaining, set that to index?
+
+            -Put Unwanted in some notable position, like first.  Make object into array, delete first term FROM ARRAY, then assign Unwanted to that sum?
+
+            -I was going to say that Unwanted is calculated only once, but I guess that isn't true.  It's also calculated when an object is created.  
+
+            -The reason I am stalling is because I don't know how the object I plan to create will behave.  I suppose the correct thing to do would be make a test object and check on that.
+
+            1:00.  If there is any easy way to set a property's value from within the function, I haven't found it.  What to do?
+
+                -I don't technically have to set the value of Unwanted within the object.  I could create the empty Disposition object and then set the value of Unwanted from outside.  
+
+                -It's also not a requirement to have Unwanted within the object, but it makes the Matching logic more complicated.  
+
+            -Let me back up a step.  In the ItemEntry component, right now I am currently just adding a quantity.  I suppose that either here or in the actual ADD_Item action, I could just automatically add that quantity to Unwanted.  
+                -but what does that solve?  
+                -I guess that IF I want all changes to an item to be handled in the same action, I need some clean way of turning an item with one disposition into an item with another.
+                -the reason that is good is because if all dispositioning is happening in the same place, I could do the Unwanted calculation there.
+
+            -I also really could handle it in the Matching system.  Whenever matching is called for, I can just calculate Unwanted there.  
+                -My feeling is 'I don't like it'.  Feels dirty somehow.  It feels like I should always have the state as complete as possible.  However, I don't really have a better answer and this gets me moving.  
+                
+                I suppose I could justify it by saying that 'Unwanted' isn't a real quantity.  It's not being used anywhere before the match.  
+                It's not a duct-tape workaround of my limited knowledge of objects, it's a clever solution to simplify the logic of the Matchmaker :P
+
+            -Also, potential problem:  what happens when I add new items to items that already have dispositions?  NVM, past-me already handled it :)  Preparation is a gift to your future self :)
+
+
+
+
+
+            
 
 
     
