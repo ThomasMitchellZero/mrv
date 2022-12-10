@@ -18,6 +18,7 @@ const itemsState = {
   },
   200: {
     // more in scanned, match in second
+    quantity: 12,
     disposition: {
       doesntWork: 5,
       broken: 5,
