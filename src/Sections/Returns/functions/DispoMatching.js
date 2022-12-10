@@ -129,17 +129,19 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   Object.keys(unmatched_items).forEach((itemNum) => {
+
     // before we can start we need to compute the Unwanted total.
     // first, get sum of all dispositions
-    const dispo_total = Object.values(unmatched_items[itemNum].disposition).reduce(
+    const itemDispoObj = unmatched_items[itemNum].disposition
+    const dispo_total = Object.values(itemDispoObj).reduce(
       (total, i) => {
         return total + i;
       }
     );
 
-    // anything without a dispo is unwanted, so we subract total dispos from Unwanted.  Should never be negative but I'm checking to be sure.
-    const unwantedTotal = Math.max(itemNum.quantity - dispo_total, 0);
-    unmatched_items[itemNum].disposition.unwanted = unwantedTotal;
+    // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  Should never be negative but I'm checking to be sure.
+    const unwantedTotal = Math.max(unmatched_items[itemNum].quantity - dispo_total, 0);
+    itemDispoObj.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];
@@ -176,8 +178,11 @@ const matchMaker = (itemList, invoiceList) => {
             if (dispo_qty < sold_Qty) {
               delete unmatched_items[itemNum].disposition[loopDispo];
               itemInInvoice.quantity -= matchedQty;
-            } else {
+            } else if(dispo_qty > sold_Qty){
               unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+              delete modified_invoices[invoiceNum].products[itemNum];
+            } else{
+              delete unmatched_items[itemNum].disposition[loopDispo];
               delete modified_invoices[invoiceNum].products[itemNum];
             }
 
