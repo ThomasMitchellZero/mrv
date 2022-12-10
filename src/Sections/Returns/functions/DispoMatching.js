@@ -165,7 +165,13 @@ const matchMaker = (itemList, invoiceList) => {
         //loop through that item's dispositions
         Object.keys(unmatched_items[itemNum].disposition).forEach(
           (loopDispo) => {
-            // FOR TOMORROW - I crashed here because once I delete an Unmatched item with no remaining dispositions,  I'm now referring to an itemNum that no longer exists.  I either need to add a check or delete the item at a higher closure.
+            // OK, something weird is happening here.  Once all items have been matched from the invoice, sold_Qty seems to still have its value from the last session.  If anything, I would have expected a crash, because that item should be gone from the invoice.
+
+            // I wonder if it's because the first part its definition is outside the closure?
+
+            // In either case, I probably ought to check that the Invoice and the Item still exist before I evaluate?
+
+            // I want to at least see if I can reproduce the error because if I can, something about my JS knowledge is faulty.
 
             //quantities being compared
             let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
@@ -175,6 +181,7 @@ const matchMaker = (itemList, invoiceList) => {
             const matchedQty = Math.min(dispo_qty, sold_Qty);
 
             // Subtract matchedQty from {unmatched_items} and {modifed_invoices}Invoices.
+
             if (dispo_qty < sold_Qty) {
               delete unmatched_items[itemNum].disposition[loopDispo];
               itemInInvoice.quantity -= matchedQty;
@@ -194,7 +201,7 @@ const matchMaker = (itemList, invoiceList) => {
           }
         ); // end of loop through item dispositions.
 
-        // add the new Obj matched from the invoice to this matched item's arr
+        // Each obj pushed to the array contains all matched dispos and details of the invoice on which the matches were found.
         newMatchedItemArr.push(newMatchedObj);
 
         // if there are no remaining umatched units, delete item from Unmatched,
