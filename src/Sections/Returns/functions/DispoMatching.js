@@ -129,18 +129,18 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   Object.keys(unmatched_items).forEach((itemNum) => {
-
     // before we can start we need to compute the Unwanted total.
     // first, get sum of all dispositions
-    const itemDispoObj = unmatched_items[itemNum].disposition
-    const dispo_total = Object.values(itemDispoObj).reduce(
-      (total, i) => {
-        return total + i;
-      }
-    );
+    const itemDispoObj = unmatched_items[itemNum].disposition;
+    const dispo_total = Object.values(itemDispoObj).reduce((total, i) => {
+      return total + i;
+    });
 
     // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  Should never be negative but I'm checking to be sure.
-    const unwantedTotal = Math.max(unmatched_items[itemNum].quantity - dispo_total, 0);
+    const unwantedTotal = Math.max(
+      unmatched_items[itemNum].quantity - dispo_total,
+      0
+    );
     itemDispoObj.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
@@ -153,11 +153,9 @@ const matchMaker = (itemList, invoiceList) => {
         unmatched_items[itemNum] &&
         modified_invoices[invoiceNum].products[itemNum]
       ) {
-        // address of current item in Invoice
-        const itemInInvoice = modified_invoices[invoiceNum].products[itemNum];
 
         let newMatchedObj = {
-          price: itemInInvoice.price,
+          price: modified_invoices[invoiceNum].products[itemNum].price,
           payment: modified_invoices[invoiceNum].invoiceDetails.payment,
           disposition: {},
         };
@@ -165,39 +163,41 @@ const matchMaker = (itemList, invoiceList) => {
         //loop through that item's dispositions
         Object.keys(unmatched_items[itemNum].disposition).forEach(
           (loopDispo) => {
-            // OK, something weird is happening here.  Once all items have been matched from the invoice, sold_Qty seems to still have its value from the last session.  If anything, I would have expected a crash, because that item should be gone from the invoice.
+            // check to see if the invoice still exists before looping.
 
-            // I wonder if it's because the first part its definition is outside the closure?
+            // Problem.  This skips the condition, but keeps looping anyways.  Gonna try converting to a for... of loop.
+            
+            if (modified_invoices[invoiceNum].products[itemNum]) {
+              //quantities being compared
+              let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
+              let sold_Qty =
+                modified_invoices[invoiceNum].products[itemNum].quantity;
 
-            // In either case, I probably ought to check that the Invoice and the Item still exist before I evaluate?
+              //The matched quantity is the smaller of the Qtys
+              const matchedQty = Math.min(dispo_qty, sold_Qty);
 
-            // I want to at least see if I can reproduce the error because if I can, something about my JS knowledge is faulty.
 
-            //quantities being compared
-            let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
-            let sold_Qty = itemInInvoice.quantity;
+              // Remove matchedQty from the invoice and the current dispo.
+              if (dispo_qty < sold_Qty) {
+                // All items of this disposition are matched, so delete it.
+                delete unmatched_items[itemNum].disposition[loopDispo];
+                modified_invoices[invoiceNum].products[itemNum].quantity -=
+                  matchedQty;
+              } else if (dispo_qty > sold_Qty) {
+                // All this invoice's items have been matched, so delete it.
+                unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+                delete modified_invoices[invoiceNum].products[itemNum];
+              } else {
+                // Qtys are equal, so delete both.
+                delete unmatched_items[itemNum].disposition[loopDispo];
+                delete modified_invoices[invoiceNum].products[itemNum];
+              }
 
-            //The matched quantity is the smaller of the Qtys
-            const matchedQty = Math.min(dispo_qty, sold_Qty);
-
-            // Subtract matchedQty from {unmatched_items} and {modifed_invoices}Invoices.
-
-            if (dispo_qty < sold_Qty) {
-              delete unmatched_items[itemNum].disposition[loopDispo];
-              itemInInvoice.quantity -= matchedQty;
-            } else if(dispo_qty > sold_Qty){
-              unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
-              delete modified_invoices[invoiceNum].products[itemNum];
-            } else{
-              delete unmatched_items[itemNum].disposition[loopDispo];
-              delete modified_invoices[invoiceNum].products[itemNum];
+              //Add the matched value to the future Matched dispositions obj if the match isn't 0.
+              if (matchedQty) {
+                newMatchedObj.disposition[loopDispo] = matchedQty;
+              }
             }
-
-            //Add the matched value to the future Matched dispositions obj if the match isn't 0.
-            if (matchedQty) {
-              newMatchedObj.disposition[loopDispo] = matchedQty;
-            }
-
           }
         ); // end of loop through item dispositions.
 
