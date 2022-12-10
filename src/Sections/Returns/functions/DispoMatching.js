@@ -131,7 +131,7 @@ const matchMaker = (itemList, invoiceList) => {
   Object.keys(unmatched_items).forEach((itemNum) => {
     // before we can start we need to compute the Unwanted total.
     // first, get sum of all dispositions
-    const dispo_total = Object.values(itemNum.disposition).reduce(
+    const dispo_total = Object.values(unmatched_items[itemNum].disposition).reduce(
       (total, i) => {
         return total + i;
       }
@@ -139,7 +139,7 @@ const matchMaker = (itemList, invoiceList) => {
 
     // anything without a dispo is unwanted, so we subract total dispos from Unwanted.  Should never be negative but I'm checking to be sure.
     const unwantedTotal = Math.max(itemNum.quantity - dispo_total, 0);
-    itemNum.disposition.unwanted = unwantedTotal;
+    unmatched_items[itemNum].disposition.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];

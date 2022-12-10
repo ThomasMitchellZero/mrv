@@ -1065,7 +1065,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -The reason I am stalling is because I don't know how the object I plan to create will behave.  I suppose the correct thing to do would be make a test object and check on that.
 
-            1:00.  If there is any easy way to set a property's value from within the function, I haven't found it.  What to do?
+    1:00.  If there is any easy way to set a property's value from within the function, I haven't found it.  What to do?
 
                 -I don't technically have to set the value of Unwanted within the object.  I could create the empty Disposition object and then set the value of Unwanted from outside.  
 
@@ -1084,7 +1084,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -Also, potential problem:  what happens when I add new items to items that already have dispositions?  NVM, past-me already handled it :)  Preparation is a gift to your future self :)
 
+    -3:15  You are stalling.  You think you've got it working and you're afraid of the frustration that will follow.  Don't be scared.  We've got the debugger.  This is so much easier than how we used to debug.  Get in there and press that green arrow.
 
+    
 
 
 
