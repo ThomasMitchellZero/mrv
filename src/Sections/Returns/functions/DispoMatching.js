@@ -173,7 +173,7 @@ const matchMaker = (itemList, invoiceList) => {
 
             // Subtract matchedQty from {unmatched_items} and {modifed_invoices}Invoices.
             if (dispo_qty < sold_Qty) {
-              unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+              delete unmatched_items[itemNum].disposition[loopDispo];
               itemInInvoice.quantity -= matchedQty;
             } else {
               unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
@@ -191,15 +191,8 @@ const matchMaker = (itemList, invoiceList) => {
         // add the new Obj matched from the invoice to this matched item's arr
         newMatchedItemArr.push(newMatchedObj);
 
-        // check if this unmatched item has any remaning non-zero dispos
-        const hasNonZero = Object.values(
-          unmatched_items[itemNum].disposition
-        ).some((i) => {
-          return i !== 0;
-        });
-
         // if there are no remaining umatched units, delete item from Unmatched,
-        if (!hasNonZero) {
+        if (Object.keys(unmatched_items[itemNum].disposition).length === 0) {
           delete unmatched_items[itemNum];
         }
       }
