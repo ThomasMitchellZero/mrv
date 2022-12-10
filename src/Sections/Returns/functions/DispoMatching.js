@@ -128,7 +128,7 @@ const matchMaker = (itemList, invoiceList) => {
   let matched_items = {};
 
   //loop through the Unmatched items.
-  Object.keys(unmatched_items).forEach((itemNum) => {
+  for (const itemNum of Object.keys(unmatched_items)) {
     // before we can start we need to compute the Unwanted total.
     // first, get sum of all dispositions
     const itemDispoObj = unmatched_items[itemNum].disposition;
@@ -147,73 +147,70 @@ const matchMaker = (itemList, invoiceList) => {
     let newMatchedItemArr = [];
 
     //loop through the Unmatched invoices ///////////////
-    Object.keys(modified_invoices).forEach((invoiceNum) => {
+    for (const invoiceNum of Object.keys(modified_invoices)) {
       // If itemNum still exists AND a product with this item number was sold on that invoice...
-      if (
-        unmatched_items[itemNum] &&
-        modified_invoices[invoiceNum].products[itemNum]
-      ) {
-
-        let newMatchedObj = {
-          price: modified_invoices[invoiceNum].products[itemNum].price,
-          payment: modified_invoices[invoiceNum].invoiceDetails.payment,
-          disposition: {},
-        };
-
-        //loop through that item's dispositions
-        Object.keys(unmatched_items[itemNum].disposition).forEach(
-          (loopDispo) => {
-            // check to see if the invoice still exists before looping.
-
-            // Problem.  This skips the condition, but keeps looping anyways.  Gonna try converting to a for... of loop.
-            
-            if (modified_invoices[invoiceNum].products[itemNum]) {
-              //quantities being compared
-              let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
-              let sold_Qty =
-                modified_invoices[invoiceNum].products[itemNum].quantity;
-
-              //The matched quantity is the smaller of the Qtys
-              const matchedQty = Math.min(dispo_qty, sold_Qty);
 
 
-              // Remove matchedQty from the invoice and the current dispo.
-              if (dispo_qty < sold_Qty) {
-                // All items of this disposition are matched, so delete it.
-                delete unmatched_items[itemNum].disposition[loopDispo];
-                modified_invoices[invoiceNum].products[itemNum].quantity -=
-                  matchedQty;
-              } else if (dispo_qty > sold_Qty) {
-                // All this invoice's items have been matched, so delete it.
-                unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
-                delete modified_invoices[invoiceNum].products[itemNum];
-              } else {
-                // Qtys are equal, so delete both.
-                delete unmatched_items[itemNum].disposition[loopDispo];
-                delete modified_invoices[invoiceNum].products[itemNum];
-              }
+      // I am really not sure if this is right.  Start here tomorrow.  the 200 items didn't work correctly.
+      if ( 
+        !unmatched_items[itemNum] ||
+        !modified_invoices[invoiceNum].products[itemNum]
+      )
+        break;
+      let newMatchedObj = {
+        price: modified_invoices[invoiceNum].products[itemNum].price,
+        payment: modified_invoices[invoiceNum].invoiceDetails.payment,
+        disposition: {},
+      };
 
-              //Add the matched value to the future Matched dispositions obj if the match isn't 0.
-              if (matchedQty) {
-                newMatchedObj.disposition[loopDispo] = matchedQty;
-              }
-            }
-          }
-        ); // end of loop through item dispositions.
+      //loop through that item's dispositions
+      for (const loopDispo of Object.keys(
+        unmatched_items[itemNum].disposition
+      )) {
+        // check to see if the invoice still exists before looping.
+        if (!modified_invoices[invoiceNum].products[itemNum]) break;
 
-        // Each obj pushed to the array contains all matched dispos and details of the invoice on which the matches were found.
-        newMatchedItemArr.push(newMatchedObj);
+        //quantities being compared
+        let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
+        let sold_Qty = modified_invoices[invoiceNum].products[itemNum].quantity;
 
-        // if there are no remaining umatched units, delete item from Unmatched,
-        if (Object.keys(unmatched_items[itemNum].disposition).length === 0) {
-          delete unmatched_items[itemNum];
+        //The matched quantity is the smaller of the Qtys
+        const matchedQty = Math.min(dispo_qty, sold_Qty);
+
+        // Remove matchedQty from the invoice and the current dispo.
+        if (dispo_qty < sold_Qty) {
+          // All items of this disposition are matched, so delete it.
+          delete unmatched_items[itemNum].disposition[loopDispo];
+          modified_invoices[invoiceNum].products[itemNum].quantity -=
+            matchedQty;
+        } else if (dispo_qty > sold_Qty) {
+          // All this invoice's items have been matched, so delete it.
+          unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
+          delete modified_invoices[invoiceNum].products[itemNum];
+        } else {
+          // Qtys are equal, so delete both.
+          delete unmatched_items[itemNum].disposition[loopDispo];
+          delete modified_invoices[invoiceNum].products[itemNum];
         }
+
+        //Add the matched value to the future Matched dispositions obj if the match isn't 0.
+        if (matchedQty) {
+          newMatchedObj.disposition[loopDispo] = matchedQty;
+        }
+      } // end of loop through item dispositions.
+
+      // Each obj pushed to the array contains all matched dispos and details of the invoice on which the matches were found.
+      newMatchedItemArr.push(newMatchedObj);
+
+      // if there are no remaining umatched units, delete item from Unmatched,
+      if (Object.keys(unmatched_items[itemNum].disposition).length === 0) {
+        delete unmatched_items[itemNum];
       }
-    }); // end of loop through invoice keys.
+    } // end of loop through invoice keys.
 
     // add the completed array of matches for this item to {matched_items}
     matched_items[itemNum] = newMatchedItemArr;
-  }); // end of loop through unmatched items.
+  } // end of loop through unmatched items.
 
   return {
     matched: matched_items,
