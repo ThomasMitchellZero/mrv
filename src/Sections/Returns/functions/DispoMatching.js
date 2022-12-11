@@ -141,23 +141,23 @@ const matchMaker = (itemList, invoiceList) => {
     // AFAICT this is only used once so I can move it into the For loop.
     const itemDispoObj = unmatched_items[itemNum].disposition;
 
-    let dispo_total = 0
+    let dispo_total = 0;
 
-    for(const dispo of Object.keys(itemDispoObj)) {
+    for (const dispo of Object.keys(itemDispoObj)) {
       // if this disposition has zero items...
       if (!unmatched_items[itemNum].disposition[dispo]) {
         // delete it from unmatched Items
         delete unmatched_items[itemNum].disposition[dispo];
         continue;
       }
-      dispo_total += unmatched_items[itemNum].disposition[dispo]
-    };
+      dispo_total += unmatched_items[itemNum].disposition[dispo];
+    }
 
-    // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  
+    // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.
     const unwantedTotal = unmatched_items[itemNum].quantity - dispo_total;
 
     // If there is an UnwantedTotal, add it to the item's disposition.
-    if(unwantedTotal > 0) itemDispoObj.unwanted = unwantedTotal;
+    if (unwantedTotal > 0) itemDispoObj.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];
@@ -205,27 +205,29 @@ const matchMaker = (itemList, invoiceList) => {
           delete unmatched_items[itemNum].disposition[loopDispo];
           delete modified_invoices[invoiceNum].products[itemNum];
         }
-        // is this IF statement needed?  There shouldn't be any Zero dispositions and if the quantity in the invoice is zero we should never reach this point to begin with?
-        if (matchedQty > 0) {
-          // add dispo:matchedQty to the newMatchedObj's dispositions
-          newMatchedObj.disposition[loopDispo] = matchedQty;
-          // decrement the TotalUnmatched
-          unmatched_items[itemNum].quantity -= matchedQty;
-        }
-      } // end of loop through item dispositions.
 
-      // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
-      newMatchedItemArr.push(newMatchedObj);
+        // add dispo:matchedQty to the newMatchedObj's dispositions
+        newMatchedObj.disposition[loopDispo] = matchedQty;
+        // decrement the TotalUnmatched
+        unmatched_items[itemNum].quantity -= matchedQty;
+        
+      } // end of loop through item dispositions. //////////////////
 
       // if there are no remaining umatched units, delete item from Unmatched,
       if (unmatched_items[itemNum].quantity === 0) {
         delete unmatched_items[itemNum];
       }
-    } // end of loop through invoice keys.
+
+      // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
+      newMatchedItemArr.push(newMatchedObj);
+
+    } // end of loop through invoice keys ///////////////////////
 
     // add the completed itemNum:[newMatchedItemArr] to {matched_items}
-    matched_items[itemNum] = newMatchedItemArr;
-  } // end of loop through unmatched items.
+    if (newMatchedItemArr.length > 0) {
+      matched_items[itemNum] = newMatchedItemArr;
+    }
+  } // end of loop through unmatched items //////////////////
 
   return {
     matched: matched_items,
