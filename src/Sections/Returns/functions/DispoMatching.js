@@ -1,5 +1,13 @@
 // Function for matching returned items with session invoices.
 
+/* MAKE SURE TO CHECK before using in Returns!
+  -uncomment the import of CloneDeep
+  -uncomment the deep clones of unmatched_itmes and modified_invoices
+  -DELETE their non-cloned counterparts.
+  -Move the practice state items into comments.
+
+*/
+
 //import cloneDeep from "lodash.clonedeep";
 
 const itemsState = {
@@ -131,14 +139,18 @@ const matchMaker = (itemList, invoiceList) => {
   for (const itemNum of Object.keys(unmatched_items)) {
     // first, get sum of all disposition values for the current item.
     const itemDispoObj = unmatched_items[itemNum].disposition;
-    const dispo_total = Object.values(itemDispoObj).reduce((total, i) => {
-      // if 0 items have this disposition...
-      if (!unmatched_items[itemNum].disposition[i]) {
+
+    let dispo_total = 0
+
+    for(const dispo of Object.keys(itemDispoObj)) {
+      // if this disposition has zero items...
+      if (!unmatched_items[itemNum].disposition[dispo]) {
         // delete it from unmatched Items
-        delete unmatched_items[itemNum].disposition[i];
+        delete unmatched_items[itemNum].disposition[dispo];
+        continue;
       }
-      return total + i;
-    });
+      dispo_total += unmatched_items[itemNum].disposition[dispo]
+    };
 
     // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  
     const unwantedTotal = unmatched_items[itemNum].quantity - dispo_total;
