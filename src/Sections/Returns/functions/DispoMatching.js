@@ -138,6 +138,7 @@ const matchMaker = (itemList, invoiceList) => {
   //loop through the Unmatched items.
   for (const itemNum of Object.keys(unmatched_items)) {
     // first, get sum of all disposition values for the current item.
+    // AFAICT this is only used once so I can move it into the For loop.
     const itemDispoObj = unmatched_items[itemNum].disposition;
 
     let dispo_total = 0
@@ -155,7 +156,8 @@ const matchMaker = (itemList, invoiceList) => {
     // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  
     const unwantedTotal = unmatched_items[itemNum].quantity - dispo_total;
 
-    itemDispoObj.unwanted = unwantedTotal;
+    // If there is an UnwantedTotal, add it to the item's disposition.
+    if(unwantedTotal > 0) itemDispoObj.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];
@@ -203,7 +205,7 @@ const matchMaker = (itemList, invoiceList) => {
           delete unmatched_items[itemNum].disposition[loopDispo];
           delete modified_invoices[invoiceNum].products[itemNum];
         }
-
+        // is this IF statement needed?  There shouldn't be any Zero dispositions and if the quantity in the invoice is zero we should never reach this point to begin with?
         if (matchedQty > 0) {
           // add dispo:matchedQty to the newMatchedObj's dispositions
           newMatchedObj.disposition[loopDispo] = matchedQty;
@@ -212,7 +214,7 @@ const matchMaker = (itemList, invoiceList) => {
         }
       } // end of loop through item dispositions.
 
-      // Each obj pushed to the array contains all matched dispos and details of the invoice on which the matches were found.
+      // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
       newMatchedItemArr.push(newMatchedObj);
 
       // if there are no remaining umatched units, delete item from Unmatched,
@@ -221,7 +223,7 @@ const matchMaker = (itemList, invoiceList) => {
       }
     } // end of loop through invoice keys.
 
-    // add the completed array of matches for this item to {matched_items}
+    // add the completed itemNum:[newMatchedItemArr] to {matched_items}
     matched_items[itemNum] = newMatchedItemArr;
   } // end of loop through unmatched items.
 
