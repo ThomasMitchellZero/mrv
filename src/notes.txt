@@ -10,6 +10,8 @@ Ongoing TO FIX list:
 
     -Invoice column in in SessionItems70 currently displays nothing.  This is a stupid feature, but figure out a different approach.
 
+    -I will have added in a check in the Matchmaker module that deletes any Dispositions with a value of zero.  If I've successfully updated the ItemDetails page to take care of this before changing the dispositions in the Returns session state, I should try and delete it.
+
 
 
 //// Github Pages Deployment ////
@@ -1084,10 +1086,36 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -Also, potential problem:  what happens when I add new items to items that already have dispositions?  NVM, past-me already handled it :)  Preparation is a gift to your future self :)
 
-    -3:15  You are stalling.  You think you've got it working and you're afraid of the frustration that will follow.  Don't be scared.  We've got the debugger.  This is so much easier than how we used to debug.  Get in there and press that green arrow.
+    -3:15  You are stalling.  You don't know what problems you'll encounter and you're afraid you won't be able to figure out a solution.  Don't be scared.  We've got the debugger.  This is so much easier than how we used to debug.  Get in there and press that green arrow.
 
-    
+11 Dec 2022 - 
+    69-420.  The past two weeks have taught me that the name is important.  Every time I'm tempted to skip, my inner 14-year-old says "yeah, but...hehe...69-420...heh..."
+        The VERY first step is to get in there, cycle through the Matchmaker, and find out where it's all going wrong.  I feel like we're close.  I would not be surprised if I had enough time to get to something else this afternoon.
 
+        -The next next step is going to be to look at the Disposition inputs.  It's very important that the total dispositions do not exceed the quantity entered.  
+            -I think the way to do it is to use the Quantity as a maximum value.  The logic for how to handle a larger input is still TBD, but I've at least got the component set up to show an error messsage.
+        -The last little feature would be to make the buttons show show the total number entered.  this is acutally not a great solution, but I'll have to live with it.
+        
+
+        -A small little morsel:  the Item Quantity input should have a minimum value of 1.  Nobody should be entering 0 or negative numbers.
+
+    2:30.  OK.  Decision time.  Right now, the Matchmaker appears to be working, but it isn't 'squeezing the air' out of the disposition objects.  Right now, if I match all of the items in all invoices before going through all of an item's dispositions, there are going to be some dispositions with a value of zero.  I don't know what the downstream effects (if any) are goign to be, but it feels sloppy.  Options  are:
+
+        +Do nothing.  I'm spending time and focus on something I don't even know will be an issue.
+            -This feels sloppy.  In my mental style guide, each step in the process should do as much refining as is practical so as to not create problems down the road.
+                +If we're doing the next option, this is fine.  In fact, this is fastest.
+
+        +Change the input so that I don't put in empty dispositions in the first place.  If we're REALLY sticking to the aforementioned style guide, THIS is where that pre-fining should actually be happening.
+            -This will happen at some point, but I just want to get this damn module working and if there's a problem I now have to chase it through three components and not 2.
+            -I'm PRETTY sure I can do pre-finement in the Product Details section, but not 100%.
+
+        +Squeeze in the module.  I think the place to put it is right at the top.  I have to loop through each dispo object anyways because I'm summing their values to get Unwanted.  I could add in a quick condition that deletes any properties with a value of zero.  That will save me quite a few loops AND it ensures that the squeezing happens even if there are NO invoices that have the product.
+            -This is spending time on a feature we hope won't be in the final version.
+                +Just do it and add a big old comment to take it out once the pre-finement is set up.  And maybe a note in the running To Do list so I don't forget.
+
+    I'm gonna go for Option 3 and do the squeezing in the module.
+
+        
 
 
             

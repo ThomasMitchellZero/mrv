@@ -129,18 +129,20 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   for (const itemNum of Object.keys(unmatched_items)) {
-    // before we can start we need to compute the Unwanted total.
-    // first, get sum of all dispositions
+    // first, get sum of all disposition values for the current item.
     const itemDispoObj = unmatched_items[itemNum].disposition;
     const dispo_total = Object.values(itemDispoObj).reduce((total, i) => {
+      // if 0 items have this disposition...
+      if (!unmatched_items[itemNum].disposition[i]) {
+        // delete it from unmatched Items
+        delete unmatched_items[itemNum].disposition[i];
+      }
       return total + i;
     });
 
-    // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  Should never be negative but I'm checking to be sure.
-    const unwantedTotal = Math.max(
-      unmatched_items[itemNum].quantity - dispo_total,
-      0
-    );
+    // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.  
+    const unwantedTotal = unmatched_items[itemNum].quantity - dispo_total;
+
     itemDispoObj.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
@@ -148,15 +150,11 @@ const matchMaker = (itemList, invoiceList) => {
 
     //loop through the Unmatched invoices ///////////////
     for (const invoiceNum of Object.keys(modified_invoices)) {
-      // If itemNum still exists AND a product with this item number was sold on that invoice...
+      // If there are 0 unmatched units of item, move on to next item.
+      if (!unmatched_items[itemNum]) break;
+      // If this invoice doesn't contain this item, skip to next invoice.
+      if (!modified_invoices[invoiceNum].products[itemNum]) continue;
 
-
-      // I am really not sure if this is right.  Start here tomorrow.  the 200 items didn't work correctly.
-      if ( 
-        !unmatched_items[itemNum] ||
-        !modified_invoices[invoiceNum].products[itemNum]
-      )
-        break;
       let newMatchedObj = {
         price: modified_invoices[invoiceNum].products[itemNum].price,
         payment: modified_invoices[invoiceNum].invoiceDetails.payment,
@@ -167,12 +165,13 @@ const matchMaker = (itemList, invoiceList) => {
       for (const loopDispo of Object.keys(
         unmatched_items[itemNum].disposition
       )) {
-        // check to see if the invoice still exists before looping.
+        // check that item hasn't previously been deleted from invoice.
         if (!modified_invoices[invoiceNum].products[itemNum]) break;
 
         //quantities being compared
-        let dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
-        let sold_Qty = modified_invoices[invoiceNum].products[itemNum].quantity;
+        const dispo_qty = unmatched_items[itemNum].disposition[loopDispo];
+        const sold_Qty =
+          modified_invoices[invoiceNum].products[itemNum].quantity;
 
         //The matched quantity is the smaller of the Qtys
         const matchedQty = Math.min(dispo_qty, sold_Qty);
@@ -184,7 +183,7 @@ const matchMaker = (itemList, invoiceList) => {
           modified_invoices[invoiceNum].products[itemNum].quantity -=
             matchedQty;
         } else if (dispo_qty > sold_Qty) {
-          // All this invoice's items have been matched, so delete it.
+          // All units of item in this invoice have been matched, so delete it.
           unmatched_items[itemNum].disposition[loopDispo] -= matchedQty;
           delete modified_invoices[invoiceNum].products[itemNum];
         } else {
@@ -193,9 +192,11 @@ const matchMaker = (itemList, invoiceList) => {
           delete modified_invoices[invoiceNum].products[itemNum];
         }
 
-        //Add the matched value to the future Matched dispositions obj if the match isn't 0.
-        if (matchedQty) {
+        if (matchedQty > 0) {
+          // add dispo:matchedQty to the newMatchedObj's dispositions
           newMatchedObj.disposition[loopDispo] = matchedQty;
+          // decrement the TotalUnmatched
+          unmatched_items[itemNum].quantity -= matchedQty;
         }
       } // end of loop through item dispositions.
 
@@ -203,7 +204,7 @@ const matchMaker = (itemList, invoiceList) => {
       newMatchedItemArr.push(newMatchedObj);
 
       // if there are no remaining umatched units, delete item from Unmatched,
-      if (Object.keys(unmatched_items[itemNum].disposition).length === 0) {
+      if (unmatched_items[itemNum].quantity === 0) {
         delete unmatched_items[itemNum];
       }
     } // end of loop through invoice keys.
