@@ -5,6 +5,8 @@
   -uncomment the deep clones of unmatched_itmes and modified_invoices
   -DELETE their non-cloned counterparts.
   -Move the practice state items into comments.
+  -delete the function call at the end
+  -export the module.
 
 */
 
@@ -210,7 +212,7 @@ const matchMaker = (itemList, invoiceList) => {
         newMatchedObj.disposition[loopDispo] = matchedQty;
         // decrement the TotalUnmatched
         unmatched_items[itemNum].quantity -= matchedQty;
-        
+
       } // end of loop through item dispositions. //////////////////
 
       // if there are no remaining umatched units, delete item from Unmatched,
