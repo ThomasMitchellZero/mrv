@@ -1115,7 +1115,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     I'm gonna go for Option 3 and do the squeezing in the module.
 
-    4:05:  Fuuuuuuuuck.  Edit: NVM, not fuck.  If the disposition quantity is greater than the invoice quantity, the program will loop back, see that the invoice is empty, and then try to match dispositions from the top in the next invoice.  That was scary.  I thought I was gonna have to do some deep rebuilding.
+    4:05:  Fuuuuuuuuck.  Edit: NVM, not fuck.  If the disposition quantity is greater than the invoice quantity, the program WILL loop and check the next dispo, but after that fails it will try to match dispositions from the top in the next invoice, and it will start with the disposition that wasn't fully matched previously.  That was scary.  I thought I was gonna have to do some deep rebuilding.
 
         
 
