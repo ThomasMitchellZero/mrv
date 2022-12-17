@@ -46,7 +46,7 @@ const Returns = () => {
         const itemInfo = { ...productContext[newKey] };
         const sessionInvoices = { ...state.invoices };
 
-        let newQuantity = parseInt(action.payload.quantity);
+        let newQuantity = parseInt(action.payload.quantity ?? 0);
         // if item already exists, add old value to new value.
         newQuantity += state.items[newKey]?.quantity || 0
 
