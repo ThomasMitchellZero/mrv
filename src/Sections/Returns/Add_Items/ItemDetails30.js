@@ -29,7 +29,6 @@ const ItemDetails30 = ({
   const defaultState = {
     activeTab: "unwanted",
     defectiveReason: "broken",
-    newDisposition: {},
   };
 
   const dispositionReducer = (state, action) => {
@@ -88,13 +87,16 @@ const ItemDetails30 = ({
 
   const handleInputQty = (event) => {
     // deal with changes to the input field
-    const inputQty = event.target.value||0;
+    const inputQty = event.target.value || 0;
     dispatchSession({
-      type: "ITEM_DISPOSITION",
+      type: "ADD_ITEM",
       payload: {
         itemNum: activeItem,
-        reason: dispoState.defectiveReason,
-        inputQty: inputQty,
+        newDisposition: {
+          ...sessionItem.disposition,
+          [defaultState.defectiveReason]: inputQty,
+        },
+        inputQty: null,
       },
     });
   };
@@ -169,7 +171,6 @@ const ItemDetails30 = ({
         {/* Disposition Section */}
         {dispoState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
-
             {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
               <div>
@@ -181,7 +182,9 @@ const ItemDetails30 = ({
                   className={`base_input`}
                   placeholder="Qty."
                   style={{ width: "4rem" }}
-                  value={sessionItem.disposition[dispoState.defectiveReason]||0}
+                  value={
+                    sessionItem.disposition[dispoState.defectiveReason] || 0
+                  }
                   onChange={handleInputQty}
                   onFocus={(event) => {
                     event.target.select();
@@ -210,7 +213,9 @@ const ItemDetails30 = ({
       </section>
 
       <FooterContainer>
-        <button className={`baseButton primary large ${classes.continueButton}`}>
+        <button
+          className={`baseButton primary large ${classes.continueButton}`}
+        >
           Placeholder
         </button>
       </FooterContainer>

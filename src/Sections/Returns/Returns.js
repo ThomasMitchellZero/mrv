@@ -45,13 +45,13 @@ const Returns = () => {
         const newKey = action.payload.itemNum;
         const itemInfo = { ...productContext[newKey] };
         const sessionInvoices = { ...state.invoices };
-
+        // if payload.quantity is undefined, return 0.  Dispositions will not include a quantity b/c qty isn't changing.
         let newQuantity = parseInt(action.payload.quantity ?? 0);
         // if item already exists, add old value to new value.
         newQuantity += state.items[newKey]?.quantity || 0
 
         // if there is a new disposition we need to completely replace the old disposition.
-        const newDisposition =
+        const setDisposition =
           // Payload disposition if there is one
           action.payload.newDisposition ??
           // else existing disposition if there is one
@@ -64,7 +64,7 @@ const Returns = () => {
           [newKey]: {
             ...itemInfo,
             quantity: newQuantity,
-            disposition: newDisposition,
+            disposition: setDisposition,
           },
         };
 
