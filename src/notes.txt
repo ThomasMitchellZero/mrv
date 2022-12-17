@@ -1151,6 +1151,26 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         I think this might be time for a branch, since I think I understand this all but I could run into a disaster.
 
+        OK.  Time to stop and reflect.  I think I now have the ADD_ITEM function working correctly.  I also learned some REALLY useful new tools:
+
+        The first is the Nullish Coalescing Operator (  ??  ) It's similar to the || operator, but the Or operator returns the second term if the first term is ANY falsy value, while   ??  returns 2nd term ONLY if the first term is null or undefined.  If it's falsy, that gets returned.
+
+            false || 13   -- returns 13
+            false && 13   -- returns false
+
+        The second thing I learned is about the TypeError.  I think I've unknowingly been running into this a lot.  TypeError occurs when you try to do an operation on an element that can't support it.
+
+        const one = undefined
+        one.two = abc
+
+        I won't be able to read either of these because the program with throw a TypeError before I can even get to the end of my declarations.  the [ . ] operator means "the following property out of the proceeding object.  Well, undefined isn't an object!  There's no property to get,and so JS won't let me try to define it, even if it might become an object later.
+
+        that brings me to the third thing I just learned, the Optional Chaining operator (  ?.  )  This checks if the preceeding term is defined before evaluating its following property.  So from the previous example, if I write
+            const three = one?.two
+        then   three   will be undefined instead of giving me an error.
+
+        This could really clean up my code because I have SO MANY 'Do you even exist' checks before doing things.  Wow.  No matter what else happens, these three learnings have already made today a win :)
+
 
 
 

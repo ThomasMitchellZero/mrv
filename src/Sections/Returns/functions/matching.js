@@ -22,7 +22,7 @@ const matchMaker = (itemList, invoiceList) => {
     let dispo_total = 0;
 
     for (const dispo of Object.keys(itemDispoObj)) {
-      // if this disposition has zero items...
+      // if this disposition has zero items or a falsy value...
       if (!unmatched_items[itemNum].disposition[dispo]) {
         // delete it from unmatched Items
         delete unmatched_items[itemNum].disposition[dispo];

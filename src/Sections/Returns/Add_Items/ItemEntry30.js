@@ -83,9 +83,13 @@ const ItemEntry30 = (props) => {
     const itemPayload = {
       itemNum: formState.itemNum,
       quantity: formState.quantity,
+      dizzzposition: undefined,
     };
 
-    dispatchSession({ type: "ADD_ITEM", payload: itemPayload });
+    dispatchSession({
+      type: "ADD_ITEM",
+      payload: itemPayload,
+    });
 
     dispatchForm({ type: "CLEAR_FORM" });
   };

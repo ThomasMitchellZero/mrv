@@ -45,25 +45,19 @@ const Returns = () => {
         const newKey = action.payload.itemNum;
         const itemInfo = { ...productContext[newKey] };
         const sessionInvoices = { ...state.invoices };
-        let newQuantity = parseInt(action.payload.quantity);
-        // could this be an empty object?
-        let newDisposition = {
-          doesntWork: 0,
-          broken: 0,
-          unpackaged: 0,
-          warranty: 0,
-          missingParts: 0,
-          cosmetic: 0,
-          used: 0,
-        };
 
-        //if item already exists in the state...
-        if (state.items[newKey]) {
-          // add existing quantity to new quantity
-          newQuantity += state.items[newKey].quantity;
-          // add any existing dispositions to the new disposition.
-          newDisposition = { ...state.items[newKey].disposition };
-        }
+        let newQuantity = parseInt(action.payload.quantity);
+        // if item already exists, add old value to new value.
+        newQuantity += state.items[newKey]?.quantity || 0
+
+        // if there is a new disposition we need to completely replace the old disposition.
+        const newDisposition =
+          // Payload disposition if there is one
+          action.payload.dizzzposition ??
+          // else existing disposition if there is one
+          state.items[newKey]?.disposition ??
+          // else an empty object.
+          {};
 
         const newItemList = {
           ...state.items,
@@ -140,15 +134,14 @@ const Returns = () => {
       }
 
       case "ITEM_DISPOSITION": {
-
         const itemNum = action.payload.itemNum;
         const reason = action.payload.reason;
         const newQty = parseInt(action.payload.inputQty);
 
-        let newItems = cloneDeep(state.items)
-        newItems[itemNum].disposition[reason] = newQty
+        let newItems = cloneDeep(state.items);
+        newItems[itemNum].disposition[reason] = newQty;
 
-        return { ...state, items: newItems};
+        return { ...state, items: newItems };
       }
 
       case "CLEAR_SESSION":
