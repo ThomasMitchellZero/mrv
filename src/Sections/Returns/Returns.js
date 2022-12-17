@@ -53,7 +53,7 @@ const Returns = () => {
         // if there is a new disposition we need to completely replace the old disposition.
         const newDisposition =
           // Payload disposition if there is one
-          action.payload.dizzzposition ??
+          action.payload.newDisposition ??
           // else existing disposition if there is one
           state.items[newKey]?.disposition ??
           // else an empty object.
