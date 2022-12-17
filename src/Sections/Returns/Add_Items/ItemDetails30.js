@@ -28,7 +28,7 @@ const ItemDetails30 = ({
 
   const defaultState = {
     activeTab: "unwanted",
-    defectiveReason: "doesntWork",
+    defectiveReason: "broken",
     newDisposition: {},
   };
 
@@ -88,7 +88,7 @@ const ItemDetails30 = ({
 
   const handleInputQty = (event) => {
     // deal with changes to the input field
-    const inputQty = event.target.value;
+    const inputQty = event.target.value||0;
     dispatchSession({
       type: "ITEM_DISPOSITION",
       payload: {
@@ -181,7 +181,7 @@ const ItemDetails30 = ({
                   className={`base_input`}
                   placeholder="Qty."
                   style={{ width: "4rem" }}
-                  value={sessionItem.disposition[dispoState.defectiveReason]}
+                  value={sessionItem.disposition[dispoState.defectiveReason]||0}
                   onChange={handleInputQty}
                   onFocus={(event) => {
                     event.target.select();
@@ -194,7 +194,7 @@ const ItemDetails30 = ({
             {/* Disposition Buttons */}
             <section className={classes.dispoColumns}>
               <section>
-                {DispoButton("Doesn't Work", "doesntWork")}
+                {DispoButton("BBB-Doesn't Work", "bbbdoesntWork")}
                 {DispoButton("Broken", "broken")}
                 {DispoButton("Out Of Package", "unpackaged")}
                 {DispoButton("Warranty", "warranty")}

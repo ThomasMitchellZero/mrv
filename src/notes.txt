@@ -1,6 +1,7 @@
-Ongoing TO FIX list:
 
-    -Entered items ending in ".00" are being rounded off instead of displaying 2 decimal places.
+Anything problem I identify with no dependencies is probably getting bypassed.  This is my Ongoing TO FIX list:
+
+    -Entered items with prices ending in ".00" are being rounded off instead of displaying 2 decimal places.
     
     -When I hit Enter on keyboard for Item or Invoice entry panels, the form submits anyways even though it isn't valid.
 
@@ -12,6 +13,8 @@ Ongoing TO FIX list:
 
     -I will have added in a check in the Matchmaker module that deletes any Dispositions with a value of zero.  If I've successfully updated the ItemDetails page to take care of this before changing the dispositions in the Returns session state, I should try and delete it.
 
+    -I don't actually need to do matching on every change to the state.  The matched lists aren't used at all until the next step, so I should probably JUST do matching when the user is done adding invoices and items.  Right now I'm going to leave it in because I still don't 100% trust the Matchmaker and it will be easier to identify problems if the Return state is changing in real time.
+
 
 
 //// Github Pages Deployment ////
@@ -21,7 +24,8 @@ Writing a little about this since I've struggled with it in the past. This site 
 https://github.com/gitname/react-gh-pages
 
 I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
-    
+
+
 
 
 
@@ -889,21 +893,6 @@ I was actually able to skip to Step 7, and I think with what I've done, Step 7 i
 
         -Selecting any disposition should display its current quantity in the input field.  Changing the input field should change both.
 
-30 Nov 2022
-
-    -not coding, this is actually for my job.  
-    -First, I need to figure out if I can import things from Figma to Axure.
-    -I should also see if I can load Kristin's previous test file.  If there are components in there, I could probably use them.
-    -Next, I will make the assets as I go.  I think that I will try to build the flow along with the assets.
-    -For the flow, I should try  to reuse screens as much as possible.  Like, if the different options all run through the same screen, I should link to 1 screen 4x, not make 4 copies of it.  
-    -Just really need to focus on turning into the work.  I won't get a clearer day than today so I would love to bag up most / all of it today.
-
-1 Dec 2022
-
-    -Again, forced to work at work.  Laaaaaame.  Writing for 69-420.
-    -I want to start with the scenario selector.  I think that's the hardest piece.  
-    -Beyond that, I'm going to go through the flow and try to get at least a low-function version of the sad path.
-    -I'm going to be interrupted at 3:00 today for Post Purchase staff meeting, and I think after that I'll work on the SOS Restocking fee project.
     
 3 Dec 2022
 
@@ -1117,6 +1106,65 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     4:05:  Fuuuuuuuuck.  Edit: NVM, not fuck.  If the disposition quantity is greater than the invoice quantity, the program WILL loop and check the next dispo, but after that fails it will try to match dispositions from the top in the next invoice, and it will start with the disposition that wasn't fully matched previously.  That was scary.  I thought I was gonna have to do some deep rebuilding.
 
+    4:55 - OK.  I put the new module into the app and tried a few things.  I still need to figure out how it is that I am going to call the Matchmaker when disposition changes, BUT!  The matchmaker is working!  I admittedly didn't put it completely through the ringer, but it did appear to be making its matches correctly!  Excellent!
+
+17 Dec 2022
+    I've been sick the last few days, hence the lack of progress.  But I'm feeling good enough to get back after it!  Now, the eternal question - what to do today?
+
+    -One thing I think needs an answer is a plan for dealing with the Scanned Items state.  Options:
+
+        -Have one reducer for all additions.  In every case, payloads to this reducer carry everything they need to re-assemble the new Item object and then replace the existing session item.  And remember, payloads are only coming from two places - Add Item or Item Disposition.
+
+            -I think I'm kind of leaning this way right now.  I had this idea that separating the two would be a lighter operation because it was only updating the disposition, but that's not actually true.  In both cases, I have to clone and replace the entire item state.  
+
+            -It's also a much simpler conceptual model.  In fact, I might even change the name to EDIT_ITEMS because that's what I'm actually doing.  
+
+        -OK.  We've got a direction.  The next thing to do is figure out how to handle the incoming dispositions.  My cases are:
+            -A new item is added:  Add a new, empty set of dispositions.
+            -An existing item is added: The dispositions are whatever that item already had.
+
+            -The other thing I should keep in mind.  I'm currently envisioning having a whole empty Dispo object that I squeeze later, but it would be cleaner to ONLY have dispositions for items with a value.
+            Maybe the correct approach is to do it with the whole empty item for now?  I can already do squeezing in the Matchmaker so it's not like this will be a problem.
+
+            -All incoming items have a Disposition payload.  If the payload is empty, use the existing payload.  Else, use the payload coming in.  
+                -I have to remember that there will never be two payloads with values being added together.  Any payload with numbers will be coming from Item Details, in which case I am just cloning the existing dispositions, changing them, and sending them back.
+
+
+            All items from the Add Item 30 panel will come in with an empty disposition.
+                -That's not quite right because 
+
+            -mind bouncing around a lot right now but at least I am not bored!\
+
+            -If the incoming item has a disposition, use that disposition.  Otherwise, use the existing dispostion.  If there is no disposition, create the empty one.  
+
+            This will work.  I just have this feeling there's a simpler logical approach.
+
+            -If the payload contains a disposition, that is the new disposition.  Otherwise the disposition is the old disposition.
+
+            OR - {... oldDispo, ...newDispo} ? I think if you call the spread operator on undefined, you just get an empty object?
+
+        I did some tests and it works.  You can spread undefined into an object and it will just return an empty object.  OK.  So I think that's the new logic.
+
+        More decisions.  I tried making a new Disposition Input with a fake name, and it actually did update the Returns state with the fake name and value, although I'm getting some 'Controlled State' errors.  (NVM, solved by providing a default value of 0)
+
+        Here's what I think.  I guess we could do the squeezing here, but I don't see any problem doing it in the Matchmaker.  I still have to have the squeezing because even if I start with an empty Disposition object (i.e. NOT a full disposition object with all values set to 0), I can still have disposition categories with values of 0 - if I fill the field and then delete it.
+
+        I think this might be time for a branch, since I think I understand this all but I could run into a disaster.
+
+
+
+
+
+
+
+
+            
+
+
+
+
+            
+            
         
 
 
