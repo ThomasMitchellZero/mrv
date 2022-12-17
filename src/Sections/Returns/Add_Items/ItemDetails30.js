@@ -14,7 +14,6 @@ const ItemDetails30 = ({
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
   const dispatchSession = returnsContext.dispatchSession;
-  console.log(returnsContext);
 
   const refDispoObj = {
     doesntWork: 0,
@@ -94,7 +93,7 @@ const ItemDetails30 = ({
         itemNum: activeItem,
         newDisposition: {
           ...sessionItem.disposition,
-          [defaultState.defectiveReason]: inputQty,
+          [dispoState.defectiveReason]: inputQty,
         },
         inputQty: null,
       },
@@ -197,7 +196,7 @@ const ItemDetails30 = ({
             {/* Disposition Buttons */}
             <section className={classes.dispoColumns}>
               <section>
-                {DispoButton("BBB-Doesn't Work", "bbbdoesntWork")}
+                {DispoButton("Doesn't Work", "doesntWork")}
                 {DispoButton("Broken", "broken")}
                 {DispoButton("Out Of Package", "unpackaged")}
                 {DispoButton("Warranty", "warranty")}
