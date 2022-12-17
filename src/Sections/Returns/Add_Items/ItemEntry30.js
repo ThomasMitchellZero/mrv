@@ -83,7 +83,7 @@ const ItemEntry30 = (props) => {
     const itemPayload = {
       itemNum: formState.itemNum,
       quantity: formState.quantity,
-      dizzzposition: undefined,
+      newDisposition: undefined,
     };
 
     dispatchSession({
