@@ -3,8 +3,9 @@ import classes from "./ItemDetails30.module.css";
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-import { useReducer } from "react";
+import disposSqueezer from "../functions/dispoSqueezer";
 
+import { useReducer } from "react";
 
 const ItemDetails30 = ({
   activeItem,
@@ -13,6 +14,13 @@ const ItemDetails30 = ({
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
   const dispatchSession = returnsContext.dispatchSession;
+
+  // If the current item is deleted, send the user back to the Item Entry panel.
+  if (!sessionItem)
+    dispatchActivePanels({
+      type: "SET_PANELS",
+      payload: { set30: "item_entry" },
+    });
 
   const refDispoObj = {
     doesntWork: 0,
@@ -27,6 +35,7 @@ const ItemDetails30 = ({
   const defaultState = {
     activeTab: "unwanted",
     defectiveReason: "doesntWork",
+    inputValid: true,
   };
 
   // Reducer to control which tab and which defective reason are active.
@@ -37,6 +46,9 @@ const ItemDetails30 = ({
       }
       case "SET_DISPOSITION": {
         return { ...state, defectiveReason: action.payload.dispoType };
+      }
+      case "SET_INPUTVALID": {
+        return { ...state, inputValid: action.payload };
       }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
@@ -84,33 +96,40 @@ const ItemDetails30 = ({
     );
   };
 
-
+  // deal with changes to the input field
   const handleInputQty = (event) => {
-    // deal with changes to the input field
-    const inputQty = event.target.value || 0;
+    // check that the input quantity is a valid number
+    const inputQty = parseInt(event.target.value) || null;
 
+    if (inputQty !== null) {
+      let futureDispo = {
+        ...sessionItem.disposition,
+        [dispoState.defectiveReason]: inputQty,
+      };
+      // use the squeezer to remove any zero values.
+      futureDispo = disposSqueezer(futureDispo).disposObj;
+      const unassigned = inputQty - disposSqueezer(futureDispo).totalDispoQty;
 
+      // If input qty exceeds avail. items.
+      if (unassigned < 0) {
+        // Tell user the problem + how to fix
+        console.log("fail");
+      } else {
+        // the number is valid so we dispatch
+        dispatchSession({
+          type: "ADD_ITEM",
+          payload: {
+            itemNum: activeItem,
+            newDisposition: futureDispo,
+            inputQty: null,
+          },
+        });
 
-
-    dispatchSession({
-      type: "ADD_ITEM",
-      payload: {
-        itemNum: activeItem,
-        newDisposition: {
-          ...sessionItem.disposition,
-          [dispoState.defectiveReason]: parseInt(inputQty),
-        },
-        inputQty: null,
-      },
-    });
+        // the input was valid, so we set the input validity state to true.
+        dispatchDisposition({ action: "SET_INPUTVALID", payload: true });
+      }
+    }
   };
-
-  // If the current item is deleted, send the user back to the Item Entry panel.
-  if (!sessionItem)
-    dispatchActivePanels({
-      type: "SET_PANELS",
-      payload: { set30: "item_entry" },
-    });
 
   return (
     <section className={classes.container}>
