@@ -98,17 +98,26 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
-    // check that the input quantity is a valid number
-    const inputQty = parseInt(event.target.value) || null;
 
-    if (inputQty !== null) {
+    // check that the input quantity is a valid number
+    const inputQty = parseInt(event.target.value);
+
+
+
+    if (typeof inputQty === "number") {
+      console.log(inputQty)
       let futureDispo = {
         ...sessionItem.disposition,
         [dispoState.defectiveReason]: inputQty,
       };
+      console.log(futureDispo);
       // use the squeezer to remove any zero values.
       futureDispo = disposSqueezer(futureDispo).disposObj;
-      const unassigned = inputQty - disposSqueezer(futureDispo).totalDispoQty;
+
+      console.log(`accumulated qty${disposSqueezer(futureDispo).totalDispoQty}`);
+
+      const unassigned = sessionItem.quantity - disposSqueezer(futureDispo).totalDispoQty;
+      console.log(unassigned);
 
       // If input qty exceeds avail. items.
       if (unassigned < 0) {
@@ -126,7 +135,7 @@ const ItemDetails30 = ({
         });
 
         // the input was valid, so we set the input validity state to true.
-        dispatchDisposition({ action: "SET_INPUTVALID", payload: true });
+        dispatchDisposition({ type: "SET_INPUTVALID", payload: true });
       }
     }
   };

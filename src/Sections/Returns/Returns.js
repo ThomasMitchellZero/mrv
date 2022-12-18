@@ -58,9 +58,6 @@ const Returns = () => {
           state.items[newKey]?.disposition ??
           // else an empty object.
           {};
-
-          console.log(setDisposition)
-
           /*
                   setDisposition.unwanted ?? delete setDisposition.unwanted;
 
@@ -100,7 +97,6 @@ const Returns = () => {
           },
         };
 
-        console.log(newItemList)
 
         const derivedStates = matchMaker(newItemList, sessionInvoices);
 
