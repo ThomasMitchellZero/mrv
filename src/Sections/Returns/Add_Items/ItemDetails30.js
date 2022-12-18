@@ -5,7 +5,6 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 
 import { useReducer } from "react";
 
-// BUG Reminder:  If I delete the current item being referenced in ItemDetails, the program crashes because ItemDetails is now referencing something that's no longer there.
 
 const ItemDetails30 = ({
   activeItem,
@@ -84,7 +83,6 @@ const ItemDetails30 = ({
     );
   };
 
-  // This might be the problem.  I think I'm passing back a disposition object that now includes Unwanted?
 
   const handleInputQty = (event) => {
     // deal with changes to the input field
@@ -101,6 +99,13 @@ const ItemDetails30 = ({
       },
     });
   };
+
+  // If the current item is deleted, send the user back to the Item Entry panel.
+  if (!sessionItem)
+    dispatchActivePanels({
+      type: "SET_PANELS",
+      payload: { set30: "item_entry" },
+    });
 
   return (
     <section className={classes.container}>
