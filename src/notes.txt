@@ -1179,6 +1179,37 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         This could really clean up my code because I have SO MANY 'Do you even exist' checks before doing things.  Wow.  No matter what else happens, these three learnings have already made today a win :)
 
+    4:50 - I'm now successfully updating the dispositions via ADD_ITEM.  I've now run into another problem.  No matter what defective reason I have selected, entries in the input field are just updating the default reason.  The defectiveReason state does change when I switch the tabs.  
+
+    OK.  Sweet.  It's now working just like I wanted.  Maybe time to test some matching?
+
+    Looks like we've got another problem.  My Unmatched invoices aren't totaling up correctly.  
+        -When I add the first disposition, everything's fine.  Unmatched shows that disposition and quantity, and then whatever's left is recorded as Unwanted.
+        -When I add a second disposition, it appears correctly along with the first, but Unwanted is now gone.
+        -Adding additional dispostions also works as expected, but Unwanted still doesn't show up.
+
+    My very first thought is to do the Unwanted check in the ADD_ITEM case.  I don't feel great about it because I haven't actually identified the problem, but I guess I should try it and see if it works.  I'm not hacking, just gathering a data point.
+
+    It's still not working, but I have a hunch I know where it is and so I've got a good place to pick back up.
+
+    Ha. Well, I changed the ItemDetails30 to make pass back integers and not strings and now it's working perfectly?
+
+    Well, not perfectly.  Deleting an invoice isn't working, but that REALLY is a problem for tomorrow.
+
+18 Dec 2022
+
+    OK.  Did a little more work last night while the pizza was cooking and it appears that invoice deletion is working correctly.  I'm not 100% sure but it really does look like the Matching is working correctly.  
+
+    Next two tasks on the menu.  First, I need to make it so that the total qty of dispositions does not exceed the qty of items scanned.  
+
+    I also need to figure how how to handle the deletion of the item currently being shown in Item Details.  Ideal behavior would be that if the item is deleted, the 30 panel would then navigate to the Item Entry screen.  
+
+
+
+
+    
+
+
 
 
 

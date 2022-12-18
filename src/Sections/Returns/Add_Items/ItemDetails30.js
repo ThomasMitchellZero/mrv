@@ -27,7 +27,7 @@ const ItemDetails30 = ({
 
   const defaultState = {
     activeTab: "unwanted",
-    defectiveReason: "broken",
+    defectiveReason: "doesntWork",
   };
 
   const dispositionReducer = (state, action) => {
@@ -84,9 +84,11 @@ const ItemDetails30 = ({
     );
   };
 
+  // This might be the problem.  I think I'm passing back a disposition object that now includes Unwanted?
+
   const handleInputQty = (event) => {
     // deal with changes to the input field
-    const inputQty = event.target.value || 0;
+    const inputQty = parseInt(event.target.value) || 0;
     dispatchSession({
       type: "ADD_ITEM",
       payload: {
