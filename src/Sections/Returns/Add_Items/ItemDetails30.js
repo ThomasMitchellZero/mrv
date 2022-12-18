@@ -32,10 +32,13 @@ const ItemDetails30 = ({
     warranty: 0,
   };
 
+
+
   const defaultState = {
     activeTab: "unwanted",
     defectiveReason: "doesntWork",
     inputValid: true,
+    localDisposObj: {...sessionItem.disposition}
   };
 
   // Reducer to control which tab and which defective reason are active.
@@ -44,11 +47,14 @@ const ItemDetails30 = ({
       case "SET_TAB": {
         return { ...state, activeTab: action.payload };
       }
-      case "SET_DISPOSITION": {
+      case "SET_ACTIVE_DISPO": {
         return { ...state, defectiveReason: action.payload.dispoType };
       }
       case "SET_INPUTVALID": {
         return { ...state, inputValid: action.payload };
+      }
+      case "EDIT_DISPOS_OBJ": {
+        return { ...state, localDisposObj: action.payload }
       }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
@@ -74,7 +80,7 @@ const ItemDetails30 = ({
 
   const handleDispoClick = (name) => {
     dispatchDisposition({
-      type: "SET_DISPOSITION",
+      type: "SET_ACTIVE_DISPO",
       payload: { dispoType: name },
     });
   };
@@ -103,33 +109,37 @@ const ItemDetails30 = ({
     const inputQty = parseInt(event.target.value);
 
 
-
+    // Do I need this?  AFAICT any falsy values get squeezed out?
     if (typeof inputQty === "number") {
-      console.log(inputQty)
+
       let futureDispo = {
-        ...sessionItem.disposition,
+        ...dispoState.localDisposObj,
         [dispoState.defectiveReason]: inputQty,
       };
-      console.log(futureDispo);
+
       // use the squeezer to remove any zero values.
       futureDispo = disposSqueezer(futureDispo).disposObj;
 
-      console.log(`accumulated qty${disposSqueezer(futureDispo).totalDispoQty}`);
+      // set the local state.
+      dispatchDisposition({ type: "EDIT_DISPOS_OBJ", payload: futureDispo });
 
+      // get difference between total items and sum of damage items
       const unassigned = sessionItem.quantity - disposSqueezer(futureDispo).totalDispoQty;
-      console.log(unassigned);
+
 
       // If input qty exceeds avail. items.
       if (unassigned < 0) {
-        // Tell user the problem + how to fix
-        console.log("fail");
+        dispatchDisposition({ type: "SET_INPUTVALID", payload: false })
+
+        console.log(Math.abs(unassigned));
       } else {
+
         // the number is valid so we dispatch
         dispatchSession({
           type: "ADD_ITEM",
           payload: {
             itemNum: activeItem,
-            newDisposition: futureDispo,
+            newDisposition: dispoState.localDisposObj,
             inputQty: null,
           },
         });
@@ -154,6 +164,7 @@ const ItemDetails30 = ({
         Item Details
       </TitleBar>
       <section className={classes.mainContent}>
+
         {/* Item Description */}
         <section className={classes.itemDescription}>
           <section className={classes.picAndQty}>
@@ -223,7 +234,7 @@ const ItemDetails30 = ({
                   placeholder="Qty."
                   style={{ width: "4rem" }}
                   value={
-                    sessionItem.disposition[dispoState.defectiveReason] || 0
+                    dispoState.localDisposObj[dispoState.defectiveReason] || 0
                   }
                   onChange={handleInputQty}
                   onFocus={(event) => {
