@@ -1203,6 +1203,29 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     Next two tasks on the menu.  First, I need to make it so that the total qty of dispositions does not exceed the qty of items scanned.  
 
     I also need to figure how how to handle the deletion of the item currently being shown in Item Details.  Ideal behavior would be that if the item is deleted, the 30 panel would then navigate to the Item Entry screen.  
+        -Ha.  I legit expected to struggle with this one, maybe even taking the rest of the day, but it's done.  
+
+    11:40 - I'm about an hour in and I feel really good.  I don't quite understand it because I slept like shit last night but I feel engaged and smart right now :)
+
+    OK, I've been kind of fiddlefucking around with getting the display state to show empty instead of zero and not dispatch any falsy values but that's really not blocking any progress.  It's just not as clean as I would like.
+
+    What I need to do is figure out the sum evaluation.  
+        -After fiddling with the HTML max property, it appears that it doesn't actually restrict the user from entering the value.  So I could have a total of 20 items, and I'm actually not restricted from putting 21+ in the input field.  In a way this is good because it makes my decision for me.  I will have a check on the input field, and if it's out of range I will show an error message and not dispatch.  I think.
+
+        I really do not like that there isn't a form submit button.  I can't really check and make sure everything is tight before I send it.  The problem is that each input is representing 2 things that aren't necessarily the same.  They're representing the user's input, and also the value in the system.  
+
+        I wonder if I could separate them.  Like, every time the page is refreshed, I get the existing disposition object.  Whenever there is a change, I check the validity.  If everything is valid, I dispatch the update.  If it isn't, I do not.  So far, so good.  That lets me do everything I want.  
+
+        Here's the one issue I see.  If the user inputs a bad value, they don't necessarily know they haven't changed the value in the system.  And if they navigate to any conditions that have values, those other conditions are going to show errors, too.  
+
+        I also need to be careful not to over-solve this problem.  At this time, I've already departed from the live app, since that doesn't let you enter more than one disposition.  I hate this input style because I don't think it represents the business logic, so any work I put into this current version is work I am hoping to throw out later.  
+
+        OK, absolute minimum:
+            -Conditional dispatching.
+            -Show an error if conditions are exceeded.
+            -I need to create an invalid input field CSS style
+            
+
 
 
 

@@ -29,6 +29,7 @@ const ItemDetails30 = ({
     defectiveReason: "doesntWork",
   };
 
+  // Reducer to control which tab and which defective reason are active.
   const dispositionReducer = (state, action) => {
     switch (action.type) {
       case "SET_TAB": {
@@ -86,14 +87,18 @@ const ItemDetails30 = ({
 
   const handleInputQty = (event) => {
     // deal with changes to the input field
-    const inputQty = parseInt(event.target.value) || 0;
+    const inputQty = event.target.value || 0;
+
+
+
+
     dispatchSession({
       type: "ADD_ITEM",
       payload: {
         itemNum: activeItem,
         newDisposition: {
           ...sessionItem.disposition,
-          [dispoState.defectiveReason]: inputQty,
+          [dispoState.defectiveReason]: parseInt(inputQty),
         },
         inputQty: null,
       },
@@ -184,6 +189,7 @@ const ItemDetails30 = ({
                 <input
                   type="number"
                   min={0}
+                  max={20}
                   disabled={false}
                   className={`base_input`}
                   placeholder="Qty."
