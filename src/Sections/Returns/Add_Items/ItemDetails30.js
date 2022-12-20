@@ -54,6 +54,9 @@ const ItemDetails30 = ({
       case "EDIT_DISPOS_OBJ": {
         return { ...state, localDisposObj: action.payload };
       }
+      case "SET_MULTIPLE": {
+        return {...state, ...action.payload}
+      }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
     }
@@ -76,11 +79,27 @@ const ItemDetails30 = ({
   
   */
 
+    /*
+      dispatchItemDetails({
+      type: "SET_MULTIPLE",
+      payload:{
+        localDisposObj: {...sessionItem.disposition},
+        defectiveReason: name,
+      }
+    })
+  
+  */
+
   const handleDispoClick = (name) => {
+
     dispatchItemDetails({
-      type: "SET_ACTIVE_DISPO",
-      payload: { dispoType: name },
-    });
+      type: "SET_MULTIPLE",
+      payload:{
+        localDisposObj: {...sessionItem.disposition},
+        defectiveReason: name,
+      }
+    })
+    
   };
 
   // reusable button to set item's dispositions
