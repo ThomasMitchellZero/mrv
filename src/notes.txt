@@ -1224,7 +1224,78 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Conditional dispatching.
             -Show an error if conditions are exceeded.
             -I need to create an invalid input field CSS style
-            
+
+    1:20  Definitely losing speed here.  I'm gonna make a quick mail run.  Maybe that will clear my head.   
+
+    2:30 - Not exactly the break I was hoping for, but I'm back after it.  I think I'm gonna do one more session and then call it a day.  Let's re-evaluate.
+        -I've got the sum-checker working (I think)  I need to figure out WHEN to check the sum, and my responses to the potential outcomes.
+            -I think once an input is made, we check that input's value against the unassigned quantity.
+            -If the unassigned quantity is smaller, we run our Error procedure.  We DO NOT dispatch, although since the values are linked I don't actually know what happens to the contents of the input field.
+            -If the value is legit, we dispatch and proceed as normal.
+
+        -OPTIONAL:  Prior to dispatch, I could also squeeze the upcoming dispositions object.
+            -DOUBLE-OPTIONAL:  That would potentially allow me to go through and have 
+
+    5:40.  Going to stop for the day.  Haven't tested hard but the ItemDetails disposition setting appears to be working.  It's adding to the total and not dispatching any input values that would push it over the total.  
+
+    However, the inputs are behaving weird.  Like if I'm near the limit and I try to enter 12, it will accept the 1 but won't let me add the second character.
+
+    For next time:  I think what I need to do is get the item dispostions from the session state.  I need to then CLONE that object in a local state, and do modifications to the local state.  Whenever the local state becomes valid, I dispatch to the session.  Until then, it stays local.  
+
+    That's a pretty cool model.  I should probably remember that for other things.
+
+    6:45.  My dispatches to the Returns Session object are one step behind the local state and I don't currently have the brainpower to figure this out.
+
+    For tomorrow - try putting the dispatch to Returns outside of the onChange loop.  
+
+20 Dec, 2022
+    69-420 I know EXACTLY why I don't want to start today :)  I don't truly understand the relationship between state and re-rendering, which means I don't actually know why my app isn't working, and I don't truly understand the de-bugger, which is why I fear the frustration of it behaving unpredictably.
+
+    That said, this does need to be solved, and if I can't do it the way I have in mind, I have plenty of dirtier alternatives.  IMO first move should be to do a littl reading about state and rendering and see what I can find.
+
+        -OK, from the documentation:
+
+        1. The dispatch function only updates the state variable for the next render. If you read the state variable after calling the dispatch function, you will still get the old value that was on the screen before your call.
+
+        2. If the new value you provide is identical to the current state, as determined by an Object.is comparison, React will skip re-rendering the component and its children. This is an optimization. React may still need to call your component before ignoring the result, but it shouldn’t affect your code.
+
+        3. React batches state updates. It updates the screen after all the event handlers have run and have called their set functions. This prevents multiple re-renders during a single event. In the rare case that you need to force React to update the screen earlier, for example to access the DOM, you can use flushSync.
+
+    That...was not a waste at all.  That was actually really helpful.  I've learned a few things.  First, AFAICT it's OK for me to be batching multiple state updates together (#3).  I thought that was my problem but it looks like I was wrong.
+
+    Second, AFAICT, the state variable doesn't actually change when it is dispatched.  Like, the dispatch will happen, but if there's any code after the dispatch, that code will run before the re-render.  I think that's why my global state was one step behind my local state.  I was updating the global state with the local state's value, and because state updates are batched, the local state didn't yet reflect the new values.  
+
+    I think if I dispatch to the global state with the same dispos object variable I used for the local state it should work?  
+
+    OK.  Working correctly now, but a slight snag.  For multi-digit characters,each subsequent digit is dispatched separately.  If I enter a multi digit number where the first digit is under the limit but the second digit is over, the first number gets dispatched and the second does not.  Options:
+
+        -It's not the end of the world.  Going over will show the user an error and directions to correct it.  Remember, we want to get rid of this whole input pattern soon.  Don't fix something that's getting discarded anways.
+
+            -My main objection to this is that it's doing something the user wouldn't expect, and it is happening out of sight.  If I'm typing 12 and the second digit makes it invalid, I do not expect that the first digit has already been applied.  
+
+            -OK, here's another crazy thought.  What if: on every change to the input field, I evaluate the input contents.  On every content change, I dispatch contents to local state.  If qty is valid, I dispatch it to global state.  If not, I dispatch null?  
+
+            Right now I think that's the least bad solution?  I think it's at least more in line with expected behavior.  If my input is wrong I wouldn't necessarily expect it to be dispatched.
+
+                Here's the snag.  If I switch to any other input while I'm over the limit, that is also going to be wrong, and it's also going to be dispatched as 0.
+
+                -What if.  On every Damaged button click, the local state dispos object gets set to the value of its global counterpart?  Like, as soon as the user clicks away from any field, the local dispos get reset?  Quantities only get submitted if they are valid, so every other quantity other than the one they just entered will be as it was.  
+
+
+
+        -What I REALLY want is for the local state to handle all the state changes, and wait a while to dispatch to the global state if the local state is valid.  Basically, I want Submit without the Submit button.
+
+            -I could do it when the Product Details component unmounts, I think.  The problem with that is that if any part of the form is valid, ALL dispositions would be lost, which is shitty.  
+
+    It's annoyingly hilarious how much every problem keeps coming back to "none of this would be a problem if there was a Submit button" 
+
+    I also can't escape the feeling that I am making this more complicated than it needs to be.  
+
+
+
+
+    
+
 
 
 
