@@ -59,7 +59,7 @@ const ItemDetails30 = ({
     }
   };
 
-  const [dispoState, dispatchDisposition] = useReducer(
+  const [dispoState, dispatchItemDetails] = useReducer(
     dispositionReducer,
     defaultState
   );
@@ -77,7 +77,7 @@ const ItemDetails30 = ({
   */
 
   const handleDispoClick = (name) => {
-    dispatchDisposition({
+    dispatchItemDetails({
       type: "SET_ACTIVE_DISPO",
       payload: { dispoType: name },
     });
@@ -119,7 +119,7 @@ const ItemDetails30 = ({
       const returnsDisposObj = { ...futureDisposObj };
 
       // set the local state.
-      dispatchDisposition({
+      dispatchItemDetails({
         type: "EDIT_DISPOS_OBJ",
         payload: futureDisposObj,
       });
@@ -130,14 +130,14 @@ const ItemDetails30 = ({
 
       // If input qty exceeds avail. items.
       if (unassigned < 0) {
-        dispatchDisposition({ type: "SET_INPUTVALID", payload: false });
+        dispatchItemDetails({ type: "SET_INPUTVALID", payload: false });
         // if the local dispo value is invalid, remove its property from the obj. going to global state.
         delete returnsDisposObj[dispoState.defectiveReason];
 
         console.log(Math.abs(unassigned));
       } else {
         // the input was valid, so we set the input validity state to true.
-        dispatchDisposition({ type: "SET_INPUTVALID", payload: true });
+        dispatchItemDetails({ type: "SET_INPUTVALID", payload: true });
       }
 
       // Dispatch returnsDisposObj to the global Returns state.
@@ -194,7 +194,7 @@ const ItemDetails30 = ({
                 dispoState.activeTab === "unwanted" ? "active" : ""
               }`}
               onClick={() => {
-                dispatchDisposition({
+                dispatchItemDetails({
                   type: "SET_TAB",
                   payload: "unwanted",
                 });
@@ -208,7 +208,7 @@ const ItemDetails30 = ({
                 dispoState.activeTab === "defective" ? "active" : ""
               }`}
               onClick={() => {
-                dispatchDisposition({
+                dispatchItemDetails({
                   type: "SET_TAB",
                   payload: "defective",
                 });
@@ -229,14 +229,12 @@ const ItemDetails30 = ({
                 <p> Select item condition and enter quantity</p>
                 <input
                   type="number"
-                  min={0}
-                  max={20}
                   disabled={false}
                   className={`base_input`}
                   placeholder="Qty."
                   style={{ width: "4rem" }}
                   value={
-                    dispoState.localDisposObj[dispoState.defectiveReason] || 0
+                    dispoState.localDisposObj[dispoState.defectiveReason] || ""
                   }
                   onChange={handleInputQty}
                   onFocus={(event) => {
