@@ -32,13 +32,11 @@ const ItemDetails30 = ({
     warranty: 0,
   };
 
-
-
   const defaultState = {
     activeTab: "unwanted",
     defectiveReason: "doesntWork",
     inputValid: true,
-    localDisposObj: {...sessionItem.disposition}
+    localDisposObj: { ...sessionItem.disposition },
   };
 
   // Reducer to control which tab and which defective reason are active.
@@ -54,7 +52,7 @@ const ItemDetails30 = ({
         return { ...state, inputValid: action.payload };
       }
       case "EDIT_DISPOS_OBJ": {
-        return { ...state, localDisposObj: action.payload }
+        return { ...state, localDisposObj: action.payload };
       }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
@@ -104,49 +102,54 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
-
     // check that the input quantity is a valid number
     const inputQty = parseInt(event.target.value);
 
-
     // Do I need this?  AFAICT any falsy values get squeezed out?
     if (typeof inputQty === "number") {
-
-      let futureDispo = {
+      let futureDisposObj = {
         ...dispoState.localDisposObj,
         [dispoState.defectiveReason]: inputQty,
       };
 
       // use the squeezer to remove any zero values.
-      futureDispo = disposSqueezer(futureDispo).disposObj;
+      futureDisposObj = disposSqueezer(futureDisposObj).disposObj;
+
+      // Clone to be sent to Returns state because they can be different.
+      const returnsDisposObj = { ...futureDisposObj };
 
       // set the local state.
-      dispatchDisposition({ type: "EDIT_DISPOS_OBJ", payload: futureDispo });
+      dispatchDisposition({
+        type: "EDIT_DISPOS_OBJ",
+        payload: futureDisposObj,
+      });
 
       // get difference between total items and sum of damage items
-      const unassigned = sessionItem.quantity - disposSqueezer(futureDispo).totalDispoQty;
-
+      const unassigned =
+        sessionItem.quantity - disposSqueezer(futureDisposObj).totalDispoQty;
 
       // If input qty exceeds avail. items.
       if (unassigned < 0) {
-        dispatchDisposition({ type: "SET_INPUTVALID", payload: false })
+        dispatchDisposition({ type: "SET_INPUTVALID", payload: false });
+        // if the local dispo value is invalid, remove its property from the obj. going to global state.
+        delete returnsDisposObj[dispoState.defectiveReason];
 
         console.log(Math.abs(unassigned));
       } else {
-
-        // the number is valid so we dispatch
-        dispatchSession({
-          type: "ADD_ITEM",
-          payload: {
-            itemNum: activeItem,
-            newDisposition: dispoState.localDisposObj,
-            inputQty: null,
-          },
-        });
-
         // the input was valid, so we set the input validity state to true.
         dispatchDisposition({ type: "SET_INPUTVALID", payload: true });
       }
+
+      // Dispatch returnsDisposObj to the global Returns state.
+      dispatchSession({
+        type: "ADD_ITEM",
+        payload: {
+          itemNum: activeItem,
+          // if input qty exceeds, that whole property is deleted above.
+          newDisposition: returnsDisposObj,
+          inputQty: null,
+        },
+      });
     }
   };
 
@@ -164,7 +167,6 @@ const ItemDetails30 = ({
         Item Details
       </TitleBar>
       <section className={classes.mainContent}>
-
         {/* Item Description */}
         <section className={classes.itemDescription}>
           <section className={classes.picAndQty}>
