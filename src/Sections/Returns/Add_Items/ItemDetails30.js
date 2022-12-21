@@ -50,7 +50,7 @@ const ItemDetails30 = ({
         return { ...state, defectiveReason: action.payload.dispoType };
       }
       case "SET_EXCESS_ITEMS": {
-        return { ...state, excessItems: action.payload };
+        return { ...state, undamageItems: action.payload };
       }
       case "EDIT_DISPOS_OBJ": {
         return { ...state, localDisposObj: action.payload };
@@ -104,12 +104,69 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
-    // check that the input quantity is a valid number
-    const inputQty = parseInt(event.target.value);
+    const rawIn = parseInt(event.target.value);
 
-    // Do I need this?  AFAICT any falsy values get squeezed out?
-    if (typeof inputQty === "number") {
-      let futureDisposObj = {
+    // if input isn't a number, set it to 0.
+    const inputQty = typeof rawIn === "number" ? rawIn : 0;
+
+    // Each change to input is evaluated individually, so old value is moot.
+    const keptDisposObj = { ...detailsState.localDisposObj };
+    delete keptDisposObj[detailsState.defectiveReason];
+
+    // Qty of all items besides this one.
+    const keptQty = disposSqueezer(keptDisposObj).totalDispoQty;
+
+    // Create new {disp:value} unless inputQty is 0
+    const newDispoProp =
+      inputQty === 0 ? {} : { [detailsState.defectiveReason]: inputQty };
+
+    // future payloads.  If input qty is valid, they get modified. Otherwise dispatched as is.
+    const localPayload = {
+      inputValid: false,
+      undamageItems: keptQty,
+      localDisposObj: {
+        ...keptDisposObj,
+        ...newDispoProp,
+      },
+    };
+
+    const sessionPayload = {
+      itemNum: activeItem,
+      // if new qty isn't valid, that dispo isn't kept in returns.
+      newDisposition: keptDisposObj,
+      inputQty: null,
+    };
+
+    // if sum of all dispos is correctly less that item total...
+    if (keptQty + inputQty <= sessionItem.quantity) {
+
+      //local
+      localPayload.inputValid = true;
+      localPayload.undamageItems += inputQty;
+
+      //returns
+      // Store validated dispo and qty in Session state.
+      sessionPayload.newDisposition = {
+        ...sessionPayload.newDisposition,
+        ...newDispoProp,
+      };
+    }
+
+    dispatchItemDetails({
+      type: "SET_MULTIPLE",
+      payload: {...localPayload},
+    });
+
+    dispatchSession({
+      type: "ADD_ITEM",
+      payload: {...sessionPayload},
+    });
+
+    /// OLD STUFF //////////////////
+
+    /*
+      
+            let futureDisposObj = {
         ...detailsState.localDisposObj,
         [detailsState.defectiveReason]: inputQty,
       };
@@ -160,7 +217,8 @@ const ItemDetails30 = ({
           inputQty: null,
         },
       });
-    }
+      
+      */
   };
 
   return (
