@@ -104,7 +104,6 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
-
     // check that the input quantity is a valid number
     const inputQty = parseInt(event.target.value);
 
@@ -134,15 +133,21 @@ const ItemDetails30 = ({
 
       // If input qty exceeds avail. items.
       if (newUndamaged < 0) {
-
-        // Set inputValid to false.  NO update of undamaged, because the new and invalid dispo isn't being kept in Returns.
-        dispatchItemDetails({type: "SET_MULTIPLE", payload: {inputValid: false}})
-
         // if the local dispo value is invalid, remove its property from the obj. going to global state.
         delete returnsDisposObj[detailsState.defectiveReason];
+        const oldUndamaged = disposSqueezer(returnsDisposObj).totalDispoQty
+        
+        // Set inputValid to false.  NO update of undamaged, because the new and invalid dispo isn't being kept in Returns.
+        dispatchItemDetails({
+          type: "SET_MULTIPLE",
+          payload: { inputValid: false, newUndamaged: oldUndamaged},
+        });
       } else {
         // the input was valid, so we set the input validity state to true and update the undamaged qty to include it.
-        dispatchItemDetails({type: "SET_MULTIPLE", payload: {undamaged: newUndamaged, inputValid: true}})
+        dispatchItemDetails({
+          type: "SET_MULTIPLE",
+          payload: { undamaged: newUndamaged, inputValid: true },
+        });
       }
 
       // Dispatch returnsDisposObj to the global Returns state.
