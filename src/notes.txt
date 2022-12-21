@@ -23,6 +23,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
             -ItemDetails30
             -the matching.js function.
 
+    -Change ItemDetail30 so that it clears all dispositions if Didn't Want / Need is selected.
 
 
 //// Github Pages Deployment ////
@@ -1290,6 +1291,19 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     It's annoyingly hilarious how much every problem keeps coming back to "none of this would be a problem if there was a Submit button" 
 
     I also can't escape the feeling that I am making this more complicated than it needs to be.  
+
+21 Dec 2022 
+
+    On the docket for today:
+        -Need to figure out how to display the warning, probably with a side effect.  
+        -I should look into how to use refs.  I want the input field to be focused every time someone clicks one of the disposition buttons.
+        -Before I get farther, I should probably figure out how to handle tax.  Like, it's not going to be fun but if I don't handle it now that could legit bite me later.
+
+        -First.  The display warning.  I THINK I can just handle it in the input change handler?  
+
+    12:00 - I do know why I am stuck.  I feel like I am violating DRY because I'm doing similar operations in similar places, but I don't know what would be better.  Just right now I feel not smart enough to find the patterns.  
+
+    I also just found out that the current app DOES use a Submit button, but since I think the local validation is important and I wouldn't want to have to re-create it in another prototype, I'm just going to keep it for the time being.
 
 
 

@@ -58,35 +58,6 @@ const Returns = () => {
           state.items[newKey]?.disposition ??
           // else an empty object.
           {};
-          /*
-                  setDisposition.unwanted ?? delete setDisposition.unwanted;
-
-        let totalDamaged = 0
-
-        for (const dispo of Object.keys(setDisposition)) {
-          // if this disposition has zero items or a falsy value...
-          if (!dispo) {
-            // delete it from unmatched Items
-            delete setDisposition[dispo];
-            continue;
-          }
-          totalDamaged += setDisposition[dispo];
-        }
-    
-        // anything without a dispo is Unwanted, so we subtract total dispos from total Qty.
-        const unwantedTotal = newQuantity - totalDamaged;
-    
-        // If there is an UnwantedTotal, add it to the item's disposition.
-        if (unwantedTotal > 0) setDisposition.unwanted = unwantedTotal;
-          
-          */
-
-
-
-        /*
-        
-        
-        */
 
         const newItemList = {
           ...state.items,

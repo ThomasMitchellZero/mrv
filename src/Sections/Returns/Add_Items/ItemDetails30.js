@@ -48,63 +48,40 @@ const ItemDetails30 = ({
       case "SET_ACTIVE_DISPO": {
         return { ...state, defectiveReason: action.payload.dispoType };
       }
-      case "SET_INPUTVALID": {
-        return { ...state, inputValid: action.payload };
+      case "SET_EXCESS_ITEMS": {
+        return { ...state, excessItems: action.payload };
       }
       case "EDIT_DISPOS_OBJ": {
         return { ...state, localDisposObj: action.payload };
       }
       case "SET_MULTIPLE": {
-        return {...state, ...action.payload}
+        return { ...state, ...action.payload };
       }
       default:
         throw new Error(`Unknown action type: ${action.type}`);
     }
   };
 
-  const [dispoState, dispatchItemDetails] = useReducer(
+  const [detailsState, dispatchItemDetails] = useReducer(
     dispositionReducer,
     defaultState
   );
 
-  /*
-    300: {
-    img: hoses_img,
-    price: 15.75,                                       
-    itemNum: "300",
-    modelNum: "DR3345",
-    description: "Replacement hoses for Samsung refrigerator",
-    categories: [],
-  },
-  
-  */
-
-    /*
-      dispatchItemDetails({
-      type: "SET_MULTIPLE",
-      payload:{
-        localDisposObj: {...sessionItem.disposition},
-        defectiveReason: name,
-      }
-    })
-  
-  */
-
+  // function to set dispositions upon button click.
   const handleDispoClick = (name) => {
-
     dispatchItemDetails({
       type: "SET_MULTIPLE",
-      payload:{
-        localDisposObj: {...sessionItem.disposition},
+      payload: {
+        localDisposObj: { ...sessionItem.disposition },
         defectiveReason: name,
-      }
-    })
-    
+        excessItems: ""
+      },
+    });
   };
 
   // reusable button to set item's dispositions
   const DispoButton = (label, reasonKey) => {
-    const isActive = dispoState.defectiveReason === reasonKey ? "active" : "";
+    const isActive = detailsState.defectiveReason === reasonKey ? "active" : "";
     return (
       <button
         type="button"
@@ -119,6 +96,12 @@ const ItemDetails30 = ({
     );
   };
 
+
+
+  const warningTexter = (value) => {
+    return value ? `Damaged items exceeds total items by ${value}` : "";
+  };
+
   // deal with changes to the input field
   const handleInputQty = (event) => {
     // check that the input quantity is a valid number
@@ -127,8 +110,8 @@ const ItemDetails30 = ({
     // Do I need this?  AFAICT any falsy values get squeezed out?
     if (typeof inputQty === "number") {
       let futureDisposObj = {
-        ...dispoState.localDisposObj,
-        [dispoState.defectiveReason]: inputQty,
+        ...detailsState.localDisposObj,
+        [detailsState.defectiveReason]: inputQty,
       };
 
       // use the squeezer to remove any zero values.
@@ -149,14 +132,16 @@ const ItemDetails30 = ({
 
       // If input qty exceeds avail. items.
       if (unassigned < 0) {
-        dispatchItemDetails({ type: "SET_INPUTVALID", payload: false });
+        dispatchItemDetails({
+          type: "SET_EXCESS_ITEMS",
+          payload: Math.abs(unassigned),
+        });
         // if the local dispo value is invalid, remove its property from the obj. going to global state.
-        delete returnsDisposObj[dispoState.defectiveReason];
-
-        console.log(Math.abs(unassigned));
+        delete returnsDisposObj[detailsState.defectiveReason];
       } else {
+
         // the input was valid, so we set the input validity state to true.
-        dispatchItemDetails({ type: "SET_INPUTVALID", payload: true });
+        dispatchItemDetails({ type: "SET_EXCESS_ITEMS", payload: "" });
       }
 
       // Dispatch returnsDisposObj to the global Returns state.
@@ -210,7 +195,7 @@ const ItemDetails30 = ({
             <button
               type="button"
               className={`baseButton secondary ${
-                dispoState.activeTab === "unwanted" ? "active" : ""
+                detailsState.activeTab === "unwanted" ? "active" : ""
               }`}
               onClick={() => {
                 dispatchItemDetails({
@@ -224,7 +209,7 @@ const ItemDetails30 = ({
             <button
               type="button"
               className={`baseButton secondary ${
-                dispoState.activeTab === "defective" ? "active" : ""
+                detailsState.activeTab === "defective" ? "active" : ""
               }`}
               onClick={() => {
                 dispatchItemDetails({
@@ -240,7 +225,7 @@ const ItemDetails30 = ({
         </section>
 
         {/* Disposition Section */}
-        {dispoState.activeTab !== "defective" ? null : (
+        {detailsState.activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
             {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
@@ -253,7 +238,8 @@ const ItemDetails30 = ({
                   placeholder="Qty."
                   style={{ width: "4rem" }}
                   value={
-                    dispoState.localDisposObj[dispoState.defectiveReason] || ""
+                    detailsState.localDisposObj[detailsState.defectiveReason] ||
+                    ""
                   }
                   onChange={handleInputQty}
                   onFocus={(event) => {
@@ -261,7 +247,11 @@ const ItemDetails30 = ({
                   }}
                 />
               </div>
-              <p className="warning-text">Sample Warning Text</p>
+              <p className="warning-text">
+                {detailsState.excessItems
+                  ? `Damaged items exceeds total items by ${detailsState.excessItems}`
+                  : ""}
+              </p>
             </section>
 
             {/* Disposition Buttons */}
@@ -297,17 +287,6 @@ export default ItemDetails30;
 
 /*
 
-  const refDispoObj = {
-    doesntWork: 0,
-    broken: 0,
-    unpackaged: 0,
-    warranty: 0,
-
-    missingParts: 0,
-    cosmetic: 0,
-    used: 0,
-
-  };
 
 
 */
