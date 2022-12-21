@@ -5,7 +5,7 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 
 import disposSqueezer from "../functions/dispoSqueezer";
 
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 
 const ItemDetails30 = ({
   activeItem,
@@ -36,6 +36,7 @@ const ItemDetails30 = ({
     activeTab: "unwanted",
     defectiveReason: "doesntWork",
     inputValid: true,
+    undamaged: sessionItem.quantity,
     localDisposObj: { ...sessionItem.disposition },
   };
 
@@ -67,14 +68,19 @@ const ItemDetails30 = ({
     defaultState
   );
 
+  const inputElement = useRef(null);
+
   // function to set dispositions upon button click.
   const handleDispoClick = (name) => {
+    // focus on the input field
+    inputElement.current.focus();
+
     dispatchItemDetails({
       type: "SET_MULTIPLE",
       payload: {
         localDisposObj: { ...sessionItem.disposition },
         defectiveReason: name,
-        excessItems: ""
+        inputValid: true,
       },
     });
   };
@@ -96,14 +102,9 @@ const ItemDetails30 = ({
     );
   };
 
-
-
-  const warningTexter = (value) => {
-    return value ? `Damaged items exceeds total items by ${value}` : "";
-  };
-
   // deal with changes to the input field
   const handleInputQty = (event) => {
+
     // check that the input quantity is a valid number
     const inputQty = parseInt(event.target.value);
 
@@ -120,28 +121,28 @@ const ItemDetails30 = ({
       // Clone to be sent to Returns state because they can be different.
       const returnsDisposObj = { ...futureDisposObj };
 
+      const newItemTotal = disposSqueezer(futureDisposObj).totalDispoQty;
+      // get difference between total items and sum of damage items
+      const newUndamaged = sessionItem.quantity - newItemTotal;
+
       // set the local state.
+      // TRY TO MOVE THIS TO THE END.
       dispatchItemDetails({
         type: "EDIT_DISPOS_OBJ",
         payload: futureDisposObj,
       });
 
-      // get difference between total items and sum of damage items
-      const unassigned =
-        sessionItem.quantity - disposSqueezer(futureDisposObj).totalDispoQty;
-
       // If input qty exceeds avail. items.
-      if (unassigned < 0) {
-        dispatchItemDetails({
-          type: "SET_EXCESS_ITEMS",
-          payload: Math.abs(unassigned),
-        });
+      if (newUndamaged < 0) {
+
+        // Set inputValid to false.  NO update of undamaged, because the new and invalid dispo isn't being kept in Returns.
+        dispatchItemDetails({type: "SET_MULTIPLE", payload: {inputValid: false}})
+
         // if the local dispo value is invalid, remove its property from the obj. going to global state.
         delete returnsDisposObj[detailsState.defectiveReason];
       } else {
-
-        // the input was valid, so we set the input validity state to true.
-        dispatchItemDetails({ type: "SET_EXCESS_ITEMS", payload: "" });
+        // the input was valid, so we set the input validity state to true and update the undamaged qty to include it.
+        dispatchItemDetails({type: "SET_MULTIPLE", payload: {undamaged: newUndamaged, inputValid: true}})
       }
 
       // Dispatch returnsDisposObj to the global Returns state.
@@ -234,6 +235,7 @@ const ItemDetails30 = ({
                 <input
                   type="number"
                   disabled={false}
+                  ref={inputElement}
                   className={`base_input`}
                   placeholder="Qty."
                   style={{ width: "4rem" }}
@@ -248,9 +250,9 @@ const ItemDetails30 = ({
                 />
               </div>
               <p className="warning-text">
-                {detailsState.excessItems
-                  ? `Damaged items exceeds total items by ${detailsState.excessItems}`
-                  : ""}
+                {detailsState.inputValid
+                  ? ""
+                  : `Item Total Exceeded.  Max value: ${detailsState.undamaged}`}
               </p>
             </section>
 
