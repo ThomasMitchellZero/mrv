@@ -36,7 +36,7 @@ const ItemDetails30 = ({
     activeTab: "unwanted",
     defectiveReason: "doesntWork",
     inputValid: true,
-    undamaged: sessionItem.quantity,
+    undamagedItems: sessionItem.quantity,
     localDisposObj: { ...sessionItem.disposition },
   };
 
@@ -50,7 +50,7 @@ const ItemDetails30 = ({
         return { ...state, defectiveReason: action.payload.dispoType };
       }
       case "SET_EXCESS_ITEMS": {
-        return { ...state, undamageItems: action.payload };
+        return { ...state, undamagedItems: action.payload };
       }
       case "EDIT_DISPOS_OBJ": {
         return { ...state, localDisposObj: action.payload };
@@ -80,6 +80,7 @@ const ItemDetails30 = ({
       payload: {
         localDisposObj: { ...sessionItem.disposition },
         defectiveReason: name,
+        // invalid local inputs are never submitted to session state, so clones from Session are always valid.
         inputValid: true,
       },
     });
@@ -107,7 +108,7 @@ const ItemDetails30 = ({
     const rawIn = parseInt(event.target.value);
 
     // if input isn't a number, set it to 0.
-    const inputQty = typeof rawIn === "number" ? rawIn : 0;
+    const inputQty = isNaN(rawIn) ? 0 : rawIn;
 
     // Each change to input is evaluated individually, so old value is moot.
     const keptDisposObj = { ...detailsState.localDisposObj };
@@ -116,14 +117,14 @@ const ItemDetails30 = ({
     // Qty of all items besides this one.
     const keptQty = disposSqueezer(keptDisposObj).totalDispoQty;
 
-    // Create new {disp:value} unless inputQty is 0
+    // Create new {dispo:value} unless inputQty is 0
     const newDispoProp =
       inputQty === 0 ? {} : { [detailsState.defectiveReason]: inputQty };
 
     // future payloads.  If input qty is valid, they get modified. Otherwise dispatched as is.
     const localPayload = {
       inputValid: false,
-      undamageItems: keptQty,
+      undamagedItems: sessionItem.quantity - keptQty,
       localDisposObj: {
         ...keptDisposObj,
         ...newDispoProp,
@@ -132,7 +133,7 @@ const ItemDetails30 = ({
 
     const sessionPayload = {
       itemNum: activeItem,
-      // if new qty isn't valid, that dispo isn't kept in returns.
+      // by default, obj does not include current item.  If qty is valid, new dispo: value is added before dispatch.
       newDisposition: keptDisposObj,
       inputQty: null,
     };
@@ -142,7 +143,7 @@ const ItemDetails30 = ({
 
       //local
       localPayload.inputValid = true;
-      localPayload.undamageItems += inputQty;
+      localPayload.undamagedItems -= inputQty;
 
       //returns
       // Store validated dispo and qty in Session state.
@@ -161,64 +162,6 @@ const ItemDetails30 = ({
       type: "ADD_ITEM",
       payload: {...sessionPayload},
     });
-
-    /// OLD STUFF //////////////////
-
-    /*
-      
-            let futureDisposObj = {
-        ...detailsState.localDisposObj,
-        [detailsState.defectiveReason]: inputQty,
-      };
-
-      // use the squeezer to remove any zero values.
-      futureDisposObj = disposSqueezer(futureDisposObj).disposObj;
-
-      // Clone to be sent to Returns state because they can be different.
-      const returnsDisposObj = { ...futureDisposObj };
-
-      const newItemTotal = disposSqueezer(futureDisposObj).totalDispoQty;
-      // get difference between total items and sum of damage items
-      const newUndamaged = sessionItem.quantity - newItemTotal;
-
-      // set the local state.
-      // TRY TO MOVE THIS TO THE END.
-      dispatchItemDetails({
-        type: "EDIT_DISPOS_OBJ",
-        payload: futureDisposObj,
-      });
-
-      // If input qty exceeds avail. items.
-      if (newUndamaged < 0) {
-        // if the local dispo value is invalid, remove its property from the obj. going to global state.
-        delete returnsDisposObj[detailsState.defectiveReason];
-        const oldUndamaged = disposSqueezer(returnsDisposObj).totalDispoQty
-        
-        // Set inputValid to false.  NO update of undamaged, because the new and invalid dispo isn't being kept in Returns.
-        dispatchItemDetails({
-          type: "SET_MULTIPLE",
-          payload: { inputValid: false, newUndamaged: oldUndamaged},
-        });
-      } else {
-        // the input was valid, so we set the input validity state to true and update the undamaged qty to include it.
-        dispatchItemDetails({
-          type: "SET_MULTIPLE",
-          payload: { undamaged: newUndamaged, inputValid: true },
-        });
-      }
-
-      // Dispatch returnsDisposObj to the global Returns state.
-      dispatchSession({
-        type: "ADD_ITEM",
-        payload: {
-          itemNum: activeItem,
-          // if input qty exceeds, that whole property is deleted above.
-          newDisposition: returnsDisposObj,
-          inputQty: null,
-        },
-      });
-      
-      */
   };
 
   return (
@@ -315,7 +258,7 @@ const ItemDetails30 = ({
               <p className="warning-text">
                 {detailsState.inputValid
                   ? ""
-                  : `Item Total Exceeded.  Max value: ${detailsState.undamaged}`}
+                  : `Item Total Exceeded.  Max value: ${detailsState.undamagedItems}`}
               </p>
             </section>
 
