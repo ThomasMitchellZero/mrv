@@ -49,6 +49,7 @@ const matchMaker = (itemList, invoiceList) => {
 
       let newMatchedObj = {
         price: modified_invoices[invoiceNum].products[itemNum].price,
+        tax: modified_invoices[invoiceNum].products[itemNum].tax,
         payment: modified_invoices[invoiceNum].invoiceDetails.payment,
         disposition: {},
       };
