@@ -1307,6 +1307,40 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Just really not feeling the magic today.  I think I'm going to skip the redose, but I will try to work up until the painting party - which I am also not at all sure I'm going to do.
 
+    4:50 - Got the painting party going in the background, so glad I decided not to participate.  My intuition that the existing code was flabby and repetitive was totally correct(I think).  I had a cool new insight:  since we're treating each change in the input independently, I should delete the current property being evaluated from the local Dispos obj IN EVERY CASE.  If the value has changed, the old value is meaningless.   Now I am having fun :)
+
+    Mostly working.  Bug to attack tommorrw - I get the error message when I backspace a formerly valid number to "" in the input field.  Otherwise appears to be working correctly!
+
+    Today started out bad and I'm glad I stuck with it.  This turned out really well.
+
+22 Dec.  I can't remember if I already took a pill this morning, so I am taking one now.  It's either going to be a good day or a REALLY good day.
+
+    First thing to do:  I am going to use my new debugger tools to try and re-create the error in the Item Entry field.  
+
+    -I also need to turn off the increment arrows
+
+    -I also need to clear out all the commented code.  That SHOULD be it for item entry. 
+
+    -OK, looks like the problem and solve are pretty clear.  Turns out the typeof NaN is ... "number" :/   Yes, kids, Not A Number is actually a number.  Any numbers added to NaN disappear in to the void, resulting in Nan.  So, the first condition acutally failed to separate the NaN conditions, allowing a non-number value into the system.  The larger or smaller evaluation included the inputQty, so that evaluates to NaN, and because we are checking relative sizes of NaN and a number, it always evaluates to false.  My returning objects are false by default and they are never modified, so the IsValid state returns false.  Hence the error.
+
+    And I doubt I would have figured this out without the debugger. 
+
+    Also, I want to record this because I think this is actually a turning point in my growth.  I think I needed two additional tips to use the debugger.  The first was to use custom break points.  Because I'm using a framework, Step Into (F11) would take me through a long and incomprehensible sequence of framework code any time I used React-specific methods (like useReducer) in my code.  And also you can't step back, so if I was frustration-clicking to get through all the boilerplate there was a decent chance I would blow past the code I actually wanted to see entirely.  By using custom breakpoints, I can make sure I'm stepping where I need to.
+    
+    The second, related change was to set the F5 key to be 'Unpause'.  I remember having all of these frustrating moments where I would be stepping through with F11, get frustrated, hit F5 to step ahead, and then find myself back at the beginning of the program.  Well, the connection that I failed to make was that the Unpause key is different in Chrome and VS Code.  Chrome wasn't behaving unpredictably - it was refreshing the page, which is what browsers are supposed to do when you hit F5.  I think that was also the source of a huge amount of frustration.
+
+    Finally did it!  input validation is finally working just how I want it to :)
+
+    -The next thing is to figure out how to handle tax.  I really do want to move on, but the RefundTotal component is used in other places and if I don't address it now, it could cause rework later.
+
+        I am HOPING this shouldn't be too hard.  I THINK all I need to do is add a   tax   property to each invoice product's object, next to price and quantity.  I'm representing "How much you paid, and how much of that was tax"  When I am matching an object, that price and tax can just be copied together.  With quantity, I can calculate the total tax and total price.
+
+        I don't want to go with a single rate because, like I saw in Connecticut, not all products have the same sales tax.  Like if a state has a sugar tax and the customer bought a soda, they would pay different from the normal sales tax.
+
+        -I've also realized that the TRUE full form of this product would accept multiple payment methods on an invoice (like using up the last of a gift card and then paying the rest in credit) and might need to have multiple quantities per item, but I don't want to have to deal with that right now.
+
+    
+
 
 
 
