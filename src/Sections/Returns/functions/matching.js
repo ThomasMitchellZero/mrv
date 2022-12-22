@@ -28,7 +28,7 @@ const matchMaker = (itemList, invoiceList) => {
     const unwantedTotal = thisCartItem.quantity - dispoTotal;
 
     // If there is an UnwantedTotal, add it to the item's disposition.
-    if (unwantedTotal > 0) itemDispoObj.unwanted = unwantedTotal;
+    if (unwantedTotal > 0) unmatched_items[itemNum].unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];
