@@ -37,9 +37,9 @@ const matchMaker = (itemList, invoiceList) => {
       const thisInvoItem = thisInvoice.products[itemNum];
 
       // If there are 0 unmatched units of item, move on to next item.
-      if (!unmatched_items[itemNum]) break;
+      if (!thisCartItem) break;
       // If this invoice doesn't contain this item, skip to next invoice.
-      if (!thisInvoice.products[itemNum]) continue;
+      if (!thisInvoItem) continue;
 
       let newMatchedObj = {
         price: thisInvoItem.price,
@@ -51,6 +51,7 @@ const matchMaker = (itemList, invoiceList) => {
       //loop through that item's dispositions
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         // check that item hasn't previously been deleted from invoice.
+        if (!modified_invoices[invoiceNum].products[itemNum]) break;
 
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];

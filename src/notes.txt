@@ -1339,7 +1339,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I've also realized that the TRUE full form of this product would accept multiple payment methods on an invoice (like using up the last of a gift card and then paying the rest in credit) and might need to have multiple quantities per item, but I don't want to have to deal with that right now.
 
-    -instead of thinking in my head, I suppose I could think out loud.  
+    -instead of thinking in my head, I suppose I could think on paper.  
         -I did what I needed for the matchmaker.
         -I'm now looking at it and I want to make 2 changes.  
             -First, I want to use the squeezer at the start.  I think this is actually what I cloned the squeezer from.  This one I should probably do.
@@ -1348,6 +1348,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Second.  More dicey - I notice a lot of repetition in object values I'm referencing: like  one[two].three[four] which I could and probably should clean up with variables.  BUT.  Do I really want to spend even more time on the Matchmaker?  
 
             -If I'm going to do it, now would be the time.  I'll just be adding dependencies later and it will get harder to change.
+
+    -Seems to be going OK, but I ran into a bug where an item matched and it had an empty dispos obj in its array.  The item was 200, qty was 4, and I had AAA, BBB, and CCC invoices scanned.
+
+    -OK, got it.  Matchmaker is now working, I put it through a couple scenarios, and so far it is working as expected.  
+
+    3:00 gonna have some Soylent and get back to it.  I feel pretty good but I also feel like if I lose momentum it could be hard to get back.  10 minute timer, go!
+
+    -Now for the Returns Total.  Feels weird to be looking at this again, like it was so long ago :/
+
+    UGH.  For fuck's sake.  Now something else is happening in the matchMaker.  
 
     
 
