@@ -20,15 +20,13 @@ const matchMaker = (itemList, invoiceList) => {
     const thisCartItem = unmatched_items[itemNum];
 
     // use squeezer to generate a clean dispo obj and sum of its contents.
-    const { dsObj: itemDispoObj, dsQty: dispoTotal } = disposSqueezer(
-      thisCartItem.disposition
-    );
+    const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
 
     // Calculate unwanted items
     const unwantedTotal = thisCartItem.quantity - dispoTotal;
 
     // If there is an UnwantedTotal, add it to the item's disposition.
-    if (unwantedTotal > 0) unmatched_items[itemNum].unwanted = unwantedTotal;
+    if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
     // this will be the Array of matched objects.
     let newMatchedItemArr = [];
@@ -39,9 +37,9 @@ const matchMaker = (itemList, invoiceList) => {
       const thisInvoItem = thisInvoice.products[itemNum];
 
       // If there are 0 unmatched units of item, move on to next item.
-      if (!thisCartItem) break;
+      if (!unmatched_items[itemNum]) break;
       // If this invoice doesn't contain this item, skip to next invoice.
-      if (!thisInvoItem) continue;
+      if (!thisInvoice.products[itemNum]) continue;
 
       let newMatchedObj = {
         price: thisInvoItem.price,
@@ -53,7 +51,6 @@ const matchMaker = (itemList, invoiceList) => {
       //loop through that item's dispositions
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         // check that item hasn't previously been deleted from invoice.
-        if (!modified_invoices[invoiceNum].products[itemNum]) break;
 
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];
@@ -81,12 +78,15 @@ const matchMaker = (itemList, invoiceList) => {
         newMatchedObj.disposition[loopDispo] = matchedQty;
         // decrement the TotalUnmatched
         thisCartItem.quantity -= matchedQty;
-      } // end of loop through item dispositions. //////////////////
 
-      // if there are no remaining umatched units, delete item from Unmatched,
-      if (thisCartItem.quantity === 0) {
-        delete unmatched_items[itemNum];
-      }
+        // if there are no remaining umatched units...
+        if (thisCartItem.quantity === 0) {
+          // delete item from Unmatched
+          delete unmatched_items[itemNum];
+          // stop looping through the dispos, no more items to match.
+          break
+        }
+      } // end of loop through item dispositions. //////////////////
 
       // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
       newMatchedItemArr.push(newMatchedObj);
