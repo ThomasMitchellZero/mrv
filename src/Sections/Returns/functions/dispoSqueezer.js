@@ -13,8 +13,8 @@ const disposSqueezer = (dispoObj) => {
   }
 
   return {
-    disposObj: futureDispos,
-    totalDispoQty: accumulator,
+    dsObj: futureDispos,
+    dsQty: accumulator,
   };
 };
 

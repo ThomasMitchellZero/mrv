@@ -1339,6 +1339,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I've also realized that the TRUE full form of this product would accept multiple payment methods on an invoice (like using up the last of a gift card and then paying the rest in credit) and might need to have multiple quantities per item, but I don't want to have to deal with that right now.
 
+    -instead of thinking in my head, I suppose I could think out loud.  
+        -I did what I needed for the matchmaker.
+        -I'm now looking at it and I want to make 2 changes.  
+            -First, I want to use the squeezer at the start.  I think this is actually what I cloned the squeezer from.  This one I should probably do.
+                -I might also change the output names.  Right now, the squeezer is only used in 2 places.  Again, now would be the time.  
+
+            -Second.  More dicey - I notice a lot of repetition in object values I'm referencing: like  one[two].three[four] which I could and probably should clean up with variables.  BUT.  Do I really want to spend even more time on the Matchmaker?  
+
+            -If I'm going to do it, now would be the time.  I'll just be adding dependencies later and it will get harder to change.
+
     
 
 

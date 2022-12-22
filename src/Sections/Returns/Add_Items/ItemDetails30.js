@@ -115,7 +115,7 @@ const ItemDetails30 = ({
     delete keptDisposObj[detailsState.defectiveReason];
 
     // Qty of all items besides this one.
-    const keptQty = disposSqueezer(keptDisposObj).totalDispoQty;
+    const keptQty = disposSqueezer(keptDisposObj).dsQty;
 
     // Create new {dispo:value} unless inputQty is 0
     const newDispoProp =
