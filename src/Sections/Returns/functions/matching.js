@@ -8,8 +8,6 @@ const matchMaker = (itemList, invoiceList) => {
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
 
-  //  const modified_invoices = invoiceList;
-  //  const unmatched_items = itemList;
   let matched_items = {};
 
   //loop through the Unmatched items.
@@ -28,8 +26,8 @@ const matchMaker = (itemList, invoiceList) => {
     // If there is an UnwantedTotal, add it to the item's disposition.
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
-    // this will be the Array of matched objects.
-    let newMatchedItemArr = [];
+    // Each Matched item will contain an array of objects.  Each object will contain details of the invoice it matches from, as well as a dispos obj.
+    let nextMatchedItemObj = { specConditions: {}, matches: [] };
 
     //loop through the Unmatched invoices ///////////////
     for (const invoiceNum of Object.keys(modified_invoices)) {
@@ -48,7 +46,7 @@ const matchMaker = (itemList, invoiceList) => {
         disposition: {},
       };
 
-      //loop through that item's dispositions
+      //loop through cart item's dispositions and subtract from Invoice item qty as matches are found.
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         // check that item hasn't previously been deleted from invoice.
         if (!modified_invoices[invoiceNum].products[itemNum]) break;
@@ -85,17 +83,21 @@ const matchMaker = (itemList, invoiceList) => {
           // delete item from Unmatched
           delete unmatched_items[itemNum];
           // stop looping through the dispos, no more items to match.
-          break
+          break;
         }
       } // end of loop through item dispositions. //////////////////
 
       // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
-      newMatchedItemArr.push(newMatchedObj);
+
+      // If Matched Items becomes an object, remember to add the key here.
+      nextMatchedItemObj.push(newMatchedObj);
     } // end of loop through invoice keys ///////////////////////
 
-    // add the completed itemNum:[newMatchedItemArr] to {matched_items}
-    if (newMatchedItemArr.length > 0) {
-      matched_items[itemNum] = newMatchedItemArr;
+    // this would be the other place to do the adjustment.  At this point I have the full object.
+
+    // add the completed itemNum:[nextMatchedItemObj] to {matched_items}
+    if (nextMatchedItemObj.length > 0) {
+      matched_items[itemNum] = nextMatchedItemObj;
     }
   } // end of loop through unmatched items //////////////////
 

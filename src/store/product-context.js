@@ -16,6 +16,8 @@ import topload_washer_img from "../assets/product-images/samsung-top-load.png";
 import wallwart_img from "../assets/product-images/wall-wart.png";
 import washer_img from "../assets/product-images/washer.png";
 
+const sosFee = 0.2
+
 
 const ProductContext = React.createContext({
   100: {
@@ -25,6 +27,7 @@ const ProductContext = React.createContext({
     modelNum: "DR3345",
     description: "Two handle classic faucet in wrought iron",
     categories: ["Stock"],
+    specialCategories: {ARD:true}
   },
   200: {
     img: flowers_img,
@@ -58,6 +61,7 @@ const ProductContext = React.createContext({
     modelNum: "STL301",
     description: "Samsung 7.1-cu ft Reversible Side Load Washer",
     categories: ["Stock","Delivery"],
+    specialCategories: {SOS:sosFee}
   },
   910: {
     img: frontload_washer_img,
@@ -66,6 +70,7 @@ const ProductContext = React.createContext({
     modelNum: "SFL456",
     description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
     categories: ["Stock","Delivery"],
+    specialCategories: {SOS:sosFee}
   },
 
 });

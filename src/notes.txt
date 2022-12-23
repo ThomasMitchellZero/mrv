@@ -1355,9 +1355,165 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     3:00 gonna have some Soylent and get back to it.  I feel pretty good but I also feel like if I lose momentum it could be hard to get back.  10 minute timer, go!
 
-    -Now for the Returns Total.  Feels weird to be looking at this again, like it was so long ago :/
-
     UGH.  For fuck's sake.  Now something else is happening in the matchMaker.  
+
+    OK, problem fixed.  
+        A couple of takeaways.  First.  I am a little concerned about the fact that I still don't REALLY have a conceptual model for what the Matchmaker is doing.  I really wish I could conceive the fractal pattern.
+
+        Second.  I REALLY need to remember to not do multiple changes between commits unless I am REALLY confident.  I took a LOT longer to solve that problem because I assumed the problem was truncating my object 'addresses' with variables, when it was actually that line that check if the invoice still contained any of the item in question.  
+
+        Also.  You know what?  Good on you for noticing the problem!  You at least know enough to know that a matched item should NEVER have 2 of the same dispostion in two different arrays.  The Matchmaker clears out every disposition sequentially, so that can never happen if it's working right.
+    
+        -FINALLY for the Returns Total.  Feels weird to be looking at this again, like it was so long ago :/
+
+            -I now think the Return value calculator should be a separate module.  
+
+            -First, we need to get the Matched Items from the Returns state.
+                Loop through each matched item
+                    Loop through each item's array of matched objects.
+                    For each object, apply the Adjuster()
+
+                    For each Matched Item, we should get:
+                        Total paid sum
+                        Tax sum
+                        Adjustments (if any)
+
+    SessionItems: raw count of all the items scanned in.
+    SessionInvoices: raw count of all invoices being considered.
+    matched_items: a list of all items that have been matched.
+    unmatched_items: a list of all items that have not been matched.
+    
+    returnTotal: {
+        refunding: [
+            {
+                orignalTender: "cash"
+                refundTender: "store credit"
+                refundAmount: 123.45
+            },
+            {
+                orignalTender: "Visa ****1234"
+                refundTender: "Visa ****1234"
+                refundAmount: 8.76
+            },
+            ...
+        ],
+        refundTotal: 98.13
+        subTotal: 78.10
+        tax: 10.03
+        adjustment: -10.00
+    }
+
+    So.  
+
+    MATCHED_ITEMS will take SESSION_ITEMS as its only input.
+
+        RETURN_TOTAL will take MATCHED_ITEMS as its only input.
+
+        Adjuster() will take accept an object of all MATCHED_ITEMS, go through them, calculate price Adjustments based on conditions, and return that list of items along with an Adjustment property for how much the return value is getting reduced.
+
+    I think that means that any manager overrides need to happen at the level of SESSION_ITEMS.  BUUUUT.  Some of the declines can only happen after the item is matched, like if it's past 90 days.
+
+    And the problem with making adjustment-adjustments at the level of MATCHED_ITEMS is that MATCHED_ITEMS isn't stored.  It's recomputed literally any time the state changes, so any overrides applied here wouldn't even be kept.
+
+    How about this for a model?  AFAICT, there are no adjustments that interact with an invoice.  
+    
+    I think that Adjustments happen for an individual item, like the SOS restocking fee.  That should live on the item {actually, in the that item in the product-store}, and manager interaction just removes the adjustment from the item in SESSION_ITEMS.  Once it's gone, it's gone.  Since it happens in SESSION_ITEMS, I can recompute MATCHED_ITEMS as many times as I want and the MO will still be in effect.
+
+    Meanwhile, for the outright rejections, manager override takes place in the derived states.  What I'm thinking is that that I'll have a separate OverRider() that accepts UNMATCHED_ITEMS, goes through, and generates a Magic Invoice for all legal (non-ARD) unmatched items in the cart, with the return tender set to Store Credit.  It then adds that invoice to the list and all remaining items get matched.
+
+    Could also work well if customer is LVC.  If you are in the sytem, you just get the magic wand with no further input required.
+
+    I like it.
+
+    That still doesn't tell me what to do about ReturnTotal, though.  I also don't know what to do about ReturnTender types, or when those are computed.
+        -Here would be my guess.  The unique key is the tender-in / tender-out pair.  Tender-in is always known.  I think that screen with the green circles is where tender-out is determined.  For any with no choice, it just grinds through automatically, and if there are any uncertainties, that's where the associate is asked to make a choice on screen.  I think that builds your complete list of return modes.
+
+        -That's also good for me.  I think for right now, I can just calculate Total, Subtotal, Taxes, and Adjustment for the ReturnsTotal component.
+
+    I'm also a little unsure what to do with the dispositions.  Like, if it's Defective then we don't apply the restocking fee.  When do I calculate that?
+        -First of all, this should be a VERY limited case.  I actually only think it applies for an SOS item that has been damaged.  
+        -I think the rule should be that if there is an adjustment it applies to all non-damaged items, unless there is a manager override in which case it is removed entirely.
+
+    -I remember.  Receipt Date.  I mean, the easiest is to add a condition in the matchmaker that just doesn't count the receipt if it is older than 90 days.  The ONLY catch that I see is I think we have to show too-old-receipted returns separately.  I guess my tentative solution would be to have a separate function that goes through the Unmatched items after the Matchmaker, looks for matches with old receipts, and stores them somewhere else.  That's a simple-enough add later that I think I just ignore it.
+    
+    Now, for ReturnTotal.  We have some flexibility when to calculate adjustments.  Those could happen at any time ReturnTotal outputs.
+        -What I'm thinking right now is I add a Special Conditions object to each item in the product catalog.  This will specifically hold things like ARD and SOS.  
+
+        -Next, I have an Adjustments() method.  It will look for anything that changes the price, like SOS.  All adjustment percentages live in this tool so we don't have to change 50 billion entries if I decide to change the percentage.
+
+        -Oh, fuck.  The percentage.  That could change too.  That is going to change, too.  We're going to give the manager the ability to adjust fees.  And I think it's per item.  OK, well, never mind.  
+
+        -I mean, I guess the VERY easiest way would be to have an adjustment % on every item.  Maybe in my Special Conditions object, it looks like {SOS: 0.2}
+
+        -Then, if there is a manager override, that percentage is changed on the SESSION_ITEMS.
+
+        -If the adjustment percentage lives on the item, I also have the ability to display it, its percentage, and its reason code on the list of items, although I still have no idea what to do on price.
+
+        -If there were ever a situation where multiple adjustments collided I could put the logic for it in the Adjuster.
+
+        -No matter what, the end result of running MATCHED_ITEMS through the Adjuster() is going to be a modified version of MatchedItems where each object includes an Adjustment property along with price, tax, and quantity.  That will be the amount by which to reduce the return price.
+
+        -Because of this, I'm now wondering if the Adjuster() should happen at the end of the Matchmaker.  Or maybe even in the middle?  Or, actually, I think it should be happening on ADD_ITEM?  Like, at that point we should already know everything we need.  Wait.  No.  We don't, because without the invoice we have no idea what price we should be adjusting.  OK, I think within the Matchmaker is correct.  
+
+        -What if more of the same items are added later?  Adjustment percentage should be the lowest, I think?
+
+        So then I think what we do is Adjuster(rate, matchedObj)=>{} in Matchmaker and ... and no.  Because we still don't have the dispositions. 
+
+        -Crap.  Since the dispositions may be mixed, I can't just provide a flat value.  Like if I have 2 damaged and 3 unwanted, I can't specify one one number from which the Adjustment can be calculated.  Maybe I should calculate Total, TotalTax, and Adjustment in each object.  I mean, we're going to have to do it sooner or later.  
+
+23 Dec 2022
+    God, I wrote a fucking novel last night.  I also have only about an hour before  I need to head out to the doctor, but it's for my knee so that is also very important to enjoying life :)
+
+    -Very first task in the queue today is figure out a plan of attack for how to handle the CostAdjuster().  
+
+        -OK.  So.  Every loop through the dispositions will produce at least one property, and fill up the disposition: property until either all item dispositions or sold qty are exhausted.
+
+    200:{ 
+            specialConditions:{SOS: 0.2,}
+            matches:[
+            {
+                price:44.00,
+                tax:4.10,
+                payment:"Check",
+                disposition:{doesntWork: 8, unwanted: 4},
+            },
+            {
+                ...
+            },
+            ...
+        ]
+
+    }    
+        -I guess my first thought would be to calculate return value as I am looping through the items, but to do that I would need to know the special codes.  Although I guess I need special codes no matter where I loop from.
+
+        -Rules:  SOS item - NEVER without a reciept, 20% with a receipt.
+        -ARD: Never without a receipt.
+
+        OK.  So I shouldn't have to worry about that here.  If they are matched then by definition they have a receipt. (that's what they're matching with.)  So the only think I need to be on the lookout for is adjustments.  
+
+        I can either cumulatively calculate the total value as I go along, or I could do it after the full array of the item's matches are completed but before it is added to the MatchedItems object.  It might be more efficient to do it that way, but it would be much easier just to pass the whole object.  
+
+        That's what I'm going to do.  Maybe it's more efficient but this way is easier to understand.
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+
+
+
 
     
 
