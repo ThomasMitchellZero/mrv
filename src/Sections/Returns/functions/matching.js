@@ -2,6 +2,7 @@
 
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
+import matchCostAdjuster from "./matchAdjuster";
 
 const matchMaker = (itemList, invoiceList) => {
   //The three derived states we will create
@@ -46,7 +47,6 @@ const matchMaker = (itemList, invoiceList) => {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
-        payment: thisInvoice.invoiceDetails.payment,
         disposition: {},
       };
 
@@ -98,6 +98,9 @@ const matchMaker = (itemList, invoiceList) => {
     } // end of loop through invoice keys ///////////////////////
 
     // this would be the other place to do the adjustment.  At this point I have the full object.
+
+    outMatchedItemObj = matchCostAdjuster(outMatchedItemObj)
+
 
     // add the completed itemNum:[outMatchedItemObj] to {matched_items}
     if (outMatchedItemObj.matches.length > 0) {
