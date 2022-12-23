@@ -45,6 +45,7 @@ const matchMaker = (itemList, invoiceList) => {
       let newMatchedObj = {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
+        invoice: invoiceNum,
         payment: thisInvoice.invoiceDetails.payment,
         disposition: {},
       };
