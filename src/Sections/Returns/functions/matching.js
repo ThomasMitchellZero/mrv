@@ -89,8 +89,12 @@ const matchMaker = (itemList, invoiceList) => {
         //calculate total costs
         outMatchedArrObj.totalPrice += thisInvoItem.price * matchedQty;
         outMatchedArrObj.totalTax += thisInvoItem.tax * matchedQty;
-        outMatchedArrObj.totalAdjustments +=
+        //restock fee only applies to unwanted items
+        if (loopDispo === "unwanted"){
+          outMatchedArrObj.totalAdjustments +=
           outMatchedArrObj.totalPrice * itemRestockFee;
+        }
+
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
