@@ -26,8 +26,11 @@ const matchMaker = (itemList, invoiceList) => {
     // If there is an UnwantedTotal, add it to the item's disposition.
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
-    // Each Matched item will contain an array of objects.  Each object will contain details of the invoice it matches from, as well as a dispos obj.
-    let nextMatchedItemObj = { specConditions: {}, matches: [] };
+    // Each Matched item will contain an array of match objects.  Each match object will contain details of the invoice it matches from, as well as a dispos obj.
+    let outMatchedItemObj = {
+      specCategories: { ...thisCartItem.specialCategories },
+      matches: [],
+    };
 
     //loop through the Unmatched invoices ///////////////
     for (const invoiceNum of Object.keys(modified_invoices)) {
@@ -90,14 +93,14 @@ const matchMaker = (itemList, invoiceList) => {
       // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
 
       // If Matched Items becomes an object, remember to add the key here.
-      nextMatchedItemObj.push(newMatchedObj);
+      outMatchedItemObj.matches.push(newMatchedObj);
     } // end of loop through invoice keys ///////////////////////
 
     // this would be the other place to do the adjustment.  At this point I have the full object.
 
-    // add the completed itemNum:[nextMatchedItemObj] to {matched_items}
-    if (nextMatchedItemObj.length > 0) {
-      matched_items[itemNum] = nextMatchedItemObj;
+    // add the completed itemNum:[outMatchedItemObj] to {matched_items}
+    if (outMatchedItemObj.matches.length > 0) {
+      matched_items[itemNum] = outMatchedItemObj;
     }
   } // end of loop through unmatched items //////////////////
 
