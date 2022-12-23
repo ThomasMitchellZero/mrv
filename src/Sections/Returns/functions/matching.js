@@ -66,19 +66,17 @@ const matchMaker = (itemList, invoiceList) => {
         //The matched quantity is the smaller of the Qtys
         const matchedQty = Math.min(dispo_qty, sold_Qty);
 
-        // Remove matchedQty from the invoice and the current dispo.
-        if (dispo_qty < sold_Qty) {
-          // All items of this disposition are matched, so delete it.
-          delete thisCartItem.disposition[loopDispo];
-          thisInvoItem.quantity -= matchedQty;
-        } else if (dispo_qty > sold_Qty) {
-          // All units of item in this invoice have been matched, so delete it.
-          thisCartItem.disposition[loopDispo] -= matchedQty;
+
+        // subtract matchedQty from this InvoiceItem and the current dispo qty
+        thisInvoItem.quantity -= matchedQty;
+        thisCartItem.disposition[loopDispo] -= matchedQty
+
+        // if either property is empty, delete it.
+        if (thisInvoItem.quantity === 0){
           delete thisInvoice.products[itemNum];
-        } else {
-          // Qtys are equal, so delete both.
-          delete thisCartItem.disposition[loopDispo];
-          delete thisInvoice.products[itemNum];
+        }
+        if (thisCartItem.disposition[loopDispo] ===0){
+          delete thisCartItem.disposition[loopDispo]
         }
 
         // add dispo:matchedQty to the outMatchedArrObj's dispositions
