@@ -1468,7 +1468,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -OK.  So.  Every loop through the dispositions will produce at least one property, and fill up the disposition: property until either all item dispositions or sold qty are exhausted.
 
-    200:{ 
+    200:{
             specialConditions:{SOS: 0.2,}
             matches:[
             {
@@ -1495,7 +1495,28 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         That's what I'm going to do.  Maybe it's more efficient but this way is easier to understand.
 
-        
+    After giving it some thought.  I think what I want to to is store cost inside each receipted item's > match array's > matchObj.
+    That seems like a lot of extra data that I'm not going to use right now, but when it comes time to calculate how much money is being reimbursed to each tender method I think it will be really helpful.  
+
+    Input/Matching:
+        Revised Invoices:
+            -How many items were returned from each invoice.
+            -How much was paid per item, per invoice.
+
+    Tenders/Refund:
+        -Total sum paid for each item type per invoice.
+        -Total sum being refunded per invoice
+        -Tender type(s) per invoice.
+
+    Remember, per receipted ItemNumber(200), each match array's > matchObj represents matches made from ONE invoice.  So as long as each matchObj also contains the invoice number from which it matched, having the cost already calculated and ready to go should make converting the MATCHED_ITEMS list into the Tenders/Refund list pretty easy.  Just cycle through the Items list and check if it came from the Invoice in question.  If so, add its costs to the total being refunded from that invoice.  AFAICT, I don't even need to know what the item is - item totals in MODIFIED_INVOICES has already been updated in the Matchmaker.  
+
+    5:30 OK.  Hold up.  If that is the case, I might as well just handle it in the matchmaker, right?  For the time being, I'm just going to add a restockFee property to each item.  Calculating that can be the back end's problem.
+
+
+
+
+
+
 
 
 

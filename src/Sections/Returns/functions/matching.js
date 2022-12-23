@@ -17,6 +17,7 @@ const matchMaker = (itemList, invoiceList) => {
     // AFAICT this is only used once so I can move it into the For loop.
 
     const thisCartItem = unmatched_items[itemNum];
+    const itemRestockFee = thisCartItem.restockFee ?? 0;
 
     // use squeezer to generate a clean dispo obj and sum of its contents.
     const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
@@ -43,11 +44,14 @@ const matchMaker = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      let newMatchedObj = {
+      let outMatchedArrObj = {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
         disposition: {},
+        totalPrice: 0,
+        totalTax: 0,
+        totalAdjustments: 0,
       };
 
       //loop through cart item's dispositions and subtract from Invoice item qty as matches are found.
@@ -77,10 +81,16 @@ const matchMaker = (itemList, invoiceList) => {
           delete thisInvoice.products[itemNum];
         }
 
-        // add dispo:matchedQty to the newMatchedObj's dispositions
-        newMatchedObj.disposition[loopDispo] = matchedQty;
+        // add dispo:matchedQty to the outMatchedArrObj's dispositions
+        outMatchedArrObj.disposition[loopDispo] = matchedQty;
         // decrement the TotalUnmatched
         thisCartItem.quantity -= matchedQty;
+
+        //calculate total costs
+        outMatchedArrObj.totalPrice += thisInvoItem.price * matchedQty;
+        outMatchedArrObj.totalTax += thisInvoItem.tax * matchedQty;
+        outMatchedArrObj.totalAdjustments +=
+          outMatchedArrObj.totalPrice * itemRestockFee;
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
@@ -94,13 +104,12 @@ const matchMaker = (itemList, invoiceList) => {
       // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
 
       // If Matched Items becomes an object, remember to add the key here.
-      outMatchedItemObj.matches.push(newMatchedObj);
+      outMatchedItemObj.matches.push(outMatchedArrObj);
     } // end of loop through invoice keys ///////////////////////
 
     // this would be the other place to do the adjustment.  At this point I have the full object.
 
-    outMatchedItemObj = matchCostAdjuster(outMatchedItemObj)
-
+    outMatchedItemObj = matchCostAdjuster(outMatchedItemObj);
 
     // add the completed itemNum:[outMatchedItemObj] to {matched_items}
     if (outMatchedItemObj.matches.length > 0) {

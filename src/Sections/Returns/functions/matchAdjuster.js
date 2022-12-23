@@ -34,8 +34,22 @@ const matchCostAdjuster = (rawMatchedObj)=>{
     
     
     */
+    //// LOOP through the current Item's matches arr
+    for( const matchObj of rmoMatchArr){
 
-    for( const matchObj in rmoMatchArr){
+        const costValues = {
+            totalPrice: 0,
+            totalTax: 0,
+            totalAdjustments: 0,
+        }
+
+        // Building new matchArr object
+        const outItemInvoMatchObj = {...matchObj, ...costValues}
+
+        for (const dispos of Object.keys(matchObj.disposition) ){
+            
+        }
+
 
     }
 
