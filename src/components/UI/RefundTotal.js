@@ -3,7 +3,7 @@ import ReturnTotaler from "../../global_functions/returnTotaler";
 
 const RefundTotal = ({ dataObj }) => {
 
-  const returnDataObj = RefundTotal(dataObj)
+  //const returnDataObj = RefundTotal(dataObj)
   
   const refundText = (label, value) => {
     return (
