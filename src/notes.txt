@@ -1512,7 +1512,19 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     5:30 OK.  Hold up.  If that is the case, I might as well just handle it in the matchmaker, right?  For the time being, I'm just going to add a restockFee property to each item.  Calculating that can be the back end's problem.
 
+24 Dec 2022 - Finally back after a morning power outage.  What a waste.  I couldn't get back to sleep after my CPAP was unpowered, and I legit think I could have been in this seat at 8:30 instead of like 12:30.  Nothing that can be done now.
 
+    -What can be done now.  I need to get the Session state from Returns into RefundTotal via its parent.  I can't think of a time when I would be referencing anything else, so I don't think I need to accept the object as a separate prop.
+
+    -After that, I need to figure out how and where to set the Continue buttons and have it track if there is anything in ScannedItem, and I legitimately think I will be ready to move on.
+
+    2:40.  Well, that was pretty painless.  The ReturnTotal component is correctly showing totals calculated from Matched and AFAICT it's working just how I want it.
+
+    Next question - what is next?  I supposed before anything I need to get the Continue buttons working.  I do like the idea of having Continue present from the ItemDetails state, but I think I will not.  First, for testing I might have to go back to having the Submit button here.  The other reason is that it's kind of an anti-pattern, because at L1 and L3 of the three the button in this spot continues, but at L2 it submits an item?  Not so sensible.  
+
+    I swear I do want to move on, but I think I should add 2 QoL features.  First, hitting the Damaged / Defective button should set all dispositions to {}.  Otherwise it's not doing much.
+
+    Also, I don't think it would be too hard to implement the Reason buttons showing their current quantity.  I just show the quantity from the global state.  That way, the user won't see the number change while they are typing?  Or should they see it?
 
 
 

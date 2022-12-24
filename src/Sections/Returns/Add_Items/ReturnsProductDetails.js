@@ -1,4 +1,4 @@
-import classes from "./ReturnsProductDetail.module.css";
+import classes from "./ReturnsProductDetails.module.css";
 
 const ReturnsProductDetail = (props) => {
   const productData = props.productData;

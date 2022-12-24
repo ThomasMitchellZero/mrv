@@ -89,6 +89,11 @@ const ItemDetails30 = ({
   // reusable button to set item's dispositions
   const DispoButton = (label, reasonKey) => {
     const isActive = detailsState.defectiveReason === reasonKey ? "active" : "";
+    
+    // If this dispo has a quantity, make str to display it after label.
+    const displayQty = detailsState.localDisposObj[reasonKey]
+      ? `(${detailsState.localDisposObj[reasonKey]})`
+      : "";
     return (
       <button
         type="button"
@@ -98,7 +103,7 @@ const ItemDetails30 = ({
         id={reasonKey}
         className={`baseButton secondary ${isActive}`}
       >
-        {label}
+        {`${label} ${displayQty}`}
       </button>
     );
   };
@@ -140,7 +145,6 @@ const ItemDetails30 = ({
 
     // if sum of all dispos is correctly less that item total...
     if (keptQty + inputQty <= sessionItem.quantity) {
-
       //local
       localPayload.inputValid = true;
       localPayload.undamagedItems -= inputQty;
@@ -155,12 +159,12 @@ const ItemDetails30 = ({
 
     dispatchItemDetails({
       type: "SET_MULTIPLE",
-      payload: {...localPayload},
+      payload: { ...localPayload },
     });
 
     dispatchSession({
       type: "ADD_ITEM",
-      payload: {...sessionPayload},
+      payload: { ...sessionPayload },
     });
   };
 
