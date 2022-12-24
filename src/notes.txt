@@ -1,7 +1,5 @@
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my Ongoing TO FIX list:
-
-    -Entered items with prices ending in ".00" are being rounded off instead of displaying 2 decimal places.
     
     -When I hit Enter on keyboard for Item or Invoice entry panels, the form submits anyways even though it isn't valid.
 
@@ -11,10 +9,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -Invoice column in in SessionItems70 currently displays nothing.  This is a stupid feature, but figure out a different approach.
 
-    -I will have added in a check in the Matchmaker module that deletes any Dispositions with a value of zero.  If I've successfully updated the ItemDetails page to take care of this before changing the dispositions in the Returns session state, I should try and delete it.
-
-    -I don't actually need to do matching on every change to the state.  The matched lists aren't used at all until the next step, so I should probably JUST do matching when the user is done adding invoices and items.  Right now I'm going to leave it in because I still don't 100% trust the Matchmaker and it will be easier to identify problems if the Return state is changing in real time.
-
     -For the sake of clarity, I really should rename the container for all dispositions into something that reflects that it is a container of all the individual dispositions.
 
         AFAICT, this term is used in 4 places:
@@ -23,7 +17,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
             -ItemDetails30
             -the matching.js function.
 
-    -Change ItemDetail30 so that it clears all dispositions if Didn't Want / Need is selected.
+    -Add in Manager Override to be able to cancel restock fee.  As this has no dependencies I'm leaving it for later.
 
 
 //// Github Pages Deployment ////
@@ -34,7 +28,7 @@ https://github.com/gitname/react-gh-pages
 
 I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
 
-
+To push it live, I just have to type:     npm run deploy     into the console.
 
 
 
