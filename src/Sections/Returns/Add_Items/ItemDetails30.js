@@ -89,7 +89,7 @@ const ItemDetails30 = ({
   // reusable button to set item's dispositions
   const DispoButton = (label, reasonKey) => {
     const isActive = detailsState.defectiveReason === reasonKey ? "active" : "";
-    
+
     // If this dispo has a quantity, make str to display it after label.
     const displayQty = detailsState.localDisposObj[reasonKey]
       ? `(${detailsState.localDisposObj[reasonKey]})`
@@ -209,9 +209,19 @@ const ItemDetails30 = ({
                 detailsState.activeTab === "unwanted" ? "active" : ""
               }`}
               onClick={() => {
+                // this empties the local dispos obj.
                 dispatchItemDetails({
-                  type: "SET_TAB",
-                  payload: "unwanted",
+                  type: "SET_MULTIPLE",
+                  payload: { activeTab: "unwanted", localDisposObj: {} },
+                });
+                // and also the session dispos obj for this item
+                dispatchSession({
+                  type: "ADD_ITEM",
+                  payload: {
+                    itemNum: activeItem,
+                    newDisposition: {},
+                    inputQty: null,
+                  },
                 });
               }}
             >
