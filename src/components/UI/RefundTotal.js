@@ -2,11 +2,11 @@ import classes from "./RefundTotal.module.css";
 import ReturnTotaler from "../../global_functions/returnTotaler";
 
 const RefundTotal = ({ dataObj }) => {
-  
 
-  const returnDataObj = ReturnTotaler(dataObj)
 
-  console.log(returnDataObj)
+  const allCostsObj = ReturnTotaler(dataObj)
+
+  console.log(allCostsObj)
   
   const refundText = (label, value) => {
     return (
