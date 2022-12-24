@@ -11,14 +11,18 @@
     justify-content: center;
     flex-direction: column;
     flex: 1 1 0rem;
-    background-color: cornflowerblue;
+
+    padding: 0rem .75rem;
+    margin: 0rem;
+    gap: .5rem;
+
 }
 
 .distalHolder{
     display: flex;
     flex-direction: column;
     flex: 0 0 2.5rem;
-    background-color: darkgray;
+
     align-items: center;
     justify-content: center;
 }

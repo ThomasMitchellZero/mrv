@@ -53,6 +53,8 @@ h5 {
 }
 
 
+
+
 /* Special Designations*/
 
 .number-bubble{
@@ -77,4 +79,9 @@ h5 {
     padding: .125rem .375rem;
     border: 1px solid #666666;
     border-radius: 4px;
+}
+
+.inPageTitle{
+    font-weight: 400;
+    color: #666666;
 }

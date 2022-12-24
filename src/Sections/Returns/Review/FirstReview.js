@@ -18,8 +18,8 @@ const FirstReview = () => {
       ></TitleBar>
       <section className={classes.mainContent}>
         <section className={classes.centerColumn}>
-            <InPageTitleBox></InPageTitleBox>
-            <p>still herr</p>
+          <InPageTitleBox mainTitle="These item(s) are missing invoices." />
+          <p>still herr</p>
         </section>
       </section>
       <FooterContainer></FooterContainer>
