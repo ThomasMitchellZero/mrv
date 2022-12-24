@@ -8,11 +8,13 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
 
   console.log(allCostsObj)
   
-  const refundText = (label, value) => {
+  const refundText = (label, value, red) => {
+    const isRed = `${!red ? "" : "red-text"}`
+
     return (
       <section className={classes.refundText}>
-        <p>{label}</p>
-        <h4>{value.toFixed(2)}</h4>
+        <p className={isRed}>{label}</p>
+        <h4 className={isRed}>{value.toFixed(2)}</h4>
       </section>
     );
   };
@@ -20,7 +22,7 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
   return (
     <section className={classes.container}>
       <section className={classes.itemizedColumn}>
-        {!hideAdjust? refundText("Declined", 0.00) : null}
+        {!hideAdjust? refundText("Fees", 0.00, true) : null}
         {refundText("Subtotal", 123.00)}
         {refundText("Tax", 3.00)}
       </section>
