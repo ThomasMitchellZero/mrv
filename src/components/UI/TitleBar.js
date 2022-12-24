@@ -2,7 +2,7 @@ import classes from "./TitleBar.module.css";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 
-const TitleBar = (props) => {
+const TitleBar = ({lefticon, righticon, left_onClick, right_onClick, title, children}) => {
   const iconHandler = (str) => {
     if (str === "close") {
       return <MdOutlineClose fontSize="1.5rem"/>;
@@ -11,18 +11,19 @@ const TitleBar = (props) => {
     } else return null;
   };
 
-  const lefticon = iconHandler(props.lefticon);
-  const righticon = iconHandler(props.righticon);
+  const leftIcon = iconHandler(lefticon);
+  const rightIcon = iconHandler(righticon);
 
   return (
     <div className={classes.container}>
       <div className={classes.content}>
-        <button type="button" onClick={props.left_onClick} className={classes.iconholder}>
-          {lefticon}
+        <button type="button" onClick={left_onClick} className={classes.iconholder}>
+          {leftIcon}
         </button>
-        <h3>{props.children}</h3>
-        <button type="button" onClick={props.right_onClick} className={classes.iconholder}>
-          {righticon}
+        <h3>{children}</h3>
+        <button type="button" onClick={right_onClick} className={classes.iconholder}>
+          {rightIcon}
+          {title}
         </button>
       </div>
 
