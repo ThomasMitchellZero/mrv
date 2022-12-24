@@ -1526,6 +1526,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Also, I don't think it would be too hard to implement the Reason buttons showing their current quantity.  I just show the quantity from the global state.  That way, the user won't see the number change while they are typing?  Or should they see it?
 
+    3:20.  OK.  40 minutes invested and both of those QoL features are working correctly!
+
+    Now, to deal with the buttons and Continuation.
+
 
 
 
