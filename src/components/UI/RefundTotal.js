@@ -22,13 +22,13 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
   return (
     <section className={classes.container}>
       <section className={classes.itemizedColumn}>
-        {!hideAdjust? refundText("Fees", 0.00, true) : null}
-        {refundText("Subtotal", 123.00)}
-        {refundText("Tax", 3.00)}
+        {!hideAdjust? refundText("Fees", allCostsObj.adjustments, true) : null}
+        {refundText("Subtotal", allCostsObj.subtotal)}
+        {refundText("Tax", allCostsObj.taxSum)}
       </section>
       <section className={classes.totalColumn}>
         <h5>Refund Total</h5>
-        <h2>{2200.13.toFixed(2)}</h2>
+        <h2>{allCostsObj.refundTotal.toFixed(2)}</h2>
       </section>
     </section>
   );
