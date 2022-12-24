@@ -12,6 +12,7 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 // Returns
 import Returns from "./Sections/Returns/Returns";
 import ReturnsIndex from "./Sections/Returns/Index/ReturnsIndex";
+import FirstReview from "./Sections/Returns/Review/FirstReview";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           />
           <Route path="returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
+            <Route path="first-review" element={<FirstReview />}></Route>
           </Route>
         </Route>
       </Routes>

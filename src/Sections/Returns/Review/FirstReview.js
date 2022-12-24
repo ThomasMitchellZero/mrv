@@ -8,6 +8,7 @@ const FirstReview = ()=>{
     return <main className={classes.container}>
         <TitleBar></TitleBar>
         <section className={classes.mainContent}>
+            <p>we make it here</p>
 
         </section>
         <FooterContainer></FooterContainer>

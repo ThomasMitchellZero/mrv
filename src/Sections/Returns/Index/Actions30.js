@@ -74,6 +74,7 @@ const Actions30 = ({ dispatchActive, cartStatus }) => {
           <button
             type="button"
             className={`baseButton primary large ${classes.button}`}
+            onClick={()=> navigate("first-review")}
           >
             Continue
           </button>
