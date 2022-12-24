@@ -4,6 +4,7 @@ import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import StartScanning from "../Index/StartScanning70";
 import Table from "../../../components/UI/Table";
+import RefundTotal from "../../../components/UI/RefundTotal";
 
 const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxInvoices = returnsContext.session.invoices;
@@ -95,7 +96,9 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
           ></Table>
         </div>
       </section>
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+      <RefundTotal dataObj={returnsContext.session.matched}/>
+      </FooterContainer>
     </section>
   );
 };

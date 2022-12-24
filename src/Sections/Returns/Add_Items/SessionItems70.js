@@ -98,7 +98,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         </div>
       </section>
       <FooterContainer>
-        <RefundTotal />
+        <RefundTotal dataObj={returnsContext.session.matched}/>
       </FooterContainer>
     </section>
   );
