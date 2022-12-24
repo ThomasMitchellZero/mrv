@@ -3,7 +3,6 @@
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
-
 const matchMaker = (itemList, invoiceList) => {
   //The three derived states we will create
   const modified_invoices = cloneDeep(invoiceList);
@@ -13,19 +12,15 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   for (const itemNum of Object.keys(unmatched_items)) {
-    // first, get sum of all disposition values for the current item.
-    // AFAICT this is only used once so I can move it into the For loop.
 
     const thisCartItem = unmatched_items[itemNum];
+
+    // most catalog items do not have a restock fee.  It should be zero unless otherwise specified.
     const itemRestockFee = thisCartItem.restockFee ?? 0;
 
-    // use squeezer to generate a clean dispo obj and sum of its contents.
-    const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
-
-    // Calculate unwanted items
-    const unwantedTotal = thisCartItem.quantity - dispoTotal;
-
     // If there is an UnwantedTotal, add it to the item's disposition.
+    const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
+    const unwantedTotal = thisCartItem.quantity - dispoTotal;
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
     // Each Matched item will contain an array of matchBites.  Each matchBite will contain dispos, price info, and the Invoice it matched from.
