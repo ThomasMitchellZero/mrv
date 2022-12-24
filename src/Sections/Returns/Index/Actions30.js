@@ -16,9 +16,9 @@ import {
   SlashCartLineIcon,
 } from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
-const Actions30 = (props) => {
+const Actions30 = ({ dispatchActive, cartStatus }) => {
   // panel dispatcher from ReturnsIndex
-  const dispatchActivePanels = props.dispatchActivePanels;
+  const dispatchActivePanels = dispatchActive;
 
   const navigate = useNavigate();
 
@@ -69,7 +69,16 @@ const Actions30 = (props) => {
           mainIcon={<SlashCartLineIcon className={classes.mainicon} />}
         />
       </section>
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+        {cartStatus ? (
+          <button
+            type="button"
+            className={`baseButton primary large ${classes.button}`}
+          >
+            Continue
+          </button>
+        ) : null}
+      </FooterContainer>
     </section>
   );
 };

@@ -38,6 +38,11 @@ const panelsReducer = (state, action) => {
 const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
 
+  // status of cart emptiness for Actions30
+  const hasItems =
+    Object.keys(returnsContext.session.items).length ? true : false ;
+
+
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "session_items",
@@ -45,38 +50,39 @@ const ReturnsIndex = () => {
   });
 
   const thirty_panels = {
-    actions: <Actions30 dispatchActivePanels={dispatchActivePanels} />,
-    "item_entry": (
+    actions: (
+      <Actions30 dispatchActive={dispatchActivePanels} cartStatus={hasItems} />
+    ),
+    item_entry: (
       <ItemEntry30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
       />
     ),
-    "item_details": (
+    item_details: (
       <ItemDetails30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
         activeItem={activePanels.stateDetails}
       />
     ),
-    "invoice_entry": (
+    invoice_entry: (
       <InvoiceEntry30
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
       />
     ),
-
   };
 
   const seventy_panels = {
-    "start_scanning": <StartScanning />,
-    "session_items": (
+    start_scanning: <StartScanning />,
+    session_items: (
       <SessionItems70
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
       />
     ),
-    "session_invoices": (
+    session_invoices: (
       <SessionInvoices70
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
