@@ -9,7 +9,18 @@
     flex-direction: column;
     flex: 1 1 0rem;
     background-color: #FFFFFF;
-    padding: 1rem;
+    align-items: center;
 
 }
 
+.centerColumn{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0rem;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0rem;
+    padding: 0rem;
+    width: 65%;
+    background-color: aquamarine;
+}

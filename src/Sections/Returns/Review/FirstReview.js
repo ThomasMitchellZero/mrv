@@ -2,9 +2,12 @@ import classes from "./FirstReview.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import { useNavigate } from "react-router-dom";
+import InPageTitleBox from "../../../components/UI/InPageTitleBox";
+
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const FirstReview = () => {
+  const returnsContext = useOutletContext();
   const navigate = useNavigate();
 
   return (
@@ -14,7 +17,10 @@ const FirstReview = () => {
         left_onClick={() => navigate("..")}
       ></TitleBar>
       <section className={classes.mainContent}>
-        <p>we make it here</p>
+        <section className={classes.centerColumn}>
+            <InPageTitleBox></InPageTitleBox>
+            <p>still herr</p>
+        </section>
       </section>
       <FooterContainer></FooterContainer>
     </main>
