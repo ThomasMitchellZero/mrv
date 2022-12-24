@@ -35,12 +35,10 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
       },
   */
 
-
   const tableBodyContents = ctxItems.map((line) => {
     const price = Number(line.price);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
-
 
     return (
       <tr
@@ -57,11 +55,15 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
           <ReturnsProductDetail productData={line} />
         </td>
 
-        <td><h4>{`$ ${price}`}</h4></td>
+        <td>
+          <h4>{`$ ${price}`}</h4>
+        </td>
         <td>
           <div className="number-bubble"> {quantity}</div>
         </td>
-        <td><h4>{`$ ${total}`}</h4></td>
+        <td>
+          <h4>{`$ ${total}`}</h4>
+        </td>
         <td>{`- -`}</td>
         <td>
           <button
@@ -98,7 +100,10 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         </div>
       </section>
       <FooterContainer>
-        <RefundTotal dataObj={returnsContext.session.matched}/>
+        <RefundTotal
+          dataObj={returnsContext.session.matched}
+          hideAdjust={false}
+        />
       </FooterContainer>
     </section>
   );

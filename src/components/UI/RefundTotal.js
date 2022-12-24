@@ -1,7 +1,7 @@
 import classes from "./RefundTotal.module.css";
 import ReturnTotaler from "../../global_functions/returnTotaler";
 
-const RefundTotal = ({ dataObj }) => {
+const RefundTotal = ({ dataObj, hideAdjust }) => {
 
 
   const allCostsObj = ReturnTotaler(dataObj)
@@ -20,7 +20,7 @@ const RefundTotal = ({ dataObj }) => {
   return (
     <section className={classes.container}>
       <section className={classes.itemizedColumn}>
-        {refundText("Declined", 0.00)}
+        {!hideAdjust? refundText("Declined", 0.00) : null}
         {refundText("Subtotal", 123.00)}
         {refundText("Tax", 3.00)}
       </section>
