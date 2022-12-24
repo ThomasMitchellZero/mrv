@@ -28,10 +28,10 @@ const matchMaker = (itemList, invoiceList) => {
     // If there is an UnwantedTotal, add it to the item's disposition.
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
-    // Each Matched item will contain an array of match objects.  Each match object will contain details of the invoice it matches from, as well as a dispos obj.
+    // Each Matched item will contain an array of matchBites.  Each matchBite will contain dispos, price info, and the Invoice it matched from.
     let outMatchedItemObj = {
       specCategories: { ...thisCartItem.specialCategories },
-      matches: [],
+      matchBitesArr: [],
     };
 
     //loop through the Unmatched invoices ///////////////
@@ -44,7 +44,7 @@ const matchMaker = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      let outMatchedArrObj = {
+      let thisMatchBite = {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
@@ -54,7 +54,7 @@ const matchMaker = (itemList, invoiceList) => {
         totalAdjustments: 0,
       };
 
-      //loop through cart item's dispositions and subtract from Invoice item qty as matches are found.
+      //loop through cart item's dispositions and subtract from Invoice item qty as product matches are found.
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         // check that item hasn't previously been deleted from invoice.
         if (!modified_invoices[invoiceNum].products[itemNum]) break;
@@ -79,18 +79,18 @@ const matchMaker = (itemList, invoiceList) => {
           delete thisCartItem.disposition[loopDispo]
         }
 
-        // add dispo:matchedQty to the outMatchedArrObj's dispositions
-        outMatchedArrObj.disposition[loopDispo] = matchedQty;
+        // add dispo:matchedQty to the thisMatchBite's dispositions
+        thisMatchBite.disposition[loopDispo] = matchedQty;
         // decrement the TotalUnmatched
         thisCartItem.quantity -= matchedQty;
 
         //calculate total costs
-        outMatchedArrObj.totalPrice += thisInvoItem.price * matchedQty;
-        outMatchedArrObj.totalTax += thisInvoItem.tax * matchedQty;
+        thisMatchBite.totalPrice += thisInvoItem.price * matchedQty;
+        thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         //restock fee only applies to unwanted items
         if (loopDispo === "unwanted"){
-          outMatchedArrObj.totalAdjustments +=
-          outMatchedArrObj.totalPrice * itemRestockFee;
+          thisMatchBite.totalAdjustments +=
+          thisMatchBite.totalPrice * itemRestockFee;
         }
 
 
@@ -103,14 +103,11 @@ const matchMaker = (itemList, invoiceList) => {
         }
       } // end of loop through item dispositions. //////////////////
 
-      // Each obj pushed itemNum's array details of the invoice on which the matches were found and contains all matched dispos
-
-      outMatchedItemObj.matches.push(outMatchedArrObj);
+      outMatchedItemObj.matchBitesArr.push(thisMatchBite);
     } // end of loop through invoice keys ///////////////////////
 
-
     // add the completed itemNum:[outMatchedItemObj] to {matched_items}
-    if (outMatchedItemObj.matches.length > 0) {
+    if (outMatchedItemObj.matchBitesArr.length > 0) {
       matched_items[itemNum] = outMatchedItemObj;
     }
   } // end of loop through unmatched items //////////////////
@@ -187,7 +184,7 @@ const itemsState = {
   },
 
   910: {
-    // no matches
+    // no matchBitesArr
     quantity: 5,
     disposition: {
       doesntWork: 1,
