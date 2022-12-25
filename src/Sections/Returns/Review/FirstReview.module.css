@@ -24,3 +24,12 @@
     width: 65%;
 
 }
+
+.listContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0rem;
+    width: 75%;
+    align-items: center;
+    justify-content: flex-start;
+}

@@ -1,22 +1,18 @@
 .container{
     display: flex;
     flex-direction: row;
-    flex: 1 1 0rem;
+    flex: 0 0 8rem;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: 1px solid blue;
 }
 
-.imageHolder{
-    display: flex;
-    flex-direction: column;
-    width: 4rem;
-    background-color: aqua;
-    flex: 1 1 0rem;
-}
 
 .mainContent{
     display: flex;
     flex-direction: column;
-    width: 4rem;
     flex: 1 1 0rem;
+    background-color: bisque;
 }
 
 .modelInfo{
@@ -29,4 +25,17 @@
     display: flex;
     flex-direction: row;
     flex: 1 1 0rem
+}
+
+.imageHolder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;
+    background-color: aqua;
+    flex: 0 0 auto;
+}
+
+.productImage{
+        height: 6rem;
 }
