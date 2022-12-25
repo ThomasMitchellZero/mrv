@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem;
+}
+
+.imageHolder{
+    display: flex;
+    flex-direction: column;
+    width: 4rem;
+    background-color: aqua;
+    flex: 1 1 0rem;
+}
+
+.mainContent{
+    display: flex;
+    flex-direction: column;
+    width: 4rem;
+    flex: 1 1 0rem;
+}
+
+.modelInfo{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem;
+}
+
+.priceInfo{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem
+}

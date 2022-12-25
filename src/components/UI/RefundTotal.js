@@ -3,10 +3,7 @@ import ReturnTotaler from "../../global_functions/returnTotaler";
 
 const RefundTotal = ({ dataObj, hideAdjust }) => {
 
-
   const allCostsObj = ReturnTotaler(dataObj)
-
-  console.log(allCostsObj)
   
   const refundText = (label, value, red) => {
     const isRed = `${!red ? "" : "red-text"}`
