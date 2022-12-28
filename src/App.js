@@ -14,6 +14,8 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 import Returns from "./Sections/Returns/Returns";
 import ReturnsIndex from "./Sections/Returns/Index/ReturnsIndex";
 import FirstReview from "./Sections/Returns/Review/FirstReview";
+import ReceiptLookup from "./Sections/Returns/Receipt_Lookup/ReceiptLookup";
+import TotalReview from "./Sections/Returns/Total_Review/TotalReview";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
             <Route path="first-review" element={<FirstReview />}></Route>
+            <Route path="receipt-lookup" element={<ReceiptLookup />}></Route>
+            <Route path="total-review" element={<TotalReview />}></Route>
           </Route>
         </Route>
       </Routes>

@@ -36,7 +36,7 @@ const FirstReview = () => {
       </section>
       <FooterContainer>
         <button
-          onClick={() => {}}
+          onClick={() => {navigate("receipt-lookup")}}
           className={`baseButton primary large ${classes.button}`}
         >
           Continue
