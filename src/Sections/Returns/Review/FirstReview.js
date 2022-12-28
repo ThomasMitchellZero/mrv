@@ -13,7 +13,13 @@ const FirstReview = () => {
   const unmatched = Object.values(returnsContext.session.unmatched);
 
   const umTableContents = unmatched.map((entry) => {
-    return <FullReviewLI key={entry.itemNum}itemDataObj={entry} />;
+    return (
+      <FullReviewLI
+        key={entry.itemNum}
+        itemDataObj={entry}
+        liPreSearch={true}
+      />
+    );
   });
 
   return (
@@ -25,9 +31,7 @@ const FirstReview = () => {
       <section className={classes.mainContent}>
         <section className={classes.centerColumn}>
           <InPageTitleBox mainTitle="These item(s) are missing invoices." />
-          <section className={classes.listContainer}>
-            {umTableContents}
-          </section>
+          <section className={classes.listContainer}>{umTableContents}</section>
         </section>
       </section>
       <FooterContainer></FooterContainer>
