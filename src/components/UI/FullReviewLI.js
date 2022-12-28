@@ -1,6 +1,8 @@
 import classes from "./FullReviewLI.module.css";
 
-const FullReviewLI = ({ itemDataObj }) => {
+import RejectionCode from "./RejectionCode";
+
+const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
   return (
     <section className={classes.container}>
       <section className={classes.imageHolder}>
@@ -11,6 +13,7 @@ const FullReviewLI = ({ itemDataObj }) => {
         ></img>
       </section>
       <section className={classes.mainContent}>
+        <RejectionCode isPreSearch={liPreSearch} itemObj={itemDataObj} />
         <section className={classes.modelInfo}>
           <h5>{`Item #${itemDataObj.itemNum}`}</h5>
           <div className="text-spacer" />

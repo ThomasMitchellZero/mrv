@@ -1,9 +1,11 @@
 
-Anything problem I identify with no dependencies is probably getting bypassed.  This is my Ongoing TO FIX list:
+Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
     
     -When I hit Enter on keyboard for Item or Invoice entry panels, the form submits anyways even though it isn't valid.
 
     -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
+
+    -After entering an item, ItemEntry30 should focus on the itemNum field instead of staying on the Qty field.
 
     -Product Details <th> in SessionItems70 is actually correctly aligned, but it looks like it isn't.  Figure out a way to either include space or customize margin / padding.
 
@@ -20,6 +22,13 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -Add in Manager Override to be able to cancel restock fee.  As this has no dependencies I'm leaving it for later.
 
     -Items with a restocking fee need to show the restocking fee.  This does have a dependency (the manager override to remove the fee) so it might have to move up.
+
+    -I need to figure out how to handle an expired receipt.  It seems like the logic would be pretty heavy and this isn't a very important feature so I am backlogging it.  
+        If I had to guess right now, the thing to do would be: 
+            -add a date to each invoice in the store.
+            -in the matchmaker, sort the array to loop through invoices by date, earliest first.  This is to make sure that if there are any recent invoices that also include the item, those are matched first.
+            -For any that are past 90 days, treat as a non-match, add an expired:true property to the specialConditions object, and continue to the next invoice.
+            -and then how do I handle the quantities if some aren't matched?
 
 
 //// Github Pages Deployment ////
