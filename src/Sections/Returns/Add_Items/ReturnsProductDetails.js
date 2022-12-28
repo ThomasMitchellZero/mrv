@@ -23,7 +23,7 @@ const ReturnsProductDetail = (props) => {
       <section className={classes.vertical_container}>
         <section className={classes.numbers}>
           <h5>{`Item #${productData.itemNum}`}</h5>
-          <div style={{ width: "0.75rem" }} />
+          <div className="text-spacer" />
           <h5>{`Model #${productData.modelNum}`}</h5>
         </section>
         <div className={classes.product_description}>

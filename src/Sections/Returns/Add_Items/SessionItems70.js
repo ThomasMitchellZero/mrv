@@ -36,7 +36,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   */
 
   const tableBodyContents = ctxItems.map((line) => {
-    const price = Number(line.price);
+    const price = Number(line.price).toFixed(2);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
 

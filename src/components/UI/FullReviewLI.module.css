@@ -13,18 +13,28 @@
     flex-direction: column;
     flex: 1 1 0rem;
     background-color: bisque;
+    justify-content: center;
+    gap: .75rem;
 }
 
 .modelInfo{
     display: flex;
     flex-direction: row;
-    flex: 1 1 0rem;
+    flex: 0 0 auto;
+}
+
+.description{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .priceInfo{
     display: flex;
     flex-direction: row;
-    flex: 1 1 0rem
+    flex: 0 0 auto;
+    align-items: center;
 }
 
 .imageHolder{

@@ -22,7 +22,7 @@
     margin: 0rem;
     padding: 0rem;
     width: 65%;
-
+    overflow: auto;
 }
 
 .listContainer{

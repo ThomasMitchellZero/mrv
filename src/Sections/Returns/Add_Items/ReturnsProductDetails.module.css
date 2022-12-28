@@ -17,7 +17,9 @@
 .numbers{
     display: flex;
     flex-direction: row;
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .product_description p{

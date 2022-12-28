@@ -85,3 +85,8 @@ h5 {
     font-weight: 400;
     color: #666666;
 }
+
+.text-spacer{
+    width: .75rem;
+    flex: 0 0 .75rem;
+}
