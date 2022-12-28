@@ -1,19 +1,20 @@
 .container{
     display: flex;
     flex-direction: row;
-    flex: 0 0 8rem;
+    flex: 0 0 9rem;
     justify-content: flex-start;
     width: 100%;
-    border-bottom: 1px solid blue;
+    border-bottom: 1px solid #999999;
+    gap: 0.75rem;
 }
-
 
 .mainContent{
     display: flex;
     flex-direction: column;
     flex: 1 1 0rem;
-    background-color: bisque;
+    background-color: transparent;
     justify-content: center;
+    padding: 1rem 0rem;
     gap: .75rem;
 }
 
@@ -42,7 +43,7 @@
     flex-direction: column;
     justify-content: center;
     width: auto;
-    background-color: aqua;
+    background-color: transparent;
     flex: 0 0 auto;
 }
 

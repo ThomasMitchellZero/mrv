@@ -1567,6 +1567,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Figure out how to display rejection codes.  Maybe the component accepts a function?  Or maybe there is a function in the component?
         -Create a Rejection Code component.
 
+    3:30 - RejectionCode component is now working correctly.  I think I just need to do some CSS cleanup, add the button, and then move onto the next phase.
+
 
 
 

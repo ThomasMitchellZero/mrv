@@ -21,11 +21,13 @@ const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
         </section>
         <p className={classes.description}>{itemDataObj.description}</p>
         <section className={classes.priceInfo}>
-          <h4>{`$ ${itemDataObj.price} ea`}</h4>
+          <h4>{`$ ${itemDataObj.price.toFixed(2)} ea`}</h4>
           <div className="text-spacer" />
           <div className="number-bubble">{itemDataObj.quantity}</div>
           <div className="text-spacer" />
-          <h4>{`$ ${itemDataObj.price * itemDataObj.quantity}`}</h4>
+          <h4>{`$ ${(itemDataObj.price * itemDataObj.quantity).toFixed(
+            2
+          )}`}</h4>
         </section>
       </section>
     </section>
