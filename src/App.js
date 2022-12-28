@@ -3,6 +3,7 @@ import "./app-styles/table.css"
 import "./app-styles/buttons.css"
 import "./app-styles/text-styles.css"
 import "./app-styles/inputs.css"
+import "./app-styles/icon-styles.css"
 
 import { Route, Routes } from "react-router-dom";
 

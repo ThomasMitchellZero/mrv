@@ -19,6 +19,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -Add in Manager Override to be able to cancel restock fee.  As this has no dependencies I'm leaving it for later.
 
+    -Items with a restocking fee need to show the restocking fee.  This does have a dependency (the manager override to remove the fee) so it might have to move up.
+
 
 //// Github Pages Deployment ////
 
@@ -1524,8 +1526,37 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Now, to deal with the buttons and Continuation.
 
+    5:10:  OK.  I'm doing OK today.  I finished up all the work for populating the ReturnTotal object and it's all working.  I've also got a new empty page with a new URL for the FirstReview component and navigation to and back is working correctly.  The next steps are going to be to make a couple of universal components - the in-page title and the Review LIs and honestly the thought of having to consider all of the use cases I need to consider to make then reusable in different configurations seems a little intimidating.  I think I'm gonna swalk, see how I feel, and only if I feel like it when I get back will I get after that next step.  I'm feeling a little down because I mostly did easy things today, but a lot of that easiness is familiarity and the fact that I have been working REALLY hard to apply the Robustness principle so that I don't make hard future steps for myself.
 
+    Like... a lot of this stuff is smooth because of foresight.  Setting up Returns to hold universal state, and then having all the page displays on URLs so I can easily change pages while having unbroken access to the data?  That was preparation.  
 
+25 Dec 2022
+    Christmas calls are done and I need to wrap up and get on the road before too long.  However, I'm going to try to code one last little bit before I go.  Before I go, I would like to have:
+        -A new, scrolling table
+        -A new, custom ReviewDetailsLI component
+        -Table populating from Unmatched and the new custom LI.
+
+28 Dec 2022
+    I'm really dragging ass today.  I could conceivably have started 90 minutes ago but my heart just isn't in it right now.
+
+    -First thing for today.  I need to continue to build the list item for the non-receipted returns.
+
+    -I also need to figure out what the hell was happening when the screen was at a shorter vertical height.  That was kind of ugly.
+
+    -I need to create a container for the next phase, which is Lookup, and add a Continue button that leads to it.  
+
+    12:30 - still not super engaged, still kind of going through the motions, but that is better than not going through anything :)
+
+    -I've got most of the content added into the Review LI.  I just need the Rejection code.
+        -Make list of areas where rejection codes are used.
+            -Non-receipted review
+            -Rejected Review
+            -Sometimes in the raw Item List
+
+            -OK.  So AFACIT, these codes are only used in relation to items, and I THINK they're all in relation to either Session Items or Unmatched Items which have the same structure.  I think what I am going to do is let the Rejection Code component accept a function, but also have a default function that works on the Item data structure.
+
+        -Figure out how to display rejection codes.  Maybe the component accepts a function?  Or maybe there is a function in the component?
+        -Create a Rejection Code component.
 
 
 
