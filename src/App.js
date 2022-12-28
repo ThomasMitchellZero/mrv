@@ -1,9 +1,9 @@
 import "./App.css";
-import "./app-styles/table.css"
-import "./app-styles/buttons.css"
-import "./app-styles/text-styles.css"
-import "./app-styles/inputs.css"
-import "./app-styles/icon-styles.css"
+import "./app-styles/table.css";
+import "./app-styles/buttons.css";
+import "./app-styles/text-styles.css";
+import "./app-styles/inputs.css";
+import "./app-styles/icon-styles.css";
 
 import { Route, Routes } from "react-router-dom";
 
@@ -31,9 +31,18 @@ function App() {
           />
           <Route path="returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
-            <Route path="first-review" element={<FirstReview />}></Route>
-            <Route path="receipt-lookup" element={<ReceiptLookup />}></Route>
-            <Route path="total-review" element={<TotalReview />}></Route>
+            <Route
+              path="first-review"
+              element={<FirstReview />}
+            ></Route>
+            <Route
+              path="receipt-lookup"
+              element={<ReceiptLookup />}
+            ></Route>
+            <Route
+              path="total-review"
+              element={<TotalReview />}
+            ></Route>
           </Route>
         </Route>
       </Routes>

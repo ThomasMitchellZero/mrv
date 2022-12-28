@@ -4,9 +4,10 @@ import TitleBar from "../../../components/UI/TitleBar"
 
 import { Navigate } from "react-router-dom"
 
-const navigate = Navigate()
+
 
 const TotalReview = ()=>{
+    const navigate = Navigate()
     return <section className={classes.container}>
           <TitleBar lefticon={"back"} left_onClick={() => {navigate(-1)}}>
         Total Review
