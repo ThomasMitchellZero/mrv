@@ -30,6 +30,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
             -For any that are past 90 days, treat as a non-match, add an expired:true property to the specialConditions object, and continue to the next invoice.
             -and then how do I handle the quantities if some aren't matched?
 
+    -Buttons on full pages are not the same size as buttons on 30 panels.  It would be nice if they were.
+
 
 //// Github Pages Deployment ////
 
@@ -1568,6 +1570,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Create a Rejection Code component.
 
     3:30 - RejectionCode component is now working correctly.  I think I just need to do some CSS cleanup, add the button, and then move onto the next phase.
+
+    4:30 - Fixed the CSS and took a short break.  
+        -Next, I need to create two additional pages: a Total Review page and a Search page.  I also need to set up conditional navigation so that if there are no unmatched items, the user skips straight ahead to Total Review.  Then I can get cranking on the Search page.  I'm finally feeling good and engaged and ready to regret the 90 minutes I spent goofing around this morning :*)
+
+    
 
 
 

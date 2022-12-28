@@ -27,14 +27,21 @@ const FirstReview = () => {
       <TitleBar
         lefticon={"back"}
         left_onClick={() => navigate("..")}
-      ></TitleBar>
+      >Review</TitleBar>
       <section className={classes.mainContent}>
         <section className={classes.centerColumn}>
           <InPageTitleBox mainTitle="These item(s) are missing invoices." />
           <section className={classes.listContainer}>{umTableContents}</section>
         </section>
       </section>
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+        <button
+          onClick={() => {}}
+          className={`baseButton primary large ${classes.button}`}
+        >
+          Continue
+        </button>
+      </FooterContainer>
     </main>
   );
 };

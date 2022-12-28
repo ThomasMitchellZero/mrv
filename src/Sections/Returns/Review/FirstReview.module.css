@@ -34,3 +34,8 @@
     align-items: center;
     justify-content: flex-start;
 }
+
+.button{
+    width: 30%;
+    margin: 0rem 1rem;
+}
