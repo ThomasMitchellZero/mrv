@@ -39,8 +39,6 @@ const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
 
   // status of cart emptiness for Actions30
-  const hasItems =
-    Object.keys(returnsContext.session.items).length ? true : false ;
 
 
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
@@ -51,7 +49,7 @@ const ReturnsIndex = () => {
 
   const thirty_panels = {
     actions: (
-      <Actions30 dispatchActive={dispatchActivePanels} cartStatus={hasItems} />
+      <Actions30 dispatchActive={dispatchActivePanels} returnState={returnsContext} />
     ),
     item_entry: (
       <ItemEntry30

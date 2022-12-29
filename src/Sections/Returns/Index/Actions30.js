@@ -4,7 +4,7 @@ import TitleBar from "../../../components/UI/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import {
   ReceiptLineIcon,
@@ -16,11 +16,18 @@ import {
   SlashCartLineIcon,
 } from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
-const Actions30 = ({ dispatchActive, cartStatus }) => {
+const Actions30 = ({ dispatchActive, returnState }) => {
+  //hasItems: Object.keys(returnsContext.session.items).length ? true : false,
+
+  const navigate = useNavigate();
+
   // panel dispatcher from ReturnsIndex
   const dispatchActivePanels = dispatchActive;
 
-  const navigate = useNavigate();
+  //vars from Return state
+  const returnsCtx = returnState.session;
+  const hasItems = Object.keys(returnsCtx.items).length ? true : false;
+  const hasUnmatched = Object.keys(returnsCtx.unmatched).length ? true : false;
 
   return (
     <section className={`${classes.container}`}>
@@ -70,12 +77,14 @@ const Actions30 = ({ dispatchActive, cartStatus }) => {
         />
       </section>
       <FooterContainer>
-        {cartStatus ? (
+        {hasItems ? (
           <Link
             type="button"
             className={`baseButton primary large ${classes.button}`}
-            to="first-review"
-            
+            to={
+              // if all items are matched, skip straight to total review
+              hasUnmatched ? "first-review" : "total-review"
+            }
           >
             Continue
           </Link>
