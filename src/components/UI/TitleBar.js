@@ -15,8 +15,8 @@ const TitleBar = ({lefticon, righticon, left_onClick, right_onClick, title, chil
   const rightIcon = iconHandler(righticon);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.content}>
+
+      <div className={`divider-bottom ${classes.container}`}>
         <button type="button" onClick={left_onClick} className={classes.iconholder}>
           {leftIcon}
         </button>
@@ -27,8 +27,7 @@ const TitleBar = ({lefticon, righticon, left_onClick, right_onClick, title, chil
         </button>
       </div>
 
-      <div className="divider"></div>
-    </div>
+
   );
 };
 

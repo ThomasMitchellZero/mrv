@@ -1,12 +1,5 @@
 .container{
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    color: #333333
-}
-
-.content{
-    display: flex;
     flex-direction: row;
     align-items: center;
     flex: 0 0 3.25rem;
@@ -14,9 +7,10 @@
     padding: 0rem .5rem;
     box-sizing: border-box;
     background-color: #fff;
+    color: #333333
 }
 
-.content h3{
+.container h3{
     text-align: center;
     flex: 1 1 0rem;
 }
