@@ -67,6 +67,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
 
     return (
       <tr
+        className="divider-bottom"
         key={line.itemNum}
         onClick={() => {
           dispatchActivePanels({

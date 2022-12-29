@@ -8,10 +8,9 @@ import RefundTotal from "../../../components/UI/RefundTotal";
 
 const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxInvoices = returnsContext.session.invoices;
-  const dispatchSession = returnsContext.dispatchSession
+  const dispatchSession = returnsContext.dispatchSession;
 
   const invoiceArray = Object.entries(ctxInvoices).reverse();
-
 
   // Array containing info to populate the table header
   const headingList = [
@@ -39,14 +38,11 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   
   */
 
-  
-
   //// CREATES JSX ARRAY FOR THE INVOICE TABLE ////
   const tableBodyContents = invoiceArray.map((item) => {
-
     // vars containing the content for each <td>
     const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
-    
+
     const itemKey = item[0];
     const itemDetails = item[1].invoiceDetails;
     const productList = Object.values(item[1].products);
@@ -58,14 +54,14 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
     });
 
     return (
-      <tr key={itemKey}>
+      <tr className="divider-bottom" key={itemKey}>
         <td>{itemDetails.date.toLocaleDateString("en-US", dateOptions)}</td>
         <td>{itemKey}</td>
         <td>{itemDetails.store}</td>
         <td>{lineItemQty}</td>
         <td>{totalPrice.toFixed(2)}</td>
         <td>
-        <button
+          <button
             id={itemKey}
             onClick={() =>
               dispatchSession({
@@ -97,7 +93,7 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
         </div>
       </section>
       <FooterContainer>
-      <RefundTotal dataObj={returnsContext.session.matched}/>
+        <RefundTotal dataObj={returnsContext.session.matched} />
       </FooterContainer>
     </section>
   );
