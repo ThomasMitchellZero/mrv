@@ -73,7 +73,7 @@ const matchMaker = (itemList, invoiceList) => {
           delete thisCartItem.disposition[loopDispo];
         }
 
-        // add dispo:matchedQty to the thisMatchBite's dispositions
+        // add dispo:matchedQty to the thisMatchBite's disposition obj
         thisMatchBite.disposition[loopDispo] = matchedQty;
         // decrement the TotalUnmatched
         thisCartItem.quantity -= matchedQty;
