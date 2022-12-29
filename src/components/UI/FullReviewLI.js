@@ -15,9 +15,7 @@ const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
       <section className={classes.mainContent}>
         <RejectionCode isPreSearch={liPreSearch} itemObj={itemDataObj} />
         <section className={classes.modelInfo}>
-          <h5>{`Item #${itemDataObj.itemNum}`}</h5>
-          <div className="text-spacer" />
-          <h5>{`Model #${itemDataObj.modelNum}`}</h5>
+          <h5>{`Item #${itemDataObj.itemNum}    Model #${itemDataObj.modelNum}`}</h5>
         </section>
         <p className={classes.description}>{itemDataObj.description}</p>
         <section className={classes.priceInfo}>

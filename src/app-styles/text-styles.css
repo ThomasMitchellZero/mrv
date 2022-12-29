@@ -46,6 +46,7 @@ h5 {
     color: #666666;
     padding: 0rem;
     margin: 0rem;
+    white-space: pre;
 }
 
 .red-text {
@@ -79,6 +80,7 @@ h5 {
     padding: .125rem .375rem;
     border: 1px solid #666666;
     border-radius: 4px;
+
 }
 
 .inPageTitle{

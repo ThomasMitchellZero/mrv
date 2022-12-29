@@ -2,12 +2,11 @@ import classes from "./ReceiptLookup.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import MiniUnmatchedLI from "./MiniUnmatchedLI";
+import MiniUnmatchedLI from "../../../components/UI/MiniItemLI";
 
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 
 const ReceiptLookup = () => {
-  
   const navigate = useNavigate();
 
   const unmatchedArr = Object.values(useOutletContext().session.unmatched);
@@ -15,7 +14,13 @@ const ReceiptLookup = () => {
   console.log(unmatchedArr);
 
   const unmatchedLIarr = unmatchedArr.map((itemObj) => {
-    return <MiniUnmatchedLI key={itemObj.itemNum} unmatchedObj={itemObj} />;
+    return (
+      <MiniUnmatchedLI
+        key={itemObj.itemNum}
+        unmatchedObj={itemObj}
+        hasMessage={{ content: "Missing Invoice", type: "alert" }}
+      />
+    );
   });
   console.log(unmatchedLIarr);
 
