@@ -11,7 +11,7 @@ import StartScanning from "./StartScanning70";
 import SessionItems70 from "../Add_Items/SessionItems70";
 import SessionInvoices70 from "../Add_Invoices/SessionInvoices70";
 
-import { useReducer, useEffect } from "react";
+import { useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const panelsReducer = (state, action) => {
