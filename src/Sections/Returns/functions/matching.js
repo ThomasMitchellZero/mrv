@@ -12,7 +12,6 @@ const matchMaker = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   for (const itemNum of Object.keys(unmatched_items)) {
-
     const thisCartItem = unmatched_items[itemNum];
 
     // most catalog items do not have a restock fee.  It should be zero unless otherwise specified.
@@ -45,6 +44,7 @@ const matchMaker = (itemList, invoiceList) => {
         invoice: invoiceNum,
         disposition: {},
         totalPrice: 0,
+        totalReturn: 0,
         totalTax: 0,
         totalAdjustments: 0,
       };
@@ -61,17 +61,16 @@ const matchMaker = (itemList, invoiceList) => {
         //The matched quantity is the smaller of the Qtys
         const matchedQty = Math.min(dispo_qty, sold_Qty);
 
-
         // subtract matchedQty from this InvoiceItem and the current dispo qty
         thisInvoItem.quantity -= matchedQty;
-        thisCartItem.disposition[loopDispo] -= matchedQty
+        thisCartItem.disposition[loopDispo] -= matchedQty;
 
         // if either property is empty, delete it.
-        if (thisInvoItem.quantity === 0){
+        if (thisInvoItem.quantity === 0) {
           delete thisInvoice.products[itemNum];
         }
-        if (thisCartItem.disposition[loopDispo] ===0){
-          delete thisCartItem.disposition[loopDispo]
+        if (thisCartItem.disposition[loopDispo] === 0) {
+          delete thisCartItem.disposition[loopDispo];
         }
 
         // add dispo:matchedQty to the thisMatchBite's dispositions
@@ -80,14 +79,15 @@ const matchMaker = (itemList, invoiceList) => {
         thisCartItem.quantity -= matchedQty;
 
         //calculate total costs
-        thisMatchBite.totalPrice += thisInvoItem.price * matchedQty;
-        thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
+        const totalPaid = thisInvoItem.price * matchedQty;
         //restock fee only applies to unwanted items
-        if (loopDispo === "unwanted"){
-          thisMatchBite.totalAdjustments +=
-          thisMatchBite.totalPrice * itemRestockFee;
-        }
-
+        const adjustment =
+          loopDispo === "unwanted" ? totalPaid * itemRestockFee : 0;
+        // Increment all values in the object.
+        thisMatchBite.totalPrice += totalPaid
+        thisMatchBite.totalReturn += (totalPaid - adjustment);
+        thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
+        thisMatchBite.totalAdjustments += adjustment;
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {

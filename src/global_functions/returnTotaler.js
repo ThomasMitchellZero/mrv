@@ -6,6 +6,7 @@ const ReturnTotaler = (matchedItemsObj) => {
     invoice: 0,
     disposition: {},
     totalPrice: 0,
+    totalReturn: 0,
     totalTax: 0,
     totalAdjustments: 0,
   };
@@ -19,11 +20,10 @@ const ReturnTotaler = (matchedItemsObj) => {
 
   for (const product of Object.values(matchedItemsObj)) {
     for (const bite of product.matchBitesArr){
-        returnValuesObj.refundTotal += bite.totalPrice;
+        returnValuesObj.refundTotal += bite.totalReturn;
         returnValuesObj.taxSum += bite.totalTax;
         returnValuesObj.adjustments += bite.totalAdjustments;
-        returnValuesObj.subtotal +=
-          bite.totalPrice - (bite.totalAdjustments + bite.totalTax);
+        returnValuesObj.subtotal += (bite.totalReturn - bite.totalTax);
       }
   }
 
@@ -35,7 +35,17 @@ export default ReturnTotaler;
 
 /*
 
+If I have to do refund totals in the totaler.
 
+  for (const product of Object.values(matchedItemsObj)) {
+    for (const bite of product.matchBitesArr) {
+      returnValuesObj.refundTotal += (bite.totalPrice - bite.totalAdjustments);
+      returnValuesObj.taxSum += bite.totalTax;
+      returnValuesObj.adjustments += bite.totalAdjustments;
+      returnValuesObj.subtotal +=
+        bite.totalPrice - (bite.totalAdjustments + bite.totalTax);
+    }
+  }
 
 
 */
