@@ -1578,7 +1578,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
 29 Dec 2022
     9:40.  I'm already ahead here :)  First, it's before 10 and 69420 is already underway.  Second, I consciously made a decision not to do some web surfing, which is how I got into a stimulus cycle yesterday.  Also.  This was a little display of courage.  This is probably going to be an unhappy, frustrating experience and it would have been very easy to put it off.
-    
+
         -So.  Task number 1 for today is to solve a mystery.  Why are my links to the other two pages not working?  
 
             -Remember what Harrison taught me.  Rather than guessing at one thing after another, try to cut the field in half as many times as possible.  Treat it like a game of Boticelli.
@@ -1590,6 +1590,93 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Find out all you can about the Outlet component.  Not sure if they should be nested.  
 
             -Take a look at the Components tab in the browser.  AFAICT it lists available links.  
+
+    10:10 - OK.  Already got something good.  I tried to use <ReceiptLookup> component in place of the very basic "Start Scanning" piece in the index component <StartScanning70>, and got the same error I got last night. I also got the same error in <TotalReview>.
+
+    Just to be sure, I tried putting in the <FirstReview> component into <StartScanning70> and while it looked a little funky, there were no errors.
+
+    This tells me there is a HIGH liklihood that something is wrong inside the components and not with my routing or links.  Here's the messaage I'm getting:
+
+    ----
+
+    Uncaught TypeError: Cannot destructure property 'to' of '_ref3' as it is undefined.
+        at Navigate (components.tsx:176:1)
+        at ReceiptLookup (ReceiptLookup.js:7:1)
+
+    ----
+    
+    -The fact that the first error in code I've written is appearing in ReceiptLookup.js:7:1 is super suspicious because that's where I'm defining the Navigation hook.  
+
+    GOT 'EM!  I was importing Navigate (a component) instead of useNavigate (the hook)  When I changed that, it worked perfectly.  Still gotta do some fiddling to get my routes to work right.
+
+    -Route and Path:  From what I can tell:
+
+         <Route path="/returns" element={<R/>}>
+            <Route index element={<RI />} />
+            <Route path="first-review" element={<FR />} />
+            <Route path="receipt-lookup" element={<RL />} />
+
+        Any path that has only 
+            /returns/
+        will render to the index.  
+        
+        A link to    "first-review"     from that index will take you to:
+            /returns/first-review
+
+        Now here's here it gets tricky:  If there is a link in 
+        /returns/first-review    with a path of   "receipt-lookup"   then it will take you to the URL of:
+            /returns/first-review/receipt-lookup/
+        
+        even though they are siblings.  AFAICT, if you want to navigate to a sibling, you have to write that path as:   "../receipt-lookup"
+
+        -One other thing to pay attention to.  Normally, ".." navigates one level up in the route, so if I am at:
+            /returns/first-review/receipt-lookup/
+
+        then I would go back to    /returns   because 
+            <Route path="receipt-lookup"> is a child of 
+            <Route path="/returns"> in the Route hierarchy.  
+
+        If I change the <Link> component to include property 
+            relative="path"   then I am taken to:
+            /returns/first-review/
+        Because of that extra property, I'm now going up one level in the URL, not one level in the route.  Apparently this is because URLs can include URL parameters and those can be conditional so you don't even necessarily know how many URL segments you will have at any given time.  Because of this, it's normally better for ".." to refer to the route rather than the path/URL, since relationships in the Route tree are always known.
+
+    -11:20.  I'm feeling really good.  I've already solved my biggest problem of the day.  Like, I was legit prepared to spend all day on this, and I'm already done, and at this time yesterday I'm pretty sure I hadn't even started :)  Just want to get down some takeaways.
+
+    -First.  I need to be REALLY aware of when I start scrolling, either on my phone or at the desktop, because once I do it that's a great recipe for an hour to slip away on nothing.  It would be helpful to come up with an approach or a mind tool like 69420 that would prevent that.
+
+    -Second.  I wish I had taken this approach last night.  I was kind of on the right track when I came in from my swalk to check that the component path was right.  But I need to be very careful of syntax-guessing.  It's really appealing because it's always got the potential to make the problem go away on the very next swing, but I think it's dangerous.  
+
+        -My first question should always be:  Am I 95+% sure I know WHERE the problem is occurring?  If the answer is yes, I can continue syntax guessing.  If the answer is no, I should immediately stop and start cutting the field until that number is back over 95%
+
+        -With every wrong syntax guess, my confidence that I know the problem's location should be going down.  I think if I make 4-5 wrong syntax guesses in a row, I should probably stop and do some field cutting until that number is back over 95%.
+
+        -Remember the number game.  I'm trying to FALSIFY my top guess, not confirm it.
+
+    -11:30 OK.  Back to work.  Gotta remember that Adderall tends to make me typey and I'm here to write code, not this journal.
+
+        -First.  Need to go through and clean up the routes and make sure everything's going where I want.
+
+        -Need to add a conditional in Actions30.  If there are items in the cart but no Unmatched, we go straight to Total Review.
+
+        -I really do need to modify the SessionItems70 table so that if there is a restock fee it is visible.  
+            -Do I want to do the Manager Login today?  Those two kind of go together and it ~shouldn’t~ be too hard.  
+
+        -I need to fix the CSS for the button.
+
+        -ReceiptEntry also needs the Continue button
+
+        -Do I need to add a property into the TitleBar to optionally make the button a nav link? 
+            -Right now, I think the answer is no.  The only reason I even considered it is because I read somewhere that useNavigation was bad in some way I don't actually understand, so I think I sit tight.
+    
+
+        
+
+        
+
+
+    
+
     
             
 

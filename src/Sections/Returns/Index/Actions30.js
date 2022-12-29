@@ -75,7 +75,7 @@ const Actions30 = ({ dispatchActive, cartStatus }) => {
             type="button"
             className={`baseButton primary large ${classes.button}`}
             to="first-review"
-            relative="path"
+            
           >
             Continue
           </Link>
@@ -89,5 +89,6 @@ export default Actions30;
 
 /* 
 
+relative="path"
 
 */

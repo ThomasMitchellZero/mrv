@@ -19,3 +19,9 @@ const StartScanning = () => {
 };
 
 export default StartScanning;
+
+/*
+
+
+
+*/

@@ -39,7 +39,6 @@ const FirstReview = () => {
         <Link
           type="button"
           to="../receipt-lookup"
-          relative="path"
           className={`baseButton primary large ${classes.button}`}
         >
           Continue
