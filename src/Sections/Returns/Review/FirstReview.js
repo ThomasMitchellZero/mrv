@@ -37,7 +37,6 @@ const FirstReview = () => {
       </section>
       <FooterContainer>
         <Link
-          type="button"
           to="../receipt-lookup"
           className={`baseButton primary large ${classes.button}`}
         >
