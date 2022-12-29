@@ -38,9 +38,8 @@ const panelsReducer = (state, action) => {
 const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
 
-  // status of cart emptiness for Actions30
 
-
+  //main state for holding active panels.
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "session_items",

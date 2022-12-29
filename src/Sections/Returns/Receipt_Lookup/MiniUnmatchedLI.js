@@ -1,12 +1,14 @@
-import classes from "./MiniUnmatchedLI.module.css"
+import classes from "./MiniUnmatchedLI.module.css";
 
-const MiniUnmatchedLI = ({unmatchedObj})=> {
+const MiniUnmatchedLI = ({ unmatchedObj }) => {
 
-    <section className={classes.container}>
-        <section className={classes.mainColumn}></section>
-        <section className={classes.secondaryColumn}></section>
-        <section className={classes.secondaryColumn}></section>
+  return (
+    <section className={`divider-bottom ${classes.container}`}>
+      <section className={classes.mainColumn}>{unmatchedObj.itemNum}</section>
+      <section className={classes.secondaryColumn}></section>
+      <section className={classes.secondaryColumn}></section>
     </section>
-}
+  );
+};
 
-export default MiniUnmatchedLI
+export default MiniUnmatchedLI;
