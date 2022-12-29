@@ -2,11 +2,6 @@
   font-family:  Roboto;
 }
 
-.divider{
-  background-color: #999;
-  height: 1px;
-  width: 1 1 0rem;
-}
 
 .App{
   display: flex;
@@ -14,26 +9,4 @@
   min-width: 900px;
   height: inherit;
   background-color: #e6e9f0;
-}
-
-/* standard behavior for 70 and 30 panels */
-
-.seventy_panel{
-  display: flex;
-  flex-direction: column;
-  flex: 7 7 0rem;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.thirty_panel{
-  display: flex;
-  flex-direction: column;
-  flex: 3 3 0rem;
-  box-sizing: border-box;
-  height: 100%;
-}
-
-a{
-  margin: 0rem;
 }

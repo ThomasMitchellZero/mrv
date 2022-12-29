@@ -1,0 +1,17 @@
+.seventy_panel{
+    display: flex;
+    flex-direction: column;
+    flex: 7 7 0rem;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  .thirty_panel{
+    display: flex;
+    flex-direction: column;
+    flex: 3 3 0rem;
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+/* standard behavior for 70 and 30 panels */

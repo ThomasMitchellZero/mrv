@@ -1,0 +1,10 @@
+.divider{
+    background-color: #999;
+    height: 1px;
+    width: 1 1 0rem;
+  }
+  
+  .divider-bottom{
+    border-bottom: 1px solid #999999;
+  }
+  

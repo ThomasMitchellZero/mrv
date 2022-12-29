@@ -4,6 +4,8 @@ import "./app-styles/buttons.css";
 import "./app-styles/text-styles.css";
 import "./app-styles/inputs.css";
 import "./app-styles/icon-styles.css";
+import "./app-styles/borders.css"
+import "./app-styles/panels.css"
 
 import { Route, Routes } from "react-router-dom";
 
