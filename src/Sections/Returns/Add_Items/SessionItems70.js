@@ -15,7 +15,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
   const dispatchSession = returnsContext.dispatchSession;
 
   const headingList = [
-    { id: "Invoice", active: false, descending: true, width: "10%" },
+    { id: "Invoice", active: false, descending: true, width: "8%" },
     { id: "Product Details", active: false, descending: true, width: "35%" },
     { id: "Unit $", active: false, descending: true, width: "10%" },
     { id: "Qty", active: false, descending: true, width: "8%" },
@@ -32,6 +32,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         modelNum: "RT3301",
         description: "American Standard Grand Duke II with Ultra-Flush",
         categories: ["Stock", "Special Order"],
+        restockFee: 0.2,
       },
   */
 
@@ -39,6 +40,30 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     const price = Number(line.price).toFixed(2);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
+
+    // if there is a restock fee, display it and apply voidPrice to h4
+    const adjPrice = line.restockFee ? (
+      <section className={classes.tdStacker}>
+        <h4 className={classes.voidPrice}>{`$${price}`}</h4>
+        <p className="warning-text">
+          {`$-${(price * line.restockFee).toFixed(2)}`}{" "}
+        </p>
+      </section>
+    ) : (
+      <h4>{`$${price}`}</h4>
+    );
+
+    // if there is a restock fee, display the % below the total cost.
+    const totalCost = (
+      <section className={classes.tdStacker}>
+        <h4>{`$${total}`}</h4>
+        {line.restockFee ? (
+          <p className="warning-text">{`Restocking fee: ${
+            100 * line.restockFee
+          }%`}</p>
+        ) : null}
+      </section>
+    );
 
     return (
       <tr
@@ -55,15 +80,11 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
           <ReturnsProductDetail productData={line} />
         </td>
 
-        <td>
-          <h4>{`$ ${price}`}</h4>
-        </td>
+        <td>{adjPrice}</td>
         <td>
           <div className="number-bubble"> {quantity}</div>
         </td>
-        <td>
-          <h4>{`$ ${total}`}</h4>
-        </td>
+        <td>{totalCost}</td>
         <td>{`- -`}</td>
         <td>
           <button

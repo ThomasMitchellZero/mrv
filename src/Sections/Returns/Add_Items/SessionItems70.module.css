@@ -24,3 +24,15 @@
 .tableWindow tr{
     cursor: pointer;
 }
+
+.tdStacker{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: flex-start;
+}
+
+.voidPrice{
+    color: #888;
+    text-decoration: line-through;
+}
