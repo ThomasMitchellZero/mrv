@@ -1655,18 +1655,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -11:30 OK.  Back to work.  Gotta remember that Adderall tends to make me typey and I'm here to write code, not this journal.
 
-        -First.  Need to go through and clean up the routes and make sure everything's going where I want.
+        X-First.  Need to go through and clean up the routes and make sure everything's going where I want.
 
-        -Need to add a conditional in Actions30.  If there are items in the cart but no Unmatched, we go straight to Total Review.
+        X-Need to add a conditional in Actions30.  If there are items in the cart but no Unmatched, we go straight to Total Review.
 
         -I really do need to modify the SessionItems70 table so that if there is a restock fee it is visible.  
             -Do I want to do the Manager Login today?  Those two kind of go together and it ~shouldn’t~ be too hard.  
 
         -I need to fix the CSS for the button.
 
-        -ReceiptEntry also needs the Continue button
-
-        -Do I need to add a property into the TitleBar to optionally make the button a nav link? 
+        X-Do I need to add a property into the TitleBar to optionally make the button a nav link? 
             -Right now, I think the answer is no.  The only reason I even considered it is because I read somewhere that useNavigation was bad in some way I don't actually understand, so I think I sit tight.
     
 
