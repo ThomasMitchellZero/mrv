@@ -4,7 +4,7 @@ import TitleBar from "../../../components/UI/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/FooterContainer";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 
 import {
   ReceiptLineIcon,
@@ -71,13 +71,14 @@ const Actions30 = ({ dispatchActive, cartStatus }) => {
       </section>
       <FooterContainer>
         {cartStatus ? (
-          <button
+          <Link
             type="button"
             className={`baseButton primary large ${classes.button}`}
-            onClick={()=> navigate("first-review")}
+            to="first-review"
+            relative="path"
           >
             Continue
-          </button>
+          </Link>
         ) : null}
       </FooterContainer>
     </section>

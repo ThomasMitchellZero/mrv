@@ -5,7 +5,7 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import FullReviewLI from "../../../components/UI/FullReviewLI";
 
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 const FirstReview = () => {
 
@@ -36,12 +36,14 @@ const FirstReview = () => {
         </section>
       </section>
       <FooterContainer>
-        <button
-          onClick={() => {navigate("receipt-lookup")}}
+        <Link
+          type="button"
+          to="../receipt-lookup"
+          relative="path"
           className={`baseButton primary large ${classes.button}`}
         >
           Continue
-        </button>
+        </Link>
       </FooterContainer>
     </main>
   );

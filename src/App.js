@@ -23,13 +23,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Placeholder>Home</Placeholder>} />
-          <Route path="home" element={<Placeholder>Home</Placeholder>} />
-          <Route path="orders" element={<Placeholder>Orders</Placeholder>} />
+          <Route path="/home" element={<Placeholder>Home</Placeholder>} />
+          <Route path="/orders" element={<Placeholder>Orders</Placeholder>} />
           <Route
-            path="showroom"
+            path="/showroom"
             element={<Placeholder>Showroom</Placeholder>}
           />
-          <Route path="returns" element={<Returns />}>
+          <Route path="/returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
             <Route
               path="first-review"

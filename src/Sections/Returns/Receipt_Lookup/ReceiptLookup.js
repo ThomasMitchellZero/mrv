@@ -1,7 +1,7 @@
 import classes from "./ReceiptLookup.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
-import { Navigate } from "react-router-dom";
+import { Navigate, useOutletContext } from "react-router-dom";
 
 const ReceiptLookup = () => {
   const navigate = Navigate();
