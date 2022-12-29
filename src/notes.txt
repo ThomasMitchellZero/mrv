@@ -1577,7 +1577,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     7:40 - Fuck.  I am really stuck with ReactRouter.  This reference has been pretty helpful so far: https://ui.dev/react-router-tutorial
 
 29 Dec 2022
-    9:40.  I'm already ahead here :)  First, it's before 10 and 69420 is already underway.  Second, I consciously made a decision not to do some web surfing, which is how I got into a stimulus cycle yesterday.  
+    9:40.  I'm already ahead here :)  First, it's before 10 and 69420 is already underway.  Second, I consciously made a decision not to do some web surfing, which is how I got into a stimulus cycle yesterday.  Also.  This was a little display of courage.  This is probably going to be an unhappy, frustrating experience and it would have been very easy to put it off.
+    
         -So.  Task number 1 for today is to solve a mystery.  Why are my links to the other two pages not working?  
 
             -Remember what Harrison taught me.  Rather than guessing at one thing after another, try to cut the field in half as many times as possible.  Treat it like a game of Boticelli.
