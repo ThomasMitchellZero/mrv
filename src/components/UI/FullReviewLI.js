@@ -4,7 +4,7 @@ import RejectionCode from "./RejectionCode";
 
 const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
   return (
-    <section className={classes.container}>
+    <section className={`divider-bottom ${classes.container}`}>
       <section className={classes.imageHolder}>
         <img
           src={itemDataObj.img}
