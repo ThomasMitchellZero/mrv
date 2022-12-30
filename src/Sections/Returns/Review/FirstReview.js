@@ -8,7 +8,6 @@ import FullReviewLI from "../../../components/UI/FullReviewLI";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 const FirstReview = () => {
-
   const navigate = useNavigate();
   const returnsContext = useOutletContext();
   const unmatched = Object.values(returnsContext.session.unmatched);
@@ -25,15 +24,12 @@ const FirstReview = () => {
 
   return (
     <main className={classes.container}>
-      <TitleBar
-        lefticon={"back"}
-        left_onClick={() => navigate("..")}
-      >Review</TitleBar>
+      <TitleBar lefticon={"back"} left_onClick={() => navigate("..")}>
+        Review
+      </TitleBar>
       <section className={classes.mainContent}>
-
-          <InPageTitleBox mainTitle="These item(s) are missing invoices." />
-          <section className={classes.listContainer}>{umTableContents}</section>
-
+        <InPageTitleBox mainTitle="These item(s) are missing invoices." />
+        <section className={classes.listContainer}>{umTableContents}</section>
       </section>
       <FooterContainer>
         <Link

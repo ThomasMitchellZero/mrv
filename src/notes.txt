@@ -32,6 +32,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -Buttons on full pages are not the same size as buttons on 30 panels.  It would be nice if they were.
 
+    -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
+
 
 //// Github Pages Deployment ////
 
@@ -1618,7 +1620,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         Any path that has only 
             /returns/
-        will render to the index.  
+        will render to the Returns index.  
         
         A link to    "first-review"     from that index will take you to:
             /returns/first-review
@@ -1674,6 +1676,23 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     7:00.  I think I'm actually gonna call it a night.  
 
+30 Dec 2022 
+    9:50 a.m.  I feel like I got out of the gate pretty well this morning, and yet here it is almost 10:00.  Anyways!
+
+        -First, I need to make a decision on the Invoices LI.  I could either directly have a mode, or just have each condition not display unless it's explicitly got a value.
+            -I've elected to conditionally display the values, just in case.  However, I've got another problem.  This component is going to get fed from both Unmatched Items and Matched Items and they both have different data structures.  I think maybe I should change this component to accept all values that it displays through props?
+
+            Actually, no.  If I have a situation where the itemObj doesn't match, I can just reprocess the itemObj as necessary.  Let's at least optimize it for one scenario here.
+
+        -I think I need to make either a component or a set of CSS properties for the message badges.  I should also check to see where else they are occurring in case I need multiple sizes.
+
+        -After that, I should be able to get into the Search.  I'll need a title, buttons to select search modes, and then figure out how to conditionally render the input field collections 
+
+        -I probably need to make icons :/  I might just bypass that because IIRC icons were a huge pain in the dick and they have no dependencies.  Although that might be a reason to do it, since I don't like doing it and if I don't I might never get back to it.
+
+        That should be good enough for today.  I won't get through all of that and if I do I definitely deserve a swallk.  
+
+    11:00 - Spinning wheels here, as I usually do when I am uncertain.  I think the thing to do is put a win on the board here, and I think a good one would be the message ribbon.  
     
 
         
