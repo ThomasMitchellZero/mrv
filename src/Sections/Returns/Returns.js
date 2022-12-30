@@ -74,9 +74,7 @@ const Returns = () => {
         return {
           ...state,
           items: newItemList,
-          unmatched: derivedStates.unmatched,
-          modified_invoices: derivedStates.modified_invoices,
-          matched: derivedStates.matched,
+          ...derivedStates,
         };
       }
 
@@ -91,9 +89,7 @@ const Returns = () => {
         return {
           ...state,
           items: newItemList,
-          unmatched: derivedStates.unmatched,
-          modified_invoices: derivedStates.modified_invoices,
-          matched: derivedStates.matched,
+          ...derivedStates,
         };
       }
 
@@ -112,9 +108,7 @@ const Returns = () => {
         return {
           ...state,
           invoices: newInvoiceList,
-          unmatched: derivedStates.unmatched,
-          modified_invoices: derivedStates.modified_invoices,
-          matched: derivedStates.matched,
+          ...derivedStates,
         };
       }
 
@@ -128,21 +122,8 @@ const Returns = () => {
         return {
           ...state,
           invoices: newInvoiceList,
-          unmatched: derivedStates.unmatched,
-          modified_invoices: derivedStates.modified_invoices,
-          matched: derivedStates.matched,
+          ...derivedStates,
         };
-      }
-
-      case "ITEM_DISPOSITION": {
-        const itemNum = action.payload.itemNum;
-        const reason = action.payload.reason;
-        const newQty = parseInt(action.payload.inputQty);
-
-        let newItems = cloneDeep(state.items);
-        newItems[itemNum].disposition[reason] = newQty;
-
-        return { ...state, items: newItems };
       }
 
       case "CLEAR_SESSION":
