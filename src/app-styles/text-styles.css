@@ -83,10 +83,20 @@ h5 {
 
 }
 
+.ribbon-text{
+    font-size: .875rem;
+    font-weight: 500;
+    color: #333333;
+    padding: 0rem;
+    margin: 0rem;
+}
+
 .inPageTitle{
     font-weight: 400;
     color: #666666;
 }
+
+
 
 .text-spacer{
     width: .75rem;
