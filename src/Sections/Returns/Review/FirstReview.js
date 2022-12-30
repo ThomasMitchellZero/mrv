@@ -29,10 +29,11 @@ const FirstReview = () => {
         Review
       </TitleBar>
       <section className={classes.mainContent}>
-        <InPageTitleBox mainTitle="These item(s) are missing invoices." topContent={<MessageRibbon 
-          text="Test Run"
-          width="14rem"
-        />}/>
+        <InPageTitleBox
+          mainTitle="These item(s) are missing invoices."
+          subTitle="Another test"
+          topContent={<MessageRibbon text="Test Run" width="14rem" />}
+        />
         <section className={classes.listContainer}>{umTableContents}</section>
       </section>
       <FooterContainer>
