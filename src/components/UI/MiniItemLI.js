@@ -2,15 +2,13 @@ import classes from "./MiniItemLI.module.css";
 
 const MiniUnmatchedLI = ({
   itemObj,
-  hasMessage = false,
+  hasMessage,
   totalPrice = false,
 
 }) => {
 
   // if there is a message, generate its JSX
-  const message = hasMessage ? (
-    <div className={classes.alertMsg}>{hasMessage.content}</div>
-  ) : null;
+  const message = hasMessage ?? null
 
     // if there is a message, generate its JSX
   const displayPrice = totalPrice ? (

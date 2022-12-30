@@ -4,7 +4,6 @@ import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import FullReviewLI from "../../../components/UI/FullReviewLI";
-import MessageRibbon from "../../../components/UI/messageRibbon";
 
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
@@ -31,7 +30,6 @@ const FirstReview = () => {
       <section className={classes.mainContent}>
         <InPageTitleBox
           mainTitle="These item(s) are missing invoices."
-
         />
         <section className={classes.listContainer}>{umTableContents}</section>
       </section>

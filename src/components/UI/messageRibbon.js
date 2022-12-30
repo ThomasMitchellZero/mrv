@@ -1,4 +1,4 @@
-import classes from "./messageRibbon.module.css";
+import classes from "./MessageRibbon.module.css";
 
 const MessageRibbon = ({
   text,
