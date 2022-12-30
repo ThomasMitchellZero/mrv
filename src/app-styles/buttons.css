@@ -13,6 +13,7 @@
     border-radius: 4px;
     padding: 0rem 1rem;
     font-weight: 500;
+    gap: .25rem;
   }
   
   .baseButton.primary{
@@ -37,6 +38,7 @@
   .baseButton.large{
     height: 3.5rem;
     font-size: 1.25rem;
+    border-radius: 8px;
   }
   
   .baseButton:hover{

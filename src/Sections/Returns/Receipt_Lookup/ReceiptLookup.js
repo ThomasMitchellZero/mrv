@@ -2,32 +2,43 @@ import classes from "./ReceiptLookup.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
-import MiniUnmatchedLI from "../../../components/UI/MiniItemLI";
+import MiniItemLI from "../../../components/UI/MiniItemLI";
 import MessageRibbon from "../../../components/UI/MessageRibbon";
+import InPageTitleBox from "../../../components/UI/InPageTitleBox";
+import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
+import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
 import { useReducer } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 
-
 const defaultState = {
   activeType: "creditCard",
-  fieldInput:"",
+  fieldInput: "",
   inputValid: false,
-  didSearch: false
-}
+  didSearch: false,
+};
 
-const lookupReducer = (action, state) => {
+const lookupReducer = (state, action) => {
   switch (action.type) {
-    case "SET_SEARCH": {
-      return {...state, activeType: action.payload};
+    case "SET_ACTIVE": {
+      return {
+        ...state,
+        activeType: action.payload,
+        fieldInput: "",
+        inputValid: false,
+      };
     }
 
-    case "FIELD_INPUT":{
-      return{}
+    case "SET_FIELD": {
+      return {};
     }
 
-    case "MINIMUM_EFFORT":{
-      return{}
+    case "SET_VALID": {
+      return {};
+    }
+
+    case "MINIMUM_EFFORT": {
+      return {};
     }
 
     default:
@@ -38,15 +49,24 @@ const lookupReducer = (action, state) => {
 const ReceiptLookup = () => {
   const navigate = useNavigate();
 
-  const unmatchedArr = Object.values(useOutletContext().session.unmatched);
-  
+  const dispatchSession = useOutletContext.dispatchSession;
 
+  const [recLookupState, dispatchLookup] = useReducer(
+    lookupReducer,
+    defaultState
+  );
+
+  //// UNMATCHED ITEMS 30 PANEL //////////
+  const unmatchedArr = Object.values(useOutletContext().session.unmatched);
+
+  // make an array of ItemLIs from the session.unmatched state.
   const unmatchedLIarr = unmatchedArr.map((iObj) => {
     return (
-      <MiniUnmatchedLI
+      <MiniItemLI
         key={iObj.itemNum}
         itemObj={iObj}
         hasMessage={
+          //populate the MessageRibbon.
           <MessageRibbon
             text="Missing Invoice"
             size="small"
@@ -57,6 +77,23 @@ const ReceiptLookup = () => {
       />
     );
   });
+
+  //// SEARCH 70 PANEL ////////////
+
+  const optionBtn = (searchType, text, icon) => {
+    const isActive = recLookupState.activeType === searchType ? "active" : "";
+    return (
+      <button
+        className={`baseButton secondary large ${isActive}`}
+        onClick={() => {
+          dispatchLookup({ type: "SET_ACTIVE", payload: searchType });
+        }}
+      >
+        {icon}
+        {text}
+      </button>
+    );
+  };
 
   return (
     <section className={classes.container}>
@@ -75,7 +112,37 @@ const ReceiptLookup = () => {
           Receipt Lookup
         </TitleBar>
         <section className={classes.seventyContent}>
-          <h2>Look Up Receipts</h2>
+          <InPageTitleBox mainTitle="Select an option to search for receipt." />
+          <h2 className="inPageTitle">
+            Select an option to search for receipt.
+          </h2>
+          <section className={classes.optionBtnHolder}>
+            {optionBtn(
+              "creditCard",
+              "Credit Card",
+              <MdCreditCard className={`${classes.icon}`} />
+            )}
+            {optionBtn(
+              "phone",
+              "Customer Phone #",
+              <MdPhone className={`${classes.icon}`} />
+            )}
+            {optionBtn(
+              "order",
+              "Order #",
+              <TbPackage className={`${classes.icon}`} />
+            )}
+            {optionBtn(
+              "commercialAcct",
+              "Lowe's Commercial Account",
+              <MdOutlineCorporateFare className={`${classes.icon}`} />
+            )}
+            {optionBtn(
+              "proID",
+              "Pro ID #",
+              <TbHammer className={`${classes.icon}`} />
+            )}
+          </section>
         </section>
 
         <FooterContainer></FooterContainer>

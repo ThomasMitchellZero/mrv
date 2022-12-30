@@ -37,6 +37,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -At some point it would be nice for the message ribbon to accept a time parameter and have a built-in function that hides it after the time parameter expires.
 
+    -The useReducer function takes a third argument.  That third argument takes a function, which will set the initial state when run.  IIRC, the main reason I was defining the reducer function within the closure of the component itself was because I somehow wanted to access props from above(?) and didn't have access to them outside the closure.  Take a look at this again.  I've never seen another example programmed my way and it probably sucks.
+
 
 //// Github Pages Deployment ////
 
@@ -47,6 +49,12 @@ https://github.com/gitname/react-gh-pages
 I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
 
 To push it live, I just have to type:     npm run deploy     into the console.
+
+
+
+/////////// Recurring Problems ////////////////
+
+If: state on screen appears be one change behind what you've actually done, or actions or payloads or any other unexpected properties are appearing in your state, check the order of the (state, action) arguments in the definition of the reducer function.  Remember, these are ARGUMENTS, so their names are meaningless.  Only their order matters.  
 
 
 
@@ -1707,10 +1715,19 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -But first, let's check the inputs to the ribbon and make sure it's working as expected.
 
-    1:40.  I think I'm finally ready to get going on the 
+    1:40 -  I think I'm finally ready to get going on the Return Search.
+
+        -The thing I least want to do at the moment is setting up the layout and CSS.  I guess that means that's what I should do first.
+
+        -Two things to do next.  First, I think I need to make a function to produce the buttons.  Othwerise I expect to be doing a lot of copying.
+
+        -Second, I need to figure out how the hell I am going to handle 8 different input types and texts.  My current thought is to just do it as an object, have the keys match the possible state names, and then in the JSX set it to {inputs[stateName]}
+
+    3:00 - I'm making an executive decision and going rogue here.  Search button is going next to the search bar.  The current position is retarded and I refuse to be a part of it.
+
+    4:20 - Well, I got kind of stuck and I didn't immediately stick to my problem-solving paradigm, but I eventually remembered it and figured out the solve pretty easy (I mis-ordered the state and action in my reducer definition)  
+
+
+
+
     
-
-        
-
-        
-

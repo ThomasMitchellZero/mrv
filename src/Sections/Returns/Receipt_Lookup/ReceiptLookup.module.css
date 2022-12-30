@@ -19,5 +19,18 @@
     flex: 1 1 0rem;
     background-color: #fff;
     padding: 0% 20%;
+    gap: 2rem;
 }
 
+.optionBtnHolder{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+    background-color: aquamarine;
+    gap: 1rem;
+}
+
+.icon{
+    font-size: 1.75rem;
+}
