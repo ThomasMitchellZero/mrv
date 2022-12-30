@@ -24,6 +24,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -Add in Manager Override to be able to cancel restock fee.  As this has no dependencies I'm leaving it for later.
 
     -I need to figure out how to handle an expired receipt.  It seems like the logic would be pretty heavy and this isn't a very important feature so I am backlogging it.  
+    
         If I had to guess right now, the thing to do would be: 
             -add a date to each invoice in the store.
             -in the matchmaker, sort the array to loop through invoices by date, earliest first.  This is to make sure that if there are any recent invoices that also include the item, those are matched first.
@@ -33,6 +34,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -Buttons on full pages are not the same size as buttons on 30 panels.  It would be nice if they were.
 
     -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
+
+    -At some point it would be nice for the message ribbon to accept a time parameter and have a built-in function that hides it after the time parameter expires.
 
 
 //// Github Pages Deployment ////
