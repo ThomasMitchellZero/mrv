@@ -1693,6 +1693,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         That should be good enough for today.  I won't get through all of that and if I do I definitely deserve a swallk.  
 
     11:00 - Spinning wheels here, as I usually do when I am uncertain.  I think the thing to do is put a win on the board here, and I think a good one would be the message ribbon.  
+
+    12:00 - Yup, kind of sucking right now.  I'm always most vulnerable when I'm not sure how to proceed.  I'm not getting pleasure from action=>result, so I seek it from time-wasters.
+
+        -Let's buckle down here.  We know where to start looking.  The universal header isn't displaying space around the ribbon the way I want.  
+            -First, I want a default size that grows with the contents.  I think I already have that.
+
+            -OK.  I actually think I can just toss all the contents in there, justify-content to center, and let the browser deal with it.  
+
+
+        -But first, let's check the inputs to the ribbon and make sure it's working as expected.
     
 
         
