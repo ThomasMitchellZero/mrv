@@ -3,17 +3,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;  
 }
 
 /* Message Sizes */
 .large{
-    height: 3.5rem;
-    padding: 0rem, 1.5rem;
+    height: 2.125rem;
+    padding: 0rem 1.5rem;
 }
 
 .small{
     height: 1.5rem;
-    padding: 0rem, 1rem;
+    padding: 0rem 1rem;
 }
 
 /* Message Colors */
@@ -26,7 +27,7 @@
 }
 
 .gold{
-    background-color: #F0F0D3
+    background-color:  #f7f3d7
 }
 
 .red{

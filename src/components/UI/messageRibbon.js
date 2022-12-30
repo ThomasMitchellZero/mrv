@@ -1,7 +1,20 @@
-import classes from "./messageRibbon.module.css"
+import classes from "./messageRibbon.module.css";
 
-const MessageRibbon = ({text, color = "gold", size="large"})=>{
-    return <div className={`${classes.container}`}>{text}</div>
-}
+const MessageRibbon = ({
+  text,
+  color = "gold",
+  size = "large",
+  width = null,
 
-export default MessageRibbon
+}) => {
+  return (
+    <div
+      style={{ width: width, }}
+      className={`ribbon-text ${classes.container} ${classes[size]} ${classes[color]}`}
+    >
+      {text}
+    </div>
+  );
+};
+
+export default MessageRibbon;
