@@ -11,8 +11,8 @@ const MiniUnmatchedLI = ({ unmatchedObj, hasMessage = false }) => {
         <h4>{`$ ${unmatchedObj.price.toFixed(2)}`}</h4>
       </section>
       <section className={classes.secondColumn}>
-      
         <div className="number-bubble">{unmatchedObj.quantity}</div>
+
         <h4>{`$ ${(unmatchedObj.price * unmatchedObj.quantity).toFixed(
           2
         )}`}</h4>

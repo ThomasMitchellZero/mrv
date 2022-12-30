@@ -29,12 +29,15 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    
 }
 
 .secondColumn h4 {
     margin-top: auto;
 
 }
+
+
 
 
 .alertMsg{
