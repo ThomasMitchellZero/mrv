@@ -24,7 +24,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -Add in Manager Override to be able to cancel restock fee.  As this has no dependencies I'm leaving it for later.
 
     -I need to figure out how to handle an expired receipt.  It seems like the logic would be pretty heavy and this isn't a very important feature so I am backlogging it.  
-    
+
         If I had to guess right now, the thing to do would be: 
             -add a date to each invoice in the store.
             -in the matchmaker, sort the array to loop through invoices by date, earliest first.  This is to make sure that if there are any recent invoices that also include the item, those are matched first.
@@ -1706,6 +1706,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
 
         -But first, let's check the inputs to the ribbon and make sure it's working as expected.
+
+    1:40.  I think I'm finally ready to get going on the 
     
 
         
