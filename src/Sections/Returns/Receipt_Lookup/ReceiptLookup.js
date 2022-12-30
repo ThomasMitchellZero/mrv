@@ -13,16 +13,15 @@ const ReceiptLookup = () => {
 
   console.log(unmatchedArr);
 
-  const unmatchedLIarr = unmatchedArr.map((itemObj) => {
+  const unmatchedLIarr = unmatchedArr.map((iObj) => {
     return (
       <MiniUnmatchedLI
-        key={itemObj.itemNum}
-        unmatchedObj={itemObj}
+        key={iObj.itemNum}
+        itemObj={iObj}
         hasMessage={{ content: "Missing Invoice", type: "alert" }}
       />
     );
   });
-  console.log(unmatchedLIarr);
 
   return (
     <section className={classes.container}>
