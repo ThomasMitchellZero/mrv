@@ -10,20 +10,7 @@
     flex: 1 1 0rem;
     background-color: #FFFFFF;
     align-items: center;
-    padding: 0rem 0rem 1rem;
-
-}
-
-.centerColumn{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0rem;
-    padding: 0rem;
-    width: 65%;
-    overflow: auto;
+    padding: 0rem 20% 1rem;
 }
 
 .listContainer{

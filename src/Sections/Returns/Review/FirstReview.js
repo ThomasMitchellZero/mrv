@@ -30,10 +30,10 @@ const FirstReview = () => {
         left_onClick={() => navigate("..")}
       >Review</TitleBar>
       <section className={classes.mainContent}>
-        <section className={classes.centerColumn}>
+
           <InPageTitleBox mainTitle="These item(s) are missing invoices." />
           <section className={classes.listContainer}>{umTableContents}</section>
-        </section>
+
       </section>
       <FooterContainer>
         <Link
