@@ -27,12 +27,12 @@
     flex-direction: column;
     flex: 1 1 0rem;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     height: 100%;
 }
 
-.secondColumn div {
-    justify-self: center;
+.secondColumn h4 {
+    margin-top: auto;
 
 }
 
