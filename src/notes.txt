@@ -1786,7 +1786,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -OK.  I do not want to be here all day.  What I really ought to to is just make the basic, one-line search field.  The problem is that I have resolved to do this like, four times this morning and every time I am about to make the decision, it comes back to: "Welllllll, if only it accepted a child then I could make it reusable.
 
-            -Maybe I've got the wrong approach.  Maybe the basic form is JUST the input, the submit button, and the error.  But if that's the case I could just stick the damn title on and be done.  
+            -Maybe I've got the wrong approach.  Maybe the basic form is JUST the input, the submit button, and the error.  But if that's the case I could just stick the damn title on and be done.         
 
         -Gotta think a little about the matching function.  Almost everything can be stored in the InvoiceDetails section.  
             -AFAICT, the payment info isn't used anywhere in the Matchmaker so I should be able to use it safely.
@@ -1807,6 +1807,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
                     }
         
             -Also need to remember - for Search, the amounts paid DO NOT MATTER.  All we are trying to do is find more invoices.  Amounts paid can be handled on the other end.
+
+    4:35 and still feeling pretty dumb, like there's a much easier way to do this that is eluding me.  The RLsearchFielder at this point has shrunk down to nearly nothing and the only reason I have it at all is to make the code shorter.  Like...I think honestly I just eat the length and do it all in the ReceiptLookup component. 
 
 
 
