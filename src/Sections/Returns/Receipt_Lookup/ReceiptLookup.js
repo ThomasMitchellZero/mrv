@@ -5,7 +5,6 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 import MiniItemLI from "../../../components/UI/MiniItemLI";
 import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
-import RLsearchFielder from "./RLsearchFielder";
 import RL1LineField from "./RL1LineField";
 
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
@@ -92,8 +91,8 @@ const ReceiptLookup = () => {
   const outObj = {
     creditCard: (
       <RL1LineField
-        validLength={16}
-        invoMatchStr="creditCard"
+        validLength={4}
+        searchType={recLookupState.activeType}
         invalidMsg="Enter valid credit card number"
         fieldLabel="Enter credit card number or swipe to search"
         fieldPlaceholder="Credit card #"

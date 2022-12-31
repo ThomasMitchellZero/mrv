@@ -74,7 +74,7 @@ const RL_1LineField = ({
   };
 
   return (
-    <form className={`${classes.container}`}>
+    <form className={`${classes.container}`} onSubmit={handleSubmit}>
       <h4>{fieldLabel}</h4>
       <input
         className={`${classes.input}`}
@@ -86,11 +86,7 @@ const RL_1LineField = ({
       <p className="warning-text">
         {searchCompState.warningVisible ? invalidMsg : ""}
       </p>
-      <button
-        className={`baseButton primary large`}
-        type="submit"
-        onSubmit={handleSubmit}
-      >
+      <button className={`baseButton primary large`} type="submit">
         Search
       </button>
     </form>
