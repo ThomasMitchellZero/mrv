@@ -1,4 +1,4 @@
-import classes from "./RL_AllSearchFields.module.css";
+import classes from "./RLsearchFielder.module.css";
 
 import invoiceMatching from "./invoiceMatching";
 
@@ -25,11 +25,11 @@ const RLsearchFielder = ({ activeType, minEffort }) => {
   });
 
   const baseSearcher = ({
-    onSubmit,
+    invoMatchStr,
     validityFunc,
+    invalidMsg,
     fieldLabel,
     fieldPlaceholder,
-    customFields = null,
   }) => {
     const handleChange = (event) => {
       const inputText = event.target.value;
@@ -40,14 +40,22 @@ const RLsearchFielder = ({ activeType, minEffort }) => {
       });
     };
 
-
+    const thisMatchFunc = (currInvo) => {
+      if (currInvo[invoMatchStr] ?? false) {
+        return currInvo;
+      }
+    };
+    // When the user presses the button...
     const handleSubmit = (event) => {
       event.preventDefault();
       // user can continue after 1 search.
-      minEffort(true)
-      // 
-      invoiceMatching();
+      minEffort(true);
+      // each field searches via a different function.  Passes this function to primary InvoiceMatcher
+      invoiceMatching(thisMatchFunc);
     };
+
+    const handleBlur = () => {};
+
     return (
       <form className={`${classes.container}`}>
         <h4>{fieldLabel}</h4>
@@ -57,14 +65,38 @@ const RLsearchFielder = ({ activeType, minEffort }) => {
           value={searchCompState.inputs}
           placeholder={fieldPlaceholder}
         ></input>
-        <button type="submit" onSubmit={handleSubmit}></button>
+        <p class="warning-text">{}</p>
+        <button
+          className={`baseButton primary large`}
+          type="submit"
+          onSubmit={handleSubmit}
+        >
+          Search
+        </button>
       </form>
     );
   };
 
   const outObj = {
-    creditCard: baseSearcher({}),
+    creditCard: {
+      invoMatchStr: `invoiceDetails.payment.credit.${searchCompState.input}`,
+      validityFunc: "",
+      invalidMsg: "",
+      fieldLabel: "Search Credit",
+      fieldPlaceholder: "enter cc",
+    },
   };
+
+  return outObj[activeType] ?? <div>still working on it</div>;
 };
 
 export default RLsearchFielder;
+
+/*
+
+    creditCard: baseSearcher({
+      thisMatchFunc: function (invoiceNum, matchPath) {
+        if (invoiceNum?.[matchPath]) return invoiceNum;
+      },
+
+*/
