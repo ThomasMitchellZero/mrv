@@ -55,7 +55,7 @@ const RL_1LineField = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     // user can continue after 1 search.
-    didMinimum();
+    didMinimum({type: "MINIMUM_EFFORT"});
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
     invoiceMatching(invoMatch);
   };
@@ -77,7 +77,7 @@ const RL_1LineField = ({
           errorText = "";
         }}
       ></input>
-      <p class="warning-text">{errorText}</p>
+      <p className="warning-text">{errorText}</p>
       <button
         className={`baseButton primary large`}
         type="submit"

@@ -88,6 +88,7 @@ const ReceiptLookup = () => {
     );
   };
 
+
   const outObj = {
     creditCard: (
       <RL1LineField
@@ -96,7 +97,7 @@ const ReceiptLookup = () => {
         invalidMsg="Enter valid credit card number"
         fieldLabel="Enter credit card number or swipe to search"
         fieldPlaceholder="Credit card #"
-        didMinimum={dispatchLookup({type: "MINIMUM_EFFORT"})}
+        didMinimum={dispatchLookup}
       />
     ),
   };
