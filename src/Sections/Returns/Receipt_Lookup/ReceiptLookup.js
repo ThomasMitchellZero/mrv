@@ -6,6 +6,8 @@ import MiniItemLI from "../../../components/UI/MiniItemLI";
 import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import RLsearchFielder from "./RLsearchFielder";
+import RL1LineField from "./RL1LineField";
+
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
 import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
@@ -27,7 +29,7 @@ const lookupReducer = (state, action) => {
     }
 
     case "MINIMUM_EFFORT": {
-      return {};
+      return { ...state, didSearch: true };
     }
 
     default:
@@ -86,6 +88,21 @@ const ReceiptLookup = () => {
     );
   };
 
+  const outObj = {
+    creditCard: (
+      <RL1LineField
+        validLength={16}
+        invoMatchStr="creditCard"
+        invalidMsg="Enter valid credit card number"
+        fieldLabel="Enter credit card number or swipe to search"
+        fieldPlaceholder="Credit card #"
+        didMinimum={dispatchLookup({type: "MINIMUM_EFFORT"})}
+      />
+    ),
+  };
+
+  //// FULL RENDERED COMPONENT ////
+
   return (
     <section className={classes.container}>
       <section className="thirty_panel">
@@ -134,7 +151,7 @@ const ReceiptLookup = () => {
               <TbHammer className={`${classes.icon}`} />
             )}
           </section>
-          <RLsearchFielder activeType={recLookupState.activeType} />
+          {outObj[recLookupState.activeType] ?? <div>still working on it</div>}
         </section>
 
         <FooterContainer></FooterContainer>
