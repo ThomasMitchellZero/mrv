@@ -7,12 +7,16 @@ import { useReducer } from "react";
 const defaultState = {
   inputs: "",
   inputsValidity: false,
+  warningVisible: false,
 };
 
 const RL_Reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_INPUT": {
       return { ...state, ...action.payload };
+    }
+    case "SHOW_WARNING": {
+      return { ...state, warningVisible: action.payload };
     }
     case "SUBMIT": {
       return { ...defaultState };
@@ -30,9 +34,10 @@ const RL_1LineField = ({
   fieldPlaceholder,
   didMinimum,
 }) => {
-  const [searchCompState, dispatchSearchComp] = useReducer(RL_Reducer, {
-    defaultState,
-  });
+  const [searchCompState, dispatchSearchComp] = useReducer(
+    RL_Reducer,
+    defaultState
+  );
 
   const invoMatch = (currInvo) => {
     if (currInvo[invoMatchStr] ?? false) {
@@ -44,10 +49,14 @@ const RL_1LineField = ({
 
   const handleChange = (event) => {
     const inputText = event.target.value;
-    const validity = inputText >= validLength;
+    const validity = inputText.length >= validLength;
     dispatchSearchComp({
       type: "CHANGE_INPUT",
-      payload: { inputs: inputText, inputsValidity: validity },
+      payload: {
+        inputs: inputText,
+        inputsValidity: validity,
+        warningVisible: false,
+      },
     });
   };
 
@@ -55,13 +64,16 @@ const RL_1LineField = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     // user can continue after 1 search.
-    didMinimum({type: "MINIMUM_EFFORT"});
+    didMinimum({ type: "MINIMUM_EFFORT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
     invoiceMatching(invoMatch);
   };
 
   const handleBlur = () => {
-    errorText = searchCompState.inputsValidity ? "" : invalidMsg;
+    dispatchSearchComp({
+      type: "SHOW_WARNING",
+      payload: searchCompState.inputsValidity,
+    });
   };
 
   return (
@@ -73,11 +85,10 @@ const RL_1LineField = ({
         value={searchCompState.inputs}
         placeholder={fieldPlaceholder}
         onBlur={handleBlur}
-        onFocus={() => {
-          errorText = "";
-        }}
       ></input>
-      <p className="warning-text">{errorText}</p>
+      <p className="warning-text">
+        {searchCompState.warningVisible ? "error" : ""}
+      </p>
       <button
         className={`baseButton primary large`}
         type="submit"
