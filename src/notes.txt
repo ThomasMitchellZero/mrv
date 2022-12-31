@@ -1727,6 +1727,57 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     4:20 - Well, I got kind of stuck and I didn't immediately stick to my problem-solving paradigm, but I eventually remembered it and figured out the solve pretty easy (I mis-ordered the state and action in my reducer definition)  
 
+    5:20 - OK.  Potential problem on the horizon.  Some of the components have more than one input field.  I'm actually not super worried about the input state - I'll just make the payload an object instead of a string.  
+
+        -I am potentially worried about how to conditionally render the input fields, as well as how to perform the search.  As long as it was a single search field and a label, I could generate it out of an object, and all I had to pass to the search function was a search term.
+
+        -Christ.  So.  Each object I'm passing into the Search Input Renderer needs:
+
+        key(a search type matching a button):
+
+            -1 label
+
+            - (n) input fields, possibly with custom CSS.  (realistically this is probably just a full custom component)
+
+            - an empty object with properties corresponding to the input fields with which to  set the   fieldInput: ""   state.
+
+            - A function() to validate those inputs.
+
+            - a function() to run that returns whatever invoices meet the definition of a 'match' for this particular search type.
+
+        OK.  Let's be cool here.  I think there's a decent list that I can do with one input field, which makes the task significantly easier.
+            -Credit Cart
+            -Phone Number
+            -Order #
+            -Pro ID
+            -Commerical Account # (minus the lookup fields)
+            -MyLowes #?
+
+        I'm not sure about Checks or Vendor PO.  I just don't know enough.  But that still gets me to 5.5 of the 8 search fields I know of.
+
+        So what I can do is have a standard function that makes all the one-liners.  I can fill the object with its contents and then if I need to make more, I can populate it by hand if necessary.  
+
+
+    7:05 - Just got back from a swallk.  I am just flying right now.  I am so excited about the possibilities of this input field component that I'm gonna keep going.  Experience has also taught me this means I have about an hour left before I completely lose interest and am done for the day, so we will see.
+
+        -it would be REALLY nice to have a standard Input component with inlcuded warning text.  I would want it to:
+            -accept a validation function from above
+            -allow use of useEffect and maybe a delay parameter to only validate after some amount of time.
+            
+
+        -The thing is, since I am going to be making so many input fields (and because I have so many already) this probably needs to happen pretty soon.  
+        
+31 Dec 2022 - 
+    9:20 - Even with a weak start I'm still underway at a decent hour.  The big open question is the input fields.  I think the thing to do would be to commit an hour to it and re-evaluate.  I don't want to be here with it all day.  
+
+    9:50 - At least at my skill level, I don't really know how to make an component that does everything I want through props.  
+        -The primary problem I need to solve is that I do not like the error messages appearing when the user is typing or hasn't entered anything.
+
+            -I think the VERY simplest way to do this would be onBlur.  
+                -When the field loses focus, the validation function runs.  Actually, I will probably have the validation running as part of the input process.  The onBlur operation would just display the error or not based on the input's validity.
+
+            -The other approach, closer to my ideal, would be to check after some time has expired.  
+
 
 
 
