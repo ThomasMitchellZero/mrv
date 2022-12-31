@@ -98,7 +98,7 @@ const Returns = () => {
 
         const invoiceNum = action.payload;
         const invoiceInfo = { ...invoiceContext[invoiceNum] };
-        const newInvoiceList = {
+        const newInvoiceList = {                                                              
           ...state.invoices,
           [invoiceNum]: invoiceInfo,
         };
