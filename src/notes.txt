@@ -1778,6 +1778,36 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -The other approach, closer to my ideal, would be to check after some time has expired.  
 
+    10:30, wondering why the hell everything seems so much harder today, and then realized I haven't taken my pill -_-
+
+    -So, like...I've don all this work on the input component and  it just doesn't look any easier than doing it by hand.  it saves a little typing and now I have less flexibilty.  On the plus side, I think I have my answer?
+
+    11:50 - just feeling, like, really slow and dumb right now.  I wonder if I'm not making the problem harder than it needs to be.  
+
+        -OK.  I do not want to be here all day.  What I really ought to to is just make the basic, one-line search field.  The problem is that I have resolved to do this like, four times this morning and every time I am about to make the decision, it comes back to: "Welllllll, if only it accepted a child then I could make it reusable.
+
+            -Maybe I've got the wrong approach.  Maybe the basic form is JUST the input, the submit button, and the error.  But if that's the case I could just stick the damn title on and be done.  
+
+        -Gotta think a little about the matching function.  Almost everything can be stored in the InvoiceDetails section.  
+            -AFAICT, the payment info isn't used anywhere in the Matchmaker so I should be able to use it safely.
+            -In that case, I think the correct play is: 
+            
+                invoiceDetails: {
+                    payment: {
+                        cash:{paid: 12.34}
+                        credit:{
+                            paid: 12.34
+                            ccNum: 1111-2222-1111-2222
+                        }
+                        check:{
+                            paid: 12.34
+                            routing: 12341234
+                            account: 43214321
+                        }
+                    }
+        
+
+
 
 
 

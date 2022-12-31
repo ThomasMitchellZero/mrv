@@ -7,6 +7,7 @@ const Input = ({
   placeholder,
   fieldValue,
   errorMessage,
+  width,
 }) => {
   let warningText = "";
 
