@@ -28,7 +28,7 @@ const RL_Reducer = (state, action) => {
 
 const RL_1LineField = ({
   validLength,
-  invoMatchStr,
+  searchType,
   invalidMsg,
   fieldLabel,
   fieldPlaceholder,
@@ -39,17 +39,10 @@ const RL_1LineField = ({
     defaultState
   );
 
-  const invoMatch = (currInvo) => {
-    if (currInvo[invoMatchStr] ?? false) {
-      return currInvo;
-    }
-  };
-
-  let errorText = "";
-
   const handleChange = (event) => {
     const inputText = event.target.value;
     const validity = inputText.length >= validLength;
+
     dispatchSearchComp({
       type: "CHANGE_INPUT",
       payload: {
@@ -66,13 +59,17 @@ const RL_1LineField = ({
     // user can continue after 1 search.
     didMinimum({ type: "MINIMUM_EFFORT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    invoiceMatching(invoMatch);
+    invoiceMatching({
+      searchType: searchType,
+      userInput: searchCompState.inputs,
+    });
+    dispatchSearchComp({ type: "SUBMIT" });
   };
 
   const handleBlur = () => {
     dispatchSearchComp({
       type: "SHOW_WARNING",
-      payload: searchCompState.inputsValidity,
+      payload: !searchCompState.inputsValidity,
     });
   };
 
@@ -87,7 +84,7 @@ const RL_1LineField = ({
         onBlur={handleBlur}
       ></input>
       <p className="warning-text">
-        {searchCompState.warningVisible ? "error" : ""}
+        {searchCompState.warningVisible ? invalidMsg : ""}
       </p>
       <button
         className={`baseButton primary large`}

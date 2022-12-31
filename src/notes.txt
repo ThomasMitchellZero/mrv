@@ -1,3 +1,5 @@
+RULE 1:  Coding time is in short supply and this is just a demo.  Don't spend effort solving problems we don't currently have.
+
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
     
@@ -1809,6 +1811,21 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Also need to remember - for Search, the amounts paid DO NOT MATTER.  All we are trying to do is find more invoices.  Amounts paid can be handled on the other end.
 
     4:35 and still feeling pretty dumb, like there's a much easier way to do this that is eluding me.  The RLsearchFielder at this point has shrunk down to nearly nothing and the only reason I have it at all is to make the code shorter.  Like...I think honestly I just eat the length and do it all in the ReceiptLookup component. 
+
+    4:55 - OK, there's definitely some CSS fuckery I should take care of, but that's easy.  Top priorities:
+
+        X-Get the text length validation working.
+        -Ensure that the submit button is properly calling the InvoiceMatcher and sending a string to it.
+        -Actually, that should be an object, since both the search type and the field value are necessary.
+        -I need to get in there and actually populate the other 4 fields.
+        -Fix the CSS.
+        -IF I want, the invoiceMatcher could return some info about what it found, since its main function will be to update the session items.
+        -When  minumum effort === true, show the Continue button in the parent.
+        
+        -I actually really would like for the component to accept a custom validation function but remember rule 1.
+
+
+
 
 
 
