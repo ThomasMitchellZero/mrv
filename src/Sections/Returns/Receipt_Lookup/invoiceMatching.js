@@ -1,11 +1,11 @@
 
 
-const invoiceMatching = ({patronMatcher, itemNum, }) => {
+const invoiceMatching = ({ matchingFunc }) => {
     // For each invoice
         // if invoice isn't already in the list
-            // && if patronMatcher() === true
-            // && itemNum ?? 
-                // add invoice to session
+            // for each unmatched item,
+                // if matchingFunc(thisInvoice)
+                    // add invoice to session
 
   return {};
 };

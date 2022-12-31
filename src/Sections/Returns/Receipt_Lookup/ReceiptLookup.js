@@ -10,12 +10,9 @@ import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
 import { useReducer } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
-import invoiceMatching from "./invoiceMatching";
 
 const defaultState = {
   activeType: "creditCard",
-  fieldInput: "",
-  inputValid: false,
   didSearch: false,
 };
 
@@ -25,17 +22,7 @@ const lookupReducer = (state, action) => {
       return {
         ...state,
         activeType: action.payload,
-        fieldInput: "",
-        inputValid: false,
       };
-    }
-
-    case "SET_FIELD": {
-      return {};
-    }
-
-    case "SET_VALID": {
-      return {};
     }
 
     case "MINIMUM_EFFORT": {
