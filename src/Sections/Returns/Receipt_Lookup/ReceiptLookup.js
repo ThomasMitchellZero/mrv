@@ -10,6 +10,7 @@ import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
 import { useReducer } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
+import invoiceMatching from "./invoiceMatching";
 
 const defaultState = {
   activeType: "creditCard",
@@ -80,7 +81,10 @@ const ReceiptLookup = () => {
 
   //// SEARCH 70 PANEL ////////////
 
+  // component for Search Buttons
   const optionBtn = (searchType, text, icon) => {
+
+    // check if button type matches current activeType for CSS.
     const isActive = recLookupState.activeType === searchType ? "active" : "";
     return (
       <button
@@ -94,6 +98,8 @@ const ReceiptLookup = () => {
       </button>
     );
   };
+
+  
 
   return (
     <section className={classes.container}>
