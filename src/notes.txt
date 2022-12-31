@@ -1780,7 +1780,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     10:30, wondering why the hell everything seems so much harder today, and then realized I haven't taken my pill -_-
 
-    -So, like...I've don all this work on the input component and  it just doesn't look any easier than doing it by hand.  it saves a little typing and now I have less flexibilty.  On the plus side, I think I have my answer?
+    -So, like...I've done all this work on the input component and  it just doesn't look any easier than doing it by hand.  it saves a little typing and now I have less flexibilty.  On the plus side, I think I have my answer?
 
     11:50 - just feeling, like, really slow and dumb right now.  I wonder if I'm not making the problem harder than it needs to be.  
 
@@ -1791,7 +1791,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Gotta think a little about the matching function.  Almost everything can be stored in the InvoiceDetails section.  
             -AFAICT, the payment info isn't used anywhere in the Matchmaker so I should be able to use it safely.
             -In that case, I think the correct play is: 
-            
+
                 invoiceDetails: {
                     payment: {
                         cash:{paid: 12.34}
@@ -1806,8 +1806,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
                         }
                     }
         
-
-
+            -Also need to remember - for Search, the amounts paid DO NOT MATTER.  All we are trying to do is find more invoices.  Amounts paid can be handled on the other end.
 
 
 
