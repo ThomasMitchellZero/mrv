@@ -78,14 +78,16 @@ const RLsearchFielder = ({ activeType, minEffort }) => {
   };
 
   const outObj = {
-    creditCard: {
+    creditCard: baseSearcher({
       invoMatchStr: `invoiceDetails.payment.credit.${searchCompState.input}`,
       validityFunc: "",
       invalidMsg: "",
       fieldLabel: "Search Credit",
       fieldPlaceholder: "enter cc",
-    },
+    }),
   };
+
+  
 
   return outObj[activeType] ?? <div>still working on it</div>;
 };

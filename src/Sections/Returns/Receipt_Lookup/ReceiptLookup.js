@@ -5,6 +5,7 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 import MiniItemLI from "../../../components/UI/MiniItemLI";
 import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
+import RLsearchFielder from "./RLsearchFielder";
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
 import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
@@ -70,7 +71,6 @@ const ReceiptLookup = () => {
 
   // component for Search Buttons
   const optionBtn = (searchType, text, icon) => {
-
     // check if button type matches current activeType for CSS.
     const isActive = recLookupState.activeType === searchType ? "active" : "";
     return (
@@ -85,8 +85,6 @@ const ReceiptLookup = () => {
       </button>
     );
   };
-
-  
 
   return (
     <section className={classes.container}>
@@ -136,6 +134,7 @@ const ReceiptLookup = () => {
               <TbHammer className={`${classes.icon}`} />
             )}
           </section>
+          <RLsearchFielder activeType={recLookupState.activeType} />
         </section>
 
         <FooterContainer></FooterContainer>
