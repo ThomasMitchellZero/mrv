@@ -117,17 +117,46 @@ const ReceiptLookup = () => {
     });
   };
 
-
-
   const searchComponents = {
     creditCard: (
       <RL1LineField
         RLstate={recLookupState}
         RLreducer={dispatchLookup}
-        validLength={4}
-        invalidMsg="Enter valid credit card number"
-        fieldLabel="Enter credit card number or swipe to search"
-        fieldPlaceholder="Credit card #"
+        validLength={16}
+        searchType="credit card"
+
+      />
+    ),
+    phone: (
+      <RL1LineField
+        RLstate={recLookupState}
+        RLreducer={dispatchLookup}
+        validLength={9}
+        searchType="phone"
+      />
+    ),
+    order: (
+      <RL1LineField
+        RLstate={recLookupState}
+        RLreducer={dispatchLookup}
+        validLength={8}
+        searchType="order"
+      />
+    ),
+    proID: (
+      <RL1LineField
+        RLstate={recLookupState}
+        RLreducer={dispatchLookup}
+        validLength={8}
+        searchType="Pro ID"
+      />
+    ),
+    commercialAcct: (
+      <RL1LineField
+        RLstate={recLookupState}
+        RLreducer={dispatchLookup}
+        validLength={8}
+        searchType="Commercial Account"
       />
     ),
   };
@@ -185,9 +214,11 @@ const ReceiptLookup = () => {
         </form>
 
         <FooterContainer>
-          <Link className={`baseButton primary large ${classes.button}`}>
-            Continue
-          </Link>
+          {!recLookupState.didSearch ? null : (
+            <Link className={`baseButton primary large ${classes.button}`}>
+              Continue
+            </Link>
+          )}
         </FooterContainer>
       </section>
     </section>
@@ -199,4 +230,5 @@ export default ReceiptLookup;
 /*
 
 
- */
+
+*/

@@ -1836,6 +1836,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -pass the state and dispatch to each child.
     -I'm just gonna do it.  This is probably what it should have been anyways.  And that will probably be it for me tonight.  
 
+    8:55 - Damn, that went surprisingly well.  Got everything ported over and it's now working as expected.
+    
+
 
 
 

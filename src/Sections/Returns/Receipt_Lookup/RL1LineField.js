@@ -1,10 +1,18 @@
 import classes from "./RL1LineField.module.css";
 
 
+/*
+
+        invalidMsg="Enter valid credit card number"
+        fieldLabel="Enter credit card number or swipe to search"
+        fieldPlaceholder="Credit card #"
+
+*/
 const RL_1LineField = ({
   RLstate,
   RLreducer,
   validLength,
+  searchType,
   invalidMsg,
   fieldLabel,
   fieldPlaceholder,
@@ -32,16 +40,16 @@ const RL_1LineField = ({
 
   return (
     <section className={`${classes.container}`}>
-      <h4>{fieldLabel}</h4>
+      <h4>{`Enter ${searchType} number to find invoices`}</h4>
       <input
         className={`base_input`}
         onChange={handleChange}
         value={RLstate.inputs}
-        placeholder={fieldPlaceholder}
+        placeholder={searchType}
         onBlur={handleBlur}
       ></input>
       <p className={`warning-text`}>
-        {RLstate.warningVisible ? invalidMsg : " "}
+        {RLstate.warningVisible ? `Enter valid ${searchType} number` : " "}
       </p>
       <button
         disabled={!RLstate.inputsValidity}
