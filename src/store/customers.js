@@ -1,6 +1,6 @@
 import React from "react";
 
-//products = 100, 200, 300, 400, 900, 910
+
 
 const CustomerContext = React.createContext({
 
