@@ -1858,7 +1858,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -Side note.  I feel like I'm struggling here.  I know *A* way to do a lot of different things, but I don't know the *best* way to do anything and I feel like I'm mostly relying on familiarity rather than an actual understanding of what's happening.  I badly need a mentor :/
 
-    -
+    -OK.  Turns out I didn't solve the problem at all.  The reason I'm not getting any errors is because my InvoiceMatcher appears not to be running at all :/
+
+    -Well, I still don't understand the problem.  My best guess is that I am breaking the rule that hooks can only be called inside the top-level component, although I have no idea why that would be.  
+        -I think what I need to do is just stop bucking, pass the state as a parameter, and move on.  I've spent waaaaay too much time on this already.
+
+    
 
 
 

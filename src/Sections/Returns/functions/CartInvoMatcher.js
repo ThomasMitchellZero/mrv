@@ -3,8 +3,9 @@
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
-const CartInvoMatcher = (itemList, invoiceList) => {
+import { useOutletContext } from "react-router-dom";
 
+const CartInvoMatcher = (itemList, invoiceList) => {
 
   //The three derived states we will create
   const modified_invoices = cloneDeep(invoiceList);

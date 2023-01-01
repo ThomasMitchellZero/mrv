@@ -1,13 +1,12 @@
-
 import InvoiceContext from "../../../store/invoice-context";
 
-import { useContext } from "react";
 
-const InvoiceMatching = (searchObj = {}) => {
 
-    const invoiceContext = useContext(InvoiceContext);
+const InvoiceSearch = (invoiceContext = {}, searchObj = {}) => {
 
-    console.log(invoiceContext.AAA)
+  const invoCtx = invoiceContext;
+
+  console.log(invoCtx.AAA)
   /*
     
 FFF: {
@@ -45,6 +44,8 @@ FFF: {
   // add invoice to session
 
   console.log(searchObj);
+
+  return searchRoutes;
 };
 
-export default InvoiceMatching;
+export default InvoiceSearch;

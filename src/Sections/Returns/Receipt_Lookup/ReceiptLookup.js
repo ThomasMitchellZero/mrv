@@ -7,12 +7,14 @@ import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import RL1LineField from "./RL1LineField";
 
-import InvoiceMatching from "./InvoiceMatching";
+import InvoiceSearch from "./InvoiceSearch";
+
+import InvoiceContext from "../../../store/invoice-context";
 
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
 import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
-import { useReducer } from "react";
+import { useReducer, useContext } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 
 const defaultState = {
@@ -56,6 +58,7 @@ const lookupReducer = (state, action) => {
 };
 
 const ReceiptLookup = () => {
+  const invoiceCtx = useContext(InvoiceContext)
   const navigate = useNavigate();
 
   const [recLookupState, dispatchLookup] = useReducer(
@@ -111,10 +114,11 @@ const ReceiptLookup = () => {
     // user can continue after 1 search.
     dispatchLookup({ type: "SUBMIT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    InvoiceMatching({
+    InvoiceSearch(invoiceCtx,{
       searchType: recLookupState.activeType,
       userInput: recLookupState.inputs,
     });
+    console.log("hello?")
   };
 
   const searchComponents = {
