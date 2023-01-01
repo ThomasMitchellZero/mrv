@@ -41,7 +41,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -The useReducer function takes a third argument.  That third argument takes a function, which will set the initial state when run.  IIRC, the main reason I was defining the reducer function within the closure of the component itself was because I somehow wanted to access props from above(?) and didn't have access to them outside the closure.  Take a look at this again.  I've never seen another example programmed my way and it probably sucks.
 
-
 //// Github Pages Deployment ////
 
 Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
@@ -1849,6 +1848,15 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -I COULD get into the Manager Override work.  Not the worst idea in the world, considering I have to prototype it pretty soon.
 
         -The other option, which I currently prefer if I had to pick right now, would be to skip the overrides and go right to the end.  AFAICT, the two last BIG challenges in this process is going to be the Total Review and then the Stepper-Refund walkthrough.  
+
+    -Running into an issue with the Context.  I actually do not understand the problem but it seems like you cannot useContext inside something that isn't a React component?
+        -I'm looking at the matchMaker and AFACIT it doesn't reference any external states.  Actually it gets passed two objects, which might be a mistake since those values never change?
+
+        -OK.  I am going to try doing this as a non-UI component because 
+            a. I don't know how to do that and should probably learn.
+            b. That's probably what the matchMaker should be, and I should probably learn.
+
+    -Side note.  I feel like I'm struggling here.  I know *A* way to do a lot of different things, but I don't know the *best* way to do anything and I feel like I'm mostly relying on familiarity rather than an actual understanding of what's happening.  I badly need a mentor :/
 
 
 

@@ -1,13 +1,6 @@
 import classes from "./RL1LineField.module.css";
 
 
-/*
-
-        invalidMsg="Enter valid credit card number"
-        fieldLabel="Enter credit card number or swipe to search"
-        fieldPlaceholder="Credit card #"
-
-*/
 const RL_1LineField = ({
   RLstate,
   RLreducer,
