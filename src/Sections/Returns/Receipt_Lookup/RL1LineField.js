@@ -1,49 +1,19 @@
 import classes from "./RL1LineField.module.css";
 
-import invoiceMatching from "./invoiceMatching";
-
-import { useReducer } from "react";
-
-const defaultState = {
-  inputs: "",
-  inputsValidity: false,
-  warningVisible: false,
-};
-
-const RL_Reducer = (state, action) => {
-  switch (action.type) {
-    case "CHANGE_INPUT": {
-      return { ...state, ...action.payload };
-    }
-    case "SHOW_WARNING": {
-      return { ...state, warningVisible: action.payload };
-    }
-    case "SUBMIT": {
-      return { ...defaultState };
-    }
-    default:
-      throw new Error(`Unknown action type: ${action.type}`);
-  }
-};
 
 const RL_1LineField = ({
+  RLstate,
+  RLreducer,
   validLength,
-  searchType,
   invalidMsg,
   fieldLabel,
   fieldPlaceholder,
-  didMinimum,
 }) => {
-  const [searchCompState, dispatchSearchComp] = useReducer(
-    RL_Reducer,
-    defaultState
-  );
-
   const handleChange = (event) => {
     const inputText = event.target.value;
     const validity = inputText.length >= validLength;
 
-    dispatchSearchComp({
+    RLreducer({
       type: "CHANGE_INPUT",
       payload: {
         inputs: inputText,
@@ -53,47 +23,34 @@ const RL_1LineField = ({
     });
   };
 
-  // When the user presses the button...
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // user can continue after 1 search.
-    didMinimum({ type: "MINIMUM_EFFORT" });
-    // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    invoiceMatching({
-      searchType: searchType,
-      userInput: searchCompState.inputs,
-    });
-    dispatchSearchComp({ type: "SUBMIT" });
-  };
-
   const handleBlur = () => {
-    dispatchSearchComp({
+    RLreducer({
       type: "SHOW_WARNING",
-      payload: !searchCompState.inputsValidity,
+      payload: !RLstate.inputsValidity,
     });
   };
 
   return (
-    <form className={`${classes.container}`} onSubmit={handleSubmit}>
+    <section className={`${classes.container}`}>
       <h4>{fieldLabel}</h4>
       <input
         className={`base_input`}
         onChange={handleChange}
-        value={searchCompState.inputs}
+        value={RLstate.inputs}
         placeholder={fieldPlaceholder}
         onBlur={handleBlur}
       ></input>
       <p className={`warning-text`}>
-        {searchCompState.warningVisible ? invalidMsg : " "}
+        {RLstate.warningVisible ? invalidMsg : " "}
       </p>
       <button
-        disabled={!searchCompState.inputsValidity}
+        disabled={!RLstate.inputsValidity}
         className={`baseButton primary large`}
         type="submit"
       >
         Search
       </button>
-    </form>
+    </section>
   );
 };
 

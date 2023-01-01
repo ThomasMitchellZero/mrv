@@ -7,6 +7,8 @@ import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import RL1LineField from "./RL1LineField";
 
+import invoiceMatching from "./invoiceMatching";
+
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
 import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
 
@@ -16,30 +18,45 @@ import { useNavigate, useOutletContext, Link } from "react-router-dom";
 const defaultState = {
   activeType: "creditCard",
   didSearch: false,
+  inputs: "",
+  inputsValidity: false,
+  warningVisible: false,
 };
 
 const lookupReducer = (state, action) => {
   switch (action.type) {
     case "SET_ACTIVE": {
       return {
-        ...state,
+        ...defaultState,
         activeType: action.payload,
       };
     }
-
     case "MINIMUM_EFFORT": {
       return { ...state, didSearch: true };
     }
 
+    case "CHANGE_INPUT": {
+      return { ...state, ...action.payload };
+    }
+    case "SHOW_WARNING": {
+      return { ...state, warningVisible: action.payload };
+    }
+    case "SUBMIT": {
+      return {
+        ...state,
+        didSearch: true,
+        inputs: "",
+        inputsValidity: false,
+        warningVisible: false,
+      };
+    }
     default:
-      return state;
+      throw new Error(`Unknown action type: ${action.type}`);
   }
 };
 
 const ReceiptLookup = () => {
   const navigate = useNavigate();
-
-  const dispatchSession = useOutletContext.dispatchSession;
 
   const [recLookupState, dispatchLookup] = useReducer(
     lookupReducer,
@@ -76,6 +93,7 @@ const ReceiptLookup = () => {
     const isActive = recLookupState.activeType === searchType ? "active" : "";
     return (
       <button
+        type="button"
         className={`baseButton secondary large ${isActive}`}
         onClick={() => {
           dispatchLookup({ type: "SET_ACTIVE", payload: searchType });
@@ -87,15 +105,29 @@ const ReceiptLookup = () => {
     );
   };
 
+  // When the user presses the button...
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // user can continue after 1 search.
+    dispatchLookup({ type: "SUBMIT" });
+    // each field searches via a different function.  Passes this function to primary InvoiceMatcher
+    invoiceMatching({
+      searchType: recLookupState.activeType,
+      userInput: recLookupState.inputs,
+    });
+  };
+
+
+
   const searchComponents = {
     creditCard: (
       <RL1LineField
+        RLstate={recLookupState}
+        RLreducer={dispatchLookup}
         validLength={4}
-        searchType={recLookupState.activeType}
         invalidMsg="Enter valid credit card number"
         fieldLabel="Enter credit card number or swipe to search"
         fieldPlaceholder="Credit card #"
-        didMinimum={dispatchLookup}
       />
     ),
   };
@@ -118,7 +150,7 @@ const ReceiptLookup = () => {
         >
           Receipt Lookup
         </TitleBar>
-        <section className={classes.seventyContent}>
+        <form onSubmit={handleSubmit} className={classes.seventyContent}>
           <InPageTitleBox mainTitle="Select an option to search for receipt." />
           <section className={classes.optionBtnHolder}>
             {optionBtn(
@@ -146,19 +178,16 @@ const ReceiptLookup = () => {
               "Lowe's Commercial Account",
               <MdOutlineCorporateFare className={`${classes.icon}`} />
             )}
-
           </section>
           {searchComponents[recLookupState.activeType] ?? (
             <div>still working on it</div>
           )}
-        </section>
+        </form>
 
         <FooterContainer>
-            
-            <Link className={`baseButton primary large ${classes.button}`}>
-              Continue
-            </Link>
-
+          <Link className={`baseButton primary large ${classes.button}`}>
+            Continue
+          </Link>
         </FooterContainer>
       </section>
     </section>
