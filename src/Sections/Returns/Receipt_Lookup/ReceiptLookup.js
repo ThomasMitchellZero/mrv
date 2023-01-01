@@ -7,7 +7,7 @@ import MessageRibbon from "../../../components/UI/MessageRibbon";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
 import RL1LineField from "./RL1LineField";
 
-import invoiceMatching from "./invoiceMatching";
+import InvoiceMatching from "./InvoiceMatching";
 
 import { MdOutlineCorporateFare, MdCreditCard, MdPhone } from "react-icons/md";
 import { TbFileInvoice, TbPackage, TbHammer } from "react-icons/tb";
@@ -111,7 +111,7 @@ const ReceiptLookup = () => {
     // user can continue after 1 search.
     dispatchLookup({ type: "SUBMIT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    invoiceMatching({
+    InvoiceMatching({
       searchType: recLookupState.activeType,
       userInput: recLookupState.inputs,
     });
