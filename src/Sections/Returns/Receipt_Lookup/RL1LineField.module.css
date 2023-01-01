@@ -2,13 +2,17 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 0rem;
+    gap: .75rem;
+
 }
 
 .container * {
     flex: 0 0 auto;
-    width: 100%
+    width: 100%;
+    
 }
 
 .container button{
-    width: auto;
+    width: 20%
 }
+

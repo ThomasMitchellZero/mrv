@@ -77,16 +77,20 @@ const RL_1LineField = ({
     <form className={`${classes.container}`} onSubmit={handleSubmit}>
       <h4>{fieldLabel}</h4>
       <input
-        className={`${classes.input}`}
+        className={`base_input`}
         onChange={handleChange}
         value={searchCompState.inputs}
         placeholder={fieldPlaceholder}
         onBlur={handleBlur}
       ></input>
-      <p className="warning-text">
-        {searchCompState.warningVisible ? invalidMsg : ""}
+      <p className={`warning-text`}>
+        {searchCompState.warningVisible ? invalidMsg : " "}
       </p>
-      <button className={`baseButton primary large`} type="submit">
+      <button
+        disabled={!searchCompState.inputsValidity}
+        className={`baseButton primary large`}
+        type="submit"
+      >
         Search
       </button>
     </form>

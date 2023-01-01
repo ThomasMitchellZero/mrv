@@ -87,8 +87,7 @@ const ReceiptLookup = () => {
     );
   };
 
-
-  const outObj = {
+  const searchComponents = {
     creditCard: (
       <RL1LineField
         validLength={4}
@@ -151,7 +150,9 @@ const ReceiptLookup = () => {
               <TbHammer className={`${classes.icon}`} />
             )}
           </section>
-          {outObj[recLookupState.activeType] ?? <div>still working on it</div>}
+          {searchComponents[recLookupState.activeType] ?? (
+            <div>still working on it</div>
+          )}
         </section>
 
         <FooterContainer></FooterContainer>

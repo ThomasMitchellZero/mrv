@@ -1815,14 +1815,19 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     4:55 - OK, there's definitely some CSS fuckery I should take care of, but that's easy.  Top priorities:
 
         X-Get the text length validation working.
-        -Ensure that the submit button is properly calling the InvoiceMatcher and sending a string to it.
-        -Actually, that should be an object, since both the search type and the field value are necessary.
+        X-Ensure that the submit button is properly calling the InvoiceMatcher and sending a string to it.
+        X-Actually, that should be an object, since both the search type and the field value are necessary.
         -I need to get in there and actually populate the other 4 fields.
         -Fix the CSS.
+        -Search button should hide or be inactive if the input isn't valid.
         -IF I want, the invoiceMatcher could return some info about what it found, since its main function will be to update the session items.
         -When  minumum effort === true, show the Continue button in the parent.
+        -Figure out how we want to display the in-page title.
         
         -I actually really would like for the component to accept a custom validation function but remember rule 1.
+
+    -Not really related to the work, but I have been REALLY happy with the onBlur validation.  It seems to really work the way I want it to.  I wonder if I could package it.  
+        -I would need to assume any input state with validation is going to have input, a validity state, and a ShowMessage state.  I THINK the handling for all three would have to occur outside the field.  Still, could I configure the field to expect those three states, and assign them to value/onChange, and onBlur?  Maybe?  
 
 
 

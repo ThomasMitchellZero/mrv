@@ -45,13 +45,13 @@
     opacity: 80%;
   }
   
-  .baseButton.primary__disabled{
+  .primary:disabled{
     color: #fff;
     background-color: #555;
     border: none;
   }
   
-  .baseButton.secondary__disabled{
+  .secondary:disabled{
     color:#555;
     border-color: #555;
   }

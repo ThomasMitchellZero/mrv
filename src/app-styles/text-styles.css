@@ -72,6 +72,7 @@ h5 {
     color: red;
     padding: 0px;
     margin: 0px;
+    white-space: pre;
 }
 
 .product-status{
