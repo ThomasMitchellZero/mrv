@@ -1837,7 +1837,20 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -I'm just gonna do it.  This is probably what it should have been anyways.  And that will probably be it for me tonight.  
 
     8:55 - Damn, that went surprisingly well.  Got everything ported over and it's now working as expected.
+
+    9:40 - I'm really in a groove and I could honestly keep going but if I don't point my mind at something else I won't be able to sleep tonight.
+
+1 Jan 2023:
+    9:55 - First entry of the year!  OK, today SHOULD be a decent start.  
     
+    -Very first thing is to get to work on the invoiceMatcher.  Should just be some pretty straightforward Javascript.
+
+    -Next is the SecondReview page where it shows all the rejected items.  Again, should be pretty easy.  After that, I have to make a decision.  
+        -I COULD get into the Manager Override work.  Not the worst idea in the world, considering I have to prototype it pretty soon.
+
+        -The other option, which I currently prefer if I had to pick right now, would be to skip the overrides and go right to the end.  AFAICT, the two last BIG challenges in this process is going to be the Total Review and then the Stepper-Refund walkthrough.  
+
+
 
 
 
