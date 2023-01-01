@@ -61,7 +61,7 @@ const ReceiptLookup = () => {
   const navigate = useNavigate();
 
   const invoiceCtx = useContext(InvoiceContext);
-  const unmatchedObj = useOutletContext().session.unmatched;
+  const returnsContext = useOutletContext();
 
   const [recLookupState, dispatchLookup] = useReducer(
     lookupReducer,
@@ -71,7 +71,7 @@ const ReceiptLookup = () => {
   //// UNMATCHED ITEMS 30 PANEL //////////
 
   // make an array of ItemLIs from the session.unmatched state.
-  const unmatchedArr = Object.values(unmatchedObj);
+  const unmatchedArr = Object.values(returnsContext.session.unmatched);
   const unmatchedLIarr = unmatchedArr.map((iObj) => {
     return (
       <MiniItemLI
@@ -116,14 +116,12 @@ const ReceiptLookup = () => {
     // user can continue after 1 search.
     dispatchLookup({ type: "SUBMIT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    InvoiceSearch({
-      invoiceContext: invoiceCtx,
-      unmatchedObject: unmatchedObj,
-      searchObj: {
-        searchType: recLookupState.activeType,
-        userInput: recLookupState.inputs,
-      },
-    });
+    InvoiceSearch(
+      invoiceCtx,
+      returnsContext,
+      recLookupState.activeType,
+      recLookupState.inputs
+    );
   };
 
   // Search Fields for conditional rendering ////////////
@@ -145,7 +143,7 @@ const ReceiptLookup = () => {
         searchType="phone"
       />
     ),
-    order: (
+    orderNum: (
       <RL1LineField
         RLstate={recLookupState}
         RLreducer={dispatchLookup}
@@ -153,7 +151,7 @@ const ReceiptLookup = () => {
         searchType="order"
       />
     ),
-    proID: (
+    proIdNum: (
       <RL1LineField
         RLstate={recLookupState}
         RLreducer={dispatchLookup}
@@ -161,7 +159,7 @@ const ReceiptLookup = () => {
         searchType="Pro ID"
       />
     ),
-    commercialAcct: (
+    lcaNum: (
       <RL1LineField
         RLstate={recLookupState}
         RLreducer={dispatchLookup}
@@ -202,18 +200,19 @@ const ReceiptLookup = () => {
               "Customer Phone #",
               <MdPhone className={`${classes.icon}`} />
             )}
+
             {optionBtn(
-              "order",
+              "orderNum",
               "Order #",
               <TbPackage className={`${classes.icon}`} />
             )}
             {optionBtn(
-              "proID",
+              "proIdNum",
               "Pro ID #",
               <TbHammer className={`${classes.icon}`} />
             )}
             {optionBtn(
-              "commercialAcct",
+              "lcaNum",
               "Lowe's Commercial Account",
               <MdOutlineCorporateFare className={`${classes.icon}`} />
             )}

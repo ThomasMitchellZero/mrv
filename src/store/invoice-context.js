@@ -7,7 +7,7 @@ const InvoiceContext = React.createContext({
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 8, 13),
-      phone: 1231231234,
+      phone: 1112223333,
       payment: { cash: { paid: 0 } },
     },
     products: {
@@ -27,7 +27,7 @@ const InvoiceContext = React.createContext({
           routing: 12341234,
           account: 43214321,
         },
-        credit: {
+        creditCard: {
           paid: 0,
           ccNum: 1111222211112222,
         },
@@ -44,7 +44,7 @@ const InvoiceContext = React.createContext({
       store: 1234,
       date: new Date(2022, 1, 24),
       payment: {
-        credit: {
+        creditCard: {
           paid: 0,
           ccNum: 3333444433334444,
         },
