@@ -120,8 +120,12 @@ const ReceiptLookup = () => {
       invoiceCtx,
       returnsContext,
       recLookupState.activeType,
-      recLookupState.inputs
+      recLookupState.inputs,
     );
+
+    /*
+
+    */
   };
 
   // Search Fields for conditional rendering ////////////

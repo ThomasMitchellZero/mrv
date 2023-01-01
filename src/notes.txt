@@ -1863,8 +1863,15 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -Well, I still don't understand the problem.  My best guess is that I am breaking the rule that hooks can only be called inside the top-level component, although I have no idea why that would be.  
         -I think what I need to do is just stop bucking, pass the state as a parameter, and move on.  I've spent waaaaay too much time on this already.
 
-    
+    1:50 - OK, let's keep this brief.  I'm struggling because I was in a situation with rules I didn't understand (Hooks needing to be called together at the same level) and I didn't build any momentum in the critical phase.  I now have an inelegant solve, and I should be able to move ahead.  Let's try to jam hard for 45 minutes and see if we can't get our mind  unconstipated.
 
+    2:35 - And now I just found out that while I can't use a hook to get the context which never changes, I somehow can dispatch to the Returns state from within the InvoiceSearch function.  Fuck me, I guess.  God, I know so little about what is actually happening :/
+
+    4:30 - and now the props aren't passing in correctly, and they were just a few minutes ago.  Sigh.  OK.  Let's un-fuck this.
+
+    4:50 - OK, it's working again.  I HATE having to pass props in order, but I'm really having trouble making it work with an object and this is a stupid thing to be spending time on.
+    
+    5:00 - I think I'm going to call it a day.  I didn't make progress and I didn't handle the lack of progress very well.  Instead, I have a new mission for the day.  I'm going to walk and remember that I've had DOZENS of bad days like this in my past, and not one single one stopped me from being on a fucking roll the way I was this week.  
 
 
 
