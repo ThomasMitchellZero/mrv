@@ -3,7 +3,9 @@
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
-const matchMaker = (itemList, invoiceList) => {
+const CartInvoMatcher = (itemList, invoiceList) => {
+
+
   //The three derived states we will create
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
@@ -84,8 +86,8 @@ const matchMaker = (itemList, invoiceList) => {
         const adjustment =
           loopDispo === "unwanted" ? totalPaid * itemRestockFee : 0;
         // Increment all values in the object.
-        thisMatchBite.totalPrice += totalPaid
-        thisMatchBite.totalReturn += (totalPaid - adjustment);
+        thisMatchBite.totalPrice += totalPaid;
+        thisMatchBite.totalReturn += totalPaid - adjustment;
         thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         thisMatchBite.totalAdjustments += adjustment;
 
@@ -114,7 +116,7 @@ const matchMaker = (itemList, invoiceList) => {
   };
 };
 
-export default matchMaker;
+export default CartInvoMatcher;
 
 /*
 

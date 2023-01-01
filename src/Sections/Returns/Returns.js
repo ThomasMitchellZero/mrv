@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
-import matchMaker from "./functions/matching";
+import CartInvoMatcher from "./functions/CartInvoMatcher";
 import cloneDeep from "lodash.clonedeep";
 
 const Returns = () => {
@@ -69,7 +69,7 @@ const Returns = () => {
         };
 
 
-        const derivedStates = matchMaker(newItemList, sessionInvoices);
+        const derivedStates = CartInvoMatcher(newItemList, sessionInvoices);
 
         return {
           ...state,
@@ -84,7 +84,7 @@ const Returns = () => {
 
         delete newItemList[action.payload];
 
-        const derivedStates = matchMaker(newItemList, sessionInvoices);
+        const derivedStates = CartInvoMatcher(newItemList, sessionInvoices);
 
         return {
           ...state,
@@ -103,7 +103,7 @@ const Returns = () => {
           [invoiceNum]: invoiceInfo,
         };
 
-        const derivedStates = matchMaker(sessionItems, newInvoiceList);
+        const derivedStates = CartInvoMatcher(sessionItems, newInvoiceList);
 
         return {
           ...state,
@@ -117,7 +117,7 @@ const Returns = () => {
         let newInvoiceList = { ...state.invoices };
         delete newInvoiceList[action.payload];
 
-        const derivedStates = matchMaker(sessionItems, newInvoiceList);
+        const derivedStates = CartInvoMatcher(sessionItems, newInvoiceList);
 
         return {
           ...state,
