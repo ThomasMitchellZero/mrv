@@ -120,9 +120,6 @@ const ReceiptLookup = () => {
         </TitleBar>
         <section className={classes.seventyContent}>
           <InPageTitleBox mainTitle="Select an option to search for receipt." />
-          <h2 className="inPageTitle">
-            Select an option to search for receipt.
-          </h2>
           <section className={classes.optionBtnHolder}>
             {optionBtn(
               "creditCard",
@@ -140,22 +137,29 @@ const ReceiptLookup = () => {
               <TbPackage className={`${classes.icon}`} />
             )}
             {optionBtn(
-              "commercialAcct",
-              "Lowe's Commercial Account",
-              <MdOutlineCorporateFare className={`${classes.icon}`} />
-            )}
-            {optionBtn(
               "proID",
               "Pro ID #",
               <TbHammer className={`${classes.icon}`} />
             )}
+            {optionBtn(
+              "commercialAcct",
+              "Lowe's Commercial Account",
+              <MdOutlineCorporateFare className={`${classes.icon}`} />
+            )}
+
           </section>
           {searchComponents[recLookupState.activeType] ?? (
             <div>still working on it</div>
           )}
         </section>
 
-        <FooterContainer></FooterContainer>
+        <FooterContainer>
+            
+            <Link className={`baseButton primary large ${classes.button}`}>
+              Continue
+            </Link>
+
+        </FooterContainer>
       </section>
     </section>
   );
