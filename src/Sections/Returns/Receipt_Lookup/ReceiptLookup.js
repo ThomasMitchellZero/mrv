@@ -58,8 +58,10 @@ const lookupReducer = (state, action) => {
 };
 
 const ReceiptLookup = () => {
-  const invoiceCtx = useContext(InvoiceContext)
   const navigate = useNavigate();
+
+  const invoiceCtx = useContext(InvoiceContext);
+  const unmatchedObj = useOutletContext().session.unmatched;
 
   const [recLookupState, dispatchLookup] = useReducer(
     lookupReducer,
@@ -67,9 +69,9 @@ const ReceiptLookup = () => {
   );
 
   //// UNMATCHED ITEMS 30 PANEL //////////
-  const unmatchedArr = Object.values(useOutletContext().session.unmatched);
 
   // make an array of ItemLIs from the session.unmatched state.
+  const unmatchedArr = Object.values(unmatchedObj);
   const unmatchedLIarr = unmatchedArr.map((iObj) => {
     return (
       <MiniItemLI
@@ -114,12 +116,17 @@ const ReceiptLookup = () => {
     // user can continue after 1 search.
     dispatchLookup({ type: "SUBMIT" });
     // each field searches via a different function.  Passes this function to primary InvoiceMatcher
-    InvoiceSearch(invoiceCtx,{
-      searchType: recLookupState.activeType,
-      userInput: recLookupState.inputs,
+    InvoiceSearch({
+      invoiceContext: invoiceCtx,
+      unmatchedObject: unmatchedObj,
+      searchObj: {
+        searchType: recLookupState.activeType,
+        userInput: recLookupState.inputs,
+      },
     });
-    console.log("hello?")
   };
+
+  // Search Fields for conditional rendering ////////////
 
   const searchComponents = {
     creditCard: (
@@ -128,7 +135,6 @@ const ReceiptLookup = () => {
         RLreducer={dispatchLookup}
         validLength={16}
         searchType="credit card"
-
       />
     ),
     phone: (
