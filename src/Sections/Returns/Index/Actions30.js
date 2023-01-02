@@ -77,7 +77,7 @@ const Actions30 = ({ dispatchActive, returnState }) => {
         />
       </section>
       <FooterContainer>
-        {hasItems ? (
+        {!hasItems ? null : (
           <Link
             className={`baseButton primary large ${classes.button}`}
             to={
@@ -87,7 +87,7 @@ const Actions30 = ({ dispatchActive, returnState }) => {
           >
             Continue
           </Link>
-        ) : null}
+        )}
       </FooterContainer>
     </section>
   );
