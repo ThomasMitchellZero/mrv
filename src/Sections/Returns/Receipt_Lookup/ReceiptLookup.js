@@ -143,7 +143,7 @@ const ReceiptLookup = () => {
       <RL1LineField
         RLstate={recLookupState}
         RLreducer={dispatchLookup}
-        validLength={9}
+        validLength={10}
         searchType="phone"
       />
     ),
