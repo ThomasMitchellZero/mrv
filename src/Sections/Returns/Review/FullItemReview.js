@@ -1,13 +1,13 @@
-import classes from "./FirstReview.module.css";
+import classes from "./FullItemReview.module.css";
 
 import TitleBar from "../../../components/UI/TitleBar";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import InPageTitleBox from "../../../components/UI/InPageTitleBox";
-import FullReviewLI from "../../../components/UI/FullReviewLI";
+import FullReviewLI from "./FullReviewLI";
 
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
-const FirstReview = ({ pageStatus = "preSearch" }) => {
+const FullReview = ({ pageStatus = "preSearch" }) => {
   const navigate = useNavigate();
   const returnsContext = useOutletContext();
   const unmatched = Object.values(returnsContext.session.unmatched);
@@ -61,4 +61,4 @@ const FirstReview = ({ pageStatus = "preSearch" }) => {
   );
 };
 
-export default FirstReview;
+export default FullReview;

@@ -15,7 +15,7 @@ import Placeholder from "./Sections/Placeholder/Placeholder";
 // Returns
 import Returns from "./Sections/Returns/Returns";
 import ReturnsIndex from "./Sections/Returns/Index/ReturnsIndex";
-import FirstReview from "./Sections/Returns/Review/FirstReview";
+import FullItemReview from "./Sections/Returns/Review/FullItemReview";
 import ReceiptLookup from "./Sections/Returns/Receipt_Lookup/ReceiptLookup";
 import TotalReview from "./Sections/Returns/Total_Review/TotalReview";
 
@@ -35,12 +35,12 @@ function App() {
             <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
             <Route
               path="first-review"
-              element={<FirstReview pageStatus="preSearch" />}
+              element={<FullItemReview pageStatus="preSearch" />}
             ></Route>
             <Route path="receipt-lookup" element={<ReceiptLookup />}></Route>
             <Route
               path="unmatched-review"
-              element={<FirstReview pageStatus="postSearch" />}
+              element={<FullItemReview pageStatus="postSearch" />}
             ></Route>
             <Route path="total-review" element={<TotalReview />}></Route>
           </Route>

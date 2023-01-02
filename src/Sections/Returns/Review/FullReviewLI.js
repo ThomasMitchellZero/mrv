@@ -1,6 +1,6 @@
 import classes from "./FullReviewLI.module.css";
 
-import RejectionCode from "./RejectionCode";
+import RejectionCode from "../../../components/UI/RejectionCode";
 
 const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
   return (
