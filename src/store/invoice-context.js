@@ -71,9 +71,10 @@ const InvoiceContext = React.createContext({
       store: 1234,
       date: new Date(2022, 2, 11),
       payment: { cash: { paid: 0 } },
+      phone: "1112223333",
     },
     products: {
-      100: { quantity: 99, price: 8.15, tax: 0.8 },
+      100: { quantity: 4, price: 8.15, tax: 0.8 },
     },
   },
 
