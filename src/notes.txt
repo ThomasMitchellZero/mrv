@@ -1873,6 +1873,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     
     5:00 - I think I'm going to call it a day.  I didn't make progress and I didn't handle the lack of progress very well.  Instead, I have a new mission for the day.  I'm going to walk and remember that I've had DOZENS of bad days like this in my past, and not one single one stopped me from being on a fucking roll the way I was this week.  
 
+2 Jan, 2023:
+    First day back at work.  I don't have any meetings today and I was thinking about slacking off, but I apparently have my 1:1 with Liz tomorrow and if I could get the matching to work, that would be sweet.  I actually think I have most of the logic sorted, so I just need to run through it in Chrome and see what I get.  
+
+        -First, I need to figure out what to do once a match is found.
+
+        -I think my VERY top priority should be to get it working.  If that means multiple dispatches, so be it.
+
+        -Time allowing, I can set up the Returns reducer to accept an array, destructure it,  and put everything it contained into the new Scanned Arrays state.
+
+    3:45.  Well, against all odds the InvoiceSearch is now working just fine.  I want to clean up the TotalReview page b/c it's an ugly shitstorm right now, and maybe add Rejected Items, which SHOULD be pretty much a clone of FirstReview.  In fact, maybe I should just modify FirstReview?
 
 
 

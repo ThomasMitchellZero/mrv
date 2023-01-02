@@ -43,7 +43,7 @@ const InvoiceSearch = (
         shouldAdd
       ) {
         outputInvoArr.push(thisInvo)
-        //I think we can break here.  If ANY matches are found, that invoice goes into the list, and if it contains multiple unmatched items, that gets handled in the matchmaker.
+        //If ANY matches are found, that invoice goes into the list, and if it contains multiple unmatched items, that gets handled in the matchmaker.
         break
 
       }
