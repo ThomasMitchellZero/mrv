@@ -1,6 +1,5 @@
 import classes from "./RL1LineField.module.css";
 
-
 const RL_1LineField = ({
   RLstate,
   RLreducer,
@@ -25,9 +24,12 @@ const RL_1LineField = ({
   };
 
   const handleBlur = () => {
+    const nextPayload =
+      RLstate.inputs.length === 0 ? false : !RLstate.inputsValidity;
+
     RLreducer({
       type: "SHOW_WARNING",
-      payload: !RLstate.inputsValidity,
+      payload: nextPayload,
     });
   };
 
