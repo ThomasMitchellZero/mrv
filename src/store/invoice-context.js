@@ -7,7 +7,7 @@ const InvoiceContext = React.createContext({
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 8, 13),
-      phone: 1112223333,
+      phone: "1112223333",
       payment: { cash: { paid: 0 } },
     },
     products: {
@@ -24,12 +24,12 @@ const InvoiceContext = React.createContext({
       payment: {
         check: {
           paid: 0,
-          routing: 12341234,
-          account: 43214321,
+          routing: "12341234",
+          account: "43214321",
         },
         creditCard: {
           paid: 0,
-          ccNum: 1111222211112222,
+          ccNum: "1111222211112222",
         },
       },
     },
@@ -46,7 +46,7 @@ const InvoiceContext = React.createContext({
       payment: {
         creditCard: {
           paid: 0,
-          ccNum: 3333444433334444,
+          ccNum: "3333444433334444",
         },
       },
     },
@@ -82,9 +82,9 @@ const InvoiceContext = React.createContext({
       store: 1234,
       date: new Date(2022, 3, 8),
       payment: { cash: { paid: 0 } },
-      orderNum: 11112222,
-      lcaNum: 11112222,
-      proIdNum: 11112222,
+      orderNum: "11112222",
+      lcaNum: "11112222",
+      proIdNum: "11112222",
     },
 
     products: {

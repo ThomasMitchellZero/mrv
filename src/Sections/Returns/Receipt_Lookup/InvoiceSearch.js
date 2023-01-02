@@ -7,11 +7,13 @@ const InvoiceSearch = (
   searchInput = ""
 ) => {
   const storeInvos = invoiceContext;
-  const unmatched = returnsContext.session.invoices;
+  const unmatched = returnsContext.session.unmatched;
 
   const sessionDispatch = returnsContext.dispatchSession;
 
   console.log(searchInput);
+
+  let outputInvoObj = {}
 
   // loop through all the invoices
   for (const thisInvo of Object.keys(storeInvos)) {
@@ -24,21 +26,34 @@ const InvoiceSearch = (
 
       //
       const searchRoutes = {
-        creditCard: iInvo.payment?.creditCard?.ccNum,
+        creditCard: iInvoDetails.payment?.creditCard?.ccNum,
         phone: iInvoDetails?.phone,
         orderNum: iInvoDetails?.orderNum,
         proID: iInvoDetails?.proID,
         lcaNum: iInvoDetails?.lcaNum,
       };
 
+      const hasItem = iInvo.products?.[thisUMitem] ?? false
+      const hasSearchMatch =  searchRoutes[searchType] === searchInput
+
+      const shouldAdd = hasItem && hasSearchMatch
+
       if (
-        storeInvos[thisInvo].products?.[thisUMitem] &&
-        searchRoutes[searchType] === searchInput
+        shouldAdd
       ) {
+        outputInvoObj[thisInvo] = null
+        //I think we can break here.  If ANY matches are found, that invoice goes into the list, and if it contains multiple unmatched items, that gets handled in the matchmaker.
+        break
 
       }
     }
   }
+
+  sessionDispatch({type: "ADD_INVOICE", payload: outputInvoObj })
+
+  return outputInvoObj;
+
+
 
   // For each invoice
   // if invoice isn't already in the list.  Or maybe I don't need?  If I overwrite an invoice that's already on the list I don't think anything bad happens because there's no quantity and every instance of the invoice is identical?
