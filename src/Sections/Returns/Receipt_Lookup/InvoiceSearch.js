@@ -13,7 +13,8 @@ const InvoiceSearch = (
 
   console.log(searchInput);
 
-  let outputInvoObj = {}
+  // Each invoice is only evaluated once, so there won't be any repeats
+  let outputInvoArr = []
 
   // loop through all the invoices
   for (const thisInvo of Object.keys(storeInvos)) {
@@ -41,7 +42,7 @@ const InvoiceSearch = (
       if (
         shouldAdd
       ) {
-        outputInvoObj[thisInvo] = null
+        outputInvoArr.push(thisInvo)
         //I think we can break here.  If ANY matches are found, that invoice goes into the list, and if it contains multiple unmatched items, that gets handled in the matchmaker.
         break
 
@@ -49,9 +50,9 @@ const InvoiceSearch = (
     }
   }
 
-  sessionDispatch({type: "ADD_INVOICE", payload: outputInvoObj })
+  sessionDispatch({type: "ADD_INVOICE", payload: outputInvoArr })
 
-  return outputInvoObj;
+  return outputInvoArr;
 
 
 

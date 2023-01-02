@@ -96,12 +96,14 @@ const Returns = () => {
       case "ADD_INVOICE": {
         const sessionItems = { ...state.items };
 
-        const invoiceNum = action.payload;
-        const invoiceInfo = { ...invoiceContext[invoiceNum] };
-        const newInvoiceList = {                                                              
-          ...state.invoices,
-          [invoiceNum]: invoiceInfo,
-        };
+        const invoicArr = action.payload;
+        const newInvoiceList = {...state.invoices};
+
+        //loop through the incoming array
+        for (const i of invoicArr){
+          //add this key and its properties from invoiceContext
+          newInvoiceList[i] = invoiceContext[i]
+        }
 
         const derivedStates = CartInvoMatcher(sessionItems, newInvoiceList);
 
