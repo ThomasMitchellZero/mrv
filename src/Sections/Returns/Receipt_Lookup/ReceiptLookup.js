@@ -120,7 +120,7 @@ const ReceiptLookup = () => {
       invoiceCtx,
       returnsContext,
       recLookupState.activeType,
-      recLookupState.inputs,
+      recLookupState.inputs
     );
 
     /*
@@ -228,7 +228,10 @@ const ReceiptLookup = () => {
 
         <FooterContainer>
           {!recLookupState.didSearch ? null : (
-            <Link className={`baseButton primary large ${classes.button}`}>
+            <Link
+              to="../unmatched-review"
+              className={`baseButton primary large ${classes.button}`}
+            >
               Continue
             </Link>
           )}
