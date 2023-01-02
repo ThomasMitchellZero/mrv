@@ -25,7 +25,7 @@ const InvoiceSearch = (
     // loop through unmatchedItems
     for (const thisUMitem of Object.keys(unmatched)) {
 
-      //
+      // all potential search types.
       const searchRoutes = {
         creditCard: iInvoDetails.payment?.creditCard?.ccNum,
         phone: iInvoDetails?.phone,
@@ -34,6 +34,7 @@ const InvoiceSearch = (
         lcaNum: iInvoDetails?.lcaNum,
       };
 
+      // TBD - could probably be just a 'continue' after each check.
       const hasItem = iInvo.products?.[thisUMitem] ?? false
       const hasSearchMatch =  searchRoutes[searchType] === searchInput
 
