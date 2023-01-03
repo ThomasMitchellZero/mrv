@@ -1884,6 +1884,15 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     3:45.  Well, against all odds the InvoiceSearch is now working just fine.  I want to clean up the TotalReview page b/c it's an ugly shitstorm right now, and maybe add Rejected Items, which SHOULD be pretty much a clone of FirstReview.  In fact, maybe I should just modify FirstReview?
 
+    5:30.  Well.  Would you look at that.  In spite of waking up dragging ass and STRUGGLING to get going, everything up to the second Item Review is now working as planned.  Talk about a come-from-behind victory!  I was sure this would never be a swallk, but I honestly think I've earned it.
+
+3 Jan 2022.
+    -First, I'm gonna push a build to my Github Pages account in case this goes horribly wrong because I'm gonna show it to Liz in about 4 hours.
+
+    -Then, I'm going to move the contents of invoice-context into a variable and return that variable so I can do operations on it.  My understanding is that since it is not a state, the math operations should only happen once.  
+
+    -
+
 
 
 
