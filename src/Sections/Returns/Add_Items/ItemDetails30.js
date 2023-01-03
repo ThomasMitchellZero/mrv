@@ -15,13 +15,7 @@ const ItemDetails30 = ({
   const sessionItem = returnsContext.session.items[activeItem];
   const dispatchSession = returnsContext.dispatchSession;
 
-  // If the current item is deleted, send the user back to the Item Entry panel.
-  if (!sessionItem)
-    dispatchActivePanels({
-      type: "SET_PANELS",
-      payload: { set30: "item_entry" },
-    });
-
+  
   const refDispoObj = {
     doesntWork: 0,
     broken: 0,
