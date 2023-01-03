@@ -2,7 +2,7 @@ import React from "react";
 
 //products = 100, 200, 300, 400, 900, 910
 
-const InvoiceContext = React.createContext({
+const invoiceObj = {
   AAA: {
     invoiceDetails: {
       store: 1234,
@@ -94,6 +94,13 @@ const InvoiceContext = React.createContext({
       400: { quantity: 1, price: 1021.05, tax: 98.21 },
     },
   },
-});
+}
+
+
+
+
+
+
+const InvoiceContext = React.createContext(invoiceObj);
 
 export default InvoiceContext;
