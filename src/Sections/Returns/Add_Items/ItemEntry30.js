@@ -80,18 +80,21 @@ const ItemEntry30 = (props) => {
   // Adds the item and quantity to the top Returns state via dispatch.
   const submitHandler = (event) => {
     event.preventDefault();
-    const itemPayload = {
-      itemNum: formState.itemNum,
-      quantity: formState.quantity,
-      newDisposition: undefined,
-    };
 
-    dispatchSession({
-      type: "ADD_ITEM",
-      payload: itemPayload,
-    });
+    if (formState.formValid) {
+      const itemPayload = {
+        itemNum: formState.itemNum,
+        quantity: formState.quantity,
+        newDisposition: undefined,
+      };
 
-    dispatchForm({ type: "CLEAR_FORM" });
+      dispatchSession({
+        type: "ADD_ITEM",
+        payload: itemPayload,
+      });
+
+      dispatchForm({ type: "CLEAR_FORM" });
+    }
   };
 
   return (
@@ -146,6 +149,7 @@ const ItemEntry30 = (props) => {
           <button
             form="item_form"
             type="submit"
+            disabled={!formState.formValid}
             className={`baseButton primary large ${classes.button}`}
           >
             Add Item

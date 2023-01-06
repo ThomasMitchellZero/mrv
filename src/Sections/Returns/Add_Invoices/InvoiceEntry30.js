@@ -82,11 +82,14 @@ const InvoiceEntry30 = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatchSession({
-      type: "ADD_INVOICE",
-      payload: [formState.invoiceNum],
-    });
-    dispatchForm({ type: "CLEAR_INPUTS" });
+
+    if (formState.formValid) {
+      dispatchSession({
+        type: "ADD_INVOICE",
+        payload: [formState.invoiceNum],
+      });
+      dispatchForm({ type: "CLEAR_INPUTS" });
+    }
   };
 
   const errorTextHandler = () => {
@@ -129,6 +132,7 @@ const InvoiceEntry30 = (props) => {
           <button
             form="invoiceForm"
             type="submit"
+            disabled={!formState.formValid}
             className={`baseButton primary large ${classes.button}`}
           >
             Add Invoice
