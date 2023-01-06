@@ -72,7 +72,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
         onClick={() => {
           dispatchActivePanels({
             type: "SET_PANELS",
-            payload: { set30: "item_details", details: line.itemNum },
+            payload: { set30: "item_details", activeItem: line.itemNum },
           });
         }}
       >

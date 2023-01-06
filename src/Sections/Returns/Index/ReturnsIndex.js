@@ -17,16 +17,18 @@ import { useOutletContext } from "react-router-dom";
 const panelsReducer = (state, action) => {
   switch (action.type) {
     case "SET_PANELS": {
-      const new30 = action.payload.set30 ? action.payload.set30 : state.state30;
-      const new70 = action.payload.set70 ? action.payload.set70 : state.state70;
-      const newDetails = action.payload.details
-        ? action.payload.details
-        : state.stateDetails;
+      const new30 = action.payload.set30 ?? state.state30;
+      const new70 = action.payload.set70 ?? state.state70;
+      const newActiveItem = action.payload.activeItem ?? state.activeItem;
+      const newActiveItemTab =
+        action.payload.activeItemTab ?? state.activeItemTab;
 
       return {
+        ...state,
         state30: new30,
         state70: new70,
-        stateDetails: newDetails,
+        activeItem: newActiveItem,
+        activeItemTab: newActiveItemTab,
       };
     }
 
@@ -38,17 +40,20 @@ const panelsReducer = (state, action) => {
 const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
 
-
   //main state for holding active panels.
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "session_items",
-    stateDetails: 200,
+    activeItem: 200,
+    activeItemTab: "unwanted"
   });
 
   const thirty_panels = {
     actions: (
-      <Actions30 dispatchActive={dispatchActivePanels} returnState={returnsContext} />
+      <Actions30
+        dispatchActive={dispatchActivePanels}
+        returnState={returnsContext}
+      />
     ),
     item_entry: (
       <ItemEntry30
@@ -58,9 +63,11 @@ const ReturnsIndex = () => {
     ),
     item_details: (
       <ItemDetails30
+        key={activePanels.activeItem}
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
-        activeItem={activePanels.stateDetails}
+        activeItem={activePanels.activeItem}
+        activeTab={activePanels.activeItemTab}
       />
     ),
     invoice_entry: (

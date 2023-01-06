@@ -1889,6 +1889,54 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -BUG to fix:  If I have Item A visible in the ProductDetails30 panel and then select a different item, the panel doesn't update and show the dispositions of the new item.
 
+6 Jan 2022
+    12:40.  Honestly I'm not doing great today, but I am going to at least try to make some progress.  
+
+    The BIGGEST thing that needs to be handled is the fact that when I change items in <ItemDetail30> the dispositions being shown are not from the new item.  There are two issues I need to clean up.  
+
+        -First and most important - When I change items, the Reason buttons and their quantities need to reflect the current item.
+
+        -Second: From what I heard yesterday, Didn't Want / Need is going to need its own buttons.  That means:
+            -Buttons need to accept an argument for which object they read from / write to.
+            -Clicking Didn't Want / Need should no longer clear all dispositions.  Actually, it probably shouldn't do that to begin with.
+
+    -OK.  What I noticed is that the buttons are reading from the local state, when they ought to be reading from the global state.  It's reading from a prop, but any change to that prop SHOULD be triggering a re-render from a parent so I don't THINK this should be a problem?  
+
+        -So.  The quantities are now correctly displaying, but when I change items, the input field doesn't change, and I've also noticed that the localDisposObj stays the same.  When a new item is clicked, the localDisposObj SHOULD become a clone of the Global dispos obj for that item.  
+
+        -Here is my current best guess at what is happening.  When I click on a new item, I am changing a prop, not a state.  AFAICT, everything that does change correctly (picture, qty, etc. ) are all using that prop as part of their route.  so like the image is   image[itemNum]   and I THINK that if that value changes, so does whatever it is referencing.  
+
+        I keep thinking to just put a local state in there that tracks the ActiveItem, 
+
+        Here's where I'm stuck.  I THOUGHT that since every time I clicked on a new item, I was triggering a re-render.  My Reducer contains a function that sets the state initially, and so I thought that every time I triggered a re-render, that would get reset.
+
+            -That's an assumption.  I don't actually know if it is the case.  I will put a console.log in there.  IF my understanding is correct, I should AT LEAST see it ping every time I select a different cart item.  
+            
+            -HA.  OK.  So that solves part of the mystery.  The logger pings ONCE, when the details are loaded.  If I interact with it or change anything, the details do not change.  Even if I change items, the inital state does not move.
+
+            However, if I close the Item Details window and then re-open it, I do get a ping.  
+
+        -befoe I do, potential solve.  I could track which item is active in a higher state.  brb.  
+
+        -I was able to do it with UseEffect, and setting the local state to match the item's Returns disposition after every re-render.  A couple problems with this.
+
+            -First, the input field behaves weirdly.  It doesn't leave the old value if I enter something invalid.  It just clears the whole field, although the error message does display what I should have done instead.  AFAICT this is because since I am referencing the session item's dispos when I set the local state, I have to include the session item as a dependency.  I don't understand why but that is the rule.
+
+            -Second, React's docmentation recommends against this.  I'm setting the same state twice, once in the inital render and again once the render is complete.  
+
+            -The third reason is that the only reason I have a local state tracking the input is so they can have an invalid number.  I'm pretty sure that's the only reason.  If I feel like I don't need that, I should get rid of the local state entirely and have the whole thing track the global state.  
+
+        -Second partial solve: just do the whole thing in the global state, don't allow any invalid numbers.  Not the IDEAL user experience, but it's no worse than using UseEffect and the logic is simpler.
+
+        -Third option:  If I provide each item with a unique Key prop (like if I was mapping from an array) then it will trigger a re-render each time.  The problem with THAT is that my state appears to get re-set every time I re-render, so I keep having to click on the "Damaged / Defective" button each time.  
+
+            -If I hate this and need to solve it, I could store the active tab on the item in the session.  I don't think it's technically even all that bad because it doesn't have to get stored in the database.  It's just a property I add to the item as I create it.
+
+            +The other plus to doing it that way is that I get to keep the Local State.  I'm doing the real-time validation with no submit button because I think that's the most user-friendly way to do this, but I have a feeling they're going to want the submit button.  
+
+        -Fourth Option:
+            -I create an Active Item state in ReturnsIndex.  I'm actually already kind of tracking this.  BUT.  Here's a huge problem.  I was assuming that changing the active item would trigger a re-render, but it doesn't right now.  OK, nvm this is nothing.  
+
 
 
 

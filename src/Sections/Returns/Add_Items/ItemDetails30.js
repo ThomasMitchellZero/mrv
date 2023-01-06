@@ -5,17 +5,37 @@ import FooterContainer from "../../../components/UI/FooterContainer";
 
 import disposSqueezer from "../functions/dispoSqueezer";
 
-import { useReducer, useRef } from "react";
+import { useReducer, useRef, useEffect } from "react";
+
+// Reducer to control which tab and which defective reason are active.
+const dispositionReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_TAB": {
+      return { ...state, activeTab: action.payload };
+    }
+    case "SET_EXCESS_ITEMS": {
+      return { ...state, undamagedItems: action.payload };
+    }
+    case "EDIT_DISPOS_OBJ": {
+      return { ...state, localDisposObj: action.payload };
+    }
+    case "SET_MULTIPLE": {
+      return { ...state, ...action.payload };
+    }
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+};
 
 const ItemDetails30 = ({
   activeItem,
+  activeTab,
   dispatchActivePanels,
   returnsContext,
 }) => {
   const sessionItem = returnsContext.session.items[activeItem];
   const dispatchSession = returnsContext.dispatchSession;
 
-  
   const refDispoObj = {
     doesntWork: 0,
     broken: 0,
@@ -26,40 +46,19 @@ const ItemDetails30 = ({
     warranty: 0,
   };
 
-  const defaultState = {
-    activeTab: "unwanted",
-    defectiveReason: "doesntWork",
-    inputValid: true,
-    undamagedItems: sessionItem.quantity,
-    localDisposObj: { ...sessionItem.disposition },
-  };
-
-  // Reducer to control which tab and which defective reason are active.
-  const dispositionReducer = (state, action) => {
-    switch (action.type) {
-      case "SET_TAB": {
-        return { ...state, activeTab: action.payload };
-      }
-      case "SET_ACTIVE_DISPO": {
-        return { ...state, defectiveReason: action.payload.dispoType };
-      }
-      case "SET_EXCESS_ITEMS": {
-        return { ...state, undamagedItems: action.payload };
-      }
-      case "EDIT_DISPOS_OBJ": {
-        return { ...state, localDisposObj: action.payload };
-      }
-      case "SET_MULTIPLE": {
-        return { ...state, ...action.payload };
-      }
-      default:
-        throw new Error(`Unknown action type: ${action.type}`);
-    }
-  };
-
   const [detailsState, dispatchItemDetails] = useReducer(
     dispositionReducer,
-    defaultState
+    {},
+    () => {
+      console.log("ping");
+      return {
+        activeTab: "unwanted",
+        defectiveReason: "doesntWork",
+        inputValid: true,
+        undamagedItems: sessionItem.quantity,
+        localDisposObj: { ...sessionItem.disposition },
+      };
+    }
   );
 
   const inputElement = useRef(null);
@@ -80,13 +79,34 @@ const ItemDetails30 = ({
     });
   };
 
-  // reusable button to set item's dispositions
-  const DispoButton = (label, reasonKey) => {
+  // button for setting the tab state in ReturnsIndex
+  const tabButton = (reason, title) => {
+    return (
+      <button
+        type="button"
+        className={`baseButton secondary ${
+          activeTab === reason ? "active" : ""
+        }`}
+        onClick={() => {
+          // Sets active tab in ReturnsIndex parent
+          dispatchActivePanels({
+            type: "SET_PANELS",
+            payload: { activeItemTab: reason },
+          });
+        }}
+      >
+        {title}
+      </button>
+    );
+  };
+
+  // reusable button to set local Disposition to be edited.
+  const DispoButton = (label, reasonKey, disposCategory) => {
     const isActive = detailsState.defectiveReason === reasonKey ? "active" : "";
 
-    // If this dispo has a quantity, make str to display it after label.
-    const displayQty = detailsState.localDisposObj[reasonKey]
-      ? `(${detailsState.localDisposObj[reasonKey]})`
+    // Make display qty string if item exists in dispo.
+    const displayQty = sessionItem.disposition[reasonKey]
+      ? `(${sessionItem.disposition[reasonKey]})`
       : "";
     return (
       <button
@@ -197,50 +217,14 @@ const ItemDetails30 = ({
         <section className={classes.returnReason}>
           <p>Why is customer returning this item?</p>
           <section>
-            <button
-              type="button"
-              className={`baseButton secondary ${
-                detailsState.activeTab === "unwanted" ? "active" : ""
-              }`}
-              onClick={() => {
-                // this empties the local dispos obj.
-                dispatchItemDetails({
-                  type: "SET_MULTIPLE",
-                  payload: { activeTab: "unwanted", localDisposObj: {} },
-                });
-                // and also the session dispos obj for this item
-                dispatchSession({
-                  type: "ADD_ITEM",
-                  payload: {
-                    itemNum: activeItem,
-                    newDisposition: {},
-                    inputQty: null,
-                  },
-                });
-              }}
-            >
-              Didn't Want
-            </button>
-            <button
-              type="button"
-              className={`baseButton secondary ${
-                detailsState.activeTab === "defective" ? "active" : ""
-              }`}
-              onClick={() => {
-                dispatchItemDetails({
-                  type: "SET_TAB",
-                  payload: "defective",
-                });
-              }}
-            >
-              Damaged/Defective
-            </button>
+            {tabButton("unwanted", "Didn't Want")}
+            {tabButton("defective", "Damaged/Defective")}
           </section>
           <div className="divider" />
         </section>
 
         {/* Disposition Section */}
-        {detailsState.activeTab !== "defective" ? null : (
+        {activeTab !== "defective" ? null : (
           <section className={classes.defectiveDispo}>
             {/* Title, Input Field, and warning message */}
             <section className={classes.dispo_descriptor}>
@@ -252,6 +236,7 @@ const ItemDetails30 = ({
                   ref={inputElement}
                   className={`base_input`}
                   placeholder="Qty."
+                  min={0}
                   style={{ width: "4rem" }}
                   value={
                     detailsState.localDisposObj[detailsState.defectiveReason] ||
@@ -288,9 +273,7 @@ const ItemDetails30 = ({
         )}
       </section>
 
-      <FooterContainer>
-
-      </FooterContainer>
+      <FooterContainer></FooterContainer>
     </section>
   );
 };
