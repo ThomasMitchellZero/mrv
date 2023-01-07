@@ -39,6 +39,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
         disposition: {},
+        refundPerPayment: {},
         totalPrice: 0,
         totalReturn: 0,
         totalTax: 0,
@@ -97,11 +98,42 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         const adjustment = damagedCodes[loopDispo]
           ? 0
           : totalPaid * itemRestockFee;
+
+        const totalAdjustedReturn = totalPaid - adjustment;
+
         // Increment all values in the object.
         thisMatchBite.totalPrice += totalPaid;
-        thisMatchBite.totalReturn += totalPaid - adjustment;
+        thisMatchBite.totalReturn += totalAdjustedReturn;
         thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         thisMatchBite.totalAdjustments += adjustment;
+
+        //// MODIFY PAYMENTS IN INVOICE ////
+
+        // loop through all this invoice's payment types.
+        const invoPayments = thisInvoice.invoiceDetails.payment;
+        for (const thisPaymentType of Object.key(invoPayments)) {
+          // Make sure this Invo payment type isn't being reduced past 0.
+          const decrementAmount = Math.min(
+            thisPaymentType.paid,
+            //Adjusted amt, since that's what's actually being refunded.
+            totalAdjustedReturn
+          );
+          // Decrement this payment type
+          invoPayments[thisPaymentType].paid -= decrementAmount;
+
+          // get existing value of this payment type in the MatchBite.
+          const oldPaymentVal =
+            thisMatchBite.refundPerPayment[thisPaymentType] ?? 0;
+          // add new value to it.
+          thisMatchBite.refundPerPayment[thisPaymentType] =
+            oldPaymentVal + decrementAmount;
+
+          // if this payment is zeroed out, remove it from the invoice.
+          if (invoPayments[thisPaymentType].paid === 0){
+            delete invoPayments[thisPaymentType]
+          }
+        }
+
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
