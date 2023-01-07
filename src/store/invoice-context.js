@@ -1,8 +1,10 @@
 import React from "react";
 
+import invoicePaymentPricer from "../global_functions/invoicePaymentPricer"
+
 //products = 100, 200, 300, 400, 900, 910
 
-const invoiceObj = {
+const unpricedInvoiceObj = {
   AAA: {
     invoiceDetails: {
       store: 1234,
@@ -11,9 +13,9 @@ const invoiceObj = {
       payment: { cash: { paid: 0 } },
     },
     products: {
-      100: { quantity: 8, price: 41.5, tax: 3.8 },
-      300: { quantity: 2, price: 24.15, tax: 1.8 },
-      400: { quantity: 10, price: 13.15, tax: 1.2 },
+      100: { quantity: 8, price: 4150, tax: 380 },
+      300: { quantity: 2, price: 2415, tax: 180 },
+      400: { quantity: 10, price: 1315, tax: 120 },
     },
   },
 
@@ -34,8 +36,8 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 8, price: 44.0, tax: 4.1 },
-      900: { quantity: 1, price: 987.15, tax: 91.0 },
+      200: { quantity: 8, price: 4400, tax: 410 },
+      900: { quantity: 1, price: 98715, tax: 9100 },
     },
   },
 
@@ -51,8 +53,8 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 99, price: 44.15, tax: 4.02 },
-      //300: { quantity: 99, price: 24.15 },
+      200: { quantity: 16, price: 4415, tax: 402 },
+      300: { quantity: 3, price: 2415, tax: 240 },
     },
   },
   DDD: {
@@ -62,8 +64,8 @@ const invoiceObj = {
       payment: { cash: { paid: 0 } },
     },
     products: {
-      300: { quantity: 99, price: 24.15, tax: 2.1 },
-      400: { quantity: 1, price: 1024.15, tax: 98.21 },
+      300: { quantity: 6, price: 2415, tax: 216 },
+      400: { quantity: 1, price: 102415, tax: 9821 },
     },
   },
   EEE: {
@@ -74,7 +76,7 @@ const invoiceObj = {
       phone: "1112223333",
     },
     products: {
-      100: { quantity: 4, price: 8.15, tax: 0.8 },
+      100: { quantity: 4, price: 815, tax: 86 },
     },
   },
 
@@ -89,18 +91,16 @@ const invoiceObj = {
     },
 
     products: {
-      100: { quantity: 10, price: 8.15, tax: 0.8 },
-      300: { quantity: 8, price: 25.55, tax: 2.1 },
-      400: { quantity: 1, price: 1021.05, tax: 98.21 },
+      100: { quantity: 10, price: 5615, tax: 80 },
+      300: { quantity: 8, price: 2555, tax: 2.10 },
+      400: { quantity: 1, price: 102105, tax: 9821 },
     },
   },
 }
 
+const pricedInvoiceObj = invoicePaymentPricer(unpricedInvoiceObj)
 
 
-
-
-
-const InvoiceContext = React.createContext(invoiceObj);
+const InvoiceContext = React.createContext(pricedInvoiceObj);
 
 export default InvoiceContext;
