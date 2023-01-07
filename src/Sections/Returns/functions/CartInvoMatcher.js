@@ -95,9 +95,9 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         const totalPaid = thisInvoItem.price * matchedQty;
 
         //Don't apply restock fee to damaged items.
-        const adjustment = damagedCodes[loopDispo]
-          ? 0
-          : totalPaid * itemRestockFee;
+        let adjustment = Math.round(
+          damagedCodes[loopDispo] ? 0 : totalPaid * itemRestockFee
+        );
 
         const totalAdjustedReturn = totalPaid - adjustment;
 
@@ -106,34 +106,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         thisMatchBite.totalReturn += totalAdjustedReturn;
         thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         thisMatchBite.totalAdjustments += adjustment;
-
-        //// MODIFY PAYMENTS IN INVOICE ////
-
-        // loop through all this invoice's payment types.
-        const invoPayments = thisInvoice.invoiceDetails.payment;
-        for (const thisPaymentType of Object.keys(invoPayments)) {
-          // Make sure this Invo payment type isn't being reduced past 0.
-          const decrementAmount = Math.min(
-            thisPaymentType.paid,
-            //Adjusted amt, since that's what's actually being refunded.
-            totalAdjustedReturn
-          );
-          // Decrement this payment type
-          invoPayments[thisPaymentType].paid -= decrementAmount;
-
-          // get existing value of this payment type in the MatchBite.
-          const oldPaymentVal =
-            thisMatchBite.refundPerPayment[thisPaymentType] ?? 0;
-          // add new value to it.
-          thisMatchBite.refundPerPayment[thisPaymentType] =
-            oldPaymentVal + decrementAmount;
-
-          // if this payment is zeroed out, remove it from the invoice.
-          if (invoPayments[thisPaymentType].paid === 0){
-            delete invoPayments[thisPaymentType]
-          }
-        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
-
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
@@ -164,107 +136,32 @@ export default CartInvoMatcher;
 
 /*
 
+        //// MODIFY PAYMENTS IN INVOICE ////
+
+        // loop through all this invoice's payment types.
+        const invoPayments = thisInvoice.invoiceDetails.payment;
+        for (const thisPaymentType of Object.keys(invoPayments)) {
+          // Make sure this Invo payment type isn't being reduced past 0.
+          const decrementAmount = Math.min(
+            thisPaymentType.paid,
+            //Adjusted amt, since that's what's actually being refunded.
+            totalAdjustedReturn
+          );
+          // Decrement this payment type
+          invoPayments[thisPaymentType].paid -= decrementAmount;
+
+          // get existing value of this payment type in the MatchBite.
+          const oldPaymentVal =
+            thisMatchBite.refundPerPayment[thisPaymentType] ?? 0;
+          // add new value to it.
+          thisMatchBite.refundPerPayment[thisPaymentType] =
+            oldPaymentVal + decrementAmount;
+
+          // if this payment is zeroed out, remove it from the invoice.
+          if (invoPayments[thisPaymentType].paid === 0){
+            delete invoPayments[thisPaymentType]
+          }
+        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
   
 */
-
-/*  THIS IS ALL TEST DATA
-  
-const itemsState = {
-  100: {
-    // more in invoice
-    quantity: 4,
-    disposition: {
-      doesntWork: 0,
-      broken: 2,
-      unpackaged: 0,
-      warranty: 2,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-    },
-  },
-  200: {
-    // more in scanned, match in second
-    quantity: 12,
-    disposition: {
-      doesntWork: 5,
-      broken: 5,
-      unpackaged: 0,
-      warranty: 2,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-    },
-  },
-  300: {
-    // equal in invoice
-    quantity: 2,
-    disposition: {
-      doesntWork: 1,
-      broken: 0,
-      unpackaged: 0,
-      warranty: 0,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-    },
-  },
-  900: {
-    // scanned > both invoices
-    quantity: 5,
-    disposition: {
-      doesntWork: 0,
-      broken: 0,
-      unpackaged: 0,
-      warranty: 2,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-    },
-  },
-
-  910: {
-    // no matchBitesArr
-    quantity: 5,
-    disposition: {
-      doesntWork: 1,
-      broken: 0,
-      unpackaged: 0,
-      warranty: 0,
-      missingParts: 0,
-      cosmetic: 0,
-      used: 0,
-    },
-  },
-};
-
-const invoiceState = {
-  AAA: {
-    invoiceDetails: {
-      store: 1234,
-      date: new Date(2022, 8, 13),
-      payment: "cash",
-    },
-    products: {
-      100: { quantity: 8, price: 44.15 },
-      300: { quantity: 2, price: 24.15 },
-      500: { quantity: 10, price: 13.15 },
-      900: { quantity: 1, price: 876.15 },
-    },
-  },
-
-  BBB: {
-    invoiceDetails: {
-      store: 1234,
-      date: new Date(2022, 1, 22),
-      payment: "check",
-    },
-    products: {
-      200: { quantity: 8, price: 44.15 },
-      900: { quantity: 1, price: 987.15 },
-    },
-  },
-};
-  
-  */

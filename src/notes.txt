@@ -2019,6 +2019,22 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I need to do the function that totals up the payments in the Invoices.  I guess I could just do it by hand, but that's bad if I ever change anything and also no real coder would choose that.
 
+    -4:30.  A fun new twist.  Apparently, Javascript can't always represent decimals accurately, and I think I finally understand why.  Any integer is easy to represent in binary.  But decimals must be represented fractions of two binary integers, and sometimes those are decimals are really long, or even infinite, like how 1/3 = 0.33333∞ .  To solve this, JS will round a number off at some point.  
+
+        -The solution I have found looks hacky, but I saw it in several places so I think I'm gonna do it.  You represent money as the total of cents rather than the total of dollars, and then just n/100 right before you show it anywhere in the interface.
+
+        -The other thing I could do is just Math.floor() any of my divisions, but I could still have problems since I still have decimals all over the app.  OK, guess that settles it.  Cents it is.
+
+        -Ha.  No matter what, today is pretty cool.  I finally, clearly understand something that always confused me before :)
+
+        -I guess I can still use the restock fee rate, but I have to remember to Math.floor whenever I do.  
+
+    5:35
+        Looks like there are some issues with the Invoice Adjuster although the rest of Matchmaker appears to have survived intact.  Instead of debugging them I am just going to move this loop out of the Dispositions loop like I was planning.
+
+    
+
+        
 
 
                 
