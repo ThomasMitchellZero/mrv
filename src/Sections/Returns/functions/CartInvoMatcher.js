@@ -3,22 +3,15 @@
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
-import { useOutletContext } from "react-router-dom";
-
 const CartInvoMatcher = (itemList, invoiceList) => {
-
-  //The three derived states we will create
+  //The three derives states we are building.
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
-
   let matched_items = {};
 
   //loop through the Unmatched items.
   for (const itemNum of Object.keys(unmatched_items)) {
     const thisCartItem = unmatched_items[itemNum];
-
-    // most catalog items do not have a restock fee.  It should be zero unless otherwise specified.
-    const itemRestockFee = thisCartItem.restockFee ?? 0;
 
     // If there is an UnwantedTotal, add it to the item's disposition.
     const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
@@ -81,11 +74,29 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         // decrement the TotalUnmatched
         thisCartItem.quantity -= matchedQty;
 
+        //// COST CALCULATIONS ////
+
+        // Restock is always zero unless otherwise specified.
+        const itemRestockFee = thisCartItem.restockFee ?? 0;
+
+        // Restock fee is waived for these dispositions.
+        const damagedCodes = {
+          doesntWork: true,
+          broken: true,
+          unpackaged: true,
+          used: true,
+          missingParts: true,
+          cosmetic: true,
+          warranty: true,
+        };
+
         //calculate total costs
         const totalPaid = thisInvoItem.price * matchedQty;
-        //restock fee only applies to unwanted items
-        const adjustment =
-          loopDispo === "unwanted" ? totalPaid * itemRestockFee : 0;
+
+        //Don't apply restock fee to damaged items.
+        const adjustment = damagedCodes[loopDispo]
+          ? 0
+          : totalPaid * itemRestockFee;
         // Increment all values in the object.
         thisMatchBite.totalPrice += totalPaid;
         thisMatchBite.totalReturn += totalPaid - adjustment;
