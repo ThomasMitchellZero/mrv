@@ -3,7 +3,6 @@ RULE 1:  Coding time is in short supply and this is just a demo.  Don't spend ef
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
     
-    -When I hit Enter on keyboard for Item or Invoice entry panels, the form submits anyways even though it isn't valid.
 
     -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
 
@@ -35,7 +34,9 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
 
-    -The useReducer function takes a third argument.  That third argument takes a function, which will set the initial state when run.  IIRC, the main reason I was defining the reducer function within the closure of the component itself was because I somehow wanted to access props from above(?) and didn't have access to them outside the closure.  Take a look at this again.  I've never seen another example programmed my way and it probably sucks.
+    -For the MatchMaker - I might need a way of prioritizing Invoices and Dispo types.  Like, for each item, I think we would want to refund the highest-value invoices first.  For dispo types, I think we would want to refund Damaged dispos first.  Right now, both of these are not being processed in any intentional order.  It shouldn't be too hard - I'm already making an array to loop through, so I should just be able to sort those arrays pre-looping.
+
+
 
 //// Github Pages Deployment ////
 
@@ -1937,6 +1938,94 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Fourth Option:
             -I create an Active Item state in ReturnsIndex.  I'm actually already kind of tracking this.  BUT.  Here's a huge problem.  I was assuming that changing the active item would trigger a re-render, but it doesn't right now.  OK, nvm this is nothing.  
 
+    4:20.  OK.  That actually wasn't too bad.  I learned a few cool new tricks and got the dispositions displaying correctly.
+
+        -I'm not really ready to dig into the Matching.  I think that's a task for tomorrow.  I think today would be better spent doing some other cleanup.
+
+            -Biggest and ugliest by far is that I'm going to have to track unwanted dispositions separately.
+
+            -I would like the Selected Item to display a little blue inditactor to show that it is active.  
+
+            -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
+
+            -After entering an item, ItemEntry30 should focus on the itemNum field instead of staying on the Qty field.
+
+    5:00 - nvm, I think I'm actually done for the day.  Just don't feel very smart right now and it's probably because I haven't eaten.  Instead I'm going to think about how to handle unwanted dispositions.
+
+        -Something I've been wondering for a while is if I even need to be tracking dispositions in matching.  The only quantities Matching cares about are Unwanted or Damaged.
+            -Technically, some other process might care about how much we refunded a customer.  Maybe.  Or not?  Might be that all we care about is what invoice they came from?  
+                -Actually, come to think of it, that shouldn't matter either because AFAICT we have no way of knowing what WE paid for the item.  If the SKU is the same, they're indistinguishable.  So the amount refunded per item is meaningless.  
+
+            -Someone in our process might still need a count of how many came in of each type, but I really can't see that mattering in Returns.
+
+            -The other point is that from my POV, only the Unwanted and Damaged totals matter.  Like, I'm already capturing this info.  
+
+            -Now, the other thing I have wondered:  Do I just jam all the dispositions into one Dispositions object, or do I keep them separate?
+
+            -Jamming them all together makes it a little easier to loop through.
+
+7 Jan 2023
+    -11:00.  Got kind of a late start today although I don't recall wasting a lot of time.
+
+    -First order of business:  Figure out what to do with the Unwanted vs Damaged dispositions.
+        -I've realized that the reason I'm hesitant to commit to doing them all in one big object is because having them separate is more future-proof.  If I separate them it's hard to imagine a future scenario where I wish I'd done it different.
+
+        -I still feel some doubt.  I'm very clearly doing this because it is easier.  However, this does keep the code simple.  I'm already afraid to mess with Matching because of its complexity, although maybe I shouldn't be.  
+
+    -I still think I'm going to use one big dispos object.  This is a VERY secondary feature, especially when it comes to matching.  Remember Rule 1.  With that said, I will need:
+        -An object of Damaged conditions.  I'm going to check for Damaged conditions because I don't expect them to change and then adding future objects will be easier.  
+
+        -Change the evaluation in the cost assignment portion.  Instead of just checking for Unwanted, I'm going to check for ALL Damaged types.  
+    
+    12:00 - OK, that went pretty smoothly.  
+        -The next hard thing I need to do is to figure out what data I need to be consuming in the Process Payment phase.  Started doing this on the work Mac but I really prefer this keyboard.
+        
+        -Refunded Items:
+            LI:
+                -Item Details.  I guess I could get these from the context or from the ScannedItem list?
+                -Per-Unit price: this will be in the MatchBite
+                -Quantity: MatchBite, but may need re-derived.
+
+            Data Translation:
+                -I could do it by MatchBite, which is basically the same as doing it by Invoice.
+                -IF I wanted, I could loop through the list of MatchBites and combine any that share an itemNum and a price, although that might be overkill.
+                -Alternatively, I could merge ONLY on the basis of itemNum and average the price, but is that good?  It won't be clear that the 'price' is a derivation and if the customer sees a price that isn't on any of the invoices they might assume fuckery.  I think if I'm gonna combine items I should either leave out the unit price or make it explicitly say "Mulitple Prices"
+
+        -TotalReview:
+            LI: 
+                -Total Refunded per tender type
+                -Original Tender
+            
+            Data Translation:
+
+                -AFAICT I need to make a new structure for this.  I would need to loop through all the MatchBites, loop through each bite's payment method, see if it is unique, and then either add it to the list or to the type it matches.
+
+                    -I'm thinking about changing the items in the database to include an Identifiery property (replacing things like CCnum or check numbers).  If I do that, my loop gets a little simpler.
+
+                    -The case against would be that I think I already need to do some payment-type-specific behavior to get the string I will use to describe it in the output, so I might as well just do it there?  And also the Refund to Tender type is gonna need some conditional logic?  Yeah, I don't think I need to change it.
+
+        -Modified Invoices:
+            -In each MatchBite, I am currently not handling payment.  Once I complete the Sum function for the invoices in the Store, each invoice will have a Payment object that reflects how much was paid for that type.  
+            
+            -Once I have calculated the total money for each Dispo, I should deduct that from the Prices.  
+
+    2:15
+
+        I've updated the MatchMaker to include a refundPerPayment{} object, to loop through the Invoice's payments and deduct the adjusted price of the matching disposition from those payments, and to include the amount deducted from each payment in the refundPerPayment{} object.  In theory, the rest of the Matchmaker hasn't changed so this should be OK?
+
+            -It's now ocurring to me that there's no reason for this to be happening in the Dispositions loop.  This is per invoice, so I could easily do it in the Invoices loop but after this loop finishes.  In fact, I think that's what I will do.  However, I can't even test what I have until I get the function for total prices in the Invoice Context working.  From what price would I be deducting?
+
+            -Still, I think this was a mistake.  It's computationally less efficient to be doing this operation for every match, and it's not even more readable. It ought to live with the Invoice it's happening to. When I swalk today I should give some thought to how I made this mistake and how it could be avoided.
+
+        -I need to do the function that totals up the payments in the Invoices.  I guess I could just do it by hand, but that's bad if I ever change anything and also no real coder would choose that.
+
+
+
+                
+
+                
+
+        
 
 
 

@@ -132,7 +132,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           if (invoPayments[thisPaymentType].paid === 0){
             delete invoPayments[thisPaymentType]
           }
-        }
+        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
 
         // if there are no remaining umatched units...
@@ -142,16 +142,16 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           // stop looping through the dispos, no more items to match.
           break;
         }
-      } // end of loop through item dispositions. //////////////////
+      } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       outMatchedItemObj.matchBitesArr.push(thisMatchBite);
-    } // end of loop through invoice keys ///////////////////////
+    } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     // add the completed itemNum:[outMatchedItemObj] to {matched_items}
     if (outMatchedItemObj.matchBitesArr.length > 0) {
       matched_items[itemNum] = outMatchedItemObj;
     }
-  } // end of loop through unmatched items //////////////////
+  } // ∞∞∞∞∞∞∞∞ end of loop through unmatched items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
   return {
     matched: matched_items,
