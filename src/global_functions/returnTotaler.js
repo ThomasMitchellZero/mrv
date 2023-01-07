@@ -6,7 +6,7 @@ const ReturnTotaler = (matchedItemsObj) => {
     invoice: 0,
     disposition: {},
     totalPrice: 0,
-    totalReturn: 0,
+    adjustedRefund: 0,
     totalTax: 0,
     totalAdjustments: 0,
   };
@@ -20,10 +20,10 @@ const ReturnTotaler = (matchedItemsObj) => {
 
   for (const product of Object.values(matchedItemsObj)) {
     for (const bite of product.matchBitesArr){
-        returnValuesObj.refundTotal += bite.totalReturn;
+        returnValuesObj.refundTotal += bite.adjustedRefund;
         returnValuesObj.taxSum += bite.totalTax;
         returnValuesObj.adjustments += bite.totalAdjustments;
-        returnValuesObj.subtotal += (bite.totalReturn - bite.totalTax);
+        returnValuesObj.subtotal += (bite.adjustedRefund - bite.totalTax);
       }
   }
 

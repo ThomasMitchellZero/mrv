@@ -41,7 +41,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         disposition: {},
         refundPerPayment: {},
         totalPrice: 0,
-        totalReturn: 0,
+        adjustedRefund: 0,
         totalTax: 0,
         totalAdjustments: 0,
       };
@@ -103,7 +103,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
         // Increment all values in the object.
         thisMatchBite.totalPrice += dispoTotalPaid;
-        thisMatchBite.totalReturn += dispoAdjustedPaid;
+        thisMatchBite.adjustedRefund += dispoAdjustedPaid;
         thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         thisMatchBite.totalAdjustments += dispoAdjustment;
 
@@ -115,6 +115,8 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           break;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+
+      
 
       
 
