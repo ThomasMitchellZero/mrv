@@ -92,20 +92,20 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         };
 
         //calculate total costs
-        const totalPaid = thisInvoItem.price * matchedQty;
+        const dispoTotalPaid = thisInvoItem.price * matchedQty;
 
         //Don't apply restock fee to damaged items.
-        let adjustment = Math.round(
-          damagedCodes[loopDispo] ? 0 : totalPaid * itemRestockFee
+        let dispoAdjustment = Math.round(
+          damagedCodes[loopDispo] ? 0 : dispoTotalPaid * itemRestockFee
         );
 
-        const totalAdjustedReturn = totalPaid - adjustment;
+        const dispoAdjustedPaid = dispoTotalPaid - dispoAdjustment;
 
         // Increment all values in the object.
-        thisMatchBite.totalPrice += totalPaid;
-        thisMatchBite.totalReturn += totalAdjustedReturn;
+        thisMatchBite.totalPrice += dispoTotalPaid;
+        thisMatchBite.totalReturn += dispoAdjustedPaid;
         thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
-        thisMatchBite.totalAdjustments += adjustment;
+        thisMatchBite.totalAdjustments += dispoAdjustment;
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
@@ -115,6 +115,8 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           break;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+
+      
 
       outMatchedItemObj.matchBitesArr.push(thisMatchBite);
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
@@ -136,10 +138,11 @@ export default CartInvoMatcher;
 
 /*
 
-        //// MODIFY PAYMENTS IN INVOICE ////
+//// MODIFY PAYMENTS IN INVOICE ////
 
         // loop through all this invoice's payment types.
         const invoPayments = thisInvoice.invoiceDetails.payment;
+        
         for (const thisPaymentType of Object.keys(invoPayments)) {
           // Make sure this Invo payment type isn't being reduced past 0.
           const decrementAmount = Math.min(
@@ -161,7 +164,7 @@ export default CartInvoMatcher;
           if (invoPayments[thisPaymentType].paid === 0){
             delete invoPayments[thisPaymentType]
           }
-        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞  
 
-  
+
 */
