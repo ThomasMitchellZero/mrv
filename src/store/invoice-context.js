@@ -4,7 +4,7 @@ import invoicePaymentPricer from "../global_functions/invoicePaymentPricer"
 
 //products = 100, 200, 300, 400, 900, 910
 
-const unpricedInvoiceObj = {
+const invoiceObj = {
   AAA: {
     invoiceDetails: {
       store: 1234,
@@ -18,6 +18,16 @@ const unpricedInvoiceObj = {
       400: { quantity: 10, price: 1315, tax: 120 },
     },
   },
+
+  /*
+  33,200 +
+  4, 830 +
+  13, 150
+  = 51,180 OK
+
+  
+  
+  */
 
   BBB: {
     invoiceDetails: {
@@ -40,6 +50,19 @@ const unpricedInvoiceObj = {
       900: { quantity: 1, price: 98715, tax: 9100 },
     },
   },
+
+    /*
+      35200 +
+      98715
+      =
+      133,915
+
+      33478 +
+      100437
+      =
+      133,915
+  
+  */
 
   CCC: {
     invoiceDetails: {
@@ -98,9 +121,8 @@ const unpricedInvoiceObj = {
   },
 }
 
-const pricedInvoiceObj = invoicePaymentPricer(unpricedInvoiceObj)
+invoicePaymentPricer(invoiceObj)
 
-
-const InvoiceContext = React.createContext(pricedInvoiceObj);
+const InvoiceContext = React.createContext(invoiceObj);
 
 export default InvoiceContext;

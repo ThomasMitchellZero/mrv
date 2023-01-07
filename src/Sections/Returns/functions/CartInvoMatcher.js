@@ -111,7 +111,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
         // loop through all this invoice's payment types.
         const invoPayments = thisInvoice.invoiceDetails.payment;
-        for (const thisPaymentType of Object.key(invoPayments)) {
+        for (const thisPaymentType of Object.keys(invoPayments)) {
           // Make sure this Invo payment type isn't being reduced past 0.
           const decrementAmount = Math.min(
             thisPaymentType.paid,
