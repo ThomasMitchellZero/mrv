@@ -2101,9 +2101,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     1:45
         Still not super engaged.  I did eat, and I do need to remember to make commits as I go because if I make a lot of changes, it becomes harder to diagnose where  a problem is happening.
             X -Check and see if MatchMaker is working as-is.
-            -Finish re-organizing on the CoVID CDC pattern.
+            X -Finish re-organizing on the CoVID CDC pattern.
             -See if I can't move those Break conditions to the end.
             -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
+                EDIT: NVM, restocking fee depends on dispositions.  If I didn't check here I'd have to loop through again.  This is good where it is.
+            
             -Look into doing all the squeezing in ItemDetail30.
             -Once that is all done, I need to figure out a way to have any payment-specific details (CCnum, Checking, etc.) included in the Match Bites because it's going to be needed.  
     
