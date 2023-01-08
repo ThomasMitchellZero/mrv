@@ -70,14 +70,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         // Add this dispo to output MatchBite and increment it by MatchedQty.
         outMatchBite.disposition[loopDispo] = matchedQty;
 
-        // Clean up any empties
-        if (thisInvoItem.quantity === 0) {
-          delete thisInvoice.products[itemNum];
-        }
-        if (thisCartItem.disposition[loopDispo] === 0) {
-          delete thisCartItem.disposition[loopDispo];
-        }
-
         // ΓΓΓΓ Dispo Loop_ Step 2: Process Cost Calculation Matches ΓΓΓΓΓΓΓΓ
 
         // Restock is zero unless specified on item.
@@ -111,21 +103,24 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         outMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         outMatchBite.totalAdjustments += dispoAdjustment;
 
-        // if there are no remaining umatched units...
-        if (thisCartItem.quantity === 0) {
-          // delete item from Unmatched
-          delete unmatched_items[itemNum];
-          // stop looping through the dispos, no more items to match.
-          break disposLoop;
+        // Delete any zeroed-out properties
+        if (thisCartItem.disposition[loopDispo] === 0) {
+          // the current disposition
+          delete thisCartItem.disposition[loopDispo];
         }
 
+        if (thisInvoItem.quantity === 0) {
+          // This item in this invoice
+          delete thisInvoice.products[itemNum];
+        }
 
-        //const thisInvoice = modified_invoices[invoiceNum];
-        // const thisInvoItem = thisInvoice.products[itemNum];
+        if (thisCartItem.quantity === 0) {
+          // this item in Unmatched
+          delete unmatched_items[itemNum];
+        }
 
-        // check that item hasn't previously been deleted from invoice.
-        if (!thisInvoItem) break disposLoop;
-
+        // If 0 units of this item remain in this Invoice or Unmatched, stop.
+        if (!thisInvoItem || !thisCartItem) break disposLoop;
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
@@ -144,13 +139,13 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
+        // Add amount as value of tender type to MatchBite
+        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
+
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
           delete invoPayments[thisTenderType];
         }
-
-        // Add amount as value of tender type to MatchBite
-        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
 
         // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
         if (unrefundedTotal === 0) {
