@@ -35,6 +35,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
 
     -For the MatchMaker - I might need a way of prioritizing Invoices and Dispo types.  Like, for each item, I think we would want to refund the highest-value invoices first.  For dispo types, I think we would want to refund Damaged dispos first.  Right now, both of these are not being processed in any intentional order.  It shouldn't be too hard - I'm already making an array to loop through, so I should just be able to sort those arrays pre-looping.
+        -This is going to become a NEED as soon as we start adding in Unwanted dispositions. AFACIT if an unwanted disposition matches first on an item with a Restock fee, customer wouldn't get the full refund?  
 
 
 
@@ -2104,7 +2105,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             X -Finish re-organizing on the CoVID CDC pattern.
             -See if I can't move those Break conditions to the end.
             -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
-                EDIT: NVM, restocking fee depends on dispositions.  If I didn't check here I'd have to loop through again.  This is good where it is.
+                EDIT: NVM, disposition affects restocking fee.  If I didn't check here I'd have to loop through again.  This is good where it is.
             
             -Look into doing all the squeezing in ItemDetail30.
             -Once that is all done, I need to figure out a way to have any payment-specific details (CCnum, Checking, etc.) included in the Match Bites because it's going to be needed.  
