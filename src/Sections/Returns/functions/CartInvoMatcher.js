@@ -10,7 +10,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
   let matched_items = {};
 
   //loop through the Unmatched items.
-  UM_itemsLoop:for (const itemNum of Object.keys(unmatched_items)) {
+  UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
     const thisCartItem = unmatched_items[itemNum];
 
     // If there is an UnwantedTotal, add it to the item's disposition.
@@ -29,10 +29,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       const thisInvoice = modified_invoices[invoiceNum];
       const thisInvoItem = thisInvoice.products[itemNum];
 
-      // MAYBE is it this? should this be at the end?
-
-      // If there are 0 unmatched units of item, move on to next item.
-      if (!thisCartItem) break invoicesLoop;
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
@@ -52,7 +48,9 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
 
       //loop through cart item's dispositions and decrement Invoice item qty as product matches are found.
-      disposLoop: for (const loopDispo of Object.keys(thisCartItem.disposition)) {
+      disposLoop: for (const loopDispo of Object.keys(
+        thisCartItem.disposition
+      )) {
         //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?
         // check that item hasn't previously been deleted from invoice.
         if (!modified_invoices[invoiceNum].products[itemNum]) break disposLoop;
@@ -140,13 +138,14 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
-        // Add amount as value of tender type to MatchBite
-        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
-
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
           delete invoPayments[thisTenderType];
         }
+
+        // Add amount as value of tender type to MatchBite
+        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
+
         // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
         if (unrefundedTotal === 0) {
           break tenderTypeLoop;
@@ -154,8 +153,11 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       outMatchedItemObj.matchBitesArr.push(outMatchBite);
-    } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
+      // If there are 0 unmatched units of item, move on to next item.
+      if (!thisCartItem) break invoicesLoop;
+      
+    } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     // Only add itemObj to Matched if at least one match occurred.
     if (outMatchedItemObj.matchBitesArr.length > 0) {
