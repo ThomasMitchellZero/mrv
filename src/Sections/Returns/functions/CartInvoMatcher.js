@@ -49,7 +49,9 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         totalAdjustments: 0,
       };
 
-      //loop through cart item's dispositions and subtract from Invoice item qty as product matches are found.
+      // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
+
+      //loop through cart item's dispositions and decrement Invoice item qty as product matches are found.
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?
         // check that item hasn't previously been deleted from invoice.
@@ -59,7 +61,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         const dispo_qty = thisCartItem.disposition[loopDispo];
         const sold_Qty = thisInvoItem.quantity;
 
-        // ΓΓΓΓ   Step 1: Process Dispo Matches   ΓΓΓΓΓΓΓΓ
+        // ΓΓΓΓ  Dispo Loop _ Step 1: Process Dispo Matches   ΓΓΓΓΓΓΓΓ
 
         //The matched quantity is the smaller of the Qtys
         const matchedQty = Math.min(dispo_qty, sold_Qty);
@@ -80,9 +82,9 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           delete thisCartItem.disposition[loopDispo];
         }
 
-        // ΓΓΓΓ   Step 2: Process Cost Calculations Matches   ΓΓΓΓΓΓΓΓ
+        // ΓΓΓΓ Dispo Loop_ Step 2: Process Cost Calculation Matches ΓΓΓΓΓΓΓΓ
 
-        // Restock is always zero unless otherwise specified.
+        // Restock is zero unless specified on item.
         const itemRestockFee = thisCartItem.restockFee ?? 0;
 
         // Restock fee is waived for these dispositions.
@@ -122,7 +124,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
-      //// MODIFY PAYMENTS IN INVOICE ////
+      // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
 
       const invoPayments = thisInvoice.invoiceDetails.payment;
       let unrefundedTotal = outMatchBite.adjustedRefund;
@@ -145,7 +147,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         if (invoPayments[thisTenderType].paid === 0) {
           delete invoPayments[thisTenderType];
         }
-        //
+        // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
         if (unrefundedTotal === 0) {
           break;
         }
@@ -154,8 +156,10 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       outMatchedItemObj.matchBitesArr.push(outMatchBite);
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
-    // add the completed itemNum:[outMatchedItemObj] to {matched_items}
+
+    // Don't add if 0 matches were found.
     if (outMatchedItemObj.matchBitesArr.length > 0) {
+      //add completed ItemNum and [all its MatchBites] to matched_items{}
       matched_items[itemNum] = outMatchedItemObj;
     }
   } // ∞∞∞∞∞∞∞∞ end of loop through unmatched items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
