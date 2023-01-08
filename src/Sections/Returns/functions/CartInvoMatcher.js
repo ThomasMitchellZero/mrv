@@ -11,6 +11,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
+
     const thisCartItem = unmatched_items[itemNum];
 
     // If there is an UnwantedTotal, add it to the item's disposition.
@@ -154,9 +155,12 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
       outMatchedItemObj.matchBitesArr.push(outMatchBite);
 
+      const otherVar = unmatched_items[itemNum]
+      const testVar = !thisCartItem
+
       // If there are 0 unmatched units of item, move on to next item.
-      if (!thisCartItem) break invoicesLoop;
-      
+      if (!unmatched_items[itemNum]) break invoicesLoop;
+
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     // Only add itemObj to Matched if at least one match occurred.

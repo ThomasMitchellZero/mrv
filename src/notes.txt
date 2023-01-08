@@ -2106,9 +2106,45 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -See if I can't move those Break conditions to the end.
             -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
                 EDIT: NVM, disposition affects restocking fee.  If I didn't check here I'd have to loop through again.  This is good where it is.
-            
-            -Look into doing all the squeezing in ItemDetail30.
+
             -Once that is all done, I need to figure out a way to have any payment-specific details (CCnum, Checking, etc.) included in the Match Bites because it's going to be needed.  
+            -Look into doing all the squeezing in ItemDetail30.
+
+    3:15: OK, found another error.  If there are multiple invoices containing the item and all the items are matched in the first invoice evaluated, the second invoice still gets evaluated and an empty MatchBite is pushed into the item's Array in Matched.
+        -First, let me see if I can add a third invoice and see if that gets 2 empty MatchBites?
+            -It does.  
+
+        -My hypothesis is that my break condition of !cartItem is not evaluation as I expect and that's why it continues to loop after completing the match.
+        -OK, hypothesis confirmed. the cartItem variable is showing a full clone of 100, with quantity set to 0.  The reason I am confused is that unmatched_items{} is showing an empty object.  I THOUGHT that the variable was a pointer to this item within unmatched_items, but it looks like it's a clone?
+
+        OK!  Another breakthrough, I think.  I was operating on this seemingly-dumb but seems-to-work heuristic of: if I'm going to delete a property and I'm using a variable to store a path to it, MAKE SURE that I've got at least ONE additional segment to that property's route.  Well, I finally found out why that is!  I've been wondering for a while why, for this example:
+ 
+            const test = {
+                L1:{ 
+                    L2:2
+                }
+            }
+
+            const pointer = test.L1
+
+            delete pointer.L2               // works fine
+            delete pointer                  // don't do shit
+            const eureka = delete pointer   // eureka = false;
+
+        Here's the secret.  The 'delete' operator returns a boolean based on what it did.  If I delete an object property, even if that property doesn't exist in the object, 'delete' returns true.  Otherwise, it returns false.  
+
+        And eureka holds the answer.  It's not working because JS sees me as trying to delete the VARIABLE, not the property the variable points to.  At some point I should probably play around and figure out all of the specifics, but that is a cool find, and it explains both my result and my rough heuristic perfectly!
+
+        I would also predict that if I'm performing operations, like:
+
+            pointer.L2B = 3
+
+        then it should work like you'd expect.  That variable still contains a pointer that I can operate on.  It should ONLY be 'delete' that has problems.
+
+
+        
+
+
     
 
         
