@@ -10,7 +10,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
   let matched_items = {};
 
   //loop through the Unmatched items.
-  for (const itemNum of Object.keys(unmatched_items)) {
+  UM_itemsLoop:for (const itemNum of Object.keys(unmatched_items)) {
     const thisCartItem = unmatched_items[itemNum];
 
     // If there is an UnwantedTotal, add it to the item's disposition.
@@ -25,14 +25,14 @@ const CartInvoMatcher = (itemList, invoiceList) => {
     };
 
     //loop through the Unmatched invoices ///////////////
-    for (const invoiceNum of Object.keys(modified_invoices)) {
+    invoicesLoop: for (const invoiceNum of Object.keys(modified_invoices)) {
       const thisInvoice = modified_invoices[invoiceNum];
       const thisInvoItem = thisInvoice.products[itemNum];
 
       // MAYBE is it this? should this be at the end?
 
       // If there are 0 unmatched units of item, move on to next item.
-      if (!thisCartItem) break;
+      if (!thisCartItem) break invoicesLoop;
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
@@ -52,10 +52,10 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
 
       //loop through cart item's dispositions and decrement Invoice item qty as product matches are found.
-      for (const loopDispo of Object.keys(thisCartItem.disposition)) {
+      disposLoop: for (const loopDispo of Object.keys(thisCartItem.disposition)) {
         //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?
         // check that item hasn't previously been deleted from invoice.
-        if (!modified_invoices[invoiceNum].products[itemNum]) break;
+        if (!modified_invoices[invoiceNum].products[itemNum]) break disposLoop;
 
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];
@@ -120,7 +120,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           // delete item from Unmatched
           delete unmatched_items[itemNum];
           // stop looping through the dispos, no more items to match.
-          break;
+          break disposLoop;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
@@ -130,7 +130,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       let unrefundedTotal = outMatchBite.adjustedRefund;
 
       // Loop through all payment types and assign unrefunded total.
-      for (const thisTenderType of Object.keys(invoPayments)) {
+      tenderTypeLoop: for (const thisTenderType of Object.keys(invoPayments)) {
         // Make sure this Invo tender type isn't being reduced past 0.
         const decrementAmount = Math.min(
           invoPayments[thisTenderType].paid,
@@ -149,7 +149,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         }
         // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
         if (unrefundedTotal === 0) {
-          break;
+          break tenderTypeLoop;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
@@ -157,7 +157,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
 
-    // Don't add if 0 matches were found.
+    // Only add itemObj to Matched if at least one match occurred.
     if (outMatchedItemObj.matchBitesArr.length > 0) {
       //add completed ItemNum and [all its MatchBites] to matched_items{}
       matched_items[itemNum] = outMatchedItemObj;
