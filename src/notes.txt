@@ -2032,6 +2032,80 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     5:35
         Looks like there are some issues with the Invoice Adjuster although the rest of Matchmaker appears to have survived intact.  Instead of debugging them I am just going to move this loop out of the Dispositions loop like I was planning.
 
+        OK, ran into another problem.  It looks like on the 200 / BBB match, the matchmaker looped a second time and added an empty matchbite, which shouldn't happen.  If there are no unmatched items of 200 left, the loop needs to go to the next item.
+
+        Come to think of it, I think the second MatchBite was from a different invoice.
+
+    6:45
+        Well, I didn't do what I said I was going to do (eat) and now I'm feeling dumb and out of gas.
+
+        I'm gonna swallk.  I have a good place to start tomorrow.  I kind of whiffed today but I actually think this went pretty well.  I'm happy with the decision to include everything needed for the last two hard screen in the MatchMaker.  When I start again, I need to:
+            -Do BBB / 200 and see if I can reproduce the error.
+            -No matter what I find, I need to come up with a more organized way to handle my conditions in MatchMaker, and I think it's having all my -continues- at the start of the loop and my -breaks- at the end. 
+                -Continue means: Keep looping at this next level, but on the next item.
+                -Break means: Stop looping at this level.
+
+                Or, if we have:
+                    for (const i in Array){}
+                
+                -Continue is: don't continue to process 'i'
+                -Break is: Don't continue to process 'Array'
+
+8 Dec 2023
+    -OK.  I'm nervous but also excited.  If I can get this up and running, the road really should be clear ahead to make the rest of the app.
+        -Find out what exactly the error was.
+        -Step through the app and make predictions.  This was a pretty clear error and we should be able to identify where it's happening.
+        -Now, the exiting part :)  I really liked my description of the Break / Continue Statements.  I'm hoping that with this better understanding, I can rationalize the app.  
+        -I wouldn't mind seeing if I could get all Unwanted assignment happening in the ItemDetails30 panel.  
+        -MatchMaker is just so complex that anything I can take out of it helps me.  
+
+        -While looking up what to call Break and Continue (they are statements) I found something else cool.  AFACIT all statements can be given a label in the format of labelName : statement.  A Break statement can accept a label as a argument (?) by writing    break labelName  .  If you don't specify a label name, the break statement terminates execution of the current statement or loop and transfers control to whatever is next in the script.  However, you can break out of a higher loop as well.  Just specify the name, and break will break to that level. 
+
+    11:30
+        -Ok, the error looks like somehow we deducted the same amount from Check and Credit Card in the BBB invoice, even though Check alone had more than enough to cover it.  
+        
+        -I think I see at least part of the problem.  Every time I loop through, I'm comparing the TOTAL amount being refunded from the MatchBite to the TOTAL paid for each payment.  Well, that total in the MatchBite never changes!  
+        
+        
+        I think I need to clone that number and decrement it on every pass.
+
+        -OK.  It APPEARS to be working now?  
+        
+        -This thing is getting so complicated :(  And I think that's part of why I still haven't fully engaged, because I'm not sure how to make it better.  Or, actually, I think my problem is that at this point there is so much going on, I don't know how to test that it is working properly.  OK.  Two things I feel like I can do.  
+
+            -I should make a map of the ideal fractal for the MatchMaker.
+
+                loopLabel: (for i in Array){
+                    - vars of routes to any data being processed. (1st b/c these can be handy when checking skip conditions)
+
+                    - conditions for skipping this iterator
+
+                    - empty output that this cycle of the loop is building
+
+                    - steps: (as many instances as needed)
+                        -process, store key data into variables
+                        -increment the output.
+                        -decrement the inputs
+                        -clean out empties.
+
+                    - Send the now-fully-built output to its parent.
+
+                    -Conditions for breaking from this loop.
+                }
+
+            -Go though Matchmaker and see what we could ditch.  
+                -Do squeezing and Unwanted assignment within ItemEntry30?
+                -I could ditch the disposition matching, but it's not a huge piece.
+                -Would having all the refund details (tax, adjustments, etc.) life with the Refund-Per-Payment be worth anything?  
+
+    1:45
+        Still not super engaged.  I did eat, and I do need to remember to make commits as I go because if I make a lot of changes, it becomes harder to diagnose where  a problem is happening.
+            X -Check and see if MatchMaker is working as-is.
+            -Finish re-organizing on the CoVID CDC pattern.
+            -See if I can't move those Break conditions to the end.
+            -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
+            -Look into doing all the squeezing in ItemDetail30.
+            -Once that is all done, I need to figure out a way to have any payment-specific details (CCnum, Checking, etc.) included in the Match Bites because it's going to be needed.  
     
 
         

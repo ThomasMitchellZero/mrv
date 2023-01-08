@@ -29,12 +29,15 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       const thisInvoice = modified_invoices[invoiceNum];
       const thisInvoItem = thisInvoice.products[itemNum];
 
+      // MAYBE is it this? should this be at the end?
+
       // If there are 0 unmatched units of item, move on to next item.
       if (!thisCartItem) break;
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      let thisMatchBite = {
+      // Each MatchBite reflects all units of THIS item matched in THIS invoice.
+      let outMatchBite = {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
@@ -48,6 +51,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
       //loop through cart item's dispositions and subtract from Invoice item qty as product matches are found.
       for (const loopDispo of Object.keys(thisCartItem.disposition)) {
+        //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?
         // check that item hasn't previously been deleted from invoice.
         if (!modified_invoices[invoiceNum].products[itemNum]) break;
 
@@ -55,14 +59,20 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         const dispo_qty = thisCartItem.disposition[loopDispo];
         const sold_Qty = thisInvoItem.quantity;
 
+        // ΓΓΓΓ   Step 1: Process Dispo Matches   ΓΓΓΓΓΓΓΓ
+
         //The matched quantity is the smaller of the Qtys
         const matchedQty = Math.min(dispo_qty, sold_Qty);
 
-        // subtract matchedQty from this InvoiceItem and the current dispo qty
+        // decrement our inputs by Matched Qty.
         thisInvoItem.quantity -= matchedQty;
         thisCartItem.disposition[loopDispo] -= matchedQty;
+        thisCartItem.quantity -= matchedQty;
 
-        // if either property is empty, delete it.
+        // Add this dispo to output MatchBite and increment it by MatchedQty.
+        outMatchBite.disposition[loopDispo] = matchedQty;
+
+        // Clean up any empties
         if (thisInvoItem.quantity === 0) {
           delete thisInvoice.products[itemNum];
         }
@@ -70,12 +80,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           delete thisCartItem.disposition[loopDispo];
         }
 
-        // add dispo:matchedQty to the thisMatchBite's disposition obj
-        thisMatchBite.disposition[loopDispo] = matchedQty;
-        // decrement the TotalUnmatched
-        thisCartItem.quantity -= matchedQty;
-
-        //// COST CALCULATIONS ////
+        // ΓΓΓΓ   Step 2: Process Cost Calculations Matches   ΓΓΓΓΓΓΓΓ
 
         // Restock is always zero unless otherwise specified.
         const itemRestockFee = thisCartItem.restockFee ?? 0;
@@ -91,7 +96,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           warranty: true,
         };
 
-        //calculate total costs
+        //Total paid for all units of this Item in this Invoice
         const dispoTotalPaid = thisInvoItem.price * matchedQty;
 
         //Don't apply restock fee to damaged items.
@@ -99,13 +104,14 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           damagedCodes[loopDispo] ? 0 : dispoTotalPaid * itemRestockFee
         );
 
+        // Reduce refund for these items by the Adjustment amount.
         const dispoAdjustedPaid = dispoTotalPaid - dispoAdjustment;
 
         // Increment all values in the object.
-        thisMatchBite.totalPrice += dispoTotalPaid;
-        thisMatchBite.adjustedRefund += dispoAdjustedPaid;
-        thisMatchBite.totalTax += thisInvoItem.tax * matchedQty;
-        thisMatchBite.totalAdjustments += dispoAdjustment;
+        outMatchBite.totalPrice += dispoTotalPaid;
+        outMatchBite.adjustedRefund += dispoAdjustedPaid;
+        outMatchBite.totalTax += thisInvoItem.tax * matchedQty;
+        outMatchBite.totalAdjustments += dispoAdjustment;
 
         // if there are no remaining umatched units...
         if (thisCartItem.quantity === 0) {
@@ -116,11 +122,36 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
-      
+      //// MODIFY PAYMENTS IN INVOICE ////
 
-      
+      const invoPayments = thisInvoice.invoiceDetails.payment;
+      let unrefundedTotal = outMatchBite.adjustedRefund;
 
-      outMatchedItemObj.matchBitesArr.push(thisMatchBite);
+      // Loop through all payment types and assign unrefunded total.
+      for (const thisTenderType of Object.keys(invoPayments)) {
+        // Make sure this Invo tender type isn't being reduced past 0.
+        const decrementAmount = Math.min(
+          invoPayments[thisTenderType].paid,
+          unrefundedTotal
+        );
+        // update $
+        invoPayments[thisTenderType].paid -= decrementAmount;
+        unrefundedTotal -= decrementAmount;
+
+        // Add amount as value of tender type to MatchBite
+        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
+
+        // if tender type is zeroed out, remove it from the invoice.
+        if (invoPayments[thisTenderType].paid === 0) {
+          delete invoPayments[thisTenderType];
+        }
+        //
+        if (unrefundedTotal === 0) {
+          break;
+        }
+      } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+
+      outMatchedItemObj.matchBitesArr.push(outMatchBite);
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     // add the completed itemNum:[outMatchedItemObj] to {matched_items}
@@ -140,33 +171,7 @@ export default CartInvoMatcher;
 
 /*
 
-//// MODIFY PAYMENTS IN INVOICE ////
 
-        // loop through all this invoice's payment types.
-        const invoPayments = thisInvoice.invoiceDetails.payment;
-        
-        for (const thisPaymentType of Object.keys(invoPayments)) {
-          // Make sure this Invo payment type isn't being reduced past 0.
-          const decrementAmount = Math.min(
-            thisPaymentType.paid,
-            //Adjusted amt, since that's what's actually being refunded.
-            totalAdjustedReturn
-          );
-          // Decrement this payment type
-          invoPayments[thisPaymentType].paid -= decrementAmount;
-
-          // get existing value of this payment type in the MatchBite.
-          const oldPaymentVal =
-            thisMatchBite.refundPerPayment[thisPaymentType] ?? 0;
-          // add new value to it.
-          thisMatchBite.refundPerPayment[thisPaymentType] =
-            oldPaymentVal + decrementAmount;
-
-          // if this payment is zeroed out, remove it from the invoice.
-          if (invoPayments[thisPaymentType].paid === 0){
-            delete invoPayments[thisPaymentType]
-          }
-        } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞  
 
 
 */
