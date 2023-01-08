@@ -11,7 +11,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
   //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
-
     const thisCartItem = unmatched_items[itemNum];
 
     // If there is an UnwantedTotal, add it to the item's disposition.
@@ -33,7 +32,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      // Each MatchBite reflects all units of THIS item matched in THIS invoice.
+      // A MatchBite reflects all units of THIS item matched from THIS invoice.
       let outMatchBite = {
         price: thisInvoItem.price,
         tax: thisInvoItem.tax,
@@ -52,9 +51,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       disposLoop: for (const loopDispo of Object.keys(
         thisCartItem.disposition
       )) {
-        //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?
-        // check that item hasn't previously been deleted from invoice.
-        if (!modified_invoices[invoiceNum].products[itemNum]) break disposLoop;
+        //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?  REMOVE IF it works
 
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];
@@ -121,6 +118,14 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           // stop looping through the dispos, no more items to match.
           break disposLoop;
         }
+
+
+        //const thisInvoice = modified_invoices[invoiceNum];
+        // const thisInvoItem = thisInvoice.products[itemNum];
+
+        // check that item hasn't previously been deleted from invoice.
+        if (!thisInvoItem) break disposLoop;
+
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
@@ -155,12 +160,8 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
       outMatchedItemObj.matchBitesArr.push(outMatchBite);
 
-      const otherVar = unmatched_items[itemNum]
-      const testVar = !thisCartItem
-
       // If there are 0 unmatched units of item, move on to next item.
       if (!unmatched_items[itemNum]) break invoicesLoop;
-
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     // Only add itemObj to Matched if at least one match occurred.
