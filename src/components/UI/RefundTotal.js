@@ -5,13 +5,14 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
 
   const allCostsObj = ReturnTotaler(dataObj)
   
+  //reusable component for showing fee composition.
   const refundText = (label, value, red) => {
     const isRed = `${!red ? "" : "red-text"}`
 
     return (
       <section className={classes.refundText}>
         <p className={isRed}>{label}</p>
-        <h4 className={isRed}>{value.toFixed(2)}</h4>
+        <h4 className={isRed}>{(value / 100).toFixed(2)}</h4>
       </section>
     );
   };
@@ -25,7 +26,7 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
       </section>
       <section className={classes.totalColumn}>
         <h5>Refund Total</h5>
-        <h2>{allCostsObj.refundTotal.toFixed(2)}</h2>
+        <h2>{(allCostsObj.refundTotal/100).toFixed(2)}</h2>
       </section>
     </section>
   );

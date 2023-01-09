@@ -2160,6 +2160,18 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     10:00.  Sweet.  That was easy.
 
+    Next question.  The prices are definitely bugging me.  Two approaches are possible.
+        -I could keep everything as cents and then divide everything /100 before consumption.
+
+        -I could go back to using dollars.  I'm realizing that the dollars weren't really my problem.  The problem is that I wasn't rounding when doing division.  
+            -Well, I suppose that's not correct either.  I guess I can't really round decimals?
+
+        -OK, so.  Costs are consumed in:
+            X -The bottom RefundTotal component.
+            -The SessionItems70 LIs
+            -MiniItem LI
+            -FullReview LI?
+            -SessionInvoices70
 
     
 
