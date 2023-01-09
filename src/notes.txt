@@ -1906,9 +1906,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -So.  The quantities are now correctly displaying, but when I change items, the input field doesn't change, and I've also noticed that the localDisposObj stays the same.  When a new item is clicked, the localDisposObj SHOULD become a clone of the Global dispos obj for that item.  
 
-        -Here is my current best guess at what is happening.  When I click on a new item, I am changing a prop, not a state.  AFAICT, everything that does change correctly (picture, qty, etc. ) are all using that prop as part of their route.  so like the image is   image[itemNum]   and I THINK that if that value changes, so does whatever it is referencing.  
+        -Here is my current best guess at what is happening.  When I click on a new item, I am changing a prop, not a state.  AFAICT, everything that does change correctly (picture, qty, etc. ) are all using that prop as part of their route.  so like the image is   image[itemNum]   and I THINK that if itemNum changes, anything references itemNum now points through its new value?
 
-        I keep thinking to just put a local state in there that tracks the ActiveItem, 
+        I keep thinking to just put a local state in there that tracks the ActiveItem, but I already kind of have that.  That's what's set by clicking on any <LI> in SessionItems70, and that state's value gets passed as a prop into ItemDetail30.
 
         Here's where I'm stuck.  I THOUGHT that since every time I clicked on a new item, I was triggering a re-render.  My Reducer contains a function that sets the state initially, and so I thought that every time I triggered a re-render, that would get reset.
 
@@ -1926,15 +1926,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -Second, React's docmentation recommends against this.  I'm setting the same state twice, once in the inital render and again once the render is complete.  
 
-            -The third reason is that the only reason I have a local state tracking the input is so they can have an invalid number.  I'm pretty sure that's the only reason.  If I feel like I don't need that, I should get rid of the local state entirely and have the whole thing track the global state.  
+            -The third reason is that the only reason I have a local state tracking the input is so they can have an invalid number.  If I feel like I don't need that, I should get rid of tracking dispositions in the local state entirely and have the whole thing track the global state.  
 
         -Second partial solve: just do the whole thing in the global state, don't allow any invalid numbers.  Not the IDEAL user experience, but it's no worse than using UseEffect and the logic is simpler.
 
         -Third option:  If I provide each item with a unique Key prop (like if I was mapping from an array) then it will trigger a re-render each time.  The problem with THAT is that my state appears to get re-set every time I re-render, so I keep having to click on the "Damaged / Defective" button each time.  
 
-            -If I hate this and need to solve it, I could store the active tab on the item in the session.  I don't think it's technically even all that bad because it doesn't have to get stored in the database.  It's just a property I add to the item as I create it.
+            -If I hate this and need to solve it, I could store which tab is active on the item in the sessionItems.  I don't think it's technically even all that bad because it doesn't have to get stored in the database.  It's just a property I add to the item as I create it.
 
-            +The other plus to doing it that way is that I get to keep the Local State.  I'm doing the real-time validation with no submit button because I think that's the most user-friendly way to do this, but I have a feeling they're going to want the submit button.  
+            +The other plus to doing it that way is that I get to keep the Local State.  I'm doing the real-time validation with no submit button because I think that's the most user-friendly way to do this, but I have a feeling they're going to want the submit button and if I have to change my approach to use a Submit button I will absolutely need a local state.
+
+            -Alternatively, I could just store whichever ItemDetail30 tab is active in ReturnsIndex.  It won't be item-specific but I honestly don't think that's a big deal.
 
         -Fourth Option:
             -I create an Active Item state in ReturnsIndex.  I'm actually already kind of tracking this.  BUT.  Here's a huge problem.  I was assuming that changing the active item would trigger a re-render, but it doesn't right now.  OK, nvm this is nothing.  
@@ -1955,11 +1957,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Something I've been wondering for a while is if I even need to be tracking dispositions in matching.  The only quantities Matching cares about are Unwanted or Damaged.
             -Technically, some other process might care about how much we refunded a customer.  Maybe.  Or not?  Might be that all we care about is what invoice they came from?  
-                -Actually, come to think of it, that shouldn't matter either because AFAICT we have no way of knowing what WE paid for the item.  If the SKU is the same, they're indistinguishable.  So the amount refunded per item is meaningless.  
+                -Actually, come to think of it, that shouldn't matter either because AFAICT we have no way of knowing what WE paid for a given unit.  If the SKU is the same, they're indistinguishable.  So the price Lowe's paid per item is meaningless.  
 
             -Someone in our process might still need a count of how many came in of each type, but I really can't see that mattering in Returns.
 
-            -The other point is that from my POV, only the Unwanted and Damaged totals matter.  Like, I'm already capturing this info.  
+            -The other point is that from my POV, only the Unwanted and Damaged totals matter for the refund.  Like, I'm already capturing this info.  
 
             -Now, the other thing I have wondered:  Do I just jam all the dispositions into one Dispositions object, or do I keep them separate?
 
@@ -1971,7 +1973,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -First order of business:  Figure out what to do with the Unwanted vs Damaged dispositions.
         -I've realized that the reason I'm hesitant to commit to doing them all in one big object is because having them separate is more future-proof.  If I separate them it's hard to imagine a future scenario where I wish I'd done it different.
 
-        -I still feel some doubt.  I'm very clearly doing this because it is easier.  However, this does keep the code simple.  I'm already afraid to mess with Matching because of its complexity, although maybe I shouldn't be.  
+        -I still feel some doubt.  I'm very clearly doing this because it is easier.  However, this does keep the code simple-ish.  I'm already afraid to mess with Matching because of its complexity, although maybe I shouldn't be.  
 
     -I still think I'm going to use one big dispos object.  This is a VERY secondary feature, especially when it comes to matching.  Remember Rule 1.  With that said, I will need:
         -An object of Damaged conditions.  I'm going to check for Damaged conditions because I don't expect them to change and then adding future objects will be easier.  
@@ -1985,7 +1987,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             LI:
                 -Item Details.  I guess I could get these from the context or from the ScannedItem list?
                 -Per-Unit price: this will be in the MatchBite
-                -Quantity: MatchBite, but may need re-derived.
+                -Quantity: MatchBite, but may need further refined.
 
             Data Translation:
                 -I could do it by MatchBite, which is basically the same as doing it by Invoice.
@@ -2001,7 +2003,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
                 -AFAICT I need to make a new structure for this.  I would need to loop through all the MatchBites, loop through each bite's payment method, see if it is unique, and then either add it to the list or to the type it matches.
 
-                    -I'm thinking about changing the items in the database to include an Identifiery property (replacing things like CCnum or check numbers).  If I do that, my loop gets a little simpler.
+                    -I'm thinking about changing the items in the database to include an Identifier property (replacing things like CCnum or check numbers).  If I do that, my loop gets a little simpler.
 
                     -The case against would be that I think I already need to do some payment-type-specific behavior to get the string I will use to describe it in the output, so I might as well just do it there?  And also the Refund to Tender type is gonna need some conditional logic?  Yeah, I don't think I need to change it.
 
@@ -2022,7 +2024,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -4:30.  A fun new twist.  Apparently, Javascript can't always represent decimals accurately, and I think I finally understand why.  Any integer is easy to represent in binary.  But decimals must be represented fractions of two binary integers, and sometimes those are decimals are really long, or even infinite, like how 1/3 = 0.33333∞ .  To solve this, JS will round a number off at some point.  
 
-        -The solution I have found looks hacky, but I saw it in several places so I think I'm gonna do it.  You represent money as the total of cents rather than the total of dollars, and then just n/100 right before you show it anywhere in the interface.
+        -The solution I have found looks hacky, but I saw it recommended in several places so I think I'm gonna do it.  You represent money as the total of cents rather than the total of dollars, and then just n/100 right before you show it anywhere in the interface.
 
         -The other thing I could do is just Math.floor() any of my divisions, but I could still have problems since I still have decimals all over the app.  OK, guess that settles it.  Cents it is.
 
@@ -2081,7 +2083,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
                     - conditions for skipping this iterator
 
-                    - empty output that this cycle of the loop is building
+                    - Unfilled output that this cycle of the loop is building
 
                     - steps: (as many instances as needed)
                         -process, store key data into variables
@@ -2103,7 +2105,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         Still not super engaged.  I did eat, and I do need to remember to make commits as I go because if I make a lot of changes, it becomes harder to diagnose where  a problem is happening.
             X -Check and see if MatchMaker is working as-is.
             X -Finish re-organizing on the CoVID CDC pattern.
-            -See if I can't move those Break conditions to the end.
+            X -See if I can't move those Break conditions to the end.
+            -try to put all break checks into one If statement with || conditions.
             -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
                 EDIT: NVM, disposition affects restocking fee.  If I didn't check here I'd have to loop through again.  This is good where it is.
 
@@ -2114,7 +2117,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -First, let me see if I can add a third invoice and see if that gets 2 empty MatchBites?
             -It does.  
 
-        -My hypothesis is that my break condition of !cartItem is not evaluation as I expect and that's why it continues to loop after completing the match.
+        -My hypothesis is that my break condition of !cartItem is not evaluating as I expect and that's why it continues to loop after completing the match.
         -OK, hypothesis confirmed. the cartItem variable is showing a full clone of 100, with quantity set to 0.  The reason I am confused is that unmatched_items{} is showing an empty object.  I THOUGHT that the variable was a pointer to this item within unmatched_items, but it looks like it's a clone?
 
         OK!  Another breakthrough, I think.  I was operating on this seemingly-dumb but seems-to-work heuristic of: if I'm going to delete a property and I'm using a variable to store a path to it, MAKE SURE that I've got at least ONE additional segment to that property's route.  Well, I finally found out why that is!  I've been wondering for a while why, for this example:
@@ -2141,8 +2144,21 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         then it should work like you'd expect.  That variable still contains a pointer that I can operate on.  It should ONLY be 'delete' that has problems.
 
+    5:45.  Finally finished re-organizing the Matchmaker, I gave it some moderate testing, and it appears to be working correctly.  I am so relieved.  I am just about out of gas and I want to be done, but I'd feel obligated to continue if I were seeing problems.
 
-        
+        -I feel great.  Like, legit, really good.  This was probably the hardest day I've had since figuring out how to do the matches in the first place, and I feel so much better about the Matchmaker now.  Yes, I didn't complete the work on it, but I got the hardest part done.  I was good about using hypotheses to diagnose problems.  I was able to see the pattern in such a way that I was FINALLY able to come up with a fractal organization template for the MatchMaker.  AND, I this weekend I figured out TWO things that I didn't understand at all - weird decimals in JS, and why having an extra route-segment after my object paths stored in variables seemed to make a difference.  
+
+        -I still need to figure out how to include identifiers as tender types are matched, but that SHOULDN'T disrupt anything that's already working so I'm less worried.  If ever a day deserved a swallk, this one does.  
+
+9 Jan 2022
+    -First thing I would like to do today is figure out how to handle the payment-specific information.  
+        -My first thought was that for all the payment types with unique information (Credit, Debit, Check ??) into an Identifier object.  If I did that, I'd have to make sure I update Search because Search uses this info.
+
+        -However.  There might be an easier, dirtier(?) solution.  For each invoiceNum.invoiceDetails.payment[thisTenderType], I could just spread the entire contents of the existing object into the refundPerPayment{} obj in the matchBite.  I think that would capture everything.
+
+        -Like, it's kind of weird but I don't think it costs me anything.  When I'm processing these into the Return To Tender array, I'm going to need to do conditional logic based on the type anyways.  An extra layer of organization doesn't really save me anything.  
+
+    10:00.  Sweet.  That was easy.
 
 
     

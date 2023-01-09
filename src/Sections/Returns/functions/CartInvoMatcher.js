@@ -139,8 +139,11 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
-        // Add amount as value of tender type to MatchBite
-        outMatchBite.refundPerPayment[thisTenderType] = decrementAmount;
+        // spread existing properties like CCnum, then write amnt paid.
+        outMatchBite.refundPerPayment[thisTenderType] = {
+          ...invoPayments[thisTenderType],
+        };
+        outMatchBite.refundPerPayment[thisTenderType].paid = decrementAmount;
 
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
