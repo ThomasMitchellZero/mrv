@@ -12,7 +12,7 @@ const MiniUnmatchedLI = ({
 
     // if there is a message, generate its JSX
   const displayPrice = totalPrice ? (
-    <h4>{`$ ${totalPrice.toFixed(2)}`}</h4>
+    <h4>{`$ ${(totalPrice / 100).toFixed(2)}`}</h4>
   ) : null;
   return (
     <section className={`divider-bottom ${classes.container}`}>
@@ -20,7 +20,7 @@ const MiniUnmatchedLI = ({
         {message}
         <h5>{`Item # ${itemObj.itemNum}     Model # ${itemObj.modelNum}`}</h5>
         <p>{itemObj.description}</p>
-        <h4>{`$ ${itemObj.price.toFixed(2)}`}</h4>
+        <h4>{`$ ${(itemObj.price / 100).toFixed(2)}`}</h4>
       </section>
       <section className={classes.secondColumn}>
         <div className="number-bubble">{itemObj.quantity}</div>
