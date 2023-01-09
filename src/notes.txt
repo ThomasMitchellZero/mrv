@@ -2168,10 +2168,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -OK, so.  Costs are consumed in:
             X -The bottom RefundTotal component.
-            -The SessionItems70 LIs
-            -MiniItem LI
+            X -The SessionItems70 LIs
+            X -MiniItem LI
             -FullReview LI?
-            -SessionInvoices70
+            X -SessionInvoices70
 
     
 
