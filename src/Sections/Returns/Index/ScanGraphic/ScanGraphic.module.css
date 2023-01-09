@@ -1,9 +1,10 @@
-.scangraphic{
+.container{
     display:flex;
     flex-direction: column;
+    flex: 1 1 0rem;
     gap: 1rem;
+    justify-content: center;
     align-items: center;
-
 }
 
 img{

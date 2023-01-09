@@ -11,7 +11,7 @@ const ScanGraphic = (props) => {
     }
   };
   return (
-    <div className={classes.scangraphic}>
+    <div className={classes.container}>
       <img src={graphicSelector(props.graphic)} alt={"Scanning Graphic"} />
       <p className={classes.maintext}>{props.mainText}</p>
       <p className={classes.subtext}>{props.subText}</p>

@@ -1,18 +1,15 @@
 .container{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     flex: 1 1 0rem;
     width: 100%;
-
 }
 
-.container section{
+.mainContent{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    width: 100%;
+    flex-direction: column;
     flex: 1 1 0rem;
+    background-color: #FFFFFF;
+    width: 100%;
+
 }
