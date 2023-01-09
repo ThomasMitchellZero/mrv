@@ -3,6 +3,8 @@ import classes from "./FullReviewLI.module.css";
 import RejectionCode from "../../../components/UI/RejectionCode";
 
 const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
+  const totalPrice = itemDataObj.price * itemDataObj.quantity;
+
   return (
     <section className={`divider-bottom ${classes.container}`}>
       <section className={classes.imageHolder}>
@@ -19,13 +21,11 @@ const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
         </section>
         <p className={classes.description}>{itemDataObj.description}</p>
         <section className={classes.priceInfo}>
-          <h4>{`$ ${itemDataObj.price.toFixed(2)} ea`}</h4>
+          <h4>{`$ ${(itemDataObj.price / 100).toFixed(2)} ea`}</h4>
           <div className="text-spacer" />
           <div className="number-bubble">{itemDataObj.quantity}</div>
           <div className="text-spacer" />
-          <h4>{`$ ${(itemDataObj.price * itemDataObj.quantity).toFixed(
-            2
-          )}`}</h4>
+          <h4>{`$ ${(totalPrice / 100).toFixed(2)}`}</h4>
         </section>
       </section>
     </section>

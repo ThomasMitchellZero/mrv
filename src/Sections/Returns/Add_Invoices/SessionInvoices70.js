@@ -59,7 +59,7 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
         <td>{itemKey}</td>
         <td>{itemDetails.store}</td>
         <td>{lineItemQty}</td>
-        <td>{totalPrice.toFixed(2)}</td>
+        <td>{(totalPrice / 100).toFixed(2)}</td>
         <td>
           <button
             id={itemKey}
