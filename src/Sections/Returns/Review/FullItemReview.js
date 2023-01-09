@@ -11,6 +11,7 @@ const FullReview = ({ pageStatus = "preSearch" }) => {
   const navigate = useNavigate();
   const returnsContext = useOutletContext();
   const unmatched = Object.values(returnsContext.session.unmatched);
+  const totalPrice = 0
 
   const statusObj = {
     preSearch: {
