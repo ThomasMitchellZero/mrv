@@ -1945,13 +1945,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I'm not really ready to dig into the Matching.  I think that's a task for tomorrow.  I think today would be better spent doing some other cleanup.
 
-            -Biggest and ugliest by far is that I'm going to have to track unwanted dispositions separately.
-
-            -I would like the Selected Item to display a little blue inditactor to show that it is active.  
-
-            -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
-
-            -After entering an item, ItemEntry30 should focus on the itemNum field instead of staying on the Qty field.
+            -Moved to 9 Jan.
 
     5:00 - nvm, I think I'm actually done for the day.  Just don't feel very smart right now and it's probably because I haven't eaten.  Instead I'm going to think about how to handle unwanted dispositions.
 
@@ -2107,8 +2101,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             X -Finish re-organizing on the CoVID CDC pattern.
             X -See if I can't move those Break conditions to the end.
             -try to put all break checks into one If statement with || conditions.
-            -Look into moving the cost calculations out of the Dispositions loop.  I don't see much reason for it to be there.  
-                EDIT: NVM, disposition affects restocking fee.  If I didn't check here I'd have to loop through again.  This is good where it is.
+
 
             -Once that is all done, I need to figure out a way to have any payment-specific details (CCnum, Checking, etc.) included in the Match Bites because it's going to be needed.  
             -Look into doing all the squeezing in ItemDetail30.
@@ -2170,12 +2163,33 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             X -The bottom RefundTotal component.
             X -The SessionItems70 LIs
             X -MiniItem LI
-            -FullReview LI?
+            X -FullReview LI?
             X -SessionInvoices70
 
-    
+    3:35: I've finished the updates.  I also didn't take anything today so my focus is not great.  Kicking around the idea of doing some detail work and hitting the Refund to Tenders tomorrow when I'm a little more dialed in?
 
+        -I would like the Selected Item to display a little blue inditactor to show that it is active.  
+
+        -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
+
+        -After entering an item, ItemEntry30 should focus on the itemNum field instead of staying on the Qty field. oo
+
+        X - Add RefundTotal into the StartScanning page.
+
+
+10 Jan 2023
+    the note I left myself from last night:
         
+    4 outputs from matchmaker. 
+
+    Well, why not?  Wouldn't it be nice if I didn't have to do any additional processing in the TotalReview?  It also makes sense because I'm also going to need that information in the next step, so I actually SHOULDN'T be storing it in Total Review.
+
+    Buuuut - a problem.  How to handle situations where the the refund tender isn't the same as the original tender?  
+        -It wouldn't be too hard to add a dispatch function that lets me change this object, but if for some reason I were to go back and add another item or invoice to the session, the RefundTenders object would be re-derived an any changes I'd made would be lost.
+
+            -That's not actually the end of the world.  First, it's VERY rare case.  Second, it's annoying but I don't think it would cause errors because when the user does eventually come back, the program will run them through the same steps.
+
+        -Also, the 
 
 
                 

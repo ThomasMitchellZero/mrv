@@ -4,10 +4,11 @@ import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
 const CartInvoMatcher = (itemList, invoiceList) => {
-  //The three derives states we are building.
+  //The 4 derived states we are building.
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
   let matched_items = {};
+  let tenderTypes = {};
 
   //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
@@ -51,7 +52,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       disposLoop: for (const loopDispo of Object.keys(
         thisCartItem.disposition
       )) {
-        //ERROR? is this needed on the first pass?  The loop shouldn't enter, right?  REMOVE IF it works
+
 
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];
@@ -140,6 +141,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         unrefundedTotal -= decrementAmount;
 
         // spread existing properties like CCnum, then write amnt paid.
+        
         outMatchBite.refundPerPayment[thisTenderType] = {
           ...invoPayments[thisTenderType],
         };
