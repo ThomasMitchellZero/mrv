@@ -8,7 +8,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
   let matched_items = {};
-  let tenderTypes = {};
+  let refunds_by_tender = {};
 
   //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
@@ -52,8 +52,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
       disposLoop: for (const loopDispo of Object.keys(
         thisCartItem.disposition
       )) {
-
-
         //quantities being compared
         const dispo_qty = thisCartItem.disposition[loopDispo];
         const sold_Qty = thisInvoItem.quantity;
@@ -140,8 +138,17 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
+
+        // New, Keep if working.
+        const oldTenderValue = refunds_by_tender?.[thisTenderType]?.paid ?? 0;
+
+        refunds_by_tender[thisTenderType] = {
+          ...invoPayments[thisTenderType],
+          paid: decrementAmount + oldTenderValue,
+        };
+
         // spread existing properties like CCnum, then write amnt paid.
-        
+        // old, delete if working
         outMatchBite.refundPerPayment[thisTenderType] = {
           ...invoPayments[thisTenderType],
         };
@@ -175,6 +182,8 @@ const CartInvoMatcher = (itemList, invoiceList) => {
     matched: matched_items,
     unmatched: unmatched_items,
     modified_invoices: modified_invoices,
+    refunds_by_tender: refunds_by_tender,
+    
   };
 };
 
