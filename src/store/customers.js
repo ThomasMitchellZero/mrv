@@ -9,7 +9,7 @@ const CustomerContext = React.createContext({
     },
 
     333443333:{
-        name: "Shady McPilferson"
+        name: "Shady Scambert"
     },
 
     555665555:{
