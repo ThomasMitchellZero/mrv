@@ -138,21 +138,14 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
-
-        // New, Keep if working.
+        // This is incomplete.  not checking for identifiers.  
+        // START HERE next time
         const oldTenderValue = refunds_by_tender?.[thisTenderType]?.paid ?? 0;
 
         refunds_by_tender[thisTenderType] = {
           ...invoPayments[thisTenderType],
           paid: decrementAmount + oldTenderValue,
         };
-
-        // spread existing properties like CCnum, then write amnt paid.
-        // old, delete if working
-        outMatchBite.refundPerPayment[thisTenderType] = {
-          ...invoPayments[thisTenderType],
-        };
-        outMatchBite.refundPerPayment[thisTenderType].paid = decrementAmount;
 
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
@@ -183,7 +176,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
     unmatched: unmatched_items,
     modified_invoices: modified_invoices,
     refunds_by_tender: refunds_by_tender,
-    
   };
 };
 

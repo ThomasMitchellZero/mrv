@@ -44,7 +44,7 @@ const ReturnsIndex = () => {
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
     state30: "actions",
     state70: "session_items",
-    activeItem: 200,
+    activeItem: null,
     activeItemTab: "unwanted"
   });
 
