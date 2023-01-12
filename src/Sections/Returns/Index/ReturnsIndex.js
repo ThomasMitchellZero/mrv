@@ -19,7 +19,7 @@ const panelsReducer = (state, action) => {
     case "SET_PANELS": {
       const new30 = action.payload.set30 ?? state.state30;
       const new70 = action.payload.set70 ?? state.state70;
-      const newActiveItem = action.payload.activeItem ?? state.activeItem;
+      const newActiveItem = action.payload.activeItem ?? null
       const newActiveItemTab =
         action.payload.activeItemTab ?? state.activeItemTab;
 

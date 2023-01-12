@@ -189,7 +189,7 @@ const ItemDetails30 = ({
         left_onClick={() =>
           dispatchActivePanels({
             type: "SET_PANELS",
-            payload: { set30: "item_entry", activeItem: null },
+            payload: { set30: "item_entry" },
           })
         }
       >

@@ -97,7 +97,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
               });
               dispatchActivePanels({
                 type: "SET_PANELS",
-                payload: { set30: "item_entry", activeItem: null },
+                payload: { set30: "item_entry" },
               });
               /* Each <tr> is clickable, and contains a clickable Delete button.  event.stopPropagation() keeps the <tr> click event from executing after Delete is clicked.*/
               event.stopPropagation();

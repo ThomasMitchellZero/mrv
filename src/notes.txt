@@ -2189,7 +2189,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -That's not actually the end of the world.  First, it's VERY rare case.  Second, it's annoying but I don't think it would cause errors because when the user does eventually come back, the program will run them through the same steps.
 
-        -Also, the 
+12 Jan 2022
+    OK, got a little over an hour before the staff meeting starts so I am gonna do SOMETHING.
+        -I could try and solve the problem of how to uniquely identify payment types, but tomorrow is looking pretty clear for me and that might be a better time to do it.  There's a good chance that whatever approach I try first might not work, and if I have to stop then I have to re-load the context into memory when I start again.
+
+        -I think that what I will do instead is figure out how to make the blue bar appear on a selected LI.
+            -Very first thing is to figure out what 30 panel the user goes to when they leave ItemDetail30.  OK, so it looks like it's ItemEntry30 in both cases.
 
 
                 
