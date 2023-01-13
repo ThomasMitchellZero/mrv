@@ -138,14 +138,17 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
-        // This is incomplete.  not checking for identifiers.  
-        // START HERE next time
-        const oldTenderValue = refunds_by_tender?.[thisTenderType]?.paid ?? 0;
 
-        refunds_by_tender[thisTenderType] = {
-          ...invoPayments[thisTenderType],
-          paid: decrementAmount + oldTenderValue,
-        };
+        const thisTenderLabel = invoPayments[thisTenderType].tenderLabel;
+
+        // If this label doesn't exist in the refunds_by_tender{}...
+        if (!refunds_by_tender[thisTenderLabel]) {
+          // create it and set paid to 0
+          refunds_by_tender[thisTenderLabel] = { paid: 0 };
+        }
+
+        refunds_by_tender[thisTenderLabel].paid += decrementAmount
+
 
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {

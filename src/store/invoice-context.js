@@ -1,6 +1,6 @@
 import React from "react";
 
-import invoicePaymentPricer from "../global_functions/invoicePaymentPricer"
+import invoicePaymentPricer from "../global_functions/invoicePaymentPricer";
 
 //products = 100, 200, 300, 400, 900, 910
 
@@ -10,7 +10,7 @@ const invoiceObj = {
       store: 1234,
       date: new Date(2022, 8, 13),
       phone: "1112223333",
-      payment: { cash: { paid: 0 } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
     },
     products: {
       100: { quantity: 8, price: 4150, tax: 380 },
@@ -35,23 +35,25 @@ const invoiceObj = {
       date: new Date(2022, 1, 22),
       payment: {
         check: {
+          tenderLabel: "Check ****4321",
           paid: 0,
           routing: "12341234",
           account: "43214321",
         },
         creditCard: {
+          tenderLabel: "MasterCard ****2222",
           paid: 0,
           ccNum: "1111222211112222",
         },
       },
     },
     products: {
-      200: { quantity: 8, price: 4400, tax: 410 },
-      900: { quantity: 1, price: 98715, tax: 9100 },
+      200: { quantity: 8, price: 4400, tax: 410, },
+      900: { quantity: 1, price: 98715, tax: 9100, },
     },
   },
 
-    /*
+  /*
       35200 +
       98715
       =
@@ -70,6 +72,7 @@ const invoiceObj = {
       date: new Date(2022, 1, 24),
       payment: {
         creditCard: {
+          tenderLabel: "American Express ****4444",
           paid: 0,
           ccNum: "3333444433334444",
         },
@@ -84,7 +87,7 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 4, 13),
-      payment: { cash: { paid: 0 } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
     },
     products: {
       300: { quantity: 6, price: 2415, tax: 216 },
@@ -95,7 +98,7 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 2, 11),
-      payment: { cash: { paid: 0 } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0, } },
       phone: "1112223333",
     },
     products: {
@@ -107,7 +110,7 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 3, 8),
-      payment: { cash: { paid: 0 } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0, } },
       orderNum: "11112222",
       lcaNum: "11112222",
       proIdNum: "11112222",
@@ -115,13 +118,13 @@ const invoiceObj = {
 
     products: {
       100: { quantity: 10, price: 5615, tax: 80 },
-      300: { quantity: 8, price: 2555, tax: 2.10 },
+      300: { quantity: 8, price: 2555, tax: 2.1 },
       400: { quantity: 1, price: 102105, tax: 9821 },
     },
   },
-}
+};
 
-invoicePaymentPricer(invoiceObj)
+invoicePaymentPricer(invoiceObj);
 
 const InvoiceContext = React.createContext(invoiceObj);
 
