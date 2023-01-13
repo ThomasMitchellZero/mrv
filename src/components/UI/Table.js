@@ -1,9 +1,12 @@
 import TableHeading from "./TableHeading";
 
-const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction, tableLayout }) => {
 
-  const layoutInput = (typeof tableLayout==="string")?tableLayout:"auto"
-
+const Table = ({
+  tableHeadingArray,
+  tableBodyArray,
+  hasItemAction,
+  hasActiveIndicator = false,
+}) => {
   // populates the table heading from an array of objects
   let tableHeadings = tableHeadingArray.map((item) => {
     return (
@@ -20,14 +23,18 @@ const Table = ({ tableHeadingArray, tableBodyArray, hasItemAction, tableLayout }
     );
   });
 
+  // if <tr>s have button or active indicator, these 2 conditions keep columns aligned.
   if (hasItemAction) {
-    tableHeadings = [
-      ...tableHeadings,
-      <th key="spacer" style={{ width: "2rem", height: "1rem" }} />,
-    ];
+    tableHeadings.push(
+      <th key="spacer" style={{ width: "2rem", height: "1rem" }} />
+    );
   }
 
-
+  if (hasActiveIndicator) {
+    tableHeadings.unshift(
+      <th key="indicator" className="activeStatusBar" />
+    );
+  }
 
   return (
     <div>

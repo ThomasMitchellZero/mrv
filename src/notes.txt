@@ -2196,6 +2196,35 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -I think that what I will do instead is figure out how to make the blue bar appear on a selected LI.
             -Very first thing is to figure out what 30 panel the user goes to when they leave ItemDetail30.  OK, so it looks like it's ItemEntry30 in both cases.
 
+        -OK.  Program removes active item when the ItemEntry30 panel is dispatched 
+
+        -Now, how to indicate it?
+            -Got a partial solve.  I've currently got a class that sets the left border to a visible color, and logic the TR mapper in Items that applies that class if it is selected.
+            -I also added the same border but transparent to the whole table, which appears to work OK because I have border-collapse on?  (don't actually understand this)
+
+            -The problem is that anything that's not contained within the table, like the "Coming Soon" indicator, does not have that border.  So my choices appear to be:
+                -Leave it like it is and then remember to also apply the border to anything that goes inside.
+                -Alternatively, I could create some kind of border component, put it inside my TRs and my TH, and then have some logic that activates it?
+            -I THINK I prefer the second one?  I really want everything to stand on its own to the greatest degree possible and not impose requirements on outside components that I have to remember to apply.
+            Right now, I think that's the way to go?
+
+13 Jan 2022
+    10:30.  Struggling to get started, but 42069 is finally underway, Kristin and Anthony are in a store together, I've made good progress to show at my paid work, and Sorin appears to be on the verge of settling down for a nap next to the desk.  I SHOULD be in the clear for the rest of today :)
+
+    First thing to do is to see if I can add the marker to my TH and TRs.  Once I get that, I can try it and see how I feel about this approach vs. the border change?
+        -OK, we got a problem.  The standard table does not include the indicator.  
+
+        -Man, this border is turning out to be way harder than I was hoping.  
+            -I was just about to write a long complaint about how it was really hard to do it with a component, but I'm now wondering if I can actually do it with a CSS class that I just apply to an empty <th> and <tr>s.  
+
+        -OK, sweet.  Worked like a charm, got me everything I wanted.  Trick was to just store the stared details in the CSS classes without a component, and just apply the CSS to the <tr> and <th> directly.  
+
+        -I do kind of wonder about these earlier components.  I wonder how many of them could be simplified and made mostly through CSS.  Rule 1, though.
+
+    1:55:  Going to try to steer into the hardest problem right now, and that is how to handle the Tenders output.
+        -At the moment, the approach that seems easiest is to add some kind of tenderKey property to each transaction type.
+            -I'm wondering about making the TenderKeys as the 
+
 
                 
 

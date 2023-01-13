@@ -84,6 +84,7 @@ const ReturnsIndex = () => {
       <SessionItems70
         dispatchActivePanels={dispatchActivePanels}
         returnsContext={returnsContext}
+        activeItem={activePanels.activeItem}
       />
     ),
     session_invoices: (

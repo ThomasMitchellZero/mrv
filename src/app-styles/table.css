@@ -1,12 +1,12 @@
 
 
 table{
-    box-sizing: border-box;
     background-color:transparent;
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
     border-radius: .25rem .25rem 0rem 0rem;
+
 }
 
 thead{
@@ -28,12 +28,23 @@ th{
 td{padding: 0rem .5rem}
 
 tbody tr{
+
     font-size: 1rem;
     font-weight: 400;
     color: #000;
     opacity: 87%;
     border-bottom: 1px solid #e0e0e0;
     height: 4.5rem;
+
+}
+
+.activeStatusBar{
+    width: .25rem;
+    background-color: transparent;
+    padding: 0rem;
+}
+.activeStatusBar.activeTR{
+    background-color: blue;
 }
 
 /*

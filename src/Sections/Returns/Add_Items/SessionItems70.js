@@ -7,7 +7,12 @@ import ReturnsProductDetail from "./ReturnsProductDetails";
 import Table from "../../../components/UI/Table";
 import RefundTotal from "../../../components/UI/RefundTotal";
 
-const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
+
+const SessionItems70 = ({
+  returnsContext,
+  dispatchActivePanels,
+  activeItem,
+}) => {
   // items are stored in an object.  This makes an array so they can be iterated.
 
   const ctxItems = Object.values(returnsContext.session.items).reverse();
@@ -40,6 +45,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
     const price = Number(line.price / 100).toFixed(2);
     const quantity = Number(line.quantity);
     const total = (price * quantity).toFixed(2);
+    const isActive = activeItem === line.itemNum ? "activeTR" : "";
 
     // if there is a restock fee, display it and apply voidPrice to h4
     const adjPrice = line.restockFee ? (
@@ -67,7 +73,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
 
     return (
       <tr
-        className="divider-bottom"
+        className={`divider-bottom `}
         key={line.itemNum}
         onClick={() => {
           dispatchActivePanels({
@@ -76,6 +82,8 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
           });
         }}
       >
+        <td className={`activeStatusBar ${isActive}`}>
+        </td>
         <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
@@ -122,6 +130,7 @@ const SessionItems70 = ({ returnsContext, dispatchActivePanels }) => {
             tableHeadingArray={headingList}
             tableBodyArray={tableBodyContents}
             hasItemAction={true}
+            hasActiveIndicator={true}
           ></Table>
         </div>
       </section>
