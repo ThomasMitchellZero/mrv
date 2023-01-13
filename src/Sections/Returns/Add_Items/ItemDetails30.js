@@ -91,7 +91,7 @@ const ItemDetails30 = ({
           // Sets active tab in ReturnsIndex parent
           dispatchActivePanels({
             type: "SET_PANELS",
-            payload: { activeItemTab: reason },
+            payload: { activeItem: activeItem, activeItemTab: reason },
           });
         }}
       >
