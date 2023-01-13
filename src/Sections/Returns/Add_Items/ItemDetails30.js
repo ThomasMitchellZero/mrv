@@ -101,7 +101,7 @@ const ItemDetails30 = ({
   };
 
   // reusable button to set local Disposition to be edited.
-  const DispoButton = (label, reasonKey, disposCategory) => {
+  const DispoButton = (label, reasonKey) => {
     const isActive = detailsState.defectiveReason === reasonKey ? "active" : "";
 
     // Make display qty string if item exists in dispo.

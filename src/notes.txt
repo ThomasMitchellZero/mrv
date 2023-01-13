@@ -2223,7 +2223,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     1:55:  Going to try to steer into the hardest problem right now, and that is how to handle the Tenders output.
         -At the moment, the approach that seems easiest is to add some kind of tenderKey property to each transaction type.
-            -I'm wondering about making the TenderKeys as the 
+            -I'm wondering about making the TenderKeys as the primary key, but I think that's a trap.  I need to do certain action like Lookup on the basis of a more general type, like Checking acct and routing, or Credit Card numbers.  
+
+        -Alternatively, I've also thought about moving all the unique identifiers into an  'identifier' property and then deriving it into whatever I need when I'm consuming it, but I don't think that's great either.
+            -It doesn't really make search easier, because I'm pretty sure I still need to specifically define how to search on the basis of the payment type (I can't search for a CCnum the same way I search for a checking account and routing number)
+
+        -OK.  I think what's bothering me is that I'm using   tenderKey   as a primary key, and it's really not.  I think that this is probably just a Rule 1 and move on.
 
 
                 
