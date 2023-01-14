@@ -39,7 +39,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         tax: thisInvoItem.tax,
         invoice: invoiceNum,
         disposition: {},
-        refundPerPayment: {},
         totalPrice: 0,
         adjustedRefund: 0,
         totalTax: 0,

@@ -1,4 +1,6 @@
-RULE 1:  Coding time is in short supply and this is just a demo.  Don't spend effort solving problems we don't currently have.
+RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.
+
+RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
 
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
@@ -2229,6 +2231,91 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -It doesn't really make search easier, because I'm pretty sure I still need to specifically define how to search on the basis of the payment type (I can't search for a CCnum the same way I search for a checking account and routing number)
 
         -OK.  I think what's bothering me is that I'm using   tenderKey   as a primary key, and it's really not.  I think that this is probably just a Rule 1 and move on.
+
+        -Got it all working and feeling zero push right now.  Gonna call it a day.  It was actually pretty productive in terms of "problems no longer on my plate" but I did not feel very engaged and I do not feel like I did my best :/
+
+14 Jan 2023
+    -10:30, 42069 underway.  I didn't do my best yesterday.  Today I would like to feel good when I wrap up.  I've done a good job dodging time-wasters.  Now, I just need to cultivate my sitzfleisch and get it done.
+
+    -One other thing.  I'm hesitant to over-emphasize this because I don't want the work to become unpleasant.  I'm also bearing in mind that one draws quickly by the choice of marks made, not by the speed of mark-making.  That said, I would like to try and move a little faster.  If I'm not sure what approach to take, I should be in here writing.  If I'm not sure where an error is occurring, I should be in the debugger.  And if I'm not sure what to do next, I should my choice should be the work with dependencies that I am MOST confident will be in the final product.  The only distraction that is always acceptable is Sorin.  
+
+    -Let's just gently, continuously make good decisions today.  It's important.  We're so close to having this thing on the run.
+
+    -First task:  
+        -I was going to say that I want to do the input validation, but maybe that's not a good decision.  I don't actually know how it works in the live app.  I'm not at all confident that we can do real-time validation the way I currently am, so any work I put into this might be moot.  
+
+    -OK, let's list what needs to be accomplished, what the blockers are, and how to address them.
+
+        -I need to populate the ReturnedItems30 panel.
+            -Blockers:
+                -I need to make a decision on if I am going to combine MatchBites.  
+                    -No combination.  
+                        + easiest to do right now.  Shouldn't actually have THAT many price mismatches?
+                    -Combine if itemNum and price match:
+                        + Easier to read, probably best matches mental model of Redvest and shopper 
+                    -Combine ONLY on itemNum. 
+                        -NVM, I think this is stupid.
+
+                -If I am going to combine MatchBites, I need to decide if I am doing it within the 30 panel.  If I am not, then I might need to rethink the output of the Matchmaker.  
+                
+            
+        -I need to populate the TotalReview70 panel.
+            Blockers:
+                -I think these objects need to contain more data than just the tender type.
+                    - Refund tender type
+                    - What alternatives, if any, to the refund tender type?
+                    - Did refund fail? (for basically anything except cash or merch card)
+                -Where should these additional types be added? 
+                    - If I do it in the Matchmaker, where should it be?  In the loop where refunds_by_tender is being populated?  Not the most efficient but I think it's the most readable?  
+
+
+        -I need to populate the TenderTypes30 stepper panel.
+            Blockers:
+                -I need to know how to handle the alternative types.  Will it be in-panel buttons?  Will it just be the 'refund to cash' button in the FooterContainer?
+                
+    12:05: OK.  I think the smart thing to do right now would be to tackle the tender types.  First, I can do this without any input from Dave.  Second, I think I generally know what I want to do.  
+
+        -Do I need to have a separate process to determine what refund tender options are available?  Well, I guess I should list some types and see?
+
+            -I THINK that for any process that fails, the default is in-store credit with the option to refund as cash?
+
+            -Credit: Should always be credit unless the process fails.  Then standard failure?
+
+            -Cash: Should always be cash.
+
+            -Store Credit: I THOUGHT it should  always be Store Credit, but in some recent work looks like there is a cash option?
+
+            -Check: Refund to account, with option for cash?
+
+            -Apple / PayPal: in kind unless failure?
+
+        -OK. Based on this, I think I should probably have some kind of function that generates these outputs.  The next question would be where to do it?  
+            -I could technically do it in the invoice-context.  I know nothing about data, but my guess would be that in a database, you should only store UNIQUE data.  Like, I don't think it would make sense to store the product info with the invoice because, for a given product number, the product info is always the same.  You just store the product number and get that from a different table when you need it.
+
+            -I suppose that means I could generate the tenderLabel dynamically as well?  Might be a Rule 1 skip.  
+
+    1:00:
+        So it looks like where this is going is a revision to the Matchmaker.  At this point the MatchBites aren't really doing much.  My outputs are going to be:
+            -A Refund Money object with total price, adjustments, etc.
+            -A Matched Items object, with itemNum, price, and quantity.  IF prices match, 
+            -A RefundTenders object with tender type, didFail, and alternatives if there are any.   
+            -Unmatched and modified_invoices adjusted respectively.
+
+        I do realize from the outside that this kind of rat-fucking looks like time-wasting, but I really do think this is right.
+            -According to Dave and also my own intuition, this is the right way to do it.  The MatchMaker is absolutely central to the function of this application.  Like, if I was going to lose this entire project and I could only keep 2 files, I would choose Returns.js and the Matchmaker.
+
+            -I've been wanting to refactor Matchmaker for a while.  I think I can streamline this thing.
+
+            -I like the idea of doing as much processing as possible in as few locations as possible.  I think my design pattern is to do as much processing as possible as highly and as centrally as is practical.
+
+            
+
+
+            
+
+        
+        
+
 
 
                 
