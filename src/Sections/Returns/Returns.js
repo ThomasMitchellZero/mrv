@@ -4,29 +4,12 @@ import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import CartInvoMatcher from "./functions/CartInvoMatcher";
+import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
 import cloneDeep from "lodash.clonedeep";
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
-
-  // Generates a long list of numbers to test scrolling.
-  const testDataMaker = (length) => {
-    let output = [];
-    for (let i = 0; i < length; i++) {
-      output = [
-        ...output,
-        {
-          id: i,
-          content: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-          date: "5 August 1983",
-        },
-      ];
-    }
-    return output;
-  };
-
-  const testData = testDataMaker(55);
 
   //// RETURNS SESSION REDUCER ////
 
@@ -36,7 +19,13 @@ const Returns = () => {
     unmatched: {},
     modified_invoices: {},
     matched: {},
-    testData: testData,
+    refunds_by_tender: {},
+    refund_money: {
+      refundTotal: 0,
+      taxSum: 0,
+      subtotal: 0,
+      adjustments: 0,
+    },
   };
 
   const sessionReducer = (state, action) => {
@@ -48,7 +37,7 @@ const Returns = () => {
         // if payload.quantity is undefined, return 0.  Dispositions will not include a quantity b/c qty isn't changing.
         let newQuantity = parseInt(action.payload.quantity ?? 0);
         // if item already exists, add old value to new value.
-        newQuantity += state.items[newKey]?.quantity || 0
+        newQuantity += state.items[newKey]?.quantity || 0;
 
         // if there is a new disposition we need to completely replace the old disposition.
         const setDisposition =
@@ -68,8 +57,7 @@ const Returns = () => {
           },
         };
 
-
-        const derivedStates = CartInvoMatcher(newItemList, sessionInvoices);
+        const derivedStates = ReturnsMatchMaker(newItemList, sessionInvoices);
 
         return {
           ...state,
@@ -84,7 +72,7 @@ const Returns = () => {
 
         delete newItemList[action.payload];
 
-        const derivedStates = CartInvoMatcher(newItemList, sessionInvoices);
+        const derivedStates = ReturnsMatchMaker(newItemList, sessionInvoices);
 
         return {
           ...state,
@@ -97,15 +85,15 @@ const Returns = () => {
         const sessionItems = { ...state.items };
 
         const invoicArr = action.payload;
-        const newInvoiceList = {...state.invoices};
+        const newInvoiceList = { ...state.invoices };
 
         //loop through the incoming array
-        for (const i of invoicArr){
+        for (const i of invoicArr) {
           //add this key and its properties from invoiceContext
-          newInvoiceList[i] = invoiceContext[i]
+          newInvoiceList[i] = invoiceContext[i];
         }
 
-        const derivedStates = CartInvoMatcher(sessionItems, newInvoiceList);
+        const derivedStates = ReturnsMatchMaker(sessionItems, newInvoiceList);
 
         return {
           ...state,
@@ -119,7 +107,7 @@ const Returns = () => {
         let newInvoiceList = { ...state.invoices };
         delete newInvoiceList[action.payload];
 
-        const derivedStates = CartInvoMatcher(sessionItems, newInvoiceList);
+        const derivedStates = ReturnsMatchMaker(sessionItems, newInvoiceList);
 
         return {
           ...state,

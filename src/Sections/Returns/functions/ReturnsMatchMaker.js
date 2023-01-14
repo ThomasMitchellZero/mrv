@@ -3,12 +3,18 @@
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
 
-const CartInvoMatcher = (itemList, invoiceList) => {
+const ReturnsMatchMaker = (itemList, invoiceList) => {
   //The 4 derived states we are building.
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
   let matched_items = {};
   let refunds_by_tender = {};
+  let refund_money = {
+    refundTotal: 0,
+    taxSum: 0,
+    subtotal: 0,
+    adjustments: 0,
+  };
 
   //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
@@ -86,6 +92,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
 
         //Total paid for all units of this Item in this Invoice
         const dispoTotalPaid = thisInvoItem.price * matchedQty;
+        const dispoTotalTax = thisInvoItem.tax * matchedQty;
 
         //Don't apply restock fee to damaged items.
         let dispoAdjustment = Math.round(
@@ -96,10 +103,26 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         const dispoAdjustedPaid = dispoTotalPaid - dispoAdjustment;
 
         // Increment all values in the object.
+        // DELETE when new ReturnsMoney obj is working.
         outMatchBite.totalPrice += dispoTotalPaid;
         outMatchBite.adjustedRefund += dispoAdjustedPaid;
         outMatchBite.totalTax += thisInvoItem.tax * matchedQty;
         outMatchBite.totalAdjustments += dispoAdjustment;
+
+        let x = {
+            refundTotal: 0,
+            taxSum: 0,
+            subtotal: 0,
+            adjustments: 0,
+        }
+
+        // update refund_money obj.
+        refund_money.refundTotal += dispoAdjustedPaid;
+        refund_money.taxSum += dispoTotalTax;
+        refund_money.subtotal += dispoTotalPaid - dispoTotalTax;
+        refund_money.totalAdjustments += dispoAdjustment;
+
+
 
         // Delete any zeroed-out properties
         if (thisCartItem.disposition[loopDispo] === 0) {
@@ -137,7 +160,6 @@ const CartInvoMatcher = (itemList, invoiceList) => {
         invoPayments[thisTenderType].paid -= decrementAmount;
         unrefundedTotal -= decrementAmount;
 
-
         const thisTenderLabel = invoPayments[thisTenderType].tenderLabel;
 
         // If this label doesn't exist in the refunds_by_tender{}...
@@ -146,8 +168,7 @@ const CartInvoMatcher = (itemList, invoiceList) => {
           refunds_by_tender[thisTenderLabel] = { paid: 0 };
         }
 
-        refunds_by_tender[thisTenderLabel].paid += decrementAmount
-
+        refunds_by_tender[thisTenderLabel].paid += decrementAmount;
 
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
@@ -178,10 +199,11 @@ const CartInvoMatcher = (itemList, invoiceList) => {
     unmatched: unmatched_items,
     modified_invoices: modified_invoices,
     refunds_by_tender: refunds_by_tender,
+    refund_money: refund_money,
   };
 };
 
-export default CartInvoMatcher;
+export default ReturnsMatchMaker;
 
 /*
 

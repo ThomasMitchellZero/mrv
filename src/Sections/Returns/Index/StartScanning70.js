@@ -4,7 +4,9 @@ import ScanGraphic from "./ScanGraphic/ScanGraphic";
 import FooterContainer from "../../../components/UI/FooterContainer";
 import RefundTotal from "../../../components/UI/RefundTotal";
 
-const StartScanning = ({ returnsContext = {} }) => {
+const StartScanning = ({ moneyObj }) => {
+
+
   return (
     <main className={`${classes.container}`}>
       <section className={classes.mainContent}>
@@ -15,7 +17,10 @@ const StartScanning = ({ returnsContext = {} }) => {
         ></ScanGraphic>
       </section>
       <FooterContainer>
-        <RefundTotal dataObj={returnsContext} hideAdjust={false} />
+        <RefundTotal
+          dataObj={moneyObj}
+          hideAdjust={false}
+        />
       </FooterContainer>
     </main>
   );

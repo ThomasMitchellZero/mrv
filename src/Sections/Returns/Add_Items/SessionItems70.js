@@ -119,7 +119,7 @@ const SessionItems70 = ({
   });
 
   return ctxItems.length <= 0 ? (
-    <StartScanning />
+    <StartScanning moneyObj={returnsContext.session.refund_money}/>
   ) : (
     <section className={classes.container}>
       <TitleBar>Scanned Items</TitleBar>
@@ -136,7 +136,7 @@ const SessionItems70 = ({
       </section>
       <FooterContainer>
         <RefundTotal
-          dataObj={returnsContext.session.matched}
+          dataObj={returnsContext.session.refund_money}
           hideAdjust={false}
         />
       </FooterContainer>

@@ -39,6 +39,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -For the MatchMaker - I might need a way of prioritizing Invoices and Dispo types.  Like, for each item, I think we would want to refund the highest-value invoices first.  For dispo types, I think we would want to refund Damaged dispos first.  Right now, both of these are not being processed in any intentional order.  It shouldn't be too hard - I'm already making an array to loop through, so I should just be able to sort those arrays pre-looping.
         -This is going to become a NEED as soon as we start adding in Unwanted dispositions. AFACIT if an unwanted disposition matches first on an item with a Restock fee, customer wouldn't get the full refund?  
 
+    -SessionItems70 and SessionInvoices70 are currently making the choice to render their respective tables or the StartScanning70 panel as conditionals within these components.  These conditions should probably be handled in the dispatching?
+
 
 
 //// Github Pages Deployment ////
@@ -2315,6 +2317,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -Real data:
                 -Right now, my resolve is strong. At 6:00, it won't be.  If I get this thing running in-context, then when I am done, I am done.  I won't have to worry about chasing gremlins in the system because that part will already be done.
+
+    2:00 - Switched Returns to use new ReturnsMatchMaker.  Everything is working normally, which should be the case because I haven't changed anything, but I did want to check.
+
+        - Now, another decision.  Do I want to keep looping through the dispositions, or do I want to just group them into Damaged / Unwanted?
+
+            - Right now, I'm kind of leaning towards keeping the dispositions.  When it comes time to add Unwanted Dispositions in the future, I can look at separating them and refactoring the Dispos loop, but I don't really think they're hurting anything for the time being and that's one less chunk of refactoring work for me to do.  
+
+        - The first thing to do will be to put together a MoneyObj.  Once I've got that, then I will connect that to the ReturnTotal component.
+
+        -Once I get the RefundMoney obj, then I will get rid of MatchBites.  I don't think anything else is using that, and the errors will guide me on what to fix.  
             
 
 

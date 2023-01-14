@@ -19,7 +19,7 @@ const panelsReducer = (state, action) => {
     case "SET_PANELS": {
       const new30 = action.payload.set30 ?? state.state30;
       const new70 = action.payload.set70 ?? state.state70;
-      const newActiveItem = action.payload.activeItem ?? null
+      const newActiveItem = action.payload.activeItem ?? null;
       const newActiveItemTab =
         action.payload.activeItemTab ?? state.activeItemTab;
 
@@ -45,7 +45,7 @@ const ReturnsIndex = () => {
     state30: "actions",
     state70: "session_items",
     activeItem: null,
-    activeItemTab: "unwanted"
+    activeItemTab: "unwanted",
   });
 
   const thirty_panels = {
@@ -79,7 +79,7 @@ const ReturnsIndex = () => {
   };
 
   const seventy_panels = {
-    start_scanning: <StartScanning />,
+    //start_scanning: <StartScanning moneyObj={returnsContext.session.refund_money} />,
     session_items: (
       <SessionItems70
         dispatchActivePanels={dispatchActivePanels}

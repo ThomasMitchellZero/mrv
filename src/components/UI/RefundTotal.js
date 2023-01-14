@@ -1,13 +1,17 @@
 import classes from "./RefundTotal.module.css";
-import ReturnTotaler from "../../global_functions/returnTotaler";
 
 const RefundTotal = ({ dataObj, hideAdjust }) => {
 
-  const allCostsObj = ReturnTotaler(dataObj)
-  
+  const reference = {
+    refundTotal: 0,
+    taxSum: 0,
+    subtotal: 0,
+    adjustments: 0,
+  };
+
   //reusable component for showing fee composition.
   const refundText = (label, value, red) => {
-    const isRed = `${!red ? "" : "red-text"}`
+    const isRed = `${!red ? "" : "red-text"}`;
 
     return (
       <section className={classes.refundText}>
@@ -16,17 +20,17 @@ const RefundTotal = ({ dataObj, hideAdjust }) => {
       </section>
     );
   };
-  
+
   return (
     <section className={classes.container}>
       <section className={classes.itemizedColumn}>
-        {!hideAdjust? refundText("Fees", allCostsObj.adjustments, true) : null}
-        {refundText("Subtotal", allCostsObj.subtotal)}
-        {refundText("Tax", allCostsObj.taxSum)}
+        {!hideAdjust ? refundText("Fees", dataObj.adjustments, true) : null}
+        {refundText("Subtotal", dataObj.subtotal)}
+        {refundText("Tax", dataObj.taxSum)}
       </section>
       <section className={classes.totalColumn}>
         <h5>Refund Total</h5>
-        <h2>{(allCostsObj.refundTotal/100).toFixed(2)}</h2>
+        <h2>{(dataObj.refundTotal / 100).toFixed(2)}</h2>
       </section>
     </section>
   );

@@ -78,7 +78,7 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   });
 
   return invoiceArray.length === 0 ? (
-    <StartScanning />
+    <StartScanning moneyObj={returnsContext.session.refund_money}/>
   ) : (
     <section className={classes.container}>
       <TitleBar>Scanned Invoices</TitleBar>
@@ -93,7 +93,7 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
         </div>
       </section>
       <FooterContainer>
-        <RefundTotal dataObj={returnsContext.session.matched} />
+        <RefundTotal dataObj={returnsContext.session.refund_money} />
       </FooterContainer>
     </section>
   );
