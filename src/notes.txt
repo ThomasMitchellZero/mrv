@@ -2328,7 +2328,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Once I get the RefundMoney obj, then I will get rid of MatchBites.  I don't think anything else is using that, and the errors will guide me on what to fix.  
 
-    3:30 - Got the money displaying correctly in the RefundTotal component.
+    3:30 - Got the money displaying correctly in the RefundTotal component.  
+
+        -I now need to figure out how to handle refunds_by_tender without the MatchBite, because I think I'm currently referencing it?
+
+        -Well, it looks like I'm at least going to need some kind of per InvoItem money accumulator
             
 
 

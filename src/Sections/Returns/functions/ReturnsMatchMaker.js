@@ -39,6 +39,9 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
+      // will hold total Adjust Refund, used to populate refunds_by_tender
+      let toRefund_thisInvoItem = 0
+
       // A MatchBite reflects all units of THIS item matched from THIS invoice.
       let outMatchBite = {
         price: thisInvoItem.price,
@@ -50,6 +53,8 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         totalTax: 0,
         totalAdjustments: 0,
       };
+
+
 
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
 
@@ -120,7 +125,10 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         refund_money.refundTotal += dispoAdjustedPaid;
         refund_money.taxSum += dispoTotalTax;
         refund_money.subtotal += dispoTotalPaid - dispoTotalTax;
-        refund_money.totalAdjustments += dispoAdjustment;
+        refund_money.adjustments += dispoAdjustment;
+
+        toRefund_thisInvoItem += dispoAdjustedPaid;
+        
 
 
 
@@ -146,19 +154,19 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
       // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
 
+      // route to the payment types for this invoice
       const invoPayments = thisInvoice.invoiceDetails.payment;
-      let unrefundedTotal = outMatchBite.adjustedRefund;
 
       // Loop through all payment types and assign unrefunded total.
       tenderTypeLoop: for (const thisTenderType of Object.keys(invoPayments)) {
         // Make sure this Invo tender type isn't being reduced past 0.
         const decrementAmount = Math.min(
           invoPayments[thisTenderType].paid,
-          unrefundedTotal
+          toRefund_thisInvoItem
         );
         // update $
         invoPayments[thisTenderType].paid -= decrementAmount;
-        unrefundedTotal -= decrementAmount;
+        toRefund_thisInvoItem -= decrementAmount;
 
         const thisTenderLabel = invoPayments[thisTenderType].tenderLabel;
 
@@ -176,7 +184,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         }
 
         // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
-        if (unrefundedTotal === 0) {
+        if (toRefund_thisInvoItem === 0) {
           break tenderTypeLoop;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
