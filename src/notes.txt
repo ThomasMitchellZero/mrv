@@ -2308,7 +2308,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -I like the idea of doing as much processing as possible in as few locations as possible.  I think my design pattern is to do as much processing as possible as highly and as centrally as is practical.
 
+        -The first thing to decide.  Local data or app data?
+            -Local data:  
+                -probably easier to de-bug, and I can use my local debugger which I really do prefer.
+                -Not sure how much re-wiring I would need to do if I do the other way.  For this, I am certain it is zero.
+
+            -Real data:
+                -Right now, my resolve is strong. At 6:00, it won't be.  If I get this thing running in-context, then when I am done, I am done.  I won't have to worry about chasing gremlins in the system because that part will already be done.
             
+
+
 
 
             
