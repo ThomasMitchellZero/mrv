@@ -11,17 +11,6 @@ const TotalReview = () => {
   const returnsContext = useOutletContext();
   const navigate = useNavigate();
 
-  const refItem = {
-    categories: ["Stock"],
-    description: "Two handle classic faucet in wrought iron",
-    disposition: {},
-    itemNum: "100",
-    modelNum: "DR3345",
-    price: 4150,
-    quantity: 2,
-    specialCategories: { ARD: true },
-  };
-
   const returningItems = Object.entries(returnsContext.session.matched);
   const miniLIarr = returningItems.map((item) => {
     return <MiniItemLI key={item[0]} itemObj={item[1]} totalPrice={true} />;
@@ -29,9 +18,11 @@ const TotalReview = () => {
 
   return (
     <section className={classes.container}>
-      <section className={`thirty_panel`}>
+      <section className={`thirty_panel `}>
         <TitleBar>Returned Items</TitleBar>
-        <section className={`${classes.mainContent}`}>{miniLIarr}</section>
+        <section className={`${classes.mainContent} ${classes.thirtyContent}`}>
+          {miniLIarr}
+        </section>
         <FooterContainer></FooterContainer>
       </section>
 
