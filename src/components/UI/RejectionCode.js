@@ -9,13 +9,15 @@ const defaultCoder = (preSearch = true, itemObj) => {
   const category = itemObj.specialCategories ?? null;
 
   // returns a rejection reason obj based on the return phase and any special conditions in the item.  Otherwise the code is Receipt Required.
+
+  // I don't actually know if this is the best way to handle this? Something seems clunky?
   const output = preSearch
     ? "missingInvo"
-    : category.SOS
+    : category?.SOS
     ? "sos"
-    : category.ARD
+    : category?.ARD
     ? "ard"
-    : category.expired
+    : category?.expired
     ? "expired"
     : "recieptRequired";
 
