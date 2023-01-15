@@ -1,18 +1,12 @@
 import classes from "./MiniItemLI.module.css";
 
-const MiniUnmatchedLI = ({
-  itemObj,
-  hasMessage,
-  totalPrice = false,
-
-}) => {
-
+const MiniUnmatchedLI = ({ itemObj, hasMessage, totalPrice = false }) => {
   // if there is a message, generate its JSX
-  const message = hasMessage ?? null
+  const message = hasMessage ?? null;
 
-    // if there is a message, generate its JSX
+  // if there is a total price, calculate it
   const displayPrice = totalPrice ? (
-    <h4>{`$ ${(totalPrice / 100).toFixed(2)}`}</h4>
+    <h4>{`$ ${((itemObj.price * itemObj.quantity) / 100).toFixed(2)}`}</h4>
   ) : null;
   return (
     <section className={`divider-bottom ${classes.container}`}>

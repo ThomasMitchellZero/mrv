@@ -22,18 +22,16 @@ const TotalReview = () => {
     specialCategories: { ARD: true },
   };
 
-  const returningItems = Object.values(returnsContext.session.matched);
+  const returningItems = Object.entries(returnsContext.session.matched);
   const miniLIarr = returningItems.map((item) => {
-    return <MiniItemLI itemObj={item} totalPrice={true} />;
+    return <MiniItemLI key={item[0]} itemObj={item[1]} totalPrice={true} />;
   });
 
   return (
     <section className={classes.container}>
       <section className={`thirty_panel`}>
         <TitleBar>Returned Items</TitleBar>
-        <section className={`${classes.mainContent}`}>
-          {miniLIarr}
-        </section>
+        <section className={`${classes.mainContent}`}>{miniLIarr}</section>
         <FooterContainer></FooterContainer>
       </section>
 
