@@ -2,6 +2,7 @@
 
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
+import tenderizer from "./tenderizer";
 
 const ReturnsMatchMaker = (itemList, invoiceList) => {
   //The 4 derived states we are building.
@@ -125,6 +126,14 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           invoPayments[thisTenderType].paid,
           toRefund_thisInvoItem
         );
+
+        const tenderDetailsObj = tenderizer(
+          thisTenderType,
+          invoPayments[thisTenderType]
+        );
+
+        console.log(tenderDetailsObj)
+
         // update $
         invoPayments[thisTenderType].paid -= decrementAmount;
         toRefund_thisInvoItem -= decrementAmount;
@@ -164,7 +173,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           quantity: 0,
         };
       }
-      
+
       // increment the quantity matched.
       matched_items[matchedItemKey].quantity += thisItemMatchedqty;
 

@@ -1,7 +1,7 @@
 // Function for matching returned items with session invoices.
 
 import cloneDeep from "lodash.clonedeep";
-import disposSqueezer from "./dispoSqueezer";
+import disposSqueezer from "../Sections/Returns/functions/dispoSqueezer";
 
 const CartInvoMatcher = (itemList, invoiceList) => {
   //The 4 derived states we are building.
