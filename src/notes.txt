@@ -2373,32 +2373,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -In fact, the sooner I can get this to MVP level, the sooner I can start openly working on it on company time.
             -Also remember the deal I made myself - if I complete this, I can buy a fancy watch :)
             
-        -First, it looks like we've got a bug.  If there are no items missing invoices, we should skip the second review.  
+        X-First, it looks like we've got a bug.  If there are no items missing invoices, we should skip the second review.  
 
         -And a second bug: the FirstReview section should be scrollable for overflow.
             X -I'm just gonna do this before I forget about it.
-        
-
-    
-
-
-
-
-            
-
-
-
-
-            
-
-        
-        
-
-
-
-                
-
-                
 
         
 
@@ -2406,4 +2384,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
 
 
-    
+
+
+
+
+
