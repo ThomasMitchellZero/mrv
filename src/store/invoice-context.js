@@ -102,7 +102,7 @@ const invoiceObj = {
       phone: "1112223333",
     },
     products: {
-      100: { quantity: 4, price: 815, tax: 86 },
+      100: { quantity: 4, price: 8815, tax: 863 },
     },
   },
 
