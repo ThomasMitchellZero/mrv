@@ -59,9 +59,13 @@ const lookupReducer = (state, action) => {
 
 const ReceiptLookup = () => {
   const navigate = useNavigate();
-
   const invoiceCtx = useContext(InvoiceContext);
   const returnsContext = useOutletContext();
+  // if no unmatched items remain, go directly to total-review
+  const continueRoute =
+    JSON.stringify(returnsContext.session.unmatched) === "{}"
+      ? "../total-review"
+      : "../unmatched-review";
 
   const [recLookupState, dispatchLookup] = useReducer(
     lookupReducer,
@@ -229,7 +233,7 @@ const ReceiptLookup = () => {
         <FooterContainer>
           {!recLookupState.didSearch ? null : (
             <Link
-              to="../unmatched-review"
+              to={continueRoute}
               className={`baseButton primary large ${classes.button}`}
             >
               Continue

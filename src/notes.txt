@@ -2352,12 +2352,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         X - Then I need to do some tests to make sure everything is working as planned.
 
-        -After that, I need to at least put in a function to populate refund_by_tender.  I can either populate it or move on.  
+        X -After that, I need to at least put in a function to populate refund_by_tender.  I can either populate it or move on.  
             -spinning wheels because not sure what to do.  
 
             -OK.  The TenderTypes loop uses keys, which I would want anyways.  So I have a string of the key name, and if I want I could get the values out.  
 
-            -I think the thing to do would be to write the Tenderizer to take 2 arguments, the key name and then the value of the object.  I'll use the key in a Switch statement and then the value can do any post-processing.  
+            -I think the thing to do would be to write the Tenderizer to take 2 arguments, the key name and then the value of the object.  I'll use the key in a Switch statement and then any additional processing can use the value.
 
     1:50
         -OK.  Am I done?  The tenderizer() is now in the Matchmaker, and reading and outputting something.  
@@ -2373,10 +2373,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -In fact, the sooner I can get this to MVP level, the sooner I can start openly working on it on company time.
             -Also remember the deal I made myself - if I complete this, I can buy a fancy watch :)
             
-        -First, it looks like we've got a bug.  If there are no items missing invoices, we should skip the 
+        -First, it looks like we've got a bug.  If there are no items missing invoices, we should skip the second review.  
 
         -And a second bug: the FirstReview section should be scrollable for overflow.
-            -I'm just gonna do this before I forget about it.
+            X -I'm just gonna do this before I forget about it.
+        
 
     
 
