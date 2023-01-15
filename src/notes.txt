@@ -2328,11 +2328,61 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Once I get the RefundMoney obj, then I will get rid of MatchBites.  I don't think anything else is using that, and the errors will guide me on what to fix.  
 
-    3:30 - Got the money displaying correctly in the RefundTotal component.  
+    3:30:
+        - Got the money displaying correctly in the RefundTotal component.  
 
         -I now need to figure out how to handle refunds_by_tender without the MatchBite, because I think I'm currently referencing it?
 
         -Well, it looks like I'm at least going to need some kind of per InvoItem money accumulator
+
+    5:10:
+        I'm not doing well.  I'm not super focused on the work and I don't really want to be sitting here right now.  I'm going to try and catch one last wave and finish strong.  I'm actually not doing too bad, progress-wise.  Let's just make decisions we can be proud of for another 90 minutes and then if we want to stop we can stop.
+
+        -First, I'm going to clean out anything related to MatchBites.  I shouldn't need it anymore.
+
+        -Next, I'm going to populate the MatchedItems.  I need a few bits and bobs of date about the item, but I should be able to grab that from the unmatchedItems.
+
+        -Finally, I should write an empty program to populate the refunds_by_tender.  It's OK if it isn't perfect.  It's actually OK if it doesn't do anything other than return the input because I can always fill more of it out later.
+
+        -
+15 Jan 2022:
+    12:10.  IDK wht, but it always seems like a trip to the gym causes me to spend at least an hour screwing around before I start programming.  Here's where we sit for today.
+
+        X - I feel like I'm most of the way through populating MatchedItems.  I just need to stop being a weener, deepClone each item object in the Items loop, and then spread its value into the new ItemObj.  
+
+        X - Then I need to do some tests to make sure everything is working as planned.
+
+        -After that, I need to at least put in a function to populate refund_by_tender.  I can either populate it or move on.  
+            -spinning wheels because not sure what to do.  
+
+            -OK.  The TenderTypes loop uses keys, which I would want anyways.  So I have a string of the key name, and if I want I could get the values out.  
+
+            -I think the thing to do would be to write the Tenderizer to take 2 arguments, the key name and then the value of the object.  I'll use the key in a Switch statement and then the value can do any post-processing.  
+
+    1:50
+        -OK.  Am I done?  The tenderizer() is now in the Matchmaker, and reading and outputting something.  
+
+        -First, I'm going to eat.  That's an easy Good Decision.  Then I will figure out what to do next.
+
+    2:40
+        -Heh.  Let's try this again.  What next?
+
+        -I could create the TotalReview page.  Like, that's the obvious answer.  I have the data to populate it, I KNOW it needs to happen, and it gets me one step closer to having something I can show.  Why am I hesitating?
+            -I think there's some level of fear now that the end is in sight.  This has been basically my whole life since I broke up with Kim, and as long as I have this I don't have to answer the question of "What next?"
+            -I guess I need to remind myself that there is still PLENTY to do in this app, and that as long as I am working in Returns there will always be new features to build.  
+            -In fact, the sooner I can get this to MVP level, the sooner I can start openly working on it on company time.
+            -Also remember the deal I made myself - if I complete this, I can buy a fancy watch :)
+            
+        -First, it looks like we've got a bug.  If there are no items missing invoices, we should skip the 
+
+        -And a second bug: the FirstReview section should be scrollable for overflow.
+            -I'm just gonna do this before I forget about it.
+
+    
+
+
+
+
             
 
 

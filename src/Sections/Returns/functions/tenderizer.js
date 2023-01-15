@@ -21,7 +21,7 @@ const tenderizer = ( key, value ) => {
     case "creditCard": {
       return value;
     }
-    case "Check": {
+    case "check": {
       return value;
     }
 
