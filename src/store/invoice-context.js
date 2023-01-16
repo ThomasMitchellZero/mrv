@@ -49,7 +49,7 @@ const invoiceObj = {
     },
     products: {
       200: { quantity: 8, price: 4400, tax: 410, },
-      900: { quantity: 1, price: 98715, tax: 9100, },
+      900: { quantity: 2, price: 98715, tax: 9100, },
     },
   },
 

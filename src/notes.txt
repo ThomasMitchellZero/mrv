@@ -2381,7 +2381,18 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     4:30
         OK, looks like another bug.  My ItemCoder seems to be having trouble picking out special categories.  It didn't come up before because AFAICT the very first condition it checks is if the status is 'preSearch' and that was always true.
 
+        Fixed.  
 
+    5:00
+        Coming up on time right now.  I could actually REALLY go for a swalk, but I got a date in about 90 minutes and that's probably a bad idea.
+
+        I think I'm going to try to just populate the cash totals and call it a day.
+
+        Eh.  Found another bug.  Looks like the restocking fee isn't being applied to SOS items?  
+
+        HA!  Got it.  Looks like the MatchMaker is working fine.  After all, the RefundTotal amounts are correct.  But I am populating the matched_items object with the price paid from the original invoice, which DOES NOT count the restocking fee.  OK, that fix is easy enough.  
+        
+        Well.  Or is it?  If some items are damaged and some are not, those fees could be different.  Shit.  OK, I might need to calculate this inside the Dispos loop?
 
 
 

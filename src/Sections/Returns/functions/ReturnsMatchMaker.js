@@ -37,7 +37,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
       // will hold total Adjust Refund, used to populate refunds_by_tender
       let toRefund_thisInvoItem = 0;
-      let thisItemMatchedqty = 0;
 
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
 
@@ -74,6 +73,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         // Fee = 0 if not specified or item is damaged.
         let itemRestockFee = thisCartItem.restockFee ?? 0;
+
         if (damagedCodes[loopDispo]) {
           itemRestockFee = 0;
         }
@@ -83,6 +83,11 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         const dispoTotalTax = thisInvoItem.tax * matchedQty;
         const dispoAdjustment = Math.round(dispoTotalPaid * itemRestockFee);
         const dispoAdjustedPaid = dispoTotalPaid - dispoAdjustment;
+        const perItemRefundPrice = Math.round(
+          thisInvoItem.price * (1 - itemRestockFee)
+        );
+
+        // Need to capture the per-item cost.
 
         // update refund_money obj.
         refund_money.refundTotal += dispoAdjustedPaid;
@@ -92,7 +97,26 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         // increment Vars stored outside dispos loop.
         toRefund_thisInvoItem += dispoAdjustedPaid;
-        thisItemMatchedqty += matchedQty;
+
+        // ΓΓΓΓ  Dispos Loop _ Step 3: Populate  matched{} ΓΓΓΓΓΓΓ
+
+        // Primary key = itemNumber and price
+        const matchedItemKey = `${itemNum}--${perItemRefundPrice}`;
+
+        // if this key doesn't already exist...
+        if (!matched_items[matchedItemKey]) {
+          // create it and populate its info.
+          matched_items[matchedItemKey] = {
+            ...thisCartItem,
+            img: null,
+            price: perItemRefundPrice,
+            quantity: 0,
+          };
+        }
+        // increment the quantity matched.
+        matched_items[matchedItemKey].quantity += matchedQty;
+
+        //Cleanup
 
         // Delete any zeroed-out properties
         if (thisCartItem.disposition[loopDispo] === 0) {
@@ -132,8 +156,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           invoPayments[thisTenderType]
         );
 
-        console.log(tenderDetailsObj)
-
         // update $
         invoPayments[thisTenderType].paid -= decrementAmount;
         toRefund_thisInvoItem -= decrementAmount;
@@ -158,26 +180,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           break tenderTypeLoop;
         }
       } // ∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
-
-      // ΓΓΓΓ  Invoice Loop _ Step 3: Populate  matched{} ΓΓΓΓΓΓΓ
-
-      // Primary key = itemNumber and price
-      const matchedItemKey = `${itemNum}--${thisInvoItem.price}`;
-
-      // if this key doesn't already exist...
-      if (!matched_items[matchedItemKey]) {
-        // create it and populate its info from the clone of itemNum
-        matched_items[matchedItemKey] = {
-          ...clonedCartItem,
-          price: thisInvoItem.price,
-          quantity: 0,
-        };
-      }
-
-      // increment the quantity matched.
-      matched_items[matchedItemKey].quantity += thisItemMatchedqty;
-
-      //outMatchedItemObj.matchBitesArr.push(outMatchBite);
 
       // If there are 0 unmatched units of item, move on to next item.
       if (!unmatched_items[itemNum]) break invoicesLoop;
