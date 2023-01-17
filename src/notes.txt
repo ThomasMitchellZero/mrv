@@ -2394,7 +2394,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         
         Well.  Or is it?  If some items are damaged and some are not, those fees could be different.  Shit.  OK, I might need to calculate this inside the Dispos loop?
 
+17 Jan 2023
+    -OK.  First, I need to create a function that creates list items to populate the Tenders list.
 
+    -The next challenge after that is probably to figure out what to do for the final list screen and adjust the Tenderizer accordingly.  The Tenderizer needs to:
+        -Provide a return tender type based on what the original tender was.
+        -I need some kind of option to see All Smooth vs. All Fail.  ATM I think maybe a small or hidden button at some common catchpoint (RefundTotal?  Maybe back at Actions30?) because it would be kind of nice to use the existing cart contents and not make the tester populate the whole thing from scratch.  
+        -In the case of failure, I need to specify what alternative refund tenders are provided based on the tender type
+
+    -After that, I'll need to create a component for the stepper, which AFAICT doesn't contain anything I don't know how to do but will definitely take some doing.  
+
+    -I will also need to create a 70-panel that presents different return types based on what alternatives are present in each refunds_by_tender type.
 
 
 

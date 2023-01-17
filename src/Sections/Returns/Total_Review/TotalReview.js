@@ -66,6 +66,7 @@ const TotalReview = () => {
         </TitleBar>
         <section className={`${classes.mainContent} ${classes.seventyContent}`}>
           <InPageTitleBox
+            hasDivider={false}
             mainTitle={`$${(refund_moneyObj.refundTotal / 100).toFixed(
               2
             )} will refund to the tender(s) below`}
