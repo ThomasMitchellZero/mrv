@@ -5,7 +5,7 @@ import disposSqueezer from "./dispoSqueezer";
 import tenderizer from "./tenderizer";
 
 const ReturnsMatchMaker = (itemList, invoiceList) => {
-  //The 4 derived states we are building.
+  //The 5 derived states we are building.
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
   let matched_items = {};
@@ -17,17 +17,15 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
     adjustments: 0,
   };
 
-  //loop through the Unmatched items.
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
     const thisCartItem = unmatched_items[itemNum];
-    const clonedCartItem = cloneDeep(thisCartItem);
 
     // If there is an UnwantedTotal, add it to the item's disposition.
     const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
     const unwantedTotal = thisCartItem.quantity - dispoTotal;
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
-    //loop through the Unmatched invoices ///////////////
+
     invoicesLoop: for (const invoiceNum of Object.keys(modified_invoices)) {
       const thisInvoice = modified_invoices[invoiceNum];
       const thisInvoItem = thisInvoice.products[itemNum];
@@ -39,8 +37,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
       let toRefund_thisInvoItem = 0;
 
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
-
-      //loop through cart item's dispositions and decrement match sources as they are found.
       disposLoop: for (const loopDispo of Object.keys(
         thisCartItem.disposition
       )) {
@@ -73,7 +69,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         // Fee = 0 if not specified or item is damaged.
         let itemRestockFee = thisCartItem.restockFee ?? 0;
-
         if (damagedCodes[loopDispo]) {
           itemRestockFee = 0;
         }
@@ -86,8 +81,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         const perItemRefundPrice = Math.round(
           thisInvoItem.price * (1 - itemRestockFee)
         );
-
-        // Need to capture the per-item cost.
 
         // update refund_money obj.
         refund_money.refundTotal += dispoAdjustedPaid;
@@ -175,7 +168,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           delete invoPayments[thisTenderType];
         }
 
-        // If all Refund $ are assigned to Tender types, skip to finalizing this MatchBite.
+        // If all Refund $ are assigned to Tender types, stop looping.
         if (toRefund_thisInvoItem === 0) {
           break tenderTypeLoop;
         }
