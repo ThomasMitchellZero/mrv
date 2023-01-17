@@ -14,6 +14,7 @@ const Returns = () => {
   //// RETURNS SESSION REDUCER ////
 
   const defaultSessionState = {
+    scenarios:{totalTenderFailure: true},
     items: {},
     invoices: {},
     unmatched: {},

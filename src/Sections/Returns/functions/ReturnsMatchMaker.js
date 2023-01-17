@@ -25,7 +25,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
     const unwantedTotal = thisCartItem.quantity - dispoTotal;
     if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
-
     invoicesLoop: for (const invoiceNum of Object.keys(modified_invoices)) {
       const thisInvoice = modified_invoices[invoiceNum];
       const thisInvoItem = thisInvoice.products[itemNum];
@@ -158,7 +157,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
         // If this label doesn't exist in the refunds_by_tender{}...
         if (!refunds_by_tender[thisTenderLabel]) {
           // create it and set paid to 0
-          refunds_by_tender[thisTenderLabel] = { paid: 0 };
+          refunds_by_tender[thisTenderLabel] = { ...tenderDetailsObj, paid: 0 };
         }
 
         refunds_by_tender[thisTenderLabel].paid += decrementAmount;

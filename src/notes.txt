@@ -2406,6 +2406,15 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -I will also need to create a 70-panel that presents different return types based on what alternatives are present in each refunds_by_tender type.
 
+    -The FailMode is proving more challenging than I expected.
+        -Right now, I think what I ought to do is create a global Scenarios state, probably in Actions.  I think I also want to make it changeable through the interface rather than the code because I won't necessarily be the only person running tests.  
+
+        -Well.  I'm kind of spinning wheels right here but I am pretty confident that I'm going to need a different page and a link to get there.
+
+        -Or maybe I don't.  Since I don't actually know that it is needed, I could just do it in code and save some time?
+
+        -OK, so what I think I will do is specify WHAT to do in the case of failure within the Tenderizer, but store whether or not to do the failure scenario in the State.
+
 
 
 
