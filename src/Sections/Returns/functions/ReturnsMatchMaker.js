@@ -143,6 +143,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           toRefund_thisInvoItem
         );
 
+        // Tenderizer() populates tender types with type-specific properties.
         const tenderDetailsObj = tenderizer(
           thisTenderType,
           invoPayments[thisTenderType]

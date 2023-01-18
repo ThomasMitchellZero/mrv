@@ -35,7 +35,7 @@ const TotalReview = () => {
   const tendersList = tendersListArr.map((thisTender) => {
     const tenderData = thisTender[1];
     return (
-      <tr>
+      <tr key={thisTender[0]}>
         <td>{`$${(tenderData.paid / 100).toFixed(2)}`}</td>
         <td>{thisTender[0]}</td>
         <td>{thisTender[0]}</td>

@@ -13,16 +13,24 @@ const ref = {
   },
 };
 
+// if I want, I can generate the tender labels in the Tenderizer.
+
 const tenderizer = ( key, value ) => {
   switch (key) {
     case "cash": {
-      return value;
+      return {...value, };
+    }
+    case "debit": {
+      return {...value};
     }
     case "creditCard": {
-      return value;
+      return {...value};
     }
     case "check": {
-      return value;
+      return {...value};
+    }
+    case "merchCard": {
+      return {...value};
     }
 
     default:

@@ -10,7 +10,14 @@ const invoiceObj = {
       store: 1234,
       date: new Date(2022, 8, 13),
       phone: "1112223333",
-      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
+      payment: {
+        cash: { tenderLabel: "Cash", paid: 0 },
+        debit: {
+          tenderLabel: "Debit ****2222",
+          paid: 0,
+          debitNum: "9999888899998888",
+        },
+      },
     },
     products: {
       100: { quantity: 8, price: 4150, tax: 380 },
@@ -48,8 +55,8 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 8, price: 4400, tax: 410, },
-      900: { quantity: 2, price: 98715, tax: 9100, },
+      200: { quantity: 8, price: 4400, tax: 410 },
+      900: { quantity: 2, price: 98715, tax: 9100 },
     },
   },
 
@@ -98,7 +105,7 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 2, 11),
-      payment: { cash: { tenderLabel: "Cash", paid: 0, } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
       phone: "1112223333",
     },
     products: {
@@ -110,7 +117,7 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 3, 8),
-      payment: { cash: { tenderLabel: "Cash", paid: 0, } },
+      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
       orderNum: "11112222",
       lcaNum: "11112222",
       proIdNum: "11112222",
