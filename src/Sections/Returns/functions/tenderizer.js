@@ -15,11 +15,6 @@ const ref = {
   },
 };
 
-const x = tender({a:"grg", b:"cat"})   
-
-console.log(x.b)
-
-
 // if I want, I can generate the tender labels in the Tenderizer.
 
 const tenderizer = ( key, value ) => {
@@ -43,7 +38,7 @@ const tenderizer = ( key, value ) => {
     }
 
     default:
-      throw new Error(`${key} is not a valid tender type`);
+      return {...value};
   }
 };
 

@@ -41,8 +41,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -SessionItems70 and SessionInvoices70 are currently making the choice to render their respective tables or the StartScanning70 panel as conditionals within these components.  These conditions should probably be handled in the dispatching?
 
-    -The InvoiceSearch.js function loops through ALL invoices, and then through all unmatched items on each invoice.  This should probably be reversed, since the search space of the unmatched_items invos is MUCH smaller.  For my demo app it doesn't really matter either way, but in the wild this would be bad.  
-
 
 
 //// Github Pages Deployment ////
@@ -2474,7 +2472,23 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -So then it sounds like the only real question is if I want to do the unique primary keys or not.  And I think the answer is yes?  I think I want that feature at some point, so I probably shouldn't be building dependencies on top of it.  Maybe not a huge amount of re-work, but probably for the best?
 
+        -Not related to the work, but I just thought of a cool idea.  For fastest filtering, filters should be applied in order of "excludes the largest percentage of the search space"
+
         -So then I think I should create a separate branch, change the primary keys, confirm that everything is working, and then do the Tenderizer.  OK.  Let's make it happen.
+            -I am expecting to make changes in:
+                -The Invoices store
+                -the InvoiceSearch function for any searches of a payment type
+                -Confirm that the MatchMaker is working on the new types.
+        -OK, the changes seem to be working.
+            -First, check to see if I can get there with the shorter route.
+        
+        -Looks like we have a snag.  I don't know of an easy way to do a comparison to a property key (not value).  For all the other searches, I'm checking if a property matches the input, but for CC, debit, and check I don't have an easy way unless I also store the # as a property.  I thought about having a creditCard property that could have [n] potential numbers, but those also have to have unique keys so I'm really just moving the same problem one level deeper.
+
+        -Unless I want to have a unique process for the unique property keys, I think I'm just kind of stuck duplicating the info.
+
+        -Also.  For what I'm trying to do, this is really a non-problem.  It's an extra property.  It's fine.  Let's Rule 1 and move on.  
+
+
 
 
 

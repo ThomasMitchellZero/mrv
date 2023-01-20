@@ -12,10 +12,10 @@ const invoiceObj = {
       phone: "1112223333",
       payment: {
         cash: { tenderLabel: "Cash", paid: 0 },
-        debit: {
-          tenderLabel: "Debit ****2222",
+        7777888877778888: {
+          tenderLabel: "Debit ****8888",
           paid: 0,
-          debitNum: "9999888899998888",
+          debitNum: "7777888877778888",
         },
       },
     },
@@ -26,28 +26,12 @@ const invoiceObj = {
     },
   },
 
-  /*
-  33,200 +
-  4, 830 +
-  13, 150
-  = 51,180 OK
-
-  
-  
-  */
-
   BBB: {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 1, 22),
       payment: {
-        check: {
-          tenderLabel: "Check ****4321",
-          paid: 0,
-          routing: "12341234",
-          account: "43214321",
-        },
-        creditCard: {
+        1111222211112222: {
           tenderLabel: "MasterCard ****2222",
           paid: 0,
           ccNum: "1111222211112222",
@@ -60,25 +44,12 @@ const invoiceObj = {
     },
   },
 
-  /*
-      35200 +
-      98715
-      =
-      133,915
-
-      33478 +
-      100437
-      =
-      133,915
-  
-  */
-
   CCC: {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 1, 24),
       payment: {
-        creditCard: {
+        3333444433334444: {
           tenderLabel: "American Express ****4444",
           paid: 0,
           ccNum: "3333444433334444",
@@ -90,13 +61,21 @@ const invoiceObj = {
       300: { quantity: 3, price: 2415, tax: 240 },
     },
   },
+  
   DDD: {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 4, 13),
-      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
+      payment: {
+        1111222211112222: {
+          tenderLabel: "MasterCard ****2222",
+          paid: 0,
+          ccNum: "1111222211112222",
+        },
+      },
     },
     products: {
+      200: { quantity: 1, price: 4613, tax: 412 },
       300: { quantity: 6, price: 2415, tax: 216 },
       400: { quantity: 1, price: 102415, tax: 9821 },
     },
@@ -105,7 +84,14 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 2, 11),
-      payment: { cash: { tenderLabel: "Cash", paid: 0 } },
+      payment: {
+        44443333: {
+          tenderLabel: "Check ****3333",
+          paid: 0,
+          routing: "44443333",
+          account: "33334444",
+        },
+      },
       phone: "1112223333",
     },
     products: {

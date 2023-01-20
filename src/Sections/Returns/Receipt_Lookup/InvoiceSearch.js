@@ -11,6 +11,8 @@ const InvoiceSearch = (
 
   const sessionDispatch = returnsContext.dispatchSession;
 
+  // FOR LATER - look at looping through the items first?  Otherwise I'm looping literally the whole list of invoices.
+
   console.log(searchInput);
 
   // Each invoice is only evaluated once, so there won't be any repeats
@@ -22,12 +24,14 @@ const InvoiceSearch = (
     const iInvo = storeInvos[thisInvo];
     const iInvoDetails = iInvo.invoiceDetails;
 
-    // loop through unmatchedItems
+    // loop through unmatchedItems.  This is necessary because we don't want to match invoices that 
     for (const thisUMitem of Object.keys(unmatched)) {
+
+      // WIP might not need to see if it actually has a ccNum?  Let's see if this is working first?
 
       // all potential search types.
       const searchRoutes = {
-        creditCard: iInvoDetails.payment?.creditCard?.ccNum,
+        creditCard: iInvoDetails.payment?.[searchInput]?.ccNum,
         phone: iInvoDetails?.phone,
         orderNum: iInvoDetails?.orderNum,
         proID: iInvoDetails?.proID,
