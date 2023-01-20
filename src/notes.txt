@@ -2469,7 +2469,12 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -OK, now onto the real question - should I be working on any of this?
         -The EASIEST solution:
             -don't change anything with the primary keys.  At this moment, it isn't a problem that I only support one credit card num per invoice.
-            -For the sake of practive, I probably should have a Tenderizer.  Some of the stuff, like 'what kinds of refund tenders do we offer' 
+
+            -For the sake of practice, I probably should have a Tenderizer.  Some of the stuff, like 'what kinds of refund tenders do we offer' I shouldn't be assigning by hand anyways.
+
+        -So then it sounds like the only real question is if I want to do the unique primary keys or not.  And I think the answer is yes?  I think I want that feature at some point, so I probably shouldn't be building dependencies on top of it.  Maybe not a huge amount of re-work, but probably for the best?
+
+        -So then I think I should create a separate branch, change the primary keys, confirm that everything is working, and then do the Tenderizer.  OK.  Let's make it happen.
 
 
 
