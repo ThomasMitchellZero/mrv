@@ -32,7 +32,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
             -For any that are past 90 days, treat as a non-match, add an expired:true property to the specialConditions object, and continue to the next invoice.
             -and then how do I handle the quantities if some aren't matched?
 
-    -Buttons on full pages are not the same size as buttons on 30 panels.  It would be nice if they were.
+    -Buttons on full pages are not the same size as buttons on 30 panels.  It would be nice if they were.  I have no idea how to make this happen.  
 
     -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
 
@@ -40,6 +40,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -This is going to become a NEED as soon as we start adding in Unwanted dispositions. AFACIT if an unwanted disposition matches first on an item with a Restock fee, customer wouldn't get the full refund?  
 
     -SessionItems70 and SessionInvoices70 are currently making the choice to render their respective tables or the StartScanning70 panel as conditionals within these components.  These conditions should probably be handled in the dispatching?
+
+    -The InvoiceSearch.js function loops through ALL invoices, and then through all unmatched items on each invoice.  This should probably be reversed, since the search space of the unmatched_items invos is MUCH smaller.  For my demo app it doesn't really matter either way, but in the wild this would be bad.  
 
 
 
@@ -2398,6 +2400,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -OK.  First, I need to create a function that creates list items to populate the Tenders list.
 
     -The next challenge after that is probably to figure out what to do for the final list screen and adjust the Tenderizer accordingly.  The Tenderizer needs to:
+
         -Provide a return tender type based on what the original tender was.
         -I need some kind of option to see All Smooth vs. All Fail.  ATM I think maybe a small or hidden button at some common catchpoint (RefundTotal?  Maybe back at Actions30?) because it would be kind of nice to use the existing cart contents and not make the tester populate the whole thing from scratch.  
         -In the case of failure, I need to specify what alternative refund tenders are provided based on the tender type
@@ -2414,6 +2417,65 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Or maybe I don't.  Since I don't actually know that it is needed, I could just do it in code and save some time?
 
         -OK, so what I think I will do is specify WHAT to do in the case of failure within the Tenderizer, but store whether or not to do the failure scenario in the State.
+
+18 Jan 2023
+    Well, I've been performing like shit all day, but I've finally caught a burst of energy and, naturally, I don't want to spend it on my real job :p  Let's do this right.  69420 and then try and jam till about 7:00.  Damn, I'm like... fidgety right now...
+
+    - I think the first thing is to at least get the Tenderizer returning the Original Tender and Return Tender types based on the input type. Actually, never mind.  I'm ONLY going to do the Refund Tender.  Creating the Original Tender string just from the Tender obj would be nice but it doesn't have any dependencies.  
+
+    So the obj for each tender needs to include:
+        - User's choice refund options.
+        - A string describing refund options?
+        - Options in case of failure (is this every anything besides cash + store credit?)
+        - Maybe a canFail property?  Or maybe this just tracks if the failureOptions property is empty?
+
+        -Part of me is wondering if I shouldn't just have absolutely everything relating to tenders in a big old object?  
+
+        -OK, here's what I will do.  I'm going to at least try making a big tenderStandard object in Returns/Functions.  I will at least use it in the Tenderizer and maybe other places too?  
+            -I guess the problem I am considering is that in the Invoices store, in some of the search functions, in the MatchMaker, and in the Tenderizer I am calling dealing with the same name in a bunch of different contexts, having the right name is necessary for this to work, and I worry maybe I am violating DRY?  
+
+            -I don't think this is necessary to get to the end, so maybe I should drop it.  I just know so little about Javascript that I don't know if I'm doing bad.  
+
+    Crap. Now that I'm thinking about it, I might need, or at least want, to do some backtracking.
+
+20 Jan, 2023
+    This 69420 might be more of a 69-24.  I need to write as clearly and specifically about what it is I plan to do and why because I could see big waste either  way.  Either I waste 2(+?) days on something that might be completely unnecessary or I move ahead, spending time on work that I later have to spend more time uprooting and working around.  
+
+    -OK.  So can I even describe what problem I am trying to solve?  I guess my original complaint was that I have a bunch of references to different tender methods scattered around the app, but no SSoT.  
+        -Transaction details [card specifics, amount spent in Store]
+        -Description string doesn't yet have a home (either Tenderizer or central Tenders object?)
+        -User options and error-handling options both still TBD.
+        -Primary Key - currently being explicityly declared in the Store but it would be neater just to have it in one place.  
+
+    -I think my original objection came from the fact that for the Lookup feature, I was having to copy/paste a bunch of invoice properties at once and that seemed clunky, but most of the lookup types are not payment properties so even if I did have some really clean, perfect reference object it would, at best, solve that problem partially.
+
+    --Aaaaaand, Lina just told me she's moving to Pittsburgh.  Fuuuuuuuuuck.  Now I can't focus AND I'm sad :(
+    -OK.  That decision is done and worrying about it changes nothing.  Let's at least try to power through and get something done today.
+
+    -So if I do make a perfect factory function, what would I get?
+        -I don't think the MatchMaker would change much?  I guess I would be making the tender-label in the factory function, so a little bit?  (NVM, that's the itemNum and price, no name is made for the tender)
+        -I would probably be storing derivable information in the invoice, things like labels, truncated ccNums, etc. but if I want to have that information in a single place I am doing that anyways?  
+        -I guess the other option would be to have ONLY unique info in the invoice (which is probably the 'correct' way) and then Tenderize it somewhere else.
+    -The other thing I would like to do is to have unique payment types, like different credit card numbers and checking acct. numbers as the keys for payment types, although I don't actually have to do that.
+
+    -The last factor to consider: factories appear to be pretty useful and it would be a good idea to get some practice with them, although it seems like classes are the thing I'm less familiar with and I don't think this would be a class?  
+
+    -I guess the question of having the unique identifier as the key is a separate question.  What would have to change?
+        -Maybe the lookup?  
+            -OK, I think this could be done.  I would just change the search route to stop at the key, rather than a property.  
+                -Or, actually, I think I would have the variable as part of the path, and I would just check to confirm that the number match is has the type of 'credit card'
+            -Same for a check, afacit.
+        
+    -OK, now onto the real question - should I be working on any of this?
+        -The EASIEST solution:
+            -don't change anything with the primary keys.  At this moment, it isn't a problem that I only support one credit card num per invoice.
+            -For the sake of practive, I probably should have a Tenderizer.  Some of the stuff, like 'what kinds of refund tenders do we offer' 
+
+
+
+
+
+
 
 
 

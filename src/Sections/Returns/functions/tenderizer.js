@@ -1,3 +1,5 @@
+import tender from "./tendersPrime"
+
 const ref = {
   cash: { tenderLabel: "Cash", paid: 0 },
   creditCard: {
@@ -13,12 +15,19 @@ const ref = {
   },
 };
 
+const x = tender({a:"grg", b:"cat"})   
+
+console.log(x.b)
+
+
 // if I want, I can generate the tender labels in the Tenderizer.
 
 const tenderizer = ( key, value ) => {
   switch (key) {
     case "cash": {
-      return {...value, };
+      return {...value, 
+        refundOptions: "cash",
+        refundOptionLabel: "Cash"};
     }
     case "debit": {
       return {...value};
