@@ -2488,8 +2488,20 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Also.  For what I'm trying to do, this is really a non-problem.  It's an extra property.  It's fine.  Let's Rule 1 and move on.  
 
+    -The next question is how to handle the Tenderizer.  I was previously doing it as a switch statement, but since I'm going to have to do comparison in addition to just the key name, maybe just some if statements is better.
 
+    -OK, found another bug.  Looks like I'm not finding a proID number.  I'm gonna call it a day and pick up here tomorrow.  To Do:
+        -Figure out why proID isn't working
+        -Change Tenderizer to If statements and then get it working.
 
+21 Jan 2023
+    Got a  date at 7:00 so I can't go all day.  Need to try and be efficient with the time I have.  Also slept like shit last night :/  Let's try and make good decisions here.  Tasks for the day.
+
+    -Figure out why ProID isn't working (or, conversely, why LCA is working.  )
+    -A brief feline interruption
+    -
+
+  
 
 
 

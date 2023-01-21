@@ -31,12 +31,9 @@ const lookupReducer = (state, action) => {
       return {
         ...defaultState,
         activeType: action.payload,
+        didSearch: state.didSearch,
       };
     }
-    case "MINIMUM_EFFORT": {
-      return { ...state, didSearch: true };
-    }
-
     case "CHANGE_INPUT": {
       return { ...state, ...action.payload };
     }

@@ -11,61 +11,43 @@ const InvoiceSearch = (
 
   const sessionDispatch = returnsContext.dispatchSession;
 
-  // FOR LATER - look at looping through the items first?  Otherwise I'm looping literally the whole list of invoices.
-
   console.log(searchInput);
 
   // Each invoice is only evaluated once, so there won't be any repeats
-  let outputInvoArr = []
+  let outputInvoArr = [];
 
-  // loop through all the invoices
+  // loop through all the invoices.
   for (const thisInvo of Object.keys(storeInvos)) {
     // InvoObj shortcuts
     const iInvo = storeInvos[thisInvo];
     const iInvoDetails = iInvo.invoiceDetails;
 
-    // loop through unmatchedItems.  This is necessary because we don't want to match invoices that 
+    // all potential search types.
+    const searchRoutes = {
+      creditCard: iInvoDetails.payment?.[searchInput]?.ccNum,
+      phone: iInvoDetails?.phone,
+      orderNum: iInvoDetails?.orderNum,
+      proID: iInvoDetails?.proIdNum,
+      lcaNum: iInvoDetails?.lcaNum,
+    };
+
+    if (searchRoutes[searchType] !== searchInput) {
+      continue;
+    }
+
+    // loop through unmatchedItems because we don't want to match invoices that
     for (const thisUMitem of Object.keys(unmatched)) {
-
-      // WIP might not need to see if it actually has a ccNum?  Let's see if this is working first?
-
-      // all potential search types.
-      const searchRoutes = {
-        creditCard: iInvoDetails.payment?.[searchInput]?.ccNum,
-        phone: iInvoDetails?.phone,
-        orderNum: iInvoDetails?.orderNum,
-        proID: iInvoDetails?.proID,
-        lcaNum: iInvoDetails?.lcaNum,
-      };
-
-      // TBD - could probably be just a 'continue' after each check.
-      const hasItem = iInvo.products?.[thisUMitem] ?? false
-      const hasSearchMatch =  searchRoutes[searchType] === searchInput
-
-      const shouldAdd = hasItem && hasSearchMatch
-
-      if (
-        shouldAdd
-      ) {
-        outputInvoArr.push(thisInvo)
+      if (iInvo.products?.[thisUMitem]) {
         //If ANY matches are found, that invoice goes into the list, and if it contains multiple unmatched items, that gets handled in the matchmaker.
-        break
-
+        outputInvoArr.push(thisInvo);
+        break;
       }
     }
   }
 
-  sessionDispatch({type: "ADD_INVOICE", payload: outputInvoArr })
+  sessionDispatch({ type: "ADD_INVOICE", payload: outputInvoArr });
 
   return outputInvoArr;
-
-
-
-  // For each invoice
-  // if invoice isn't already in the list.  Or maybe I don't need?  If I overwrite an invoice that's already on the list I don't think anything bad happens because there's no quantity and every instance of the invoice is identical?
-  // for each unmatched item,
-  // if matchingFunc(thisInvoice)
-  // add invoice to session
 };
 
 export default InvoiceSearch;
