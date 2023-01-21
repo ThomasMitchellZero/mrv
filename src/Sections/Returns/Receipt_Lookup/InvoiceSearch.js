@@ -27,7 +27,7 @@ const InvoiceSearch = (
       creditCard: iInvoDetails.payment?.[searchInput]?.ccNum,
       phone: iInvoDetails?.phone,
       orderNum: iInvoDetails?.orderNum,
-      proID: iInvoDetails?.proIdNum,
+      proIdNum: iInvoDetails?.proIdNum,
       lcaNum: iInvoDetails?.lcaNum,
     };
 
