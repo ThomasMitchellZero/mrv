@@ -79,7 +79,7 @@ const Actions30 = ({ dispatchActive, returnState }) => {
       <FooterContainer>
         {!hasItems ? null : (
           <Link
-            className={`baseButton primary large ${classes.button}`}
+            className={`baseButton primary large contained30`}
             to={
               // if all items are matched, skip straight to total review
               hasUnmatched ? "first-review" : "total-review"

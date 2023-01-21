@@ -16,10 +16,6 @@
     gap: 1.5rem;
 }
 
-.button{
-    flex: 1 1 0rem;
-}
-
 .subcontainer{
 
     display: flex;
@@ -29,7 +25,6 @@
     gap: .5rem;
 
 }
-
 
 .itemsearch{
     width: 100%;

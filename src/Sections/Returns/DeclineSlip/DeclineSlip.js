@@ -4,6 +4,8 @@ import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import { Link, useNavigate } from "react-router-dom";
 
+// TO DO: once I have the Receipt options, this should conditionally navigate to there if there are no matched items.
+
 const DeclineSlip = () => {
   const navigate = useNavigate();
   return (

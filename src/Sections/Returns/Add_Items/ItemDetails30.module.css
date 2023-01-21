@@ -117,12 +117,4 @@
 
  .dispoColumns button{
     flex: 0 0 2.75rem;
-    margin: 0rem;
-
  }
-
-
-
-.continueButton{
-   flex: 1 1 0rem;
-}

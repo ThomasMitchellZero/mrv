@@ -133,7 +133,7 @@ const InvoiceEntry30 = (props) => {
             form="invoiceForm"
             type="submit"
             disabled={!formState.formValid}
-            className={`baseButton primary large ${classes.button}`}
+            className={`baseButton primary large contained30`}
           >
             Add Invoice
           </button>

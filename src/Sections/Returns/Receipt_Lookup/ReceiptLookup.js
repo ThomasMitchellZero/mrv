@@ -231,7 +231,7 @@ const ReceiptLookup = () => {
           {!recLookupState.didSearch ? null : (
             <Link
               to={continueRoute}
-              className={`baseButton primary large ${classes.button}`}
+              className={`baseButton primary large contained70`}
             >
               Continue
             </Link>

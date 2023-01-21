@@ -57,7 +57,7 @@ const FullReview = ({ pageStatus = "preSearch" }) => {
       <FooterContainer>
         <Link
           to={statusObj[pageStatus].to}
-          className={`baseButton primary large ${classes.button}`}
+          className={`baseButton primary large uncontained`}
         >
           Continue
         </Link>
