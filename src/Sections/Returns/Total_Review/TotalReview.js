@@ -37,7 +37,7 @@ const TotalReview = () => {
     return (
       <tr key={thisTender[0]}>
         <td>{`$${(tenderData.paid / 100).toFixed(2)}`}</td>
-        <td>{thisTender[0]}</td>
+        <td>{tenderData.tenderLabel}</td>
         <td>{thisTender[0]}</td>
       </tr>
     );
