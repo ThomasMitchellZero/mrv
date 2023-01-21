@@ -22,7 +22,7 @@ const DeclineSlip = () => {
       <FooterContainer>
         <Link
           to={"../total-review"}
-          className={`baseButton primary large uncontained`}
+          className={`baseButton primary large contained100`}
         >
           OK
         </Link>
