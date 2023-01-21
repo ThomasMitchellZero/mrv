@@ -2497,9 +2497,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 21 Jan 2023
     Got a  date at 7:00 so I can't go all day.  Need to try and be efficient with the time I have.  Also slept like shit last night :/  Let's try and make good decisions here.  Tasks for the day.
 
-    -Figure out why ProID isn't working (or, conversely, why LCA is working.  )
-    -A brief feline interruption
-    -
+    X -Figure out why ProID isn't working (or, conversely, why LCA is working.  )  OK, got it.  In the searchRoutes object, I had a key that didn't match what the button was dispatching.
+    X -A brief feline interruption
+    - Fix the Continue button on the second Review screen.  Not stricly necessary but it's annoying and it comes up way too much when I am showing this to people.
+    
 
   
 
