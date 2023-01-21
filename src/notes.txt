@@ -41,6 +41,10 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -SessionItems70 and SessionInvoices70 are currently making the choice to render their respective tables or the StartScanning70 panel as conditionals within these components.  These conditions should probably be handled in the dispatching?
 
+    -I need to figure out how to write no-UI functions that can use hooks, especially accessing the app state.  
+
+    -Make sure the prices are realistic in both the product catalog and invoices.
+
 
 
 
@@ -2504,7 +2508,35 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -For this to happen, I think I need a basic, blank screen in the shared components.  
     X - relocate most of the shared components into subfolders
 
+    1:40
+        Actually not sure how I am doing.  I've been working pretty well, but I've been doing mostly peripheral stuff.  I created some new button classes to control button width from the App CSS classes which will improve consistency, but that's not exactly critical.
 
+        OK.  The next thing to get after is the Tenderizer.  Once I can correctly populate all my refund tenders with the appropriate data, I can make the stepper and hopefully it won't be too hard.
+
+            -Now.  I'm contemplating doing something MAYBE stupid.  The Tenderizer will be pure Javascript.  However, I'm wondering if I could make it as a React component.
+
+            -OK.  After doing a little bit of digging, it sounds like the way to do this is with a Custom Hook.  I don't really even understand non-custom hooks, so I'm not sure how to proceed.
+
+            -Custom hooks appear to be the correct way to share logic between components.  AFAICT the other big advantage is that they don't violate the Rule of Hooks.  
+
+            -The problem I ran into with the MatchMaker is that it is just a plain old regular function, so it can't use hooks inside of it.  
+
+            -I tried making a custom test hook to put into the reducer and got an error for violating the Rule of Hooks.
+
+        -Let's get some more thoughts down on paper.  
+            -I don't need to have the Matchmaker in a separate component.  It's not being reused anywhere.  I just want it as a module so the code isn't super long.
+
+            -I WANT to have access to the Returns state within the Tenderizer, although I don't actually think that's necessary.  Actually, I'm not even sure it's good.  The Tenderizer should control WHAT options are available in case of a failure.  Whether or not it has actually failed isn't determined until later.  The individual stepper LIs are going to get their failure status from somewhere else, probably the 30 panel that controls them, and it will be easy to have THAT component see the scenario state.
+
+        -OK, let's take a quick swalk break.  When I get back, I need to start writing the Tenderizer with its conditions.  
+
+    4:10 - feeling pretty good, although this ~2 hours after dose 2 is when I'm at peak Adderall effect :)  
+
+        -OK, got another bug.  The InvoiceSearch isn't finding debit numbers because I don't have a route to search for debit.  
+            -I THINK I can just use a ?? on the creditCard condition to get it to search for debit?  
+        -OK, it's working now.
+
+    
   
 
 

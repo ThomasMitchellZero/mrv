@@ -1,44 +1,72 @@
-import tender from "./tendersPrime"
+import tender from "./tendersPrime";
 
 const ref = {
+  // Cash
   cash: { tenderLabel: "Cash", paid: 0 },
-  creditCard: {
-    tenderLabel: "American Express ****4444",
+
+  // creditCard
+  1111222211112222: {
+    tenderLabel: "MasterCard ****2222",
     paid: 0,
-    ccNum: "3333444433334444",
+    ccNum: "1111222211112222",
   },
-  check: {
-    tenderLabel: "Check ****4321",
+
+  // Check
+  44443333: {
+    tenderLabel: "Check ****3333",
     paid: 0,
-    routing: "12341234",
-    account: "43214321",
+    routingNum: "44443333",
+    accountNum: "33334444",
+  },
+
+  // Debit
+  7777888877778888: {
+    tenderLabel: "Debit ****8888",
+    paid: 0,
+    debitNum: "7777888877778888",
+  },
+
+  // Store Credit
+  storeCredit: {
+    paid: 0,
   },
 };
 
 // if I want, I can generate the tender labels in the Tenderizer.
 
-const tenderizer = ( key, value ) => {
-  switch (key) {
-    case "cash": {
-      return {...value, 
-        refundOptions: "cash",
-        refundOptionLabel: "Cash"};
-    }
-    case "debit": {
-      return {...value};
-    }
-    case "creditCard": {
-      return {...value};
-    }
-    case "check": {
-      return {...value};
-    }
-    case "merchCard": {
-      return {...value};
-    }
+const tenderizer = (key, value) => {
+  if (key === "cash") {
+    return {
+      ...value,
+      tenderLabel: "CasH MONEY",
+    };
+  }
 
-    default:
-      return {...value};
+  if (key === "storeCredit")
+    return {
+      ...value,
+      tenderLabel: "STOOOORE Credit",
+    };
+
+  if (value.ccNum) {
+    return {
+      ...value,
+      tenderLabel: "Credit Cartttt",
+    };
+  }
+
+  if (value.debitNum) {
+    return {
+      ...value,
+      tenderLabel: "Debit Collector",
+    };
+  }
+
+  if (value.accountNum && value.routingNum) {
+    return {
+      ...value,
+      tenderLabel: "You old AF",
+    };
   }
 };
 

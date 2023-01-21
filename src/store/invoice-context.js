@@ -88,8 +88,8 @@ const invoiceObj = {
         44443333: {
           tenderLabel: "Check ****3333",
           paid: 0,
-          routing: "44443333",
-          account: "33334444",
+          routingNum: "44443333",
+          accountNum: "33334444",
         },
       },
       phone: "1112223333",

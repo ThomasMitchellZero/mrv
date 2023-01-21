@@ -21,15 +21,20 @@ const InvoiceSearch = (
     // InvoObj shortcuts
     const iInvo = storeInvos[thisInvo];
     const iInvoDetails = iInvo.invoiceDetails;
+    const paymentRoute = iInvoDetails.payment?.[searchInput];
 
     // all potential search types.
     const searchRoutes = {
-      creditCard: iInvoDetails.payment?.[searchInput]?.ccNum,
+      creditCard: paymentRoute?.ccNum ?? paymentRoute?.debitNum,
       phone: iInvoDetails?.phone,
       orderNum: iInvoDetails?.orderNum,
       proIdNum: iInvoDetails?.proIdNum,
       lcaNum: iInvoDetails?.lcaNum,
     };
+
+    const x = searchRoutes[searchType];
+    const y = searchInput;
+    const z = searchRoutes[searchType] !== searchInput;
 
     if (searchRoutes[searchType] !== searchInput) {
       continue;
