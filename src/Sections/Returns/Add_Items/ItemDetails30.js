@@ -1,7 +1,7 @@
 import classes from "./ItemDetails30.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 import disposSqueezer from "../functions/dispoSqueezer";
 

@@ -1,10 +1,10 @@
 import classes from "./SessionInvoices70.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import StartScanning from "../Index/StartScanning70";
-import Table from "../../../components/UI/Table";
-import RefundTotal from "../../../components/UI/RefundTotal";
+import Table from "../../../components/UI/Table/Table";
+import RefundTotal from "../../../components/UI/DisplayOutputs/RefundTotal";
 
 const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   const ctxInvoices = returnsContext.session.invoices;

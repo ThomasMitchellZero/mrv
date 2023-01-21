@@ -1,11 +1,11 @@
 import classes from "./TotalReview.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
-import InPageTitleBox from "../../../components/UI/InPageTitleBox";
-import MiniItemLI from "../../../components/UI/MiniItemLI";
-import RefundTotal from "../../../components/UI/RefundTotal";
-import Table from "../../../components/UI/Table";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
+import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
+import MiniItemLI from "../../../components/UI/DisplayOutputs/MiniItemLI";
+import RefundTotal from "../../../components/UI/DisplayOutputs/RefundTotal";
+import Table from "../../../components/UI/Table/Table";
 
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 

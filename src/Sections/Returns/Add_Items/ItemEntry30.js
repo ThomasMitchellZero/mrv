@@ -3,8 +3,8 @@ import classes from "./ItemEntry30.module.css";
 import { useReducer, useContext } from "react";
 
 import ProductContext from "../../../store/product-context";
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 const ItemEntry30 = (props) => {
   // props inherited from the parent

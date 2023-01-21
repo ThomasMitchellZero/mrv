@@ -1,6 +1,6 @@
 import classes from "./FullReviewLI.module.css";
 
-import RejectionCode from "../../../components/UI/RejectionCode";
+import RejectionCode from "../../../components/UI/DisplayOutputs/RejectionCode";
 
 const FullReviewLI = ({ itemDataObj, liPreSearch = true }) => {
   const totalPrice = itemDataObj.price * itemDataObj.quantity;

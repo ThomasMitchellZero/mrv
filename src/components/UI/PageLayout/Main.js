@@ -2,7 +2,7 @@ import classes from "./Main.module.css";
 
 import { NavLink, Outlet } from "react-router-dom";
 
-import pagoda from "../../assets/lowes-logo.svg"
+import pagoda from "../../../assets/lowes-logo.svg"
 
 const Main = (props) => {
   const linkStyle = ({ isActive }) =>

@@ -1,8 +1,8 @@
 import classes from "./Actions30.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 import { useNavigate, Link } from "react-router-dom";
 

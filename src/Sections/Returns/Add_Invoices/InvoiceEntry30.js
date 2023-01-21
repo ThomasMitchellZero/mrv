@@ -2,8 +2,8 @@ import classes from "./InvoiceEntry30.module.css";
 import { useReducer, useContext } from "react";
 
 import InvoiceContext from "../../../store/invoice-context";
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 const InvoiceEntry30 = (props) => {
   const returnsContext = props.returnsContext;

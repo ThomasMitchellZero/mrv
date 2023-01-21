@@ -1,10 +1,10 @@
 import classes from "./ReceiptLookup.module.css";
 
-import TitleBar from "../../../components/UI/TitleBar";
-import FooterContainer from "../../../components/UI/FooterContainer";
-import MiniItemLI from "../../../components/UI/MiniItemLI";
-import MessageRibbon from "../../../components/UI/MessageRibbon";
-import InPageTitleBox from "../../../components/UI/InPageTitleBox";
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
+import MiniItemLI from "../../../components/UI/DisplayOutputs/MiniItemLI";
+import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
+import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import RL1LineField from "./RL1LineField";
 
 import InvoiceSearch from "./InvoiceSearch";

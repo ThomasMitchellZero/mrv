@@ -9,7 +9,7 @@ import "./app-styles/panels.css";
 
 import { Route, Routes } from "react-router-dom";
 
-import Main from "./components/UI/Main";
+import Main from "./components/UI/PageLayout/Main";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
 // Returns

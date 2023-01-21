@@ -1,6 +1,6 @@
 import classes from "./Placeholder.module.css";
-import TitleBar from "../../components/UI/TitleBar";
-import FooterContainer from "../../components/UI/FooterContainer";
+import TitleBar from "../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../components/UI/PageLayout/FooterContainer";
 
 const Placeholder = (props) => {
   return (
