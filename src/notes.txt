@@ -43,6 +43,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
 
 
+
 //// Github Pages Deployment ////
 
 Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
@@ -2500,7 +2501,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     X -Figure out why ProID isn't working (or, conversely, why LCA is working.  )  OK, got it.  In the searchRoutes object, I had a key that didn't match what the button was dispatching.
     X -A brief feline interruption
     - Fix the Continue button on the second Review screen.  Not stricly necessary but it's annoying and it comes up way too much when I am showing this to people.
-    
+        -For this to happen, I think I need a basic, blank screen in the shared components.  
+    X - relocate most of the shared components into subfolders
+
 
   
 

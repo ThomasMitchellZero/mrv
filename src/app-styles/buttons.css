@@ -14,48 +14,53 @@
     padding: 0rem 1rem;
     font-weight: 500;
     gap: .25rem;
-  }
+}
   
-  .baseButton.primary{
+.baseButton.primary{
     color: #fff;
     background-color: #003BAF;
     border: none;
-  }
+}
   
-  .baseButton.secondary{
+.baseButton.secondary{
     color: #003BAF;
     background-color: #fff;
     border-color: #003BAF;
-  }
+}
   
-  .baseButton.tertiary{
+.baseButton.tertiary{
     color: #003BAF;
     background-color: transparent;
     border: none;
   
-  }
+}
   
-  .baseButton.large{
+.baseButton.large{
     height: 3.5rem;
     font-size: 1.25rem;
     border-radius: 8px;
-  }
+}
   
-  .baseButton:hover{
+.baseButton:hover{
     opacity: 80%;
-  }
+}
   
-  .primary:disabled{
+.primary:disabled{
     color: #fff;
     background-color: #555;
     border: none;
-  }
+}
   
-  .secondary:disabled{
+.secondary:disabled{
     color:#555;
     border-color: #555;
-  }
+}
 
-  .baseButton.secondary.active{
+.baseButton.secondary.active{
     background-color: #E6ECF9;
-  }
+}
+
+.uncontained{
+  width: 28%;
+  margin: 0rem;
+}

@@ -18,6 +18,7 @@ import ReturnsIndex from "./Sections/Returns/Index/ReturnsIndex";
 import FullItemReview from "./Sections/Returns/Review/FullItemReview";
 import ReceiptLookup from "./Sections/Returns/Receipt_Lookup/ReceiptLookup";
 import TotalReview from "./Sections/Returns/Total_Review/TotalReview";
+import DeclineSlip from "./Sections/Returns/DeclineSlip/DeclineSlip";
 
 function App() {
   return (
@@ -42,7 +43,8 @@ function App() {
               path="unmatched-review"
               element={<FullItemReview pageStatus="postSearch" />}
             ></Route>
-            <Route path="total-review" element={<TotalReview />}></Route>
+            <Route path="decline-slip" element={<DeclineSlip />} />
+            <Route path="total-review" element={<TotalReview />} />
           </Route>
         </Route>
       </Routes>

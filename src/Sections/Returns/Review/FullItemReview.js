@@ -27,7 +27,7 @@ const FullReview = ({ pageStatus = "preSearch" }) => {
       pageTitleBox: "These item(s) are not refundable.",
       subtitle: "Give items back to customer",
       canOverride: null,
-      to: null,
+      to: "../decline-slip",
       secondBtn: null,
     },
   };
