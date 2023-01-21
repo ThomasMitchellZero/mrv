@@ -11,19 +11,21 @@ const FullReview = ({ pageStatus = "preSearch" }) => {
   const navigate = useNavigate();
   const returnsContext = useOutletContext();
   const unmatched = Object.values(returnsContext.session.unmatched);
-  const totalPrice = 0
+  const totalPrice = 0;
 
   const statusObj = {
     preSearch: {
       preSearch: true,
       pageTitleBox: "These item(s) are missing invoices.",
+      subtitle: "",
       canOverride: null,
       to: "../receipt-lookup",
       secondBtn: null,
     },
     postSearch: {
       preSearch: false,
-      pageTitleBox: "These item(s) are ineligible and will not be refunded.",
+      pageTitleBox: "These item(s) are not refundable.",
+      subtitle: "Give items back to customer",
       canOverride: null,
       to: null,
       secondBtn: null,
@@ -46,7 +48,10 @@ const FullReview = ({ pageStatus = "preSearch" }) => {
         Review
       </TitleBar>
       <section className={classes.mainContent}>
-        <InPageTitleBox mainTitle={statusObj[pageStatus].pageTitleBox} />
+        <InPageTitleBox
+          mainTitle={statusObj[pageStatus].pageTitleBox}
+          subTitle={statusObj[pageStatus].subtitle}
+        />
         <section className={classes.listContainer}>{umTableContents}</section>
       </section>
       <FooterContainer>
