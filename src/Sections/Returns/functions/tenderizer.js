@@ -34,11 +34,21 @@ const ref = {
 
 // if I want, I can generate the tender labels in the Tenderizer.
 
+const ref_processStatus = {
+  notStarted: null, 
+  inProgress: null,
+  complete: null,
+  failure: null,
+}
+
+const failureOptions = {cash: "Cash", storeCredit: "Store Credit"}
+
 const tenderizer = (key, value) => {
   if (key === "cash") {
     return {
       ...value,
       tenderLabel: "CasH MONEY",
+      processStatus: "notStarted",
     };
   }
 
@@ -46,12 +56,15 @@ const tenderizer = (key, value) => {
     return {
       ...value,
       tenderLabel: "STOOOORE Credit",
+      processStatus: "notStarted",
     };
 
   if (value.ccNum) {
     return {
       ...value,
       tenderLabel: "Credit Cartttt",
+      processStatus: "notStarted",
+      failureOptions: {...failureOptions}
     };
   }
 
@@ -59,6 +72,8 @@ const tenderizer = (key, value) => {
     return {
       ...value,
       tenderLabel: "Debit Collector",
+      processStatus: "notStarted",
+      failureOptions: {...failureOptions}
     };
   }
 
@@ -66,6 +81,8 @@ const tenderizer = (key, value) => {
     return {
       ...value,
       tenderLabel: "You old AF",
+      processStatus: "notStarted",
+      failureOptions: {...failureOptions}
     };
   }
 };
