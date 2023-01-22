@@ -26,9 +26,17 @@ const dummyArr = Object.entries({
   },
 });
 
+const debitOnly = {
+  7777888877778888: {
+    tenderLabel: "Debit ****8888",
+    paid: 1456,
+    debitNum: "7777888877778888",
+  },
+};
+
 const dummyTenders = {};
 
-for (const arrItem of dummyArr) {
+for (const arrItem of debitOnly) {
   dummyTenders[arrItem[0]] = tenderizer(arrItem[0], arrItem[1]);
 }
 
