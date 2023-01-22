@@ -1,6 +1,6 @@
 import tenderizer from "../functions/tenderizer";
 
-const dummyTenders = Object.entries({
+const dummyArr = Object.entries({
   cash: { tenderLabel: "Cash", paid: 0 },
   7777888877778888: {
     tenderLabel: "Debit ****8888",
@@ -9,8 +9,10 @@ const dummyTenders = Object.entries({
   },
 });
 
-for (const arrItem of dummyTenders) {
-  tenderizer(arrItem[0], arrItem[1]);
+const dummyTenders = {};
+
+for (const arrItem of dummyArr) {
+  dummyTenders[arrItem[0]] = tenderizer(arrItem[0], arrItem[1]);
 }
 
 console.log(dummyTenders);
