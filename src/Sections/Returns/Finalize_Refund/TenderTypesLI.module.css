@@ -27,3 +27,18 @@
     background-color: hotpink;
 }
 
+.icon{
+
+}
+
+.icon.ok{
+    color: green;
+}
+
+.icon.inProgress{
+    color: green;
+}
+
+.icon.fail{
+    color: green;
+}

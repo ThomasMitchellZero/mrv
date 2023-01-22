@@ -1,8 +1,8 @@
 import classes from "./RejectionCode.module.css";
 import { MdError, MdWarning } from "react-icons/md";
 
-const alert = <MdError className={`icon-alert ${classes.icon}`} />;
-const warning = <MdWarning className={`icon-warning ${classes.icon}`} />;
+const alert = <MdError className={`gold-text ${classes.icon}`} />;
+const warning = <MdWarning className={`red-text ${classes.icon}`} />;
 
 // the default code generation function if the user doesn't specify something else.
 const defaultCoder = (preSearch = true, itemObj) => {

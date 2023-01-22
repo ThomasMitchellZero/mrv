@@ -1,0 +1,46 @@
+
+/* Reds */
+.red-text{
+    color: red;
+}
+.red{
+    background-color: red;;
+}
+
+/* Greens */
+.green-text{
+    color: #00b140;
+}
+
+.green{
+    background-color: #00b140;
+}
+
+/* Golds */
+
+.gold-text{
+    color: #f5b62f;
+}
+.gold{
+    background-color: #f5b62f;
+}
+
+/* Blues */
+
+.base-blue-text{
+    color:#003BAF;
+}
+
+.base-blue{
+    background-color:#003BAF;
+}
+
+/* Greys */
+
+.grey-06{
+    background-color: #6f6f6f;
+}
+
+.grey-06-text{
+    background-color: #6f6f6f;
+}

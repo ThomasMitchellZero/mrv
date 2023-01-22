@@ -12,7 +12,9 @@ const FinalizeRefund = () => {
   console.log(tendersArr);
 
   const tendersLIarr = tendersArr.map((thisTenderObj) => {
-    return <TenderTypesLI dataObj={thisTenderObj} />;
+
+    //TO DO: fix key once this is working.
+    return <TenderTypesLI key={JSON.stringify(thisTenderObj)} dataObj={thisTenderObj} />;
   });
 
   return (

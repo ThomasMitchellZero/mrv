@@ -6,6 +6,7 @@ import "./app-styles/inputs.css";
 import "./app-styles/icon-styles.css";
 import "./app-styles/dividers.css";
 import "./app-styles/panels.css";
+import "./app-styles/system-colors.css"
 
 import { Route, Routes } from "react-router-dom";
 
