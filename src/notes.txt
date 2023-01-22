@@ -2547,7 +2547,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Check: SC or cash
         -Digital: SC or cash
 
-    AFAIK, store credit and cash can't fail?
+    AFAIK, store credit and cash can't fail?  I don't think I will ever need the 
 
     So I think the logic goes:
         If no user option, no Ask 1.
@@ -2577,6 +2577,66 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     - Actually, for my 20, I might start with the blank page, along with a dummy data object.  I DO NOT want to test this by going through all the steps I would need to to get 5+ matched tender types into this thing.  I'll get all the visuals and then confirm that it is working.  
         -IDK why, but I like this approach.  I know you're 'supposed' to have a plan before you build, but I want to have something on the screen to look at and I also think this will be a nice launch in to the work.  
+
+    1:40
+        I'm slowly getting into the work.  Still not super focused, but I want to try an experiment where I just jam as hard as I can for an hour.  Like, really try to drive through and be intentional with my focus.
+
+        -I do think I at least have the skeleton I need to proceed with the work.  
+
+        -I need to come up with a plan for the LIs.  They are going to have quite a few different states.  Active, inactive, complete, whether or not to display the second option, etc.  There are a few tricky things about this situation.  
+            -First, the status of the LIs is going to be handled entirely through logic coming from somewhere else.
+            -Also, they are going to be handled sequentially.  
+        -OK.  So what I think needs to happen is that all the conditional display will happen within the LI, but the condition-setting will happen in the parent?
+            -I don't even think I need a state in the LIs?  I think I probably just track all potential conditions in the new object returned by the Tenderizer?
+        -In the FinalizeRefund component, I am also not sure I need a separate state?  My goal should be to handle everything from the session.refund_by_tender state.  So let's think about what states to track in each tender obj. returned by the Tenderizer.
+
+            For all:
+
+                -processStatus:
+                    "notStarted"
+                    "inProgress"
+                    "Complete"
+                    "Failure"
+
+                -secondChoice:
+                    true/false?
+
+            For potential failures: Check, Credit, Debit?
+
+                -backup modes:
+                    "cash"
+                    "store credit"
+
+            For tenders with initial user choice: Check, Debit?
+                
+                -refund original: true or false? 
+
+            And I need to track the 70-panel content, although maybe that logic belongs in FinalizeRefund?
+
+        And I gotta make these as universal as possible because the LI isn't going to know what it's dealing with in advance.  
+
+        -I think I want to start by building Debit and Check, because their Sad Path is the hardest.  Once I've got those the others are easy.
+
+        -I also need to think about how I'm going to handle the dispatches in Returns.  IDK if I can just have the dispatcher overrwrite the old content with new.  I guess what I could do is handle ALL the processing in Finalize Refund and then dispatch fully-prepared tender types to the Returns.session state?  Right now that seems like the best.
+
+    2:50: 
+        -small wrench in the plans.  There actually is at least one scenario where the LI hasn't failed but still needs to show 2 lines.  That is when there is a cash return, because we run them through a confirmation screen.  
+
+        -Before I can verify that any of this is working, I think I need to have the LI component.  I'm gonna take the next 90 minutes to build the thing and then re-assess the rest of the day's plans after that.  
+
+    4:00:
+        -OK, kinda losing steam. If I can put up one last good session I will call it done for the day.  Let's go!
+
+    5:00:
+        -I just don't have much push right now.  I think I'm gonna take a a swallk and if I'm not feeling it when I get back, I'm done for the day.  
+
+    
+        
+            
+
+            
+
+
 
 
         
