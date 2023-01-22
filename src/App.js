@@ -3,7 +3,6 @@ import "./app-styles/table.css";
 import "./app-styles/buttons.css";
 import "./app-styles/text-styles.css";
 import "./app-styles/inputs.css";
-import "./app-styles/icon-styles.css";
 import "./app-styles/dividers.css";
 import "./app-styles/panels.css";
 import "./app-styles/system-colors.css"
