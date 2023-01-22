@@ -28,19 +28,27 @@
 /* Blues */
 
 .base-blue-text{
-    color:#003BAF;
+    color:#003baf;
 }
 
 .base-blue{
-    background-color:#003BAF;
+    background-color:#003baf;
 }
 
 /* Greys */
 
+.grey-04{
+    background-color: #a8a8a8
+}
+            
+.grey-04-text{
+    color: #a8a8a8;
+}
+
 .grey-06{
     background-color: #6f6f6f;
 }
-
+            
 .grey-06-text{
-    background-color: #6f6f6f;
+    color: #6f6f6f;
 }

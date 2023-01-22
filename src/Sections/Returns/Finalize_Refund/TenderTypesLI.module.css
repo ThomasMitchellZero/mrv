@@ -11,6 +11,7 @@
     flex: 0 0 auto;
     height: 100%;
     background-color: burlywood;
+    align-items: center;
 }
 
 .mainContent{
@@ -27,18 +28,19 @@
     background-color: hotpink;
 }
 
+.lineHeight{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 1.5rem;
+}
+
+.stepLine{
+    width: 2px;
+    height: 100%;
+
+}
+
 .icon{
 
-}
-
-.icon.ok{
-    color: green;
-}
-
-.icon.inProgress{
-    color: green;
-}
-
-.icon.fail{
-    color: green;
 }
