@@ -1,6 +1,6 @@
 import classes from "./TenderTypesLI.module.css";
 
-const TenderTypesLI = (dataObj) => {
+const TenderTypesLI = ({dataObj}) => {
   return (
     <section className={classes.container}>
       <section className={classes.leftColumn}>L</section>

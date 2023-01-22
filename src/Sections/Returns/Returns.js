@@ -117,6 +117,14 @@ const Returns = () => {
         };
       }
 
+      case "ADD_TENDER": {
+        const newTender = action.payload
+        const newTenderList = {...state.refunds_by_tender, xxx:newTender}
+        return {
+          ...state, refunds_by_tender: newTenderList
+        }
+      }
+
       case "CLEAR_SESSION":
         return defaultSessionState;
 
