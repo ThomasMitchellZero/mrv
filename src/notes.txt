@@ -2535,8 +2535,54 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -OK, got another bug.  The InvoiceSearch isn't finding debit numbers because I don't have a route to search for debit.  
             -I THINK I can just use a ?? on the creditCard condition to get it to search for debit?  
         -OK, it's working now.
+        -At some point I might need to handle a check that's too fresh, but that's probably a problem for Future Me.
 
-    
+    -Gotta think here.  In the no-failure scenario, what has multiple refund options?
+        -Debit: Original Debit or cash
+        -Check: Original Checking acct. or cash.
+
+    And in the case of failure:
+        -Debit: SC or cash
+        -Credit: SC or cash
+        -Check: SC or cash
+        -Digital: SC or cash
+
+    AFAIK, store credit and cash can't fail?
+
+    So I think the logic goes:
+        If no user option, no Ask 1.
+            If failure, Ask 1 (Fail Choice)
+        If user option, ask for choice on 70-panel
+            If failure, get user input before proceeding to next.
+
+        -This also means that in the Tenderizer I need to create properties that hold user choices?  
+
+
+    -It's getting near the end of the day.  I'm probably not going to program any more, but I do feel like trying to plan out some of the logic for the stepper.
+
+    -Since both panels are referring to a shared state, I'll either want to track that state in the page instead of the components.  
+    -Actually, I can probably just handle all the state changes in 
+    session.refunds_by_tender.
+        -If I do that, I'll definitely need a dispatch type to handle it.  My plan before was to have lots of logic in the state setter, 
+    -I'll probably need some sort of logic to order the states.  I think I want the auto-complete options done first, followed by the ones with user input, followed by check.  
+        -I was thinking I'd like that in the Matchmaker, but it's an object and I want it to be an object.
+
+    -I also need some way of adding new tender types to the queue, specifically cash and store credit.  THAT means I probably need access to the Tenderizer here, too?  
+
+22 Jan, 2023
+    12:00:
+        It feels like a very simple effort to get started but I tried to start 20 minutes ago and failed.  OK.  Let's get after it, and as a show of seriousness, we will start with the full 69420.
+
+    - Probably going to start with some more writing.  I feel like there's a much neater, cleaner version of the structure I have in mind.
+
+    - Actually, for my 20, I might start with the blank page, along with a dummy data object.  I DO NOT want to test this by going through all the steps I would need to to get 5+ matched tender types into this thing.  I'll get all the visuals and then confirm that it is working.  
+        -IDK why, but I like this approach.  I know you're 'supposed' to have a plan before you build, but I want to have something on the screen to look at and I also think this will be a nice launch in to the work.  
+
+
+        
+
+        
+
   
 
 
