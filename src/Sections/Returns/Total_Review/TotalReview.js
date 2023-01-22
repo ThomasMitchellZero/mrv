@@ -78,7 +78,12 @@ const TotalReview = () => {
             tableBodyArray={tendersList}
           />
         </section>
-        <FooterContainer></FooterContainer>
+        <FooterContainer>
+          <Link
+            to="../finalize-refund">
+            Continue
+          </Link>
+        </FooterContainer>
       </section>
     </section>
   );

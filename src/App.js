@@ -19,6 +19,7 @@ import FullItemReview from "./Sections/Returns/Review/FullItemReview";
 import ReceiptLookup from "./Sections/Returns/Receipt_Lookup/ReceiptLookup";
 import TotalReview from "./Sections/Returns/Total_Review/TotalReview";
 import DeclineSlip from "./Sections/Returns/DeclineSlip/DeclineSlip";
+import FinalizeRefund from "./Sections/Returns/Finalize_Refund/FinalizeRefund";
 
 function App() {
   return (
@@ -33,18 +34,19 @@ function App() {
             element={<Placeholder>Showroom</Placeholder>}
           />
           <Route path="/returns" element={<Returns />}>
-            <Route index element={<ReturnsIndex></ReturnsIndex>}></Route>
+            <Route index element={<ReturnsIndex></ReturnsIndex>} />
             <Route
               path="first-review"
               element={<FullItemReview pageStatus="preSearch" />}
-            ></Route>
-            <Route path="receipt-lookup" element={<ReceiptLookup />}></Route>
+            />
+            <Route path="receipt-lookup" element={<ReceiptLookup />} />
             <Route
               path="unmatched-review"
               element={<FullItemReview pageStatus="postSearch" />}
-            ></Route>
+            />
             <Route path="decline-slip" element={<DeclineSlip />} />
             <Route path="total-review" element={<TotalReview />} />
+            <Route path="finalize-refund" element={<FinalizeRefund />} />
           </Route>
         </Route>
       </Routes>

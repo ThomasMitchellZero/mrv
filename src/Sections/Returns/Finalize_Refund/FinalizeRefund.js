@@ -2,16 +2,26 @@ import classes from "./FinalizeRefund.module.css";
 
 import dummyTenders from "./dummyTenders";
 
-//seventy_panel
-
-//thirty_panel
+import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 const FinalizeRefund = () => {
   return (
     <section className={classes.container}>
-      <section
-        className={`thirty_panel ${classes.mainContent} ${classes.panel30}`}
-      ></section>
+      <section className={`thirty_panel }`}>
+        <TitleBar>Tender Types</TitleBar>
+        <section
+          className={`${classes.mainContent} ${classes.content70}`}
+        ></section>
+        <FooterContainer></FooterContainer>
+      </section>
+      <section className={`seventy_panel `}>
+        <TitleBar>Tender Types</TitleBar>
+        <section
+          className={`${classes.mainContent} ${classes.content70}`}
+        ></section>
+        <FooterContainer></FooterContainer>
+      </section>
     </section>
   );
 };
