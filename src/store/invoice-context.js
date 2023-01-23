@@ -2,7 +2,11 @@ import React from "react";
 
 import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
 
+import tenderTypes from "../components/global_functions/tenderTypes";
+
 //products = 100, 200, 300, 400, 900, 910
+
+const tType = tenderTypes;
 
 const invoiceObj = {
   AAA: {
@@ -11,9 +15,9 @@ const invoiceObj = {
       date: new Date(2022, 8, 13),
       phone: "1112223333",
       payment: {
-        cash: { tenderType: "cash", tenderLabel: "Cash", paid: 0 },
+        cash: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
         7777888877778888: {
-          tenderType: "debit",
+          tenderType: tType.debit,
           tenderLabel: "Debit ****8888",
           paid: 0,
           debitNum: "7777888877778888",
@@ -33,7 +37,7 @@ const invoiceObj = {
       date: new Date(2022, 1, 22),
       payment: {
         1111222211112222: {
-          tenderType: "credit",
+          tenderType: tType.credit,
           tenderLabel: "MasterCard ****2222",
           paid: 0,
           ccNum: "1111222211112222",
@@ -52,7 +56,7 @@ const invoiceObj = {
       date: new Date(2022, 1, 24),
       payment: {
         3333444433334444: {
-          tenderType: "credit",
+          tenderType: tType.credit,
           tenderLabel: "American Express ****4444",
           paid: 0,
           ccNum: "3333444433334444",
@@ -71,7 +75,7 @@ const invoiceObj = {
       date: new Date(2022, 4, 13),
       payment: {
         1111222211112222: {
-          tenderType: "credit",
+          tenderType: tType.credit,
           tenderLabel: "MasterCard ****2222",
           paid: 0,
           ccNum: "1111222211112222",
@@ -90,7 +94,7 @@ const invoiceObj = {
       date: new Date(2022, 2, 11),
       payment: {
         44443333: {
-          tenderType: "check",
+          tenderType: tType.check,
           tenderLabel: "Check ****3333",
           paid: 0,
           routingNum: "44443333",
@@ -108,7 +112,9 @@ const invoiceObj = {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 3, 8),
-      payment: { cash: { tenderType: "cash", tenderLabel: "Cash", paid: 0 } },
+      payment: {
+        cash: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+      },
       orderNum: "11112222",
       lcaNum: "11112222",
       proIdNum: "11112222",

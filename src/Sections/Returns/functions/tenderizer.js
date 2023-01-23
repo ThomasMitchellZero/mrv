@@ -1,4 +1,4 @@
-import tenderTypes from "./tenderTypes";
+import tenderTypes from "../../../components/global_functions/tenderTypes";
 
 const ref = {
   // Cash

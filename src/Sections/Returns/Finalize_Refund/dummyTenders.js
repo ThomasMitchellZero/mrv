@@ -1,6 +1,6 @@
 import tenderizer from "../functions/tenderizer";
 
-import tenderTypes from "../functions/tenderTypes";
+import tenderTypes from "../../../components/global_functions/tenderTypes";
 
 const tType = tenderTypes
 

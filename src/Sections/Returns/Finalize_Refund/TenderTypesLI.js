@@ -1,11 +1,15 @@
 import classes from "./TenderTypesLI.module.css";
 
+import tenderTypes from "../../../components/global_functions/tenderTypes";
+
 import {
   MdPanoramaFishEye,
   MdCircle,
   MdWarning,
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
+
+const tType = tenderTypes;
 
 const iconsObj = {
   inProgress: <MdPanoramaFishEye className={`green-text ${classes.icon}`} />,
