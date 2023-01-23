@@ -24,7 +24,16 @@ const TenderTypesLI = ({ dataObj }) => {
           className={`grey-04 ${classes.lineHeight} ${classes.stepLine}`}
         ></div>
       </section>
-      <section className={classes.mainContent}>M</section>
+      <section className={`divider-bottom ${classes.mainContent}`}>
+        {/* */}
+        <section className={`${classes.lineHeight}`}>
+          <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
+          <h4>{`$${(dataObj.paid/ 100).toFixed(2)}`}</h4>
+        </section>
+        <section className={`${classes.lineHeight}`}>
+          <h5>{`Not Started`}</h5>
+        </section>
+      </section>
     </section>
   );
 };

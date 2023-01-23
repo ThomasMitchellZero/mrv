@@ -12,6 +12,7 @@
     height: 100%;
     background-color: burlywood;
     align-items: center;
+    margin-right: .25rem;
 }
 
 .mainContent{
@@ -30,14 +31,15 @@
 
 .lineHeight{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .stepLine{
     width: 2px;
-    height: 100%;
-
+    flex: 1 1 0rem;
 }
 
 .icon{
