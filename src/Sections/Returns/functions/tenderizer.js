@@ -1,4 +1,4 @@
-import tender from "./tendersPrime";
+import tenderTypes from "./tenderTypes";
 
 const ref = {
   // Cash
@@ -32,6 +32,7 @@ const ref = {
   },
 };
 
+const tType = tenderTypes;
 // if I want, I can generate the tender labels in the Tenderizer.
 
 const ref_processStatus = {
@@ -41,10 +42,9 @@ const ref_processStatus = {
   failure: null,
 }
 
-const failureOptions = {cash: "Cash", storeCredit: "Store Credit"}
 
 const tenderizer = (key, value) => {
-  if (key === "cash") {
+  if (key === tType.cash) {
     return {
       ...value,
       tenderLabel: "CasH MONEY",
@@ -52,7 +52,7 @@ const tenderizer = (key, value) => {
     };
   }
 
-  if (key === "storeCredit")
+  if (key === tType.storeCredit)
     return {
       ...value,
       tenderLabel: "STOOOORE Credit",
@@ -64,7 +64,6 @@ const tenderizer = (key, value) => {
       ...value,
       tenderLabel: "Credit Cartttt",
       processStatus: "notStarted",
-      failureOptions: {...failureOptions}
     };
   }
 
@@ -73,7 +72,6 @@ const tenderizer = (key, value) => {
       ...value,
       tenderLabel: "Debit Collector",
       processStatus: "notStarted",
-      failureOptions: {...failureOptions}
     };
   }
 
@@ -82,7 +80,6 @@ const tenderizer = (key, value) => {
       ...value,
       tenderLabel: "You old AF",
       processStatus: "notStarted",
-      failureOptions: {...failureOptions}
     };
   }
 };
