@@ -2670,6 +2670,13 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -So like every time the page re-renders (including state changes, since that's when I would be adding Cash or SC tenders) I'd get a fresh array where each element has identical properties to the state object they came from.
             -Sounds good, my only question is whether the array's order could change.  I don't think so, but if it did, that would be pretty bad.  I don't think it would (and Rule 1) but could be a problem.
 
+    4:45
+        Well, against all odds I am kind of in a groove.  I really ought to refactor the Tenderizer but I'm not planning to go much later than 6:00.  That work *should* be easy so I'm gonna postpone it to get more focus time on the TenderTypesLI.
+    5:30
+        OK, crunch time.  I am on track to earn a swalk but I've got to finish strong.  I actually think the correct play is to do those Tenderizer changes I was thinking about earlier because then I won't have to context-change to do it some other time.
+
+    6:00 Aaaaaand, I did it!  Wrapped up with just seconds to spare on my timer.  I should remember today.  Even with a bad start, this kind of finish is possible.  Swalk earned :)
+
     
 
 
