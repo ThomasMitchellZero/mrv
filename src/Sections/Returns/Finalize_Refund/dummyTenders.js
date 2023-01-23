@@ -46,7 +46,7 @@ const debitOnly = {
 const dummyTenders = {};
 
 for (const arrItem of dummyArr) {
-  dummyTenders[arrItem[0]] = tenderizer(arrItem[0], arrItem[1]);
+  dummyTenders[arrItem[0]] = tenderizer(arrItem[1]);
 }
 
 console.log(dummyTenders);

@@ -36,51 +36,51 @@ const tType = tenderTypes;
 // if I want, I can generate the tender labels in the Tenderizer.
 
 const ref_processStatus = {
-  notStarted: null, 
+  notStarted: null,
   inProgress: null,
   complete: null,
   failure: null,
-}
+};
 
+const tenderizer = (tenderObj) => {
+  switch (tenderObj.tenderType) {
+    case tType.cash:
+      return {
+        ...tenderObj,
+        tenderLabel: "CasH MONEY",
+        processStatus: "notStarted",
+      };
 
-const tenderizer = (key, value) => {
-  if (key === tType.cash) {
-    return {
-      ...value,
-      tenderLabel: "CasH MONEY",
-      processStatus: "notStarted",
-    };
-  }
+    case tType.storeCredit:
+      return {
+        ...tenderObj,
+        tenderLabel: "STOOOORE Credit",
+        processStatus: "notStarted",
+      };
 
-  if (key === tType.storeCredit)
-    return {
-      ...value,
-      tenderLabel: "STOOOORE Credit",
-      processStatus: "notStarted",
-    };
+    case tType.credit:
+      return {
+        ...tenderObj,
+        tenderLabel: "Credit Cartttt",
+        processStatus: "notStarted",
+      };
 
-  if (value.ccNum) {
-    return {
-      ...value,
-      tenderLabel: "Credit Cartttt",
-      processStatus: "notStarted",
-    };
-  }
+    case tType.debit:
+      return {
+        ...tenderObj,
+        tenderLabel: "Debitater",
+        processStatus: "notStarted",
+      };
 
-  if (value.debitNum) {
-    return {
-      ...value,
-      tenderLabel: "Debit Collector",
-      processStatus: "notStarted",
-    };
-  }
+    case tType.check:
+      return {
+        ...tenderObj,
+        tenderLabel: "You old AF",
+        processStatus: "notStarted",
+      };
 
-  if (value.accountNum && value.routingNum) {
-    return {
-      ...value,
-      tenderLabel: "You old AF",
-      processStatus: "notStarted",
-    };
+    default:
+      throw new Error(`Unknown tender type: ${tenderObj.tenderType}`);
   }
 };
 

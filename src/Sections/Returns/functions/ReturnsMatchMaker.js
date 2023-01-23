@@ -145,7 +145,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         // Tenderizer() populates tender types with type-specific properties.
         const tenderDetailsObj = tenderizer(
-          thisTenderType,
+
           invoPayments[thisTenderType]
         );
 
