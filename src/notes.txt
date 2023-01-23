@@ -2630,6 +2630,52 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     5:00:
         -I just don't have much push right now.  I think I'm gonna take a a swallk and if I'm not feeling it when I get back, I'm done for the day.  
 
+23 Jan 2023:
+    2:50, just getting started.  I haven't pushed very well for a while.  The best result would have been to start a few hours ago, but the second best result is to make something out of the day I have left, so I will dangle a swalk in front of myself - if I honestly earn it.  That's going to include working until 6:00.
+        -I will give myself a bit of grace here.  The stepper is a hard, complicated problem and just like the Matchmaker, I might have to pass through a rebus stage before I really grasp it.
+
+        -I think a good rule of thumb is - data and logic should be stored in the lowest-possible parent of ALL processes that do (or will) consume it?  
+
+        -So what that says to me is I want to keep the refund_by_tender objects as lean as possible, and have as much of the logic as possible in the LI?  I probably could.  Tender-specific information needs to be stored in there, obviously.  I also think stuff like the String Name should be in the state because it's used in more than 1 place.  And I should track status, because I think the LI is only going to render based on what it sees?  
+
+            -So I definitely need to track process status.  
+
+            -The Level1 refund tender should never change, I don't think.  Like, if it's a debit card, what happens JUST to the L1 label?
+                -If they confirm Debit:     No change
+                -If they select Cash:       No change, add a Cash node.
+                -If debit fails:            No change, add Cash/SC node.
+            
+            Yeah, I think that's right.  Now, for the second node: 
+                -If failure:                No change, add Cash/SC node.
+ 
+            And for L2 label, user selection:
+                -If confirmed debit         No L2 at all.
+                -If cash:                   Only shows cash.
+
+            ALSO!  AFAICT, I think that only In-Progress and Warning states could ever have two lines.  Everything else should only be a one-liner.
+
+            So the stepper should be able to figure out everything for itself if it can pull the following from Session state:
+                -TenderType (determines what's available)
+                -stepStatus: (determines most of what to render)
+                -failureStatus: (also determines what to render)
+
+        -So I think if I add in a tenderType: property in the invoices, I can get that from a single route into each refund_by_tender{} object, and I can use it as a key to get specifics out of all the other objects? 
+        
+        -And where I'm leaning is to having some interlocking set of objects and using those three main properties as keys to get all the specifics.  Like, if there's a failure, there's a single choice: store credit or cash.
+
+    -I do want to get started on this.  But I see an issue on the horizon, and that is the ordering of the tender types.  
+        -Ok.  So I can't order the state, because it's an object and it should stay as an object because that makes it easier to add payment types.
+        -I don't need to order it in the Review section because it doesn't matter.
+        -So when I make the tendersArr in FinalizeRefund, maybe I just stick in a function that orders the array the way I want it and sticks Store Credit and Cash at the end?
+            -So like every time the page re-renders (including state changes, since that's when I would be adding Cash or SC tenders) I'd get a fresh array where each element has identical properties to the state object they came from.
+            -Sounds good, my only question is whether the array's order could change.  I don't think so, but if it did, that would be pretty bad.  I don't think it would (and Rule 1) but could be a problem.
+
+    
+
+
+        
+
+
     
         
             
