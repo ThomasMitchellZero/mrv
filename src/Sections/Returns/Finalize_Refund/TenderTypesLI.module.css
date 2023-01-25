@@ -19,12 +19,6 @@
     margin-right: .25rem;
 }
 
-.mainContent{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
-}
-
 .L2container{
     display: flex;
     flex-direction: row;
@@ -42,6 +36,17 @@
 .stepLine{
     width: 2px;
     flex: 1 1 0rem;
+}
+
+
+h4, h5{
+
+    color: #8d8d8d;
+}
+
+.activeText h4, .activeText h5{
+    color: #262626;
+    font-weight: 500;
 }
 
 .icon{

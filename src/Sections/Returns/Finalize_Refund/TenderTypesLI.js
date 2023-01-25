@@ -5,7 +5,7 @@ import tenderStatusCodes from "../functions/tenderStatusCodes";
 
 import {
   MdPanoramaFishEye,
-  MdCircle,
+  MdCheckCircle,
   MdWarning,
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
@@ -14,29 +14,53 @@ const tType = tenderTypes;
 const tStatus = tenderStatusCodes;
 
 const iconsObj = {
+  notStarted: <MdPanoramaFishEye className={`grey-06-text ${classes.icon}`} />,
   inProgress: <MdPanoramaFishEye className={`green-text ${classes.icon}`} />,
+  failure: <MdWarning className={`gold-text ${classes.icon}`} />,
+  complete: <MdCheckCircle className={`green-text ${classes.icon}`} />,
 };
 
 const mainStatus = {
-  notStarted: {},
-  inProgress: {},
-  progress2Line: {},
-  complete: {},
-  failure: {},
+  notStarted: {
+    icon: iconsObj.notStarted,
+    line2: false,
+  },
+  inProgress: {
+    icon: iconsObj.inProgress,
+    line2: false,
+    active: true,
+  },
+  progress2Line: {
+    icon: iconsObj.inProgress,
+    line2: true,
+  },
+  failure: {
+    icon: iconsObj.failure,
+    line2: true,
+  },
+  complete: {
+    icon: iconsObj.complete,
+    line2: false,
+  },
 };
 
 const TenderTypesLI = ({ dataObj }) => {
-  const status = dataObj.status;
+  //const status = dataObj.status;
+  const status = "progress2Line";
   return (
-    <section className={`${classes.container}`}>
+    <section
+      className={`${classes.container} ${
+        mainStatus[status].active ? classes.activeText : ""
+      }`}
+    >
       <section className={classes.leftColumn}>
-        <div className={`${classes.lineHeight}`}>{iconsObj.inProgress}</div>
+        <div className={`${classes.lineHeight}`}>{mainStatus[status].icon}</div>
         <div
           className={`grey-04 ${classes.lineHeight} ${classes.stepLine}`}
         ></div>
       </section>
 
-      <section className={`${classes.columnHolder}`}>
+      <section className={` ${classes.columnHolder}`}>
         <section className={`${classes.columnHolder}`}>
           {/* Line 1 */}
           <section className={` ${classes.lineHeight}`}>
@@ -48,8 +72,8 @@ const TenderTypesLI = ({ dataObj }) => {
           </section>
         </section>
         {/* Line 2 */}
-        {true ? (
-          <section className={`${classes.L2container}`}>
+        {mainStatus[status].line2 ? (
+          <section className={`${classes.L2container} ${classes.activeText}`}>
             <section className={classes.leftColumn}>
               <div className={`${classes.lineHeight}`}>
                 {iconsObj.inProgress}

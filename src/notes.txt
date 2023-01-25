@@ -2677,7 +2677,62 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     6:00 Aaaaaand, I did it!  Wrapped up with just seconds to spare on my timer.  I should remember today.  Even with a bad start, this kind of finish is possible.  Swalk earned :)
 
+24 Jan 2022
+    12:20
+        The reason we got into trouble yesteray was because we didn't turn into the work as early as possible.  My work for today is done.  I'm clear until Design & Conquer at 3:00.  
+
+        The first thing I need to do is make sure I've got everything I need downloaded for the remote doctor call today.  That's the single most important thing on my plate and I don't want to be scrambling at the last minute.  
+
+    12:50
+        OK, I'm in the clear.  Still did a little time-wasting but I'm in the game and ready to play.
+
+        -I can start 69420 by adding in the second rows and creating the rest of the icons.  
+
+        -I think I need to also store some kind of property related to the second row.  AFAICT it's only ever going to be Cash or Store Credit, but I don't think it can be purely derived because the user can make a choice.
+
+        -I need to start thinking about the objects that will store all my status-related properties and how I want to organize them.  The goal should be to populate the whole LI just based on the tender object's properties.  I'd really like to have as little logic as possible.
+
+        -I'm also going to have to figure out how to do the text styling in the stepper.  I really don't want to have a lot of different branching conditions for when to display boldness and black vs. grey text.  I'm thinking either constant weights and only vary color, or else Active is black and bold, and anything else is grey and regular weight.  I think probably the first option since the different weights do help tell everything apart?
+
+    1:50:
+        A little bit stuck here.  IF I hand-code the second row I'm kind of violating DRY, but I just don't want to deal with it.
+
+    2:50:
+        TenderType row is now correctly showing and I think I might be done for the day.  DAS is in ten minutes, then I have my surgeon call, then I have UX Refinement, and I don't think I'm getting back into the groove afterwards.
+
+25 Jan 2023:
+    12:10
+        I was actually planning not to program today, looking at a drug holiday to reset my tolerance.  However, the rest of today is completely clear and with my upcoming surgery it's not like I'm going to be doing a lot of programming the next few days.
+
+        -Also got a haircut and a vehicle inspection and registered Tango today so I'm actually kind of kicking ass.   
+
+        -intersecting objects
+
+        -That's what I wrote before I started 69420 because that's what I think the solution is. The heart of this is going to be states that track status, and for statuses shared in more than one they will pull in statuses.  
+
+            -I need to build objects for each of the main statuses.  
+            -I actually don't think I need to track Failure in the objects?  All dispatching is going to occurr in FinalizeRefund, so I don't think the LI needs to be aware of failure?
+
+        -I think what I will do in FinalizeRefund is to have a state that tracks index.  It will cycle through each tender type (by index) and dispatch state changes to the session.refund_by_tender object based on conditions and inputs.  
+            -and I think the index of the key is the only thing I need to track to get through the list?  The cycle in FinalizeRefund will not directly affect the UI in any way.  It's just making changes to tender objects and TenderTypesLI is conditionally rendering.  
+
+        -Spinning wheels a little bit, but I know no matter what I'm going to need a Condition object, so that's where I'll start.
+
+        -Actually, got a better place to start.  First, of the tender objects are going to need some common properties, so I will add the ability to add those.  
     
+    3:30.  Got interrupted by a surprise meeting.  I will set a goal of 60 and 90 more minutes and if I can pull it off I earn a swalk.  
+
+        -OK, so where are we?  I think I'm tracking all the props I need to in the Tenderizer, so I should get started on the status objects.
+
+    4:30:
+        A few more delays, mostly related to my real job -_- but I'm still pretty dialed in and finally making progress! Two new tasks for the day:
+
+        -I need to make a decision on how I am going to display the Active item and figure out how to conditionally apply the CSS in a way that isn't an incomprehensible hairball.
+            -Yesterday I was thinking about having all the font weights stay constant and only vary the colors.  So what I will do is create 2 different classes, store the name of the class to apply in the Conditions object, and then have each element reference whatever style is associated with its condition.  SHOULD be pretty easy?
+
+        -There's a third factor here, which is new from today.  When the tender type is changing or has changed, I need to strike through the discarded number (Looks like we shouldn't zero it out)
+
+        -I need to figure out how tenderType and the status object interact.
 
 
         
