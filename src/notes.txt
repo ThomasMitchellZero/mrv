@@ -2734,6 +2734,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I need to figure out how tenderType and the status object interact.
 
+    5:45:
+        -Didn't get to the status/tenderType interaction, but the Conditions are working well in the TenderTypesLI and I'm gonna call it a day a little early.  Swalk has been earned and it's probably my only walk of any kind for a while :/
 
         
 
