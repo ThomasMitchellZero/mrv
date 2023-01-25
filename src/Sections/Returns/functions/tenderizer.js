@@ -1,4 +1,5 @@
 import tenderTypes from "../../../components/global_functions/tenderTypes";
+import tenderStatusCodes from "./tenderStatusCodes";
 
 const ref = {
   // Cash
@@ -33,55 +34,60 @@ const ref = {
 };
 
 const tType = tenderTypes;
+const tStatus = tenderStatusCodes;
+
 // if I want, I can generate the tender labels in the Tenderizer.
 
 const ref_processStatus = {
   notStarted: null,
   inProgress: null,
+  progress2Line: null,
   complete: null,
   failure: null,
 };
 
 const tenderizer = (tenderObj) => {
+  // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
+  const sharedProperties = {
+    status: "notStarted",
+    userChoice: tType.storeCredit
+  };
+
+  let typeProps = {};
+
   switch (tenderObj.tenderType) {
     case tType.cash:
-      return {
-        ...tenderObj,
-        tenderLabel: "CasH MONEY",
-        processStatus: "notStarted",
-      };
+      typeProps = { tenderLabel: "CasH MONEY" };
+      break;
 
     case tType.storeCredit:
-      return {
-        ...tenderObj,
-        tenderLabel: "STOOOORE Credit",
-        processStatus: "notStarted",
-      };
+      typeProps = { tenderLabel: "STOOOORE Credit" };
+      break;
 
     case tType.credit:
-      return {
-        ...tenderObj,
-        tenderLabel: "Credit Cartttt",
-        processStatus: "notStarted",
-      };
+      typeProps = {tenderLabel:"Credit Cartttt" };
+
+      break;
 
     case tType.debit:
-      return {
-        ...tenderObj,
-        tenderLabel: "Debitater",
-        processStatus: "notStarted",
-      };
+      typeProps = {tenderLabel:"Debitater"};
+      break;
 
     case tType.check:
-      return {
-        ...tenderObj,
-        tenderLabel: "You old AF",
-        processStatus: "notStarted",
-      };
+      typeProps = {tenderLabel:"You old AF"};
+      break;
 
     default:
       throw new Error(`Unknown tender type: ${tenderObj.tenderType}`);
   }
+
+  const outTenderObj = {
+    ...tenderObj,
+    ...sharedProperties,
+    ...typeProps,
+  };
+
+  return outTenderObj;
 };
 
 export default tenderizer;
