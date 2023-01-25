@@ -51,7 +51,7 @@ const mainStatus = {
 
 const TenderTypesLI = ({ dataObj }) => {
   //const status = dataObj.status;
-  const status = "complete";
+  const status = "swapped";
   return (
     <section
       className={`${classes.container} ${
