@@ -23,30 +23,35 @@ const iconsObj = {
 const mainStatus = {
   notStarted: {
     icon: iconsObj.notStarted,
-    line2: false,
+
   },
   inProgress: {
     icon: iconsObj.inProgress,
-    line2: false,
+
     active: true,
   },
   progress2Line: {
     icon: iconsObj.inProgress,
     line2: true,
+    strike: classes.strike,
   },
   failure: {
     icon: iconsObj.failure,
     line2: true,
+    strike: classes.strike,
   },
   complete: {
     icon: iconsObj.complete,
-    line2: false,
+  },
+  swapped:{
+    icon: iconsObj.complete,
+    strike: classes.strike,
   },
 };
 
 const TenderTypesLI = ({ dataObj }) => {
   //const status = dataObj.status;
-  const status = "progress2Line";
+  const status = "complete";
   return (
     <section
       className={`${classes.container} ${
@@ -65,7 +70,9 @@ const TenderTypesLI = ({ dataObj }) => {
           {/* Line 1 */}
           <section className={` ${classes.lineHeight}`}>
             <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
-            <h4>{`$${(dataObj.paid / 100).toFixed(2)}`}</h4>
+            <h4 className={`${mainStatus[status].strike ?? ""}`}>{`$${(
+              dataObj.paid / 100
+            ).toFixed(2)}`}</h4>
           </section>
           <section className={`${classes.lineHeight}`}>
             <h5>{`Not Started`}</h5>
