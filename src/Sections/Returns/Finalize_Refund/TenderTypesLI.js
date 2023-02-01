@@ -50,6 +50,9 @@ const mainStatus = {
 };
 
 const TenderTypesLI = ({ dataObj }) => {
+
+    // JS code
+
   //const status = dataObj.status;
   const status = "swapped";
   return (
