@@ -18,12 +18,14 @@ const iconsObj = {
   inProgress: <MdPanoramaFishEye className={`green-text ${classes.icon}`} />,
   failure: <MdWarning className={`gold-text ${classes.icon}`} />,
   complete: <MdCheckCircle className={`green-text ${classes.icon}`} />,
+  arrow: (
+    <MdSubdirectoryArrowRight className={`grey-10-text ${classes.icon}`} />
+  ),
 };
 
 const mainStatus = {
   notStarted: {
     icon: iconsObj.notStarted,
-
   },
   inProgress: {
     icon: iconsObj.inProgress,
@@ -43,24 +45,24 @@ const mainStatus = {
   complete: {
     icon: iconsObj.complete,
   },
-  swapped:{
+  swapped: {
     icon: iconsObj.complete,
     strike: classes.strike,
   },
 };
 
 const TenderTypesLI = ({ dataObj }) => {
-
-    // JS code
+  // JS code
 
   //const status = dataObj.status;
-  const status = "swapped";
+  const status = "progress2Line";
   return (
     <section
       className={`${classes.container} ${
         mainStatus[status].active ? classes.activeText : ""
       }`}
     >
+      {/* Full LI Column */}
       <section className={classes.leftColumn}>
         <div className={`${classes.lineHeight}`}>{mainStatus[status].icon}</div>
         <div
@@ -69,8 +71,8 @@ const TenderTypesLI = ({ dataObj }) => {
       </section>
 
       <section className={` ${classes.columnHolder}`}>
+        {/* Cell 1 Main Content*/}
         <section className={`${classes.columnHolder}`}>
-          {/* Line 1 */}
           <section className={` ${classes.lineHeight}`}>
             <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
             <h4 className={`${mainStatus[status].strike ?? ""}`}>{`$${(
@@ -81,9 +83,10 @@ const TenderTypesLI = ({ dataObj }) => {
             <h5>{`Not Started`}</h5>
           </section>
         </section>
-        {/* Line 2 */}
+        {/* Cell 2 */}
         {mainStatus[status].line2 ? (
           <section className={`${classes.L2container} ${classes.activeText}`}>
+            {/* Cell 2 Column*/}
             <section className={classes.leftColumn}>
               <div className={`${classes.lineHeight}`}>
                 {iconsObj.inProgress}
@@ -92,8 +95,10 @@ const TenderTypesLI = ({ dataObj }) => {
                 className={`grey-04 ${classes.lineHeight} ${classes.stepLine}`}
               ></div>
             </section>
+            <div className={`${classes.lineHeight}`}>{iconsObj.arrow}</div>
+
+            {/* Cell 2 Main Content */}
             <section className={`${classes.columnHolder}`}>
-              {/* Line 2 */}
               <section className={` ${classes.lineHeight}`}>
                 <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
                 <h4>{`$${(dataObj.paid / 100).toFixed(2)}`}</h4>
