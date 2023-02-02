@@ -2741,7 +2741,36 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     3:50 * First time back here afer my knee surgery.  Gonna try and get this back into memory.  I was kind of hoping to clear out all my real work today and do this tomorrow but I'm still waiting on a ticket.  I mean, I guess I could try and do it anyways, but I'm not super clear on what needs to happen.  I'm also frustrated and angry because I think the direction we chose just blows and I don't want to do it.  Just gonna write for a bit to jog my memory.
 
-    -IIRC, I had all the different statuses.   
+    -IIRC, I had all the different statuses.  
+
+    4:30
+
+    Got a bit of minor cleanup in.  Gonna try and jam for 90 minutes and then call it a day.  And it's OK if there's a lot more word writing than code writing.
+
+    -OK.  So what do I need to do before I can proceed?  The LIs now display appropriately based on statuses.  I have a dummy list of tenders because until this thing is working I'm not going to spend the 5 minutes to add real invoice matches every time.
+
+    -In my dummy list, I'm using the Tenderizer so everything is starting with the condition of Not Started.
+
+    -IIRC, I'm going to be reading EVERYTHING from the session.refund_by_tender state.  I THINK I don't even need a local state for this.  Everything I see in both the 30 and 70 panels should be dicatated purely by the status of refund_by_tender.  
+    
+    -So maybe the first thing I should do is populate that state with the dummy tenders and read from there now?  It will save me some re-wiring later.  Plus, I need to be dispatching changes and as a static dumb object, that can't happen.
+
+    -Maybe that will be my goal for the day.  Populate the state, read from the state, have a dispatch switch case to change the state, and call it a day?
+
+        X -First I need to check the Matchmaker and verify I'm not screwing anything up.  
+            -I don't think I'll screw anything up.
+
+        - 
+
+
+// delete later, just notes for right now:  I kind of feel like writing tonight, and I want to write about: 
+    -the case for different watches
+    -Why am I not getting more enjoyment out of BotW?  
+    
+
+
+
+
     
 
     

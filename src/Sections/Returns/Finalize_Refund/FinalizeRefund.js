@@ -6,10 +6,14 @@ import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 
+import { useOutletContext, } from "react-router-dom";
+
 const FinalizeRefund = () => {
-  
+
   // try and keep this a single point of reference so I don't have to change 10 billion variables when it comes time to populate this from the Returns state.
-  const tendersArr = Object.values(dummyTenders);
+  const ctxTenders = useOutletContext().session.refunds_by_tender
+  
+  const tendersArr = Object.values(ctxTenders);
   console.log(tendersArr);
 
   const tendersLIarr = tendersArr.map((thisTenderObj) => {

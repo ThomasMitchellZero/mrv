@@ -7,6 +7,9 @@ import CartInvoMatcher from "../../old/CartInvoMatcher";
 import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
 import cloneDeep from "lodash.clonedeep";
 
+// test data, delete once everything is working.
+import dummyTenders from "./Finalize_Refund/dummyTenders";
+
 const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
@@ -20,7 +23,7 @@ const Returns = () => {
     unmatched: {},
     modified_invoices: {},
     matched: {},
-    refunds_by_tender: {},
+    refunds_by_tender: {...dummyTenders},
     refund_money: {
       refundTotal: 0,
       taxSum: 0,

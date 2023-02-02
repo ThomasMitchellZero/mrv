@@ -49,6 +49,4 @@ for (const arrItem of dummyArr) {
   dummyTenders[arrItem[0]] = tenderizer(arrItem[1]);
 }
 
-console.log(dummyTenders);
-
 export default dummyTenders;
