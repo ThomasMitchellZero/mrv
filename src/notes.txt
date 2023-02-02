@@ -2357,7 +2357,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         X - Then I need to do some tests to make sure everything is working as planned.
 
-        X -After that, I need to at least put in a function to populate refund_by_tender.  I can either populate it or move on.  
+        X -After that, I need to at least put in a function to populate refunds_by_tender.  I can either populate it or move on.  
             -spinning wheels because not sure what to do.  
 
             -OK.  The TenderTypes loop uses keys, which I would want anyways.  So I have a string of the key name, and if I want I could get the values out.  
@@ -2588,7 +2588,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Also, they are going to be handled sequentially.  
         -OK.  So what I think needs to happen is that all the conditional display will happen within the LI, but the condition-setting will happen in the parent?
             -I don't even think I need a state in the LIs?  I think I probably just track all potential conditions in the new object returned by the Tenderizer?
-        -In the FinalizeRefund component, I am also not sure I need a separate state?  My goal should be to handle everything from the session.refund_by_tender state.  So let's think about what states to track in each tender obj. returned by the Tenderizer.
+        -In the FinalizeRefund component, I am also not sure I need a separate state?  My goal should be to handle everything from the session.refunds_by_tender state.  So let's think about what states to track in each tender obj. returned by the Tenderizer.
 
             For all:
 
@@ -2636,7 +2636,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I think a good rule of thumb is - data and logic should be stored in the lowest-possible parent of ALL processes that do (or will) consume it?  
 
-        -So what that says to me is I want to keep the refund_by_tender objects as lean as possible, and have as much of the logic as possible in the LI?  I probably could.  Tender-specific information needs to be stored in there, obviously.  I also think stuff like the String Name should be in the state because it's used in more than 1 place.  And I should track status, because I think the LI is only going to render based on what it sees?  
+        -So what that says to me is I want to keep the refunds_by_tender objects as lean as possible, and have as much of the logic as possible in the LI?  I probably could.  Tender-specific information needs to be stored in there, obviously.  I also think stuff like the String Name should be in the state because it's used in more than 1 place.  And I should track status, because I think the LI is only going to render based on what it sees?  
 
             -So I definitely need to track process status.  
 
@@ -2659,7 +2659,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
                 -stepStatus: (determines most of what to render)
                 -failureStatus: (also determines what to render)
 
-        -So I think if I add in a tenderType: property in the invoices, I can get that from a single route into each refund_by_tender{} object, and I can use it as a key to get specifics out of all the other objects? 
+        -So I think if I add in a tenderType: property in the invoices, I can get that from a single route into each refunds_by_tender{} object, and I can use it as a key to get specifics out of all the other objects? 
         
         -And where I'm leaning is to having some interlocking set of objects and using those three main properties as keys to get all the specifics.  Like, if there's a failure, there's a single choice: store credit or cash.
 
@@ -2713,7 +2713,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -I need to build objects for each of the main statuses.  
             -I actually don't think I need to track Failure in the objects?  All dispatching is going to occurr in FinalizeRefund, so I don't think the LI needs to be aware of failure?
 
-        -I think what I will do in FinalizeRefund is to have a state that tracks index.  It will cycle through each tender type (by index) and dispatch state changes to the session.refund_by_tender object based on conditions and inputs.  
+        -I think what I will do in FinalizeRefund is to have a state that tracks index.  It will cycle through each tender type (by index) and dispatch state changes to the session.refunds_by_tender object based on conditions and inputs.  
             -and I think the index of the key is the only thing I need to track to get through the list?  The cycle in FinalizeRefund will not directly affect the UI in any way.  It's just making changes to tender objects and TenderTypesLI is conditionally rendering.  
 
         -Spinning wheels a little bit, but I know no matter what I'm going to need a Condition object, so that's where I'll start.
@@ -2751,7 +2751,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -In my dummy list, I'm using the Tenderizer so everything is starting with the condition of Not Started.
 
-    -IIRC, I'm going to be reading EVERYTHING from the session.refund_by_tender state.  I THINK I don't even need a local state for this.  Everything I see in both the 30 and 70 panels should be dicatated purely by the status of refund_by_tender.  
+    -IIRC, I'm going to be reading EVERYTHING from the session.refunds_by_tender state.  I THINK I don't even need a local state for this.  Everything I see in both the 30 and 70 panels should be dicatated purely by the status of refunds_by_tender.  
     
     -So maybe the first thing I should do is populate that state with the dummy tenders and read from there now?  It will save me some re-wiring later.  Plus, I need to be dispatching changes and as a static dumb object, that can't happen.
 
@@ -2760,13 +2760,14 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         X -First I need to check the Matchmaker and verify I'm not screwing anything up.  
             -I don't think I'll screw anything up.
 
-        - 
+        X - Read the refunds_by_tender state from Returns and populate Tender Types 30 panel with it.
 
+        X-Figure out how to handle the dispatcher
+            -I'm leaning towards a really simple function where I just replace ALL of refunds_by_tender with a new state for each modification.  That should allow me to keep the logic simple 
 
-// delete later, just notes for right now:  I kind of feel like writing tonight, and I want to write about: 
-    -the case for different watches
-    -Why am I not getting more enjoyment out of BotW?  
-    
+    5:40
+        Not the best day I've ever had but despite a late start I managed to get some valuable work in.
+
 
 
 

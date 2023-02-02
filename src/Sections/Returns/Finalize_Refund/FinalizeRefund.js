@@ -10,8 +10,13 @@ import { useOutletContext, } from "react-router-dom";
 
 const FinalizeRefund = () => {
 
-  // try and keep this a single point of reference so I don't have to change 10 billion variables when it comes time to populate this from the Returns state.
   const ctxTenders = useOutletContext().session.refunds_by_tender
+
+  // not tested.
+  const dispatchSession = useOutletContext().dispatchSession;
+  const updateTenders = (newTendersObj)=>{
+    dispatchSession({type: "UPDATE_TENDERS", payload: newTendersObj})
+  }
   
   const tendersArr = Object.values(ctxTenders);
   console.log(tendersArr);
