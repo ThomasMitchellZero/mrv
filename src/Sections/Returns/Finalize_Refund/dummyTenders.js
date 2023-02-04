@@ -4,7 +4,7 @@ import tenderTypes from "../../../components/global_functions/tenderTypes";
 
 const tType = tenderTypes
 
-const dummyArr = Object.entries({
+const dummyObj = {
   cash: { tenderType: tType.cash, tenderLabel: "Cash", paid: 800 },
   storeCredit: { tenderType: tType.storeCredit, tenderLabel: "storeCredit", paid: 900 },
   7777888877778888: {
@@ -32,11 +32,12 @@ const dummyArr = Object.entries({
     routingNum: "44443333",
     accountNum: "33334444",
   },
-});
+};
 
 const debitOnly = {
-  tenderType: tType.debit,
+
   7777888877778888: {
+    tenderType: tType.debit,
     tenderLabel: "Debit ****8888",
     paid: 1456,
     debitNum: "7777888877778888",
@@ -45,7 +46,7 @@ const debitOnly = {
 
 const dummyTenders = {};
 
-for (const arrItem of dummyArr) {
+for (const arrItem of Object.entries(dummyObj)) {
   dummyTenders[arrItem[0]] = tenderizer(arrItem[1]);
 }
 

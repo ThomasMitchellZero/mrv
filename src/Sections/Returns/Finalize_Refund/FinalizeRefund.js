@@ -1,6 +1,6 @@
 import classes from "./FinalizeRefund.module.css";
 
-import dummyTenders from "./dummyTenders";
+import tenderSort from "../functions/tenderSort";
 
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
@@ -18,7 +18,7 @@ const FinalizeRefund = () => {
     dispatchSession({type: "UPDATE_TENDERS", payload: newTendersObj})
   }
   
-  const tendersArr = Object.values(ctxTenders);
+  const tendersArr = tenderSort(ctxTenders);
   console.log(tendersArr);
 
   const tendersLIarr = tendersArr.map((thisTenderObj) => {

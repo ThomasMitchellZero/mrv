@@ -38,14 +38,6 @@ const tStatus = tenderStatusCodes;
 
 // if I want, I can generate the tender labels in the Tenderizer.
 
-const ref_processStatus = {
-  notStarted: null,
-  inProgress: null,
-  progress2Line: null,
-  complete: null,
-  failure: null,
-};
-
 const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
   const sharedProperties = {
