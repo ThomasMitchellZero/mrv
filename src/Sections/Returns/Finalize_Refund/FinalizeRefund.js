@@ -11,12 +11,13 @@ import { useState } from "react";
 
 const FinalizeRefund = () => {
   // local state for FinalizeRefund
-  const initialState = {currentIndex:0}
-  const [finalizerState, setFinalizerState] = useState(initialState)
+  const initialState = { currentIndex: 0 };
+  const [finalizerState, setFinalizerState] = useState(initialState);
 
   // Refunds state
   const ctxTenders = useOutletContext().session.refunds_by_tender;
   const dispatchSession = useOutletContext().dispatchSession;
+  const failure = useOutletContext().session.scenarios.totalTenderFailure;
   const updateTenders = (newTendersObj) => {
     dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
   };
@@ -25,10 +26,9 @@ const FinalizeRefund = () => {
   const tendersArr = tenderSort(ctxTenders);
 
   // Loop processing logic
-  const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]]
-  console.log(activeTender)
-
-
+  const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]];
+  console.log(activeTender);
+  console.log(failure)
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {
