@@ -4,6 +4,7 @@ const tenderStatusCodes = {
     progress2Line: "progress2Line",
     complete: "complete",
     failure: "failure",
+    swapped: "swapped",
 }
 
 export default tenderStatusCodes;

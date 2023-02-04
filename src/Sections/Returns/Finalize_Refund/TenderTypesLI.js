@@ -24,28 +24,27 @@ const iconsObj = {
 };
 
 const mainStatus = {
-  notStarted: {
+  [tStatus.notStarted]: {
     icon: iconsObj.notStarted,
   },
-  inProgress: {
+  [tStatus.inProgress]: {
     icon: iconsObj.inProgress,
-
     active: true,
   },
-  progress2Line: {
+  [tStatus.progress2Line]: {
     icon: iconsObj.inProgress,
     line2: true,
     strike: classes.strike,
   },
-  failure: {
+  [tStatus.failure]: {
     icon: iconsObj.failure,
     line2: true,
     strike: classes.strike,
   },
-  complete: {
+  [tStatus.complete]: {
     icon: iconsObj.complete,
   },
-  swapped: {
+  [tStatus.swapped]: {
     icon: iconsObj.complete,
     strike: classes.strike,
   },

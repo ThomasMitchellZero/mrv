@@ -22,3 +22,12 @@ Rule 1:  Document, don't expound. Accurately describe what you feel, but no more
         -Still TBD, but my current subjective sense of Different From Normal is much greater than the Adderall.  Definitely more of a feeling of I Took A Drug.
 
         -More sore throat, sweating, and bruxism than Adderall.  
+
+    12:50
+        -Had lunch, back in the chair.  My energy feels less potent but more controlled right now.  I don't feel my mind pinging off in different directions anymore.
+    
+    2:00
+        -Definitely less energy than this morning.  Actually feeling heavier than usual right now.  However, I do notice that when I'm not actively thinking, my attention is inactive rather than running around looking for some stimulation.
+
+    3:20
+        -Just want to put in a marker to remind myself to record how this goes.  I'm trying to sort out the conditional logic for what user interface to display as the refund tenders are processed in sequence.  This is a hard problem with a lot of possible solutions and many different factors to weigh and balance.  

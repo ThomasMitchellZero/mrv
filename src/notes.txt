@@ -2823,6 +2823,60 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     12:50:
         Had lunch, did some house chores, ready to get back to it.  I do have some simple tasks that need to be done, like creating the Cash Back page and the Send Receipt page.  I was actually planning to put these off and try to eat the frog, but I think it might actually be better to do them now.  I will need them no matter what, and it would be helpful to get some cheap wins to build momentum.
 
+    2:20:
+        OK. Let's do this.  How to handle the loop, which might not even be a loop.  Ideally, I want this sequence to run without any reference to the tender type.  That will make the logic so much longer.  
+
+        Automatic Logic:
+            
+            If Active Tender status = Not Started {
+                If there's a user choice, dispatch Active2line, else...
+                If there's a failure, dispatch Failure, else...
+                dispatch Complete
+            }
+
+            If ActiveTender status = Active2line {
+                display UserChoice 70 panel
+            }
+
+            If ActiveTender status = Failure {
+                display Failure 70 panel
+            }
+
+            If ActiveTender status = Complete or Swapped {
+                dispatch Increment counter
+            }
+
+    Stepping out of the details for a moment.  I feel like this is where a better logician would be able to breeze through.  I have this sense that there's some really clean abstraction out there for this problem but I am having trouble finding it :/
+
+        -OK, here's an idea.  What if every tender item contains a UI property, even Cash and Store Credit?  The 70 panel just displays whatever is the current UI property of the active item, and that can be altered by dispatching to the refunds_by_tender state, mostly through other UIs?  
+
+        -This feel like the way, although I'm not sure exactly how to do it.  
+
+
+    The other way to do it:
+        -I could have a property in each LI that contains a sort of Primary Key status, and from that the 70 panel could be derived, but that seems like just a more abstracted version of the previous solution, and also less flexible if I have to change something, which I very likely will.
+
+        OK, so how to do this?
+            -I'm definitely going to need an object with an interface for all possible states.
+            -I might want an object just with the state names?  They will be used in:
+                -the Tenderizer, because each refund tender needs one to start.
+                -Finalize Refund
+                    OK, so not actually that many.  Can probably skip.
+            -Ideally each state is abstracted as much as possible.  
+                -For instance, the Failure Screens and the User Choice screens are so similar that it would really be a shame to make a bunch of copies by hand.
+            -If I do that, I will need either some logic to derive the states from limited information, or more properties in the Tenderizer.  
+
+        I think I might just need to dive in here.  If what I'm about to do is a rebus stage then I'm not confident I can abstract my way past, and if there isn't then I'm just wasting time.  
+
+            I think I can actually abstract this down to 2 screens, one of which I already have.
+
+        Now got another concern which is itching at me, and that is if the two of these should be separate components.  I think the answer is No, because in terms of both reading and writing to the state it's kind of helpful to have them all at hand.  But it still feel like A Lot Of JSX All At Once.  IDK.  If someone challenged me I could make the case for why it's all together.  None of this is reused anywhere.  
+
+
+
+
+
+
 
 
 
