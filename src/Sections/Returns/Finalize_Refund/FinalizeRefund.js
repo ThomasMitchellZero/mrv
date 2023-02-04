@@ -7,11 +7,15 @@ import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 
 import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
 
 const FinalizeRefund = () => {
-  const ctxTenders = useOutletContext().session.refunds_by_tender;
+  // local state for FinalizeRefund
+  const initialState = {currentIndex:0}
+  const [finalizerState, setFinalizerState] = useState(initialState)
 
-  // not tested.
+  // Refunds state
+  const ctxTenders = useOutletContext().session.refunds_by_tender;
   const dispatchSession = useOutletContext().dispatchSession;
   const updateTenders = (newTendersObj) => {
     dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
@@ -19,7 +23,12 @@ const FinalizeRefund = () => {
 
   // make a priority-sorted arr from tenders in Returns state
   const tendersArr = tenderSort(ctxTenders);
-  console.log(tendersArr);
+
+  // Loop processing logic
+  const activeTender = ctxTenders[finalizerState.currentIndex]
+  console.log(activeTender)
+
+  
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {
