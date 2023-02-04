@@ -2872,6 +2872,36 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         Now got another concern which is itching at me, and that is if the two of these should be separate components.  I think the answer is No, because in terms of both reading and writing to the state it's kind of helpful to have them all at hand.  But it still feel like A Lot Of JSX All At Once.  IDK.  If someone challenged me I could make the case for why it's all together.  None of this is reused anywhere.  
 
+    5:00
+        Got another concern / itch.  I feel like the options I'm going to display are the product of the tender's Type and Status and I feel like there's got to be a systematic way to derive them.
+
+            -Intuition is sort of:  Type behavior changes a lot more than Status.  So I think that means more of my inputs should live on the Type (so I should put it in the tenderizer? )
+
+        It's a question of what should live where.  OK.  Since I am already doing Type-dependent assignment in the Tenderizer, maybe that's the place?  
+
+    5:45
+        Copied from the TR:
+        -OK.  Breakthrough.  I had two key insights: First, that behaviors based on tender Type vary a lot more than behaviors based on tender Status, which means ... something important?  
+            -Do my definitions in Type and my logic in status?
+            -Easier define how Status responds to Type than vice versa?
+            -Easier to hold status constant and vary types?  
+            -Arguments live in Type, functions live in Status?  
+            -I actually still have yet to find a great explanation the pattern to the pattern, but it means I'm defining almost all behavior specifics in Type. 
+        The other breakthrough is that I'm already doing some Type-based definition in the Tenderizer function, so that is the natural place to handle all of the Type-specific defining.  I had type-specific logic in three places and that was itching, although at the time I didn't realize why.
+
+    6:15
+        Should I be defining button behavior in here?  Like, get it ALL in the Tenderizer?  Not sure.
+
+        -I've also noticed that I'm kind of losing speed.  For some reason this feels like a decent stopping point, like I should let that decision mellow for a bit.
+
+        However, I still feel pretty motivated, so I'm thinking about switching to something easy, like maybe the Icons.  I feel like that's something I'll definitely need at some point, and it shouldn't be too hard for me to just pump out with some music on.  Let's see how we do!
+
+        If I REALLY want to go to OT I could finish up the Select Receipt screen, but that thing is so unimportant that I'm probably better off just stopping.
+
+    6:50:
+        I think I'm done for the day.  Can't swallk, but siit definitely earned.  Gonna ponder takeways for notes-tr and record after.
+    
+
 
 
 

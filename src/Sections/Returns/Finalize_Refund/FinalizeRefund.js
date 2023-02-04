@@ -4,6 +4,7 @@ import tenderSort from "../functions/tenderSort";
 import tenderTypes from "../../../components/global_functions/tenderTypes";
 import tenderStatusCodes from "../functions/tenderStatusCodes";
 
+import TenderBadges from "./TenderBadges";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
@@ -75,6 +76,7 @@ const FinalizeRefund = () => {
         <TitleBar>Refund Details</TitleBar>
         <section className={`${classes.mainContent} ${classes.content70}`}>
           <section className={` ${classes.content70}`}>
+            <TenderBadges />
             <InPageTitleBox
               topContent={""}
               hasDivider={false}
