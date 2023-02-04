@@ -14,7 +14,8 @@
 }
 
 .content30{
-    padding: 0rem 1rem;
+    padding: 1rem;
+    overflow: auto;
 }
 
 .content70{
