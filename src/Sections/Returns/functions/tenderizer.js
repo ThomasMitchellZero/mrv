@@ -39,6 +39,9 @@ const tStatus = tenderStatusCodes;
 
 // the Tenderizer takes gets a tender type and populates it with the additional type-specific properties.  It deals ONLY with an individual tender.
 
+
+// Should I be defining button behavior in here?  Like, get it ALL in the Tenderizer?  
+
 const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
 
@@ -53,6 +56,7 @@ const tenderizer = (tenderObj) => {
         text={`refund to ${tenderObj.tenderType} failed.  Process refund to Store Credit`}
       />
     ),
+
   };
 
   let outTenderObj = {

@@ -31,3 +31,29 @@ Rule 1:  Document, don't expound. Accurately describe what you feel, but no more
 
     3:20
         -Just want to put in a marker to remind myself to record how this goes.  I'm trying to sort out the conditional logic for what user interface to display as the refund tenders are processed in sequence.  This is a hard problem with a lot of possible solutions and many different factors to weigh and balance.  
+
+    5:00
+        -I can't say that my problem-solving is any better.  Even with my better focus, I don't feel like I have the ability to hold more factors in my mind at once.  I'm definitely locked onto the problem, where normally this kind of frustration causes me to seek out time-wasters to feel some positive stimulation.  Recurring theme for the day has been a feeling of being at the limits of my intelligence.  It's a combination of inability to hold enough things in my head long enough to find patterns, or else insufficient processing speed to find the patterns while I've got them.
+
+        -It has helped me to have something to look at.  Putting screens side-by-side in Figma helped me bypass my memory limitations and find the similarities.  
+
+    5:45
+        -OK.  Breakthrough.  I had two key insights: First, that behaviors based on tender Type vary a lot more than behaviors based on tender Status, which means ... something important?  
+        
+            -Do my definitions in Type and my logic in status?
+            -Easier define how Status responds to Type than vice versa?
+            -Arguments live in Type, functions live in Status?  
+            -I actually still have yet to find a great explanation the pattern to the pattern, but it means I'm defining almost all behavior specifics in Type. 
+
+        The other breakthrough is that I'm already doing some Type-based definition in the Tenderizer function, so that is the natural place to handle all of the Type-specific defining.  I had type-specific logic in three places and that was what was itching, although at the time I didn't realize why.
+
+        -I also realize that one constant I've felt throughout the day was a sense of urgency.  Even when I was folding clothes I was trying to move ahead as fast as I could.
+
+        -I also don't feel tired.  Not exactly a fair sample because I still feel excited from figuring that out, but normally I'm about ready to be done.  
+
+        -Mostly not interested in time wasters either.  
+
+----
+
+If you don't feel like you are choosing an approach from multiple options, or if you don't have a conceptual framework you're acting within, there's a good chance you won't be proud of this work later.
+
