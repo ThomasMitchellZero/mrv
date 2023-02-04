@@ -25,10 +25,10 @@ const FinalizeRefund = () => {
   const tendersArr = tenderSort(ctxTenders);
 
   // Loop processing logic
-  const activeTender = ctxTenders[finalizerState.currentIndex]
+  const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]]
   console.log(activeTender)
 
-  
+
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {

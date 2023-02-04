@@ -2795,13 +2795,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -This 20 might be mostly writing.  
 
-        -The container for the steppers needs to scroll.  Probably a low priority, but also easy?
+        X -The container for the steppers needs to scroll.  Probably a low priority, but also easy?
 
-        -I need a state to track the active index in FinalizeRefund.  
+        X-I need a state to track the active index in FinalizeRefund.  
 
-        -I need to dig into the logic that cycles through the steps.
-
-        -I specifically need to figure out how I am going to handle the L2 steps.  
+        X-I specifically need to figure out how I am going to handle the L2 steps.  
             -I think what needs to happen is that for any tender type that can display an L2, I need to have at least one property to store its value.
 
     I am now wondering if there is EVER a choice that needs to be made for a refund failure?  Like, if a credit card fails, we're not giving them cash, right?  
@@ -2809,10 +2807,21 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -I think the thing to do is build the capability.  It will be easier for me to design for it and take it out than to not design it and put it in later, and I have at least one example of a choice being required on failure (Apple Pay)
 
     OK.  A thought here.  Maybe this is crazy, but I think my sorted array should contain keys, not values, and I think I should be populating everything from the refunds_by_tender[key] 
-        -The reason is that my UI should be reading from the session state, and my dispatches should be modifying the session state.  It does me no good to interact with the tenders array because that is strictly local.
+        X -The reason is that my UI should be reading from the session state, and my dispatches should be modifying the session state.  It does me no good to interact with the tenders array because that is strictly local.
         -This is cool.  I mean, I'm sure I would have come to this conclusion eventually but I feel like I anticpated it.
 
-    
+    Now, how to handle the loop?
+        -For the 70 panel.  Should I have a local state property to control this?  I kind of hope not?  My ideal would be to just have an object that contains the options, and display those options PURELY based on the status of the current index.
+
+        -OK.  Do I want to have a local state?  Let me think about the alternatives.
+            -If I don't:
+                I think I just have an object for the 70 panel, and I render that 70 panel as: {70_Options[panelStatus]}
+
+            -If I do:
+                I dispatch the active panels by hand.  This is more by-hand logic so more opportunities for me to make dumb mistakes.  BUT if I encounter ANY scenario where the 70 panel can't be derived from the index, I think I have to do this anyways?  
+
+    12:50:
+        Had lunch, did some house chores, ready to get back to it.  I do have some simple tasks that need to be done, like creating the Cash Back page and the Send Receipt page.  I was actually planning to put these off and try to eat the frog, but I think it might actually be better to do them now.  I will need them no matter what, and it would be helpful to get some cheap wins to build momentum.
 
 
 

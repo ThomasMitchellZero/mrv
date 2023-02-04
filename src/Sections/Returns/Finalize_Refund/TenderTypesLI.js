@@ -55,7 +55,7 @@ const TenderTypesLI = ({ dataObj }) => {
   // JS code
 
   //const status = dataObj.status;
-  const status = "progress2Line";
+  const status = dataObj.status;
   return (
     <section
       className={`${classes.container} ${
@@ -104,7 +104,7 @@ const TenderTypesLI = ({ dataObj }) => {
                 <h4>{`$${(dataObj.paid / 100).toFixed(2)}`}</h4>
               </section>
               <section className={`${classes.lineHeight}`}>
-                <h5>{`Not Started`}</h5>
+                <h5>{`In Progress`}</h5>
               </section>
             </section>
           </section>
