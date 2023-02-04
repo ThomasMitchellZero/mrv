@@ -42,7 +42,7 @@ const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
   const sharedProperties = {
     status: "notStarted",
-    userChoice: tType.storeCredit
+    userChoice: tType.storeCredit,
   };
 
   let typeProps = {};
@@ -57,16 +57,15 @@ const tenderizer = (tenderObj) => {
       break;
 
     case tType.credit:
-      typeProps = {tenderLabel:"Credit Cartttt" };
-
+      typeProps = { tenderLabel: "Credit Cartttt", failAlt: tType.storeCredit };
       break;
 
     case tType.debit:
-      typeProps = {tenderLabel:"Debitater"};
+      typeProps = { tenderLabel: "Debitater", failAlt: tType.storeCredit};
       break;
 
     case tType.check:
-      typeProps = {tenderLabel:"You old AF"};
+      typeProps = { tenderLabel: "You old AF", failAlt: tType.storeCredit};
       break;
 
     default:

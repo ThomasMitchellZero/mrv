@@ -45,6 +45,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -Make sure the prices are realistic in both the product catalog and invoices.
 
+    -On the Item Details page: The quantity needs to be an editable input field.  IIRC I'll have to change how the Items dispatcher is done in Returns.  
+
 
 
 
@@ -2767,6 +2769,50 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     5:40
         Not the best day I've ever had but despite a late start I managed to get some valuable work in.
+
+3 Feb 2023
+
+    4:00 --
+    
+    Been kind of time-wasty today but trying to have a nice strong finish like yesterday.  Gonna go till 6:00 plus however long I feel like after that.
+    
+    OK, where do we stand?  
+        -I need a way to get all of the tender types in the correct sequence.  I would like the automatic transactions to happen first, but I NEED the last two to be Store Credit and Cash, respectively.  
+
+        -The other key factor is whatever order I sort the non SC+$ properties into, I NEED to make sure it's the same every time.  
+        
+            -What I wish is for them to be ordered within the object at which point I could just turn it into an array (since AFAICT for strings the array order is the insertion order)
+
+            -I actually can't quite articulate why I want this.  I'm afraid of the order getting messed up if I add $ or SC in the process, which I am VERY likely to be doing.
+    
+        -The other option is to just sort the array.  I guess that isn't terrible, as long as I make sure that if I add SC + $ to the state and not just the array.  
+            -Right now, I think that's what I should do.  I don't have an easy way to control the order the refund tenders are placed into the object, since they're being matched in the order they are found.
+
+            -I think that no matter what, I need to write a function that sorts an array.  Even if I do want the object sorted, the only way that could happen is to turn it into an array, sort the array, and then turn it back into an object so there's basically no chance this function is a waste.  OK.  Looks like we have a direction.
+
+4 Feb 2023
+    9:55 IDK why it's ALWAYS so tempting to skip 69420, but I rarely regret it.
+
+    -This 20 might be mostly writing.  
+
+        -The container for the steppers needs to scroll.  Probably a low priority, but also easy?
+
+        -I need a state to track the active index in FinalizeRefund.  
+
+        -I need to dig into the logic that cycles through the steps.
+
+        -I specifically need to figure out how I am going to handle the L2 steps.  
+            -I think what needs to happen is that for any tender type that can display an L2, I need to have at least one property to store its value.
+
+    I am now wondering if there is EVER a choice that needs to be made for a refund failure?  Like, if a credit card fails, we're not giving them cash, right?  
+
+        -I think the thing to do is build the capability.  It will be easier for me to design for it and take it out than to not design it and put it in later, and I have at least one example of a choice being required on failure (Apple Pay)
+
+    OK.  A thought here.  Maybe this is crazy, but I think my sorted array should contain keys, not values, and I think I should be populating everything from the refunds_by_tender[key] 
+        -The reason is that my UI should be reading from the session state, and my dispatches should be modifying the session state.  It does me no good to interact with the tenders array because that is strictly local.
+        -This is cool.  I mean, I'm sure I would have come to this conclusion eventually but I feel like I anticpated it.
+
+    
 
 
 
