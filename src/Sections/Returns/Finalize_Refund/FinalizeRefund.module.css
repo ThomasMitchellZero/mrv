@@ -10,7 +10,7 @@
     flex-direction: column;
     background-color: #FFFFFF;
     flex: 1 1 0rem;
-
+ 
 }
 
 .content30{
@@ -19,5 +19,23 @@
 }
 
 .content70{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0% 15%;
+}
 
+.inPageBtnBox{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    gap: 1rem;
+    width: 50%
+}
+
+.inPageBtnBox > button{
+    flex: 0 0 auto;
 }

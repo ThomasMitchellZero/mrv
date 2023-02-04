@@ -3,6 +3,7 @@
     flex-direction: column;
     flex: 0 0 12rem;
     width: 100%;
+    text-align: center;
 }
 
 .mainContent{

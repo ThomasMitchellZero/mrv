@@ -5,6 +5,7 @@ import tenderSort from "../functions/tenderSort";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
+import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
@@ -27,8 +28,34 @@ const FinalizeRefund = () => {
 
   // Loop processing logic
   const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]];
+  const paid = Number(activeTender.paid / 100).toFixed(2);
   console.log(activeTender);
-  console.log(failure)
+
+  const seventy_panel = {
+    confirmCash: (
+      <section className={` ${classes.content70}`}>
+        <InPageTitleBox
+          hasDivider={false}
+          mainTitle={`Are you sure you want to refund $${paid} in cash?`}
+          subTitle="All cash refunds will be given at the end of this return"
+        />
+        <section className={` ${classes.inPageBtnBox}`}>
+          <button
+            type="button"
+            className={`baseButton secondary large contained30`}
+          >
+            No
+          </button>
+          <button
+            type="button"
+            className={`baseButton primary large contained30`}
+          >
+            Yes
+          </button>
+        </section>
+      </section>
+    ),
+  };
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {
@@ -52,9 +79,9 @@ const FinalizeRefund = () => {
       </section>
       <section className={`seventy_panel `}>
         <TitleBar>Refund Details</TitleBar>
-        <section
-          className={`${classes.mainContent} ${classes.content70}`}
-        ></section>
+        <section className={`${classes.mainContent} ${classes.content70}`}>
+          {seventy_panel.confirmCash}
+        </section>
         <FooterContainer></FooterContainer>
       </section>
     </section>
