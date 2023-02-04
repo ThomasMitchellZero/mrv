@@ -37,19 +37,6 @@ const FinalizeRefund = () => {
   // activeTender info
   const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]];
   const paid = Number(activeTender.paid / 100).toFixed(2);
-  const warningMsg =
-    activeTender.status === tStatus.failure ? (
-      <MessageRibbon
-        color="red"
-        text={`refund to ${activeTender.tenderType} failed.  Process refund to Store Credit`}
-      />
-    ) : null;
-  const testWarning = (
-    <MessageRibbon
-      color="red"
-      text={`refund to ${activeTender.tenderType} failed.  Process refund to Store Credit`}
-    />
-  );
 
   console.log(activeTender);
 
@@ -89,7 +76,7 @@ const FinalizeRefund = () => {
         <section className={`${classes.mainContent} ${classes.content70}`}>
           <section className={` ${classes.content70}`}>
             <InPageTitleBox
-              topContent={testWarning}
+              topContent={""}
               hasDivider={false}
               mainTitle={`Main`}
               subTitle={`Sub`}

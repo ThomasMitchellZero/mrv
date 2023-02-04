@@ -1,5 +1,6 @@
 import tenderTypes from "../../../components/global_functions/tenderTypes";
 import tenderStatusCodes from "./tenderStatusCodes";
+import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 const ref = {
   // Cash
@@ -42,43 +43,60 @@ const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
 
   const sharedProperties = {
-    status: "notStarted",
-    userChoice: tType.storeCredit,
+    status: tStatus.notStarted,
   };
 
-  let typeProps = {};
+  const errorProperties = {
+    errorMsg: (
+      <MessageRibbon
+        color="red"
+        text={`refund to ${tenderObj.tenderType} failed.  Process refund to Store Credit`}
+      />
+    ),
+  };
+
+  let outTenderObj = {
+    ...tenderObj,
+    ...sharedProperties,
+  };
 
   switch (tenderObj.tenderType) {
     case tType.cash:
-      typeProps = { tenderLabel: "CasH MONEY",
-          ui70: "" };
+      outTenderObj = { ...outTenderObj, tenderLabel: "CasH MONEY", ui70: "" };
       break;
 
     case tType.storeCredit:
-      typeProps = { tenderLabel: "STOOOORE Credit" };
+      outTenderObj = { ...outTenderObj, tenderLabel: "STOOOORE Credit" };
       break;
 
     case tType.credit:
-      typeProps = { tenderLabel: "Credit Cartttt", failAlt: tType.storeCredit };
+      outTenderObj = {
+        ...outTenderObj,
+        ...errorProperties,
+        tenderLabel: "Credit Cartttt",
+        
+      };
       break;
 
     case tType.debit:
-      typeProps = { tenderLabel: "Debitater", failAlt: tType.storeCredit};
+      outTenderObj = {
+        ...outTenderObj,
+        ...errorProperties,
+        tenderLabel: "Debitater",
+      };
       break;
 
     case tType.check:
-      typeProps = { tenderLabel: "You old AF", failAlt: tType.storeCredit, msg: this.paid}
+      outTenderObj = {
+        ...outTenderObj,
+        ...errorProperties,
+        tenderLabel: "You old AF",
+      };
       break;
 
     default:
       throw new Error(`Unknown tender type: ${tenderObj.tenderType}`);
   }
-
-  const outTenderObj = {
-    ...tenderObj,
-    ...sharedProperties,
-    ...typeProps,
-  };
 
   return outTenderObj;
 };
