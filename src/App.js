@@ -20,6 +20,7 @@ import ReceiptLookup from "./Sections/Returns/Receipt_Lookup/ReceiptLookup";
 import TotalReview from "./Sections/Returns/Total_Review/TotalReview";
 import DeclineSlip from "./Sections/Returns/DeclineSlip/DeclineSlip";
 import FinalizeRefund from "./Sections/Returns/Finalize_Refund/FinalizeRefund";
+import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptType";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
             <Route path="decline-slip" element={<DeclineSlip />} />
             <Route path="total-review" element={<TotalReview />} />
             <Route path="finalize-refund" element={<FinalizeRefund />} />
+            <Route path="receipt" element={<SelectReceiptType />} />
           </Route>
         </Route>
       </Routes>
