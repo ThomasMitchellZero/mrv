@@ -40,6 +40,7 @@ const tStatus = tenderStatusCodes;
 
 const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
+
   const sharedProperties = {
     status: "notStarted",
     userChoice: tType.storeCredit,
@@ -49,7 +50,8 @@ const tenderizer = (tenderObj) => {
 
   switch (tenderObj.tenderType) {
     case tType.cash:
-      typeProps = { tenderLabel: "CasH MONEY" };
+      typeProps = { tenderLabel: "CasH MONEY",
+          ui70: "" };
       break;
 
     case tType.storeCredit:
@@ -65,7 +67,7 @@ const tenderizer = (tenderObj) => {
       break;
 
     case tType.check:
-      typeProps = { tenderLabel: "You old AF", failAlt: tType.storeCredit};
+      typeProps = { tenderLabel: "You old AF", failAlt: tType.storeCredit, msg: this.paid}
       break;
 
     default:

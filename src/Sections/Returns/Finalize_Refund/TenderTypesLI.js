@@ -10,7 +10,6 @@ import {
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
 
-const tType = tenderTypes;
 const tStatus = tenderStatusCodes;
 
 const iconsObj = {

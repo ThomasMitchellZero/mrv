@@ -1,6 +1,8 @@
 import classes from "./FinalizeRefund.module.css";
 
 import tenderSort from "../functions/tenderSort";
+import tenderTypes from "../../../components/global_functions/tenderTypes";
+import tenderStatusCodes from "../functions/tenderStatusCodes";
 
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
@@ -10,12 +12,15 @@ import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
+import { act } from "@testing-library/react";
+
+const tType = tenderTypes;
+const tStatus = tenderStatusCodes;
 
 const FinalizeRefund = () => {
   // local state for FinalizeRefund
   const initialState = { currentIndex: 0 };
   const [finalizerState, setFinalizerState] = useState(initialState);
-
 
   // Refunds state
 
@@ -32,7 +37,14 @@ const FinalizeRefund = () => {
   // activeTender info
   const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]];
   const paid = Number(activeTender.paid / 100).toFixed(2);
-  const warningMsg = (
+  const warningMsg =
+    activeTender.status === tStatus.failure ? (
+      <MessageRibbon
+        color="red"
+        text={`refund to ${activeTender.tenderType} failed.  Process refund to Store Credit`}
+      />
+    ) : null;
+  const testWarning = (
     <MessageRibbon
       color="red"
       text={`refund to ${activeTender.tenderType} failed.  Process refund to Store Credit`}
@@ -77,6 +89,7 @@ const FinalizeRefund = () => {
         <section className={`${classes.mainContent} ${classes.content70}`}>
           <section className={` ${classes.content70}`}>
             <InPageTitleBox
+              topContent={testWarning}
               hasDivider={false}
               mainTitle={`Main`}
               subTitle={`Sub`}
