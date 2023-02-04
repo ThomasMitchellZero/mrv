@@ -6,25 +6,30 @@ import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 
-import { useOutletContext, } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const FinalizeRefund = () => {
-
-  const ctxTenders = useOutletContext().session.refunds_by_tender
+  const ctxTenders = useOutletContext().session.refunds_by_tender;
 
   // not tested.
   const dispatchSession = useOutletContext().dispatchSession;
-  const updateTenders = (newTendersObj)=>{
-    dispatchSession({type: "UPDATE_TENDERS", payload: newTendersObj})
-  }
-  
+  const updateTenders = (newTendersObj) => {
+    dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
+  };
+
+  // make a priority-sorted arr from tenders in Returns state
   const tendersArr = tenderSort(ctxTenders);
   console.log(tendersArr);
 
-  const tendersLIarr = tendersArr.map((thisTenderObj) => {
-
+  // Make array of the <TenderTypesLI>s  from the sorted tendersArr
+  const tendersLIarr = tendersArr.map((thisTenderKey) => {
     //TO DO: fix key once this is working.
-    return <TenderTypesLI key={JSON.stringify(thisTenderObj)} dataObj={thisTenderObj} />;
+    return (
+      <TenderTypesLI
+        key={JSON.stringify(thisTenderKey)}
+        dataObj={ctxTenders[thisTenderKey]}
+      />
+    );
   });
 
   return (

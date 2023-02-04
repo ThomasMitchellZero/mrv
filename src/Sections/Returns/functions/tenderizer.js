@@ -36,7 +36,7 @@ const ref = {
 const tType = tenderTypes;
 const tStatus = tenderStatusCodes;
 
-// if I want, I can generate the tender labels in the Tenderizer.
+// the Tenderizer takes gets a tender type and populates it with the additional type-specific properties.  It deals ONLY with an individual tender.
 
 const tenderizer = (tenderObj) => {
   // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
