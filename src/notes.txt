@@ -2908,6 +2908,8 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -After that: I need to think about how to arrange the button/dispatch logic in FinalizeRefund and where it should live.  I am really, really close to turning the corner on this final boss.  
 
+    -Not related to anything in the current workstream, but I am kind of liking having an object with the shared names.  It's already kind of convenient for consistency, and I just realized there's another benefit, too.  If I have something used in a lot of places (like tenderTypes) and I need to do something different, like adding an ApplePay tender, having it as a single reference object lets me find EVERY place where I need to change the new thing.  
+
 
 
 
