@@ -72,7 +72,7 @@ const FinalizeRefund = () => {
         <TitleBar>Refund Details</TitleBar>
         <section className={`${classes.mainContent} ${classes.content70}`}>
           <section className={` ${classes.content70}`}>
-            <TenderBadges tender1={tType.credit} tender2={tType.storeCredit}/>
+            <TenderBadges tender1={tType.check} tender2={tType.cash}/>
             <InPageTitleBox
               topContent={""}
               hasDivider={false}

@@ -8,29 +8,32 @@ import {
 
 import { CiMoneyCheck1 } from "react-icons/ci";
 
-import { FaMoneyCheckAlt } from "react-icons/fa";
-
 import tType from "../../../components/global_functions/tenderTypes";
+
+const badgeProps = {
+    size: "6rem",
+    className: `grey-08-text ${classes.icon}`, 
+}
 
 const badgesObj = {
   [tType.cash]: {
-    icon: <MdPayments size="6rem" className={`${classes.icon}`} />,
+    icon: <MdPayments {...badgeProps} />,
     label: "Cash",
   },
   [tType.check]: {
-    icon: <CiMoneyCheck1 size="6rem" className={`${classes.icon}`} />,
+    icon: <CiMoneyCheck1 {...badgeProps} />,
     label: "Check",
   },
   [tType.credit]: {
-    icon: <MdCreditCard size="6rem" className={`${classes.icon}`} />,
+    icon: <MdCreditCard {...badgeProps} />,
     label: "Credit Card",
   },
   [tType.debit]: {
-    icon: <MdCreditCard size="6rem" className={`${classes.icon}`} />,
+    icon: <MdCreditCard {...badgeProps} />,
     label: "Debit Card",
   },
   [tType.storeCredit]: {
-    icon: <MdCardGiftcard size="6rem" className={`${classes.icon}`} />,
+    icon: <MdCardGiftcard {...badgeProps} />,
     label: "Store Credit",
   },
 };
@@ -41,14 +44,14 @@ const TenderBadges = ({ tender1, tender2 = null }) => {
     const output = tender ? (
       <section className={`${classes.badge}`}>
         {badgesObj[tender].icon}
-        <h4>{badgesObj[tender].label}</h4>
+        <h4 className={`grey-06-text`}>{badgesObj[tender].label}</h4>
       </section>
     ) : null;
     return output;
   };
 
   // If 2nd tender is specified, UI also needs an arrow.
-  const arrow = tender2 ? <MdEast size="1rem" className={`${classes.icon}`} /> : null
+  const arrow = tender2 ? <MdEast size="2rem" className={`grey-06-text`} /> : null
 
   const allBadgesArr = [
     badger(tender1),
