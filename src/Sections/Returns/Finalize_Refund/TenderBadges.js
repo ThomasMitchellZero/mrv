@@ -1,5 +1,11 @@
 import classes from "./TenderBadges.module.css"
 import { MdAgriculture } from "react-icons/md";
+import tType from "../../../components/global_functions/tenderTypes";
+
+
+const badgesObj = {
+    [tType.cash]:{icon: "", label: "", },
+}
 
 const TenderBadges = ({icon1, icon2})=>{
 

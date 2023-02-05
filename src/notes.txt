@@ -2902,8 +2902,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         I think I'm done for the day.  Can't swallk, but siit definitely earned.  Gonna ponder takeways for notes-tr and record after.
     
 
+5 Feb 2023
+    -9:55:
+        Found myself looking up the SR-71 and realize I need to work.  I think my first move is actually going to be working on that tender icon component.  I do need it and it would be a nice, satisfying way to get into the work.  
 
-
+        -After that: I need to think about how to arrange the button/dispatch logic in FinalizeRefund and where it should live.  I am really, really close to turning the corner on this final boss.  
 
 
 
