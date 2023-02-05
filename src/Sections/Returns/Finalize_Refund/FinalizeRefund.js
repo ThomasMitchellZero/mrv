@@ -1,8 +1,8 @@
 import classes from "./FinalizeRefund.module.css";
 
 import tenderSort from "../functions/tenderSort";
-import tenderTypes from "../../../components/global_functions/tenderTypes";
-import tenderStatusCodes from "../functions/tenderStatusCodes";
+import tType from "../../../components/global_functions/tenderTypes";
+import tStatus from "../functions/tenderStatusCodes";
 
 import TenderBadges from "./TenderBadges";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
@@ -13,10 +13,6 @@ import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
-import { act } from "@testing-library/react";
-
-const tType = tenderTypes;
-const tStatus = tenderStatusCodes;
 
 const FinalizeRefund = () => {
   // local state for FinalizeRefund
@@ -76,7 +72,7 @@ const FinalizeRefund = () => {
         <TitleBar>Refund Details</TitleBar>
         <section className={`${classes.mainContent} ${classes.content70}`}>
           <section className={` ${classes.content70}`}>
-            <TenderBadges />
+            <TenderBadges tender1={tType.credit} tender2={tType.storeCredit}/>
             <InPageTitleBox
               topContent={""}
               hasDivider={false}
