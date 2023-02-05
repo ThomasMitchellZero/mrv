@@ -2908,8 +2908,47 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -After that: I need to think about how to arrange the button/dispatch logic in FinalizeRefund and where it should live.  I am really, really close to turning the corner on this final boss.  
 
-    -Not related to anything in the current workstream, but I am kind of liking having an object with the shared names.  It's already kind of convenient for consistency, and I just realized there's another benefit, too.  If I have something used in a lot of places (like tenderTypes) and I need to do something different, like adding an ApplePay tender, having it as a single reference object lets me find EVERY place where I need to change the new thing.  
+    -Not related to anything in the current workstream, but I am kind of liking having an object with the shared names.  It's already kind of convenient for consistency, and I just realized there's another benefit, too.  If I have something used in a lot of places (like tenderTypes) and I need to do something different, like adding an ApplePay tender, having it as a single reference object lets me find EVERY place where I might need to incorporate the new thing.
 
+    12:20:
+        TenderBadges took longer than I was expecting and the icons will need to be replaced because they are inconsistent and look like ass, but I'm ready to move ahead.  The first thing I should do is to set a 10-minute timer to eat all the food at my desk or else I'm gonna crash later. And no time wasters or this break will turn into 110 minutes :/
+
+    12:30:
+        Back at it.  OK, time for the main event today: to get all this working.  What do I need to resolve?
+
+            -I think this is where I'm getting hung up: AFAICT the UI in the 70 panel can be determined by Type or by Status.  
+                -User Choice: Type
+                -Failure Choice: Status
+                -Confirm Cash: Status (I think the only time the progress2line status appears is when you are confirming cash?)
+                -Refund SC: Type
+                -Refund Cash: Type
+
+            -And AFAICT, a type that's in the queue should never actually change.  
+        
+            -I THINK that the model is:
+
+                -Status determines what screen to display
+                -Type determines how to populate it? And populating includes 'What your status becomes when you click this button'
+                
+        So, for a Debit card: 
+                    -In Progress:  70 = UserChoice
+                        If they choose Debit:
+                    -Failure: 70 = Failure Choice
+                    -Success: 70 = 
+                        If they choose Cash: 
+                    -progress2Line = Confirm Cash:
+
+        -One choice is becoming clear.  I think the logic and state-setting needs to live in the FinalizeRefund section, although it should definitely be reading a lot of props from the objects.
+            -First, I would generally expect to find 'Logic to determine what this component shows' in the component itself, especially if that logic isn't shared.
+            -Second, the logic affects the local state in FinalizeRefund and setting that local state anywhere else just makes less sense.
+
+        -OK, pause.  I'm getting an error about a 'dataName' prop and if I add more shit it will just be harder to find later.  
+            -I don't get the error on the Returns homepage, so I don't think it's related to that reportWebVitals I deleted earlier.
+            -So let's take stuff out of the file and see where it resolves.
+                -It does.
+            -As long as I am not rendering the Check icon, it seems OK.  
+            -I tried hand-inputting the props and got the same error, so I think it's just a bad component?  Still sucks because that one was hard to find.  Well, let's see if an alternative solves it?
+            -Used a different icon and it's OK now.  Still looks like ass.
 
 
 

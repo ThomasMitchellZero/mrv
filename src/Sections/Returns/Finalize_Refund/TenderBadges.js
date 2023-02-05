@@ -8,6 +8,8 @@ import {
 
 import { CiMoneyCheck1 } from "react-icons/ci";
 
+import {FaMoneyCheck} from "react-icons/fa"
+
 import tType from "../../../components/global_functions/tenderTypes";
 
 const badgeProps = {
@@ -21,7 +23,7 @@ const badgesObj = {
     label: "Cash",
   },
   [tType.check]: {
-    icon: <CiMoneyCheck1 {...badgeProps} />,
+    icon: <FaMoneyCheck {...badgeProps} />,
     label: "Check",
   },
   [tType.credit]: {
@@ -40,9 +42,9 @@ const badgesObj = {
 
 const TenderBadges = ({ tender1, tender2 = null }) => {
   // make a badge if input is true, else null
-  const badger = (tender) => {
+  const badger = (tender, key) => {
     const output = tender ? (
-      <section className={`${classes.badge}`}>
+      <section key={key} className={`${classes.badge}`}>
         {badgesObj[tender].icon}
         <h4 className={`grey-06-text`}>{badgesObj[tender].label}</h4>
       </section>
@@ -51,12 +53,12 @@ const TenderBadges = ({ tender1, tender2 = null }) => {
   };
 
   // If 2nd tender is specified, UI also needs an arrow.
-  const arrow = tender2 ? <MdEast size="2rem" className={`grey-06-text`} /> : null
+  const arrow = tender2 ? <MdEast key="arrow" size="2rem" className={`grey-06-text`} /> : null
 
   const allBadgesArr = [
-    badger(tender1),
+    badger(tender1, 1),
     arrow,
-    badger(tender2),
+    badger(tender2, 2),
   ];
 
   return <section className={`${classes.container}`}>{allBadgesArr}</section>;

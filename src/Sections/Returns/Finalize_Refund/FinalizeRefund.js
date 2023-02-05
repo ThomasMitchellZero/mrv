@@ -71,7 +71,7 @@ const FinalizeRefund = () => {
       <section className={`seventy_panel `}>
         <TitleBar>Refund Details</TitleBar>
         <section className={`${classes.mainContent} ${classes.content70}`}>
-          <TenderBadges tender1={tType.check} tender2={tType.cash} />
+        <TenderBadges tender1={tType.check} tender2={tType.check} />
           <InPageTitleBox
             topContent={""}
             hasDivider={false}
@@ -94,6 +94,10 @@ const FinalizeRefund = () => {
       />
     );
   });
+
+  // Logic for processing the queue
+
+  
 
   return (
     <section className={classes.container}>
