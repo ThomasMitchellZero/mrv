@@ -12,7 +12,8 @@ import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
   // local state
@@ -24,7 +25,7 @@ const FinalizeRefund = () => {
   const dispatchSession = useOutletContext().dispatchSession;
   const failureScenario =
     useOutletContext().session.scenarios.totalTenderFailure;
-  const updateTenders = (newTendersObj) => {
+  const setSessionTenders = (newTendersObj) => {
     dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
   };
 
@@ -32,10 +33,45 @@ const FinalizeRefund = () => {
   const tendersArr = tenderSort(ctxTenders);
 
   // activeTender info
-  const activeTenderKey = tendersArr[finalizerState.activeIndex]
+  const activeTenderKey = tendersArr[finalizerState.activeIndex];
   const activeTenderValue = ctxTenders[activeTenderKey];
 
+  // -- SHARED FUNCTIONS ----
 
+  // Dispatch status change for current Tender
+  const setSingleTenderStatus = (newStatus) => {
+    // set to In Progress
+    const newTenderValue = {
+      ...activeTenderValue,
+      status: newStatus,
+    };
+    const outTendersObj = {
+      ...ctxTenders,
+      [activeTenderKey]: newTenderValue,
+    };
+    setSessionTenders(outTendersObj);
+  };
+
+  // Increment Counter
+  const incrementActiveIndex = () => {
+    const newCounter = finalizerState.activeIndex++;
+    // to do: IF all queue tenders handled, navigate to next page.
+    setFinalizerState({ ...finalizerState, activeIndex: newCounter });
+  };
+
+  useEffect(() => {
+    if (activeTenderValue.status === tStatus.notStarted) {
+      if (activeTenderValue.userOption) {
+        setSingleTenderStatus(tStatus.inProgress);
+      }
+      if (failureScenario && activeTenderValue.canFail) {
+        // set to Failure
+        setSingleTenderStatus(tStatus.failure);
+      }
+      setSingleTenderStatus(tStatus.complete);
+      incrementActiveIndex();
+    }
+  }, [activeTenderValue]);
 
   const seventy_panel = {
     confirmCash: (
@@ -95,29 +131,13 @@ const FinalizeRefund = () => {
     );
   });
 
+  // Logic for processing the queue
 
+  // Check for NotStarted b/c I don't want this on every re-render
 
   /*
   
-  // Logic for processing the queue
 
-  // needed b/c I only want this to run once per tender in the queue
-  if (activeTenderValue.status === tStatus.notStarted) {
-
-    if (activeTender.userOption) {
-
-      // set to In Progress
-      const newTender = {...activeTender, status: tStatus.inProgress}
-      updateTenders(...ctxTenders, )
-
-    }
-    if (failureScenario && activeTender.canFail) {
-      // set to Failure
-      console.log(`FAILURE CHOICE - ${activeTender.type}`)
-    }
-    // Set to Complete
-    // Increment Active Index
-  }
 
   */
 
