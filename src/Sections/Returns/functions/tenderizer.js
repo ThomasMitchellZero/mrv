@@ -47,6 +47,8 @@ const tenderizer = (tenderObj) => {
 
   const sharedProperties = {
     status: tStatus.notStarted,
+    userOption: null,
+    displayPaid: Number(tenderObj.paid / 100).toFixed(2),
   };
 
   const errorProperties = {
@@ -66,7 +68,7 @@ const tenderizer = (tenderObj) => {
 
   switch (tenderObj.tenderType) {
     case tType.cash:
-      outTenderObj = { ...outTenderObj, tenderLabel: "CasH MONEY", ui70: "" };
+      outTenderObj = { ...outTenderObj, tenderLabel: "CasH MONEY", };
       break;
 
     case tType.storeCredit:

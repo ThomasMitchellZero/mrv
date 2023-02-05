@@ -1,7 +1,7 @@
 import classes from "./TenderTypesLI.module.css";
 
 import tenderTypes from "../../../components/global_functions/tenderTypes";
-import tenderStatusCodes from "../functions/tenderStatusCodes";
+import tStatus from "../functions/tenderStatusCodes";
 
 import {
   MdPanoramaFishEye,
@@ -10,7 +10,6 @@ import {
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
 
-const tStatus = tenderStatusCodes;
 
 const iconsObj = {
   notStarted: <MdPanoramaFishEye className={`grey-06-text ${classes.icon}`} />,
@@ -49,11 +48,11 @@ const mainStatus = {
   },
 };
 
-const TenderTypesLI = ({ dataObj }) => {
+const TenderTypesLI = ({ tenderObj }) => {
   // JS code
 
-  //const status = dataObj.status;
-  const status = dataObj.status;
+  //const status = tStatus.swapped
+  const status = tenderObj.status;
   return (
     <section
       className={`${classes.container} ${
@@ -72,10 +71,10 @@ const TenderTypesLI = ({ dataObj }) => {
         {/* Cell 1 Main Content*/}
         <section className={`${classes.columnHolder}`}>
           <section className={` ${classes.lineHeight}`}>
-            <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
-            <h4 className={`${mainStatus[status].strike ?? ""}`}>{`$${(
-              dataObj.paid / 100
-            ).toFixed(2)}`}</h4>
+            <h5 className={`${classes.XXX}`}>{tenderObj.tenderLabel}</h5>
+            <h4
+              className={`${mainStatus[status].strike}`}
+            >{`$${tenderObj.displayPaid}`}</h4>
           </section>
           <section className={`${classes.lineHeight}`}>
             <h5>{`Not Started`}</h5>
@@ -98,8 +97,8 @@ const TenderTypesLI = ({ dataObj }) => {
             {/* Cell 2 Main Content */}
             <section className={`${classes.columnHolder}`}>
               <section className={` ${classes.lineHeight}`}>
-                <h5 className={`${classes.XXX}`}>{dataObj.tenderLabel}</h5>
-                <h4>{`$${(dataObj.paid / 100).toFixed(2)}`}</h4>
+                <h5 className={`${classes.XXX}`}>{tenderObj.tenderLabel}</h5>
+                <h4>{`$${(tenderObj.paid / 100).toFixed(2)}`}</h4>
               </section>
               <section className={`${classes.lineHeight}`}>
                 <h5>{`In Progress`}</h5>

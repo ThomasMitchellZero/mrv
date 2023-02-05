@@ -15,15 +15,15 @@ import { useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
 const FinalizeRefund = () => {
-  // local state for FinalizeRefund
-  const initialState = { currentIndex: 0 };
+  // local state
+  const initialState = { activeIndex: 0 };
   const [finalizerState, setFinalizerState] = useState(initialState);
 
-  // Refunds state
-
+  // Returns state
   const ctxTenders = useOutletContext().session.refunds_by_tender;
   const dispatchSession = useOutletContext().dispatchSession;
-  const failure = useOutletContext().session.scenarios.totalTenderFailure;
+  const failureScenario =
+    useOutletContext().session.scenarios.totalTenderFailure;
   const updateTenders = (newTendersObj) => {
     dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
   };
@@ -32,10 +32,10 @@ const FinalizeRefund = () => {
   const tendersArr = tenderSort(ctxTenders);
 
   // activeTender info
-  const activeTender = ctxTenders[tendersArr[finalizerState.currentIndex]];
-  const paid = Number(activeTender.paid / 100).toFixed(2);
+  const activeTenderKey = tendersArr[finalizerState.activeIndex]
+  const activeTenderValue = ctxTenders[activeTenderKey];
 
-  console.log(activeTender);
+
 
   const seventy_panel = {
     confirmCash: (
@@ -45,7 +45,7 @@ const FinalizeRefund = () => {
           <section className={` ${classes.content70}`}>
             <InPageTitleBox
               hasDivider={false}
-              mainTitle={`Are you sure you want to refund $${paid} in cash?`}
+              mainTitle={`Are you sure you want to refund $${activeTenderValue.displayPaid} in cash?`}
               subTitle="All cash refunds will be given at the end of this return"
             />
             <section className={` ${classes.inPageBtnBox}`}>
@@ -71,7 +71,7 @@ const FinalizeRefund = () => {
       <section className={`seventy_panel `}>
         <TitleBar>Refund Details</TitleBar>
         <section className={`${classes.mainContent} ${classes.content70}`}>
-        <TenderBadges tender1={tType.check} tender2={tType.check} />
+          <TenderBadges tender1={tType.check} tender2={tType.check} />
           <InPageTitleBox
             topContent={""}
             hasDivider={false}
@@ -90,14 +90,36 @@ const FinalizeRefund = () => {
     return (
       <TenderTypesLI
         key={JSON.stringify(thisTenderKey)}
-        dataObj={ctxTenders[thisTenderKey]}
+        tenderObj={ctxTenders[thisTenderKey]}
       />
     );
   });
 
+
+
+  /*
+  
   // Logic for processing the queue
 
-  
+  // needed b/c I only want this to run once per tender in the queue
+  if (activeTenderValue.status === tStatus.notStarted) {
+
+    if (activeTender.userOption) {
+
+      // set to In Progress
+      const newTender = {...activeTender, status: tStatus.inProgress}
+      updateTenders(...ctxTenders, )
+
+    }
+    if (failureScenario && activeTender.canFail) {
+      // set to Failure
+      console.log(`FAILURE CHOICE - ${activeTender.type}`)
+    }
+    // Set to Complete
+    // Increment Active Index
+  }
+
+  */
 
   return (
     <section className={classes.container}>
