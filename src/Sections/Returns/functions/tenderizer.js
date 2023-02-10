@@ -43,14 +43,15 @@ const tStatus = tenderStatusCodes;
 // Should I be defining button behavior in here?  Like, get it ALL in the Tenderizer?  
 
 const tenderizer = (tenderObj) => {
-  // properties that all tenders will have.  Needed b/c we will be assigning these in the state.
 
+  // properties that all tenders will have.
   const sharedProperties = {
     status: tStatus.notStarted,
     userOption: null,
     displayPaid: Number(tenderObj.paid / 100).toFixed(2),
   };
 
+  // 
   const errorProperties = {
     errorMsg: (
       <MessageRibbon
@@ -58,7 +59,7 @@ const tenderizer = (tenderObj) => {
         text={`refund to ${tenderObj.tenderType} failed.  Process refund to Store Credit`}
       />
     ),
-
+    canFail: true,
   };
 
   let outTenderObj = {
@@ -80,6 +81,7 @@ const tenderizer = (tenderObj) => {
         ...outTenderObj,
         ...errorProperties,
         tenderLabel: "Credit Cartttt",
+
         
       };
       break;
@@ -89,6 +91,7 @@ const tenderizer = (tenderObj) => {
         ...outTenderObj,
         ...errorProperties,
         tenderLabel: "Debitater",
+        userOption:[1],
       };
       break;
 

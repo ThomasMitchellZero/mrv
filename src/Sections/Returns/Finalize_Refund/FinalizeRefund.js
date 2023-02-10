@@ -39,8 +39,11 @@ const FinalizeRefund = () => {
   // -- SHARED FUNCTIONS ----
 
   // Dispatch status change for current Tender
-  const setSingleTenderStatus = (newStatus) => {
-    // set to In Progress
+  const setStatusOfActiveTender = (newStatus) => {
+    console.log(
+      `Changing ${activeTenderValue.displayPaid} status from ${activeTenderValue.status} to ${newStatus}`
+    );
+    // Change the status
     const newTenderValue = {
       ...activeTenderValue,
       status: newStatus,
@@ -54,24 +57,26 @@ const FinalizeRefund = () => {
 
   // Increment Counter
   const incrementActiveIndex = () => {
-    const newCounter = finalizerState.activeIndex++;
-    // to do: IF all queue tenders handled, navigate to next page.
+    const newCounter = finalizerState.activeIndex + 1;
+
+    console.log(`counter from ${finalizerState.activeIndex} to ${newCounter}`);
+    // to do: IF all queue tenders handled, navigate to next page.  This could also potientially live outside this functoin, but before the UseEffect()
     setFinalizerState({ ...finalizerState, activeIndex: newCounter });
   };
 
   useEffect(() => {
     if (activeTenderValue.status === tStatus.notStarted) {
       if (activeTenderValue.userOption) {
-        setSingleTenderStatus(tStatus.inProgress);
-      }
-      if (failureScenario && activeTenderValue.canFail) {
+        setStatusOfActiveTender(tStatus.inProgress);
+      } else if (failureScenario && activeTenderValue.canFail) {
         // set to Failure
-        setSingleTenderStatus(tStatus.failure);
+        setStatusOfActiveTender(tStatus.failure);
+      } else {
+        setStatusOfActiveTender(tStatus.complete);
+        incrementActiveIndex();
       }
-      setSingleTenderStatus(tStatus.complete);
-      incrementActiveIndex();
     }
-  }, [activeTenderValue]);
+  });
 
   const seventy_panel = {
     confirmCash: (
