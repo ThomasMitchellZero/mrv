@@ -10,6 +10,7 @@ import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
+import UserInput70 from "./Finalize70panels/UserInput70";
 
 import { useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -78,6 +79,10 @@ const FinalizeRefund = () => {
     }
   });
 
+  const paths70 = {
+
+  }
+
   const seventy_panel = {
     confirmCash: (
       <section className={`seventy_panel `}>
@@ -108,21 +113,7 @@ const FinalizeRefund = () => {
         <FooterContainer></FooterContainer>
       </section>
     ),
-    userInput: (
-      <section className={`seventy_panel `}>
-        <TitleBar>Refund Details</TitleBar>
-        <section className={`${classes.mainContent} ${classes.content70}`}>
-          <TenderBadges tender1={tType.check} tender2={tType.check} />
-          <InPageTitleBox
-            topContent={""}
-            hasDivider={false}
-            mainTitle={`Main`}
-            subTitle={`Sub`}
-          />
-        </section>
-        <FooterContainer></FooterContainer>
-      </section>
-    ),
+
   };
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
@@ -155,7 +146,7 @@ const FinalizeRefund = () => {
         </section>
         <FooterContainer></FooterContainer>
       </section>
-      {seventy_panel.userInput}
+      <UserInput70 />
     </section>
   );
 };

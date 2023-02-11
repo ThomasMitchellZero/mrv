@@ -36,14 +36,6 @@ const ref = {
 
 
 
-const labelMaker = (obj)=>{
-
-
-  const tTypeLabels ={
-    [tType.check] : "Checking Account"
-  }
-
-}
 
 const tenderizer = (tenderObj) => {
 
