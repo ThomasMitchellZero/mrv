@@ -4,13 +4,18 @@ import tenderSort from "../functions/tenderSort";
 import tType from "../../../components/global_functions/tenderTypes";
 import tStatus from "../functions/tenderStatusCodes";
 
+// Shared Components
 import TenderBadges from "./TenderBadges";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
+
+//70 Panels
 import UserInput70 from "./Finalize70panels/UserInput70";
+import ConfirmCash70 from "./Finalize70panels/ConfirmCash70";
+import Payout70 from "./Finalize70panels/Payout70";
 
 import { useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -83,39 +88,6 @@ const FinalizeRefund = () => {
 
   }
 
-  const seventy_panel = {
-    confirmCash: (
-      <section className={`seventy_panel `}>
-        <TitleBar>Refund Details</TitleBar>
-        <section className={`${classes.mainContent} ${classes.content70}`}>
-          <section className={` ${classes.content70}`}>
-            <InPageTitleBox
-              hasDivider={false}
-              mainTitle={`Are you sure you want to refund $${activeTenderValue.displayPaid} in cash?`}
-              subTitle="All cash refunds will be given at the end of this return"
-            />
-            <section className={` ${classes.inPageBtnBox}`}>
-              <button
-                type="button"
-                className={`baseButton secondary large contained30`}
-              >
-                No
-              </button>
-              <button
-                type="button"
-                className={`baseButton primary large contained30`}
-              >
-                Yes
-              </button>
-            </section>
-          </section>
-        </section>
-        <FooterContainer></FooterContainer>
-      </section>
-    ),
-
-  };
-
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {
     //TO DO: fix key once this is working.
@@ -127,16 +99,6 @@ const FinalizeRefund = () => {
     );
   });
 
-  // Logic for processing the queue
-
-  // Check for NotStarted b/c I don't want this on every re-render
-
-  /*
-  
-
-
-  */
-
   return (
     <section className={classes.container}>
       <section className={`thirty_panel }`}>
@@ -146,7 +108,7 @@ const FinalizeRefund = () => {
         </section>
         <FooterContainer></FooterContainer>
       </section>
-      <UserInput70 />
+      <Payout70 activeTenderObj={activeTenderValue} />
     </section>
   );
 };
