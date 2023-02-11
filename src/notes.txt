@@ -1,6 +1,8 @@
-RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.
+RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.  Easiest to comprehend > fastest processing
 
 RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
+
+
 
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
@@ -46,6 +48,10 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -Make sure the prices are realistic in both the product catalog and invoices.
 
     -On the Item Details page: The quantity needs to be an editable input field.  IIRC I'll have to change how the Items dispatcher is done in Returns.  
+
+    -In the Tenderizer: Right now, all tenderLabels are hard-coded and stored in the Invoice object. Produce a sophisticated String-maker that caluculates the credit card issuer from the ccNum.  So instead of "Credit ****1234" it would say "Discover ****1234". This will also require me to update the credit card numbers in the file, and then delete the hard-coded values.  AFAICT as long as the new function in the Tenderizer stores the new string in the same property name currently storing the hard-coded strings, no further re-wiring should be needed.
+
+
 
 
 
@@ -2950,36 +2956,152 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -I tried hand-inputting the props and got the same error, so I think it's just a bad component?  Still sucks because that one was hard to find.  Well, let's see if an alternative solves it?
             -Used a different icon and it's OK now.  Still looks like ass.
 
+    2:25
+        Debugged and re-grocered.  I think I just gotta try writing this logic so I can get something to refer to.  I am leaning more towards putting the different screens in components, but is that good?  
 
+        -I've said this before but I think the logic should JUST set the state?  I also think the point of this logic is JUST to get the user to the point where they make a choice.  
 
+        What even handlers do I need, and how am I going to assign them?
+            -In Kind: refund to original tender?  Or does this happen unless they choose something else?
+            -Cash: change global status, 
 
+        -OK, a thought.  I think I might need to have an object of Status.  All the Types will be in standard formats so they are easy to plug into the Status Object, but the Status Object is the intermediary between the State and the UI.  
 
+        -It's either that or I include everything status-related in the Tenderizer?  Like a   [type].[status].property   kind of deal?  
 
-    
+    4:40:
+        -Looks like I've run face-first into a wall.  From what I understand: I don't think I can set the Returns state until rendering of the child (FinalizeRefund) is complete.  
 
-    
-    
+        OK, that makes sense.  I did have the feeling that this code was kind of sketch.  My options are:
+            -Handle the initial state-setting with useEffect()
+
+            -Figure out some way to calculate Status before it gets to FinalizeRefund.  
+
+    -I think useEffect() is the easy way out.  My sense is that unless I am handling asnychronous operations, wanting to useEffect() is sort of a yellow flag that I should be looing for a better way to code it.  So I should cross-examine this argument.
+
+        + I need to evaulate the queue tenders sequentially, starting with the top.  Until I sort the tenders in FinalizeRefund, I don't even know what that order is or which is first.
+            - We need them as an object in the MatchMaker, but AFAICT after that all we need is the array.  Why not sort the object in the Matchmaker and just have that be the state?  Or, maybe just do the whole thing as an array and skip the object phase entirely?
+                + Logic is more complex (or at least not as fast) 
+                    -For the scale we're working on, speed is basically meaningless.
+                + It also feels kind of hacky. We're performing operations based on primary keys.  Objects just seem like a natural fit.
+
+        + Well, OK, then what?  We still have to process them sequentially.
+            -Suppose we've got 
+
+        + You said earlier speed probably doesn't matter at this scale.  Well, what are a few extra re-renders to us?  
+
+    5:50
+        OK, screw all this.  I'm just going to try it as a useEffect.  There isn't a clearly-better solution apparent to me and this gets me moving again.
+
+        Got it working, although getting a warning message that I can disable by clicking the lightbulb.  I think I'm done for the night.  I'm pretty worn out right now.
+
+10 Feb 2023
+    2:50
+    I think I have done enough that I can safely claim to have 'worked' today if anyone asks me.
         
-            
+    X -First, I want to try running the effect on every re-load and see what happens.  
+        -This works.  However, I did notice a LOT of extra cycles.  Looked like maybe 3 cycles per list item?  
 
-            
+    X -Then, I think I should do a ride-along with this code.  Just follow through it step by step because I don't actually know what's happening.
 
+    -Then I want to do some thinking and see if there's a better way to handle this.
 
-
-
+    Man.  This itches.  This itches and I am stalling here.  OK, stream of consciousness: 
+        -in my experience, useEffect usually means I should be doing something different.  I feel like there's got to be an easier way to handle this.  
+        - OK. If I KNEW that the correct answer didn't use useEffect, what would I guess next?
         
+            -IF I had to, my activeTenderSort() function would probably be a good place.  But this does not and cannot dispatch, and I need to dispatch.
 
+        -If there's an easier way, it's not coming to mind.  And where that brings me back to is something like the traffic cop scenario in UseEffect that I'm looking at now.  SOMETHING needs to:
+            - check the next Not Started item in the queue
+            - Resolve + increment if possible
+            - If not, figure out what user input is required and set to that state.
+
+    -OK.  Where do I keep getting looped out?  I don't understand why my ActiveIndex is 1.  It should be zero or 2, right?  
+        -Well, I found one small bug that was having a big effect.  When using a number in a variable for assigning the value of a new variable, ++ !== + 1.  Oops.  Now, I'm looping through the WHOLE array, but that's good, right?  My Failure cases and my User Input cases don't actually have the status the Traffic Cop is checking for, so this should just buzz through them all?
+
+    5:20: Gonna swalk (finally!) To start tomorrow:
+        * copied to tomorrow's work *
+
+22 Feb 2023
+    11:10
+    Yes, late start, but other than ~20 minutes of time-wasting I was doing chores and girl-proofing the house so I don't feel bad.  
+
+    -Computing the display text (credit card ****1234, etc.) would be a nice little starter project.
+        -I think this can actually be smaller than I expected.  AFAICT all the account numbers can be obscured in the same way.  Just **** plus the last 4 of the string.
+            -At some point I could make it more sophisticated and get the card issuer from the number but I don't need it for demos.  Rule 1.
+            -OK.  I have labels in there.  Is this stupid?  Or, more specifically, is this a case for "Leave it and move on?"
+            -I'm thinking yes?  The person I want to be would leave it and move on.  I'm gonna be like him.
+    X - All the tender types need corresponding labels.  Right now they are all hard-coded to Not Started.
+
+    -OK.  I think the 70 panel is the next big ogre we have to slay.  I vaguely have the sense that I'll be using an object and keys, but this isn't actually finalized.  
+        -First, going to look back through the record and see what I already have.  
+        -This wasn't really resolved.  The model I have in my mind is:
+            -Status determines the 70 panel.
+            -Type determines the contents of the 70 panel.
+        -For this approach to work, there needs to be a 1:1 relationship between status and 70 panel.  So I think it goes like: Type determines the possible Statuses you can change to.
+        -Is there a 1:1 relationship?  IF NOT: I can either figure out a way to derive the 70 panel from both Type and Status (but then what will I use for my key if I'm displaying the 70 panel from the key?) or in a pinch I could just create more Statuses.  I think the second one might be better.  After all, nothing says that the UI of a different status has to appear different.  Like if somehow a Debit Card and a Check CANNOT share the same 2-line, I could make a debit2Line status and check2Line status but use the same icons, text, etc. 
+
+        -I guess I should list statuses and see if ALL the Types can use the same 70 panel.
+
+            .notStarted {
+                all:           NA
+            } 
+
+            .inProgress {
+                credit:         NA
+                check:          UserChoice
+                debit:          UserChoice
+                storeCredit:    SwipeCard
+                cash:           Close Register
+            }
+
+            .progress2Line {
+
+                // AFACIT, only Debit and Check could ever get here, and only if they decline In-Kind payment. So: 
+
+                credit:         /
+                check:          /
+                debit:          Confirm Cash
+                storeCredit:    Confirm Cash
+                cash:           /
+            }
+
+            .failure {
+                credit:         SC or Cash
+                check:          SC or Cash
+                debit:          SC or Cash
+                storeCredit:    NA?
+                cash:           NA
+            }
+
+            .complete {                
+                All:            NA
+
+            .swapped {
+                All:            NA
+            }
         
+        So from this list, the only time we need a 70-panel at all is if we are asking the user to make some choice:
+            -Choosing In-Kind or Cash for Check or Debit
+            -Choosing Cash or Store Credit for the Failures
+            -Confirmation of completed action for SC or Cash.
+        
+        Another thought:
+            -I think The Failures are going to need an additional state, a failureCash state, where the associate has selected Cash and is confirming it.
 
-  
+        So then, here's where I think we go with this.  In the FinalizeRefund file, I make a  paths70{} object.  For each status that requires user input, I define a route.  If there's no variablity, it's just a path to the 70 panel.  Where there is variablity, it's activeItem[type].status, and the specifics live on the refund according to type?  
 
+        OK.  I think that's the route.  It feels like the missing piece. I feel good about it.  And when I swalk today I need to do some hard thinking about how I didn't figure this out sooner.
 
+        What to do with the 70 panels?  What do I definitely need?
 
-
-
-
-
-
+            -A Warning component (configurable to userChoice)
+            -A ConfirmCash component
+            -A SwipeCard component (If too hard to configure ConfirmCash)
+        
+        -I think it will be easier to have each one be a full 70 panel, since some of them are going to depent on buttons.
+        -I also think I'm just going to bite the bullet and just make them all separate components.  That should be a lot more readable.  Doing that should get me into a good groove.  Let's go.
 
 
 

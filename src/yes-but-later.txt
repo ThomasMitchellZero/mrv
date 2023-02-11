@@ -2,11 +2,26 @@
 
 -Try and think of some sort of routine or practice like 42069 to get myself to want to work?
 
--Why was Richmond the Confederate capital?
-
 -Adult volleyball clinics or coaching?
 
 -Meaning of code-smell?
 
 -Elegant React?  If not, is Elegant Javascript worthwhile?  
 
+22 Feb 2023
+    -List and describe tactics for outwitting my ADD (first entry, this yes-but-later file!)
+
+    -Think about systematized approaches to handle wheel-spinning or that thing we do where we're just aimlessly looking around the code when we are stuck.  Kind of like the 'field-cutting' approach to bug fixes?
+
+    -It seems like the rate at which we are discovering anti-ADD weapons is increasing.  Analyze?
+
+    -Ponder why we don't seek out more work.  We're generally happier when overtaxed instead of underused.
+
+    -Come up with a stomach-acid management approach.  Factors to consider:
+        -Does food acidity meaningfully effect stomach acidity?
+        -With how Vyvanse is absorbed, do I need to de-acidify on an extended basis to have an effect?
+        -If lower acidity = lower protein absorbtion, how does that affect my muscle/nutrition goals?
+
+    -Come up with a clear description of what is different about implications of Status vs. Definition in Tenders.  I think there's a programming heuristic to be found in there.  
+
+    -Monster Train is on sale for $5

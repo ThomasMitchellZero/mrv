@@ -1,6 +1,6 @@
 import classes from "./TenderTypesLI.module.css";
 
-import tenderTypes from "../../../components/global_functions/tenderTypes";
+import tTypes from "../../../components/global_functions/tenderTypes";
 import tStatus from "../functions/tenderStatusCodes";
 
 import {
@@ -24,32 +24,38 @@ const iconsObj = {
 const mainStatus = {
   [tStatus.notStarted]: {
     icon: iconsObj.notStarted,
+    statusLabel: "Not Started"
   },
   [tStatus.inProgress]: {
     icon: iconsObj.inProgress,
     active: true,
+    statusLabel: "In Progress"
   },
   [tStatus.progress2Line]: {
     icon: iconsObj.inProgress,
     line2: true,
     strike: classes.strike,
+    statusLabel: "In Progress"
   },
   [tStatus.failure]: {
     icon: iconsObj.failure,
     line2: true,
     strike: classes.strike,
+    statusLabel: "Auto Credit Failed"
   },
   [tStatus.complete]: {
     icon: iconsObj.complete,
+    statusLabel: "Complete"
   },
   [tStatus.swapped]: {
     icon: iconsObj.complete,
     strike: classes.strike,
+    statusLabel: "Refund Tender Changed"
   },
 };
 
 const TenderTypesLI = ({ tenderObj }) => {
-  // JS code
+
 
   //const status = tStatus.swapped
   const status = tenderObj.status;
@@ -77,7 +83,7 @@ const TenderTypesLI = ({ tenderObj }) => {
             >{`$${tenderObj.displayPaid}`}</h4>
           </section>
           <section className={`${classes.lineHeight}`}>
-            <h5>{`Not Started`}</h5>
+            <h5>{`${mainStatus[status].statusLabel}`}</h5>
           </section>
         </section>
         {/* Cell 2 */}

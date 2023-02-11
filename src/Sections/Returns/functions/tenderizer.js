@@ -1,5 +1,5 @@
-import tenderTypes from "../../../components/global_functions/tenderTypes";
-import tenderStatusCodes from "./tenderStatusCodes";
+import tType from "../../../components/global_functions/tenderTypes";
+import tStatus from "./tenderStatusCodes";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 const ref = {
@@ -34,13 +34,16 @@ const ref = {
   },
 };
 
-const tType = tenderTypes;
-const tStatus = tenderStatusCodes;
-
-// the Tenderizer takes gets a tender type and populates it with the additional type-specific properties.  It deals ONLY with an individual tender.
 
 
-// Should I be defining button behavior in here?  Like, get it ALL in the Tenderizer?  
+const labelMaker = (obj)=>{
+
+
+  const tTypeLabels ={
+    [tType.check] : "Checking Account"
+  }
+
+}
 
 const tenderizer = (tenderObj) => {
 
