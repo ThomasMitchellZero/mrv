@@ -41,6 +41,8 @@ const FinalizeRefund = () => {
   // activeTender info
   const activeTenderKey = tendersArr[finalizerState.activeIndex];
   const activeTenderValue = ctxTenders[activeTenderKey];
+  const activeStatus = activeTenderValue.status;
+  const activeType = activeTenderValue.tenderType;
 
   // -- SHARED FUNCTIONS ----
 
@@ -85,8 +87,20 @@ const FinalizeRefund = () => {
   });
 
   const paths70 = {
+    [tStatus.failure]: <UserInput70 />,
+    
+    [tStatus.progress2Line]: <ConfirmCash70 />,
+    
+    [tStatus.inProgress]: {
+      [tType.cash]: <Payout70 activeTenderObj={activeTenderValue}/>,
+      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderValue}/>,
+      [tType.debit]: <UserInput70 />,
+      [tType.check]: <UserInput70 />,
+    },
+  };
 
-  }
+  // Use active panel for active Status unless panel also depends on Type
+  const active70 = paths70[activeStatus][activeType] ?? paths70[activeStatus];
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {

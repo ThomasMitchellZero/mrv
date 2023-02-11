@@ -3046,7 +3046,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             .notStarted {
                 all:           NA
-            } 
+            }
 
             .inProgress {
                 credit:         NA
@@ -3075,6 +3075,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
                 cash:           NA
             }
 
+            .failureCash{
+
+            }
+
             .complete {                
                 All:            NA
 
@@ -3092,16 +3096,46 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         So then, here's where I think we go with this.  In the FinalizeRefund file, I make a  paths70{} object.  For each status that requires user input, I define a route.  If there's no variablity, it's just a path to the 70 panel.  Where there is variablity, it's activeItem[type].status, and the specifics live on the refund according to type?  
 
-        OK.  I think that's the route.  It feels like the missing piece. I feel good about it.  And when I swalk today I need to do some hard thinking about how I didn't figure this out sooner.
+        OK.  I think that's the route.  It feels like the missing piece. I feel good about it.  And when I swalk today I need to do some hard thinking about how I didn't figure this out sooner.  Like, it might be worthwhile to do a workout tomorrow morning and then spend the afternoon analyzing this.
 
         What to do with the 70 panels?  What do I definitely need?
 
-            -A Warning component (configurable to userChoice)
-            -A ConfirmCash component
-            -A SwipeCard component (If too hard to configure ConfirmCash)
+            X -A Warning component (configurable to userChoice)
+            X -A ConfirmCash component
+            X -A SwipeCard component (If too hard to configure ConfirmCash)
         
         -I think it will be easier to have each one be a full 70 panel, since some of them are going to depent on buttons.
-        -I also think I'm just going to bite the bullet and just make them all separate components.  That should be a lot more readable.  Doing that should get me into a good groove.  Let's go.
+        X -I also think I'm just going to bite the bullet and just make them all separate components.  That should be a lot more readable.  Doing that should get me into a good groove.  Let's go.
+
+    4:10
+        I've got the three 70 panels I need.  Things I need that I don't have:
+            -a Paths70 object that tells what 70-panel to display based on Type and Status
+            -a universal format for UserInput70 so that no matter what's populating it, all variable fields are getting what they need.
+                -Ideally, this won't need its own internal object pathing although that might be too much to ask for?
+                    -I'm now wondering if this was a mistake for the Payouts?  Like, I could technically have all of this live in the Tenderizer?  
+                    -I'm kind of doing conditional logic though objects.  Is this a good thing to do?
+                -Ideally, all relevant info lives in a single place although again, maybe too much to ask for?  
+            -Any information that's going to live in the Tenderizer needs to be populated there.  
+                -Maybe I should be applying my lowest-level heuristic here.  If information is consumed in more than one place (like the displayPrice or the Status) it's assigned in the Tenderizer, but otherwise it just lives in the same place it's consumed.  
+                    -So actually I think what I did with Payouts70 is correct.  I don't need those text strings anywhere else.
+            -I need to figure out how I'm going to handle the Dispatch functions and where is the best place for them to live.
+        
+        I think I should do the first two in order because that will give me something to look at.
+
+        However, since my velocity is not amazing and I'll need some time to get the smoke-taste off my tongue I think I might have a swalk now.
+
+    5:30.
+    -Got another choice to make.  I was originally planning to have per-state pathing live on the tenders as: 
+    [tenderType].[status] ) 
+    but now I'm considering reversing it. In FinalizeRefund I would route as:
+    [status].[tenderType]  
+    
+    My reasons are:
+        -AFAICT I'm not consuming type/status-specific information anywhere else, so putting that information in the refunds_by_tender violates the Lowest-Shared principle.
+        -It should let me do my populating extra prop-drilling since I can populate directly into the components I'm using
+        -I think it makes it easier for me to define and consume all of my dispatch functions in the FinalizeRefund component.
+
+
 
 
 

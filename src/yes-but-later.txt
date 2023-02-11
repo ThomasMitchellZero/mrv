@@ -15,13 +15,15 @@
 
     -It seems like the rate at which we are discovering anti-ADD weapons is increasing.  Analyze?
 
-    -Ponder why we don't seek out more work.  We're generally happier when overtaxed instead of underused.
+    -Ponder why I don't seek out more work at work.  I'm generally happier when overtaxed instead of underused.
 
     -Come up with a stomach-acid management approach.  Factors to consider:
         -Does food acidity meaningfully effect stomach acidity?
         -With how Vyvanse is absorbed, do I need to de-acidify on an extended basis to have an effect?
         -If lower acidity = lower protein absorbtion, how does that affect my muscle/nutrition goals?
 
-    -Come up with a clear description of what is different about implications of Status vs. Definition in Tenders.  I think there's a programming heuristic to be found in there.  
+    -Come up with a clear description of what is different about implications of Status vs. Type in Tenders.  I think there's a programming heuristic to be found in there.  
 
     -Monster Train is on sale for $5
+
+    

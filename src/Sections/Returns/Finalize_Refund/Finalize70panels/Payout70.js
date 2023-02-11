@@ -8,6 +8,7 @@ import InPageTitle from "../../../../components/UI/DisplayOutputs/InPageTitleBox
 import tType from "../../../../components/global_functions/tenderTypes";
 
 const Payout70 = ({ activeTenderObj, onClick }) => {
+  
   const typesObj = {
     [tType.cash]: {
       mainTitle: `$${activeTenderObj.displayPaid} due to customer.`,

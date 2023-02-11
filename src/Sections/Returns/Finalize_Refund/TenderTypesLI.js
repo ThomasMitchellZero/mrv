@@ -21,6 +21,7 @@ const iconsObj = {
   ),
 };
 
+// Status specifics for each LI
 const mainStatus = {
   [tStatus.notStarted]: {
     icon: iconsObj.notStarted,
@@ -43,6 +44,12 @@ const mainStatus = {
     strike: classes.strike,
     statusLabel: "Auto Credit Failed"
   },
+  [tStatus.failureCash]: {
+    icon: iconsObj.failure,
+    line2: true,
+    strike: classes.strike,
+    statusLabel: "Auto Credit Failed"
+  },
   [tStatus.complete]: {
     icon: iconsObj.complete,
     statusLabel: "Complete"
@@ -57,7 +64,7 @@ const mainStatus = {
 const TenderTypesLI = ({ tenderObj }) => {
 
 
-  //const status = tStatus.swapped
+  //const status = tStatus.failureCash
   const status = tenderObj.status;
   return (
     <section
