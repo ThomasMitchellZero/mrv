@@ -122,7 +122,7 @@ const FinalizeRefund = () => {
         </section>
         <FooterContainer></FooterContainer>
       </section>
-      <Payout70 activeTenderObj={activeTenderValue} />
+      {active70}
     </section>
   );
 };

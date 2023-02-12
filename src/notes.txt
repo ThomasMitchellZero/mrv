@@ -3135,6 +3135,26 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -It should let me do my populating extra prop-drilling since I can populate directly into the components I'm using
         -I think it makes it easier for me to define and consume all of my dispatch functions in the FinalizeRefund component.
 
+    6:20:
+    I think I'm gonna call it for the day.  I'm sure I will have to do a bunch of detailed fuckery to get this working, but I finally think I've got a clear conceptual model.  What did I figure out today?
+        
+        -I knew the Lowest-Shared principle but I didn't actually grok how to apply it to this problem until today.  Now I have a good idea of what should live where.
+
+        -No, seriously: I think that tiny little revelation of using the ?? Nullish Coalescing Operator to apply Type-specific conditions where necessary and Status-specify conditions otherwise was what really broke me through.  Looking back, the fact that the 70 panel could be determined by either was what was slowing me down.  
+
+        Also, it's funny.  When I went for my swalk, my sentiment was "Whatever pattern I identify, it seems like it should be repeatable on an infinite number of levels, not just two.  Well, this is a pattern I could use infinitely.  
+        For n levels of nested conditions:
+            active = [Most Specific] ?? [...] ?? [Least Specific]
+
+        Of course, that does leave me the task of sorting like conditions together, but I think that's more doable.  I need a heuristic for how to decide which parents go to which children.  That pattern should work in any order, but some orders are probably a lot better than others.
+            -I think it has something to do with shared values.  Like, if I were to do it in reverse order: [tenderType].[status], I would have been writing tType.xxx.failure   A LOT.  
+
+        -I don't know if it's actually good, but something about the object-path pattern seems very clean to me.  
+
+        -I'm also not sure I understood that I was solving a problem at the time, but having more Status options helped a lot.  If I didn't have that I would have to conditionally alter the statuses, and that sounds pretty hard.
+
+        -Looking at this, it's kind of underwhelming.  I wish I could compare the understanding from this morning to the understanding from tonight to see what changed.  
+
 
 
 
