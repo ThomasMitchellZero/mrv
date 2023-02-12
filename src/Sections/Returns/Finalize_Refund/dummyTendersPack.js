@@ -41,10 +41,10 @@ const dummyArrPrime = [
   },
 ];
 
-const dummyTendersArr = dummyArrPrime
+const dummyTendersArr = [...dummyArrPrime]
 
-for (const arrItem of dummyTendersArr) {
-  dummyTendersArr[arrItem] = tenderizer(arrItem);
+for (let arrItem of dummyTendersArr) {
+  arrItem = tenderizer(arrItem);
 }
 
 const dummyTendersPack = {

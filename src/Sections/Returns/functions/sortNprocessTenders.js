@@ -4,7 +4,7 @@ import tStatus from "./tenderStatusCodes";
 import cloneDeep from "lodash.clonedeep";
 
 const sortNprocessTenders = (tendersPack, failure = true) => {
-  const unsortedTendersArr = cloneDeep(tendersPack.tenderArr);
+  const unsortedTendersArr = cloneDeep(tendersPack.tendersArr);
   let newIndex = tendersPack.activeIndex;
 
   // tender types, in the order they should be processed.
