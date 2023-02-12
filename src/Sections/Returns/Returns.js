@@ -17,16 +17,21 @@ const Returns = () => {
 
   //// RETURNS SESSION REDUCER ////
 
-  
+  const failureStatus = false
 
   const defaultSessionState = {
-    scenarios:{totalTenderFailure: false},
+    scenarios: { totalTenderFailure: failureStatus },
     items: {},
     invoices: {},
     unmatched: {},
     modified_invoices: {},
     matched: {},
-    refunds_by_tender: {...sortNprocessTenders(dummyTendersPack)},
+    refunds_by_tender: {
+      ...sortNprocessTenders(
+        dummyTendersPack,
+        failureStatus
+      ),
+    },
     refund_money: {
       refundTotal: 0,
       taxSum: 0,
@@ -124,10 +129,11 @@ const Returns = () => {
       }
 
       case "UPDATE_TENDERS": {
-        const newTendersObj = action.payload
+        const newTendersObj = action.payload;
         return {
-          ...state, refunds_by_tender: newTendersObj
-        }
+          ...state,
+          refunds_by_tender: newTendersObj,
+        };
       }
 
       case "CLEAR_SESSION":
