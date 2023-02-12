@@ -8,7 +8,7 @@ const Placeholder = ({
   pageText = "Coming Soon",
 }) => {
   return (
-    <section className={classes.container}>
+    <section className={`${classes.container} ${extraClasses}`}>
       <TitleBar>{titleText}</TitleBar>
       <div className={classes.content}>{pageText}</div>
       <FooterContainer></FooterContainer>

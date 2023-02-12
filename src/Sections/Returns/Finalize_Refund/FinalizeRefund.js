@@ -16,6 +16,7 @@ import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 import UserInput70 from "./Finalize70panels/UserInput70";
 import ConfirmCash70 from "./Finalize70panels/ConfirmCash70";
 import Payout70 from "./Finalize70panels/Payout70";
+import Placeholder from "../../Placeholder/Placeholder";
 
 import { useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -86,23 +87,33 @@ const FinalizeRefund = () => {
     }
   });
 
+  const emptyUI = (
+    <Placeholder
+      titleText="Blank"
+      extraClasses={`seventy_panel `}
+      pageText="You shouldn't be here"
+    />
+  );
+
   const paths70 = {
     [tStatus.failure]: <UserInput70 />,
-    
+
     [tStatus.progress2Line]: <ConfirmCash70 />,
-    
+
     [tStatus.inProgress]: {
-      [tType.cash]: <Payout70 activeTenderObj={activeTenderValue}/>,
-      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderValue}/>,
+      [tType.cash]: <Payout70 activeTenderObj={activeTenderValue} />,
+      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderValue} />,
       [tType.debit]: <UserInput70 />,
       [tType.check]: <UserInput70 />,
-      [tType.credit]: <UserInput70 />,
     },
   };
-  
+
+  console.log("ding");
 
   // Use active panel for active Status unless panel also depends on Type
-  const active70 = paths70[activeStatus][activeType] ?? paths70[activeStatus];
+  //TODO - this is a crappy description.
+  const active70 =
+    paths70?.[activeStatus]?.[activeType] ?? paths70?.[activeStatus] ?? emptyUI;
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderKey) => {

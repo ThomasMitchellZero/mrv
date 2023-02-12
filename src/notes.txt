@@ -1,6 +1,8 @@
-RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.  Easiest to comprehend > fastest processing
+RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.
 
 RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
+
+RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
 
 
@@ -2977,7 +2979,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             -Figure out some way to calculate Status before it gets to FinalizeRefund.  
 
-    -I think useEffect() is the easy way out.  My sense is that unless I am handling asnychronous operations, wanting to useEffect() is sort of a yellow flag that I should be looing for a better way to code it.  So I should cross-examine this argument.
+    -I think useEffect() is the easy way out.  My sense is that unless I am handling asnychronous operations, wanting to useEffect() is sort of a yellow flag that I should be looking for a better way to code it.  So I should cross-examine this argument.
 
         + I need to evaulate the queue tenders sequentially, starting with the top.  Until I sort the tenders in FinalizeRefund, I don't even know what that order is or which is first.
             - We need them as an object in the MatchMaker, but AFAICT after that all we need is the array.  Why not sort the object in the Matchmaker and just have that be the state?  Or, maybe just do the whole thing as an array and skip the object phase entirely?
@@ -3169,6 +3171,30 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Then I need to figure out my dispatching, where it will live, and how I will get it to the components.
 
         -I also want to try something different for writing the dispatching.  Instead of just navel-gazing about it, I'm going to start by writing some code.  Given the limits of my working memory, I've found that I tend to get unstuck when I have something to see and compare.
+
+    -OK.  Another thought.  One of the reasons I've avoided storing the refunds_by_tender in an array rather than an object is because I didn't know how to make sure StoreCredit and Cash ended up at the end like I wanted.  Well, I've actually already solved that problem.  As long as I run the Sorter each time before I change the state I can be sure they'll end up where I want them.  
+
+        -I'm here again because what I'm doing (using useEffect) still itches.  I'm pretty sure I can get it working with the UseEffect.  if I change later I'll have to uproot some, but not all, since AFAICT most of what I have is already expecting an array.  Let's set a timer for 20 and see if we can't make some headway. 
+
+            Q: Why are we even doing this?  AFAICT it's working right now.  This looks like a Rule 3 violation.
+                A:  I don't care about the extra cycles.  I care that I don't know why they are happening, and the program seems to be acting in a non-linear way.  We're veering very close to "It works but I don't understand why" and that's how we get stuck forever.  
+
+            Q: Sketch out the ideal solution.
+                A: After the refunds_by_tender array is complete and ordered but before it is dispatched to the Session state, we use basically the same logic we're currently using in useEffect.  
+
+                "Can we resolve [currentIndex] automatically?  
+                    Yes?  Do it, increment [currentIndex], shoot again.
+                    No? Set to In Progress and wait for the user to choose.
+                
+                Q: Consider a scenario where there are two CC tenders.  The first fails and the user makes their choice.  The second does not fail.  How does 2 get auto-resolved?
+                    A: First, probably a Rule 1 violation. But Rule 2 might also apply here.  I think the correct approach would be to try for auto-resolution on EVERY item.  
+
+        Time's up but I feel like I'm making headway.  OK, so here's a slightly nutty idea.  Just get it down - What's on screen doesn't have to be the main state.  Dispatch in batches, not in singletons.  
+            FinalizeRefund loads.  I clone Refunds by Tender.  Auto-process as many as I can until I either get to the end of the list or I get a user input.  Dispatch that to the global state.  Start again.  But I'm not sure what that gets me.  
+
+        OK.  So I am actually wondering if the AutoResolver couldn't just live in the refunds_by_tender switch case itself.  So any time a request for a change to that state comes in (including when it is created, since that's also a dispatch ())
+
+                
 
 
 
