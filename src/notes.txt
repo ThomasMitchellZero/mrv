@@ -3155,6 +3155,20 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Looking at this, it's kind of underwhelming.  I wish I could compare the understanding from this morning to the understanding from tonight to see what changed.  
 
+12 Feb 2023
+    10:10
+        -Got in a workout and I'm mostly here, butt in seat, the way I want to be.  I don't feel good right now.  I'm tired and I don't really want to be programming, but nothing else sounds more appealing so here I am.  
+
+        -One other point of emphasis today: I'm tentatively naming the pattern of "Make the choice the person you want to be would make" as One Weird Trick.  (Failures HATE him!)  I want that to be the first thing I try.
+
+        -I need to dive into the work of getting the 70 panels to populate, and for that to happen I need to start by turning on the Failure scenario.
+        I also need to make sure that I've got canFail and userChoice scenarios in the Tenderizer for all Types that require them.
+
+        -I don't WANT to do this, but I feel like I should do a ride-along to see how my useEffect loop is working?  
+
+        -Then I need to figure out my dispatching, where it will live, and how I will get it to the components.
+
+        -I also want to try something different for writing the dispatching.  Instead of just navel-gazing about it, I'm going to start by writing some code.  Given the limits of my working memory, I've found that I tend to get unstuck when I have something to see and compare.
 
 
 

@@ -5,7 +5,7 @@ import "./app-styles/text-styles.css";
 import "./app-styles/inputs.css";
 import "./app-styles/dividers.css";
 import "./app-styles/panels.css";
-import "./app-styles/system-colors.css"
+import "./app-styles/system-colors.css";
 
 import { Route, Routes } from "react-router-dom";
 
@@ -27,12 +27,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Main />}>
-          <Route index element={<Placeholder>Home</Placeholder>} />
-          <Route path="/home" element={<Placeholder>Home</Placeholder>} />
-          <Route path="/orders" element={<Placeholder>Orders</Placeholder>} />
+          <Route index element={<Placeholder titleText="Home" />} />
+          <Route path="/home" element={<Placeholder titleText="Home" />} />
+          <Route path="/orders" element={<Placeholder titleText="Orders" />} />
           <Route
             path="/showroom"
-            element={<Placeholder>Showroom</Placeholder>}
+            element={<Placeholder titleText="Showroom" />}
           />
           <Route path="/returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>} />
