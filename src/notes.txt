@@ -3204,9 +3204,11 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Write the Sort + Process function
             -Update MatchMaker to produce an array, not an object.
             -Sort the output of Matchmaker.
+            -Update Tenderizer.
             -Update the Session State to reflect this.
             -Change my default to an array, same format.
             -Clear out all the useEffect-specific stuff from FinalizeRefund.
+
 
         That looks like a lot but I'm legit feeling exited.  Let's go!  Also, I'm really happy that it's only 1:40.  I would have guessed it was like 3:00.
 
