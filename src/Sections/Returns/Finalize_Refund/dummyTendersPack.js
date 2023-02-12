@@ -41,11 +41,11 @@ const dummyArrPrime = [
   },
 ];
 
-const dummyTendersArr = [...dummyArrPrime]
+const dummyTendersArr = dummyArrPrime.map((arrObj)=>{
+  return tenderizer(arrObj)
+})
 
-for (let arrItem of dummyTendersArr) {
-  arrItem = tenderizer(arrItem);
-}
+console.log(dummyTendersArr)
 
 const dummyTendersPack = {
   activeIndex: 0,

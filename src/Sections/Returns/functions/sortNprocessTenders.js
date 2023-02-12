@@ -34,7 +34,7 @@ const sortNprocessTenders = (tendersPack, failure = true) => {
       sortedTenders[newIndex].status = tStatus.failure;
       break;
     } else {
-      sortedTenders[newIndex].status = tStatus.com;
+      sortedTenders[newIndex].status = tStatus.complete;
     }
   }
 
