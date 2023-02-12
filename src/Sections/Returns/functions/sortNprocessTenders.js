@@ -3,7 +3,7 @@ import tStatus from "./tenderStatusCodes";
 
 import cloneDeep from "lodash.clonedeep";
 
-const tenderSort = (tendersPack, failure = true) => {
+const sortNprocessTenders = (tendersPack, failure = true) => {
   const unsortedTendersArr = cloneDeep(tendersPack.tenderArr);
   let newIndex = tendersPack.activeIndex;
 
@@ -46,4 +46,4 @@ const tenderSort = (tendersPack, failure = true) => {
   return newTendersPack;
 };
 
-export default tenderSort;
+export default sortNprocessTenders;

@@ -3202,14 +3202,15 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         Another idea.  How about a shared function that sorts and then processes as far as it can in the array and returns both the list and the index for as far as it got?  I can fire it once on creation, and then again every time I change the array state?  That seems like it could work.  And I can also use it on my sample case if I need to.  OK.  I'm liking this.  I need to:
 
             X - Make a branch because these are major changes.  
-            - Write the Sort + Process function
-            - Update MatchMaker to produce an array, not an object.
-            - Sort the output of Matchmaker.
-            - Update Tenderizer.
+            X - Write the Sort + Process function
             - Update the Session State to reflect this.
-            - Change my default to an array, same format.
+            - Update MatchMaker to produce an array, not an object.
+            - Update Tenderizer.
+            - Update default state in Session to an array w/ correct format.
             - Clear out all the useEffect-specific stuff from FinalizeRefund.
             X - A Plan for how to handle activeIndex
+
+            - Sort the output of Matchmaker.
 
         That looks like a lot but I'm legit feeling exited.  Let's go!  Also, I'm really happy that it's only 1:40.  I would have guessed it was like 3:00.
 
