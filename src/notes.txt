@@ -3200,17 +3200,26 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         Thinking about it, I'm not sold.  First, AFACIT the original creation isn't a dispatch, so I'd have to change a lot of stuff to get it to happen.  Nor is my test case, and since I'm not actually communicating with an outside system, the test case is the only way I can see a failure state.
 
         Another idea.  How about a shared function that sorts and then processes as far as it can in the array and returns both the list and the index for as far as it got?  I can fire it once on creation, and then again every time I change the array state?  That seems like it could work.  And I can also use it on my sample case if I need to.  OK.  I'm liking this.  I need to:
-            -Make a branch because these are major changes.  
-            -Write the Sort + Process function
-            -Update MatchMaker to produce an array, not an object.
-            -Sort the output of Matchmaker.
-            -Update Tenderizer.
-            -Update the Session State to reflect this.
-            -Change my default to an array, same format.
-            -Clear out all the useEffect-specific stuff from FinalizeRefund.
 
+            X - Make a branch because these are major changes.  
+            - Write the Sort + Process function
+            - Update MatchMaker to produce an array, not an object.
+            - Sort the output of Matchmaker.
+            - Update Tenderizer.
+            - Update the Session State to reflect this.
+            - Change my default to an array, same format.
+            - Clear out all the useEffect-specific stuff from FinalizeRefund.
+            X - A Plan for how to handle activeIndex
 
         That looks like a lot but I'm legit feeling exited.  Let's go!  Also, I'm really happy that it's only 1:40.  I would have guessed it was like 3:00.
+
+        I need to stop and think about the activeIndex.  Since refunds_by_tender is a derived state it's going to be recalculated a lot.  While matches are being added IDGAF, it can (and should) be recaluclated every time.  Also, every time I use the Tenderizer, every component starts with status of Not Started. But once we start taking user input, I need to make sure I'm not asking for the same user input repeatedly.  My options are:
+            -Store or process ActiveIndex separately from the TendersArr. (but then I need a redundant process to get it again :/ )
+            -The Matchmaker doesn't preserve any part of any of the derived states when it runs.  The input sortNprocess is getting from the Matchmaker will always have a starting index of 0.
+            -So I should be good.  I just need to make sure that later on as I modify the derived states, I'm running sortNprocess on the old state, not an empty state.  
+
+    3:15
+        I think what I will do is get the dummy stuff working correctly and then move onto the Matchmaker because otherwise I won't know if my new structure and processing are working and I do not want to debug this shit twice.
 
 
                 

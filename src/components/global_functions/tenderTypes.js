@@ -1,3 +1,5 @@
+// global because I might someday use it in another MRV product.
+
 const tenderTypes = {
     cash: "cash",
     check: "check",
