@@ -41,10 +41,15 @@ const dummyArrPrime = [
   },
 ];
 
-const outDummyArr = dummyArrPrime
+const dummyTendersArr = dummyArrPrime
 
-for (const arrItem of outDummyArr) {
-  outDummyArr[arrItem] = tenderizer(arrItem);
+for (const arrItem of dummyTendersArr) {
+  dummyTendersArr[arrItem] = tenderizer(arrItem);
 }
 
-export default outDummyArr;
+const dummyTendersPack = {
+  activeIndex: 0,
+  tendersArr: dummyTendersArr
+}
+
+export default dummyTendersPack;

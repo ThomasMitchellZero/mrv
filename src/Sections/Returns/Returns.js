@@ -8,12 +8,16 @@ import cloneDeep from "lodash.clonedeep";
 
 // test data, delete once everything is working.
 import dummyTenders from "./Finalize_Refund/dummyTenders";
+import dummyTendersPack from "./Finalize_Refund/dummyTendersPack";
+import sortNprocessTenders from "./functions/sortNprocessTenders";
 
 const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
 
   //// RETURNS SESSION REDUCER ////
+
+  
 
   const defaultSessionState = {
     scenarios:{totalTenderFailure: false},
@@ -22,7 +26,7 @@ const Returns = () => {
     unmatched: {},
     modified_invoices: {},
     matched: {},
-    refunds_by_tender: {...dummyTenders},
+    refunds_by_tender: {...sortNprocessTenders(dummyTendersPack)},
     refund_money: {
       refundTotal: 0,
       taxSum: 0,
