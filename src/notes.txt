@@ -3192,7 +3192,24 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         Time's up but I feel like I'm making headway.  OK, so here's a slightly nutty idea.  Just get it down - What's on screen doesn't have to be the main state.  Dispatch in batches, not in singletons.  
             FinalizeRefund loads.  I clone Refunds by Tender.  Auto-process as many as I can until I either get to the end of the list or I get a user input.  Dispatch that to the global state.  Start again.  But I'm not sure what that gets me.  
 
-        OK.  So I am actually wondering if the AutoResolver couldn't just live in the refunds_by_tender switch case itself.  So any time a request for a change to that state comes in (including when it is created, since that's also a dispatch ())
+        OK.  So I am actually wondering if the AutoResolver couldn't just live in the refunds_by_tender switch case itself.  So any time a request for a change to that state comes in (including when it is created, since that's also a dispatch? Or is it?) UPDATE_TENDERS:
+            1. sorts the list, 
+            2. processess as many as it can
+            3. updates the activeIndex counter (exact approach tbd)
+
+        Thinking about it, I'm not sold.  First, AFACIT the original creation isn't a dispatch, so I'd have to change a lot of stuff to get it to happen.  Nor is my test case, and since I'm not actually communicating with an outside system, the test case is the only way I can see a failure state.
+
+        Another idea.  How about a shared function that sorts and then processes as far as it can in the array and returns both the list and the index for as far as it got?  I can fire it once on creation, and then again every time I change the array state?  That seems like it could work.  And I can also use it on my sample case if I need to.  OK.  I'm liking this.  I need to:
+            -Make a branch because these are major changes.  
+            -Write the Sort + Process function
+            -Update MatchMaker to produce an array, not an object.
+            -Sort the output of Matchmaker.
+            -Update the Session State to reflect this.
+            -Change my default to an array, same format.
+            -Clear out all the useEffect-specific stuff from FinalizeRefund.
+
+        That looks like a lot but I'm legit feeling exited.  Let's go!  Also, I'm really happy that it's only 1:40.  I would have guessed it was like 3:00.
+
 
                 
 
