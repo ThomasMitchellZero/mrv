@@ -96,8 +96,10 @@ const FinalizeRefund = () => {
       [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderValue}/>,
       [tType.debit]: <UserInput70 />,
       [tType.check]: <UserInput70 />,
+      [tType.credit]: <UserInput70 />,
     },
   };
+  
 
   // Use active panel for active Status unless panel also depends on Type
   const active70 = paths70[activeStatus][activeType] ?? paths70[activeStatus];
