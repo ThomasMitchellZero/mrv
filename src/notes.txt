@@ -4,7 +4,8 @@ RULE 2:  This is practice, and we can only learn by doing.  The more central a f
 
 RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
-
+RULE 4:
+IME, Pictograph => Rebus => Alphabet is frequently faster than Pictograph => Alphabet.  Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint to good code, not a detour from it.  
 
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
@@ -3168,9 +3169,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I don't WANT to do this, but I feel like I should do a ride-along to see how my useEffect loop is working?  
 
-        -Then I need to figure out my dispatching, where it will live, and how I will get it to the components.
 
-        -I also want to try something different for writing the dispatching.  Instead of just navel-gazing about it, I'm going to start by writing some code.  Given the limits of my working memory, I've found that I tend to get unstuck when I have something to see and compare.
 
     -OK.  Another thought.  One of the reasons I've avoided storing the refunds_by_tender in an array rather than an object is because I didn't know how to make sure StoreCredit and Cash ended up at the end like I wanted.  Well, I've actually already solved that problem.  As long as I run the Sorter each time before I change the state I can be sure they'll end up where I want them.  
 
@@ -3203,11 +3202,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             X - Make a branch because these are major changes.  
             X - Write the Sort + Process function
-            - Update the Session State to reflect this.
-            - Update MatchMaker to produce an array, not an object.
-            - Update Tenderizer.
-            - Update default state in Session to an array w/ correct format.
-            - Clear out all the useEffect-specific stuff from FinalizeRefund.
+            X - Update the Session State to reflect this.
+            X - Update Tenderizer.
+            X - Update default state in Session to an array w/ correct format.
+            X - Clear out all the useEffect-specific stuff from FinalizeRefund.
             X - A Plan for how to handle activeIndex
 
             - Sort the output of Matchmaker.
@@ -3221,6 +3219,38 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     3:15
         I think what I will do is get the dummy stuff working correctly and then move onto the Matchmaker because otherwise I won't know if my new structure and processing are working and I do not want to debug this shit twice.
+
+    4:50
+    Losing steam.  Gonna try to wire together what I have into FinalizeRefund and then probably call it a day.
+
+    5:20
+    After a full day of diligent effort and hard thinking, I am... back to where I started this morning.  Seriously though, I'm happy about this work.  I think this is finally what it ought to be.  No more useEffect, no more local state, one simple loop on setup.  Swallk has been earned.  Still got a damn mountain to climb, though.
+    
+        -Incorporate this work into the Matchmaker
+        -Remember that when Matchmaker is done processing all the refunds_by_tender it needs to produce an array and run that array through sortNprocess().
+        -Figure out where in the Session dispatch process we're going to run sortNprocess (probably in the Returns case?  Maybe locally?)
+        -Check if there is any value to having the 70 panel assigned by the Tenderizer (probably not?)
+        -Then I need to figure out my dispatching, where it will live, and how I will get it to the components.
+        -I also want to try something different for writing the dispatching.  Instead of just navel-gazing about it, I'm going to start by writing some code.  Given the limits of my working memory, I've found that I tend to get unstuck when I have something to see and compare.
+
+13 Feb 2023
+    10:00
+    -I know I am getting interrupted in an hour with the staff meeting. 
+    
+    -I think I'm going to start by writing the dispatch functions.  It's something important that I can't test without.
+
+    -Actually, maybe the first thing I should do is work on the TenderTypesLI.  I think the FailureCase needs to be resolved.
+
+    2:45
+    -2nd 69420 because I bought Monster Train and started playing it over lunch and ooooooh boy is it fun and addictive.  I want to try and grind out at least 3 hours of coding today, so let's get after it.  
+
+        -I THINK (I hope?) I shouldn't have to track or hand-modify the ActiveIndex at all?  
+        -Slight update: I should be fresh-calculating the activeIndex every time.  It should never need to be an INPUT into sortNprocess.
+            -I HOPE the order never gets mixed up, but if it does, this should prevent it.  
+
+    I might need to make a more legible Resolver function.  My approach for how to resolve the statuses is more case-by-case than systematic which is usually a recipe for shit behaving unpredictably.  OK.  Rule 4 here.  Let's get some dispatches working and then we can see where we stand on the Resolver.
+
+    
 
 
                 

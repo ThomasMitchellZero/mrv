@@ -3,9 +3,9 @@ import tStatus from "./tenderStatusCodes";
 
 import cloneDeep from "lodash.clonedeep";
 
-const sortNprocessTenders = (tendersPack, failure = true) => {
-  const unsortedTendersArr = cloneDeep(tendersPack.tendersArr);
-  let newIndex = tendersPack.activeIndex;
+const sortNprocessTenders = (tendersArr, failure = true) => {
+  const unsortedTendersArr = cloneDeep(tendersArr);
+  let newIndex = 0;
 
   // tender types, in the order they should be processed.
   let sortedTenders = [
@@ -27,13 +27,15 @@ const sortNprocessTenders = (tendersPack, failure = true) => {
   ];
 
   for (newIndex; newIndex < unsortedTendersArr.length; newIndex++) {
+    // these should be ONLY tender statuses that are changed without user input.
     if (sortedTenders[newIndex].userOption) {
+      // 
       sortedTenders[newIndex].status = tStatus.inProgress;
       break;
     } else if (sortedTenders[newIndex].canFail && failure) {
       sortedTenders[newIndex].status = tStatus.failure;
       break;
-    } else {
+    } else if (sortedTenders[newIndex].status === tStatus.notStarted){
       sortedTenders[newIndex].status = tStatus.complete;
     }
   }

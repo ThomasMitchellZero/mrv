@@ -23,70 +23,38 @@ import { useState, useEffect } from "react";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
-  // local state
-  const initialState = { activeIndex: 0 };
-  const [finalizerState, setFinalizerState] = useState(initialState);
-
-  // Returns state
-  const ctxTenders = useOutletContext().session.refunds_by_tender;
+  console.log("DING");
+  // Returns Session
+  const sessionCtx = useOutletContext().session;
   const dispatchSession = useOutletContext().dispatchSession;
-  const failureScenario =
-    useOutletContext().session.scenarios.totalTenderFailure;
-  const setSessionTenders = (newTendersObj) => {
-    dispatchSession({ type: "UPDATE_TENDERS", payload: newTendersObj });
+
+  const ctxTendersPack = cloneDeep(sessionCtx.refunds_by_tender);
+  const failureScenario = sessionCtx.scenarios.totalTenderFailure;
+  const dispatchTenderPack = (newTendersArr) => {
+    dispatchSession({ type: "UPDATE_TENDERS", payload: {newtendersArr: newTendersArr}});
   };
 
-  // make a priority-sorted arr from tenders in Returns state
-  const tendersArr = tenderSort(ctxTenders);
+  // Specifics from Returns Session state
+  const tendersArr = ctxTendersPack.tendersArr;
+  const activeIndex = ctxTendersPack.activeIndex;
 
-  // activeTender info
-  const activeTenderKey = tendersArr[finalizerState.activeIndex];
-  const activeTenderValue = ctxTenders[activeTenderKey];
-  const activeStatus = activeTenderValue.status;
-  const activeType = activeTenderValue.tenderType;
+  const activeTenderObj = tendersArr[activeIndex];
+  const activeStatus = activeTenderObj.status;
+  const activeType = activeTenderObj.tenderType;
 
-  // -- SHARED FUNCTIONS ----
+  // ---- SHARED FUNCTIONS ----
 
-  // Dispatch status change for current Tender
-  const setStatusOfActiveTender = (newStatus) => {
-    console.log(
-      `Changing ${activeTenderValue.displayPaid} status from ${activeTenderValue.status} to ${newStatus}`
-    );
-    // Change the status
-    const newTenderValue = {
-      ...activeTenderValue,
-      status: newStatus,
-    };
-    const outTendersObj = {
-      ...ctxTenders,
-      [activeTenderKey]: newTenderValue,
-    };
-    setSessionTenders(outTendersObj);
-  };
+  const toStoreCredit = ()=>{
 
-  // Increment Counter
-  const incrementActiveIndex = () => {
-    const newCounter = finalizerState.activeIndex + 1;
-
-    console.log(`counter from ${finalizerState.activeIndex} to ${newCounter}`);
-    // to do: IF all queue tenders handled, navigate to next page.  This could also potientially live outside this functoin, but before the UseEffect()
-    setFinalizerState({ ...finalizerState, activeIndex: newCounter });
-  };
-
-  useEffect(() => {
-    if (activeTenderValue.status === tStatus.notStarted) {
-      if (activeTenderValue.userOption) {
-        setStatusOfActiveTender(tStatus.inProgress);
-      } else if (failureScenario && activeTenderValue.canFail) {
-        // set to Failure
-        setStatusOfActiveTender(tStatus.failure);
-      } else {
-        setStatusOfActiveTender(tStatus.complete);
-        incrementActiveIndex();
-      }
+    const outActiveTenderObj = {
+      ...activeTenderObj, 
+      status: tStatus.swapped, 
+      swapLabel: "Store Credit"
     }
-  });
 
+  }
+
+  // Not sure if needed
   const emptyUI = (
     <Placeholder
       titleText="Blank"
@@ -101,14 +69,12 @@ const FinalizeRefund = () => {
     [tStatus.progress2Line]: <ConfirmCash70 />,
 
     [tStatus.inProgress]: {
-      [tType.cash]: <Payout70 activeTenderObj={activeTenderValue} />,
-      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderValue} />,
+      [tType.cash]: <Payout70 activeTenderObj={activeTenderObj} />,
+      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.debit]: <UserInput70 />,
       [tType.check]: <UserInput70 />,
     },
   };
-
-  console.log("ding");
 
   // Use active panel for active Status unless panel also depends on Type
   //TODO - this is a crappy description.
@@ -116,15 +82,13 @@ const FinalizeRefund = () => {
     paths70?.[activeStatus]?.[activeType] ?? paths70?.[activeStatus] ?? emptyUI;
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
-  const tendersLIarr = tendersArr.map((thisTenderKey) => {
-    //TO DO: fix key once this is working.
+  const tendersLIarr = tendersArr.map((thisTenderObj) => {
     return (
-      <TenderTypesLI
-        key={JSON.stringify(thisTenderKey)}
-        tenderObj={ctxTenders[thisTenderKey]}
-      />
+      <TenderTypesLI key={thisTenderObj.primaryKey} tenderObj={thisTenderObj} />
     );
   });
+
+  console.log("dong");
 
   return (
     <section className={classes.container}>

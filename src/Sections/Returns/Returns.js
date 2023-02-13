@@ -129,10 +129,12 @@ const Returns = () => {
       }
 
       case "UPDATE_TENDERS": {
-        const newTendersObj = action.payload;
+        const newTendersArr = action.payload;
+        const newTenderPack = sortNprocessTenders(newTendersArr, failureStatus)
+
         return {
           ...state,
-          refunds_by_tender: newTendersObj,
+          refunds_by_tender: newTenderPack,
         };
       }
 

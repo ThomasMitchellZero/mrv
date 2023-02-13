@@ -10,7 +10,6 @@ import {
   MdSubdirectoryArrowRight,
 } from "react-icons/md";
 
-
 const iconsObj = {
   notStarted: <MdPanoramaFishEye className={`grey-06-text ${classes.icon}`} />,
   inProgress: <MdPanoramaFishEye className={`green-text ${classes.icon}`} />,
@@ -21,50 +20,49 @@ const iconsObj = {
   ),
 };
 
-// Status specifics for each LI
-const mainStatus = {
-  [tStatus.notStarted]: {
-    icon: iconsObj.notStarted,
-    statusLabel: "Not Started"
-  },
-  [tStatus.inProgress]: {
-    icon: iconsObj.inProgress,
-    active: true,
-    statusLabel: "In Progress"
-  },
-  [tStatus.progress2Line]: {
-    icon: iconsObj.inProgress,
-    line2: true,
-    strike: classes.strike,
-    statusLabel: "In Progress"
-  },
-  [tStatus.failure]: {
-    icon: iconsObj.failure,
-    line2: true,
-    strike: classes.strike,
-    statusLabel: "Auto Credit Failed"
-  },
-  [tStatus.failureCash]: {
-    icon: iconsObj.failure,
-    line2: true,
-    strike: classes.strike,
-    statusLabel: "Auto Credit Failed"
-  },
-  [tStatus.complete]: {
-    icon: iconsObj.complete,
-    statusLabel: "Complete"
-  },
-  [tStatus.swapped]: {
-    icon: iconsObj.complete,
-    strike: classes.strike,
-    statusLabel: "Refund Tender Changed"
-  },
-};
-
 const TenderTypesLI = ({ tenderObj }) => {
 
+  const swapLabel = tenderObj.refundAs ?? "OTHER"
+  // Status specifics for each LI
+  const mainStatus = {
+    [tStatus.notStarted]: {
+      icon: iconsObj.notStarted,
+      statusLabel: "Not Started",
+    },
+    [tStatus.inProgress]: {
+      icon: iconsObj.inProgress,
+      active: true,
+      statusLabel: "In Progress",
+    },
+    [tStatus.progress2Line]: {
+      icon: iconsObj.inProgress,
+      line2: true,
+      strike: classes.strike,
+      statusLabel: "In Progress",
+    },
+    [tStatus.failure]: {
+      icon: iconsObj.failure,
+      statusLabel: "Auto Credit Failed",
+      active: true,
+    },
+    [tStatus.failureCash]: {
+      icon: iconsObj.failure,
+      line2: true,
+      strike: classes.strike,
+      statusLabel: "Auto Credit Failed",
+    },
+    [tStatus.complete]: {
+      icon: iconsObj.complete,
+      statusLabel: "Complete",
+    },
+    [tStatus.swapped]: {
+      icon: iconsObj.complete,
+      strike: classes.strike,
+      statusLabel: `Refunding as ${swapLabel}`
+    },
+  };
 
-  //const status = tStatus.failureCash
+  //const status = tStatus.swapped;
   const status = tenderObj.status;
   return (
     <section
@@ -110,7 +108,7 @@ const TenderTypesLI = ({ tenderObj }) => {
             {/* Cell 2 Main Content */}
             <section className={`${classes.columnHolder}`}>
               <section className={` ${classes.lineHeight}`}>
-                <h5 className={`${classes.XXX}`}>{tenderObj.tenderLabel}</h5>
+                <h5 className={`${classes.XXX}`}>{"Cash"}</h5>
                 <h4>{`$${(tenderObj.paid / 100).toFixed(2)}`}</h4>
               </section>
               <section className={`${classes.lineHeight}`}>
