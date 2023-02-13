@@ -1,10 +1,17 @@
 import tType from "../../../components/global_functions/tenderTypes";
 import tStatus from "./tenderStatusCodes";
+import tenderizer from "./tenderizer";
 
 import cloneDeep from "lodash.clonedeep";
 
 const sortNprocessTenders = (tendersArr, failure = true) => {
-  const unsortedTendersArr = cloneDeep(tendersArr);
+  const untenderizedArr = cloneDeep(tendersArr)
+
+  // Ensures all arr elements have correct tType-specific properties
+  const unsortedTendersArr = untenderizedArr.map((thisTenderObj)=>{
+    return tenderizer(thisTenderObj)
+  });
+
   let newIndex = 0;
 
   // tender types, in the order they should be processed.
@@ -39,6 +46,7 @@ const sortNprocessTenders = (tendersArr, failure = true) => {
       sortedTenders[newIndex].status = tStatus.complete;
     }
   }
+
 
   const newTendersPack ={
     activeIndex: newIndex,

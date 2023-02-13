@@ -1,8 +1,6 @@
 // Needs fillin'
 
-// NOT CORRECT, just putting the data in here.
 
-import tenderizer from "../functions/tenderizer";
 import tenderTypes from "../../../components/global_functions/tenderTypes";
 
 const tType = tenderTypes
@@ -41,15 +39,7 @@ const dummyArrPrime = [
   },
 ];
 
-const dummyTendersArr = dummyArrPrime.map((arrObj)=>{
-  return tenderizer(arrObj)
-})
+const dummyTendersArr = dummyArrPrime;
 
-console.log(dummyTendersArr)
 
-const dummyTendersPack = {
-  activeIndex: 0,
-  tendersArr: dummyTendersArr
-}
-
-export default dummyTendersPack;
+export default dummyTendersArr;
