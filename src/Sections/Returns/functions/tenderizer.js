@@ -83,8 +83,6 @@ const tenderizer = (tenderObj) => {
         ...outTenderObj,
         ...errorProperties,
         tenderLabel: "Credit Cartttt",
-
-        
       };
       break;
 
@@ -93,7 +91,7 @@ const tenderizer = (tenderObj) => {
         ...outTenderObj,
         ...errorProperties,
         tenderLabel: "Debitater",
-        userOption:[1],
+        userOption:true,
       };
       break;
 
@@ -101,6 +99,7 @@ const tenderizer = (tenderObj) => {
       outTenderObj = {
         ...outTenderObj,
         ...errorProperties,
+        userOption:true,
         tenderLabel: "You old AF",
       };
       break;
