@@ -30,8 +30,11 @@ const FinalizeRefund = () => {
 
   const ctxTendersPack = cloneDeep(sessionCtx.refunds_by_tender);
   const failureScenario = sessionCtx.scenarios.totalTenderFailure;
-  const dispatchTenderPack = (newTendersArr) => {
-    dispatchSession({ type: "UPDATE_TENDERS", payload: {newtendersArr: newTendersArr}});
+  const dispatchTenderArr = (newTendersArr) => {
+    dispatchSession({
+      type: "UPDATE_TENDERS",
+      payload: { newtendersArr: newTendersArr },
+    });
   };
 
   // Specifics from Returns Session state
@@ -44,15 +47,41 @@ const FinalizeRefund = () => {
 
   // ---- SHARED FUNCTIONS ----
 
-  const toStoreCredit = ()=>{
+  //TODO - can probably be universalized to handle cash, too?
+  const tTypeSwapper = (swapTo) => {
 
-    const outActiveTenderObj = {
-      ...activeTenderObj, 
-      status: tStatus.swapped, 
-      swapLabel: "Store Credit"
+    const swappedLabels = {
+      [tType.cash]: "Cash",
+      [tType.storeCredit]: "Store Credit"
     }
 
-  }
+    let outTendersArr = [...tendersArr];
+
+    // Change the active tender's info to Swapped.
+    outTendersArr[activeIndex] = {
+      ...activeTenderObj,
+      status: tStatus.swapped,
+      swapLabel: swappedLabels[swapTo]
+    }
+
+    //Adjust the type being swapped to.
+    const activePaid = activeTenderObj.paid;
+    let foundIndex = tendersArr.findIndex((tender) => {
+      return tender.tenderType === tType.swapTo;
+    });
+
+    // If this type doesn't already exist...
+    if (foundIndex === -1) {
+      // add it to start of array
+      outTendersArr.unshift({
+        tenderType: tType[swapTo],
+        paid: 0,
+      });
+      foundIndex = 0;
+    }
+    outTendersArr[foundIndex].paid += activePaid
+    dispatchTenderArr(outTendersArr)
+  };
 
   // Not sure if needed
   const emptyUI = (

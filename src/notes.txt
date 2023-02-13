@@ -54,6 +54,9 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -In the Tenderizer: Right now, all tenderLabels are hard-coded and stored in the Invoice object. Produce a sophisticated String-maker that caluculates the credit card issuer from the ccNum.  So instead of "Credit ****1234" it would say "Discover ****1234". This will also require me to update the credit card numbers in the file, and then delete the hard-coded values.  AFAICT as long as the new function in the Tenderizer stores the new string in the same property name currently storing the hard-coded strings, no further re-wiring should be needed.
 
+    -in tenderTypes: I'm having to copy and paste description strings all over the place.  it would be nice if each of the types were objects that contained both reference strings and description strings.  I should have made these objects from the start but I was naive and optimistic.  This will break like 10 files but they will at least be easy to find.  
+        -If I ever do decide I want a class/factory for all the tender types, this would be a good time to incorporate it.
+
 
 
 
@@ -3248,7 +3251,22 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Slight update: I should be fresh-calculating the activeIndex every time.  It should never need to be an INPUT into sortNprocess.
             -I HOPE the order never gets mixed up, but if it does, this should prevent it.  
 
-    I might need to make a more legible Resolver function.  My approach for how to resolve the statuses is more case-by-case than systematic which is usually a recipe for shit behaving unpredictably.  OK.  Rule 4 here.  Let's get some dispatches working and then we can see where we stand on the Resolver.
+    - I might need to make a more legible Resolver function.  My approach for how to resolve the statuses is more case-by-case than systematic which is usually a recipe for shit behaving unpredictably.  OK.  Rule 4 here.  Let's get some dispatches working and then we can see where we stand on the Resolver.
+
+    X - I'm wondering if I should call the Tenderizer function somewhere inside of the sortNprocess?  
+        -First, SnP depends on status so it's assuming that its inputs have already been Tenderized.  I might as well just do it inside, right?  That way I'm sure the inputs are correct, AND I only have to call a single function.
+        -Also, sometimes I'll be changing the tender.  Like if there is store credit or cash, I'll be changing it.  I might also be adding SC+$ tenders.
+        
+    6:00
+    Coded a little longer than I expected.  Considering I have a brand new and obssessable game, I feel good.
+        -This was a good day.  I am VERY happy with ditching activeIndex tracking, and that's really only possible because of the decision I made yesterday.  
+        -I was comforting myself for how long it took me to figure out the multi-criteria pattern for displaying the appropriate 70 panel by thinking of patterns that I AM familiar and comfortable with.
+
+        Well, one of those patterns I am becoming familiar with is: if you have important data that is derivable from inputs, like my Derived States from Matchmaker or the Active Key for the refund tenders queue, it's usually better not to make changes to the derived data.  Better
+        to just keep re-deriving it whenever the inputs change.  2 reasons:
+            -Because you need to derive it for the first instance, you've already solved the hardest puzzle.  If you're going to maintain it by hand, you now need a second, separate process to do that.  Better to just make sure your first process is universal.
+            -That second process is frequently just as taxing as your first process.  
+            -A really good mind tool would be to figure out a thought process that determines what MUST be tracked by hand and what is safe to rederive.  
 
     
 

@@ -33,6 +33,7 @@ const sortNprocessTenders = (tendersArr, failure = true) => {
     }),
   ];
 
+  // TO-DO: this probably needs to be more logical.
   for (newIndex; newIndex < unsortedTendersArr.length; newIndex++) {
     // these should be ONLY tender statuses that are changed without user input.
     if (sortedTenders[newIndex].userOption) {
