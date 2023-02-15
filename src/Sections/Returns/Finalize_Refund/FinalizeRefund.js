@@ -113,8 +113,8 @@ const FinalizeRefund = () => {
     [tStatus.failure]: (
       <UserInput70
         activeTenderObj={activeTenderObj}
-        button1={buttoner("primary", "Refund Store Credit")}
-        button2={buttoner("secondary", "Refund Cash")}
+        mainButton={buttoner("primary", "Refund Store Credit")}
+        altButton={buttoner("secondary", "Refund Cash")}
       />
     ),
 

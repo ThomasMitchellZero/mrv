@@ -7,7 +7,7 @@ import InPageTitle from "../../../../components/UI/DisplayOutputs/InPageTitleBox
 
 import tType from "../../../../components/global_functions/tenderTypes"
 
-const UserInput70 = ({activeTenderObj, button1, button2})=>{
+const UserInput70 = ({activeTenderObj, mainButton, altButton})=>{
     return <section className={`seventy_panel `}>
     <TitleBar>Refund Details</TitleBar>
     <section className={`${classes.mainContent}`}>
@@ -20,8 +20,8 @@ const UserInput70 = ({activeTenderObj, button1, button2})=>{
       />
     </section>
     <FooterContainer>
-      {button1}
-      {button2}
+      {altButton}
+      {mainButton}
     </FooterContainer>
   </section>
 }
