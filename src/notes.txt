@@ -3290,6 +3290,21 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     69420 again because I got distacted.  I feel like the improved pattern recognition makes me especially vulnerable to wanting to write in my journals.  That's actually where I've found myself going off the rails the most.  
         -I've identified the failure, although I have no idea what was the cause of the problem.  I hate leaving it but the answer isn't going to make a difference and I gotta make some headway here.
         -Let's get the Failure screen on the page.  Rule 4.  
+
+        -Got a problem.  I'm getting errors when I specify a function to the button's onClick property.  I don't know, but it looks like one of my state-setters is somehow being called instead of assigned?  
+
+        -OK. I tested with a non-state-setting function and it appears this is the case.  The non-state-setting function is getting called instead of assigned.  
+
+        -What a mess.  I'm somehow triggering an infinite loop.  If nothing else, this is evidence for another suspicion I had earlier, that the lodash CloneDeep was just a symptom of some other problem because I've used it without trouble in other places.
+            -Let me try putting in some stops in the broswer and seeing if I can find where the loop is being triggered?
+            -First, I noticed that I am mutating the state, and the reason it's happening is because I am shallow-cloning the tendersArr, which I suspected would be a problem, and it is a problem because...I can't use CloneDeep -_-.  
+            -Also, it's right at the dispatch where all the shit hits the fan.  
+            -I tried putting a stop in the Returns dispatcher for the items, and I didn't even make it there.
+            -I think I might be at the point of "Pull it all apart and add things back until we find the break" but there's one last thing I want to try.  Somehow I am mutating the existing state.  Let me just go above and beyond to make SURE I've got everything separated.
+            -Wait.  I just had an idea.  I'm spreading the current active state, but not sure I am doing the same with the state I am updating?
+            -OK.  That fixed the teeny little problem of mutation that we shouldn't even have.  Everything else is the same clusterfuck.
+    2:15.
+        OK.  Let's tear it down.  I want to start by using CloneDeep right at the start because I don't want to have to look for every stupid little mutation.
         
 
 

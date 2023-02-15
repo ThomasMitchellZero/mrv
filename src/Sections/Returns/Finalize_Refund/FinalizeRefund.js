@@ -55,7 +55,7 @@ const FinalizeRefund = () => {
     };
 
     //0-0 pay attention, cloneDeep caused an error when called.
-    let outTendersArr = cloneDeep(tendersArr);
+    let outTendersArr = [...tendersArr]
 
     // Change the active tender's info to Swapped.
     outTendersArr[activeIndex] = {
@@ -66,8 +66,8 @@ const FinalizeRefund = () => {
 
     //Adjust the type being swapped to.
     const activePaid = activeTenderObj.paid;
-    let foundIndex = tendersArr.findIndex((tender) => {
-      return tender.tenderType === tType.swapTo;
+    let foundIndex = outTendersArr.findIndex((tender) => {
+      return tender.tenderType === tType[swapTo];
     });
 
     // If this type doesn't already exist...
@@ -79,6 +79,7 @@ const FinalizeRefund = () => {
       });
       foundIndex = 0;
     }
+    outTendersArr[foundIndex] = {...outTendersArr.foundIndex}
     outTendersArr[foundIndex].paid += activePaid;
     dispatchTenderArr(outTendersArr);
   };
@@ -92,16 +93,34 @@ const FinalizeRefund = () => {
     />
   );
 
+  /*
+<button
+  type="button"
+  className={`baseButton secondary large ${isActive}`}
+  onClick={() => {
+    dispatchLookup({ type: "SET_ACTIVE", payload: searchType });
+  }}
+>
+  {icon}
+  {text}
+</button>
+  
+  
+  */
+
+  const testFunc = (swapTo)=>{
+    console.log(swapTo)
+  }
+
+
   const buttoner = (style, text, whenClicked) => {
     const sizes = {
       primary: "contained70",
-      secondary: "containedSecondary",
+      secondary: "containedBtn2",
     };
     return (
       <button
-        onClick={() => {
-          whenClicked();
-        }}
+        onClick={whenClicked}
         className={`baseButton large ${style} ${sizes[style]}`}
       >
         {text}
@@ -113,7 +132,7 @@ const FinalizeRefund = () => {
     [tStatus.failure]: (
       <UserInput70
         activeTenderObj={activeTenderObj}
-        mainButton={buttoner("primary", "Refund Store Credit")}
+        mainButton={buttoner("primary", "Refund Store Credit", ()=> tTypeSwapper(tType.storeCredit))}
         altButton={buttoner("secondary", "Refund Cash")}
       />
     ),
