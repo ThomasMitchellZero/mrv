@@ -54,33 +54,32 @@ const FinalizeRefund = () => {
       [tType.storeCredit]: "Store Credit",
     };
 
-    //0-0 pay attention, cloneDeep caused an error when called.
-    let outTendersArr = [...tendersArr]
+    let outTendersArr = cloneDeep(tendersArr);
 
     // Change the active tender's info to Swapped.
     outTendersArr[activeIndex] = {
-      ...activeTenderObj,
+      ...outTendersArr[activeIndex],
       status: tStatus.swapped,
       swapLabel: swappedLabels[swapTo],
     };
 
-    //Adjust the type being swapped to.
     const activePaid = activeTenderObj.paid;
-    let foundIndex = outTendersArr.findIndex((tender) => {
+
+    let indexSwappingTo = outTendersArr.findIndex((tender) => {
       return tender.tenderType === tType[swapTo];
     });
 
     // If this type doesn't already exist...
-    if (foundIndex === -1) {
+    if (indexSwappingTo === -1) {
       // add it to start of array
       outTendersArr.unshift({
         tenderType: tType[swapTo],
         paid: 0,
       });
-      foundIndex = 0;
+      indexSwappingTo = 0;
     }
-    outTendersArr[foundIndex] = {...outTendersArr.foundIndex}
-    outTendersArr[foundIndex].paid += activePaid;
+
+    outTendersArr[indexSwappingTo].paid += activePaid;
     dispatchTenderArr(outTendersArr);
   };
 
@@ -92,25 +91,6 @@ const FinalizeRefund = () => {
       pageText="You shouldn't be here"
     />
   );
-
-  /*
-<button
-  type="button"
-  className={`baseButton secondary large ${isActive}`}
-  onClick={() => {
-    dispatchLookup({ type: "SET_ACTIVE", payload: searchType });
-  }}
->
-  {icon}
-  {text}
-</button>
-  
-  
-  */
-
-  const testFunc = (swapTo)=>{
-    console.log(swapTo)
-  }
 
 
   const buttoner = (style, text, whenClicked) => {
@@ -132,7 +112,9 @@ const FinalizeRefund = () => {
     [tStatus.failure]: (
       <UserInput70
         activeTenderObj={activeTenderObj}
-        mainButton={buttoner("primary", "Refund Store Credit", ()=> tTypeSwapper(tType.storeCredit))}
+        mainButton={buttoner("primary", "Refund Store Credit", () =>
+          tTypeSwapper(tType.storeCredit)
+        )}
         altButton={buttoner("secondary", "Refund Cash")}
       />
     ),
@@ -176,3 +158,16 @@ const FinalizeRefund = () => {
 };
 
 export default FinalizeRefund;
+
+/*
+
+
+
+
+
+
+
+
+
+
+*/

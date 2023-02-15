@@ -53,12 +53,6 @@ const tenderizer = (tenderObj) => {
 
   // 
   const errorProperties = {
-    errorMsg: (
-      <MessageRibbon
-        color="red"
-        text={`refund to ${tenderObj.tenderType} failed.  Process refund to Store Credit`}
-      />
-    ),
     canFail: true,
   };
 
