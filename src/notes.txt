@@ -3264,9 +3264,34 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         Well, one of those patterns I am becoming familiar with is: if you have important data that is derivable from inputs, like my Derived States from Matchmaker or the Active Key for the refund tenders queue, it's usually better not to make changes to the derived data.  Better
         to just keep re-deriving it whenever the inputs change.  2 reasons:
-            -Because you need to derive it for the first instance, you've already solved the hardest puzzle.  If you're going to maintain it by hand, you now need a second, separate process to do that.  Better to just make sure your first process is universal.
-            -That second process is frequently just as taxing as your first process.  
+            -Because you need to derive it for the first instance, you've already solved the hardest puzzle.  If you're going to maintain it by hand, you now need a second, separate process to do that.  If you make your original process able to handle all contingencies on re-derivation, it also makes your original process more watertight.
+            -Creating and de-bugging that second process is frequently just as taxing as your first process.  
             -A really good mind tool would be to figure out a thought process that determines what MUST be tracked by hand and what is safe to rederive.  
+
+15 Feb 2023
+    -9:30
+    Considering I have a new game I am obssessed with, a 9:30 start is pretty good.  I'm going to start by working on the Swapper.  The scenarios where I need it are:
+        -Failure: We will definitely be swapping.
+            -OK.  However.  If the choice is Store Credit we are swapping directly.  
+            -If it isn't, we are changing status to failureCash.
+        -Cashables: One of the buttons will swap to cash.
+        -I also need a function that just changes states.  The Swapper is special because it's doing additional modifications.  
+        -OK.  Let's start with the failure screens.  I know I need them, and that will be where the 
+
+    -If I wanted: I could include the old value in the Swapped description (probably as an object property) and then zero it out.  So like if it was a credit card, once it was swapped the value would be 0, and then the description would say "Refunding $13.24 as cash"?  IDK, better but probably not a great use of my time.  
+
+    -OK, and it looks like we are starting off the morning with a full application failure.  Let's see what we can identify during this conference call.
+        -First, the failure occurred when I navigated to finalize-refund so it's probably not in returns.
+        -Second, in the console I'm seeing 'DING' but not 'dong'.  We need more dong, goddammit.  But that suggests it's happening somewhere between the beginning and end of FinalizeRefund.
+        -OK, so it looks like cloneDeep was the problem.  It also looks like most methods for cloning arrays are shallow clones, and that shallow clones of arrays can have the same nesting error problems that deeper clones have.  
+            -Right now, I'm OK.  Each tenderObj is only one level deep, so a shallow clone would be fine.  I do not like this.  First, if I forget, it's going to be beastly to find those bugs.  Second, I don't like the idea of this dictating design decisions.
+            -AFAICT it's OK to use CloneDeep on arrays because I'm doing it in the sortNprocess function.  
+    11:55
+    69420 again because I got distacted.  I feel like the improved pattern recognition makes me especially vulnerable to wanting to write in my journals.  That's actually where I've found myself going off the rails the most.  
+        -I've identified the failure, although I have no idea what was the cause of the problem.  I hate leaving it but the answer isn't going to make a difference and I gotta make some headway here.
+        -Let's get the Failure screen on the page.  Rule 4.  
+        
+
 
     
 

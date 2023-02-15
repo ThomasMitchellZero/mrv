@@ -17,7 +17,7 @@ const Returns = () => {
 
   //// RETURNS SESSION REDUCER ////
 
-  const failureStatus = false
+  const failureStatus = true
 
   const defaultSessionState = {
     scenarios: { totalTenderFailure: failureStatus },

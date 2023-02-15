@@ -28,7 +28,7 @@ const FinalizeRefund = () => {
   const sessionCtx = useOutletContext().session;
   const dispatchSession = useOutletContext().dispatchSession;
 
-  const ctxTendersPack = cloneDeep(sessionCtx.refunds_by_tender);
+  const ctxTendersPack = sessionCtx.refunds_by_tender;
   const failureScenario = sessionCtx.scenarios.totalTenderFailure;
   const dispatchTenderArr = (newTendersArr) => {
     dispatchSession({
@@ -49,20 +49,20 @@ const FinalizeRefund = () => {
 
   //TODO - can probably be universalized to handle cash, too?
   const tTypeSwapper = (swapTo) => {
-
     const swappedLabels = {
       [tType.cash]: "Cash",
-      [tType.storeCredit]: "Store Credit"
-    }
+      [tType.storeCredit]: "Store Credit",
+    };
 
-    let outTendersArr = [...tendersArr];
+    //0-0 pay attention, cloneDeep caused an error when called.
+    let outTendersArr = cloneDeep(tendersArr);
 
     // Change the active tender's info to Swapped.
     outTendersArr[activeIndex] = {
       ...activeTenderObj,
       status: tStatus.swapped,
-      swapLabel: swappedLabels[swapTo]
-    }
+      swapLabel: swappedLabels[swapTo],
+    };
 
     //Adjust the type being swapped to.
     const activePaid = activeTenderObj.paid;
@@ -79,8 +79,8 @@ const FinalizeRefund = () => {
       });
       foundIndex = 0;
     }
-    outTendersArr[foundIndex].paid += activePaid
-    dispatchTenderArr(outTendersArr)
+    outTendersArr[foundIndex].paid += activePaid;
+    dispatchTenderArr(outTendersArr);
   };
 
   // Not sure if needed
@@ -92,8 +92,31 @@ const FinalizeRefund = () => {
     />
   );
 
+  const buttoner = (style, text, whenClicked) => {
+    const sizes = {
+      primary: "contained70",
+      secondary: "containedSecondary",
+    };
+    return (
+      <button
+        onClick={() => {
+          whenClicked();
+        }}
+        className={`baseButton large ${style} ${sizes[style]}`}
+      >
+        {text}
+      </button>
+    );
+  };
+
   const paths70 = {
-    [tStatus.failure]: <UserInput70 />,
+    [tStatus.failure]: (
+      <UserInput70
+        activeTenderObj={activeTenderObj}
+        button1={buttoner("primary", "Refund Store Credit")}
+        button2={buttoner("secondary", "Refund Cash")}
+      />
+    ),
 
     [tStatus.progress2Line]: <ConfirmCash70 />,
 
