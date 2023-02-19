@@ -30,10 +30,12 @@ const FinalizeRefund = () => {
 
   const ctxTendersPack = sessionCtx.refunds_by_tender;
   const failureScenario = sessionCtx.scenarios.totalTenderFailure;
-  const dispatchTenderArr = (newTendersArr) => {
+  const dispatchTenderArr = (outTendersArr) => {
+    console.log(` dispatched from Firnalize Refund `)
+    console.log(outTendersArr)
     dispatchSession({
       type: "UPDATE_TENDERS",
-      payload: { newtendersArr: newTendersArr },
+      payload: { newtendersArr: outTendersArr },
     });
   };
 
@@ -80,6 +82,9 @@ const FinalizeRefund = () => {
     }
 
     outTendersArr[indexSwappingTo].paid += activePaid;
+    console.log("swapped Payload is:")
+    console.log(outTendersArr)
+
     dispatchTenderArr(outTendersArr);
   };
 

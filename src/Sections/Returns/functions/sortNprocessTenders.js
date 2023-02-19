@@ -5,11 +5,12 @@ import tenderizer from "./tenderizer";
 import cloneDeep from "lodash.clonedeep";
 
 const sortNprocessTenders = (tendersArr, failure = true) => {
-  const untenderizedArr = cloneDeep(tendersArr)
+  const untenderizedArr = cloneDeep(tendersArr);
+  console.log(untenderizedArr);
 
   // Ensures all arr elements have correct tType-specific properties
-  const unsortedTendersArr = untenderizedArr.map((thisTenderObj)=>{
-    return tenderizer(thisTenderObj)
+  const unsortedTendersArr = untenderizedArr.map((thisTenderObj) => {
+    return tenderizer(thisTenderObj);
   });
 
   let newIndex = 0;
@@ -33,26 +34,30 @@ const sortNprocessTenders = (tendersArr, failure = true) => {
     }),
   ];
 
-  // TO-DO: this probably needs to be more logical.
+  // TO-DO: this probably needs to be more logical.  This is some spaghetti :/
   for (newIndex; newIndex < unsortedTendersArr.length; newIndex++) {
     // these should be ONLY tender statuses that are changed without user input.
-    if (sortedTenders[newIndex].userOption) {
-      // 
+    if (
+      sortedTenders[newIndex].status === tStatus.complete ||
+      tStatus.swapped
+    ) {
+      continue;
+    } else if (sortedTenders[newIndex].userOption) {
+      //
       sortedTenders[newIndex].status = tStatus.inProgress;
       break;
     } else if (sortedTenders[newIndex].canFail && failure) {
       sortedTenders[newIndex].status = tStatus.failure;
       break;
-    } else if (sortedTenders[newIndex].status === tStatus.notStarted){
+    } else if (sortedTenders[newIndex].status === tStatus.notStarted) {
       sortedTenders[newIndex].status = tStatus.complete;
     }
   }
 
-
-  const newTendersPack ={
+  const newTendersPack = {
     activeIndex: newIndex,
-    tendersArr: sortedTenders
-  }
+    tendersArr: sortedTenders,
+  };
 
   return newTendersPack;
 };

@@ -11,34 +11,31 @@ import cloneDeep from "lodash.clonedeep";
 import dummyTendersPack from "./Finalize_Refund/dummyTendersPack";
 import sortNprocessTenders from "./functions/sortNprocessTenders";
 
+const failureStatus = true;
+
+const defaultSessionState = {
+  scenarios: { totalTenderFailure: failureStatus },
+  items: {},
+  invoices: {},
+  unmatched: {},
+  modified_invoices: {},
+  matched: {},
+  refunds_by_tender: sortNprocessTenders(dummyTendersPack, failureStatus),
+  refund_money: {
+    refundTotal: 0,
+    taxSum: 0,
+    subtotal: 0,
+    adjustments: 0,
+  },
+};
+
 const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
 
   //// RETURNS SESSION REDUCER ////
 
-  const failureStatus = true
 
-  const defaultSessionState = {
-    scenarios: { totalTenderFailure: failureStatus },
-    items: {},
-    invoices: {},
-    unmatched: {},
-    modified_invoices: {},
-    matched: {},
-    refunds_by_tender: {
-      ...sortNprocessTenders(
-        dummyTendersPack,
-        failureStatus
-      ),
-    },
-    refund_money: {
-      refundTotal: 0,
-      taxSum: 0,
-      subtotal: 0,
-      adjustments: 0,
-    },
-  };
 
   const sessionReducer = (state, action) => {
     switch (action.type) {
@@ -129,9 +126,11 @@ const Returns = () => {
       }
 
       case "UPDATE_TENDERS": {
-        const newTendersArr = action.payload;
-        const newTenderPack = sortNprocessTenders(newTendersArr, failureStatus)
+        const outTendersArr = action.payload.newtendersArr;
 
+        const newTenderPack = sortNprocessTenders(outTendersArr, failureStatus);
+        console.log(`New Tender Pack is:`)
+        console.log(newTenderPack)
         return {
           ...state,
           refunds_by_tender: newTenderPack,
@@ -152,7 +151,6 @@ const Returns = () => {
     sessionReducer,
     defaultSessionState
   );
-
 
   return (
     <main className={classes.container}>

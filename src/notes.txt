@@ -3312,6 +3312,42 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     2:45
         I GOT IT!  Literally seconds before I started copypasting the content, I decided to take one more look through and see if there wasn't any property in a tender {obj} that seemed like it might be the source of the trouble.  Scanning, the first thing I noticed was an old <MessageRibbon> property left over from when I was still planning to have it all live in the tender objects.  I took it out and now Returns CloneDeeps and prints it perfectly!
 
+    4:15
+        OK, still not working.  I feel like I am really close because as I'm looping through in the debugger, I am seeing the correct array in the debugger in sortNprocess.  It's right there!  But I seem to be looping through lots of extra times.
+            One of the issues is that I keep seeing Returns:29 in the call stack.  That's where I'm calling sortNprocess to generate the default state.  As far as Returns is concerned, .session is just a local state.  Changes to local state trigger a re-render, and my hunch is that each of those re-renders triggers this function again.  
+                -Option 1 is just to move it outside the state entirely.  Not sure but I think that only the actions within the Component function itself are re-run on re-render.
+                -If that doesn't work I could just try doing it off-world.
+                -Or I could just copy the processed data and not process it.  
+
+    4:55
+    Got it ~kind of working.  It looks like the state is correct when it gets dispatched to Returns, but Returns then runs it through the sortNprocessTenders, which sets its state back to "failure" because we are only checking for canFail.  
+        -Just FYI, I am super glad I new to look for this because it's not an 'error' in the sense that it breaks the machine.  It's just not what I want.  
+        -OK, so we knew we had work to do on the Sort of sortNprocess.  I think that's the next big obstacle.
+
+            notStarted: "notStarted",
+            inProgress: "inProgress",
+            progress2Line: "progress2Line",
+            complete: "complete",
+            failure: "failure",
+            failureCash: "failureCash",
+            swapped: "swapped",
+
+        If it's Swapped or Complete: 
+            Continue, change nothing.
+        Else:{
+            ...
+            break
+        }
+
+        -Look at changing the true/false userInput status.  that simplifies this a lot.
+
+        
+
+
+
+
+        
+
 
     
 
