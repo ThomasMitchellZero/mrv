@@ -5,7 +5,7 @@ RULE 2:  This is practice, and we can only learn by doing.  The more central a f
 RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
 RULE 4:
-IME, Pictograph => Rebus => Alphabet is frequently faster than Pictograph => Alphabet.  Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint to good code, not a detour from it.  
+IME, Pictograph => Rebus => Alphabet is frequently faster than Pictograph => Alphabet.  Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint on the road to good code, not a detour from it.  
 
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
@@ -57,6 +57,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -in tenderTypes: I'm having to copy and paste description strings all over the place.  it would be nice if each of the types were objects that contained both reference strings and description strings.  I should have made these objects from the start but I was naive and optimistic.  This will break like 10 files but they will at least be easy to find.  
         -If I ever do decide I want a class/factory for all the tender types, this would be a good time to incorporate it.
 
+    -General Knowledge: really figure out the Component Composition model.  It looks like it's powerful but I don't quite grok it yet.  
 
 
 
@@ -3341,7 +3342,97 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -Look at changing the true/false userInput status.  that simplifies this a lot.
 
+21 Feb 2023
+    5:10
+    I want to smoke and this is how I'm gonna earn it.  Gonna jam in a quick session after work :)
+    -I think the thing to do is try the same set of conditions but with the expectation that UserInput can be set to False.  
+    -The other thing I could do.  I could store *something* in the userInput property of each TenderType that determines which 70-panel to display.  I could probably get rid of most/all props/logic related to failure, since that would just be a designated 70-panel like anything else.  
+        -I would hope to replace the routes70 object.  I'm not sure I can, and I'm not sure if I should.
+            -Can't: I don't know exactly how I was triggering an infinite loop but it had something to do with storing a React object in a state.  If I don't do that, I'll need the tenderizer to assign some sort of keys, at which point I'm nearly back to Routes70.
+            -Shouldn't:  I kind of like having a nice clear map that shows what's being displayed when.
+        I already know I shouldn't do this, at least not now.  
+    5:50
+    I think I know what's itching here.  I don't have a clear understanding of what is happening where.  So I think my system is: 
+        - sortNprocess handles automatic resolutions.  It's between the dispatch and the setting of the new state.
+        - FinalizeRefund handles resolution of user inputs.  
+    -Another way to describe it is that I feel like there's a simpler pattern that I am not seeing.  
         
+    For each:
+        If resolved, continue.
+        If user input needed, change to the appropriate state and stop looping.
+            -But what is the appropriate state?  
+        
+    OK, crazy idea: what if the *something* I'm storing is just the next state this tender can become to (first assigned in the Tenderizer?) and every user step just sets Current to Next and then assigns the Next?
+
+        The loop logic is super easy: if there's a nextStatus, set it and break.  If not, continue.
+
+        Debit: {
+            status: notStarted
+            nextStatus: inProgress
+        }
+
+        So then we have the question of: where and how is nextStatus determined?  Because sometimes the nextStatus is going to depend on a user choice.  
+
+22 Feb 2023
+    5:05
+    Today feels like reaching into the mystery bag.  Could be a complete waste, could be the most productive day I have all week.
+
+    -At some point I should try and describe in writing the pattern of 'use middleman logic en route to completing a state change instead of changing state multiple times' because I think it's useful.
+
+    The thing that is holding me up is that I still haven't found the pattern.  What do I have that I am satisfied with?
+        -I like the heuristic of:
+            sortNprocessTenders => all logic-determined state setting.
+            FinalizeRefund => all user-determined state setting.
+
+            I think it works especially well because I'm not actually setting the state in sortNprocessTenders.  I'm doing logic that changes what the upcoming state is set TO.
+
+        -I like the idea of a path object for the 70-panel that lives in FinalizeRefund.  The outputs have to live in a Reach component, as do the different dispatch funtions, and I think it makes sense to have them all together?  Like, it itches a little bit because this is logic that should be resolved automatically and auto-resolve logic SHOULD live in SnP but I just don't know how to get there.  
+
+        -I also like the idea of having a single true/false condition being checked in sortNprocessTenders.  I really think this is a binary I just haven't conceptualized clearly.  So I need to understand the purpose of SnP. What is the best way to describe SnP?  I actually think the 'Sort' part is clear - I want to make sure all list items are sorted in a business-logic-determined order.  So I really just need to understand Process.  Maybe I just try some descriptions?  For every tender, the purpose of Process is to:
+            -get it as close to complete as possible
+            -Either resolve it or get the next user input required for resolution.
+
+        So that's the first part of the loop.  Resolved?  Continue, else change state. The harder part is: how should I dictate the next state to change to?  
+            -I could probably do a state.type{} object, similar to what I'm doing with the 70 panels, although I'm going to need to account for failure as well.  Also kind of itches because being as close as I am to the 70 panels it feels like those two ought to be combined.  
+                -If I go this route I could do ALL processing in FinalizeRefund, and just do sorting in Sort?
+                -So maybe I get the specifics like:
+                    [status].[tenderType].next
+                    [status].[tenderType].panel70?
+                and then I just have a .next property on each tender that I re-populate with each user input.
+
+                -But then how to I set the inital values of the .next properties?  I think it's got to happen in the Tenderizer?  Feels bad to have such similar processes separate, but I can't do everything in FinalizeRefund because I need it before the first render.  
+
+23 Feb 2023
+    1:55
+    I THINK I'm clear on real work for the day.  I also think I'm fairly close to cracking this puzzle.  I'm gonna go through my writing from yesterday, but here's where I think I've landed:
+        -Simple loop in SnP checks if each Tender is unresolved.  If it is unresolved, advance it to the next stage.
+        -the Advancer could be handled either conditionally or by addresses into an object.  This might depend on where it lives.
+
+    
+    -Between TotalReview and Finalize refund, I have really got a fuckload of type- and status-specific assignment going on in this app.  It would be nice to have all of that in as few places as possible.  
+        -All type-related assignment (Tenderizer)
+        -All status-related assignment (currently TenderTypesLI?)
+        -And then a third for all Joint assignment.  
+
+    Also remember - Not everything has to be global.  
+        -Lowest-level common parent principle is valid.
+        -But also, if multiple actions are based on a shared condition, doesn't it make sense to do those actions together?  
+
+    I feel like I'm seeking a MegaTenderizer that at least does all Type- and Both-based assignment, and maybe all Status-based assignment, in one function.  OK.  I'm on board with that.  I would then have a second function that does nothing but Sort the array of Tenders and then get the Active index, and it could call Tenderizer on each option.  Any time the Tenders array changes, either from inital value, in MatchMaker, or dispatches to refunds_by_tender state, I run  the Sort on it again.  
+        -The real open question: I can think of at least 2 properties that are components - the Status icons in TenderTypesLI and then my 70 panels in FinalizeRefund.  These did not play well with CloneDeep.  How do I handle this?  I don't think I can skip CloneDeep because I think I would be mutating the state.
+            -In the appropriate parent components (TenderTypesLI and FinalizeRefund), just have an object with Values of the respective React components we plan to use in some shared property, and then assign the appropriate Keys in MegaTenderizer.  I'm certain this will work.
+                -Slightly inelegant as this is technically checking the same condition twice.  
+            -Finally learn how to write custom hooks and just make MegaTenderizer a custom hook instead of a plain old function.
+                -This will take more time.
+                -I'm not sure it actually solves the problem.  
+        OK.  So then in that case, I think Option 1 is the clear choice.  The only cost is some slight inelegance.  Let's make it happen.
+
+
+
+
+
+
+
 
 
 
