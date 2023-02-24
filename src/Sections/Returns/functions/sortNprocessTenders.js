@@ -4,16 +4,17 @@ import tenderizer from "./tenderizer";
 
 import cloneDeep from "lodash.clonedeep";
 
-const sortNprocessTenders = (tendersArr, failure = true) => {
+const sortNprocessTenders = (tendersArr, totalFailure = true) => {
   const untenderizedArr = cloneDeep(tendersArr);
   console.log(untenderizedArr);
 
   // Ensures all arr elements have correct tType-specific properties
   const unsortedTendersArr = untenderizedArr.map((thisTenderObj) => {
+    // It's OK to tenderize at the start because tenderType never changes.
     return tenderizer(thisTenderObj);
   });
 
-  let newIndex = 0;
+  let outActiveIndex = 0;
 
   // tender types, in the order they should be processed.
   let sortedTenders = [
@@ -34,28 +35,66 @@ const sortNprocessTenders = (tendersArr, failure = true) => {
     }),
   ];
 
-  // TO-DO: this probably needs to be more logical.  This is some spaghetti :/
-  for (newIndex; newIndex < unsortedTendersArr.length; newIndex++) {
-    // these should be ONLY tender statuses that are changed without user input.
-    if (
-      sortedTenders[newIndex].status === tStatus.complete ||
-      tStatus.swapped
-    ) {
-      continue;
-    } else if (sortedTenders[newIndex].userOption) {
-      //
-      sortedTenders[newIndex].status = tStatus.inProgress;
+  //---- LOOP THROUGH AND CONDITIONALLY CHANGE STATE ----
+
+  const failCheck = totalFailure
+    ? { status: tStatus.failure, panel70: "failure" }
+    : { status: tStatus.complete, panel70: null };
+
+  const initalStatusPaths = {
+    [tType.credit]: {
+      ...failCheck,
+    },
+    [tType.check]: {
+      status: tStatus.inProgress,
+      panel70: { type: "userChoice" },
+    },
+    [tType.debit]: {
+      status: tStatus.inProgress,
+      panel70: { type: "userChoice" },
+    },
+    [tType.storeCredit]: {
+      status: tStatus.inProgress,
+      panel70: { type: "finishStoreCredit" },
+    },
+    [tType.cash]: {
+      status: tStatus.inProgress,
+      panel70: { type: "finishCash" },
+    },
+  };
+
+  //
+
+  for (
+    outActiveIndex;
+    outActiveIndex < sortedTenders.length;
+    outActiveIndex++
+  ) {
+    const thisTenderObj = sortedTenders[outActiveIndex];
+    const thisStatus = thisTenderObj.status;
+    const thisType = thisTenderObj.tenderType;
+
+    // Only auto-resolve notStarted tenders. Other changes come from user input.
+    if (thisStatus === tStatus.notStarted) {
+      sortedTenders[outActiveIndex] = {
+        ...thisTenderObj,
+        ...initalStatusPaths[thisType],
+      };
+    }
+
+    // Only tenders with these statuses count as complete.
+    const newStatus = sortedTenders[outActiveIndex].status;
+    const isComplete =
+      newStatus === tStatus.complete || newStatus === tStatus.swapped;
+
+    if (!isComplete) {
+      // incomplete means we need more input, so stop looping.
       break;
-    } else if (sortedTenders[newIndex].canFail && failure) {
-      sortedTenders[newIndex].status = tStatus.failure;
-      break;
-    } else if (sortedTenders[newIndex].status === tStatus.notStarted) {
-      sortedTenders[newIndex].status = tStatus.complete;
     }
   }
 
   const newTendersPack = {
-    activeIndex: newIndex,
+    activeIndex: outActiveIndex,
     tendersArr: sortedTenders,
   };
 
@@ -63,3 +102,23 @@ const sortNprocessTenders = (tendersArr, failure = true) => {
 };
 
 export default sortNprocessTenders;
+
+/*
+
+    // if complete, skip ahead.
+    if (
+      sortedTenders[outActiveIndex].status === tStatus.complete ||
+      sortedTenders[outActiveIndex].status === tStatus.complete
+    ) {
+      continue;
+    } else if (sortedTenders[outActiveIndex].userOption) {
+      sortedTenders[outActiveIndex].status = tStatus.inProgress;
+      break;
+    } else if (sortedTenders[outActiveIndex].canFail && totalFailure) {
+      sortedTenders[outActiveIndex].status = tStatus.failure;
+      break;
+    } else if (sortedTenders[outActiveIndex].status === tStatus.notStarted) {
+      sortedTenders[outActiveIndex].status = tStatus.complete;
+    }
+
+*/
