@@ -1,6 +1,5 @@
 import classes from "./TenderTypesLI.module.css";
 
-import tTypes from "../../../components/global_functions/tenderTypes";
 import tStatus from "../functions/tenderStatusCodes";
 
 import {

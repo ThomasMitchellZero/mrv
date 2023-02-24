@@ -37,6 +37,9 @@ const ref = [
 ];
 
 
+const nextStates = {
+
+}
 
 
 const tenderizer = (tenderObj) => {
@@ -75,7 +78,7 @@ const tenderizer = (tenderObj) => {
     case tType.credit:
       outTenderObj = {
         ...outTenderObj,
-        ...errorProperties,
+
         tenderLabel: "Credit Cartttt",
       };
       break;
@@ -83,7 +86,7 @@ const tenderizer = (tenderObj) => {
     case tType.debit:
       outTenderObj = {
         ...outTenderObj,
-        ...errorProperties,
+
         tenderLabel: "Debitater",
         userOption:true,
       };
@@ -92,7 +95,7 @@ const tenderizer = (tenderObj) => {
     case tType.check:
       outTenderObj = {
         ...outTenderObj,
-        ...errorProperties,
+
         userOption:true,
         tenderLabel: "You old AF",
       };

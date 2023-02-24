@@ -1,6 +1,5 @@
 import classes from "./FinalizeRefund.module.css";
 
-import tenderSort from "../functions/tenderSort";
 import tType from "../../../components/global_functions/tenderTypes";
 import tStatus from "../functions/tenderStatusCodes";
 
@@ -49,8 +48,8 @@ const FinalizeRefund = () => {
 
   // ---- SHARED FUNCTIONS ----
 
-  //TODO - can probably be universalized to handle cash, too?
   const tTypeSwapper = (swapTo) => {
+    
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
