@@ -3427,10 +3427,60 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
                 -I'm not sure it actually solves the problem.  
         OK.  So then in that case, I think Option 1 is the clear choice.  The only cost is some slight inelegance.  Let's make it happen.
 
+    4:25
+    I'm wondering if I'm thinking about this wrong.  AFAICT, don't I only need to auto-set the initial status?  Every other status is going to be determined by user input.  
+
+    OK.  Another snag.  I have to resolve all these in order.  I can't just zip through the list and change the status of everything.  Anything before the ActiveIndex needs to be Resolved and anything after needs to be NotStarted.  
+        -If I do want to keep max logic in the Tenderizer, I can store a nextStatus property in each tender, assign it based on status/type, and just tell SnP for each Tender if there is a nextStatus, set that?
+        -I do have to figure out how I'm going to handle situations where there could be >1 status changes, like Debit.  
+
+    5:50.  I'm liking the MegaTenderizer less.  'What state to make this tender' also majorly depends on 'Are you the Active Tender?'  I need to process the data sequentially.  That means the most logical place to do it is somewhere that has access to the ordered array.  Tenderizer does not.  Now, that doesn't sink the idea of assigning 'Next Allowable Step' in here.  But is that clear?  I've found myself making mistakes understanding it.  It's certainly less clear than "Here's the branching logic as this is being processed" OK.  I need to step away and clear my head.  
+
+    6:25
+    Having gotten some steps in, I think the correct place for the Status changes is SnP.  So...we're back to where I was 5 hours ago :/
+
+24 Feb 2022
+
+    10:10
+    2-hour staff meeting in progress.  I might need to pay attention so I can't really give the deep focus I need for programming.  However, I could tackle the task I fear the most, and that is paying my medical bill for the surgery :/  This has to be done and it doesn't get better by waiting, so the best time is right now.
+
+        -Find out how much I owe for surgery.
+            -Check the UNC MyChart page.  
+            -If that doesn't work, maybe check my BCBS Alabama website?
+            -If not, call the doctor.
+        -Find out how much I owe for PT.
+        -If the bill looks like BCBS-AL isn't covering something they should:
+
+    12:40
+    -Programming!  Yesterday was kind of a bust in terms of code written, but I think I have a clearer conceptual model.  I didn't have a reason for putting the code where it was.  Now I do, and the correct answer just happened to be "Mostly where it was" 
+
+    Ah, crap.  I also forgot that I need to make a decision on where 'next screen' is going to be chosen.  
+        -I guess I COULD do it via the Paths{} object in SnP.  But not really. Like, for the debit tenders.  The next stage isn't predetermined, it's going to depend on what option the user clicks.
+
+    -Biggest task is to figure out how, in the loop, I am going to determine what state to set each tender to.
+        If completable, complete and keep looping.
+        If not, set next state and break.
+
+            OR
+
+        it actually looks like there's three conditions: 
+        If complete     =>      no change, keep looping.
+        If completable  =>      complete, keep looping.
+        Else            =>      change, break.
 
 
+    -I feel like I am getting stuck because I'm trying to be clever.  'Clever' is frequently 'Hard To Read'  Remember, at some point I am going to have to come back and understand this shit.
+        -OK, another way to think about this.  AFAICT the ONLY time I need to auto-change values is if the tenderType = notStarted, right?  I think all other changes are coming from the outside?
+    
+    -I also need to figure out how I am going to assign 70 panels, although I currently like just using a string key.
 
+    3:30.
+    Well, I've got something.  No idea if it's good, but I really just need to move ahead here.  Let's fire this bitch up and see where she breaks.
 
+    4:30.
+    Seems to be working.  I'm sure there's a cleaner way to do this but for now it's doing what I need.
+
+    
 
 
 
