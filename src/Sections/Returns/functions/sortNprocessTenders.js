@@ -10,7 +10,7 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
 
   // Ensures all arr elements have correct tType-specific properties
   const unsortedTendersArr = untenderizedArr.map((thisTenderObj) => {
-    // It's OK to tenderize at the start because tenderType never changes.
+    // It's OK to Tenderize at the start because tenderType never changes.
     return tenderizer(thisTenderObj);
   });
 
@@ -103,22 +103,8 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
 
 export default sortNprocessTenders;
 
+
 /*
 
-    // if complete, skip ahead.
-    if (
-      sortedTenders[outActiveIndex].status === tStatus.complete ||
-      sortedTenders[outActiveIndex].status === tStatus.complete
-    ) {
-      continue;
-    } else if (sortedTenders[outActiveIndex].userOption) {
-      sortedTenders[outActiveIndex].status = tStatus.inProgress;
-      break;
-    } else if (sortedTenders[outActiveIndex].canFail && totalFailure) {
-      sortedTenders[outActiveIndex].status = tStatus.failure;
-      break;
-    } else if (sortedTenders[outActiveIndex].status === tStatus.notStarted) {
-      sortedTenders[outActiveIndex].status = tStatus.complete;
-    }
 
 */

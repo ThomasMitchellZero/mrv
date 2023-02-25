@@ -55,7 +55,33 @@ const FinalizeRefund = () => {
 
   // ---- SHARED FUNCTIONS ----
 
+  const buttoner = (style, text, whenClicked) => {
+    const sizes = {
+      primary: "contained70",
+      secondary: "containedBtn2",
+    };
+    return (
+      <button
+        onClick={whenClicked}
+        className={`baseButton large ${style} ${sizes[style]}`}
+      >
+        {text}
+      </button>
+    );
+  };
+
+// ---- STATE-CHANGING FUNCTIONS ----
+
+  const changeStatusOfActive = (futureStatus)=>{
+    let outTendersArr = cloneDeep(tendersArr);
+    outTendersArr[activeIndex].status = futureStatus;
+
+    dispatchTenderArr(outTendersArr)
+  }
+
+  // 
   const tTypeSwapper = (swapTo) => {
+    // even in a Swap, tType never actually changes.
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
@@ -102,20 +128,7 @@ const FinalizeRefund = () => {
     />
   );
 
-  const buttoner = (style, text, whenClicked) => {
-    const sizes = {
-      primary: "contained70",
-      secondary: "containedBtn2",
-    };
-    return (
-      <button
-        onClick={whenClicked}
-        className={`baseButton large ${style} ${sizes[style]}`}
-      >
-        {text}
-      </button>
-    );
-  };
+
 
   const paths70 = {
     [tStatus.failure]: (
@@ -140,8 +153,12 @@ const FinalizeRefund = () => {
     [tStatus.inProgress]: {
       [tType.cash]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderObj} />,
-      [tType.debit]: <UserInput70 />,
-      [tType.check]: <UserInput70 />,
+      [tType.debit]: <UserInput70 activeTenderObj={activeTenderObj} 
+          mainButton={""}
+          altButton={buttoner("secondary", "Refund With Cash", () =>
+          tTypeSwapper(tType.cash))}
+      />,
+      [tType.check]: <UserInput70 activeTenderObj={activeTenderObj}/>,
     },
   };
 

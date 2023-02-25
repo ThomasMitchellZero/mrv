@@ -3484,9 +3484,21 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     9:35
     Assuming I don't goof this, not a bad start time!
     -OK.  I need to decide how I want to set the 70 panel in FinalizeRefund.
-        
+        -Right now, my plan is to determine 70 panel via a tStatus.tType object in FinalizeRefund.  
+        -Maybe it's a little more flexible to explicitly state the 70 panel if I ever needed a 70 panel that couldn't be determined from status and type, but it just seems like an extra layer over the logic I am using right now.  
     -I need to figure out how to conditionally get to the Receipt screen.
     -Once it is all working I need to clear out the demo piece and make sure it's still working on receipts I add for real.
+    
+    10:30
+    I'm still not really driving through the work.  I have so many things to do that I should really be using the 'What do I KNOW needs to be done?'
+        -Right now, I'm thinking that I'm going to do nearly all of the 70 panel population as props rather than content in the 70 panels.  My thinking is that since props are going to depend on status and type, I might as well just do it all at once?  
+        -OK. So then the argument against this is that 
+
+    12:10:
+    Got a small but minor question here.  For UserChoice options, I need to deal with the fact that state set by choosing the in-kind is going to depend on the Failure scenario.  
+        The easiest thing to do would be to just check for failure on the button click, in FinalizeRefund.  
+
+        But my dumb ass is wondering if I could just do all logical auto-resolution in SnP because I never learn.
 
 
 
