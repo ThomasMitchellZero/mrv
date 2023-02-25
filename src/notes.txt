@@ -3515,6 +3515,13 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     The second problem is one I can address.  I think I'm gonna do it with a While loop so I can increment before the next check.  
     Or.  Hold on a second.  Here's my problem.  The last index is length -1.  So in my six-item array, the last index is 5, not 6.  I should be checking if index === length.  
 
+    4:40.
+    Well, I think that was it.  I've still got some extra re-renders in there that I don't know where they came from, but to my eyes everything is happening instantly and I'm not going to fiddle with it.  Rule 3.  
+
+    My next challenge is going to be getting it to work with the Matchmaker.  I'm actually really not feeling like doing some more work, but my main obstacle is just the fear of having to load a whole new set of facts into memory.
+
+    Here's the deal I will make myself.  Let's go as hard as we can for 30 minutes.  If we still feel like stopping we can call it a day.  
+
 
 
         

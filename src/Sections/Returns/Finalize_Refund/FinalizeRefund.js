@@ -8,7 +8,6 @@ import tStatus from "../functions/tenderStatusCodes";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
-import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 //70 Panels
@@ -18,7 +17,6 @@ import Payout70 from "./Finalize70panels/Payout70";
 import Placeholder from "../../Placeholder/Placeholder";
 
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
@@ -29,7 +27,6 @@ const FinalizeRefund = () => {
   const dispatchSession = useOutletContext().dispatchSession;
 
   const ctxTendersPack = sessionCtx.refunds_by_tender;
-  const failureScenario = sessionCtx.scenarios.totalTenderFailure;
 
   const dispatchTenderArr = (outTendersArr) => {
     console.log(` dispatched from Firnalize Refund `);
