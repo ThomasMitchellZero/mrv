@@ -57,6 +57,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -in tenderTypes: I'm having to copy and paste description strings all over the place.  it would be nice if each of the types were objects that contained both reference strings and description strings.  I should have made these objects from the start but I was naive and optimistic.  This will break like 10 files but they will at least be easy to find.  
         -If I ever do decide I want a class/factory for all the tender types, this would be a good time to incorporate it.
 
+    -In Finalize Refund, I'm currently doing logic for which state to dispatch based on failure status.  Since this is technically an automatic transformation, it probably makes more sense to do it in SnP because that's where I'm doing other automatic transformations.  
+
     -General Knowledge: really figure out the Component Composition model.  It looks like it's powerful but I don't quite grok it yet.  
 
 
@@ -753,7 +755,7 @@ If: state on screen appears be one change behind what you've actually done, or a
 
             -So basically, this is a question of whether I want to update the invoice list or not.
 
-            Argument in favor:
+            Case in favor:
                 + I can probably do it.  Searching for matches is going to be harder, and sorting prices highest to lowest is going to be MUCH harder, but I think I could do it.
 
                 + If I ever do want this feature in the future, I will have to do a lot of uprooting to get it.
@@ -3492,7 +3494,6 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     10:30
     I'm still not really driving through the work.  I have so many things to do that I should really be using the 'What do I KNOW needs to be done?'
         -Right now, I'm thinking that I'm going to do nearly all of the 70 panel population as props rather than content in the 70 panels.  My thinking is that since props are going to depend on status and type, I might as well just do it all at once?  
-        -OK. So then the argument against this is that 
 
     12:10:
     Got a small but minor question here.  For UserChoice options, I need to deal with the fact that state set by choosing the in-kind is going to depend on the Failure scenario.  
@@ -3500,7 +3501,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         But my dumb ass is wondering if I could just do all logical auto-resolution in SnP because I never learn.
 
+        OK.  We're gonna be smart here.  I'm gonna resolve this in the obvious way, and then deal with other cases later.  I'm also going to put this in my Backlog so I'm not tempted to do it now.
 
+    
 
 
 
