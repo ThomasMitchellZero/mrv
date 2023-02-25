@@ -17,12 +17,14 @@ import ConfirmCash70 from "./Finalize70panels/ConfirmCash70";
 import Payout70 from "./Finalize70panels/Payout70";
 import Placeholder from "../../Placeholder/Placeholder";
 
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
-  console.log("DING");
+
+  const navigate = useNavigate()
+
   // Returns Session
   const sessionCtx = useOutletContext().session;
   const dispatchSession = useOutletContext().dispatchSession;
@@ -42,6 +44,12 @@ const FinalizeRefund = () => {
   const tendersArr = ctxTendersPack.tendersArr;
   const activeIndex = ctxTendersPack.activeIndex;
 
+  //NOT SURE this will work?
+  if(activeIndex > tendersArr.length){
+    // if true, all tenders have been processed so proceed to receipt stage.
+    navigate("../receipt");
+  }
+
   const activeTenderObj = tendersArr[activeIndex];
   const activeStatus = activeTenderObj.status;
   const activeType = activeTenderObj.tenderType;
@@ -49,7 +57,7 @@ const FinalizeRefund = () => {
   // ---- SHARED FUNCTIONS ----
 
   const tTypeSwapper = (swapTo) => {
-    
+
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
@@ -119,7 +127,6 @@ const FinalizeRefund = () => {
         mainButton={buttoner("primary", "Refund Store Credit", () =>
           tTypeSwapper(tType.storeCredit)
         )}
-        altButton={buttoner("secondary", "Refund Cash")}
       />
     ),
 

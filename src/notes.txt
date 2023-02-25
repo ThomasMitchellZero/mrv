@@ -3478,9 +3478,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     Well, I've got something.  No idea if it's good, but I really just need to move ahead here.  Let's fire this bitch up and see where she breaks.
 
     4:30.
-    Seems to be working.  I'm sure there's a cleaner way to do this but for now it's doing what I need.
+    Seems to be working.  I'm sure there's a cleaner way to do this but for now it's doing what I need.  
 
-    
+25 Feb, 2023
+    9:35
+    Assuming I don't goof this, not a bad start time!
+    -OK.  I need to decide how I want to set the 70 panel in FinalizeRefund.
+        
+    -I need to figure out how to conditionally get to the Receipt screen.
+    -Once it is all working I need to clear out the demo piece and make sure it's still working on receipts I add for real.
+
 
 
 
