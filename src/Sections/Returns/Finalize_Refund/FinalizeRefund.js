@@ -45,7 +45,8 @@ const FinalizeRefund = () => {
   const activeIndex = ctxTendersPack.activeIndex;
 
   //NOT SURE this will work?
-  if (activeIndex >= tendersArr.length) {
+  const refundComplete = activeIndex >= tendersArr.length
+  if (refundComplete) {
     // if true, all tenders have been processed so proceed to receipt stage.
     navigate("../receipt");
   }
