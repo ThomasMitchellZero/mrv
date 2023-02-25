@@ -2,14 +2,14 @@
 
 import cloneDeep from "lodash.clonedeep";
 import disposSqueezer from "./dispoSqueezer";
-import tenderizer from "./tenderizer";
+import sortNprocessTenders from "./sortNprocessTenders";
 
 const ReturnsMatchMaker = (itemList, invoiceList) => {
   //The 5 derived states we are building.
   const modified_invoices = cloneDeep(invoiceList);
   const unmatched_items = cloneDeep(itemList);
   let matched_items = {};
-  let refunds_by_tender = {};
+  let refundsByTenderObj = {};
   let refund_money = {
     refundTotal: 0,
     taxSum: 0,
@@ -32,7 +32,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      // will hold total Adjust Refund, used to populate refunds_by_tender
+      // total being refunded for thisItemNum out of this Invoice.  Used to decrement the Invoice and populate this obj in refund_by_tender.
       let toRefund_thisInvoItem = 0;
 
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
@@ -143,25 +143,24 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           toRefund_thisInvoItem
         );
 
-        // Tenderizer() populates tender types with type-specific properties.
-        const tenderDetailsObj = tenderizer(
+        console.log(thisTenderType);
+        const tenderDetailsObj = {
+          ...invoPayments[thisTenderType],
+          primaryKey: thisTenderType,
+        };
 
-          invoPayments[thisTenderType]
-        );
-
-        // update $
+        // Decrement the actual invoice.
         invoPayments[thisTenderType].paid -= decrementAmount;
+        // And also the sum all these matched items are worth.
         toRefund_thisInvoItem -= decrementAmount;
 
-        const thisTenderLabel = invoPayments[thisTenderType].tenderLabel;
-
-        // If this label doesn't exist in the refunds_by_tender{}...
-        if (!refunds_by_tender[thisTenderLabel]) {
+        // If this label doesn't exist in the refundsByTenderObj{}...
+        if (!refundsByTenderObj[thisTenderType]) {
           // create it and set paid to 0
-          refunds_by_tender[thisTenderLabel] = { ...tenderDetailsObj, paid: 0 };
+          refundsByTenderObj[thisTenderType] = { ...tenderDetailsObj, paid: 0 };
         }
 
-        refunds_by_tender[thisTenderLabel].paid += decrementAmount;
+        refundsByTenderObj[thisTenderType].paid += decrementAmount;
 
         // if tender type is zeroed out, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
@@ -179,11 +178,15 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
     } // ∞∞∞∞∞∞∞∞ end of loop through invoice keys ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
   } // ∞∞∞∞∞∞∞∞ end of loop through unmatched items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
+  const outRefundTenders = sortNprocessTenders(
+    Object.values(refundsByTenderObj)
+  );
+
   return {
     matched: matched_items,
     unmatched: unmatched_items,
     modified_invoices: modified_invoices,
-    refunds_by_tender: refunds_by_tender,
+    refunds_by_tender: outRefundTenders,
     refund_money: refund_money,
   };
 };
