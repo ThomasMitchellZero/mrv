@@ -25,3 +25,5 @@
     -I can never destroy my ADD.  But I can get better at defeating it.
 
 -Look up what's inside Vyvanse.  See if dissolving in water has any affect.
+
+-Since we now have a clear understanding of why not to do programmatic state changes in useEffect (it's redundant) this would be a fun little section to write later.  

@@ -30,6 +30,7 @@ const FinalizeRefund = () => {
 
   const ctxTendersPack = sessionCtx.refunds_by_tender;
   const failureScenario = sessionCtx.scenarios.totalTenderFailure;
+
   const dispatchTenderArr = (outTendersArr) => {
     console.log(` dispatched from Firnalize Refund `);
     console.log(outTendersArr);
@@ -72,7 +73,7 @@ const FinalizeRefund = () => {
 
 // ---- STATE-CHANGING FUNCTIONS ----
 
-  const changeStatusOfActive = (futureStatus)=>{
+  const changeStatusOfActive = (futureStatus )=>{
     let outTendersArr = cloneDeep(tendersArr);
     outTendersArr[activeIndex].status = futureStatus;
 
@@ -154,7 +155,8 @@ const FinalizeRefund = () => {
       [tType.cash]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.debit]: <UserInput70 activeTenderObj={activeTenderObj} 
-          mainButton={""}
+          mainButton={buttoner("primary", "Refund With Cash", () =>
+          tTypeSwapper(tType.cash))}
           altButton={buttoner("secondary", "Refund With Cash", () =>
           tTypeSwapper(tType.cash))}
       />,
