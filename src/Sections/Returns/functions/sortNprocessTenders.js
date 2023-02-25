@@ -35,36 +35,43 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     }),
   ];
 
-  //---- LOOP THROUGH AND CONDITIONALLY CHANGE STATE ----
+// ---- Process transformations of the tenders.
 
-  const failCheck = totalFailure
-    ? { status: tStatus.failure, panel70: "failure" }
-    : { status: tStatus.complete, panel70: null };
-
-  const initalStatusPaths = {
-    [tType.credit]: {
-      ...failCheck,
-    },
-    [tType.check]: {
-      status: tStatus.inProgress,
-      panel70: { type: "userChoice" },
-    },
-    [tType.debit]: {
-      status: tStatus.inProgress,
-      panel70: { type: "userChoice" },
-    },
-    [tType.storeCredit]: {
-      status: tStatus.inProgress,
-      panel70: { type: "finishStoreCredit" },
-    },
-    [tType.cash]: {
-      status: tStatus.inProgress,
-      panel70: { type: "finishCash" },
-    },
+  const failCheck = () => {
+    const outStatus = totalFailure ? tStatus.failure : tStatus.complete;
+    return outStatus;
   };
 
-  //
+  //These status/type combos auto-resolve to pre-determined statuses.
+  const autoResolvingPaths = {
+    [tStatus.notStarted]: {
+      [tType.credit]: {
+        status: failCheck(),
+      },
+      [tType.check]: {
+        status: tStatus.inProgress,
+      },
+      [tType.debit]: {
+        status: tStatus.inProgress,
+      },
+      [tType.storeCredit]: {
+        status: tStatus.inProgress,
+      },
+      [tType.cash]: {
+        status: tStatus.inProgress,
+      },
+    },
+    [tStatus.complete]:{
+      [tType.debit]: {
+        status: failCheck()
+      },
+      [tType.check]: {
+        status: failCheck()
+      },
+    }
+  };
 
+  //Loop through sorted Tenders
   for (
     outActiveIndex;
     outActiveIndex < sortedTenders.length;
@@ -73,12 +80,14 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     const thisTenderObj = sortedTenders[outActiveIndex];
     const thisStatus = thisTenderObj.status;
     const thisType = thisTenderObj.tenderType;
+    const transformedStatus = autoResolvingPaths[thisStatus]?.[thisType]
 
-    // Only auto-resolve notStarted tenders. Other changes come from user input.
-    if (thisStatus === tStatus.notStarted) {
+    // If this status/type combo has a pre-determined status change...
+    if (transformedStatus) {
+      // make that status change in the current active index.
       sortedTenders[outActiveIndex] = {
         ...thisTenderObj,
-        ...initalStatusPaths[thisType],
+        ...transformedStatus
       };
     }
 
@@ -102,7 +111,6 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
 };
 
 export default sortNprocessTenders;
-
 
 /*
 

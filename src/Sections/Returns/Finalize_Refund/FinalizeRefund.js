@@ -155,8 +155,8 @@ const FinalizeRefund = () => {
       [tType.cash]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderObj} />,
       [tType.debit]: <UserInput70 activeTenderObj={activeTenderObj} 
-          mainButton={buttoner("primary", "Refund With Cash", () =>
-          tTypeSwapper(tType.cash))}
+          mainButton={buttoner("primary", "Refund To Debit", () =>
+          changeStatusOfActive(tStatus.complete))}
           altButton={buttoner("secondary", "Refund With Cash", () =>
           tTypeSwapper(tType.cash))}
       />,
