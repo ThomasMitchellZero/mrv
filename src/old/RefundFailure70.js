@@ -1,10 +1,11 @@
-import classes from "./UserInput70.module.css"
+import classes from "./UserInput70.module.css";
 
-import TitleBar from "../../../../components/UI/DisplayOutputs/TitleBar"
-import FooterContainer from "../../../../components/UI/PageLayout/FooterContainer"
-import TenderBadges from "../TenderBadges"
-import InPageTitle from "../../../../components/UI/DisplayOutputs/InPageTitleBox"
+import TitleBar from "../components/UI/DisplayOutputs/TitleBar";
+import FooterContainer from "../components/UI/PageLayout/FooterContainer";
+import TenderBadges from "../Sections/Returns/Finalize_Refund/TenderBadges";
+import InPageTitle from "../components/UI/DisplayOutputs/InPageTitleBox";
 
+import tType from "../components/global_functions/tenderTypes";
 
 const UserInput70 = ({
   activeTenderObj,

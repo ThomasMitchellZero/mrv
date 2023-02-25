@@ -22,8 +22,7 @@ import { useState, useEffect } from "react";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Returns Session
   const sessionCtx = useOutletContext().session;
@@ -32,8 +31,8 @@ const FinalizeRefund = () => {
   const ctxTendersPack = sessionCtx.refunds_by_tender;
   const failureScenario = sessionCtx.scenarios.totalTenderFailure;
   const dispatchTenderArr = (outTendersArr) => {
-    console.log(` dispatched from Firnalize Refund `)
-    console.log(outTendersArr)
+    console.log(` dispatched from Firnalize Refund `);
+    console.log(outTendersArr);
     dispatchSession({
       type: "UPDATE_TENDERS",
       payload: { newtendersArr: outTendersArr },
@@ -45,7 +44,7 @@ const FinalizeRefund = () => {
   const activeIndex = ctxTendersPack.activeIndex;
 
   //NOT SURE this will work?
-  if(activeIndex > tendersArr.length){
+  if (activeIndex > tendersArr.length) {
     // if true, all tenders have been processed so proceed to receipt stage.
     navigate("../receipt");
   }
@@ -57,7 +56,6 @@ const FinalizeRefund = () => {
   // ---- SHARED FUNCTIONS ----
 
   const tTypeSwapper = (swapTo) => {
-
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
@@ -89,8 +87,8 @@ const FinalizeRefund = () => {
     }
 
     outTendersArr[indexSwappingTo].paid += activePaid;
-    console.log("swapped Payload is:")
-    console.log(outTendersArr)
+    console.log("swapped Payload is:");
+    console.log(outTendersArr);
 
     dispatchTenderArr(outTendersArr);
   };
@@ -103,7 +101,6 @@ const FinalizeRefund = () => {
       pageText="You shouldn't be here"
     />
   );
-
 
   const buttoner = (style, text, whenClicked) => {
     const sizes = {
@@ -124,6 +121,14 @@ const FinalizeRefund = () => {
     [tStatus.failure]: (
       <UserInput70
         activeTenderObj={activeTenderObj}
+        badge2={tType.storeCredit}
+        topInPageContent={
+          <MessageRibbon
+            text={`${activeTenderObj.tenderLabel} declined. Refund as Store Credit.`}
+            color="red"
+            width="auto"
+          />
+        }
         mainButton={buttoner("primary", "Refund Store Credit", () =>
           tTypeSwapper(tType.storeCredit)
         )}
