@@ -3506,7 +3506,14 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     1:20.
     I ate, did laundry, and wondered why I'm not knocking this out like I should be.  I'm gonna take 30 minutes and see if I can't just get it done the fancy way.
 
+    2:55
+    Well, my stupid bet appears to have paid off.  So far, everything is working correctly for the failure scenarios, and I am able to reach the end of the index.  My next problem is that FinalizeRefund isn't auto-navigating to Receipt the way it should.  Gonna take a lap through the debugger and see if I can't figure it out. 
+        -It looks like a couple things are happening that I didn't expect.  First, looks like we are looping through both SnP and FinalizeRefund at least once more than expected.
+        -Second, the 'for' loop in SnP never gets past 6.  I don't know if my length check => navigate condition is even right, but it's never being reached.  
+        -Third.  It doesn't look like I'm Cloning the Returns state.  Don't know if this has an effect or not but it's definitely unsafe.  
 
+    The second problem is one I can address.  I think I'm gonna do it with a While loop so I can increment before the next check.  
+    Or.  Hold on a second.  Here's my problem.  The last index is length -1.  So in my six-item array, the last index is 5, not 6.  I should be checking if index === length.  
 
 
 

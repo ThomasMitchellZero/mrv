@@ -25,7 +25,7 @@ const FinalizeRefund = () => {
   const navigate = useNavigate();
 
   // Returns Session
-  const sessionCtx = useOutletContext().session;
+  const sessionCtx = cloneDeep(useOutletContext().session)
   const dispatchSession = useOutletContext().dispatchSession;
 
   const ctxTendersPack = sessionCtx.refunds_by_tender;
@@ -45,7 +45,7 @@ const FinalizeRefund = () => {
   const activeIndex = ctxTendersPack.activeIndex;
 
   //NOT SURE this will work?
-  if (activeIndex > tendersArr.length) {
+  if (activeIndex >= tendersArr.length) {
     // if true, all tenders have been processed so proceed to receipt stage.
     navigate("../receipt");
   }
@@ -190,7 +190,9 @@ const FinalizeRefund = () => {
 
   // Use active panel for active Status unless panel also depends on Type
   const active70 =
-    paths70?.[activeStatus]?.[activeType] ?? paths70?.[activeStatus] ?? emptyUI;
+    paths70?.[activeStatus]?.[activeType] /* if path for status + type */ ??
+    paths70?.[activeStatus] /* if path for status only */ ??
+    emptyUI; /* otherwise empty UI. */
 
   // Make array of the <TenderTypesLI>s  from the sorted tendersArr
   const tendersLIarr = tendersArr.map((thisTenderObj) => {
