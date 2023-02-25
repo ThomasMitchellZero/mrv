@@ -4,7 +4,7 @@ import tType from "../../../components/global_functions/tenderTypes";
 import tStatus from "../functions/tenderStatusCodes";
 
 // Shared Components
-import TenderBadges from "./TenderBadges";
+
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
@@ -71,16 +71,16 @@ const FinalizeRefund = () => {
     );
   };
 
-// ---- STATE-CHANGING FUNCTIONS ----
+  // ---- STATE-CHANGING FUNCTIONS ----
 
-  const changeStatusOfActive = (futureStatus )=>{
+  const changeStatusOfActive = (futureStatus) => {
     let outTendersArr = cloneDeep(tendersArr);
     outTendersArr[activeIndex].status = futureStatus;
 
-    dispatchTenderArr(outTendersArr)
-  }
+    dispatchTenderArr(outTendersArr);
+  };
 
-  // 
+  //
   const tTypeSwapper = (swapTo) => {
     // even in a Swap, tType never actually changes.
     const swappedLabels = {
@@ -120,7 +120,8 @@ const FinalizeRefund = () => {
     dispatchTenderArr(outTendersArr);
   };
 
-  // Not sure if needed
+  //---- CONFIGURED 70 PANELS ----
+
   const emptyUI = (
     <Placeholder
       titleText="Blank"
@@ -128,8 +129,6 @@ const FinalizeRefund = () => {
       pageText="You shouldn't be here"
     />
   );
-
-
 
   const paths70 = {
     [tStatus.failure]: (
@@ -152,20 +151,44 @@ const FinalizeRefund = () => {
     [tStatus.progress2Line]: <ConfirmCash70 />,
 
     [tStatus.inProgress]: {
-      [tType.cash]: <Payout70 activeTenderObj={activeTenderObj} />,
-      [tType.storeCredit]: <Payout70 activeTenderObj={activeTenderObj} />,
-      [tType.debit]: <UserInput70 activeTenderObj={activeTenderObj} 
+      [tType.cash]: (
+        <Payout70
+          activeTenderObj={activeTenderObj}
+          onClick={changeStatusOfActive}
+        />
+      ),
+      [tType.storeCredit]: (
+        <Payout70
+          activeTenderObj={activeTenderObj}
+          onClick={changeStatusOfActive}
+        />
+      ),
+      [tType.debit]: (
+        <UserInput70
+          activeTenderObj={activeTenderObj}
           mainButton={buttoner("primary", "Refund To Debit", () =>
-          changeStatusOfActive(tStatus.complete))}
+            changeStatusOfActive(tStatus.complete)
+          )}
           altButton={buttoner("secondary", "Refund With Cash", () =>
-          tTypeSwapper(tType.cash))}
-      />,
-      [tType.check]: <UserInput70 activeTenderObj={activeTenderObj}/>,
+            changeStatusOfActive(tStatus.progress2Line)
+          )}
+        />
+      ),
+      [tType.check]: (
+        <UserInput70
+          activeTenderObj={activeTenderObj}
+          mainButton={buttoner("primary", "Refund Checking Account", () =>
+            changeStatusOfActive(tStatus.complete)
+          )}
+          altButton={buttoner("secondary", "Refund With Cash", () =>
+            changeStatusOfActive(tStatus.progress2Line)
+          )}
+        />
+      ),
     },
   };
 
   // Use active panel for active Status unless panel also depends on Type
-  //TODO - this is a crappy description.
   const active70 =
     paths70?.[activeStatus]?.[activeType] ?? paths70?.[activeStatus] ?? emptyUI;
 

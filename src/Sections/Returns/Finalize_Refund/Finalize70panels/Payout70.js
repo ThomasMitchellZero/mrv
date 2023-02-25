@@ -6,6 +6,7 @@ import TenderBadges from "../TenderBadges";
 import InPageTitle from "../../../../components/UI/DisplayOutputs/InPageTitleBox";
 
 import tType from "../../../../components/global_functions/tenderTypes";
+import tStatus from "../../functions/tenderStatusCodes";
 
 const Payout70 = ({ activeTenderObj, onClick }) => {
   
@@ -20,7 +21,9 @@ const Payout70 = ({ activeTenderObj, onClick }) => {
     },
   };
 
-  const handeClick = () => {};
+  const handeClick = () => {
+    onClick((tStatus.complete))
+  };
 
   //const activeType = activeTenderObj.tenderType;
   const activeType = tType.storeCredit;
