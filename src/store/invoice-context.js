@@ -15,7 +15,7 @@ const invoiceObj = {
       date: new Date(2022, 8, 13),
       phone: "1112223333",
       payment: {
-        cash: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+        [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
         7777888877778888: {
           tenderType: tType.debit,
           tenderLabel: "Debit ****8888",
@@ -113,7 +113,7 @@ const invoiceObj = {
       store: 1234,
       date: new Date(2022, 3, 8),
       payment: {
-        cash: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+        [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
       },
       orderNum: "11112222",
       lcaNum: "11112222",

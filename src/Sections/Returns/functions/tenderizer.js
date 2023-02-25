@@ -1,6 +1,5 @@
 import tType from "../../../components/global_functions/tenderTypes";
 import tStatus from "./tenderStatusCodes";
-import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
 
 const ref = [
   {primaryKey: tType.cash, tenderType: tType.cash, tenderLabel: "Cash", paid: 800 },
@@ -37,11 +36,6 @@ const ref = [
 ];
 
 
-const nextStates = {
-
-}
-
-
 const tenderizer = (tenderObj) => {
 
   // remember that the tenderizer will be called on some tenderObj's that have already been Tenderized.
@@ -63,6 +57,29 @@ const tenderizer = (tenderObj) => {
     ...tenderObj,
     ...sharedProperties,
   };
+
+  // ---- TYPE-SPECIFIC PROPERTIES ----
+
+  // NOT YET USED
+  // tenderType never change once assigned
+  const typePaths = {
+    [tType.cash]: {
+      tenderLabel: "CasH MONEY",
+    },
+    [tType.storeCredit]: {
+      tenderLabel: "STOOOORE Credit",
+    },
+    [tType.credit]: {
+      tenderLabel: "Credit Cartttt",
+    },
+    [tType.check]: {
+      tenderLabel: "Check Down",
+    },
+    [tType.debit]: {
+      tenderLabel: "Debitator",
+    },
+  };
+
 
   // tenderType should never change once assigned
   
