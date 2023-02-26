@@ -3582,12 +3582,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Ok, I want to keep moving so I don't lose momentum.  I am also afraid of the next problem just because the Matchmaker is so complex.  But I want to dive in because I don't want to lose velocity.  Once I'm through here, the remaining problems today should be fun and satisfying?
 
-    First, I need to de-activate the dummy data, then I need to make some matches and confirm that I'm having 
+    First, I need to de-activate the dummy data, then I need to make some matches and confirm that I'm having the Dispos issues I think I am.
+
+    Problem.  SnP fails if given an empty array so I need to account for that.  Going to re-activate the dummy tenders to make sure it's all working.  
+
 
     For after:
         -Clean out all the console logs.
         -Get the Confirm Cash screens working.
         -Fix the mapping problems in TotalReview.
+        -See if I need the failureCash status.  I think no?
+        -update Tenderizer to use obj paths instead of switch statement.
 
 
 

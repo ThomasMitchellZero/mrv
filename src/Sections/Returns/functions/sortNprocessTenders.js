@@ -5,16 +5,24 @@ import tenderizer from "./tenderizer";
 import cloneDeep from "lodash.clonedeep";
 
 const sortNprocessTenders = (tendersArr, totalFailure = true) => {
-  const untenderizedArr = cloneDeep(tendersArr);
-  console.log(untenderizedArr);
+
+  const outTendersPack = {
+    activeIndex: 0,
+    tendersArr: cloneDeep(tendersArr),
+    allComplete: false
+  }
+
+  // Sometimes the array will be empty.  If so, no further processing.
+  if (outTendersPack.tendersArr.length === 0){
+    return outTendersPack
+  }
 
   // Ensures all arr elements have correct tType-specific properties
-  const unsortedTendersArr = untenderizedArr.map((thisTenderObj) => {
+  const unsortedTendersArr = outTendersPack.tendersArr.map((thisTenderObj) => {
     // It's OK to Tenderize at the start because tenderType never changes.
     return tenderizer(thisTenderObj);
   });
 
-  let outActiveIndex = 0;
 
   // tender types, in the order they should be processed.
   let sortedTenders = [
@@ -71,11 +79,11 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     },
   };
 
-  let allTendersResolved = false;
-  //Loop through sorted Tenders
-  while (!allTendersResolved) {
 
-    const thisTenderObj = sortedTenders[outActiveIndex];
+  //Loop through sorted Tenders
+  while (!outTendersPack.allComplete) {
+
+    const thisTenderObj = sortedTenders[outTendersPack.activeIndex];
     const thisStatus = thisTenderObj.status;
     const thisType = thisTenderObj.tenderType;
     const autoTransformStatusTo = autoResolvingPaths[thisStatus]?.[thisType];
@@ -83,14 +91,14 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     // If this status/type combo has a pre-determined status change...
     if (autoTransformStatusTo) {
       // make that status change in the current active index.
-      sortedTenders[outActiveIndex] = {
+      sortedTenders[outTendersPack.activeIndex] = {
         ...thisTenderObj,
         ...autoTransformStatusTo,
       };
     }
 
     // Only tenders with these statuses count as complete.
-    const newStatus = sortedTenders[outActiveIndex].status;
+    const newStatus = sortedTenders[outTendersPack.activeIndex].status;
     const isThisTenderComplete =
       newStatus === tStatus.complete || newStatus === tStatus.swapped;
 
@@ -101,24 +109,19 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
 
     // If true, we are at the last element in the array.  
     // Previous 'if' checks for completion so no need to recheck here.
-    if (outActiveIndex+1 === sortedTenders.length){
-      allTendersResolved = true;
+    if (outTendersPack.activeIndex+1 === sortedTenders.length){
+      outTendersPack.allComplete = true;
       console.log("we're done here")
       break // If true, all Tenders have been resolved.
     }
 
     // Only reachable if neither previous check is true.
-    outActiveIndex +=1
+    outTendersPack.activeIndex +=1
   }
 
-  const newTendersPack = {
-    activeIndex: outActiveIndex,
-    tendersArr: sortedTenders,
-    allComplete: allTendersResolved,
-    
-  };
+  outTendersPack.tendersArr = sortedTenders
 
-  return newTendersPack;
+  return outTendersPack;
 };
 
 export default sortNprocessTenders;
