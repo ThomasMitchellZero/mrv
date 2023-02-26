@@ -3577,6 +3577,18 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Now to tackle #1.  If my first idea works, this could be really quick.  Or I could be here all afternoon.  
 
+    1:50.
+    Well.  That was anticlimactic.  It's all working now.  Fuck yeah.  Nice!  I deserve to feel good.  I quickly and correctly identified the problems basically on the first pass and solved them.  I should remember this feeling.  
+
+    Ok, I want to keep moving so I don't lose momentum.  I am also afraid of the next problem just because the Matchmaker is so complex.  But I want to dive in because I don't want to lose velocity.  Once I'm through here, the remaining problems today should be fun and satisfying?
+
+    First, I need to de-activate the dummy data, then I need to make some matches and confirm that I'm having 
+
+    For after:
+        -Clean out all the console logs.
+        -Get the Confirm Cash screens working.
+        -Fix the mapping problems in TotalReview.
+
 
 
         
