@@ -35,7 +35,7 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     }),
   ];
 
-// ---- Process transformations of the tenders.
+  // ---- Process transformations of the tenders.
 
   const failCheck = () => {
     const outStatus = totalFailure ? tStatus.failure : tStatus.complete;
@@ -61,50 +61,61 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
         status: tStatus.inProgress,
       },
     },
-    [tStatus.complete]:{
+    [tStatus.complete]: {
       [tType.debit]: {
-        status: failCheck()
+        status: failCheck(),
       },
       [tType.check]: {
-        status: failCheck()
+        status: failCheck(),
       },
-    }
+    },
   };
 
+  let allTendersResolved = false;
   //Loop through sorted Tenders
-  for (
-    outActiveIndex;
-    outActiveIndex < sortedTenders.length;
-    outActiveIndex++
-  ) {
+  while (!allTendersResolved) {
+
     const thisTenderObj = sortedTenders[outActiveIndex];
     const thisStatus = thisTenderObj.status;
     const thisType = thisTenderObj.tenderType;
-    const transformedStatus = autoResolvingPaths[thisStatus]?.[thisType]
+    const autoTransformStatusTo = autoResolvingPaths[thisStatus]?.[thisType];
 
     // If this status/type combo has a pre-determined status change...
-    if (transformedStatus) {
+    if (autoTransformStatusTo) {
       // make that status change in the current active index.
       sortedTenders[outActiveIndex] = {
         ...thisTenderObj,
-        ...transformedStatus
+        ...autoTransformStatusTo,
       };
     }
 
     // Only tenders with these statuses count as complete.
     const newStatus = sortedTenders[outActiveIndex].status;
-    const isComplete =
+    const isThisTenderComplete =
       newStatus === tStatus.complete || newStatus === tStatus.swapped;
 
-    if (!isComplete) {
-      // incomplete means we need more input, so stop looping.
+    if (!isThisTenderComplete) {
+      // incomplete current status can't be auto-resolved without user input, so stop looping.
       break;
     }
+
+    // If true, we are at the last element in the array.  
+    // Previous 'if' checks for completion so no need to recheck here.
+    if (outActiveIndex+1 === sortedTenders.length){
+      allTendersResolved = true;
+      console.log("we're done here")
+      break // If true, all Tenders have been resolved.
+    }
+
+    // Only reachable if neither previous check is true.
+    outActiveIndex +=1
   }
 
   const newTendersPack = {
     activeIndex: outActiveIndex,
     tendersArr: sortedTenders,
+    allComplete: allTendersResolved,
+    
   };
 
   return newTendersPack;
