@@ -16,14 +16,14 @@ import ConfirmCash70 from "./Finalize70panels/ConfirmCash70";
 import Payout70 from "./Finalize70panels/Payout70";
 import Placeholder from "../../Placeholder/Placeholder";
 
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate, Navigate } from "react-router-dom";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
   const navigate = useNavigate();
 
   // Returns Session
-  const sessionCtx = cloneDeep(useOutletContext().session)
+  const sessionCtx = cloneDeep(useOutletContext().session);
   const dispatchSession = useOutletContext().dispatchSession;
 
   const ctxTendersPack = sessionCtx.refunds_by_tender;
@@ -40,14 +40,9 @@ const FinalizeRefund = () => {
   // Specifics from Returns Session state
   const tendersArr = ctxTendersPack.tendersArr;
   const activeIndex = ctxTendersPack.activeIndex;
+  const allResolved = ctxTendersPack.allComplete;
 
-  //NOT SURE this will work?
-  const refundComplete = activeIndex >= tendersArr.length
-  if (refundComplete) {
-    // if true, all tenders have been processed so proceed to receipt stage.
-    navigate("../receipt");
-  }
-
+  // Path shortcuts for the current Active Tender.
   const activeTenderObj = tendersArr[activeIndex];
   const activeStatus = activeTenderObj.status;
   const activeType = activeTenderObj.tenderType;
@@ -80,12 +75,13 @@ const FinalizeRefund = () => {
 
   //
   const tTypeSwapper = (swapTo) => {
-    // even in a Swap, tType never actually changes.
+    // even in a Swap, only Status changes. tType should never change.
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
     };
 
+    // Is this needed?
     let outTendersArr = cloneDeep(tendersArr);
 
     // Change the active tender's info to Swapped.
@@ -186,7 +182,7 @@ const FinalizeRefund = () => {
     },
   };
 
-  // Use active panel for active Status unless panel also depends on Type
+  // Active 70 panel, based on combo of status + type.
   const active70 =
     paths70?.[activeStatus]?.[activeType] /* if path for status + type */ ??
     paths70?.[activeStatus] /* if path for status only */ ??
@@ -201,7 +197,9 @@ const FinalizeRefund = () => {
 
   console.log("dong");
 
-  return (
+  return allResolved ? (
+    <Navigate to="../receipt" replace={true} />
+  ) : (
     <section className={classes.container}>
       <section className={`thirty_panel }`}>
         <TitleBar>Tender Types</TitleBar>
