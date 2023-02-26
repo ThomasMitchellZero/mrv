@@ -6,6 +6,7 @@ import cloneDeep from "lodash.clonedeep";
 
 const sortNprocessTenders = (tendersArr, totalFailure = true) => {
 
+  // output array
   const outTendersPack = {
     activeIndex: 0,
     tendersArr: cloneDeep(tendersArr),
