@@ -7,9 +7,12 @@ RULE 3:  Our responsiblity is to get it working right and keep it working right 
 RULE 4:
 IME, Pictograph => Rebus => Alphabet is frequently faster than Pictograph => Alphabet.  Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint on the road to good code, not a detour from it.  
 
+RULE 5: 
+Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to conceive now, chances are that it will be hard to comprehend later.  
+
+
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
-    
 
     -Figure out a more logical way for Input validation red warning messages to appear when needed.  Right now they are visible at the start and only go away when the user is entering.
 
@@ -3521,6 +3524,55 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     My next challenge is going to be getting it to work with the Matchmaker.  I'm actually really not feeling like doing some more work, but my main obstacle is just the fear of having to load a whole new set of facts into memory.
 
     Here's the deal I will make myself.  Let's go as hard as we can for 30 minutes.  If we still feel like stopping we can call it a day.  
+
+    5:20.
+    I'm at time and I don't feel like stopping now, so I'll move on ahead.  The issue I am running into is that downstream of SnP expects the tenders to be in a sorted array, but they're coming into the matchMaker from invoice-context as objects.  That's fine. That's probably what I would expect, and transforming them isn't going to be hard.  I think the two issues I will run into are:
+
+        -First, AFACIT I am using the labels as the way I look for matches, and I probably shouldn't. For one, no guarantee they are unique. I also don't even want them to have labels in the invoice-context, since that will be coming from the tenderizer.  I should probably check by primary key instead.
+
+        -I also need to add the primary key as a property since there's really no other point at which that will happen before this gets fed into SnP.  
+
+        -I need to check to make Matchmaker isn't using any other values from Tenderizer, because I'm taking out the Tenderizer.
+
+        -Now, the real sticker.  Right now everything is being handled as an object, because that's what it all was before I ripped it all up.  I could deal with that.  I could just do Object.keys at the very end and feed the resulting array into SnP before returning.  That might be the smartest move for the time being because I'm changing a lot and that's yet another variable to de-bug.  
+
+        Since we eventually want the output as an array it seems neater to turn it into an array as I go, but then I need to search the array for property matches.  
+
+        OK, I'm just leaving it as it is and making an array at the end.  
+
+    6:20.
+    Whew.  We got some problems for sure.  Total Review isn't correctly mapped, I'm not sure the disposition quantities are correct, and I've got multiple red errors in the console from what I bet is due to the fact that I'm trying to re-render FinalizeRefund at the same time I'm navigating away from it, but SOMEHOW I processed all the tenders and got to the end.
+
+    Reminder for myself the next time I start: I don't think the first two problems are terrible.  We don't have to start with something hopeless.  Also, I could have sworn I've handled this problem somewhere else, I think with the 'missing invoices' flow.  I BELIEVE that's a 'render this or conditionally navigate to that' flow.  
+
+26 Feb 2023
+    11:50.
+    Being honest, I don't really want to be here.  I'm afraid.  I'm afraid that I won't be able to solve this problem, or that the solution will require a cascade of rework that blows up everything I've done.  I just have to remind myself that I've been in bad situations before.  All my work with the Matchmaker was a struggle, and so was all my work with routing, and CSS / flex boxes.  I also know that every day I don't face this problem, it becomes scarier.
+        -I'm going to leave aside the issues in Matchmaker and TotalReview.  I don't think they have any downstream effects so I can put them off.
+        -First, did I get the same re-rendering failures when I was using the dummy data?  
+            -OK.  It does.  That's good, because it means I can work with the dummy data, which is faster.  It also means that the problem is occuring in the general area I expect.  
+    So now I believe I have two issues to confront.  
+
+        1. Cannot update a component (`BrowserRouter`) while rendering a different component (`FinalizeRefund`).
+            -My understanding is that this is because I'm calling for different route, trigginering a re-render, while the current render is still in flight.  
+
+        2. Cannot read properties of undefined (reading 'status')
+            This is a lot of words to explain a key part, marked with ***
+            -My For() loop in SnP cycles while Count is less that the array length.  Now, on the last cycle, the Count increments, it is no longer less-than the array length, and the cycle terminates -   
+            ***    but the count remains what it was    ***  
+            That count becomes the new ActiveIndex dispatched to the Returns.Session state, which triggers a re-render of all children, and when FinalizeRefund uses that ActiveIndex, it always comes back as 'undefined' b/c the index of the last element in an array is not [.length] but [.length - 1]
+
+        OK.  I think #2 should come first because it needs a solve no matter what the solution to #1 is.  Or does it?  Pretty sure?  
+            -Even if I were to change it to a custom hook, I don't think I want to dispatch a new route from SnP.  I still want the Returns state updated and I don't know how those two would interact.
+            -To me, the first solution that comes to mind is 
+                -Don't increment activeIndex past the end of the array.  That's what's causing the 'undefined' errors
+                -Store completion status separate from activeIndex. Since the last activeIndex won't change even when the final Tender is resolved, we can no longer use that as our Completion condition (and we probably shouldn't anways?)
+                -With those two changes, FinalizeRefund should correctly render even once the last condition is complete.  
+                -I THINK I can conditionally use <Navigate> on the basis of Completion to solve #1, but not sure.  
+
+        I don't see any obvious flaws and since it's the first thing I thought of it should be easy to remember.  Rule 5.  
+
+        
 
 
 
