@@ -3575,7 +3575,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     1:35.
     OK!  #2 is resolved.  Successfully resolved all tenders in the array including the last one, no 'undefined' errors because I'm not incrementing past the end of the array, and the new allComplete property being tracked swapped from 'false' to 'true' when it was supposed to.  
 
-    Now to tackle #1.  If my first idea works, this could be really quick.  Or I could be here all afternoon.
+    Now to tackle #1.  If my first idea works, this could be really quick.  Or I could be here all afternoon.  
 
 
 
