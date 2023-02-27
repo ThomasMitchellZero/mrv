@@ -15,9 +15,7 @@ const TotalReview = () => {
 
   const refund_moneyObj = returnsContext.session.refund_money;
   const returningItems = Object.entries(returnsContext.session.matched);
-  const tendersListArr = Object.entries(
-    returnsContext.session.refunds_by_tender
-  );
+  const tendersListArr = returnsContext.session.refunds_by_tender.tendersArr;
 
   // 30-Panel
   const miniLIarr = returningItems.map((item) => {
@@ -25,7 +23,6 @@ const TotalReview = () => {
   });
 
   // 70-Panel
-
   const headingList = [
     { id: "Refund Amount", active: false, descending: true, width: "25%" },
     { id: "Original Tender", active: false, descending: true, width: "auto" },
@@ -33,12 +30,12 @@ const TotalReview = () => {
   ];
 
   const tendersList = tendersListArr.map((thisTender) => {
-    const tenderData = thisTender[1];
+
     return (
-      <tr key={thisTender[0]}>
-        <td>{`$${(tenderData.paid / 100).toFixed(2)}`}</td>
-        <td>{tenderData.tenderLabel}</td>
-        <td>{thisTender[0]}</td>
+      <tr key={thisTender.primaryKey}>
+        <td>{`$${thisTender.displayPaid}`}</td>
+        <td>{thisTender.tenderLabel}</td>
+        <td>{thisTender.tenderLabel}</td>
       </tr>
     );
   });

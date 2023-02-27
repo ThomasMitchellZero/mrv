@@ -45,7 +45,7 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 8, price: 4400, tax: 410 },
+      200: { quantity: 8, price: 440, tax: 40 },
       900: { quantity: 2, price: 98715, tax: 9100 },
     },
   },
@@ -64,7 +64,7 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 16, price: 4415, tax: 402 },
+      200: { quantity: 16, price: 415, tax: 42 },
       300: { quantity: 3, price: 2415, tax: 240 },
     },
   },
@@ -83,7 +83,7 @@ const invoiceObj = {
       },
     },
     products: {
-      200: { quantity: 1, price: 4613, tax: 412 },
+      200: { quantity: 1, price: 463, tax: 41 },
       300: { quantity: 6, price: 2415, tax: 216 },
       400: { quantity: 1, price: 102415, tax: 9821 },
     },

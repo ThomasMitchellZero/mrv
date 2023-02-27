@@ -64,6 +64,11 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -General Knowledge: really figure out the Component Composition model.  It looks like it's powerful but I don't quite grok it yet.  
 
+    -In the <tr>s of the ItemList, we show the price as current price from the Item Store * current qty, but this is different from how much is being refunded.  I need to know how to handle the following scenarios:
+        -Matched vs. unmatched items.
+        -An item matched from multiple invoices at multiple prices.
+    I really think the most logical way is to display a separate <tr> for each unique item/price combo, and have the unmatched items with null values for unit and total prices.  Considering I have a list of matched_items, that shouldn't be a big lift for me to program, but I don't think that's what's currently in stores.
+
 
 
 
@@ -3606,14 +3611,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     OK, cool!  I won the watch and I was able to get to the end of the process.  
         -Two more things to do: first, still got those mapping errors.  Second, when I create a new entry it needs to have a unique primary key.  These *should* be easy and I'm kind of feeling like leaving them for some other time.
 
+27 Feb, 2023
+    4:20
+    Back at it.  I want to get to the easy stuff, but I am noticing a problem.  TotalRefund price doesn't match the price total in the List Item.
+    -OK, after further review I think it's  working correctly.  The item price is: current price * scanned qty, which is actually unrelated to how much the refund is for.  It also looks like the item, some flowers, is about $44/unit in the invoices, which isn't intuitive. 
 
-
-    For after:
-        -Clean out all the console logs.
-        -Get the Confirm Cash screens working.
-        -Fix the mapping problems in TotalReview.
-        -See if I need the failureCash status.  I think no?
-        -update Tenderizer to use obj paths instead of switch statement.
+    X -Change flower prices to something more reasonable
+    -Clean out all the console logs.
+    -Get the Confirm Cash screens working.
+    -Fix the mapping problems in TotalReview.
+    -See if I need the failureCash status.  I think no?
+    -update Tenderizer to use obj paths instead of switch statement.
 
 
 
