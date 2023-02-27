@@ -3586,6 +3586,27 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     Problem.  SnP fails if given an empty array so I need to account for that.  Going to re-activate the dummy tenders to make sure it's all working.  
 
+    OK, back to the dispositions.  I notice two things.  
+        1. I'm not seeing any dispositions on items I've created.  Don't remember but I thought everything was supposed to be 'unwanted' unless otherwise specified.
+        2. When I do apply a disposition, I don't see it on the corresponding Matched item.  
+
+    I took a quick look through my notes and I didn't see anything about intentionally leaving out the Unwanted dispositions so that's probably not on purpose.
+        -Ideally, I would like to have the *unwanted* dispositions assigned outside of the Matchmaker, which would mean assigning them during AddItem and then re-calculating them in ItemDetails.  
+
+        However, the way Lowe's handles this right now is crappy.  I don't know that spending time to streamline this is good.  The smart move would be just to go through the process, see if I can find where it is breaking, and then just try to get it working.  
+
+        OK.  I think I see at least part of the problem.  At around Line 100 in the MatchMaker, I check if the item/price combo exists in MatchMaker.  If not, I clone the old value, and set all the relevant props to zero.  But I'm not telling it to do anything with the dispositions, so it looks like I'm just copying those values.  Still no idea how those values get to zero, but I know this is a problem and I can fix it.
+
+    4:10.
+    I think I fixed the problem but now the matched_items object is empty?  Why?
+
+    4:25.
+    I added in a few consts for conditions so I could check to see what they were before they resolved, and now it is working perfectly.  Gonna see if I can win the eBay auction for this watch.  Then maybe try and resolve the issue in TotalReview, and then I think it's swallk time.  
+
+    OK, cool!  I won the watch and I was able to get to the end of the process.  
+        -Two more things to do: first, still got those mapping errors.  Second, when I create a new entry it needs to have a unique primary key.  These *should* be easy and I'm kind of feeling like leaving them for some other time.
+
+
 
     For after:
         -Clean out all the console logs.

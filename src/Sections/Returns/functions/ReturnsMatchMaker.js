@@ -32,7 +32,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
       // If this invoice doesn't contain this item, skip to next invoice.
       if (!thisInvoItem) continue;
 
-      // total being refunded for thisItemNum out of this Invoice.  Used to decrement the Invoice and populate this obj in refund_by_tender.
+      // total $ being refunded for this ItemNum from this Invoice.  Used to decrement the Invoice and populate this obj in refund_by_tender.
       let toRefund_thisInvoItem = 0;
 
       // ΓΓΓΓ  Invoice Loop _ Step 1: Handle Dispos & Calculate Refund  ΓΓΓΓΓΓΓ
@@ -92,21 +92,23 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         // ΓΓΓΓ  Dispos Loop _ Step 3: Populate  matched{} ΓΓΓΓΓΓΓ
 
-        // Primary key = itemNumber and price
+        // TotalReview groups items with identical itemNums and refund prices together, even if they came from different invoices.  Primary Key is a string of those 2 values.
         const matchedItemKey = `${itemNum}--${perItemRefundPrice}`;
 
-        // if this key doesn't already exist...
-        if (!matched_items[matchedItemKey]) {
-          // create it and populate its info.
-          matched_items[matchedItemKey] = {
-            ...thisCartItem,
-            img: null,
-            price: perItemRefundPrice,
-            quantity: 0,
-          };
-        }
+        // Create and populate this key if it doesn't exist.
+        matched_items[matchedItemKey] ??= {
+          ...thisCartItem,
+          img: null,
+          price: perItemRefundPrice,
+          quantity: 0,
+          disposition: {},
+        };
+
+        // if this matchedItemKey hasn't this disposition, create it at 0
+        matched_items[matchedItemKey].disposition[loopDispo] ??= 0;
         // increment the quantity matched.
         matched_items[matchedItemKey].quantity += matchedQty;
+        matched_items[matchedItemKey].disposition[loopDispo] += matchedQty;
 
         //Cleanup
 
@@ -126,8 +128,9 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           delete unmatched_items[itemNum];
         }
 
+        const stopLoopingDispos = !thisInvoItem || !thisCartItem
         // If 0 units of this item remain in this Invoice or Unmatched, stop.
-        if (!thisInvoItem || !thisCartItem) break disposLoop;
+        if (stopLoopingDispos) break disposLoop;
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
@@ -143,7 +146,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           toRefund_thisInvoItem
         );
 
-        console.log(thisTenderType);
         const tenderDetailsObj = {
           ...invoPayments[thisTenderType],
           primaryKey: thisTenderType,
@@ -162,7 +164,7 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
 
         refundsByTenderObj[thisTenderType].paid += decrementAmount;
 
-        // if tender type is zeroed out, remove it from the invoice.
+        // if tender type is completely refunded, remove it from the invoice.
         if (invoPayments[thisTenderType].paid === 0) {
           delete invoPayments[thisTenderType];
         }
@@ -182,13 +184,15 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
     Object.values(refundsByTenderObj)
   );
 
-  return {
+  const finalOutput = {
     matched: matched_items,
     unmatched: unmatched_items,
     modified_invoices: modified_invoices,
     refunds_by_tender: outRefundTenders,
     refund_money: refund_money,
   };
+
+  return finalOutput
 };
 
 export default ReturnsMatchMaker;

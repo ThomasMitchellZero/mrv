@@ -13,7 +13,7 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     allComplete: false
   }
 
-  // Sometimes the array will be empty.  If so, no further processing.
+  // Sometimes the array will be empty.  If so, return without further action.
   if (outTendersPack.tendersArr.length === 0){
     return outTendersPack
   }
