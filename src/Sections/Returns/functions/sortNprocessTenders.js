@@ -112,7 +112,6 @@ const sortNprocessTenders = (tendersArr, totalFailure = true) => {
     // Previous 'if' checks for completion so no need to recheck here.
     if (outTendersPack.activeIndex+1 === sortedTenders.length){
       outTendersPack.allComplete = true;
-      console.log("we're done here")
       break // If true, all Tenders have been resolved.
     }
 

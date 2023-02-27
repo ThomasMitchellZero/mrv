@@ -98,6 +98,7 @@ const FinalizeRefund = () => {
     if (indexSwappingTo === -1) {
       // add it to start of array
       outTendersArr.unshift({
+        primaryKey: tType[swapTo],
         tenderType: tType[swapTo],
         paid: 0,
       });
