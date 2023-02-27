@@ -3620,10 +3620,9 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     X -Clean out all the console logs.
     -Get the Confirm Cash screens working.
     X -Fix the mapping problems in TotalReview.
-    -See if I need the failureCash status.  I think not?
+    X -See if I need the failureCash status.  I think not?
     -update Tenderizer to use obj paths instead of switch statement.
-    -Try it without the TotalFailure case.  Should still work.
-    -Try deleting the CloneDeep within the swapper() function.
+    X-Try it without the TotalFailure case.  Should still work.
 
 
 

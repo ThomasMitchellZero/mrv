@@ -11,7 +11,7 @@ import cloneDeep from "lodash.clonedeep";
 import dummyTendersPack from "./Finalize_Refund/dummyTendersPack";
 import sortNprocessTenders from "./functions/sortNprocessTenders";
 
-const failureStatus = true;
+const failureStatus = false;
 
 const defaultSessionState = {
   scenarios: { totalTenderFailure: failureStatus },

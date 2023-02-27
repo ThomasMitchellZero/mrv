@@ -78,7 +78,6 @@ const FinalizeRefund = () => {
       [tType.storeCredit]: "Store Credit",
     };
 
-    // Is this needed?
     let outTendersArr = cloneDeep(tendersArr);
 
     // Change the active tender's info to Swapped.
