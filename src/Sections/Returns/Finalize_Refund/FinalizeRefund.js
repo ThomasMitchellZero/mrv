@@ -16,11 +16,10 @@ import ConfirmCash70 from "./Finalize70panels/ConfirmCash70";
 import Payout70 from "./Finalize70panels/Payout70";
 import Placeholder from "../../Placeholder/Placeholder";
 
-import { useOutletContext, useNavigate, Navigate } from "react-router-dom";
+import { useOutletContext, Navigate } from "react-router-dom";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
-  const navigate = useNavigate();
 
   // Returns Session
   const sessionCtx = cloneDeep(useOutletContext().session);
@@ -29,8 +28,6 @@ const FinalizeRefund = () => {
   const ctxTendersPack = sessionCtx.refunds_by_tender;
 
   const dispatchTenderArr = (outTendersArr) => {
-    console.log(` dispatched from Firnalize Refund `);
-    console.log(outTendersArr);
     dispatchSession({
       type: "UPDATE_TENDERS",
       payload: { newtendersArr: outTendersArr },
@@ -108,8 +105,6 @@ const FinalizeRefund = () => {
     }
 
     outTendersArr[indexSwappingTo].paid += activePaid;
-    console.log("swapped Payload is:");
-    console.log(outTendersArr);
 
     dispatchTenderArr(outTendersArr);
   };
@@ -195,7 +190,6 @@ const FinalizeRefund = () => {
     );
   });
 
-  console.log("dong");
 
   return allResolved ? (
     <Navigate to="../receipt" replace={true} />
