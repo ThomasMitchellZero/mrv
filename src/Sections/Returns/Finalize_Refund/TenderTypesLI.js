@@ -44,12 +44,6 @@ const TenderTypesLI = ({ tenderObj }) => {
       statusLabel: "Auto Credit Failed",
       active: true,
     },
-    [tStatus.failureCash]: {
-      icon: iconsObj.failure,
-      line2: true,
-      strike: classes.strike,
-      statusLabel: "Auto Credit Failed",
-    },
     [tStatus.complete]: {
       icon: iconsObj.complete,
       statusLabel: "Complete",
