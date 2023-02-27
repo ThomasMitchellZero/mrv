@@ -30,7 +30,6 @@ const TotalReview = () => {
   ];
 
   const tendersList = tendersListArr.map((thisTender) => {
-
     return (
       <tr key={thisTender.primaryKey}>
         <td>{`$${thisTender.displayPaid}`}</td>
@@ -77,7 +76,9 @@ const TotalReview = () => {
         </section>
         <FooterContainer>
           <Link
-            to="../finalize-refund">
+            className={`baseButton primary large contained70`}
+            to="../finalize-refund"
+          >
             Continue
           </Link>
         </FooterContainer>
