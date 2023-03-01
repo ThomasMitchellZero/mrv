@@ -127,7 +127,8 @@ const Returns = () => {
 
       case "UPDATE_TENDERS": {
         const outTendersArr = action.payload.newtendersArr;
-        const newTenderPack = sortNprocessTenders(outTendersArr, failureStatus);
+        // this is NOT currently using the State failure status.
+        const newTenderPack = sortNprocessTenders(outTendersArr);
         return {
           ...state,
           refunds_by_tender: newTenderPack,

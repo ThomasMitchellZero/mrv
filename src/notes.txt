@@ -3621,9 +3621,18 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -Get the Confirm Cash screens working.
     X -Fix the mapping problems in TotalReview.
     X -See if I need the failureCash status.  I think not?
-    -update Tenderizer to use obj paths instead of switch statement.
+    X -update Tenderizer to use obj paths instead of switch statement.
     X-Try it without the TotalFailure case.  Should still work.
 
+    Tried updating the Tenderizer and got a new bug.  The first tender resolves to failure, which is right.  But then when I resolve it, the second tender, also a credit card, which should fail, instead gets set to Complete.  
+        -OK, I found the bug.  SnP isn't reading the failure status from the Scenarios when it is called the MatchMaker (so it uses the Default) but it IS reading it when called in the Returns dispatcher. They were different values, and that's why it's behaving differently.  OK, it's fixed.
+
+    Another potential issue.  Right now, in the Tenderizer, only null tStatus gets assigned to notStarted.  I fear this is a potential issue because if a credit card gets set to index[0] it will be assigned a status of failure.  If another credit card or failable replaces it in the 0 index, I THINK that failure status won't get reset to notStarted. 
+
+1 Mar 2023
+    OK, finally got the green light to work on some Lowe's-related work!  I want to make sure this is all squared away first and then I can go get after it.
+
+    -My previous issue about the status and the index shouldn't be an issue.  All derived states, including refunds_by_tender, are re-created from scratch with every change to Session Invoices or Items.  I don't have to worry about any consequences from the old state because it's destroyed every time the new state is created.  
 
 
         

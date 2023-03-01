@@ -40,28 +40,17 @@ const tenderizer = (tenderObj) => {
 
   // remember that the tenderizer will be called on some tenderObj's that have already been Tenderized.
 
-  // properties that all tenders will have.
+  // ---- UNIVERSAL PROPERTIES ----
   const sharedProperties = {
     // Keep status if tender already has one.  
     status: tenderObj.status ?? tStatus.notStarted,
-    userOption: null,
     displayPaid: Number(tenderObj.paid / 100).toFixed(2),
   };
 
-  // 
-  const errorProperties = {
-    canFail: true,
-  };
-
-  let outTenderObj = {
-    ...tenderObj,
-    ...sharedProperties,
-  };
 
   // ---- TYPE-SPECIFIC PROPERTIES ----
 
-  // NOT YET USED
-  // tenderType never change once assigned
+  // tenderType never changes once assigned
   const typePaths = {
     [tType.cash]: {
       tenderLabel: "CasH MONEY",
@@ -81,46 +70,11 @@ const tenderizer = (tenderObj) => {
   };
 
 
-  // tenderType should never change once assigned
-  
-  switch (tenderObj.tenderType) {
-    case tType.cash:
-      outTenderObj = { ...outTenderObj, tenderLabel: "CasH MONEY", };
-      break;
-
-    case tType.storeCredit:
-      outTenderObj = { ...outTenderObj, tenderLabel: "STOOOORE Credit" };
-      break;
-
-    case tType.credit:
-      outTenderObj = {
-        ...outTenderObj,
-
-        tenderLabel: "Credit Cartttt",
-      };
-      break;
-
-    case tType.debit:
-      outTenderObj = {
-        ...outTenderObj,
-
-        tenderLabel: "Debitater",
-        userOption:true,
-      };
-      break;
-
-    case tType.check:
-      outTenderObj = {
-        ...outTenderObj,
-
-        userOption:true,
-        tenderLabel: "You old AF",
-      };
-      break;
-
-    default:
-      throw new Error(`Unknown tender type: ${tenderObj.tenderType}`);
-  }
+  const outTenderObj = {
+    ...tenderObj,
+    ...sharedProperties,
+    ...typePaths[tenderObj.tenderType],
+  };
 
   return outTenderObj;
 };
