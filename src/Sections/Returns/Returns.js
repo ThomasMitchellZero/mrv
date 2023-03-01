@@ -4,7 +4,7 @@ import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
-import cloneDeep from "lodash.clonedeep";
+
 
 // test data, delete once everything is working.
 
@@ -20,7 +20,7 @@ const defaultSessionState = {
   unmatched: {},
   modified_invoices: {},
   matched: {},
-  refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack, failureStatus),
+  refunds_by_tender: sortNprocessTenders(dummyTendersPack),
   refund_money: {
     refundTotal: 0,
     taxSum: 0,

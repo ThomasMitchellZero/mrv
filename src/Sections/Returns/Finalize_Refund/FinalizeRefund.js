@@ -20,7 +20,6 @@ import { useOutletContext, Navigate } from "react-router-dom";
 import cloneDeep from "lodash.clonedeep";
 
 const FinalizeRefund = () => {
-
   // Returns Session
   const sessionCtx = cloneDeep(useOutletContext().session);
   const dispatchSession = useOutletContext().dispatchSession;
@@ -70,9 +69,10 @@ const FinalizeRefund = () => {
     dispatchTenderArr(outTendersArr);
   };
 
-  //
+  // Applies Swapped Status.  Does lots more than the normal state-setter.
   const tTypeSwapper = (swapTo) => {
-    // even in a Swap, only Status changes. tType should never change.
+
+    // even in a Swap, only Status changes. tType remains constant.  But this function still does need to know the new tType to increment/create it and for display purposes.
     const swappedLabels = {
       [tType.cash]: "Cash",
       [tType.storeCredit]: "Store Credit",
@@ -137,7 +137,13 @@ const FinalizeRefund = () => {
       />
     ),
 
-    [tStatus.progress2Line]: <ConfirmCash70 />,
+    [tStatus.progress2Line]: (
+      <ConfirmCash70
+        tenderObj={activeTenderObj}
+        cashNo={changeStatusOfActive}
+        cashYes={tTypeSwapper}
+      />
+    ),
 
     [tStatus.inProgress]: {
       [tType.cash]: (
@@ -190,7 +196,6 @@ const FinalizeRefund = () => {
     );
   });
 
-
   return allResolved ? (
     <Navigate to="../receipt" replace={true} />
   ) : (
@@ -208,8 +213,6 @@ const FinalizeRefund = () => {
 };
 
 export default FinalizeRefund;
-
-
 
 /*
 

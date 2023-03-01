@@ -3634,8 +3634,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -My previous issue about the status and the index shouldn't be an issue.  All derived states, including refunds_by_tender, are re-created from scratch with every change to Session Invoices or Items.  I don't have to worry about any consequences from the old state because it's destroyed every time the new state is created.  
 
+    -Going to try and get Confirm Cash working.  *Shouldn't* be too hard?  
 
-        
+    3:45.
+    
 
 
     
