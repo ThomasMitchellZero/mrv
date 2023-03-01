@@ -3618,7 +3618,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     X -Change flower prices to something more reasonable
     X -Clean out all the console logs.
-    -Get the Confirm Cash screens working.
+    X -Get the Confirm Cash screens working.
     X -Fix the mapping problems in TotalReview.
     X -See if I need the failureCash status.  I think not?
     X -update Tenderizer to use obj paths instead of switch statement.
@@ -3637,7 +3637,24 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     -Going to try and get Confirm Cash working.  *Shouldn't* be too hard?  
 
     3:45.
-    
+    OK!  That's it for all of my cleanup of the FinalizeRefund screens.
+    Next, I'm going to get cracking on the Generic SOS function for testing.  Let's start by laying out what I need.
+
+    -First, let's lay out general structure.
+        -Invoice.  I THINK this should be fairly easy?  I'll just add some kind of check in the Invoice lookup field.  If no generic SOS, it proceeds and dispatches normally.  If there is one, I instead display the pop-up.
+            -Once they have at least one valid item, I dispatch that item to Items and dispatch the Invoice to Invoices.  Should be OK?
+
+        -Orders.  Not sure how to handle this from the Add Invoice screen.  I guess I could update the lookup function to check for an OrderNum property?  Probably put this on the back burner for testing.  
+
+        -The real sticker.  What to do about order lookup?  
+            OK.  I loop through all the invoices before I loop through all the items.  So I can add a condition to check for it having generic SOS.  But then what?  InvoiceSearch isn't a React component, I don't think?  It is capitalized, and it's also calling a UseReducer function which I didn't think was possible for non-React components?
+
+            OK.  Here's the plan.  I THINK I need the action to be happening in FinalizeRefund?  IF that is true, I can change the InvoiceSearch function to just return the output instead of dispatching it.  In either Invoice Search or ReceiptLookup, I can check if it is generic SOS.  If it isn't, I dispatch as normal.  If it is, I don't dispatch and instead display the dialog.
+
+        -One last issue, hopefully not too complicated.  Right now, I don't have the ability to add multiple items at once.  I should probably change ADD_ITEM to expect an array, and then change ItemEntry30 to dispatch an array of 1.  
+
+        -This is all conditional on the dialog not being too hard to set up.  If it has to happen in the top-level App component I'm gonna have trouble.  
+            -OK.  After a bit of YouTubing it doesn't look too bad?
 
 
     

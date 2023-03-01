@@ -20,7 +20,7 @@ const defaultSessionState = {
   unmatched: {},
   modified_invoices: {},
   matched: {},
-  refunds_by_tender: sortNprocessTenders(dummyTendersPack),
+  refunds_by_tender:{}, //sortNprocessTenders(dummyTendersPack),
   refund_money: {
     refundTotal: 0,
     taxSum: 0,
