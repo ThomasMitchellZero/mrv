@@ -122,11 +122,31 @@ const invoiceObj = {
 
     products: {
       100: { quantity: 10, price: 5615, tax: 80 },
-      300: { quantity: 8, price: 2555, tax: 2.1 },
+      300: { quantity: 8, price: 2555, tax: 21 },
       400: { quantity: 1, price: 102105, tax: 9821 },
     },
   },
+
+  SSS: {
+    invoiceDetails: {
+      store: 1234,
+      date: new Date(2022, 3, 8),
+      payment: {
+        [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+      },
+      orderNum: "33334444",
+      genericSOS: true,
+    },
+
+    products: {
+      10001: { quantity: 2, price: 7766, tax: 720, status: "delivered" },
+      10002: { quantity: 6, price: 234, tax: 22, status: "delivered"},
+      10003: { quantity: 3, price: 6012, tax: 601, status: "delivered" },
+    },
+  },
 };
+
+
 
 invoicePaymentPricer(invoiceObj);
 
