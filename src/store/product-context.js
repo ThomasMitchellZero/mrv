@@ -74,6 +74,39 @@ const ProductContext = React.createContext({
     restockFee: 0.2,
   },
 
+  10001:{
+    img: no_img,
+    price: 7899,
+    itemNum: "10001",
+    modelNum: "GSOS001",
+    description: "Base 18 Wastebasket with double-walled catch envelope, ceramic thermal diffusers and lint roller",
+    categories: ["Configurable"],
+    specialCategories: {SOS:true},
+    restockFee: 0.2,
+  }, 
+
+  10002:{
+    img: no_img,
+    price: 212,
+    itemNum: "10002",
+    modelNum: "GSOS002",
+    description: "Free-range White Rhino Ivory Knob",
+    categories: ["Configurable"],
+    specialCategories: {SOS:true},
+    restockFee: 0.2,
+  }, 
+
+  10003:{
+    img: no_img,
+    price: 6123,
+    itemNum: "10003",
+    modelNum: "GSOS003",
+    description: "5-Piece Oak Drawer",
+    categories: ["Configurable"],
+    specialCategories: {SOS:true},
+    restockFee: 0.2,
+  }, 
+
 });
 
 export default ProductContext;

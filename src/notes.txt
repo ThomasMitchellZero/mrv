@@ -3655,6 +3655,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -This is all conditional on the dialog not being too hard to set up.  If it has to happen in the top-level App component I'm gonna have trouble.  
             -OK.  After a bit of YouTubing it doesn't look too bad?
+        
+    5:40.
+    It's not 'working' in the sense of having any functionality but I have got a component with a scrim and a centered element floating over the top of my page, blocking all interaction below, and that was the part I was most afraid of.  SO FAR this has been surprisingly easy, and I'll deal with the rest of it later.  
+
+2 Mar 2023
+    2:40.
+    Not my fastest "getting into gear" but better now than later.  I think the first thing I need today is an invoice in the invoice-context with a generic SOS item.  I needs:
+        X -A No Image image. 20 mins or else I could be here waaay too long.
+        -An item in product-context with multiple sub-items and a plan to display them.
+        -Some way if determining that the Invoice is for a Generic SOS number.  
+        -Refactor item-adding to accept an array and not just a singleton.  
 
 
     
