@@ -3792,6 +3792,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Sometimes the Unwanted qty gets included, even if the Damaged qty alone should be over the limit.  OK.  To the debugger.
         -OK.  Fixed the main issue (I was still checking if Unwanted >=0 despite conditionally altering it earlier) and now I've found another issue.  Somehow I'm getting Unwanted: 0 dispositions in my Matched items.  
 
+        OK.  Is this a good thing for me to be spending my time on?  Absolutely not.  But I've got some clues and I'm gonna get it while I'm thinking.  
+
+        -It looks like the issue is that the Break check at the end of the Dispos loop is failing somehow.  
+
                 
             
 
