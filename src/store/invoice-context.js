@@ -139,9 +139,9 @@ const invoiceObj = {
     },
 
     products: {
-      10001: { quantity: 2, price: 7766, tax: 720, status: "delivered" },
-      10002: { quantity: 6, price: 234, tax: 22, status: "delivered"},
-      10003: { quantity: 3, price: 6012, tax: 601, status: "delivered" },
+      10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
+      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered"},
+      10003: { quantity: 3, price: 6012, tax: 601, delivery: "delivered" },
     },
   },
 };

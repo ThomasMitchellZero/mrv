@@ -163,7 +163,7 @@ const ItemDetails30 = ({
     const unwantedObj = newUnwantedQty ? { unwanted: newUnwantedQty } : {};
 
     // If newUnwantedQty is negative, then the user's input made the disposition total exceed the item total.
-    if (newUnwantedQty >= 0) {
+    if (isInputQtyValid) {
       isInputQtyValid = true;
 
       outDisposObj = {
