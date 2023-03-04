@@ -20,10 +20,6 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
   UM_itemsLoop: for (const itemNum of Object.keys(unmatched_items)) {
     const thisCartItem = unmatched_items[itemNum];
 
-    // If there is an UnwantedTotal, add it to the item's disposition.
-    const { dsQty: dispoTotal } = disposSqueezer(thisCartItem.disposition);
-    const unwantedTotal = thisCartItem.quantity - dispoTotal;
-    if (unwantedTotal > 0) thisCartItem.disposition.unwanted = unwantedTotal;
 
     invoicesLoop: for (const invoiceNum of Object.keys(modified_invoices)) {
       const thisInvoice = modified_invoices[invoiceNum];
@@ -127,10 +123,10 @@ const ReturnsMatchMaker = (itemList, invoiceList) => {
           // this item in Unmatched
           delete unmatched_items[itemNum];
         }
-
-        const stopLoopingDispos = !thisInvoItem || !thisCartItem
+        
+        const allTargetsRemain = thisInvoice.products[itemNum] && unmatched_items[itemNum];  
         // If 0 units of this item remain in this Invoice or Unmatched, stop.
-        if (stopLoopingDispos) break disposLoop;
+        if (!allTargetsRemain) break disposLoop;
       } // ∞∞∞∞∞∞∞∞ end of loop through item dispositions. ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
       // ΓΓΓΓ  Invoice Loop _ Step 2: Allocate Refund $ to Tender types ΓΓΓΓΓΓΓ
