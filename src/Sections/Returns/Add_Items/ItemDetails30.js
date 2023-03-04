@@ -125,12 +125,13 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
+    //NOTES:  The difference between the DisposObj going to the local state and the global state is that the local state stores the user's input even if it's invalid, while only valid values are stored in the global state.
+
     const thisDispoType = detailsState.defectiveReason;
 
     //---- Outputs to be populated ----
     let outDisposObj = { ...detailsState.localDisposObj };
     let outLocalPayload = {};
-    let isInputQtyValid = false;
 
     //---- Prepare quantities for evaluation ----
     const rawIn = parseInt(event.target.value);
@@ -150,25 +151,25 @@ const ItemDetails30 = ({
 
     //---- Conditional Output Updates ----
 
-    // Get qty of Unwanted items. If negative, the inputQty is invalid.
-    let newUnwantedQty = totalItemQty - (keptQty + inputQty);
+    let isInputQtyValid = totalItemQty >= keptQty + inputQty;
 
-    // Create new {dispo:value} unless inputQty is 0
+    // If the input would put the total dispositions above the Item total, it is not included when calculating Unwanted.
+    let newUnwantedQty = isInputQtyValid
+      ? totalItemQty - (keptQty + inputQty)
+      : totalItemQty - keptQty;
+
+    // We do not include zero values in the disposition object.  These are being ...spread in so if either is zero, they are an empty object.
     const thisDispoObj = inputQty ? { [thisDispoType]: inputQty } : {};
     const unwantedObj = newUnwantedQty ? { unwanted: newUnwantedQty } : {};
 
     // If newUnwantedQty is negative, then the user's input made the disposition total exceed the item total.
     if (newUnwantedQty >= 0) {
       isInputQtyValid = true;
-      //This is going to the Global state.  We include the item quantity because the previous check proves it is valid.
+
       outDisposObj = {
         ...outDisposObj,
-        ...thisDispoObj,
+        ...thisDispoObj, //We include the item quantity because the previous check proves it is valid.
       };
-
-    } else {
-      // IF the totalItemQty was exceeded, then the user's entry is invalid and we're not keeping it in the global state.  That means we don't include it when calculating Unwanted.
-      newUnwantedQty = totalItemQty - keptQty;
     }
 
     //---- Unconditional Output Updates ----
@@ -177,8 +178,8 @@ const ItemDetails30 = ({
     outDisposObj = {
       ...outDisposObj,
       ...unwantedObj, // if the Input Qty was invalid we recalculate Unwanted without it, so Unwanted is always valid.
-    }
-    sessionItem.disposition = outDisposObj
+    };
+    sessionItem.disposition = outDisposObj;
 
     // TO LOCAL STATE
     outLocalPayload = {
@@ -197,7 +198,7 @@ const ItemDetails30 = ({
 
     dispatchSession({
       type: "ADD_ITEM",
-      payload: { [activeItem]: sessionItem, },
+      payload: { [activeItem]: sessionItem },
     });
   };
 
