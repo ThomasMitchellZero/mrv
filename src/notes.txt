@@ -3714,17 +3714,79 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     -a BIT of code cleanup in AddItems30.  No heavy refactoring.
     -I NEED to make the stringMaker because I am going to start showing this to people and I can't have the fake strings.
+
     -After that, check ItemDetail30, specifically the dispositions. 
+
         -First, we need to see if we think it's going to work with our new structure in the Returns Items reducer.  It will need at least a little tweaking.  
-        -Evaluate whether it is PRACTICAL to use all or part of the Dispositions function in ItemEntry30.  If, in our best judgement, our future selves aren't going to understand why we are using such a complex function, it's OK to use the simpler function in AddItems30.
-        -Whichever function we choose, put it into ItemEntry30.  We will also use it later in Generic SOS.
-    -Test.  At each point, make predictions and look for unexpected surprises.  We will probably be averse to doing this, so be prepared to bribe with treats or cool songs.  
-        -Add 2 different itemNums.  
-        -Change their dispositions. 
-        -Match item 1 from 2 different invoices
-        -Add more items of the same item types to items 1 and 2.
-        -Match Item 2 from an invoice that also includes Item 1.
-        -Change dispositions.  
+
+
+        X -Evaluate whether it is PRACTICAL to use all or part of the Dispositions function in ItemEntry30.  If, in our best judgement, our future selves aren't going to understand why we are using such a complex function, it's OK to use the simpler function in AddItems30.
+            * OK, for the time being I think we go with 2 different functions.  Other than 'fill in the gaps with Unwanted' they're doing two very different things.  
+            
+        -Whichever function we choose, put it into a separate function and then incorporate into ItemEntry30.  We will also use it later in Generic SOS.
+
+        -Bonus goal - Can I get rid of dispoSqueezer entirely?  
+        
+        -Test.  At each point, make predictions and look for unexpected surprises.  We will probably be averse to doing this, so be prepared to bribe with treats or cool songs.  
+            -Add 2 different itemNums.  
+            -Change their dispositions. 
+            -Match item 1 from 2 different invoices
+            -Add more items of the same item types to items 1 and 2.
+            -Match Item 2 from an invoice that also includes Item 1.
+            -Change dispositions.  
+
+        OK, maybe this is stupid but I'm going to do some refactoring in ItemDetails30.  I think I can make this cleaner, and also conditions have changed.  I need to account for:
+
+            -Returns Items reducer no longer adds item details.  That's fine - those will have been added in creation.  But I need to make sure they are preserved.
+            -Reducer is now expecting an object of named items.  
+            -I'm trying to get rid of the dispoSqueezer, so I should make sure that no 'air bubble' dispositions get into the dispos object.
+            -Any unspoken-for quantity is assigned as Unwanted.
+
+            ---
+            -In general, I've been pleased with pattern of:
+                Make basic output => 
+                Conditionally alter output => 
+                Return Output
+
+            -Need to think about how I am going to Unwanted at local and session level.
+            
+            The input is valid if the sum of ALL dispositions <= total item number.
+
+            Unwanted = TotalItemQty - Sum of all Dispositions
+
+            Not organized, just getting thoughts on page:
+                -If EITHER the input quantity OR the unwanted quantity is zero, we don't add them to either the local or the global state.
+                -How to handle the input messaging?  The Max Allowable input is different from Unwanted in at least one case - if Unwanted is null, Max Allowable is 0.  
+
+            My sense is that before, there were only a few simple modifications necessary to transform the case:Invalid outputs into the case:Valid outputs and now that is no longer the case.  Or, another way to track my confusion, there are four 'variations' I need to account for:
+                Valid or Invalid
+                Local State and Session State.
+
+            If they are valid, Local and Session are the same.  So I think what I should do is populate assuming a Valid state, make changes conditional on Invalid, and then proceed?  Something feels wrong.  Or, something feels harder to change?  
+                
+            Maybe I should start at the end, with the Outputs.  Then I will at least know what properties I should conditionally alter.
+
+                -I think the big one is going to be the quantity of the current item.  As far as the Dispositions object, that should be the only difference between Local and Global, right?  
+                    -All the unchanged remain unchanged.  
+                    -The Unwanted qty for both is ItemTotal - UnchangedQty
+                    -But for this Item, local can exceed?
+                        -I think this is correct.  An invalid quantity is never dispatched to Global, and whenever another button or tab is clicked, the local dispositions are re-set from the global state.
+                    -I'm now wondering if I should only dispatch Global if correct?
+                
+                So the only potential difference between Global and Local is the quantity of the current disposition.
+
+                And I THINK the only difference between Valid and Invalid is how Unwanted is calculated. It's ItemTotal minus (oldDispos + inputQty ) unless that's negative, in which case it's just ItemTotal minus OldDispos.  
+
+                So.  We calculate Unwanted, and record the validity.  
+                    If it's valid, we assign the newDispo to Global output.
+                    If not, Unwanted (oldDispos + inputQty )
+
+                Unconditionally:
+                    -assign Unwanted to Global and Local
+                    -assign inputQty to Local obj.
+
+                
+            
 
     
 

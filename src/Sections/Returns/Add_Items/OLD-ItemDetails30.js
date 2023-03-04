@@ -125,79 +125,60 @@ const ItemDetails30 = ({
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
-    const thisDispoType = detailsState.defectiveReason;
-
-    //---- Outputs to be populated ----
-    let outDisposObj = { ...detailsState.localDisposObj };
-    let outLocalPayload = {};
-    let isInputQtyValid = false;
-
-    //---- Prepare quantities for evaluation ----
     const rawIn = parseInt(event.target.value);
+
     // Input might be empty so if NaN, set it to 0.
     const inputQty = isNaN(rawIn) ? 0 : rawIn;
 
-    // These two are being replaced and their old values don't matter.
-    delete outDisposObj[thisDispoType];
-    delete outDisposObj.unwanted;
+    const outDisposObj = { ...detailsState.localDisposObj };
+    delete outDisposObj[detailsState.defectiveReason];
 
-    const totalItemQty = sessionItem.quantity;
-    // Track sum of all remaining dispositioned items.
-    let keptQty = 0;
-    for (const i of Object.values(outDisposObj)) {
-      keptQty += i;
-    }
-
-    //---- Conditional Output Updates ----
-
-    // Get qty of Unwanted items. If negative, the inputQty is invalid.
-    let newUnwantedQty = totalItemQty - (keptQty + inputQty);
+    // Qty of all items besides this one.
+    const keptQty = disposSqueezer(outDisposObj).dsQty;
 
     // Create new {dispo:value} unless inputQty is 0
-    const thisDispoObj = inputQty ? { [thisDispoType]: inputQty } : {};
-    const unwantedObj = newUnwantedQty ? { unwanted: newUnwantedQty } : {};
+    const newDispoProp =
+      inputQty === 0 ? {} : { [detailsState.defectiveReason]: inputQty };
 
-    // If newUnwantedQty is negative, then the user's input made the disposition total exceed the item total.
-    if (newUnwantedQty >= 0) {
-      isInputQtyValid = true;
-      //This is going to the Global state.  We include the item quantity because the previous check proves it is valid.
-      outDisposObj = {
-        ...outDisposObj,
-        ...thisDispoObj,
-      };
-
-    } else {
-      // IF the totalItemQty was exceeded, then the user's entry is invalid and we're not keeping it in the global state.  That means we don't include it when calculating Unwanted.
-      newUnwantedQty = totalItemQty - keptQty;
-    }
-
-    //---- Unconditional Output Updates ----
-
-    // TO SESSION:
-    outDisposObj = {
-      ...outDisposObj,
-      ...unwantedObj, // if the Input Qty was invalid we recalculate Unwanted without it, so Unwanted is always valid.
-    }
-    sessionItem.disposition = outDisposObj
-
-    // TO LOCAL STATE
-    outLocalPayload = {
-      inputValid: isInputQtyValid,
-      undamagedItems: newUnwantedQty,
+    // future payloads.  If input qty is valid, they get modified. Otherwise dispatched as is.
+    const localPayload = {
+      inputValid: false,
+      undamagedItems: sessionItem.quantity - keptQty,
       localDisposObj: {
         ...outDisposObj,
-        ...thisDispoObj, // We store this value in local state regardless of validity.  If it was valid it was already assigned in the newUnwantedQty check, but it's being overwritten with the same value so it's fine.
+        ...newDispoProp,
       },
     };
 
+    const sessionPayload = {
+      itemNum: activeItem,
+      // by default, obj does not include current item.  If qty is valid, new dispo: value is added before dispatch.
+      newDisposition: outDisposObj,
+      inputQty: null,
+    };
+
+    // if sum of all dispos is correctly less that item total...
+    if (keptQty + inputQty <= sessionItem.quantity) {
+      //local
+      localPayload.inputValid = true;
+      localPayload.undamagedItems -= inputQty;
+
+      //returns
+      // Store validated dispo and qty in Session state.
+      sessionPayload.newDisposition = {
+        ...sessionPayload.newDisposition,
+        ...newDispoProp,
+      };
+    }
+
     dispatchItemDetails({
       type: "SET_MULTIPLE",
-      payload: { ...outLocalPayload },
+      payload: { ...localPayload },
     });
 
     dispatchSession({
       type: "ADD_ITEM",
-      payload: { [activeItem]: sessionItem, },
+      payload: { ...sessionPayload },
     });
   };
 
