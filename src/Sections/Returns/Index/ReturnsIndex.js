@@ -98,7 +98,6 @@ const ReturnsIndex = () => {
 
   return (
     <main className={classes.container}>
-      <Modal />
       <section className={`seventy_panel`}>
         {seventy_panels[activePanels.state70]}
       </section>

@@ -6,10 +6,13 @@ import ProductContext from "../../../store/product-context";
 import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
+import cloneDeep from "lodash.clonedeep";
+
 const ItemEntry30 = (props) => {
   // props inherited from the parent
-  const returnsContext = props.returnsContext;
   const productContext = useContext(ProductContext);
+  const returnsContext = props.returnsContext;
+  const sessionItems = cloneDeep(returnsContext.session.items);
   const dispatchSession = returnsContext.dispatchSession;
 
   const dispatchActivePanels = props.dispatchActivePanels;
@@ -46,6 +49,8 @@ const ItemEntry30 = (props) => {
 
   const [formState, dispatchForm] = useReducer(formReducer, defaultState);
 
+  //TODO - this could be cleaner. 
+
   // checks to see if product exists in the Products context.
   const productContextMatcher = (itemNum) => {
     if (productContext[itemNum]) {
@@ -53,7 +58,7 @@ const ItemEntry30 = (props) => {
     } else {
       return false;
     }
-  };
+  };  // I think this function is completely useless.                                                                      
 
   //updates the local state whenever the Item Num input changes.
   const itemNumChangeHandler = (event) => {
@@ -81,11 +86,28 @@ const ItemEntry30 = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    // If ✓ needed b/c 'Enter' key dispatches even if form is invalid.
     if (formState.formValid) {
+
+      const outQty = parseInt(formState.quantity);
+      const outItemNum = formState.itemNum
+
+      // Copy item if it already exists, otherwise create a new, empty one.
+      const outItemObj = sessionItems[outItemNum] ?? {
+        ...productContext[outItemNum],
+        quantity: 0,
+        disposition: { unwanted: 0 },
+      };
+
+      // if item hasn't Unwanted dispo type, create it w/ value: 0
+      outItemObj.disposition.unwanted ??= 0;
+
+      // populate properties with new quantity.
+      outItemObj.disposition.unwanted += outQty;
+      outItemObj.quantity += outQty;
+
       const itemPayload = {
-        itemNum: formState.itemNum,
-        quantity: formState.quantity,
-        newDisposition: undefined,
+        [outItemNum]: outItemObj,
       };
 
       dispatchSession({
@@ -96,8 +118,6 @@ const ItemEntry30 = (props) => {
       dispatchForm({ type: "CLEAR_FORM" });
     }
   };
-
-
 
   return (
     <form

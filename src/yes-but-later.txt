@@ -27,3 +27,7 @@
 -Look up what's inside Vyvanse.  See if dissolving in water has any affect.
 
 -Since we now have a clear understanding of why not to do programmatic state changes in useEffect (it's redundant) this would be a fun little section to write later.  
+
+-What is the deal with Cruella De Vil?  It seems like we have a very incomplete story.  How does she know Roger and Anita?  If someone described a person like her to me in real life I would expect I was being lied to.  
+
+-Check some reviews of Ace of the Diamond.

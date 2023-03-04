@@ -5,7 +5,6 @@ import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
 
-
 // test data, delete once everything is working.
 
 import dummyTendersPack from "./Finalize_Refund/dummyTendersPack";
@@ -20,7 +19,7 @@ const defaultSessionState = {
   unmatched: {},
   modified_invoices: {},
   matched: {},
-  refunds_by_tender:{}, //sortNprocessTenders(dummyTendersPack),
+  refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
   refund_money: {
     refundTotal: 0,
     taxSum: 0,
@@ -35,37 +34,17 @@ const Returns = () => {
 
   //// RETURNS SESSION REDUCER ////
 
-
-
   const sessionReducer = (state, action) => {
     switch (action.type) {
+      
       case "ADD_ITEM": {
-        const newKey = action.payload.itemNum;
-        const itemInfo = { ...productContext[newKey] };
-        const sessionInvoices = { ...state.invoices };
-        // if payload.quantity is undefined, return 0.  Dispositions will not include a quantity b/c qty isn't changing.
-        let newQuantity = parseInt(action.payload.quantity ?? 0);
-        // if item already exists, add old value to new value.
-        newQuantity += state.items[newKey]?.quantity || 0;
 
-        // if there is a new disposition we need to completely replace the old disposition.
-        const setDisposition =
-          // Payload disposition if there is one
-          action.payload.newDisposition ??
-          // else existing disposition if there is one
-          state.items[newKey]?.disposition ??
-          // else an empty object.
-          {};
-
+        const payloadItemsObj = action.payload;
         const newItemList = {
           ...state.items,
-          [newKey]: {
-            ...itemInfo,
-            quantity: newQuantity,
-            disposition: setDisposition,
-          },
+          ...payloadItemsObj,
         };
-
+        const sessionInvoices = { ...state.invoices };
         const derivedStates = ReturnsMatchMaker(newItemList, sessionInvoices);
 
         return {

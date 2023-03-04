@@ -55,7 +55,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -On the Item Details page: The quantity needs to be an editable input field.  IIRC I'll have to change how the Items dispatcher is done in Returns.  
 
-    -In the Tenderizer: Right now, all tenderLabels are hard-coded and stored in the Invoice object. Produce a sophisticated String-maker that caluculates the credit card issuer from the ccNum.  So instead of "Credit ****1234" it would say "Discover ****1234". This will also require me to update the credit card numbers in the file, and then delete the hard-coded values.  AFAICT as long as the new function in the Tenderizer stores the new string in the same property name currently storing the hard-coded strings, no further re-wiring should be needed.
+    -In the Tenderizer: Right now, all tenderLabels are hard-coded and stored in the Invoice object. Produce a String-maker that caluculates the credit card issuer from the ccNum.  So instead of "Credit ****1234" it would say "Discover ****1234". This will also require me to update the credit card numbers in the file, and then delete the hard-coded values.  AFAICT as long as the new function in the Tenderizer stores the new string in the same property name currently storing the hard-coded strings, no further re-wiring should be needed.
 
     -in tenderTypes: I'm having to copy and paste description strings all over the place.  it would be nice if each of the types were objects that contained both reference strings and description strings.  I should have made these objects from the start but I was naive and optimistic.  This will break like 10 files but they will at least be easy to find.  
         -If I ever do decide I want a class/factory for all the tender types, this would be a good time to incorporate it.
@@ -68,6 +68,13 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -Matched vs. unmatched items.
         -An item matched from multiple invoices at multiple prices.
     I really think the most logical way is to display a separate <tr> for each unique item/price combo, and have the unmatched items with null values for unit and total prices.  Considering I have a list of matched_items, that shouldn't be a big lift for me to program, but I don't think that's what's currently in stores.
+
+    -Refactor ItemEntry30.  
+        -useReducer is probably not necessary.  Probably fine as a state with an object.
+        -only show Invalid ItemNum warning on de-focus.  
+        -use useRef to auto-focus on ItemNum field on Render and Submit.
+
+    
 
 
 
@@ -3622,7 +3629,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     X -Fix the mapping problems in TotalReview.
     X -See if I need the failureCash status.  I think not?
     X -update Tenderizer to use obj paths instead of switch statement.
-    X-Try it without the TotalFailure case.  Should still work.
+    X -Try it without the TotalFailure case.  Should still work.
 
     Tried updating the Tenderizer and got a new bug.  The first tender resolves to failure, which is right.  But then when I resolve it, the second tender, also a credit card, which should fail, instead gets set to Complete.  
         -OK, I found the bug.  SnP isn't reading the failure status from the Scenarios when it is called the MatchMaker (so it uses the Default) but it IS reading it when called in the Returns dispatcher. They were different values, and that's why it's behaving differently.  OK, it's fixed.
@@ -3667,6 +3674,59 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Some way if determining that the Invoice is for a Generic SOS number.  
         -Refactor item-adding to accept an array and not just a singleton.  
 
+    4:30
+    I am just really not feeling it right now, and I'm also not feeling like pushing through.  It's a nice overcast day.  I think I'm gonna knock off and take a walk.  
+
+3 Mar 2023
+    3:55
+    I really would like to get a full 90 mins in and I don't feel like working so I will tempt myself with a swalk.  The thing that knocked me off course was seeing the Item Entry 30 panel and the realization that it's really not very good.  I think that is a mistake.  Other than the validation, there is nothing wrong with it from a user's perspective.  I'm only on the hook for Generic SOS, so I think I should just add that refactor to the backlog and only work on Generic SOS.  So with that said, my task list now looks like:
+
+        - Get the Returns Items reducer to accept an object of item Objects.  
+            - Refactor so everything EXCEPT the dispositions is working.
+            - Check that Add Items is working.
+            - Check if Dispositions is working.
+                -If it is, we should probably stop.
+                -If not, we can refactor.  
+
+        X - Get the Items30 panel to deliver single items as an object.
+
+    At that point I think I'm in the clear to start working on the action itself.  First, I need to decide if the items are being passed as an array or as an object.  I'm kind of waffling but I think right now I'm going with an object.  I still need to run the Matchmaker on these items and this invoice, so if I can use the exact same format I don't have to treat these any differently and given how complicated the Matchmaker already is, that's a good reason.
+
+    Also!  While I'm not happy about the work of refactoring the ItemEntry30 panel, it's cool that just on my own I have learned enough to really want it different :)  Looking at old work and thinking 'Yup, wouldn't change anything' should be more alarming than 'I want to change everything' because that means I'm learning.  
+
+    4:55
+    I'm tempted to do some refactoring here.  I think what I will do is just do everything EXCEPT the dispositions.  I will probably end up doing dispositions too because I've already got this in RAM so might as well?  
+
+        In theory, I shouldn't have to do much with the dispositions? It looks like the issue is that in ItemDetails30 I'm cloning the whole Dispositions object for the item, making an updated and correct Dispositions object, and then passing that whole thing along.  I think that's the right play.  
+
+        I think I ought to take a similar approach with AddItems30.  I think I should check if the existing item exists in the state.  
+
+        TO DO: This handling of the dispositions - should probably be its own reusable function.  Wondering if I could use the function I am using in Set Dispositions or if that is overkill?  
+
+    6:30
+    On the dot, and it is WORKING!  Got some work to do on the encapsulation tomorrow, but it is 6:30 on the nose and I can now populate returns with an object of products.  I'm sure I will struggle with de-bugging in the future, but I've noticed that my de-bugging sessions are going a lot smoother than they used to be.  
+
+4 Mar 2023
+    9:20.
+    First, today's Special Rule.  Goal is to get Generic SOS # working.  We MUST prove to Kristin that prototyping doesn't take forever if we want to be able to do it more.  Prototyping is ALWAYS going to be time-crunched.  We're often crunched just getting the designs out ahead of Dev.  If we're prototyping we need to design, prototype, test, and redesign within the same time frame so I need to HUSTLE.  
+
+    I'm in the chair pretty early.  I don't remember feeling this excited to get started in a while.  This is the dividend of ditching out early on Thursday. So my starting list looks like:
+
+    -a BIT of code cleanup in AddItems30.  No heavy refactoring.
+    -I NEED to make the stringMaker because I am going to start showing this to people and I can't have the fake strings.
+    -After that, check ItemDetail30, specifically the dispositions. 
+        -First, we need to see if we think it's going to work with our new structure in the Returns Items reducer.  It will need at least a little tweaking.  
+        -Evaluate whether it is PRACTICAL to use all or part of the Dispositions function in ItemEntry30.  If, in our best judgement, our future selves aren't going to understand why we are using such a complex function, it's OK to use the simpler function in AddItems30.
+        -Whichever function we choose, put it into ItemEntry30.  We will also use it later in Generic SOS.
+    -Test.  At each point, make predictions and look for unexpected surprises.  We will probably be averse to doing this, so be prepared to bribe with treats or cool songs.  
+        -Add 2 different itemNums.  
+        -Change their dispositions. 
+        -Match item 1 from 2 different invoices
+        -Add more items of the same item types to items 1 and 2.
+        -Match Item 2 from an invoice that also includes Item 1.
+        -Change dispositions.  
+
+    
 
     
 
