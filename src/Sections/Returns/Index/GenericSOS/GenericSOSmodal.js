@@ -2,9 +2,9 @@ import classes from "./GenericSOSmodal.module.css";
 
 import { BaseModal } from "../../../../components/UI/PageLayout/Modal";
 import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
-import Table from "../../../../components/UI/Table/Table"
+import Table from "../../../../components/UI/Table/Table";
 import TableHeading from "../../../../components/UI/Table/TableHeading";
-
+import GenericSOSrow from "./GenericSOSrow";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
@@ -13,14 +13,13 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const activeModalRefObj = returnsContext.session.activeModal.refObj;
   const dispatchReturns = returnsContext.dispatchSession;
 
-  // ---- SUB-ITEMS TABLE ----
-  const productsRef = {
-    10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
-    10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
-    10003: { quantity: 3, price: 6012, tax: 601, delivery: "delivered" },
-  };
+  // ---- SHARED FUNCTIONS ----
 
-  const refTableH = <TableHeading />
+  const inputQtyChange = () => {};
+
+  // ---- ITEMS TABLE ----
+
+  const refTableH = <TableHeading />;
 
   const tableHeadingArr = [
     { id: "Description", active: false, flexing: "10%" },
@@ -29,7 +28,26 @@ const GenericSOSmodal = ({ returnsContext }) => {
     { id: "Quantity", active: false, flexing: "10%" },
   ];
 
+  const productsObj = {
+    10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
+    10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
+    10003: { quantity: 3, price: 6012, tax: 601, delivery: "delivered" },
+  };
 
+  const productsArr = Object.entries(productsObj);
+
+  const productTRarr = productsArr.map((thisProduct) => {
+    const itemNum = thisProduct[0];
+    const productData = thisProduct[1];
+    return (
+      <GenericSOSrow
+        key={itemNum}
+        id={itemNum}
+        productDataObj={productData}
+        onInputChange={inputQtyChange}
+      />
+    );
+  });
 
   return (
     <BaseModal>
@@ -51,7 +69,10 @@ const GenericSOSmodal = ({ returnsContext }) => {
             being returned.
           </h4>
         </section>
-        <Table tableHeadingArray={tableHeadingArr}></Table>
+        <Table
+          tableHeadingArray={tableHeadingArr}
+          tableBodyArray={productTRarr}
+        ></Table>
       </section>
     </BaseModal>
   );

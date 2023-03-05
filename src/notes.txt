@@ -3857,6 +3857,19 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
     What I do need, for sure, is a TR.  
 
+    6:30.
+    I'd say that was a pretty powerful hour.  I've earned a second swalk.  Today I got:
+        -A system to handle this and all future modals.
+        -A system that easily lets me get session data to where I need it.
+        -A condition that adds the modal when a generic SOS item is added.
+        -A semi-configured modal. 
+        -A semi-configured TR.
+
+    To think about on the swalk:
+        -What was so damn slippery about this morning.  
+        -relationship of focus and momentum and how to start faster.  
+        -How to strike a balance between "We're so much faster when we're getting shit on the screen" and "Solving details problems before system problems usually means the small problem's solution ends up invalid.
+        -the problem with 'Start with a slam dunk' is that it does very little for the more serious problem of 'getting my head around today's hardest problem'
     
     
 
