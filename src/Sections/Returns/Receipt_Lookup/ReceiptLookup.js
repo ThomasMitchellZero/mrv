@@ -1,6 +1,6 @@
 import classes from "./ReceiptLookup.module.css";
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import MiniItemLI from "../../../components/UI/DisplayOutputs/MiniItemLI";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";

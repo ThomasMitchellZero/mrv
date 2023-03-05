@@ -3,7 +3,7 @@ import classes from "./ItemEntry30.module.css";
 import { useReducer, useContext } from "react";
 
 import ProductContext from "../../../store/product-context";
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 
 import cloneDeep from "lodash.clonedeep";

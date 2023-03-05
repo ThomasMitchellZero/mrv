@@ -1,6 +1,6 @@
 import classes from "./TotalReview.module.css";
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import MiniItemLI from "../../../components/UI/DisplayOutputs/MiniItemLI";

@@ -1,6 +1,6 @@
 import classes from "./ExchangeActions30.module.css"
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import VerticalNavMenu from "../../../components/UI/VerticalNavMenu";

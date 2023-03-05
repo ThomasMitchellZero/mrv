@@ -1,6 +1,6 @@
 import classes from "./SessionInvoices70.module.css";
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import StartScanning from "../Index/StartScanning70";
 import Table from "../../../components/UI/Table/Table";

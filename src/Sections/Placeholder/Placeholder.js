@@ -1,5 +1,5 @@
 import classes from "./Placeholder.module.css";
-import TitleBar from "../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../components/UI/PageLayout/FooterContainer";
 
 const Placeholder = ({

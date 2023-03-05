@@ -1,6 +1,6 @@
 import classes from "./FullItemReview.module.css";
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import InPageTitleBox from "../../../components/UI/DisplayOutputs/InPageTitleBox";
 import FullReviewLI from "./FullReviewLI";

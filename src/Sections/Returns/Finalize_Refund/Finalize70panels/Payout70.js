@@ -1,6 +1,6 @@
 import classes from "./Payout70.module.css";
 
-import TitleBar from "../../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../../components/UI/PageLayout/FooterContainer";
 import TenderBadges from "../TenderBadges";
 import InPageTitle from "../../../../components/UI/DisplayOutputs/InPageTitleBox";

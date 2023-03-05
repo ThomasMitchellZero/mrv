@@ -1,7 +1,7 @@
 import classes from "./SessionItems70.module.css";
 
 import StartScanning from "../Index/StartScanning70";
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import ReturnsProductDetail from "./ReturnsProductDetails";
 import Table from "../../../components/UI/Table/Table";

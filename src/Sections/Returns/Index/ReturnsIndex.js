@@ -5,7 +5,7 @@ import Actions30 from "./Actions30";
 import ItemEntry30 from "../Add_Items/ItemEntry30";
 import InvoiceEntry30 from "../Add_Invoices/InvoiceEntry30";
 import ItemDetails30 from "../Add_Items/ItemDetails30";
-import Modal from "../../../components/UI/PageLayout/Modal";
+import {BaseModal} from "../../../components/UI/PageLayout/Modal";
 
 //70 Panel components
 import StartScanning from "./StartScanning70";

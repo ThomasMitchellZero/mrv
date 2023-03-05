@@ -5,7 +5,7 @@ import tStatus from "../functions/tenderStatusCodes";
 
 // Shared Components
 
-import TitleBar from "../../../components/UI/DisplayOutputs/TitleBar";
+import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import TenderTypesLI from "./TenderTypesLI";
 import MessageRibbon from "../../../components/UI/DisplayOutputs/MessageRibbon";
