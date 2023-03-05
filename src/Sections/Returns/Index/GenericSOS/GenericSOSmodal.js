@@ -9,6 +9,8 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const activeModalRefObj = returnsContext.session.activeModal.refObj;
   const dispatchReturns = returnsContext.dispatchSession;
 
+  const productsRef = {}
+
   return (
     <BaseModal>
       <section className={classes.container}>
