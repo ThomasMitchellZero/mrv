@@ -19,7 +19,7 @@ const defaultSessionState = {
   invoices: {},
   unmatched: {},
   modified_invoices: {},
-  activeModal: {type: "", refObj:"{}"}, //"genericSOS",
+  activeModal: { type: "", refObj: "{}" }, //"genericSOS",
   matched: {},
   refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
   refund_money: {
@@ -38,9 +38,7 @@ const Returns = () => {
 
   const sessionReducer = (state, action) => {
     switch (action.type) {
-      
       case "ADD_ITEM": {
-
         const payloadItemsObj = action.payload;
         const newItemList = {
           ...state.items,
@@ -140,7 +138,12 @@ const Returns = () => {
 
   return (
     <main className={classes.container}>
-      <ReturnsAllModals sessionContext={session} />
+      <ReturnsAllModals
+        returnsCtx={{
+          session: session,
+          dispatchSession: dispatchSession,
+        }}
+      />
       <Outlet
         context={{
           session: session,

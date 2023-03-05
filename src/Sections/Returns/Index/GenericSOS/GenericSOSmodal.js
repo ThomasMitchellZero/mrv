@@ -4,8 +4,12 @@ import { BaseModal } from "../../../../components/UI/PageLayout/Modal";
 import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
-const GenericSOSmodal = ({ returnsContext, referenceObj }) => {
-  const iconProps = {};
+const GenericSOSmodal = ({ returnsContext }) => {
+
+  const activeModalRefObj = returnsContext.session.activeModal.refObj
+
+  const dispatchReturns = returnsContext.dispatchSession;
+
   return (
     <BaseModal>
       <section className={classes.container}>
