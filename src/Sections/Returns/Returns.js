@@ -4,6 +4,7 @@ import ProductContext from "../../store/product-context";
 import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
+import ReturnsAllModals from "./ReturnsAllModals";
 
 // test data, delete once everything is working.
 
@@ -18,6 +19,7 @@ const defaultSessionState = {
   invoices: {},
   unmatched: {},
   modified_invoices: {},
+  activeModal: "genericSOS",
   matched: {},
   refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
   refund_money: {
@@ -131,6 +133,7 @@ const Returns = () => {
 
   return (
     <main className={classes.container}>
+      <ReturnsAllModals sessionContext={session} />
       <Outlet
         context={{
           session: session,

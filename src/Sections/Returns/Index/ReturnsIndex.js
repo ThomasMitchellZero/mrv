@@ -5,8 +5,6 @@ import Actions30 from "./Actions30";
 import ItemEntry30 from "../Add_Items/ItemEntry30";
 import InvoiceEntry30 from "../Add_Invoices/InvoiceEntry30";
 import ItemDetails30 from "../Add_Items/ItemDetails30";
-import {BaseModal} from "../../../components/UI/PageLayout/Modal";
-
 //70 Panel components
 import StartScanning from "./StartScanning70";
 import SessionItems70 from "../Add_Items/SessionItems70";
@@ -31,7 +29,8 @@ const panelsReducer = (state, action) => {
         activeItem: newActiveItem,
         activeItemTab: newActiveItemTab,
       };
-    }
+    };
+
 
     default:
       throw new Error(`There is no panel called  type: ${action.type}`);
@@ -98,6 +97,7 @@ const ReturnsIndex = () => {
 
   return (
     <main className={classes.container}>
+
       <section className={`seventy_panel`}>
         {seventy_panels[activePanels.state70]}
       </section>
