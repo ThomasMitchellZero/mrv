@@ -19,7 +19,7 @@ const defaultSessionState = {
   invoices: {},
   unmatched: {},
   modified_invoices: {},
-  activeModal: "genericSOS",
+  activeModal: {type: "", refObj:"{}"}, //"genericSOS",
   matched: {},
   refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
   refund_money: {
@@ -113,6 +113,13 @@ const Returns = () => {
         return {
           ...state,
           refunds_by_tender: newTenderPack,
+        };
+      }
+
+      case "SET_MODAL": {
+        return {
+          ...state,
+          activeModal: action.payload,
         };
       }
 

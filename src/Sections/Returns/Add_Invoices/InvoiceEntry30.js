@@ -88,6 +88,10 @@ const InvoiceEntry30 = (props) => {
         type: "ADD_INVOICE",
         payload: [formState.invoiceNum],
       });
+      dispatchSession({
+        type: "SET_MODAL",
+        payload: "genericSOS",
+      });
       dispatchForm({ type: "CLEAR_INPUTS" });
     }
   };
