@@ -73,6 +73,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -useReducer is probably not necessary.  Probably fine as a state with an object.
         -only show Invalid ItemNum warning on de-focus.  
         -use useRef to auto-focus on ItemNum field on Render and Submit.
+        -Should be able to useAddItem?
 
     
 
@@ -3725,15 +3726,16 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             
         -Whichever function we choose, put it into a separate function and then incorporate into ItemEntry30.  We will also use it later in Generic SOS.
 
-        -Bonus goal - Can I get rid of dispoSqueezer entirely?  
+        X -Bonus goal - Can I get rid of dispoSqueezer entirely?  
         
-        -Test.  At each point, make predictions and look for unexpected surprises.  We will probably be averse to doing this, so be prepared to bribe with treats or cool songs.  
+        X -Test.  At each point, make predictions and look for unexpected surprises.  We will probably be averse to doing this, so be prepared to bribe with treats or cool songs.  
             -Add 2 different itemNums.  
             -Change their dispositions. 
             -Match item 1 from 2 different invoices
             -Add more items of the same item types to items 1 and 2.
             -Match Item 2 from an invoice that also includes Item 1.
             -Change dispositions.  
+            -I didn't actually test all of these but I'm gonna leave it for now.
 
         OK, maybe this is stupid but I'm going to do some refactoring in ItemDetails30.  I think I can make this cleaner, and also conditions have changed.  I need to account for:
 
@@ -3794,15 +3796,69 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         OK.  Is this a good thing for me to be spending my time on?  Absolutely not.  But I've got some clues and I'm gonna get it while I'm thinking.  
 
-        -It looks like the issue is that the Break check at the end of the Dispos loop is failing somehow.  
+        -It looks like the issue is that the Break check at the end of the Dispos loop is failing somehow.
 
-                
-            
+    5:25:
+    Turns out my suspicions were correct.  It was indeed the break check and then end and MAN, do I struggle with a bunch of ! && || checks :/
+
+    It is late, and I haven't done any of the thing I set out to do.  However, I don't feel like the last run was a waste of my time.  Any problem in Matchmaker is going to be a problem everywhere because EVERYTHING relies on it.
+
+    -Get the local AddItem process into a function because we're going to use it again when adding Generic SOS.  
+
+    -Come up with a plan for checking Generic SOS in AddInvoice.  Probably just a single property in the G-SOS invoice.  
+        -For the time being, I'm skipping this.  It's taking so much from its context (and it's so simple) that I just don't see the need.  Maybe if it's a custom hook it's worth it but otherwise I'm really not seeing it.  
+
+    -Come up with a plan for dispatching Generic SOS.  I think I'm gonna try a custom hook.  I also think that's gonna happen tomorrow.  I'm tired and sad and I want out of this chair.
+
+5 Mar 2023
+    10:55.
+    Worked out, but doinked around and took a long time to get butt in chair.  I am noticing that holy Fuck, my focus is slippery as hell today. I have to read sentences two or three times because the words just aren't registering.  For today:
+
+    -First, try to get Add Item function into UseEffect.  I don't think we dispatch to the global state.  We just return an object of new Items to be spread into the Items state.  The main processing is going to be 
+        -checking for / adding to items that already exist
+        -adding item details from items-context.
+        -making sure that as an input it can handle an object of side 1+n.  
+    -I was starting to question if the item-adding even should be its own file instead of just sticking it in Returns Items reducer where it was :/
+        -For the time being, I think the dispositioning is sufficiently different from the item-adding that I will do them separately.
+    -OK.  Custom hooks don't look too bad.  Unless I'm mistaking something, they actually look really easy.  This is like a little mind-quake.  I bet I am going to find so much code that was shaped around the assumption of 'Reusable functions can't use state or hooks'  
+        -Later homework.  If I earn a swalk today, I need to think about how I missed this.  Why didn't I learn this earlier?  I definitely judged this book by its cover.
+
+    OK. Just hit another snag.  Apparently I can't call a custom hook in ANY function that isn't also a hook.  I've just moved the problem one level deeper :/  It's rules of hooks all the way down :/  What to do?
+        -First let me check and see the lowest level at which I can use the reducer.  
+        OK, this is kind of a shitshow in here.  I would have to refactor damn near the entire application.  We're not doing that.  I do not need 2 days in a row of re-paving old work.  What we are doing instead:
+            X-Revert AddItems30 to previous state.
+            X-add 'Refactor AddItems30' to the backlog.
+            -design the Generic SOS setup to deal with useAddItem.  
+    
+    Alternatively.  Does this thing truly need to be a hook at all?
+        -after some brief skimming on Reddit and Google, it looks like a lot of people use custom hooks for damn near everything.  So I should probably start using them?  
+
+    12:55.
+    Going has been slow, but it's still fairly early.  Feels like it should be at least 2 hours later.  I'm really lucky.  I can still turn this into a great day.  
+
+    2:30.
+    OK, I am least making some progress.  Currently kicking around the idea of having all modals live in Returns at the top level?  
+        I think it kind of makes sense?  Like, that's the container for EVERYTHING in Returns.  I think it also makes it pretty easy to get information up and down.  Like, if a Generic SOS invoice is added, I just dispatch that invoice, followed by a second dispatch for the Active Modal.
+
+    2:55.
+    To my somewhat-surprise, it appears to be working.  I think the next test I need to do is to make sure I can do multiple dispatches to Session.  If not that's kind of a show-stopper.  OK.  That was pretty easy.  I really feel like a swalk right now.  Not having a great time and maybe I can clear my head?.
+
+    3:35.
+    OK.  Feeling better.  Did some good thinking about what to do for the Generic SOS and I have (pretty) clear plan.  The only remaining question is, once I add the items, how do I show the Items panel?
+        -This is firing from InvoiceEntry30, which is a child of ReturnsIndex, so it has access to SetActivePanels, so I COULD dispatch the activePanels to be ISessionItems70 and AddItems30.  I think that's actually what I'm going to do.  But if they don't add any items and close the panel they are in a different place than where they left, which sucks.  
+
+        -OK.  This looks like kind of a hacky work-around, but that's what whe want.  So.  I am planning to make the activeModal state as an object, so I can pass other goodies besides just the modal name.  I THINK I might be able to pass the function up as a property of that object?  This should be a low priority.  And really I need to re-factor how the ActivePanels work because right now I actually have no idea what's happening.  
+
+    4:25.
+    So far so good.  I've successfully gotten a list of products to the Modal.  
+
+    5:30.
+    OK.  Let's have a power hour to finish up the day.  I am going to avoid temptation to fuck around trying to set the ReturnsIndex panels.  That should be the very last thing I do.  
+
+    What I do need, for sure, is a TR.  
 
     
-
     
-
 
                 
 

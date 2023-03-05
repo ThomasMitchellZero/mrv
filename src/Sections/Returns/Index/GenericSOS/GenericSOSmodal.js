@@ -2,6 +2,10 @@ import classes from "./GenericSOSmodal.module.css";
 
 import { BaseModal } from "../../../../components/UI/PageLayout/Modal";
 import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
+import Table from "../../../../components/UI/Table/Table"
+import TableHeading from "../../../../components/UI/Table/TableHeading";
+
+
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 const GenericSOSmodal = ({ returnsContext }) => {
@@ -9,7 +13,23 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const activeModalRefObj = returnsContext.session.activeModal.refObj;
   const dispatchReturns = returnsContext.dispatchSession;
 
-  const productsRef = {}
+  // ---- SUB-ITEMS TABLE ----
+  const productsRef = {
+    10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
+    10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
+    10003: { quantity: 3, price: 6012, tax: 601, delivery: "delivered" },
+  };
+
+  const refTableH = <TableHeading />
+
+  const tableHeadingArr = [
+    { id: "Description", active: false, flexing: "10%" },
+    { id: "Status", active: false, flexing: "10%" },
+    { id: "Per Unit $", active: false, flexing: "10%" },
+    { id: "Quantity", active: false, flexing: "10%" },
+  ];
+
+
 
   return (
     <BaseModal>
@@ -31,6 +51,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
             being returned.
           </h4>
         </section>
+        <Table tableHeadingArray={tableHeadingArr}></Table>
       </section>
     </BaseModal>
   );
