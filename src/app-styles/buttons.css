@@ -61,6 +61,7 @@
     background-color: #E6ECF9;
 }
 
+
 .contained100{
   width: 28%;
 }
@@ -72,4 +73,21 @@
 }
 .containedBtn2{
     width: 30%;
+}
+
+.baseIconButton{
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.baseIconButton:hover{
+    opacity: 80%;
+}
+
+.baseIconButton.medium{
+    height: 1.5rem;
+    width: 1.5rem;
 }

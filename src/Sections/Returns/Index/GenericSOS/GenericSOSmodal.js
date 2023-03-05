@@ -5,14 +5,15 @@ import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 const GenericSOSmodal = ({ returnsContext, referenceObj }) => {
+  const iconProps = {};
   return (
     <BaseModal>
       <section className={classes.container}>
         <section className={classes.title}>
-          <button>
-            <MdOutlineClose />
+          <button className={`baseIconButton medium`}>
+            <MdOutlineClose size="100%" className={`grey-08-text`} />
           </button>
-          <h4>
+          <h4 className={`grey-08-text`}>
             Invoice contains multiple items with same item #. Enter quantities
             being returned.
           </h4>
