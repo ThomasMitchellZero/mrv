@@ -84,13 +84,31 @@ const InvoiceEntry30 = (props) => {
     event.preventDefault();
 
     if (formState.formValid) {
+      const thisInvoiceInContext =
+        invoiceContext[formState.invoiceNum]
+
+      // conditional handling for Generic SOS
+      let activeModal = null;
+
+      console.log(thisInvoiceInContext);
+      if (thisInvoiceInContext.invoiceDetails?.genericSOS) {
+        console.log("G-SOS");
+        activeModal = {
+          type: "genericSOS",
+          refObj: {
+            products: thisInvoiceInContext.products,
+            setPanels: dispatchActivePanels,
+          },
+        };
+      }
+
       dispatchSession({
         type: "ADD_INVOICE",
         payload: [formState.invoiceNum],
       });
       dispatchSession({
         type: "SET_MODAL",
-        payload: "genericSOS",
+        payload: activeModal,
       });
       dispatchForm({ type: "CLEAR_INPUTS" });
     }

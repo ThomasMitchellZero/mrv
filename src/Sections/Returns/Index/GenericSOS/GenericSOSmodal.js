@@ -6,7 +6,7 @@ import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 const GenericSOSmodal = () => {
   return (
     <BaseModal>
-      <section>
+      <section className={classes.container}>
         <TitleBar />
       </section>
     </BaseModal>
