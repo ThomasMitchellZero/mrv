@@ -5,16 +5,23 @@ import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 const GenericSOSmodal = ({ returnsContext }) => {
-
-  const activeModalRefObj = returnsContext.session.activeModal.refObj
-
+  //Returns context
+  const activeModalRefObj = returnsContext.session.activeModal.refObj;
   const dispatchReturns = returnsContext.dispatchSession;
 
   return (
     <BaseModal>
       <section className={classes.container}>
         <section className={classes.title}>
-          <button className={`baseIconButton medium`}>
+          <button
+            className={`baseIconButton medium`}
+            onClick={() => {
+              dispatchReturns({
+                type: "SET_MODAL",
+                payload: null,
+              });
+            }}
+          >
             <MdOutlineClose size="100%" className={`grey-08-text`} />
           </button>
           <h4 className={`grey-08-text`}>
