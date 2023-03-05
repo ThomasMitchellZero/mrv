@@ -7,7 +7,12 @@ const ReturnsAllModals = ({ sessionContext }) => {
   const modalRefObj = sessionContext.activeModal?.refObj;
 
   const allModalsObj = {
-    genericSOS: <GenericSOSmodal />,
+    genericSOS: (
+      <GenericSOSmodal
+        returnsContext={sessionContext}
+        referenceObj={modalRefObj}
+      />
+    ),
   };
   const displayedModal = allModalsObj[activeModal] ?? null;
 
