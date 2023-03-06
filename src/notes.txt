@@ -3877,7 +3877,32 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 6 Mar 2023
     We're in a good spot.  We've got GSOS on the run and I just need to tear this thing apart.  I was having fun at the end of the day yesterday.  Let's try to hustle and knock this out.
 
-    -We need to get the item details from somewhere.  I think I can just get the product-context?
+        X -We need to get the item details from somewhere.  I think I can just get the product-context?
+
+        - Need a state in the GSOS modal.  State will track:
+            -items obj: { //NOT the same as the items Obj from the invoice.
+                -itemNum: quantity
+                ...
+            }
+            -form validity
+            ...and then I think that's it?  I'm planning on limiting each field to the qty of its parent, so I don't think I need to check the validity of each field.
+
+        -Now.  How to handle the dispatch to session.items?  I think it's probably best to keep the productsObj from the invoice and the output separate.  
+            
+    4:15
+    useAddItem isn't working and I don't know why.  I think, for the time being, I'm just going to do addItems as a regular function.  
+
+    5:10
+    OK.  FINALLY I've got it working right. Since this is no longer in the Hooks chain, I don't see any reason why I shouldn't just put this at the end.  I guess I still don't understand custom hooks.  I thought it was just a quick fix that let me run functions with global context wherever I wanted, but apparently not.  
+
+    So let's get back on track.  I will tempt myself with a swalk if I can make it to ~6:30.  It looks like ass and I have a bunch of CSS work to do, but that is pretty satisfying and I have a ~90min window between meetings tomorrow morning, so this would be perfect to do there.  
+        -The next thing I need for sure is an input with a limit in each of the <tr>s.  
+        -After that, I need a Handle Input change function to work in the clever way I have in my mind.  
+    
+
+    
+
+
 
                 
 
