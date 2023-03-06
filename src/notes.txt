@@ -1,14 +1,17 @@
-RULE 1:  Coding time is in short supply and this is just a demo. Avoid high-effort solutions to non-central features or problems we don't expect to face.
+RULE 1:  Coding time is in short supply and this is just a testing tool. Avoid high-effort solutions to non-central features or problems we don't expect to face.
 
 RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
 
 RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
 RULE 4:
-IME, Pictograph => Rebus => Alphabet is frequently faster than Pictograph => Alphabet.  Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint on the road to good code, not a detour from it.  
+IME, it's generally faster to go: 
+Pictograph => Rebus => Alphabet  than 
+Pictograph => Think REAALLLY HARD => Alphabet.  
+Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally on the way to good code, not a detour from it.  
 
 RULE 5: 
-Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to conceive now, chances are that it will be hard to comprehend later.  
+Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it is hard to conceive now, chances are that it will be hard to comprehend later.  
 
 
 
@@ -3871,7 +3874,10 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -How to strike a balance between "We're so much faster when we're getting shit on the screen" and "Solving details problems before system problems usually means the small problem's solution ends up invalid.
         -the problem with 'Start with a slam dunk' is that it does very little for the more serious problem of 'getting my head around today's hardest problem'
     
-    
+6 Mar 2023
+    We're in a good spot.  We've got GSOS on the run and I just need to tear this thing apart.  I was having fun at the end of the day yesterday.  Let's try to hustle and knock this out.
+
+    -We need to get the item details from somewhere.  I think I can just get the product-context?
 
                 
 

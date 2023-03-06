@@ -43,6 +43,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       <GenericSOSrow
         key={itemNum}
         id={itemNum}
+        itemNum={itemNum}
         productDataObj={productData}
         onInputChange={inputQtyChange}
       />
