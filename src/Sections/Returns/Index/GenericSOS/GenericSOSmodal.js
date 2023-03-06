@@ -43,16 +43,22 @@ const GenericSOSmodal = ({ returnsContext }) => {
     productsObj: makeInitialProductsObj(),
   });
 
+
+
+
+  // ---- SHARED FUNCTIONS ----
+
   const outSessionItemsObj = addItem({
     itemsToAddObj: modalState.productsObj,
     returnsItems: sessionCtx.items,
     productContext: productsCatalogCtx,
   });
 
-  console.log(outSessionItemsObj);
-
-  // ---- SHARED FUNCTIONS ----
-  const inputQtyChange = () => {};
+  const inputQtyChange = (event, itemNum, max) => {
+    const rawIn = parseInt(event.target.value);
+    console.log(rawIn)
+    console.log(max)
+  };
   // ---- ITEMS TABLE ----
 
   const refTableH = <TableHeading />;
@@ -71,9 +77,10 @@ const GenericSOSmodal = ({ returnsContext }) => {
       <GenericSOSrow
         key={itemNum}
         id={itemNum}
+        value={modalState[itemNum]}
         itemNum={itemNum}
         productDataObj={productData}
-        onInputChange={inputQtyChange}
+        changeFunc={inputQtyChange}
       />
     );
   });
