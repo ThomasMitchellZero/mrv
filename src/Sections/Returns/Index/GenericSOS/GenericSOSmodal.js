@@ -19,7 +19,7 @@ import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 const GenericSOSmodal = ({ returnsContext }) => {
   //Returns context
   const dispatchReturns = returnsContext.dispatchSession;
-  const productsCatalogCtx = useContext(ProductContext)
+  const productsCatalogCtx = useContext(ProductContext);
 
   // cloned Session context
   const sessionCtx = cloneDeep(returnsContext.session);
@@ -43,9 +43,6 @@ const GenericSOSmodal = ({ returnsContext }) => {
     productsObj: makeInitialProductsObj(),
   });
 
-
-
-
   // ---- SHARED FUNCTIONS ----
 
   const outSessionItemsObj = addItem({
@@ -55,9 +52,16 @@ const GenericSOSmodal = ({ returnsContext }) => {
   });
 
   const inputQtyChange = (event, itemNum, max) => {
-    const rawIn = parseInt(event.target.value);
-    console.log(rawIn)
-    console.log(max)
+    const input = parseInt(event.target.value);
+    let outQty =
+      input > max // if Input is too big
+        ? max
+        : !input // if Input is falsy
+        ? 0
+        : input;
+
+    const outProductsObj = { ...modalState.productsObj, [itemNum]: outQty };
+    setModalState({ ...modalState, productsObj: outProductsObj });
   };
   // ---- ITEMS TABLE ----
 
@@ -77,7 +81,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       <GenericSOSrow
         key={itemNum}
         id={itemNum}
-        value={modalState[itemNum]}
+        value={modalState.productsObj[itemNum]}
         itemNum={itemNum}
         productDataObj={productData}
         changeFunc={inputQtyChange}
