@@ -1,12 +1,9 @@
-import { useContext } from "react";
-import ProductContext from "../../../store/product-context";
 
 import cloneDeep from "lodash.clonedeep";
 
-const useAddItem = ({ itemsToAddObj = {}, returnsSession = {} }) => {
+const addItem = ({ itemsToAddObj = {}, returnsItems = {}, productContext, }) => {
   //context
-  const sessionItems = cloneDeep(returnsSession);
-  const productContext = useContext(ProductContext);
+  const sessionItems = cloneDeep(returnsItems);
 
   //Output Obj being built.
   let outAllNewItems = {};
@@ -20,7 +17,7 @@ const useAddItem = ({ itemsToAddObj = {}, returnsSession = {} }) => {
 
     // Copy item if it already exists, otherwise create a new, empty one.
     const outItemObj = sessionItems[thisKey] ?? {
-      ...productContext[thisItem],
+      ...productContext[thisKey],
       quantity: 0,
       // if item hasn't Unwanted dispo type, create it w/ value: 0
       disposition: { unwanted: 0 },
@@ -37,4 +34,4 @@ const useAddItem = ({ itemsToAddObj = {}, returnsSession = {} }) => {
   return outAllNewItems;
 };
 
-export { useAddItem };
+export { addItem };

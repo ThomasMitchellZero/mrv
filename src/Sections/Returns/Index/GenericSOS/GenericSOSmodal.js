@@ -5,18 +5,54 @@ import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import Table from "../../../../components/UI/Table/Table";
 import TableHeading from "../../../../components/UI/Table/TableHeading";
 import GenericSOSrow from "./GenericSOSrow";
+import { useContext } from "react";
+
+import ProductContext from "../../../../store/product-context";
+import { addItem } from "../../functions/addItem";
+
+import { useAddItem } from "../../functions/useAddItem";
+import { useState } from "react";
+import cloneDeep from "lodash.clonedeep";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 const GenericSOSmodal = ({ returnsContext }) => {
   //Returns context
-  const activeModalRefObj = returnsContext.session.activeModal.refObj;
   const dispatchReturns = returnsContext.dispatchSession;
+  const productsCatalogCtx = useContext(ProductContext)
+
+  // cloned Session context
+  const sessionCtx = cloneDeep(returnsContext.session);
+  const activeModalRefObj = sessionCtx.activeModal.refObj;
+  const productsObj = activeModalRefObj.products;
+  const productsArr = Object.entries(productsObj);
+
+  // ---- LOCAL STATE ----
+  // calculates default value for initial state.
+  const makeInitialProductsObj = () => {
+    const initialOutput = {};
+    for (const thisProduct of productsArr) {
+      const key = thisProduct[0];
+      initialOutput[key] = { quantity: 0 };
+    }
+    return initialOutput;
+  };
+
+  const [modalState, setModalState] = useState({
+    isValid: false,
+    productsObj: makeInitialProductsObj(),
+  });
+
+  const outSessionItemsObj = addItem({
+    itemsToAddObj: modalState.productsObj,
+    returnsItems: sessionCtx.items,
+    productContext: productsCatalogCtx,
+  });
+
+  console.log(outSessionItemsObj);
 
   // ---- SHARED FUNCTIONS ----
-
   const inputQtyChange = () => {};
-
   // ---- ITEMS TABLE ----
 
   const refTableH = <TableHeading />;
@@ -27,14 +63,6 @@ const GenericSOSmodal = ({ returnsContext }) => {
     { id: "Per Unit $", active: false, flexing: "10%" },
     { id: "Quantity", active: false, flexing: "10%" },
   ];
-
-  const productsObj = {
-    10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
-    10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
-    10003: { quantity: 3, price: 6012, tax: 601, delivery: "delivered" },
-  };
-
-  const productsArr = Object.entries(productsObj);
 
   const productTRarr = productsArr.map((thisProduct) => {
     const itemNum = thisProduct[0];
