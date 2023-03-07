@@ -45,12 +45,6 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   // ---- SHARED FUNCTIONS ----
 
-  const outSessionItemsObj = addItem({
-    itemsToAddObj: modalState.productsObj,
-    returnsItems: sessionCtx.items,
-    productContext: productsCatalogCtx,
-  });
-
   const inputQtyChange = (event, itemNum, max) => {
     // process user input
     const rawIn = event.target.value;
@@ -86,7 +80,15 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   // handle Form Submit
 
-  const submitGSOSform = () => {};
+  const submitGSOSform = (event) => {
+    event.preventDefault();
+    const outSessionItemsObj = addItem({
+      itemsToAddObj: modalState.productsObj,
+      returnsItems: sessionCtx.items,
+      productContext: productsCatalogCtx,
+    });
+    console.log(outSessionItemsObj);
+  };
 
   // ---- ITEMS TABLE ----
 
@@ -134,6 +136,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       >
         <section className={classes.title}>
           <button
+            type="button"
             className={`baseIconButton medium`}
             onClick={() => {
               dispatchReturns({
