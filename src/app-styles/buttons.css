@@ -2,7 +2,7 @@
 /* Button CSS*/
 
 .baseButton{
-    all: unset;
+
     display: flex;
     flex-direction: row;
     align-items: center;

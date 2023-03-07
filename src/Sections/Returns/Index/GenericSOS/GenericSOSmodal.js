@@ -26,6 +26,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const activeModalRefObj = sessionCtx.activeModal.refObj;
   const productsObj = activeModalRefObj.products;
   const productsArr = Object.entries(productsObj);
+  const setPanels = activeModalRefObj.setPanels;
 
   // ---- LOCAL STATE ----
   // calculates default value for initial state.
@@ -45,14 +46,21 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   // ---- SHARED FUNCTIONS ----
 
+  const closeModal = () => {
+    dispatchReturns({
+      type: "SET_MODAL",
+      payload: null,
+    });
+  };
+
   const inputQtyChange = (event, itemNum, max) => {
     // process user input
     const rawIn = event.target.value;
     const input = parseInt(rawIn);
     let outQty =
-      input > max // if Input is too big
+      input > max // if Input is too big?
         ? max
-        : !input // if Input is falsy
+        : !input // if Input is falsy?
         ? ""
         : input;
 
@@ -87,7 +95,15 @@ const GenericSOSmodal = ({ returnsContext }) => {
       returnsItems: sessionCtx.items,
       productContext: productsCatalogCtx,
     });
-    console.log(outSessionItemsObj);
+
+    dispatchReturns({ type: "ADD_ITEM", payload: outSessionItemsObj });
+
+    setPanels({
+      type: "SET_PANELS",
+      payload: { set30: "actions", set70: "session_items" },
+    });
+
+    closeModal();
   };
 
   // ---- ITEMS TABLE ----
@@ -138,12 +154,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
           <button
             type="button"
             className={`baseIconButton medium`}
-            onClick={() => {
-              dispatchReturns({
-                type: "SET_MODAL",
-                payload: null,
-              });
-            }}
+            onClick={closeModal}
           >
             <MdOutlineClose size="100%" className={`grey-08-text`} />
           </button>

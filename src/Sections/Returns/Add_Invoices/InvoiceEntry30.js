@@ -90,9 +90,8 @@ const InvoiceEntry30 = (props) => {
       // conditional handling for Generic SOS
       let activeModal = null;
 
-      console.log(thisInvoiceInContext);
       if (thisInvoiceInContext.invoiceDetails?.genericSOS) {
-        console.log("G-SOS");
+
         activeModal = {
           type: "genericSOS",
           refObj: {
