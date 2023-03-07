@@ -33,7 +33,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
     const initialOutput = {};
     for (const thisProduct of productsArr) {
       const key = thisProduct[0];
-      initialOutput[key] = { quantity: null };
+      initialOutput[key] = { quantity: "" };
     }
     return initialOutput;
   };
@@ -59,7 +59,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       input > max // if Input is too big
         ? max
         : !input // if Input is falsy
-        ? null
+        ? ""
         : input;
 
     const outProductsObj = {
@@ -83,6 +83,11 @@ const GenericSOSmodal = ({ returnsContext }) => {
       productsObj: outProductsObj,
     });
   };
+
+  // handle Form Submit
+
+  const submitGSOSform = () => {};
+
   // ---- ITEMS TABLE ----
 
   const refTableH = <TableHeading />;
@@ -108,9 +113,25 @@ const GenericSOSmodal = ({ returnsContext }) => {
     );
   });
 
+  // ---- SUBMIT BUTTON ----
+  const submitBtn = modalState.isValid ? (
+    <button
+      form="GSOSmodalForm"
+      type="submit"
+      disabled={!modalState.isValid}
+      className={`baseButton primary large contained30`}
+    >
+      Submit
+    </button>
+  ) : null;
+
   return (
     <BaseModal>
-      <section className={classes.container}>
+      <form
+        className={classes.container}
+        id={"GSOSmodalForm"}
+        onSubmit={submitGSOSform}
+      >
         <section className={classes.title}>
           <button
             className={`baseIconButton medium`}
@@ -132,7 +153,8 @@ const GenericSOSmodal = ({ returnsContext }) => {
           tableHeadingArray={tableHeadingArr}
           tableBodyArray={productTRarr}
         ></Table>
-      </section>
+      </form>
+      {submitBtn}
     </BaseModal>
   );
 };
