@@ -70,10 +70,10 @@ const GenericSOSmodal = ({ returnsContext }) => {
     // evaluate form validity
     let outIsValid = false;
     // loop through all quantities.  If any are truthy, form is valid.
-    for (const thisStateProduct in Object.values(outProductsObj)) {
+    for (const thisStateProduct of Object.values(outProductsObj)) {
       if (thisStateProduct.quantity) {
         outIsValid = true;
-        break;
+        continue;
       }
     }
 
@@ -119,7 +119,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       form="GSOSmodalForm"
       type="submit"
       disabled={!modalState.isValid}
-      className={`baseButton primary large contained30`}
+      className={`baseButton primary large contained70`}
     >
       Submit
     </button>
@@ -153,8 +153,8 @@ const GenericSOSmodal = ({ returnsContext }) => {
           tableHeadingArray={tableHeadingArr}
           tableBodyArray={productTRarr}
         ></Table>
+        {submitBtn}
       </form>
-      {submitBtn}
     </BaseModal>
   );
 };

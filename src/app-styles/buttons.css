@@ -2,6 +2,7 @@
 /* Button CSS*/
 
 .baseButton{
+    all: unset;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -37,6 +38,7 @@
 }
   
 .baseButton.large{
+    max-height: 3.5rem;
     height: 3.5rem;
     font-size: 1.25rem;
     border-radius: 8px;
