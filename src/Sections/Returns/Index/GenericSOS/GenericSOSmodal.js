@@ -33,7 +33,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
     const initialOutput = {};
     for (const thisProduct of productsArr) {
       const key = thisProduct[0];
-      initialOutput[key] = { quantity: 0 };
+      initialOutput[key] = { quantity: null };
     }
     return initialOutput;
   };
@@ -52,16 +52,36 @@ const GenericSOSmodal = ({ returnsContext }) => {
   });
 
   const inputQtyChange = (event, itemNum, max) => {
-    const input = parseInt(event.target.value);
+    // process user input
+    const rawIn = event.target.value;
+    const input = parseInt(rawIn);
     let outQty =
       input > max // if Input is too big
         ? max
         : !input // if Input is falsy
-        ? 0
+        ? null
         : input;
 
-    const outProductsObj = { ...modalState.productsObj, [itemNum]: outQty };
-    setModalState({ ...modalState, productsObj: outProductsObj });
+    const outProductsObj = {
+      ...modalState.productsObj,
+      [itemNum]: { quantity: outQty },
+    };
+
+    // evaluate form validity
+    let outIsValid = false;
+    // loop through all quantities.  If any are truthy, form is valid.
+    for (const thisStateProduct in Object.values(outProductsObj)) {
+      if (thisStateProduct.quantity) {
+        outIsValid = true;
+        break;
+      }
+    }
+
+    setModalState({
+      ...modalState,
+      isValid: outIsValid,
+      productsObj: outProductsObj,
+    });
   };
   // ---- ITEMS TABLE ----
 
@@ -76,14 +96,13 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   const productTRarr = productsArr.map((thisProduct) => {
     const itemNum = thisProduct[0];
-    const productData = thisProduct[1];
+    const invoProdData = thisProduct[1];
     return (
       <GenericSOSrow
         key={itemNum}
-        id={itemNum}
-        value={modalState.productsObj[itemNum]}
+        invoiceProductData={invoProdData}
         itemNum={itemNum}
-        productDataObj={productData}
+        productInState={modalState.productsObj[itemNum]}
         changeFunc={inputQtyChange}
       />
     );

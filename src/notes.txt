@@ -101,6 +101,18 @@ To push it live, I just have to type:     npm run deploy     into the console.
 If: state on screen appears be one change behind what you've actually done, or actions or payloads or any other unexpected properties are appearing in your state, check the order of the (state, action) arguments in the definition of the reducer function.  Remember, these are ARGUMENTS, so their names are meaningless.  Only their order matters.  
 
 
+If: we are seeing [Object object] errors in the console, check the path segments of all Objects involved.  AFACIT 
+    items:{
+        A1A1:{
+            name: "ABC",
+            quantity: 4,
+        }
+    }
+
+so if we try to go items[itemCode] * 4, we will get some kind of [Object object] error because A1A1 is just a key for an object.  We need to go one segment deeper, items[itemCode].quantity for this to work.
+
+
+
 
 //////////////
 
@@ -3898,7 +3910,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     So let's get back on track.  I will tempt myself with a swalk if I can make it to ~6:30.  It looks like ass and I have a bunch of CSS work to do, but that is pretty satisfying and I have a ~90min window between meetings tomorrow morning, so this would be perfect to do there.  
         -The next thing I need for sure is an input with a limit in each of the <tr>s.  
         -After that, I need a Handle Input change function to work in the clever way I have in my mind.  
+    6:30
+        I'm in pretty good shape for tomorrow.  Things are mostly working how I want.  
+
+7 Mar 2023
+    Starting this morning with a puzzler.  
+    One thing I'm pretty confident of: I think it's something to do with the 'value' property of the input field. 
+
+    9:40
+    OK, I cracked the code!  It was indeed the value property, and I was getting the error because I was telling the child GSOSmodalRow to read the value of the parent object, not the specific quantity.  I also THINK I have a more general understanding of what causes [Object object] errors, and it's usually a missing object path segment.  So we're in the clear.  
     
+    The last thing I should need for input change handling is a loop that checks the values of all inputs.  If any are non-zero, it sets the Valid state to True.  
 
     
 
