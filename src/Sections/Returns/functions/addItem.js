@@ -10,10 +10,12 @@ const addItem = ({ itemsToAddObj = {}, returnsItems = {}, productContext, }) => 
 
   const inputKeysArr = Object.keys(itemsToAddObj);
 
-  for (const thisKey of inputKeysArr) {
+  for (const thisKey of inputKeysArr) {    
 
     const thisItem = itemsToAddObj[thisKey];
     const outQty = parseInt(thisItem.quantity);
+
+    if(!outQty){continue} //Don't add the item if qty is falsy.
 
     // Copy item if it already exists, otherwise create a new, empty one.
     const outItemObj = sessionItems[thisKey] ?? {
