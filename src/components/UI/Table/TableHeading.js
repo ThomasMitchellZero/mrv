@@ -19,7 +19,6 @@ const TableHeading = (props) => {
     <th onClick={clickHandler} style={{ width: `${props.width}` }}>
       <div className={classes.tableheading}>
         <h4>{props.children}</h4>
-        {downArrow}
       </div>
     </th>
   );
