@@ -6,4 +6,5 @@ const FooterContainer = ({ className = "", children }) => {
   );
 };
 
+
 export default FooterContainer;

@@ -3,10 +3,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: right;
-    width: 100%;
     gap: 1rem;
 }
 
 .base-footer.inPage{
-    padding: 1rem;
+    padding: 1rem 0rem;
 }

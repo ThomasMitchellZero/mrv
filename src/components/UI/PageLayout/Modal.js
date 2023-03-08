@@ -4,8 +4,8 @@ import TitleBar from "./TitleBar";
 
 const BaseModal = ({ children }) => {
   return (
-    <section className={classes.container}>
-      <section className={classes.window}>{children}</section>
+    <section className={`scrim-01 ${classes.container}`}>
+      <section className={`shadow__01 ${classes.window}`}>{children}</section>
     </section>
   );
 };

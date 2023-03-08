@@ -1,7 +1,6 @@
 import classes from "./GenericSOSmodal.module.css";
 
 import { BaseModal } from "../../../../components/UI/PageLayout/Modal";
-import TitleBar from "../../../../components/UI/PageLayout/TitleBar";
 import Table from "../../../../components/UI/Table/Table";
 import TableHeading from "../../../../components/UI/Table/TableHeading";
 import GenericSOSrow from "./GenericSOSrow";
@@ -108,13 +107,12 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   // ---- ITEMS TABLE ----
 
-  const refTableH = <TableHeading />;
 
   const tableHeadingArr = [
-    { id: "Description", active: false, width: "55%" },
+    { id: "Description", active: false, width: "auto" },
     { id: "Status", active: false, width: "15%" },
     { id: "Unit $", active: false, width: "15%" },
-    { id: "Quantity", active: false, width: "15%" },
+    { id: "Quantity", active: false, width: "10%" },
   ];
 
   const productTRarr = productsArr.map((thisProduct) => {
@@ -139,7 +137,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
       disabled={!modalState.isValid}
       className={`baseButton primary large contained70`}
     >
-      Submit
+      Apply
     </button>
   ) : null;
 
@@ -150,7 +148,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
         id={"GSOSmodalForm"}
         onSubmit={submitGSOSform}
       >
-        <section className={classes.title}>
+        <section className={`${classes.title}`}>
           <button
             type="button"
             className={`baseIconButton medium`}
@@ -167,7 +165,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
           tableHeadingArray={tableHeadingArr}
           tableBodyArray={productTRarr}
         ></Table>
-        {submitBtn}
+        <section className={`base-footer`}>{submitBtn}</section>
       </form>
     </BaseModal>
   );
