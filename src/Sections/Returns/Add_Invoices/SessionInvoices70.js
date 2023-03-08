@@ -39,27 +39,23 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
   */
 
   //// CREATES JSX ARRAY FOR THE INVOICE TABLE ////
-  const tableBodyContents = invoiceArray.map((item) => {
+  const tableBodyContents = invoiceArray.map((thisInvoice) => {
     // vars containing the content for each <td>
     const dateOptions = { year: "numeric", month: "numeric", day: "numeric" };
 
-    const itemKey = item[0];
-    const itemDetails = item[1].invoiceDetails;
-    const productList = Object.values(item[1].products);
+    const itemKey = thisInvoice[0];
+    const invoDetails = thisInvoice[1].invoiceDetails;
+    const productList = Object.values(thisInvoice[1].products);
     const lineItemQty = productList.length;
-    let totalPrice = 0;
-
-    productList.forEach((product) => {
-      totalPrice += product.quantity * product.price;
-    });
+    let displayPrice = invoDetails.displayPrice
 
     return (
       <tr className="divider-bottom" key={itemKey}>
-        <td>{itemDetails.date.toLocaleDateString("en-US", dateOptions)}</td>
+        <td>{invoDetails.date.toLocaleDateString("en-US", dateOptions)}</td>
         <td>{itemKey}</td>
-        <td>{itemDetails.store}</td>
+        <td>{invoDetails.store}</td>
         <td>{lineItemQty}</td>
-        <td>{(totalPrice / 100).toFixed(2)}</td>
+        <td>{displayPrice}</td>
         <td>
           <button
             id={itemKey}

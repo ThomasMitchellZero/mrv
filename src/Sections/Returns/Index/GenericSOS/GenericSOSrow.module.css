@@ -1,4 +1,23 @@
 .container{
+    align-items: top;
+}
+
+.fieldContainer{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem;
+    align-items: center;
+    height: 100%;
+    gap: 0.5rem;
+}
+
+.inputField{
+    flex: 1 1 0rem;
 
 }
 
+.fieldContainer > p{
+    width: 2rem;
+    color: brown;
+    text-align: center;
+}

@@ -21,17 +21,27 @@
       900: { quantity: 1, price: 987.15, tax: 91.0 },
     },
   },
-
 */
+
+// populates all invoices with a total price and auto-apportions that $ to the different tenders because I am not mathing this shit by hand.
 
 const invoicePaymentPricer = (invoiceObj) => {
   for (const thisInvo of Object.keys(invoiceObj)) {
     let totalPaid = 0;
 
+    // calculate the total paid for all products in this invoice.
     for (const thisProduct of Object.values(invoiceObj[thisInvo].products)) {
       const thisItemCost = thisProduct.quantity * thisProduct.price;
       totalPaid += thisItemCost;
-    } //∞∞∞∞∞∞∞∞ end of loop through invoice items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+    }
+
+    // Store the total paid in the Invoice Details.
+    invoiceObj[thisInvo].invoiceDetails.totalPaid = totalPaid;
+    invoiceObj[thisInvo].invoiceDetails.displayPrice = `$ ${(
+      totalPaid / 100
+    ).toFixed(2)}`;
+
+    //∞∞∞∞∞∞∞∞ end of loop through invoice items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 
     const paymentKeyArr = Object.keys(
       invoiceObj[thisInvo].invoiceDetails.payment
@@ -49,7 +59,7 @@ const invoicePaymentPricer = (invoiceObj) => {
       invoiceObj[thisInvo].invoiceDetails.payment[thisPaymentType].paid =
         thisPaymentTypeAmount;
     } //∞∞∞∞∞∞∞∞ end of loop through payment types ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
-  } //∞∞∞∞∞∞∞∞ end of loop through invoice items ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
+  } //∞∞∞∞∞∞∞∞ end of loop through Invoices ∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞∞
 };
 
 export default invoicePaymentPricer;

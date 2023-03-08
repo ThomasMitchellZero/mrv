@@ -10,7 +10,6 @@ import { useContext } from "react";
 import ProductContext from "../../../../store/product-context";
 import { addItem } from "../../functions/addItem";
 
-import { useAddItem } from "../../functions/useAddItem";
 import { useState } from "react";
 import cloneDeep from "lodash.clonedeep";
 
@@ -111,10 +110,10 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const refTableH = <TableHeading />;
 
   const tableHeadingArr = [
-    { id: "Description", active: false, flexing: "10%" },
-    { id: "Status", active: false, flexing: "10%" },
-    { id: "Per Unit $", active: false, flexing: "10%" },
-    { id: "Quantity", active: false, flexing: "10%" },
+    { id: "Description", active: false, width: "55%" },
+    { id: "Status", active: false, width: "15%" },
+    { id: "Unit $", active: false, width: "10%" },
+    { id: "Quantity", active: false, width: "20%" },
   ];
 
   const productTRarr = productsArr.map((thisProduct) => {

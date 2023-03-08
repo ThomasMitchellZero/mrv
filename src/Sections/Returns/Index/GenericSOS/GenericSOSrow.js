@@ -21,12 +21,15 @@ const GenericSOSrow = ({
       <td>{invoProductData.delivery}</td>
       <td>{invoProductData.price}</td>
       <td>
-        <input
-          type={"number"}
-          value={productInState.quantity}
-          onChange={(event) => changeFunc(event, itemNum, maxVal)}
-        />
-        {`/ ${maxVal}`}
+        <div className={`${classes.fieldContainer}`}>
+          <input
+            className={`base_input ${classes.inputField}`}
+            type={"number"}
+            value={productInState.quantity}
+            onChange={(event) => changeFunc(event, itemNum, maxVal)}
+          />
+          <p>{`/ ${maxVal}`}</p>
+        </div>
       </td>
     </tr>
   );
