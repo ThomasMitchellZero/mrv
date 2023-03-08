@@ -7,7 +7,6 @@ import ReturnsProductDetail from "./ReturnsProductDetails";
 import Table from "../../../components/UI/Table/Table";
 import RefundTotal from "../../../components/UI/DisplayOutputs/RefundTotal";
 
-
 const SessionItems70 = ({
   returnsContext,
   dispatchActivePanels,
@@ -82,8 +81,7 @@ const SessionItems70 = ({
           });
         }}
       >
-        <td className={`activeStatusBar ${isActive}`}>
-        </td>
+        <td className={`activeStatusBar ${isActive}`}></td>
         <td>{`- -`}</td>
         <td>
           <ReturnsProductDetail productData={line} />
@@ -119,20 +117,18 @@ const SessionItems70 = ({
   });
 
   return ctxItems.length <= 0 ? (
-    <StartScanning moneyObj={returnsContext.session.refund_money}/>
+    <StartScanning moneyObj={returnsContext.session.refund_money} />
   ) : (
     <section className={classes.container}>
       <TitleBar>Scanned Items</TitleBar>
       <section className={classes.mainContent}>
-        <div className={classes.tableWindow}>
-          <p>Receipt List (coming soon)</p>
-          <Table
-            tableHeadingArray={headingList}
-            tableBodyArray={tableBodyContents}
-            hasItemAction={true}
-            hasActiveIndicator={true}
-          ></Table>
-        </div>
+        <p>Receipt List (coming soon)</p>
+        <Table
+          tableHeadingArray={headingList}
+          tableBodyArray={tableBodyContents}
+          hasItemAction={true}
+          hasActiveIndicator={true}
+        ></Table>
       </section>
       <FooterContainer>
         <RefundTotal

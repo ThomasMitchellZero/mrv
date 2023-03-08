@@ -14,10 +14,3 @@
 
 }
 
-.tableWindow{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex: 1 1 0rem;
-    overflow: auto;
-}

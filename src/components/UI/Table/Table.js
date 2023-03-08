@@ -1,17 +1,15 @@
-import classes from "./Table.module.css"
+import classes from "./Table.module.css";
 
 import TableHeading from "./TableHeading";
-
 
 const Table = ({
   tableHeadingArray,
   tableBodyArray,
   hasItemAction,
   hasActiveIndicator = false,
-  scrollOnOverflow = true
+  scrollOnOverflow = true,
 }) => {
-
-  const scrolling = scrollOnOverflow ? classes.scrollable : ""
+  const scrolling = scrollOnOverflow ? classes.scrollable : "";
 
   // populates the table heading from an array of objects
   let tableHeadings = tableHeadingArray.map((item) => {
@@ -37,18 +35,18 @@ const Table = ({
   }
 
   if (hasActiveIndicator) {
-    tableHeadings.unshift(
-      <th key="indicator" className="activeStatusBar" />
-    );
+    tableHeadings.unshift(<th key="indicator" className="activeStatusBar" />);
   }
 
   return (
-      <table className={`${classes.container} ${scrolling}`}>
+    <section className={`${classes.container} ${scrolling}`}>
+      <table >
         <thead>
           <tr>{tableHeadings}</tr>
         </thead>
         <tbody>{tableBodyArray}</tbody>
       </table>
+    </section>
   );
 };
 

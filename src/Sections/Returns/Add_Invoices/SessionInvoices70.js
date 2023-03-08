@@ -79,14 +79,15 @@ const SessionInvoices70 = ({ returnsContext, dispatchActivePanels }) => {
     <section className={classes.container}>
       <TitleBar>Scanned Invoices</TitleBar>
       <section className={classes.mainContent}>
-        <div className={classes.tableWindow}>
+
           <p>Receipt List (coming soon)</p>
           <Table
             tableHeadingArray={headingList}
             tableBodyArray={tableBodyContents}
             hasItemAction={true}
+            scrollOnOverflow={true}
           ></Table>
-        </div>
+
       </section>
       <FooterContainer>
         <RefundTotal dataObj={returnsContext.session.refund_money} />
