@@ -172,7 +172,7 @@ const ItemEntry30 = (props) => {
             form="item_form"
             type="submit"
             disabled={!formState.formValid}
-            className={`baseButton primary large`}
+            className={`baseButton primary large contained30`}
           >
             Add Item
           </button>
