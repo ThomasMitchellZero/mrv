@@ -51,7 +51,7 @@ const GenericSOSrow = ({
   //TO DO: Needs to get product description during creation in AddInvoice30;
   return (
     <tr id={itemNum} className={`${classes.container}`}>
-      <td>{description}</td>
+      <td className={`${classes.describe}`}>{description}</td>
       <td>
         <MessageRibbon {...deliveryStatusObj[deliveryStatus]} />
       </td>
