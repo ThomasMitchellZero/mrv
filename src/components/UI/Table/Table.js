@@ -1,3 +1,5 @@
+import classes from "./Table.module.css"
+
 import TableHeading from "./TableHeading";
 
 
@@ -6,7 +8,11 @@ const Table = ({
   tableBodyArray,
   hasItemAction,
   hasActiveIndicator = false,
+  scrollOnOverflow = true
 }) => {
+
+  const scrolling = scrollOnOverflow ? classes.scrollable : ""
+
   // populates the table heading from an array of objects
   let tableHeadings = tableHeadingArray.map((item) => {
     return (
@@ -37,14 +43,12 @@ const Table = ({
   }
 
   return (
-    <div>
-      <table>
+      <table className={`${classes.container} ${scrolling}`}>
         <thead>
           <tr>{tableHeadings}</tr>
         </thead>
         <tbody>{tableBodyArray}</tbody>
       </table>
-    </div>
   );
 };
 

@@ -28,6 +28,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const setPanels = activeModalRefObj.setPanels;
 
   // ---- LOCAL STATE ----
+
   // calculates default value for initial state.
   const makeInitialProductsObj = () => {
     const initialOutput = {};
@@ -112,8 +113,8 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const tableHeadingArr = [
     { id: "Description", active: false, width: "55%" },
     { id: "Status", active: false, width: "15%" },
-    { id: "Unit $", active: false, width: "10%" },
-    { id: "Quantity", active: false, width: "20%" },
+    { id: "Unit $", active: false, width: "15%" },
+    { id: "Quantity", active: false, width: "15%" },
   ];
 
   const productTRarr = productsArr.map((thisProduct) => {
