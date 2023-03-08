@@ -101,7 +101,8 @@ To push it live, I just have to type:     npm run deploy     into the console.
 If: state on screen appears be one change behind what you've actually done, or actions or payloads or any other unexpected properties are appearing in your state, check the order of the (state, action) arguments in the definition of the reducer function.  Remember, these are ARGUMENTS, so their names are meaningless.  Only their order matters.  
 
 
-If: we are seeing [Object object] errors in the console, check the path segments of all Objects involved.  AFACIT 
+If: we are seeing [Object object] errors in the console:
+    Check the path segments of all Objects involved.  AFACIT 
     items:{
         A1A1:{
             name: "ABC",
@@ -110,6 +111,14 @@ If: we are seeing [Object object] errors in the console, check the path segments
     }
 
 so if we try to go items[itemCode] * 4, we will get some kind of [Object object] error because A1A1 is just a key for an object.  We need to go one segment deeper, items[itemCode].quantity for this to work.
+
+If: we are having trouble positioning the contents of a table row: 
+    -I don't know why but CSS rules don't seem to apply to <td>s.  I've had success creating a container <div>, and then setting width/flex and height to fill the <td>, then applying positioning and styling as normal.  It's like making a little pocket dimension.
+
+If: children of a flex-container are overflowing their parent:
+    Try setting min-width: 0; 
+    Apparently, the default min-width property for flex-items is auto, not zero.  Flex-items cannot shrink below their minimum size, even if that causes them to overflow their containers.  
+    Also note that this is DIFFERENT from the flex-basis (the third argument in flex: 1 1 auto). That determines the starting size, but it is not the minimum size.  
 
 
 
@@ -3922,12 +3931,17 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     
     The last thing I should need for input change handling is a loop that checks the values of all inputs.  If any are non-zero, it sets the Valid state to True.  
 
-    
+    12:40.
+    Back from PT.  I think the very best thing I can do right now is try to jam hard for the next 2 hours.  I would LOVE to wrap this up.  What I need is:
+        X-Add the button
+        X-Dispatch the object to items state.
+        X-Clear the Modal
+        X-Bonus: set panels in ReturnsIndex.  
 
+    4:30.
+    Done with meetings, InstaCart, and a little bit of time-wasting.  Gonna go to either 6:00 or the CSS being done, whichever comes first.
 
-
-                
-
-
-
-
+8 Mar 2023
+    OK.  Goal today is to get the CSS right for Returns.  Once that's done I should switch to the real-job screen design for Exchanges.  
+    -The issue I am running into is that styling for a particular TD seems to have no effect.  
+        -I've noticed that the TD is the only actual container.  I am going to try filling the TD with a <div> and see what happens.  

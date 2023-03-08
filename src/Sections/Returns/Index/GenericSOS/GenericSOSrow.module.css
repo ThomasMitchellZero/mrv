@@ -2,10 +2,11 @@
     align-items: top;
 }
 
+
 .fieldContainer{
     display: flex;
     flex-direction: row;
-    flex: 1 1 0rem;
+    width: 100%;
     align-items: center;
     height: 100%;
     gap: 0.5rem;
@@ -13,11 +14,12 @@
 
 .inputField{
     flex: 1 1 0rem;
-
+    min-width: 0;
 }
 
 .fieldContainer > p{
-    width: 2rem;
+    flex: 0 0 2rem;
     color: brown;
     text-align: center;
 }
+
