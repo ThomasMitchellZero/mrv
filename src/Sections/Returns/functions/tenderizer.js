@@ -41,7 +41,7 @@ const tenderizer = (tenderObj) => {
   // remember that the tenderizer will be called on some tenderObj's that have already been Tenderized.
 
   const blurNumber = (inputNum)=>{
-    const last4 = `${blurNumber}`.slice(-4)
+    const last4 = `${inputNum}`.slice(-4)
     const outString = `**** ${last4}`
     return outString
   }
