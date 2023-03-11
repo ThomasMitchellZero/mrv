@@ -40,6 +40,13 @@ const tenderizer = (tenderObj) => {
 
   // remember that the tenderizer will be called on some tenderObj's that have already been Tenderized.
 
+  const blurNumber = (inputNum)=>{
+    const last4 = `${blurNumber}`.slice(-4)
+    const outString = `**** ${last4}`
+    return outString
+  }
+
+
   // ---- UNIVERSAL PROPERTIES ----
   const sharedProperties = {
     // Keep status if tender already has one.  
@@ -53,19 +60,19 @@ const tenderizer = (tenderObj) => {
   // tenderType never changes once assigned
   const typePaths = {
     [tType.cash]: {
-      tenderLabel: "CasH MONEY",
+      tenderLabel: "Cash",
     },
     [tType.storeCredit]: {
-      tenderLabel: "STOOOORE Credit",
+      tenderLabel: "Store Credit",
     },
     [tType.credit]: {
-      tenderLabel: "Credit Cartttt",
+      tenderLabel: `Credit Card ${blurNumber(tenderObj.primaryKey)}`,
     },
     [tType.check]: {
-      tenderLabel: "Check Down",
+      tenderLabel: `Checking ${blurNumber(tenderObj.primaryKey)}`,
     },
     [tType.debit]: {
-      tenderLabel: "Debitator",
+      tenderLabel: `Debit ${blurNumber(tenderObj.primaryKey)}`,
     },
   };
 

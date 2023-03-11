@@ -54,8 +54,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
 
     -I need to figure out how to write no-UI functions that can use hooks, especially accessing the app state.  
 
-    -Make sure the prices are realistic in both the product catalog and invoices.
-
     -On the Item Details page: The quantity needs to be an editable input field.  IIRC I'll have to change how the Items dispatcher is done in Returns.  
 
     -In the Tenderizer: Right now, all tenderLabels are hard-coded and stored in the Invoice object. Produce a String-maker that caluculates the credit card issuer from the ccNum.  So instead of "Credit ****1234" it would say "Discover ****1234". This will also require me to update the credit card numbers in the file, and then delete the hard-coded values.  AFAICT as long as the new function in the Tenderizer stores the new string in the same property name currently storing the hard-coded strings, no further re-wiring should be needed.
@@ -63,7 +61,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -in tenderTypes: I'm having to copy and paste description strings all over the place.  it would be nice if each of the types were objects that contained both reference strings and description strings.  I should have made these objects from the start but I was naive and optimistic.  This will break like 10 files but they will at least be easy to find.  
         -If I ever do decide I want a class/factory for all the tender types, this would be a good time to incorporate it.
 
-    -In Finalize Refund, I'm currently doing logic for which state to dispatch based on failure status.  Since this is technically an automatic transformation, it probably makes more sense to do it in SnP because that's where I'm doing other automatic transformations.  
 
     -General Knowledge: really figure out the Component Composition model.  It looks like it's powerful but I don't quite grok it yet.  
 
@@ -77,11 +74,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -only show Invalid ItemNum warning on de-focus.  
         -use useRef to auto-focus on ItemNum field on Render and Submit.
         -Should be able to useAddItem?
-
-    
-
-
-
 
 
 //// Github Pages Deployment ////
@@ -3945,3 +3937,31 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     OK.  Goal today is to get the CSS right for Returns.  Once that's done I should switch to the real-job screen design for Exchanges.  
     -The issue I am running into is that styling for a particular TD seems to have no effect.  
         -I've noticed that the TD is the only actual container.  I am going to try filling the TD with a <div> and see what happens.  
+
+BUG - cash refund finalization screen is displaying as store credit.  
+
+11 Mar 2023,
+    10:15:
+    Not the start I could have had but considering the fuckarounding I've done since I woke up, this isn't bad.  
+
+    -The main fight is won.  Returns works.  It actually works to the point where I'm kicking around the idea of starting on Exchanges.  But I should try and bag this up.  
+
+    X-Very first, I should fix that bug where cash refunds are showing up as Store Credit.
+
+    -Cart Items widget.  Will probably need later.
+
+    -Refactor Item Entry 30
+        -State instead of reducer?
+        -Cleaner version 
+        -On submit, focus on Item Entry field
+        -validation
+            -can this be universal?
+            -maybe a custom hook?
+
+    -have a state for ActivePanels in Session.  Will probably need this for manager override.  If not, figure out a clean approach to handle this.  
+
+    -We are going to need a version of ItemDetails30 that works like the production design.  Hopefully easier to make?
+
+    -I need to write the function that generates names in the Tenderizer.
+
+    -Figure out how to handle MO in 30 panel, universalizable if possible.  

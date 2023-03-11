@@ -25,8 +25,7 @@ const Payout70 = ({ activeTenderObj, onClick }) => {
     onClick((tStatus.complete))
   };
 
-  //const activeType = activeTenderObj.tenderType;
-  const activeType = tType.storeCredit;
+  const activeType = activeTenderObj.tenderType;
 
   return (
     <section className={`seventy_panel `}>
