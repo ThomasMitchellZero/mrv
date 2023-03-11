@@ -84,7 +84,7 @@ const FinalizeRefund = () => {
     outTendersArr[activeIndex] = {
       ...outTendersArr[activeIndex],
       status: tStatus.swapped,
-      swapLabel: swappedLabels[swapTo],
+      refundAs: swappedLabels[swapTo],
     };
 
     const activePaid = activeTenderObj.paid;

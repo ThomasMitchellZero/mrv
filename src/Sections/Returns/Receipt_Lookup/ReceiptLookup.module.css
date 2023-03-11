@@ -11,6 +11,7 @@
     flex: 1 1 0rem;
     background-color: #fff;
     padding: .5rem 1rem;
+    overflow: auto;
 }
 
 .seventyContent{
@@ -20,6 +21,7 @@
     background-color: #fff;
     padding: 0% 15%;
     gap: 3rem;
+    overflow: auto;
 }
 
 .optionBtnHolder{
