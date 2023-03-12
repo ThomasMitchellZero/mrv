@@ -3962,6 +3962,151 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     -We are going to need a version of ItemDetails30 that works like the production design.  Hopefully easier to make?
 
-    -I need to write the function that generates names in the Tenderizer.
+    X -I need to write the function that generates names in the Tenderizer.
 
     -Figure out how to handle MO in 30 panel, universalizable if possible.  
+
+    12:05.
+    Honestly, not doing my best.  I really need to catch a wave here.  I think I need to come up with a plan for how to handle the active panels.  It's actually not even a plan.  I'm pretty sure I know what I need to do.  I just need to know at what level to put it.  
+
+    First, a little context to make myself sure I understand what I'm doing.  
+
+        RETURNS SESSION:
+        +Aren't we pretty confident this will work?  There's basically no logic at all.  I can add fancies in there if I want but it's basically just going to be an object with a 30 panel and a 70 panel.  
+
+    1:00.
+    OK, I'm spinning in circles here.  Let's grind down and see what the issue is.
+
+    I like the idea of having a top-level place to store Active Panels.  That seems to make sense.  I actually don't have clear definition, but it's something like:
+        -1 URL per cluster.  Clusters are pages that can appear together.  So the Scanning Screen, item details, Actions30, etc can all appear together in different combinations, so they are all conditionally rendered within the Index URL.  
+        -Something like the Review screens are never going to appear with those Index parts, so the Review screens get their own URL.
+        -It might also have something to do with data?
+        -It might also have something to do with Step In The Process, although that might be more of an emergent property.
+
+    AFACIT I really only have 2 big multi-display clusters - those being Index at the start and then Finalize_Refund at the end.  Storing the ActivePanels in some State seems like a pretty good option for Index, and it does not seem like a very good option for Finalize_Refund.  Part of the reason I am getting hung up is that it feels strange to handle the same problem in different ways.  So it seems like one of my two intuitions is incorrect.  Either:
+        -They are different in a way I don't quite grok and my intuition to use the same approach is incorrect.
+        -My intuition that they are different is incorrect.
+
+    -I think I should start with FinalizeRefund because that is the most recent.  The most salient property of that (to me) is that the component chooses what 70 panel to display based on a combination of TenderType and TenderStatus, with interactions and possibilities defined by business logic.  
+        -Generally doesn't have a lot of user interaction.  
+        -Most of the decisions are being made programmatically, not by the user.
+        -I feel like there are a lot more permutations.  
+
+    -I feel like with Index, it's mostly based on responses to user action.  There's not a lot in the way of logic.  
+        -Feels less dependent on stored values, more dependent on things like "Was the most recent add an invoice or an item?"
+
+    -One other thought that popped into my mind:  Why is the modal displaying in the top-level component?  I mean, there's nothing wrong with it being there that I can tell, but since that modal 
+
+    4:15
+    This happens waaaay too much.  I find myself having accomplished nothing and unable to get traction.  I can still make something out of today.  I'm gonna do a straight 20, then try to go a full 90.  If I can do that then I can have a swalk.  
+
+    I also want to be aware of the fact that the thing really itching at me hasn't been anything with the 30-70 display clusters.  It's been my frustration with useEffect and not knowing how it works.  I still don't really get the use-case or why I would want to deal with all of the restrictions.  
+        -My best guess right now is that my regular functions have to remain outside the Hooks process.  I can't read in (like useContext) or set external state.  I think(?) that custom hooks let me break that rule.  
+
+    A thought I had in the shower.  I believe a function can return a function?  So I am wondering if I can call a custom hook by another, non-hook name and then call it wherever the hell I want?  
+        -This is not progress but for science I'm gonna try anyways.  
+        -OK, so calling the function directly via a different name did not work.  
+        -How about a function that returns a function?  
+            That did work.  Returning a closure rather than calling the function itself let me call it within the loop.
+        -How about variables?
+            -Looks like I can pass in user-defined variables, both to the parent and to the child.  
+        -Final test - can I dispatch?
+            YES.  OK.  This is the part I was most worried about, and it looks like I can do it.  
+        -Final final test - can I import context and use that too?  
+            Looks like it!  Now, one caveat - for the use case that started me on the useContext path, being able to call the Matchmaker without having  to pass all the context as variables, I'm not 100% sure I could grab all that from context, just because I don't think that in Returns itself it has the Context as a parent, but that barely matters.  I have to call the function one time to provide the closure.  If I can have to pass the context one time as a variable I'm not too upset.  
+    6:10.
+        OK.  Against all odds I pulled something really valuable out of today.  I THINK (?) I can finally use custom hooks the way I wanted, which is to break all the Rules of Hooks, get context without arguments, and set states all willy-nilly.  I'm not going to work any more today.  I am going to swalk and think about what this means.  I've designed so much of this app around the constraints on normal functions that I don't even know what's possible right now.  Damn.  I guess I didn't realize it, but that one article saying 'Hooks suck' really delivered on Cunningham's Law.  OK.  Go take a swalk and think about what you've done.  
+
+12 Mar 2023
+    1:05
+    Considering the time change and my workout, I've actually been pretty good about avoiding time-wasters all day.
+
+    I need to make two decisions.  Where to store the modal, and where to store the on-screen information.  And even if it takes the full 20, I should stay on this task until I've got a conclusion because the next two things I want to do - the in-production dispositions and the auto-request manager override - are both going to shake out differently based on what I choose.  I also need to keep in mind that AFACIT the choices aren't relevant for this app.  This is more about understanding patterns for building something else.  
+
+    First.  I'm no longer worried about the inconsistency of hand-setting active panels in Index vs. auto-setting active panels in FinalizeRefund.  I'm going to do what's easiest for each task.  If I do have a global hand-setting capability that doesn't mean I have to use it for everything.  I only need it if it makes the work easier, and I don't know an easier way to handle the panels in Finalize_Refund.
+        -Although... Looking at Finalize_Refund, I guess it could get a little simpler if I was actively specifying the 30-panels?  I should probably stop thinking about this because this is the kind of thing that causes me to spend 3 days re-working the system to eliminate 10 lines of code and the final result works exactly the same.  
+            -Although... if I did it, I think the paths70{} object in Finalize Refunds would move into SnP.  OK.  Stop this.  
+
+    OK.  First, the modal.  Do I even have a strong preference where it lives?  I feel like - not really?  I guess it makes a little more sense to have the modals live within their clusters?  I can imagine scenarios where a modal:
+        1. Navigates to a different URL cluster
+        2. Changes the Session state
+        3. Changes the panels in the cluster
+        4. Potentially all three at once
+        5. The same modal, but triggered from different URLs (e.g. unsaved data?)
+    -1 and 2, it definitely makes no difference.  These are both Returns-level functions that are accessible anywhere.  In fact, they're available through OutletContext, so they are available LITERALLY anywhere in Returns with no prop drilling. 
+    -3 also doesn't matter.  That might be a little easier if it's done within the URL cluster because if I'm using local state, like I am for GSOS, I can access and modify it directly.
+    -What about 4?  IF I am navigating to a different URL and the panels to display at that URL depend on my actions in the modal?  IF activePanels is stored in Returns, there's no problem.  If it's not, there potentially is a problem.
+
+    -The only other potential situation is if I have the same modal being triggered from different URLs.  Then it's definitely better to have it in the Session state.  But how likely is that?  
+
+    -I think where this leaves me is that I'm gonna leave it in the Session state for now.  This also requires no re-work.
+
+    Active Panels.
+    -This one I'm feeling more confident should live in Session.  Like, if I want to navigate to a different URL and I need to specify "X and Y on the screen" I don't really have a clean way of doing that.  Now.  That said.  I still feel like I don't have a great answer for a situation like Finalize Refund, where:
+        1. I want to run some process on a series of targets
+        2. For some reason (like 'I need some user input') I can't just auto-process the whole list.
+        3. I want the first element processed on render.  
+        ~ Basically, I want what I would get from useEffect without triggering a re-render.  
+    I'm sure there's a way to do this.  I'm pretty sure it's doable with tools I already know.  I just haven't put the pieces together.  This is another thing where I probably shouldn't think about it right now because I want a swalk and watch bands.  But I also feel like if I could figure this out, there would be far less of a need to store the activePanels in the Returns state.
+
+    2:45.
+    So let's focus here.  It's been nearly 2 hours and I still haven't written any new code today.  I haven't wasted time, but I do need to get moving.  
+    
+    First, I'm going to need an initial state and a dispatcher function.  Actually, I'm kicking around the idea of having this as a custom hook so that I have a SSoT for arguments to expect.  I'm now wondering how to make this universalizable. 
+        I'm thinking something like:
+            return {
+                p1: null
+                p1Details: null
+                p2: null
+                p2Details: null
+                p3: null
+                p3Details: null
+            }
+        and then in the output:
+
+        output: {  // object of all possible components
+            abc: <Comp1 actIndex={state.panelDetails.abc.index}/>,
+            def: <Comp2/>
+        }
+
+        <section className={classes.container}>
+            {output[p1]}
+            {output[p2]}
+            {output[p3]}
+        </section>
+
+    I would handle all sizing within the components themselves.  So I wouldn't have a 30 container and a 70 container.  I would just assign each component a class, like thirty_panel.  
+
+    Now.  How do I get panel-specific information into the components, when I don't know their position in advance? Maybe something like: 
+
+            return {
+                p1: 'abc'
+                p2: 'def'
+                p3: null
+                panelDetails:{
+                    abc{
+                        index: 1,
+                    }
+                }
+            }
+
+    I think that will work.  Why do I not feel good about this?  (is it because we're oversolving a non-major-problem?)  OK.  Well, if I don't have a more specific objection then Rule 4 kind of implies I should get moving on this.  
+
+    Looking at this, I'm also feeling like there's no special reason for it to be a state?  I guess it would be kind of handy to not have to explicitly request the existing state (because I can get it through useOutletContext) and I suppose I could auto-dispatch, which is nice?  
+        -But then I have to set the initial state by hand, which I suppose is not the end of the world?
+            -And for God's sake, why can't that just be done in the child?  I'll be changing the parent state every other damn time I make a change.  Why can't I do it automatically on initialization?
+
+    OK.  Let's just do it as a function.  Or is that even necessary?  This is exactly the kind of shit that caught me up yesterday.  I have no experience so I have no idea what is good and bad when making decisions.  I just really need a mentor :(  
+
+    5:15.
+    One interesting little tidbit.  Just on a whim, I fired the new useSetLocalPanels from the inital state-setting function in ReturnsIndex.  It didn't work, in the sense that AFAICT the session state didn't change and it also prevented the inital local state from resolving... but it didn't cause an error, either.  I'm going to run it through the debugger and see what I can find. 
+
+    -Eh. NVM.  Turns out I wasn't running the function at all because it was the second argument, not the third.  I tried to run in in the 3rd position and it crapped the bed like I expected.  
+
+
+// Not for today, but investigate ImmerReducer.  Apparently it streamlines the Reducer process and it's recommended in the official ReactJS documentation.  
+
+
+
+
+    -I feel like I'm really in the groove today in a way that I wasn't yesterday.  If I can keep it up I can have watch straps and swalk.  If I suck, I have to choose.  

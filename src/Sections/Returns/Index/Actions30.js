@@ -19,7 +19,7 @@ import {
 } from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const Actions30 = ({ dispatchActive, returnState }) => {
-  //hasItems: Object.keys(returnsContext.session.items).length ? true : false,
+
 
   const returnsContext = useOutletContext(); // Can I just use Outlet Context for everything?
   const dispSession = returnsContext.dispatchSession

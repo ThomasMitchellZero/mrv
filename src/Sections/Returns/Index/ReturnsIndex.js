@@ -10,7 +10,7 @@ import StartScanning from "./StartScanning70";
 import SessionItems70 from "../Add_Items/SessionItems70";
 import SessionInvoices70 from "../Add_Invoices/SessionInvoices70";
 
-import useAddItem from "../functions/useAddItem"
+import { useSetLocalPanels } from "../functions/useSetLocalPanels";
 
 import { useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -31,8 +31,7 @@ const panelsReducer = (state, action) => {
         activeItem: newActiveItem,
         activeItemTab: newActiveItemTab,
       };
-    };
-
+    }
 
     default:
       throw new Error(`There is no panel called  type: ${action.type}`);
@@ -41,6 +40,7 @@ const panelsReducer = (state, action) => {
 
 const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
+  const setLocalPanels = useSetLocalPanels();
 
   //main state for holding active panels.
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
@@ -55,7 +55,6 @@ const ReturnsIndex = () => {
       <Actions30
         dispatchActive={dispatchActivePanels}
         returnState={returnsContext}
-
       />
     ),
     item_entry: (
@@ -100,7 +99,6 @@ const ReturnsIndex = () => {
 
   return (
     <main className={classes.container}>
-
       <section className={`seventy_panel`}>
         {seventy_panels[activePanels.state70]}
       </section>

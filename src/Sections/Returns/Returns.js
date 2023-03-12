@@ -5,6 +5,7 @@ import InvoiceContext from "../../store/invoice-context";
 import { useContext, useReducer } from "react";
 import ReturnsMatchMaker from "./functions/ReturnsMatchMaker";
 import ReturnsAllModals from "./ReturnsAllModals";
+import { useTest } from "./functions/useTest";
 
 // test data, delete once everything is working.
 
@@ -13,27 +14,26 @@ import sortNprocessTenders from "./functions/sortNprocessTenders";
 
 const failureStatus = false;
 
-const defaultSessionState = {
-  scenarios: { totalTenderFailure: failureStatus },
-  items: {},
-  invoices: {},
-  unmatched: {},
-  modified_invoices: {},
-  activeModal: { type: "", refObj: "{}" }, //"genericSOS",
-  matched: {},
-  refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
-  refund_money: {
-    refundTotal: 0,
-    taxSum: 0,
-    subtotal: 0,
-    adjustments: 0,
-  },
-};
-
 const Returns = () => {
-  const productContext = useContext(ProductContext);
-  const invoiceContext = useContext(InvoiceContext);
+  const defaultSessionState = {
+    scenarios: { totalTenderFailure: failureStatus },
+    items: {},
+    invoices: {},
+    unmatched: {},
+    modified_invoices: {},
+    activeLocalPanels: {},
+    activeModal: { type: "", refObj: "{}" }, //"genericSOS",
+    matched: {},
+    refunds_by_tender: {}, //sortNprocessTenders(dummyTendersPack),
+    refund_money: {
+      refundTotal: 0,
+      taxSum: 0,
+      subtotal: 0,
+      adjustments: 0,
+    },
+  };
 
+  const invoiceContext = useContext(InvoiceContext);
 
   //// RETURNS SESSION REDUCER ////
 
@@ -60,8 +60,6 @@ const Returns = () => {
         let newItemList = { ...state.items };
 
         delete newItemList[action.payload];
-
-
 
         const derivedStates = ReturnsMatchMaker(newItemList, sessionInvoices);
 
@@ -118,6 +116,13 @@ const Returns = () => {
       }
 
       case "SET_MODAL": {
+        return {
+          ...state,
+          activeModal: action.payload,
+        };
+      }
+
+      case "SET_LOCAL_PANEL": {
         return {
           ...state,
           activeModal: action.payload,

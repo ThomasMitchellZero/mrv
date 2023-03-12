@@ -23,7 +23,6 @@ const FinalizeRefund = () => {
   // Returns Session
   const sessionCtx = cloneDeep(useOutletContext().session);
   const dispatchSession = useOutletContext().dispatchSession;
-
   const ctxTendersPack = sessionCtx.refunds_by_tender;
 
   const dispatchTenderArr = (outTendersArr) => {
