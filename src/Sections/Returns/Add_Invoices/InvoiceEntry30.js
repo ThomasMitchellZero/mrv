@@ -88,6 +88,7 @@ const InvoiceEntry30 = (props) => {
         invoiceContext[formState.invoiceNum]
 
       // conditional handling for Generic SOS
+      //TODO - rewrite as ternary?
       let activeModal = null;
 
       if (thisInvoiceInContext.invoiceDetails?.genericSOS) {

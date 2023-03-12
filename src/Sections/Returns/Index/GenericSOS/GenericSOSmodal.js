@@ -21,6 +21,7 @@ const GenericSOSmodal = ({ returnsContext }) => {
   const dispatchReturns = returnsContext.dispatchSession;
   const productsCatalogCtx = useContext(ProductContext);
 
+  //TODO: I think I can just get the OutletContext rather than taking this as a prop.  
   // cloned Session context
   const sessionCtx = cloneDeep(returnsContext.session);
   const activeModalRefObj = sessionCtx.activeModal.refObj;
