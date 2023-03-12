@@ -10,6 +10,8 @@ import StartScanning from "./StartScanning70";
 import SessionItems70 from "../Add_Items/SessionItems70";
 import SessionInvoices70 from "../Add_Invoices/SessionInvoices70";
 
+import useAddItem from "../functions/useAddItem"
+
 import { useReducer } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -53,6 +55,7 @@ const ReturnsIndex = () => {
       <Actions30
         dispatchActive={dispatchActivePanels}
         returnState={returnsContext}
+
       />
     ),
     item_entry: (

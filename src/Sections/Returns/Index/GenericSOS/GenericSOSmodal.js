@@ -9,6 +9,8 @@ import { useContext } from "react";
 import ProductContext from "../../../../store/product-context";
 import { addItem } from "../../functions/addItem";
 
+import { useAddItem } from "../../functions/useAddItem";
+
 import { useState } from "react";
 import cloneDeep from "lodash.clonedeep";
 
@@ -38,6 +40,8 @@ const GenericSOSmodal = ({ returnsContext }) => {
     return initialOutput;
   };
 
+  
+
   const [modalState, setModalState] = useState({
     isValid: false,
     productsObj: makeInitialProductsObj(),
@@ -45,7 +49,10 @@ const GenericSOSmodal = ({ returnsContext }) => {
 
   // ---- SHARED FUNCTIONS ----
 
+
+
   const closeModal = () => {
+
     dispatchReturns({
       type: "SET_MODAL",
       payload: null,

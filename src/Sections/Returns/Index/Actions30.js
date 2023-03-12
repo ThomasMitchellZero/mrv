@@ -3,6 +3,8 @@ import classes from "./Actions30.module.css";
 import TitleBar from "../../../components/UI/PageLayout/TitleBar";
 import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
+import { useTest } from "../functions/useTest";
+import { useOutletContext } from "react-router-dom";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -19,7 +21,11 @@ import {
 const Actions30 = ({ dispatchActive, returnState }) => {
   //hasItems: Object.keys(returnsContext.session.items).length ? true : false,
 
+  const returnsContext = useOutletContext(); // Can I just use Outlet Context for everything?
+  const dispSession = returnsContext.dispatchSession
+
   const navigate = useNavigate();
+  const testFunc = useTest({ dispatcherFunction: dispSession });
 
   // panel dispatcher from ReturnsIndex
   const dispatchActivePanels = dispatchActive;
@@ -34,12 +40,13 @@ const Actions30 = ({ dispatchActive, returnState }) => {
       <TitleBar>Actions</TitleBar>
       <section className={classes.buttonBox}>
         <VerticalNavButton
-          onClick={() =>
+          onClick={() => {
+            testFunc({ a: "Sorin" });
             dispatchActivePanels({
               type: "SET_PANELS",
               payload: { set30: "invoice_entry", set70: "session_invoices" },
-            })
-          }
+            });
+          }}
           label="Receipt Entry"
           mainIcon={<ReceiptLineIcon className={classes.mainicon} />}
         />

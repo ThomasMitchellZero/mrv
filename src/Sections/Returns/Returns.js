@@ -34,6 +34,7 @@ const Returns = () => {
   const productContext = useContext(ProductContext);
   const invoiceContext = useContext(InvoiceContext);
 
+
   //// RETURNS SESSION REDUCER ////
 
   const sessionReducer = (state, action) => {
@@ -59,6 +60,8 @@ const Returns = () => {
         let newItemList = { ...state.items };
 
         delete newItemList[action.payload];
+
+
 
         const derivedStates = ReturnsMatchMaker(newItemList, sessionInvoices);
 
