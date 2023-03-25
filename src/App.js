@@ -28,6 +28,7 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 function App() {
   return (
     <div className="App">
+      <p>test</p>
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Placeholder titleText="Home" />} />

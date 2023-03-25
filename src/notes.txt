@@ -14,6 +14,7 @@ RULE 5:
 Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it is hard to conceive now, chances are that it will be hard to comprehend later.  
 
 
+
 //// Github Pages Deployment ////
 
 Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
@@ -4125,6 +4126,20 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     12:10.
     OK, so now what?  
+
+
+    2:05.
+    Struggling to get the page to display on Github Pages.  Right now it's just a blank, empty HTML page.  The crazy thing is that all of my files are in there.  In:
+        
+    Chrome > Sources > Page > top > thomasmitchellzero.github.io > static > js
+
+    I can see all of my files.  I also think I see a part of the problem - in my oldest hosted project, delivery_sidesheet, if I navigate in Chrome:
+        -Sources
+            -Page
+                -top
+                    
+    then in there is a file next to a cloud icon called 'delivery_sidesheet', while in the new mrv file that is still called returns.
+        -OK, that is not the case.  
     
 
 
