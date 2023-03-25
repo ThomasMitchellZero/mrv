@@ -14,6 +14,18 @@ RULE 5:
 Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it is hard to conceive now, chances are that it will be hard to comprehend later.  
 
 
+//// Github Pages Deployment ////
+
+Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
+
+https://github.com/gitname/react-gh-pages
+
+I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
+
+To push it live, I just have to type:     npm run deploy     into the console.
+
+
+//// Returns Backlog ////
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
 
@@ -76,15 +88,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -Should be able to useAddItem?
 
 
-//// Github Pages Deployment ////
 
-Writing a little about this since I've struggled with it in the past. This site had a really good walkthrough
-
-https://github.com/gitname/react-gh-pages
-
-I was actually able to skip to Step 7, and I think with what I've done, Step 7 is all I need to do.  I'm going to make a change and see if it appears.
-
-To push it live, I just have to type:     npm run deploy     into the console.
 
 
 
