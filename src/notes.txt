@@ -4140,6 +4140,8 @@ BUG - cash refund finalization screen is displaying as store credit.
                     
     then in there is a file next to a cloud icon called 'delivery_sidesheet', while in the new mrv file that is still called returns.
         -OK, that is not the case.  
+
+    -Another clue.  In my main App file, I added in a small <p>test</p> element.  That showed up.  So AFAICT gh-pages is rendering the correct component, but for some reason it's not interacting with my React Router components.  I re-installed them and in the Source Control they both showed up as changed, so
     
 
 
