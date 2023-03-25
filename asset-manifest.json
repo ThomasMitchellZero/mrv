@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/returns/static/css/main.d4fdc390.css",
-    "main.js": "/returns/static/js/main.1cd13823.js",
-    "static/media/shower.png": "/returns/static/media/shower.fde7773492bafa96c670.png",
-    "static/media/plywood.png": "/returns/static/media/plywood.fd26abe25835c116223f.png",
-    "static/media/hoses.png": "/returns/static/media/hoses.af32622d434c1c864734.png",
-    "static/media/paint.png": "/returns/static/media/paint.68456f46495289d88ade.png",
-    "static/media/power-strip.png": "/returns/static/media/power-strip.750511c7b42537af1f7a.png",
-    "static/media/sink.png": "/returns/static/media/sink.a28abf5a57d8c62b04b4.png",
-    "static/media/tape-measure.png": "/returns/static/media/tape-measure.c471b7f68d062c235ed7.png",
-    "static/media/flowers.png": "/returns/static/media/flowers.2c8a1c49f543ace5c6c7.png",
-    "static/media/plant.png": "/returns/static/media/plant.899869af8f6b9a0c00fa.png",
-    "static/media/samsung-front-load.png": "/returns/static/media/samsung-front-load.64f2af0123eb84f0415e.png",
-    "static/media/washer.png": "/returns/static/media/washer.348561af1731e8528d23.png",
-    "static/media/wall-wart.png": "/returns/static/media/wall-wart.75ac5903746025dc45df.png",
-    "static/media/toilet.png": "/returns/static/media/toilet.ea76ab9fba335b0c4e51.png",
-    "static/media/lowes-logo.svg": "/returns/static/media/lowes-logo.646de48c9eb8b38c16c1a86e9aa7bce4.svg",
-    "index.html": "/returns/index.html",
-    "static/media/universal-scan.svg": "/returns/static/media/universal-scan.bbfde7688dd9aad80dad4b61704ca798.svg",
-    "static/media/blank.svg": "/returns/static/media/blank.b787e2f680a11cc96c218e5ec5bb0c85.svg",
-    "main.d4fdc390.css.map": "/returns/static/css/main.d4fdc390.css.map",
-    "main.1cd13823.js.map": "/returns/static/js/main.1cd13823.js.map"
+    "main.css": "/mrv/static/css/main.04b00243.css",
+    "main.js": "/mrv/static/js/main.20003d4d.js",
+    "static/media/shower.png": "/mrv/static/media/shower.fde7773492bafa96c670.png",
+    "static/media/plywood.png": "/mrv/static/media/plywood.fd26abe25835c116223f.png",
+    "static/media/hoses.png": "/mrv/static/media/hoses.af32622d434c1c864734.png",
+    "static/media/paint.png": "/mrv/static/media/paint.68456f46495289d88ade.png",
+    "static/media/power-strip.png": "/mrv/static/media/power-strip.750511c7b42537af1f7a.png",
+    "static/media/sink.png": "/mrv/static/media/sink.a28abf5a57d8c62b04b4.png",
+    "static/media/tape-measure.png": "/mrv/static/media/tape-measure.c471b7f68d062c235ed7.png",
+    "static/media/flowers.png": "/mrv/static/media/flowers.2c8a1c49f543ace5c6c7.png",
+    "static/media/plant.png": "/mrv/static/media/plant.899869af8f6b9a0c00fa.png",
+    "static/media/samsung-front-load.png": "/mrv/static/media/samsung-front-load.64f2af0123eb84f0415e.png",
+    "static/media/washer.png": "/mrv/static/media/washer.348561af1731e8528d23.png",
+    "static/media/wall-wart.png": "/mrv/static/media/wall-wart.75ac5903746025dc45df.png",
+    "static/media/toilet.png": "/mrv/static/media/toilet.ea76ab9fba335b0c4e51.png",
+    "static/media/lowes-logo.svg": "/mrv/static/media/lowes-logo.646de48c9eb8b38c16c1a86e9aa7bce4.svg",
+    "index.html": "/mrv/index.html",
+    "static/media/universal-scan.svg": "/mrv/static/media/universal-scan.bbfde7688dd9aad80dad4b61704ca798.svg",
+    "static/media/blank.svg": "/mrv/static/media/blank.b787e2f680a11cc96c218e5ec5bb0c85.svg",
+    "main.04b00243.css.map": "/mrv/static/css/main.04b00243.css.map",
+    "main.20003d4d.js.map": "/mrv/static/js/main.20003d4d.js.map"
   },
   "entrypoints": [
-    "static/css/main.d4fdc390.css",
-    "static/js/main.1cd13823.js"
+    "static/css/main.04b00243.css",
+    "static/js/main.20003d4d.js"
   ]
 }
