@@ -10,8 +10,8 @@ const useSetLocalPanels = () => {
     newP1,
     newP2,
     newP3,
-    setAllDetails,
-    addDetails,
+    replacePanelDetails,
+    spreadInPanelDetails,
     clearAll = false,
   }) => {
     let outLocalPanels = existingPanels;
@@ -27,12 +27,13 @@ const useSetLocalPanels = () => {
     if (newP3) {
       outLocalPanels.p3 = newP3;
     }
-    if (setAllDetails) {
-      outLocalPanels.panelDetails = setAllDetails;
+    // replaces all old details with a new details object.
+    if (replacePanelDetails) {
+      outLocalPanels.panelDetails = replacePanelDetails;
     }
-    if (addDetails) {
+    if (spreadInPanelDetails) {
       outLocalPanels.panelDetails = {
-        ...addDetails,
+        ...spreadInPanelDetails,
       };
     }
     if (clearAll) outLocalPanels = {};

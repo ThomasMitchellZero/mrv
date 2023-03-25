@@ -3992,10 +3992,10 @@ BUG - cash refund finalization screen is displaying as store credit.
         -Most of the decisions are being made programmatically, not by the user.
         -I feel like there are a lot more permutations.  
 
-    -I feel like with Index, it's mostly based on responses to user action.  There's not a lot in the way of logic.  
+    -I feel like with ReturnsIndex, it's mostly based on responses to user action.  There's not a lot in the way of logic.  
         -Feels less dependent on stored values, more dependent on things like "Was the most recent add an invoice or an item?"
 
-    -One other thought that popped into my mind:  Why is the modal displaying in the top-level component?  I mean, there's nothing wrong with it being there that I can tell, but since that modal 
+    -One other thought that popped into my mind:  Why is the modal displaying in the top-level component?  I mean, there's nothing wrong with it being there that I can tell, but since that modal is only in response to an item entry, couldn't it live in ReturnsIndex component?
 
     4:15
     This happens waaaay too much.  I find myself having accomplished nothing and unable to get traction.  I can still make something out of today.  I'm gonna do a straight 20, then try to go a full 90.  If I can do that then I can have a swalk.  
@@ -4013,7 +4013,7 @@ BUG - cash refund finalization screen is displaying as store credit.
         -Final test - can I dispatch?
             YES.  OK.  This is the part I was most worried about, and it looks like I can do it.  
         -Final final test - can I import context and use that too?  
-            Looks like it!  Now, one caveat - for the use case that started me on the useContext path, being able to call the Matchmaker without having  to pass all the context as variables, I'm not 100% sure I could grab all that from context, just because I don't think that in Returns itself it has the Context as a parent, but that barely matters.  I have to call the function one time to provide the closure.  If I can have to pass the context one time as a variable I'm not too upset.  
+            Looks like it!  Now, one caveat - for the use case that started me on the useContext path, being able to call the Matchmaker without having  to pass all the context as variables, I'm not 100% sure I could grab all that from context, just because I don't think that in Returns itself it has the Context as a parent, but that barely matters.  I have to call the function one time to provide the closure.  If I have to pass the context one time as a variable I'm not too upset.  
     6:10.
         OK.  Against all odds I pulled something really valuable out of today.  I THINK (?) I can finally use custom hooks the way I wanted, which is to break all the Rules of Hooks, get context without arguments, and set states all willy-nilly.  I'm not going to work any more today.  I am going to swalk and think about what this means.  I've designed so much of this app around the constraints on normal functions that I don't even know what's possible right now.  Damn.  I guess I didn't realize it, but that one article saying 'Hooks suck' really delivered on Cunningham's Law.  OK.  Go take a swalk and think about what you've done.  
 
@@ -4104,9 +4104,22 @@ BUG - cash refund finalization screen is displaying as store credit.
     -Eh. NVM.  Turns out I wasn't running the function at all because it was the second argument, not the third.  I tried to run in in the 3rd position and it crapped the bed like I expected.  
 
 
+25 Mar 2023
+    10:06.
+    
+
+    OK, next 420.
+    -It looks like when I left off, I was looking to be able to store the Active Panels in the Session state.  That is fine.  I like it, and it is a pattern I will use in future work.  But what is the most valuable thing to do today?  
+        -I need Returns up and running this weekend because Anthony and Reshma are going to test it.  
+            -For my own sake it's probably nice to put a bow on this for now and move on.  
+        -I REALLY WANT to get started on Exchanges.  The thought of getting to play 'New Game +' with everything I learned is really exciting.  
+            -This might be a waste, especially since the project hasn't started and Tejas is going to make a storybook for the  components.
+    OK.  I'm going to TRY to get it all done in 90 minutes (har, har, har)
+
+
+
+
+
 // Not for today, but investigate ImmerReducer.  Apparently it streamlines the Reducer process and it's recommended in the official ReactJS documentation.  
 
 
-
-
-    -I feel like I'm really in the groove today in a way that I wasn't yesterday.  If I can keep it up I can have watch straps and swalk.  If I suck, I have to choose.  
