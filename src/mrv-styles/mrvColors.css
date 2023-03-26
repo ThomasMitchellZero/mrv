@@ -1,0 +1,8 @@
+
+.mrvColors{
+    --test-green: #24ba5e;
+}
+
+.green{
+    background-color: var(--test-green);
+}

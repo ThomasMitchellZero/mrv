@@ -1,0 +1,13 @@
+
+.panel25 {
+    display: flex;
+    flex-direction: vertical;
+    flex: 25 25 0rem;
+}
+
+.panel50{
+    display: flex;
+    flex-direction: vertical;
+    flex: 75 75 0rem;
+}
+

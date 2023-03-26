@@ -4,7 +4,7 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import pagoda from "../../../assets/lowes-logo.svg"
 
-const Main = (props) => {
+const Main = () => {
   const linkStyle = ({ isActive }) =>
     isActive ? `${classes.navlink} ${classes.active}` : classes.navlink;
 
@@ -24,6 +24,9 @@ const Main = (props) => {
         </NavLink>
         <NavLink to="returns" className={linkStyle}>
           Returns
+        </NavLink>
+        <NavLink to="exchanges" className={linkStyle}>
+          Exchanges
         </NavLink>
       </nav>
       <Outlet />

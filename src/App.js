@@ -25,20 +25,22 @@ import DeclineSlip from "./Sections/Returns/DeclineSlip/DeclineSlip";
 import FinalizeRefund from "./Sections/Returns/Finalize_Refund/FinalizeRefund";
 import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptType";
 
+// Exchanges
+import Exchanges from "./Sections/Exchanges/Exchanges";
+
 function App() {
   return (
     <div className="App">
-      <p>test</p>
       <Routes>
-        <Route path="/" element={<Main />}>
+        <Route path="mrv" element={<Main />}>
           <Route index element={<Placeholder titleText="Home" />} />
-          <Route path="/home" element={<Placeholder titleText="Home" />} />
-          <Route path="/orders" element={<Placeholder titleText="Orders" />} />
+          <Route path="home" element={<Placeholder titleText="Home" />} />
+          <Route path="orders" element={<Placeholder titleText="Orders" />} />
           <Route
-            path="/showroom"
+            path="showroom"
             element={<Placeholder titleText="Showroom" />}
           />
-          <Route path="/returns" element={<Returns />}>
+          <Route path="returns" element={<Returns />}>
             <Route index element={<ReturnsIndex></ReturnsIndex>} />
             <Route
               path="first-review"
@@ -54,6 +56,11 @@ function App() {
             <Route path="finalize-refund" element={<FinalizeRefund />} />
             <Route path="receipt" element={<SelectReceiptType />} />
           </Route>
+
+          <Route
+            path="exchanges"
+            element={<Exchanges/>}
+          />
         </Route>
       </Routes>
     </div>
