@@ -12,6 +12,7 @@ import "./app-styles/scrim.css";
 
 import { Route, Routes } from "react-router-dom";
 
+// Global
 import Main from "./components/UI/PageLayout/Main";
 import Placeholder from "./Sections/Placeholder/Placeholder";
 
@@ -27,6 +28,8 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 
 // Exchanges
 import Exchanges from "./Sections/Exchanges/Exchanges";
+import StartExchage from "./Sections/Exchanges/StartExchange/StartExchange";
+import ChooseExchangeItems from "./Sections/Exchanges/ChooseExchangeItems/ChooseExchangeItems";
 
 function App() {
   return (
@@ -56,11 +59,10 @@ function App() {
             <Route path="finalize-refund" element={<FinalizeRefund />} />
             <Route path="receipt" element={<SelectReceiptType />} />
           </Route>
-
-          <Route
-            path="exchanges"
-            element={<Exchanges/>}
-          />
+          <Route path="exchanges" element={<Exchanges />}>
+            <Route index element={<StartExchage />} />
+            <Route path="chooseitems" element={<ChooseExchangeItems />}></Route>
+          </Route>
         </Route>
       </Routes>
     </div>

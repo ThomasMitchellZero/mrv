@@ -1,18 +1,21 @@
 import "../../mrv-styles/mrvAllStyles.css";
 
 import { useImmer } from "use-immer";
-import produce from "immer";
+
+import { Outlet } from "react-router";
 
 function Exchanges() {
-  const [exchSession, setExchSession] = useImmer();
+  const [exchSession, setExchSession] = useImmer({});
 
-  const handleCLick = () => {
-    console.log("clicked");
-  };
 
   return (
     <section className={`mrv mrv-primary-grid`}>
-      I'm in.<button onClick={handleCLick}></button>
+      <Outlet
+        context={{
+          exchSession: exchSession,
+          setExchSession: setExchSession,
+        }}
+      />
     </section>
   );
 }
