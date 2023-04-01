@@ -1,3 +1,5 @@
+Rule 0: Hands On Keyboard, Butt In Chair.  We should either be coding or writing our thoughts so we can get un-stuck.  
+
 RULE 1:  Coding time is in short supply and this is just a testing tool. Avoid high-effort solutions to non-central features or problems we don't expect to face.
 
 RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
@@ -4141,11 +4143,141 @@ BUG - cash refund finalization screen is displaying as store credit.
     then in there is a file next to a cloud icon called 'delivery_sidesheet', while in the new mrv file that is still called returns.
         -OK, that is not the case.  
 
-    -Another clue.  In my main App file, I added in a small <p>test</p> element.  That showed up.  So AFAICT gh-pages is rendering the correct component, but for some reason it's not interacting with my React Router components.  I re-installed them and in the Source Control they both showed up as changed, so
+    -Another clue.  In my main App file, I added in a small <p>test</p> element.  That showed up.  So AFAICT gh-pages is rendering the correct component, but for some reason it's not interacting with my React Router components.  I re-installed them and in the Source Control they both showed up as changed, so...
+
+    -Turns out I installed the wrong thing.  
+
+    -OK, another clue.  Just out of curiosity, I tried running it locally.
+    For route:
+        http://localhost:3000/mrv
+    I saw the exact same thing I saw on Github pages - an empty page except for my new <p> tag, along with an error message saying: `No routes matched location "/mrv" `
+
+    So I tried taking out the mrv/ segment, and then everything worked fine, (plus my test <p> tag)  
+
+    This is pretty strong evidence in support of the hypothesis that it's something to do with my route.  
+
+    3:15.
+    OK. This is turning into a shitshow.  
+
+    3:25.
+    I'm glad I didn't give up, although I really need to find a good rule for when giving up is the right move.  I actually think it's solved now?  I changed the base route path from / to mrv.  I also changed all the main routes from absolute to relative (I think?) and it now seems to be working, both locally and on the web.  I'm actually wondering why the hell it worked before.  Jesus, that was a mess.  OK.  I'm gonna swalk and then get back after it.
+
+    3:50.
+    OK.  Let's FINALLY get started on the real deal for today.  I need:
+        -Investigate ImmerReducer.  20 mins tops, with option to go longer if productive.  
+            -OK.  I don't quite understand it, but that's probably because I haven't used it.  This looks pretty cool, it's officially recommended, and I want to learn something new. 
+            -The inherent immutability means I should be able to use this with Maps, and I think I can?  My biggest fear is not having access to .? and ?? but I think they might still work? 
+        X -A folder for Exchanges
+        -A plan for how to handle styles.  
+        X -A folder to hold my MRV styles.  
+        X -A new route for Orders.  I don't know where it's actually supposed to live, but for now I'm sticking with this.
+        -A placeholder + subroute for the Exchanges start.  Right now I'm gonna just have a default order.  Selection isn't super important at this point.
+        -A subroute for Exchange Selection.
+        -A component for Exchange Selection.
+        -An Exchanges main component with an Outlet.
+            -State and state-setter.
+
+    5:00
+    Honestly, atm I'm not feeling super into it.  I think the best solution is going to be to get some shit on paper.
+
+    Since I'm going to need different CSS for the MRV components, I need an easy way to make that happen.  I THINK if I import all of my MRV CSS files into the top level of Exchanges, any duplicate names will be overwritten, since their assignment is happening closer in the hierarchy.  But if for some reason I do work on another Post-Purchase product it would be pretty nice to have an easy way to share them all.
+
+    https://www.geeksforgeeks.org/how-to-include-one-css-file-in-another/
+
+    Derp.  That answer should have been obvious.  Apparently you can import multiple CSS files together, so all I need to do is have one CSS file to rule them all.  I'll import all other MRV styles into that one, and then for any new file, I just import the one main MRV CSS file.  Ok, that's pretty neat and I don't know how I didn't find this before.  This is going to be VERY handy for shared colors and such.
+
+    OK, so it looks like I have a solve for my immediate problem of 'only having to import one component for MRV styles' but not so for another.
+
+    Buuuut... it looks like I can do that with variables.
+
+    6:05
+    A whole day and very little to show for it, but I think I did learn some valuable stuff at the end.  Maybe I'll do this again tomorrow.
+
+    Part of the reason I am super excited is that I know so much more now that I just want to get in and build the new app with everything I've learned.  I think that to earn one final swalk I'm going to take a few minutes and list out everything I want to do different.  Actually, there are two categories:  
+
     
+    Things I Have Learned And Will Do Again
+        -Full Flexbox worked pretty well
+        -WHENEVER possible, re-derive the output rather than maintaining it.
+        -Using Objects for conditionals worked pretty darn well.
+        - ?? and .?
+        -Use custom hooks to re-use logic.
+        -have my useReducer cases tailored to use cases, not outputs.
+        -Don't use a component when a CSS class will do.
+        -useRef to auto-focus input fields.
+        -New URL if no shared UI elements, conditional rendering otherwise.
+        -For mapping UI elements, 
 
+    Things I Want To Use
+        -Use Immer instead of CloneDeep/reducer.  I think this will be cleaner.
+        -Get better with custom hooks
+        -Learn how to use Flex Grid.  Probably a lot less fiddle-fucking with the code, and can avoid annoying things like my primary footer buttons being different sizes -_-
+        -Tighter, lighter, cleaner, more re-usable CSS.  CSS Variables are gonna be dope.
+        -Look into using Maps with Immer.  For things like Matchmaker and sortNprocess, that would have probably been a lot cleaner.  
+        -Would Redux be good?  What about slices?  
 
+26 Mar 2023
+    11:25.
+    I did not hit my bench press numbers today and so I'm hoping to redeem myself in the editor :)
 
-// Not for today, but investigate ImmerReducer.  Apparently it streamlines the Reducer process and it's recommended in the official ReactJS documentation.  
+    I am proud that I made the choice not to get very far into time-wasters before diving into this.  So we're already off to a good start!  I'm going to start with:
+        X-An empty component for Exchanges
+        X-A link to that empty component
+        X-Figure out how to use CSS Grid in that empty component.
+        -I'm obviously hoping for more but if I can leave today with a good handle on CSS Grid I will call that a win.
 
+    12:50.
+    OK.  I am spinning a little bit because I need to make a decision about CSS.  I am wondering if I should use styled-components.  It looks like a pretty popular framework.  
 
+    OK.  Took a quick swalk and I have decided I am not going to use it.  First, there's still a lot of this stack that is new to me and I am still going to be learning a lot of new things and to avoid compounding frustration I think it's important not to go too hard on things I don't understand.
+
+    Second, I still feel like I haven't mastered basic CSS.  I think I can get pretty far with variables and inherited classes and I'd like a better grasp of the underlying tech for CSS before I start going up layers in abstraction.
+
+    OK.  I feel good about this.  Let's get after the grids.  
+    -First. I THINK I can adjust the relative sizes of the parts without too much pain.  It's only if I start adding columns that everything's gonna go to shit.
+
+    -Potential problem.  As a test, I added a style to a <section> tag in the MRV CSS file.  Now, AFAICT that file is only used in Order right now, but the style was applied to <section> components in Returns as well.  
+
+    That's obviously not what I want.  After some checking, it also does not look like there's currently support for either nesting or scoping.  
+
+    So.  The solution is ugly but I do think it is a solution.  I'm going to add mrv into the name of every new class and style I create, and for element selectors like <div> or <p> I need to make sure that I prefix them like mrv div so that they only apply to elements with mrv as a parent.  
+
+    2:40
+    I think I've got the grid up and running.  
+
+    3:15
+    I've spent some time looking over the ImmerReducer docs.  If I am understanding correctly: 
+        -AFACIT, this replaces the CloneDeep process.  
+        -From the documentation, I THINK that if I wanted to do some complex state-changing operations, I can have nested produce() functions. 
+
+    I am now wondering if I should even use useReducer at all?  As opposed to useState.  Obviously I'm going to have an app-wide state.  From what I understand, the best case for useReducer is if you're making the same kind of state change from different parts of the application.  It was a decent fit for the Session state in Returns because there were multiple points in the process where, for instance, I might be adding an invoice (add invoice, any of the lookups, a manager override for NRR, etc.) 
+
+    If I find myself needing to do the same operation, I can just write a custom hook and use it in multiple places.  In practice that's kind of where I found myself ending up in Returns.  There were things like the Matchmaker that were used in multiple Reducer cases.  Even if something is only used in a single case, I often put it off in a custom function just to keep certain files from getting huge.  
+
+    I think the safest bet is to use the Reducer.  Worst case scenario, I just add a "CUSTOM" case at the end that lets me do whatever I want... right?
+
+    Except the problem is I don't see how I get access to the draft state here, so this isn't really the wild card I was hoping for.
+
+    OK.  Here's a question.  Can I use produce() on a state created by useReducer?  If I can, that might be the wild card I seek.  
+
+    But where I feel like I'm ending up is that I'm not seeing a lot of advantages to useReducer here.  Access to other values doesn't seem to be a problem, since I can get them in the draft, or via Original if I need them for comparison.  
+
+    OK.  Let me try and make the best case I can for the immerReducer.  Anything we need to do is going to require a function.  That logic has got to live somewhere.  Right now, a lot of that logic has been living in local components.  Why not have it live in one, central place so we know where to find it?
+
+1 Apr 2023
+    10:40.
+    First - I really, really want to make sure I don't have a day like last time.  I really want to be driving forward.  I've got a hard decision to make and I'm very distracted by Kira, so I am going to give myself some grace for needing some time to get into the groove.
+
+    -Second, we need to figure out how to hande different layouts on a layout grid.  This is the part I am most interested in, but I want to eat the frog.
+
+    -First, we need to come to a decision about the main Exchanges data structure.  I feel stuck because what I have read suggests that reducers are the best choice for complicated, many-part data states.  I don't see that at all.  I think a simple state with ImmerReducer looks much easier, and that makes me afraid that I am missing something.  In the Returns app, I would actually rather re-create MatchMaker from scratch than have to implement a new structure for the Session data because Session is used literally everywhere. 
+    
+    What seems better about using State and an object?
+
+        -Returns had some very heavy logic.  I don't want my Reducer function to be 500 lines long, which it probably would be if I did all the logic there.
+            -It would also involve passing a lot of variables back and forth.
+            -I could break the code into smaller custom hooks, but I'm not sure how I access the draft object.  
+            -And if I'm going to be doing most of the logic outside the main reducer, either in custom hooks or within local components, what exactly is the point of the reducer in the first place?  
+
+    12:20
+    Thanks to some post-nut clarity, I've chosen a direction.  I can't see a reason not to use the reducer.  I really can't.  If this bites me in the ass later, so be it.

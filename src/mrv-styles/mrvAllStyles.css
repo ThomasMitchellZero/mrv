@@ -1,5 +1,2 @@
 @import"./mrvColors.css";
-
-.broot{
-    color: var(--test-green);
-}
+@import"./mrvContainerSize.css";
