@@ -1,11 +1,84 @@
+.mrv-top{
+    height: 100%;
+}
 
 .mrv-primary-grid{
     display: grid;
     height: 100%;
-    grid-template-columns: 2fr 2fr 1fr 2fr 2fr;
+    grid-template-columns: 0rem 2fr 2fr 1fr 2fr 2fr;
+    grid-template-rows: 8rem 10rem 1fr 9rem;
+}
+
+.mrv-column-grid{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr;
     grid-template-rows: 8rem 10rem 1fr 9rem;
 }
 
 .mrv-container{
     padding: 1rem 2rem;
 }
+
+.test-bottom-container{
+    grid-row: 5;
+}
+
+.mrv-side{
+    flex: 1 1 18rem;
+    background-color: blueviolet;
+}
+
+.mrv-main{
+    flex: 4 4 28rem;
+    background-color: aquamarine;
+}
+
+
+
+/*
+
+From the old library
+
+.seventy_panel{
+    display: flex;
+    flex-direction: column;
+    flex: 7 7 0rem;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+
+  .thirty_panel{
+    display: flex;
+    flex-direction: column;
+    flex: 3 3 0rem;
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+
+.mrv-side{
+    flex: 0 1 32rem;
+    background-color: blueviolet;
+}
+
+.mrv-main{
+    flex: 1 2 0rem;
+    background-color: aquamarine;
+}
+
+
+.mrv-side{
+    flex: 2 1 0rem;
+    background-color: blueviolet;
+}
+
+.mrv-main{
+    flex: 4 2 0rem;
+    background-color: aquamarine;
+}
+
+
+
+*/

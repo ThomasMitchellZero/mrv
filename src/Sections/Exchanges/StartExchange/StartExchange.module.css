@@ -1,4 +1,7 @@
 
 .container{
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+
 }

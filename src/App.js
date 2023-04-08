@@ -61,7 +61,7 @@ function App() {
           </Route>
           <Route path="exchanges" element={<Exchanges />}>
             <Route index element={<StartExchage />} />
-            <Route path="chooseitems" element={<ChooseExchangeItems />}></Route>
+            <Route path="chooseitems" element={<ChooseExchangeItems />}/>
           </Route>
         </Route>
       </Routes>

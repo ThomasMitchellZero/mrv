@@ -4281,3 +4281,49 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     12:20
     Thanks to some post-nut clarity, I've chosen a direction.  I can't see a reason not to use the reducer.  I really can't.  If this bites me in the ass later, so be it.
+
+    What I will need: 
+        X -A placeholder page that starts the process, probably with a button.
+        X -A placeholder for the Item Selection
+        X -Routes to my new pages.
+        -Figure out how to get Fellix in.
+        -Figure out more about CSS Grid.  Specific use case I have in mind is how to have items occupy all or part of the screen during conditional rendering.
+        -A placeholder for the different panels.
+        -A decision on the number of panels to have.
+        -Can I standardize/centralize my panel sizes? Would be really nice if I ever do have to re-form this crap.
+
+    2:40.
+    OK.  AFAICT there isn't an easy way to do what I'm trying to do (Fill all columns until you it another element)  Options I can think of are:
+        *Use the grid with a width of 1 to control vertical spacing WITHIN columns, but use flex boxes to control the width of the columns themselves.
+            -but how to have common widths for button containers?
+
+        *Have the grid, but have different classes for the different page options.  I think there would be 4?
+            Main Only;
+            Main + Right;
+            Left + Main;
+            Left + Main + right;
+            -This seems like a lot of work and hand maintenence.
+
+        *Can a column have a width of zero?
+            -OK.  It can.  Does that change anything?
+            -Kind of?  It means I wouldn't have to re-position elements, although I would still have to style them.
+
+        *Since I know that the panels will be one of three names, could I write a function that responds to the presence of a panel and gives space accordingly?  
+            -I initially thought this was stupid, but now I am wondering.  
+
+    6:00.
+    I haven't gotten terribly far because I've had some worthwhile distractions today, but at this moment I'm actually feeling pretty good.  I'm just going to go until I'm not having fun anymore.
+
+
+8 Apr 2023
+    11:15.
+    Man.  I got a good jump on the day and I was so excited to get started.  I just need to try and harness that momentum into a productive direction.  OK.  Today SHOULD be a fun one.  We SHOULD be seeing cool shit happen on-screen.
+
+    Un-fun stuff:
+    -Change the GSOS invoice number to whatever Anthony wanted.
+    -Test and make sure GSOS is working.
+    -ImmerReducer:
+        -Verify that I can't use .produce to modify the state.  Guessing probably not.
+        -See if I can ACCESS (but not modify) the state.  If so, I could still use the reduver.
+        -Based on these outcomes, make a decision.
+    -20 start.  Let's try and blaze.
