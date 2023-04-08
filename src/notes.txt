@@ -4335,8 +4335,42 @@ BUG - cash refund finalization screen is displaying as store credit.
     Over the past week, I figured I actually do want to do the grid for everything.  I've realized that since the left and right panels will always be in the same location, it's not actually a heavy lift to calculate a class that defines what columns the main panel should occupy.  So here's what I need to do.
 
     -Figure out the column configuration I want that's OK at both big and small sizes.
-    -Create 3 CSS classes describing the horizontal columns of the main panel, and 1 class each for the Left and Right panels.
+    -Create 4 CSS classes describing all possible horizontal columns of the main panel, and 1 class each for the Left and Right panels.
+    -Create an MRV Functions folder since panel-handling will be universal.
     -Create a custom hook that sets the ActivePanels state, and also returns a CSS class for the main panel based on what states are added.  
+    
+    -OK.  So.  Got a bit of a snag.  Chrome (and many other browsers) do not support sub-grid.  AFAICT that means that at this time there is no way for a child to inherit the grid of its parent.  So that means that my plan for ensuring all button containers are the same size is out the window.  
+
+    OK.  I mean.  I guess it's not TOTALLY out the window?  I'm going to have 4 CSS classes for the Main page to reflect how many columns it grabs in the potential configurations.  I THINK if I make it a grid, and then for each class.
+
+    OK.  Am I back to being fucked?  Because if I don't know in advance how many columns what the last column of the main panel is, how am I supposed to tell a button which columns to be in?  
+
+        -First.  Let's be very clear.  What a smarter and less-neurotic person would do is say: "The button widths change?  Who gives a fuck?" It's a MINOR visual annoyance that we are going way the hell out of our way to deal with.  
+
+        -OK.  If I HAD to do it.  What I could do is have a *shared* set of column names for all 4 classes.  In the CSS for the button container, I define the button as "You live between Line 3 and Line 4" but where I place the Line 3 and Line 4 markers varies depending on the class.
+
+        -Could I just have the main CSS use the SAME column proportions as the whole document?  No, I don't think that will work because of the fixed values.  
+
+        -I could just use simple fractions but that kind of sucks when the side panels get shrunk.
+
+    5:55.  OK, so... it seems to be working?  I have bottom containers that change as the screen resizes, but maintain size as their parent's occupied columns change.  
+
+        -Was it worth it?  Tough to say.  This was a pain in the dick to set up but IN THEORY but it shouldn't be too hard to work with going forward.  Assuming my "Set Active Panels" custom hook correctly sets the class of the Main container based on the presence/absence of left and right panels, the rest of this SHOULD happen under the hood?  But I think I'll have to set initial sizes by hand each time the URL changes :/
+
+        And I'm wondering if it was worth it.
+        Because if I could have some flex-box class for the side panels that would ensure the button of the right panel entered the screen at the same size as the button in the main panel it's pushing over I would probably just do that and live with the Main button existing at a smaller size.  
+
+        And also, the number of situations where there are two buttons on screen should be VERY small.
+
+        And even though I succeeded, honestly I'm kind feeling like it wasn't worth it.
+
+        OK, so let's think here about the worst-case scenario.  Suppose I'm on mrv/this and navigating to mrv/that.  Assuming I'm controlling Active Panel in the EXCH sesson state (which I def. expect to be doing) what changes?
+
+        As I leave mrv/this, I need to specify the default active panels for mrv/that, and this is true whether screen proportion is happening via flexbox or columns.  The calculation of "What class for Main Panel" happens as part of that hook without any further input from me.  
+
+
+
+    
     
 
 
