@@ -144,7 +144,29 @@ const invoiceObj = {
       10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
     },
   },
+
+  "53451": {
+    invoiceDetails: {
+      store: 1234,
+      date: new Date(2022, 3, 8),
+      payment: {
+        [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+      },
+      orderNum: "33334444",
+      genericSOS: true,
+    },
+
+    products: {
+      10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
+      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered"},
+      10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
+    },
+  },
+
+
+
 };
+
 
 
 

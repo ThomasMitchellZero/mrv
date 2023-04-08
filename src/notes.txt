@@ -1,4 +1,4 @@
-Rule 0: Hands On Keyboard, Butt In Chair.  We should either be coding or writing our thoughts so we can get un-stuck.  
+Rule 0: Hands On Keyboard, Butt In Chair.  If we know what to do, we should be coding.  If we don't know what to do, we should be writing our thoughts as we try to find the path forward.
 
 RULE 1:  Coding time is in short supply and this is just a testing tool. Avoid high-effort solutions to non-central features or problems we don't expect to face.
 
@@ -10,10 +10,10 @@ RULE 4:
 IME, it's generally faster to go: 
 Pictograph => Rebus => Alphabet  than 
 Pictograph => Think REAALLLY HARD => Alphabet.  
-Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally on the way to good code, not a detour from it.  
+Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a stop en route to good code, not a detour from it.  
 
 RULE 5: 
-Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it is hard to conceive now, chances are that it will be hard to comprehend later.  
+Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if it MUST be highly abstract, leave DETAILED comments and look for ways to improve the clarity of those comments.
 
 
 
@@ -4320,10 +4320,23 @@ BUG - cash refund finalization screen is displaying as store credit.
     Man.  I got a good jump on the day and I was so excited to get started.  I just need to try and harness that momentum into a productive direction.  OK.  Today SHOULD be a fun one.  We SHOULD be seeing cool shit happen on-screen.
 
     Un-fun stuff:
-    -Change the GSOS invoice number to whatever Anthony wanted.
-    -Test and make sure GSOS is working.
+    X-Change the GSOS invoice number to whatever Anthony wanted.
+    X-Test and make sure GSOS is working.
     -ImmerReducer:
         -Verify that I can't use .produce to modify the state.  Guessing probably not.
-        -See if I can ACCESS (but not modify) the state.  If so, I could still use the reduver.
+        -See if I can ACCESS (but not modify) the state.  If so, I could still use the reduCer.
         -Based on these outcomes, make a decision.
-    -20 start.  Let's try and blaze.
+    -20 start.  Let's try and blaze
+
+    1:40.
+    Damn.  It got late.  Ok.  Where am I?
+    -I set out to find if it was possible to access the draft object of an ImmerReducer state.  If there is a way to do it, I haven't found it.  Given that I'm not sure it's better than just using a state even if I DID find a way, I think I need to just stop and go ahead using state.
+
+    Over the past week, I figured I actually do want to do the grid for everything.  I've realized that since the left and right panels will always be in the same location, it's not actually a heavy lift to calculate a class that defines what columns the main panel should occupy.  So here's what I need to do.
+
+    -Figure out the column configuration I want that's OK at both big and small sizes.
+    -Create 3 CSS classes describing the horizontal columns of the main panel, and 1 class each for the Left and Right panels.
+    -Create a custom hook that sets the ActivePanels state, and also returns a CSS class for the main panel based on what states are added.  
+    
+
+
