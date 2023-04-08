@@ -4377,6 +4377,8 @@ BUG - cash refund finalization screen is displaying as store credit.
                 [L3] --Pcol [L4]
             -So on both the parent container and the Main section, the only variation is the 4 possible configurations of the middle.
 
+        OK.  Tomorrow I will need to do some thinking about how to represent all this in a universal way, because the Main panel shrinks if more things are on the screen.  I could probably just make a different-named clone to represent the parent grid.  OK.  I need to stop now because I do need groceries and also I've got something exciting to dig into tomorrow.
+
 
 
     
