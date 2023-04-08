@@ -4368,6 +4368,15 @@ BUG - cash refund finalization screen is displaying as store credit.
 
         As I leave mrv/this, I need to specify the default active panels for mrv/that, and this is true whether screen proportion is happening via flexbox or columns.  The calculation of "What class for Main Panel" happens as part of that hook without any further input from me.  
 
+        And so if that's the case I think it is worth it.  Perhaps this wasn't the best use of my time but now that it's done, this actually is the behavior I want.
+
+        And so my last thought of the day is that there is a LOT of repetition in these patterns.  I wonder if I could:
+            -use the same line-marker names for both the parent grid and the main grid.
+            -Chunk the common elements. EVERY iteration starts with 
+                [L1] --Pcol [L2] and ends with:
+                [L3] --Pcol [L4]
+            -So on both the parent container and the Main section, the only variation is the 4 possible configurations of the middle.
+
 
 
     

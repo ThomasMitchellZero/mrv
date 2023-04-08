@@ -10,7 +10,7 @@ function StartExchange() {
 
   return (
     <section className={`mrv-primary-grid ${classes.container}`}>
-      <div className={`mrv-panel__main MR`}>
+      <div className={`mrv-panel__main LMR`}>
         <div className={`bottomColumnLeft`}>bottoms</div>
         <div className={`bottomColumnRight`}>bottoms</div>
       </div>

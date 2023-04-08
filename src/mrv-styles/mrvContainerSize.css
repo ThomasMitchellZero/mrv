@@ -4,12 +4,24 @@
 
 .mrv-primary-grid{
     --primary-template-rows: 8rem 10rem 1fr 9rem;
+    
+    /*Column Parts*/
     --Pcol: 16rem 1fr;
+    --LPanel: [V1] var(--Pcol) [V2];
+    --RPanel: [V3] var(--Pcol) [V4];
+    
+    /*Middle columns, based on # of columns present*/
+    --Mid_R-L: var(--Pcol) 1fr var(--Pcol);
+    --Mid_x-L: 1fr var(--Pcol);
+    --Mid_R-x: var(--Pcol) 1fr;
+    --Mid_x-x: 1fr;
+
+
+
     display: grid;
     height: 100%;
     grid-template-columns: [B1] var(--Pcol) [B2] var(--Pcol) 1fr var(--Pcol) [B3] var(--Pcol) [B4];
     grid-template-rows: 1;
-
 }
 
 .mrv-panel__left{
@@ -38,65 +50,58 @@
 
 .mrv-panel__main.LMR{
     grid-column: B2 / B3;
-    display: grid;
     grid-template-columns: 
-        [M1] 
-        var(--Pcol) 
-        [M2] 
-        1fr
-        [M3]
-        var(--Pcol) 
-        [M4];
+        var(--LPanel) 
+        var(--Mid_x-x)
+        var(--RPanel)
 }
 
 .mrv-panel__main.LM{
     grid-column: B2 / B4;
-    display: grid;
     grid-template-columns: 
-        [M1] 
+        [V1] 
         var(--Pcol) 
-        [M2] 
+        [V2] 
         1fr var(--Pcol) 
-        [M3]
+        [V3]
         var(--Pcol) 
-        [M4];
+        [V4];
 }
 
 .mrv-panel__main.MR{
     grid-column: B1 / B3;
-    display: grid;
     grid-template-columns:     
-        [M1] 
+        [V1] 
         var(--Pcol) 
-        [M2] 
+        [V2] 
         var(--Pcol) 1fr
-        [M3]
+        [V3]
         var(--Pcol) 
-        [M4];
+        [V4];
 }
 
 .mrv-panel__main.M{
     grid-column: B1 / B4;
     display: grid;
     grid-template-columns: 
-        [M1] 
+        [V1] 
         var(--Pcol) 
-        [M2] 
+        [V2] 
         var(--Pcol) 1fr var(--Pcol) 
-        [M3]
+        [V3]
         var(--Pcol) 
-        [M4];
+        [V4];
     }
 
 .mrv-panel__main .bottomColumnLeft{
     grid-row: 4/5;
-    grid-column: M1 / M2;
+    grid-column: V1 / V2;
     background-color: chartreuse;
 }
 
 .mrv-panel__main .bottomColumnRight{
     grid-row: 4/5;
-    grid-column: M3 / M4;
+    grid-column: V3 / V4;
     background-color: crimson;
 }
 

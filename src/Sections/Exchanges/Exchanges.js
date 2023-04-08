@@ -10,6 +10,7 @@ function Exchanges() {
       left: null,
       main: null,
       right: null,
+      mainClassName: "something"
     },
   });
 
