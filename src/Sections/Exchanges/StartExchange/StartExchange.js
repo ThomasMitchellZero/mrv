@@ -14,16 +14,16 @@ function StartExchange() {
   })
 
   return (
-    <section className={`${classes.container}`}>
-      <div className={`mrv-side mrv-column-grid`}>
+    <section className={`mrv-primary-grid ${classes.container}`}>
+      <div className={`mrv-panel__left mrv-column-grid`}>
         <Link to={"chooseitems"}>Continue</Link>
       </div>
 
-      <div className={`mrv-main mrv-column-grid`}>
+      <div className={`mrv-panel__main mrv-column-grid`}>
         <div className={`test-bottom-container`}>bottoms</div>
       </div>
 
-      <div className={`mrv-side mrv-column-grid`}>Side</div>
+      <div className={`mrv-panel__right mrv-column-grid`}>Side</div>
     </section>
   );
 }

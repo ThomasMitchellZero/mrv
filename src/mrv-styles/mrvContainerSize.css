@@ -5,9 +5,10 @@
 .mrv-primary-grid{
     display: grid;
     height: 100%;
-    grid-template-columns: 0rem 2fr 2fr 1fr 2fr 2fr;
-    grid-template-rows: 8rem 10rem 1fr 9rem;
+    grid-template-columns: 16rem 1fr 16rem 1fr 1fr 1fr 16rem 1fr 16rem;
 }
+/* check out subgrid.  AFAICT this propagates the parent grid to the children */
+
 
 .mrv-column-grid{
     display: grid;
@@ -15,6 +16,24 @@
     grid-template-columns: 1fr;
     grid-template-rows: 8rem 10rem 1fr 9rem;
 }
+
+
+.mrv-panel__left{
+    background-color: coral;
+    grid-column: 1 / span 2;
+}
+
+.mrv-panel__main{
+    background-color: cadetblue;
+    grid-column: 3 / span 5;
+}
+
+.mrv-panel__right{
+    background-color: burlywood;
+    grid-column: 8 / span 2;
+}
+
+/**/
 
 .mrv-container{
     padding: 1rem 2rem;
@@ -24,6 +43,11 @@
     grid-row: 5;
 }
 
+
+
+
+/*
+From last weekend:
 .mrv-side{
     flex: 1 1 18rem;
     background-color: blueviolet;
@@ -35,8 +59,6 @@
 }
 
 
-
-/*
 
 From the old library
 
