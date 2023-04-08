@@ -3,37 +3,121 @@
 }
 
 .mrv-primary-grid{
+    --primary-template-rows: 8rem 10rem 1fr 9rem;
+    --Pcol: 16rem 1fr;
     display: grid;
     height: 100%;
-    grid-template-columns: 16rem 1fr 16rem 1fr 1fr 1fr 16rem 1fr 16rem;
+    grid-template-columns: [B1] var(--Pcol) [B2] var(--Pcol) 1fr var(--Pcol) [B3] var(--Pcol) [B4];
+    grid-template-rows: 1;
+
 }
-/* check out subgrid.  AFAICT this propagates the parent grid to the children */
-
-
-.mrv-column-grid{
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 8rem 10rem 1fr 9rem;
-}
-
 
 .mrv-panel__left{
-    background-color: coral;
-    grid-column: 1 / span 2;
+    background-color:coral;
+    grid-column: B1 / B2;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: var(--primary-template-rows);
 }
 
 .mrv-panel__main{
     background-color: cadetblue;
-    grid-column: 3 / span 5;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: var(--primary-template-rows);
 }
+
 
 .mrv-panel__right{
     background-color: burlywood;
-    grid-column: 8 / span 2;
+    grid-column: B3 / B4;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: var(--primary-template-rows);
 }
 
-/**/
+.mrv-panel__main.LMR{
+    grid-column: B2 / B3;
+    display: grid;
+    grid-template-columns: 
+        [M1] 
+        var(--Pcol) 
+        [M2] 
+        1fr
+        [M3]
+        var(--Pcol) 
+        [M4];
+}
+
+.mrv-panel__main.LM{
+    grid-column: B2 / B4;
+    display: grid;
+    grid-template-columns: 
+        [M1] 
+        var(--Pcol) 
+        [M2] 
+        1fr var(--Pcol) 
+        [M3]
+        var(--Pcol) 
+        [M4];
+}
+
+.mrv-panel__main.MR{
+    grid-column: B1 / B3;
+    display: grid;
+    grid-template-columns:     
+        [M1] 
+        var(--Pcol) 
+        [M2] 
+        var(--Pcol) 1fr
+        [M3]
+        var(--Pcol) 
+        [M4];
+}
+
+.mrv-panel__main.M{
+    grid-column: B1 / B4;
+    display: grid;
+    grid-template-columns: 
+        [M1] 
+        var(--Pcol) 
+        [M2] 
+        var(--Pcol) 1fr var(--Pcol) 
+        [M3]
+        var(--Pcol) 
+        [M4];
+    }
+
+.mrv-panel__main .bottomColumnLeft{
+    grid-row: 4/5;
+    grid-column: M1 / M2;
+    background-color: chartreuse;
+}
+
+.mrv-panel__main .bottomColumnRight{
+    grid-row: 4/5;
+    grid-column: M3 / M4;
+    background-color: crimson;
+}
+
+
+
+/*
+Panels Present
+
+L-M-R
+[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+
+L-M
+[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+
+M-R
+[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+
+M
+[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+
+*/
 
 .mrv-container{
     padding: 1rem 2rem;
@@ -44,7 +128,22 @@
 }
 
 
+/*
+Slots Taken
 
+L-M-R
+[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+
+L-M
+[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+
+M-R
+[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+
+M
+[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+
+*/
 
 /*
 From last weekend:
@@ -56,6 +155,13 @@ From last weekend:
 .mrv-main{
     flex: 4 4 28rem;
     background-color: aquamarine;
+}
+
+.mrv-column-grid{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 8rem 10rem 1fr 9rem;
 }
 
 
