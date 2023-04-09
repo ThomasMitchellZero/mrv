@@ -4366,7 +4366,7 @@ BUG - cash refund finalization screen is displaying as store credit.
 
         OK, so let's think here about the worst-case scenario.  Suppose I'm on mrv/this and navigating to mrv/that.  Assuming I'm controlling Active Panel in the EXCH sesson state (which I def. expect to be doing) what changes?
 
-        As I leave mrv/this, I need to specify the default active panels for mrv/that, and this is true whether screen proportion is happening via flexbox or columns.  The calculation of "What class for Main Panel" happens as part of that hook without any further input from me.  
+        As I leave mrv/this, I need to specify the default active panels for mrv/that, and this is true whether screen proportion is happening via flexbox or columns.  I will have to write a function that determines the class of Main Panel based on what inputs were passed, but if that function lives in the ActivePanel-setting hook, that all happens with no input needed from me.  
 
         And so if that's the case I think it is worth it.  Perhaps this wasn't the best use of my time but now that it's done, this actually is the behavior I want.
 
@@ -4378,6 +4378,37 @@ BUG - cash refund finalization screen is displaying as store credit.
             -So on both the parent container and the Main section, the only variation is the 4 possible configurations of the middle.
 
         OK.  Tomorrow I will need to do some thinking about how to represent all this in a universal way, because the Main panel shrinks if more things are on the screen.  I could probably just make a different-named clone to represent the parent grid.  OK.  I need to stop now because I do need groceries and also I've got something exciting to dig into tomorrow.
+
+9 Apr 2023
+    12:15.
+    It's a workout day, so I can live with a 12:15 start.  Going to start with:
+
+    Figure out a plan for how to have a dictionary of shared terms.  This was formerly a checkbox, but it's kind of hard so I think I'm going to just clear it first.
+    
+        -This is probably going to be an EXCH thing rather than an MRV thing, since I expect that MOST term-specific logic is going to be at the Process level rather than the Application level.
+
+        -The best model I have for this is what I was doing with the Status and TenderType names for the refuning of returns.  I was using those keys in logic all over the place, and it really did help to be able to have an easy way to standardize them.
+
+        -Since there are cases where multiple related values might cluster together, I should account for that.  IMO I goofed on Tenders and Status by not grouping the keys and the description strings together.  
+
+        -I think I want to have just one file with multiple exports for this.  Maybe call it a Bestiary?  If it turns out I need to break it apart I can, but similar to the CSS, I want to have one single source where I'm drawing common values from.  
+
+        OK, so I think that's all I need to roll out?  
+
+        One last thing.  It might be a good idea to use nav keys + ActivePanel for ALL screens, even ones where I don't expect to use side panels, because it will be easier to retrofit if I do end up adding 30 panels to things.
+
+    1:15.
+    
+    OK, so Glossary is up and running although I haven't tested it. Now, onto my checklist.
+
+        -Fully standardize the columns in the mrvContainerSize CSS file.
+        -Figure out whether the Active Panel setter should live in EXCH or MRV.
+        -Write that function.
+
+
+
+
+
 
 
 

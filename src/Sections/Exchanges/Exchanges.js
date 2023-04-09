@@ -1,6 +1,7 @@
-import "../../mrv-styles/mrvAllStyles.css";
+import "../../mrv/mrv-styles/mrvAllStyles.css";
 
 import { useImmer, useImmerReducer } from "use-immer";
+import {nav_SelectItems} from "./_Resources/Glossary/glossaryEXCH"
 
 import { Outlet } from "react-router";
 
@@ -8,7 +9,7 @@ function Exchanges() {
   const [exchSession, setExchSession] = useImmer({
     activePanels: {
       left: null,
-      main: null,
+      main: nav_SelectItems.itemInputList,
       right: null,
       mainClassName: "something"
     },
