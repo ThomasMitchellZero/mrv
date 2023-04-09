@@ -1,6 +1,4 @@
-*{
-  font-family:  Roboto;
-}
+
 
 
 .App{
@@ -9,4 +7,5 @@
   min-width: 900px;
   height: inherit;
   background-color: #e6e9f0;
+  font-family:  Roboto;
 }

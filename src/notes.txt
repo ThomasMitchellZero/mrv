@@ -4419,7 +4419,10 @@ BUG - cash refund finalization screen is displaying as store credit.
     -The pizza tracker is probably going to be more fun, but I think I should start on the title bar.  
     -That's going to require me to get the text working, but I kind of need to do that anyways.
 
-    
+    5:05
+    Fellix is in the app, it appears to be displaying correctly, it responds to my size requests, and I think that this is a very good stopping point for now.  Swalk time!
+
+
 
 
 

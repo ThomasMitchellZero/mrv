@@ -1,2 +1,14 @@
 @import"./mrvColors.css";
 @import"./mrvContainerSize.css";
+@import"./mrvText.css";
+
+.mrv-top{
+    height: 100%;
+    --PrimaryPadding__horizontal: 2rem;
+    --PrimaryPadding__vertical: 1rem;
+    --PrimaryPadding__both: 
+        var(--PrimaryPadding__vertical) 
+        var(--PrimaryPadding__horizontal);
+
+    font-family: "Fellix";
+}
