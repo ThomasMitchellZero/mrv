@@ -11,22 +11,24 @@
     --RPanel: [V3] var(--Pcol) [V4];
     
     /*Middle columns, based on # of columns present*/
-    --Mid_R-L: var(--Pcol) 1fr var(--Pcol);
-    --Mid_x-L: 1fr var(--Pcol);
-    --Mid_R-x: var(--Pcol) 1fr;
+    --Mid_L-R: var(--Pcol) 1fr var(--Pcol);
+    --Mid_x-R: 1fr var(--Pcol);
+    --Mid_L-x: var(--Pcol) 1fr;
     --Mid_x-x: 1fr;
-
-
 
     display: grid;
     height: 100%;
-    grid-template-columns: [B1] var(--Pcol) [B2] var(--Pcol) 1fr var(--Pcol) [B3] var(--Pcol) [B4];
-    grid-template-rows: 1;
+    grid-template-columns: 
+        var(--LPanel) 
+        var(--Mid_L-R) 
+        var(--RPanel);
+
+    grid-template-rows: 1fr;
 }
 
 .mrv-panel__left{
     background-color:coral;
-    grid-column: B1 / B2;
+    grid-column: V1 / V2;
     grid-row: 1;
     display: grid;
     grid-template-rows: var(--primary-template-rows);
@@ -42,14 +44,15 @@
 
 .mrv-panel__right{
     background-color: burlywood;
-    grid-column: B3 / B4;
+    grid-column: V3 / V4;
     grid-row: 1;
     display: grid;
     grid-template-rows: var(--primary-template-rows);
 }
 
+/* Names describe panels present, NOT size of middle panel */
 .mrv-panel__main.LMR{
-    grid-column: B2 / B3;
+    grid-column: V2 / V3;
     grid-template-columns: 
         var(--LPanel) 
         var(--Mid_x-x)
@@ -57,40 +60,28 @@
 }
 
 .mrv-panel__main.LM{
-    grid-column: B2 / B4;
+    grid-column: V2 / V4;
     grid-template-columns: 
-        [V1] 
-        var(--Pcol) 
-        [V2] 
-        1fr var(--Pcol) 
-        [V3]
-        var(--Pcol) 
-        [V4];
+    var(--LPanel) 
+    var(--Mid_x-R)
+    var(--RPanel)
 }
 
 .mrv-panel__main.MR{
-    grid-column: B1 / B3;
+    grid-column: V1 / V3;
     grid-template-columns:     
-        [V1] 
-        var(--Pcol) 
-        [V2] 
-        var(--Pcol) 1fr
-        [V3]
-        var(--Pcol) 
-        [V4];
+    var(--LPanel) 
+    var(--Mid_L-x)
+    var(--RPanel)
 }
 
 .mrv-panel__main.M{
-    grid-column: B1 / B4;
+    grid-column: V1 / V4;
     display: grid;
     grid-template-columns: 
-        [V1] 
-        var(--Pcol) 
-        [V2] 
-        var(--Pcol) 1fr var(--Pcol) 
-        [V3]
-        var(--Pcol) 
-        [V4];
+    var(--LPanel) 
+    var(--Mid_L-R)
+    var(--RPanel)
     }
 
 .mrv-panel__main .bottomColumnLeft{
@@ -111,16 +102,16 @@
 Panels Present
 
 L-M-R
-[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
 
 L-M
-[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
 
 M-R
-[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
 
 M
-[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
 
 */
 
@@ -137,16 +128,16 @@ M
 Slots Taken
 
 L-M-R
-[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
 
 L-M
-[B1] 16rem 1fr [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
 
 M-R
-[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] 1fr 16rem [B4];
+[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
 
 M
-[B1] ** ** [B2] 16rem 1fr 1fr 1fr 16rem [B3] ** ** [B4];
+[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
 
 */
 
