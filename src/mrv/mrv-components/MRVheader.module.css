@@ -1,0 +1,5 @@
+.container{
+    padding: var(--PrimaryPadding__both);
+    grid-row: 1 / span 1;
+    background-color: aquamarine;
+}

@@ -4384,7 +4384,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     It's a workout day, so I can live with a 12:15 start.  Going to start with:
 
     Figure out a plan for how to have a dictionary of shared terms.  This was formerly a checkbox, but it's kind of hard so I think I'm going to just clear it first.
-    
+
         -This is probably going to be an EXCH thing rather than an MRV thing, since I expect that MOST term-specific logic is going to be at the Process level rather than the Application level.
 
         -The best model I have for this is what I was doing with the Status and TenderType names for the refuning of returns.  I was using those keys in logic all over the place, and it really did help to be able to have an easy way to standardize them.
@@ -4401,9 +4401,25 @@ BUG - cash refund finalization screen is displaying as store credit.
     
     OK, so Glossary is up and running although I haven't tested it. Now, onto my checklist.
 
-        -Fully standardize the columns in the mrvContainerSize CSS file.
+        X-Fully standardize the columns in the mrvContainerSize CSS file.
         -Figure out whether the Active Panel setter should live in EXCH or MRV.
         -Write that function.
+
+    Got another decision to make about the Pizza Tracker and where to put it.  AFAICT it's only ever going to live in the main panel.  I honestly think the way to handle it is just make it a component and hand-place it in every Main panel.  Feels a little awkward but it's very flexible and I don't really know what else is better.
+
+    3:20.
+    I'm kind of fucking around with the CSS, although I still genuinely think this will streamline the work.
+
+    -I do hope I don't encounter any problems with this grid system because so much of the CSS is depending on the grid that I am going to be QUITE fucked if I can't make it work.  Like potentially "Lose It All" fucked.
+
+    -But I'm not having a bad time.  Stuff is appearing on screen and it feels satisfying.
+
+    4:10.
+    OK.  Grid is up and running to my satisfaction and at long last I think I'm ready to get started.  
+    -The pizza tracker is probably going to be more fun, but I think I should start on the title bar.  
+    -That's going to require me to get the text working, but I kind of need to do that anyways.
+
+    
 
 
 

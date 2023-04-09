@@ -1,7 +1,9 @@
 import classes from "./StartExchange.module.css";
+import { MRVheader } from "../../../mrv/mrv-components/MRVheader";
+
 import { Link } from "react-router-dom";
 
-import produce from "immer"
+import produce from "immer";
 import { useOutletContext } from "react-router-dom";
 
 function StartExchange() {
@@ -10,9 +12,11 @@ function StartExchange() {
 
   return (
     <section className={`mrv-primary-grid ${classes.container}`}>
-      <div className={`mrv-panel__main MR`}>
-        <div className={`bottomColumnLeft`}>bottoms</div>
-        <div className={`bottomColumnRight`}>bottoms</div>
+      <div className={`mrv-panel__main`}>
+        <MRVheader></MRVheader>
+        <div className={`testest main_content main_col`}>
+          <Link to={"chooseitems"}>Continue</Link>
+        </div>
       </div>
     </section>
   );
@@ -23,7 +27,7 @@ export default StartExchange;
 /*
 
       <div className={`mrv-panel__left`}>
-        <Link to={"chooseitems"}>Continue</Link>
+         
       </div>
 
       <div className={`mrv-panel__main`}>

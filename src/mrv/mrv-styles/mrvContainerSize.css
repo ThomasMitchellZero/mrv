@@ -1,14 +1,20 @@
 .mrv-top{
     height: 100%;
+    --PrimaryPadding__horizontal: 2rem;
+    --PrimaryPadding__vertical: 1rem;
+    --PrimaryPadding__both: 
+        var(--PrimaryPadding__vertical) 
+        var(--PrimaryPadding__horizontal);
 }
 
 .mrv-primary-grid{
-    --primary-template-rows: 8rem 10rem 1fr 9rem;
+    --primary-template-rows: 8rem 10rem 1fr 1rem 8rem;
     
     /*Column Parts*/
     --Pcol: 16rem 1fr;
     --LPanel: [V1] var(--Pcol) [V2];
     --RPanel: [V3] var(--Pcol) [V4];
+    /*In ALL cases, V1-V3 represents the leftmost column, V3-V4 represents the rightmost, and V1-V4 represents the entire span */
     
     /*Middle columns, based on # of columns present*/
     --Mid_L-R: var(--Pcol) 1fr var(--Pcol);
@@ -24,10 +30,11 @@
         var(--RPanel);
 
     grid-template-rows: 1fr;
+    box-sizing: border-box;
 }
 
 .mrv-panel__left{
-    background-color:coral;
+
     grid-column: V1 / V2;
     grid-row: 1;
     display: grid;
@@ -35,20 +42,19 @@
 }
 
 .mrv-panel__main{
-    background-color: cadetblue;
+
     grid-row: 1;
     display: grid;
     grid-template-rows: var(--primary-template-rows);
     grid-column: V1 / V4;
     grid-template-columns: 
-    var(--LPanel) 
-    var(--Mid_L-R)
-    var(--RPanel)
+        var(--LPanel) 
+        var(--Mid_L-R)
+        var(--RPanel);
 }
 
-
 .mrv-panel__right{
-    background-color: burlywood;
+
     grid-column: V3 / V4;
     grid-row: 1;
     display: grid;
@@ -67,142 +73,64 @@
 .mrv-panel__main.LM{
     grid-column: V2 / V4;
     grid-template-columns: 
-    var(--LPanel) 
-    var(--Mid_x-R)
-    var(--RPanel)
+        var(--LPanel) 
+        var(--Mid_x-R)
+        var(--RPanel)
 }
 
 .mrv-panel__main.MR{
     grid-column: V1 / V3;
     grid-template-columns:     
-    var(--LPanel) 
-    var(--Mid_L-x)
-    var(--RPanel)
+        var(--LPanel) 
+        var(--Mid_L-x)
+        var(--RPanel)
 }
 
-.mrv-panel__main.M{
-
-    }
-
-.mrv-panel__main .bottomColumnLeft{
-    grid-row: 4/5;
-    grid-column: V1 / V2;
-    background-color: chartreuse;
-}
-
-.mrv-panel__main .bottomColumnRight{
-    grid-row: 4/5;
+/* Horizontal Positions*/
+.mrv-primary-grid .right_col{
     grid-column: V3 / V4;
-    background-color: crimson;
 }
 
-
-
-/*
-Panels Present
-
-L-M-R
-[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
-
-L-M
-[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
-
-M-R
-[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
-
-M
-[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
-
-*/
-
-.mrv-container{
-    padding: 1rem 2rem;
+.mrv-primary-grid .left_col{
+    grid-column: V1 / V2;
 }
 
-.test-bottom-container{
-    grid-row: 5;
+.mrv-primary-grid .main_col{
+    grid-column: V1 / V4;
 }
 
+/* Vertical Positions*/
 
-/*
-Slots Taken
-
-L-M-R
-[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
-
-L-M
-[V1] 16rem 1fr [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
-
-M-R
-[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] 1fr 16rem [V4];
-
-M
-[V1] ** ** [V2] 16rem 1fr 1fr 1fr 16rem [V3] ** ** [V4];
-
-*/
-
-/*
-From last weekend:
-.mrv-side{
-    flex: 1 1 18rem;
-    background-color: blueviolet;
-}
-
-.mrv-main{
-    flex: 4 4 28rem;
-    background-color: aquamarine;
-}
-
-.mrv-column-grid{
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr;
-    grid-template-rows: 8rem 10rem 1fr 9rem;
-}
-
-
-
-From the old library
-
-.seventy_panel{
+.mrv-primary-grid .main_content{
+    grid-row: 3 / span 1;
     display: flex;
     flex-direction: column;
-    flex: 7 7 0rem;
-    height: 100%;
-    box-sizing: border-box;
-  }
+    padding: var(--PrimaryPadding__both);
+    align-items: center;
+    justify-content: start;
+}
 
-
-  .thirty_panel{
+.mrv-primary-grid .footer_text{
+    grid-row: 4 / span 1;
+    padding: 0rem var(--PrimaryPadding__horizontal);
     display: flex;
-    flex-direction: column;
-    flex: 3 3 0rem;
-    box-sizing: border-box;
-    height: 100%;
-  }
-
-
-.mrv-side{
-    flex: 0 1 32rem;
-    background-color: blueviolet;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-.mrv-main{
-    flex: 1 2 0rem;
-    background-color: aquamarine;
+.mrv-primary-grid .footer_content{
+    grid-row: 5 / span 1;
+    padding: var(--PrimaryPadding__both);
+    display: flex;
+    flex-direction: column
 }
 
 
-.mrv-side{
-    flex: 2 1 0rem;
-    background-color: blueviolet;
-}
-
-.mrv-main{
-    flex: 4 2 0rem;
-    background-color: aquamarine;
-}
 
 
+
+/*
 
 */
+
