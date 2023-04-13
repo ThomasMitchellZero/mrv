@@ -28,8 +28,8 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 
 // Exchanges
 import Exchanges from "./Sections/Exchanges/Exchanges";
-import StartExchage from "./Sections/Exchanges/StartExchange/StartExchange";
-import ChooseExchangeItems from "./Sections/Exchanges/ChooseExchangeItems/ChooseExchangeItems";
+import StartExchage from "./Sections/Exchanges/_pages/StartExchange/StartExchange";
+import ChooseExchangeItems from "./Sections/Exchanges/_pages/ChooseExchangeItems/ChooseExchangeItems";
 
 function App() {
   return (
@@ -61,7 +61,7 @@ function App() {
           </Route>
           <Route path="exchanges" element={<Exchanges />}>
             <Route index element={<StartExchage />} />
-            <Route path="chooseitems" element={<ChooseExchangeItems />}/>
+            <Route path="chooseitems" element={<ChooseExchangeItems />} />
           </Route>
         </Route>
       </Routes>

@@ -1,7 +1,7 @@
 import "../../mrv/mrv-styles/mrvAllStyles.css";
 
 import { useImmer, useImmerReducer } from "use-immer";
-import {nav_SelectItems} from "./_Resources/Glossary/glossaryEXCH"
+import {nav_SelectItems} from "./_Resources/glossary/glossaryEXCH"
 
 import { Outlet } from "react-router";
 

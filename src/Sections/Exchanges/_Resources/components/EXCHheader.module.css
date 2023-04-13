@@ -1,0 +1,29 @@
+
+.container{
+    padding: var(--PrimaryPadding__both);
+    grid-row: 1 / span 1;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    --standard-height: 3.5rem;
+}
+
+.navBtn{
+    all:unset;
+    height: var(--standard-height);
+    width: 3rem;
+    text-align: center;
+}
+
+.mainTitle{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0rem;
+}
+
+.defaultContainer{
+    height: var(--standard-height);
+    display: flex;
+    align-items: center;
+}

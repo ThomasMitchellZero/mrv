@@ -4425,11 +4425,13 @@ BUG - cash refund finalization screen is displaying as store credit.
 13 Apr  
     2:55.
     Going to try to get the header all good and ready to go.
-        -Page Title, Order Num all as inputs?
+        X-Page Title, Order Num all as inputs?
         -I actually don't think most of this is re-usable in a different app, so I should move it into Orders components before I get much further.
         -App Title and Cancel Btn can be hard-coded AFAICT.
         X-Verify that a function passed into the button is working.
         -Add mouse-over behavior to the button.
+    
+    Now wondering how much of this is actually universal and re-usable.  I think the horizontal rows and their behavior is correct.  Not so sure on the vertical rows.  In fact, I am pretty sure they are NOT universal.  Like, I'm probably not going to use the pizza tracker on  a different MRV app.  Not sure I will need this but it's not too hard to do now and if I end up doing a different MRV product later, I'm gonna be sad I didn't.
     
     Then the next step is going to be to start on the Button CSS.  This will be app-wide for MRV so I need to account for that.
 
