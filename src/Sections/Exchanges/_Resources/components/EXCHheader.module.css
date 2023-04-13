@@ -10,7 +10,6 @@
 }
 
 .navBtn{
-    all:unset;
     height: var(--standard-height);
     width: 3rem;
     text-align: center;

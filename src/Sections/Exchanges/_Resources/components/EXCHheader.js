@@ -1,7 +1,7 @@
-import classes from "./EXCHheader.module.css"
+import classes from "./ExchHeader.module.css"
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
-function EXCHheader({
+function ExchHeader({
   hasIcon = "back",
   navBtnClick = () => {
     console.log("test");
@@ -19,7 +19,7 @@ function EXCHheader({
         onClick={() => {
           navBtnClick();
         }}
-        className={`${classes.navBtn}`}
+        className={`mrvBtn ${classes.navBtn}`}
       >
         {iconsObj[icon]}
       </button>
@@ -44,7 +44,7 @@ function EXCHheader({
   );
 }
 
-export { EXCHheader };
+export { ExchHeader };
 
 /*
 

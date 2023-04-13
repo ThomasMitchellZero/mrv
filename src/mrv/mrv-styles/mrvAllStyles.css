@@ -1,6 +1,7 @@
 @import"./mrvColors.css";
 @import"./mrvContainerSize.css";
 @import"./mrvText.css";
+@import url("./mrvButtons.css");
 
 .mrv-top{
     height: 100%;
@@ -14,4 +15,6 @@
 
     /* Colors */
     --color__text__primary: #001544;
+    --color__text__primary__inverse: #ebf1ff;
+    --color__interactive: #0072ce;
 }

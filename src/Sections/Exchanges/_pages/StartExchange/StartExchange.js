@@ -1,6 +1,6 @@
 import classes from "./StartExchange.module.css";
 import { MRVheader } from "../../../../mrv/mrv-components/MRVheader";
-import { EXCHheader } from "../../_Resources/components/EXCHheader";
+import { ExchHeader } from "../../_Resources/components/ExchHeader";
 
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function StartExchange() {
       className={`mrv-primary-columns ${classes.container}`}
     >
       <section className={`mrv-panel__main exch-rows`}>
-        <EXCHheader hasIcon={"back"} navBtnClick={() => console.log("TAST")} />
+        <ExchHeader hasIcon={"back"} navBtnClick={() => console.log("TAST")} />
         <div className={`main_content main_col`}>
           <Link to={"chooseitems"}>Continue</Link>
         </div>

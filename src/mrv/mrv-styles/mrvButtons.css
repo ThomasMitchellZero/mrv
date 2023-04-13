@@ -1,0 +1,43 @@
+.mrv-top button{
+
+
+}
+
+.mrvBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-width: 1.5px;
+    height: 4rem;
+    text-decoration: none;
+    border-radius: .5rem;
+    padding: 0rem 1rem;
+    margin: 0rem;
+    font-weight: 500;
+    gap: .25rem;
+    cursor: pointer;
+}
+
+.mrvBtn:hover{
+    opacity: 80%;
+}
+
+.mrvBtn.primary{
+    color: var(--color__text__primary__inverse);
+    background-color: var(--color__interactive);
+
+}
+
+.mrvBtn.secondary{
+    
+}
+
+.mrvBtn.ghost{
+    
+}
+
+.mrvBtn.jumbo{
+    height: 6rem;
+}
