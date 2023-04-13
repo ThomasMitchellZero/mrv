@@ -13,7 +13,10 @@ function StartExchange() {
   return (
     <section className={`mrv-primary-grid ${classes.container}`}>
       <div className={`mrv-panel__main`}>
-        <MRVheader hasIcon={'back'}></MRVheader>
+        <MRVheader
+          hasIcon={"back"}
+          navBtnClick={() => console.log("TAST")}
+        ></MRVheader>
         <div className={`testest main_content main_col`}>
           <Link to={"chooseitems"}>Continue</Link>
         </div>

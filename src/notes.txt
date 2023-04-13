@@ -4410,7 +4410,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     3:20.
     I'm kind of fucking around with the CSS, although I still genuinely think this will streamline the work.
 
-    -I do hope I don't encounter any problems with this grid system because so much of the CSS is depending on the grid that I am going to be QUITE fucked if I can't make it work.  Like potentially "Lose It All" fucked.
+    -I do hope I don't encounter any problems with this grid system because so much of the CSS is depending on the grid that I am going to be QUITE fucked if I can't make it work.  Like potentially "All My Work Is Useless" fucked.
 
     -But I'm not having a bad time.  Stuff is appearing on screen and it feels satisfying.
 
@@ -4422,6 +4422,16 @@ BUG - cash refund finalization screen is displaying as store credit.
     5:05
     Fellix is in the app, it appears to be displaying correctly, it responds to my size requests, and I think that this is a very good stopping point for now.  Swalk time!
 
+13 Apr  
+    2:55.
+    Going to try to get the header all good and ready to go.
+        -Page Title, Order Num all as inputs?
+        -I actually don't think most of this is re-usable in a different app, so I should move it into Orders components before I get much further.
+        -App Title and Cancel Btn can be hard-coded AFAICT.
+        X-Verify that a function passed into the button is working.
+        -Add mouse-over behavior to the button.
+    
+    Then the next step is going to be to start on the Button CSS.  This will be app-wide for MRV so I need to account for that.
 
 
 

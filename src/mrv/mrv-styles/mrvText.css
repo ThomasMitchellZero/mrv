@@ -20,6 +20,12 @@
   line-height: 4rem;
 }
 
+.mrv-top .body{
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
 .mrv-top .tiny-text{
   font-weight: 500;
   font-size: .875rem;
