@@ -1,7 +1,7 @@
 
 
 .mrv-primary-grid{
-    --primary-template-rows: 8rem 10rem 1fr 1rem 8rem;
+    --primary-template-rows: auto 10rem 1fr 1rem 8rem;
     
     /*Column Parts*/
     --Pcol: 16rem 1fr;

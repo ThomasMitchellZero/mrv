@@ -3,6 +3,26 @@
     src:  url('../../assets/fonts/fellix/Fellix-Regular.otf') format('otf'),
   }
 
-h1{
+
+.mrv-top h1{
     font-weight: 500;
+}
+
+.mrv-top h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color__text__primary);
+  line-height: 3.5rem;
+}
+
+.mrv-top h3.txt__large{
+  font-size: 2.5rem;
+  line-height: 4rem;
+}
+
+.mrv-top .tiny-text{
+  font-weight: 500;
+  font-size: .875rem;
+  line-height: 1.5rem;
+  color: var(--color__text__primary)
 }

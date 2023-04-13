@@ -11,4 +11,7 @@
         var(--PrimaryPadding__horizontal);
 
     font-family: "Fellix";
+
+    /* Colors */
+    --color__text__primary: #001544;
 }
