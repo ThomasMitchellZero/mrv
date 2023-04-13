@@ -1,0 +1,5 @@
+@import url("./exchContainerSize.css");
+
+.exch{
+    --EXCHBLANK: true;
+}

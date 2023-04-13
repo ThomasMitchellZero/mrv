@@ -1,4 +1,5 @@
 import "../../mrv/mrv-styles/mrvAllStyles.css";
+import "../Exchanges/_Resources/EXCH_styles/exchAllStyles.css"
 
 import { useImmer, useImmerReducer } from "use-immer";
 import {nav_SelectItems} from "./_Resources/glossary/glossaryEXCH"

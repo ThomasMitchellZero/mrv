@@ -12,13 +12,15 @@ function StartExchange() {
   const todosCtx = exchangesCtx.sessionToDo;
 
   return (
-    <section className={`mrv-primary-grid ${classes.container}`}>
-      <div className={`mrv-panel__main`}>
+    <section
+      className={`mrv-primary-grid ${classes.container}`}
+    >
+      <section className={`mrv-panel__main exch-rows`}>
         <EXCHheader hasIcon={"back"} navBtnClick={() => console.log("TAST")} />
         <div className={`testest main_content main_col`}>
           <Link to={"chooseitems"}>Continue</Link>
         </div>
-      </div>
+      </section>
     </section>
   );
 }

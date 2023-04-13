@@ -27,7 +27,7 @@ function EXCHheader({
   };
 
   return (
-    <section className={`main_col ${classes.container}`}>
+    <section className={`main_col  ${classes.container}`}>
       {hasIcon ? navButton(hasIcon) : null}
       <section className={`${classes.mainTitle}`}>
         <p className={`tiny-text`}>Exchanges</p>
