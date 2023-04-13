@@ -4435,6 +4435,19 @@ BUG - cash refund finalization screen is displaying as store credit.
     
     Then the next step is going to be to start on the Button CSS.  This will be app-wide for MRV so I need to account for that.
 
+    4:45.
+    Got interrupted by a 30 minute social hour meeting that was maybe the most retarded waste of my time I've had all week -_-.  
+
+    However, I think I have the correct conceptual model now.  For containers and the Main panel, the columns will come from the MRV container CSS.  For the rows WITHIN the column, which will be for all panels but never for the top container, I will use the exchContainer CSS.  That lives at the Product level because there's no reason to expect it would be the same between apps.  Also, if I can jam till ~6:15 I will earn a swalk.  
+
+    So the pattern I should keep in mind for each URL Page component is:
+
+        <section> for the page gets the mrv-primary-columns class
+
+            <panel> gets its MRV panel class, and then the Columns class from its product, so:    " mrv-panel__main exch-rows "
+
+                <div> sections within the panel, using the grid, get their horizontal position from class names within the product ContainerSize css.
+
 
 
 

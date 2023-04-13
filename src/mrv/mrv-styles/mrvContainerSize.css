@@ -1,6 +1,6 @@
 
 
-.mrv-primary-grid{
+.mrv-primary-columns{
 
     /*Column Parts*/
     --Pcol: 16rem 1fr;
@@ -79,16 +79,18 @@
         var(--RPanel)
 }
 
-/* Horizontal Positions*/
-.mrv-primary-grid .right_col{
+/* The Main panel has multiple sub-divisions which can be selected with these */
+
+/* These might be a waste? Or maybe not, since they'll mostly be used as horizontal selectors combined with a row selection? */
+.mrv-panel__main .right_col{
     grid-column: V3 / V4;
 }
 
-.mrv-primary-grid .left_col{
+.mrv-panel__main .left_col{
     grid-column: V1 / V2;
 }
 
-.mrv-primary-grid .main_col{
+.mrv-panel__main .main_col{
     grid-column: V1 / V4;
 }
 

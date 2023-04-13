@@ -13,11 +13,11 @@ function StartExchange() {
 
   return (
     <section
-      className={`mrv-primary-grid ${classes.container}`}
+      className={`mrv-primary-columns ${classes.container}`}
     >
       <section className={`mrv-panel__main exch-rows`}>
         <EXCHheader hasIcon={"back"} navBtnClick={() => console.log("TAST")} />
-        <div className={`testest main_content main_col`}>
+        <div className={`main_content main_col`}>
           <Link to={"chooseitems"}>Continue</Link>
         </div>
       </section>
