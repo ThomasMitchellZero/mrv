@@ -4467,6 +4467,16 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     So I think the right move should be to put in the Cancel Exchange button, make sure all my button styling is applying there as expected, and then see if I can get the Nav button working.  
 
+    -I'm also thinking maybe this header needs to move into Exchanges?  Or maybe the header can be universal, but the Order # and Cancel Exchange are definitely exchange-specific.  
+        -The other thing I will frequently need to deal with is the fact that ~50% of the time, the Order will not have the Order # / Cancel cluster.
+        -OK.  So I think the right move is:
+            X-Move it into Exchanges.  (Already did't.  Thanks, Past Me!)
+            -Style the Nav button.  Figure out why the icon is the wrong size.
+            -Have some prop, default false, that controls the presence of the cluster.
+            -Auto-populate the cluster.  No need to be passing props because those will never change.  
+            -And I think I'm just gonna do it in the component.  I'm not re-using this thing so it doesn't need to live on its own.  
+            -I should add an activeOrder property into the state and read from there.  
+
 
 
 

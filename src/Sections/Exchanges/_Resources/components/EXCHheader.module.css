@@ -12,7 +12,10 @@
 .navBtn{
     height: var(--standard-height);
     width: 3rem;
-    text-align: center;
+    padding: 0rem;
+    color: var(--color__text__primary);
+    border-color: transparent;
+    background-color: transparent;
 }
 
 .mainTitle{
@@ -21,8 +24,10 @@
     flex: 1 1 0rem;
 }
 
-.defaultContainer{
+.defaultHeight{
     height: var(--standard-height);
     display: flex;
+    flex-direction: row;
     align-items: center;
+    gap: 1rem;
 }

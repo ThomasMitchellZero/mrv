@@ -3,12 +3,16 @@ import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 function ExchHeader({
   hasIcon = "back",
-  navBtnClick = () => {
-    console.log("test");
-  },
   headerTitle = "Title",
   orderNum = "XXX",
+  hasCluster = true,
+  navBtnClick = () => {
+    console.log("nothing here");
+  },
 }) {
+
+  
+
   const navButton = (icon) => {
     const iconsObj = {
       back: <MdOutlineClose fontSize="1.5rem" />,
@@ -26,28 +30,25 @@ function ExchHeader({
     );
   };
 
+  const orderCancelCluster = (
+    <section className={`${classes.defaultHeight}`}>
+      <p className={`body`}>{`Order # ${orderNum}`}</p>
+      <button className={`mrvBtn ghost ${classes.defaultHeight}`}>
+        Cancel Exchange <MdArrowBack />
+      </button>
+    </section>
+  );
+
   return (
     <section className={`main_col  ${classes.container}`}>
       {hasIcon ? navButton(hasIcon) : null}
-      <button className={`mrvBtn ghost ${classes.defaultContainer}`}>
-        Cancel Exchange <MdArrowBack/>
-      </button>
-      <button className={`mrvBtn secondary ${classes.defaultContainer}`}>
-        Cancel Exchange <MdArrowBack/>
-      </button>
-      <button className={`mrvBtn primary ${classes.defaultContainer}`}>
-        Cancel Exchange <MdArrowBack/>
-      </button>
-      
       <section className={`${classes.mainTitle}`}>
         <p className={`tiny-text`}>Exchanges</p>
-        <section className={`${classes.defaultContainer}`}>
+        <section className={`${classes.defaultHeight}`}>
           <h3 className={``}>{headerTitle}</h3>
         </section>
       </section>
-      <div className={`${classes.defaultContainer}`}>
-        <p className={`body`}>{`Order # ${orderNum}`}</p>
-      </div>
+      {hasCluster ? orderCancelCluster : null}
     </section>
   );
 }
@@ -56,7 +57,7 @@ export { ExchHeader };
 
 /*
 
-defaultContainer
+defaultHeight
 
 mainTitle
 
