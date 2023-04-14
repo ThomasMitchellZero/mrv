@@ -4426,7 +4426,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     2:55.
     Going to try to get the header all good and ready to go.
         X-Page Title, Order Num all as inputs?
-        -I actually don't think most of this is re-usable in a different app, so I should move it into Orders components before I get much further.
+        X-I actually don't think most of this is re-usable in a different app, so I should move it into Orders components before I get much further.
         -App Title and Cancel Btn can be hard-coded AFAICT.
         X-Verify that a function passed into the button is working.
         -Add mouse-over behavior to the button.
@@ -4448,9 +4448,24 @@ BUG - cash refund finalization screen is displaying as store credit.
 
                 <div> sections within the panel, using the grid, get their horizontal position from class names within the product ContainerSize css.
 
+    6:25.
+    I actually went over my specified time.  Still feeling good, and like I could go longer.  Even after a partial day of work, I still made so much more progress today than I did the last two Saturdays.  It's amazing how much faster things go when 
+        a. I know what I'm doing.
+        b. I have an idea of a 'Good' approach to the task.
+    I have to remind myself that everything was once this hard, and that each new thing I learn increases the reach of "I know what I'm doing" 
 
+    So far into this project, the biggest improvements have all been in advanced CSS features.  Using Variables, especially compound variables, made the Grid SO much easier.  
 
+    My super-short description of the Grid is: The total number of columns in the container is always equal to the SUM of the number of columns in whatever combination of L-M-R panels is present.  Since L and R are always 1 column, 
 
+14 Apr
+
+    4:55.
+    Set a timer for 90 minutes and if I can jam for 90 minutes I get a swalk and food truck if it's there.
+
+    OK, when I left off I was working on the buttons.  IIRC I wasn't having any special difficulty with the buttons, but my nav button in the menu was misbehaving.
+
+    So I think the right move should be to put in the Cancel Exchange button, make sure all my button styling is applying there as expected, and then see if I can get the Nav button working.  
 
 
 

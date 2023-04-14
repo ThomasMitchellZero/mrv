@@ -1,4 +1,4 @@
-import classes from "./ExchHeader.module.css"
+import classes from "./ExchHeader.module.css";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 function ExchHeader({
@@ -29,6 +29,16 @@ function ExchHeader({
   return (
     <section className={`main_col  ${classes.container}`}>
       {hasIcon ? navButton(hasIcon) : null}
+      <button className={`mrvBtn ghost ${classes.defaultContainer}`}>
+        Cancel Exchange <MdArrowBack/>
+      </button>
+      <button className={`mrvBtn secondary ${classes.defaultContainer}`}>
+        Cancel Exchange <MdArrowBack/>
+      </button>
+      <button className={`mrvBtn primary ${classes.defaultContainer}`}>
+        Cancel Exchange <MdArrowBack/>
+      </button>
+      
       <section className={`${classes.mainTitle}`}>
         <p className={`tiny-text`}>Exchanges</p>
         <section className={`${classes.defaultContainer}`}>
@@ -36,9 +46,7 @@ function ExchHeader({
         </section>
       </section>
       <div className={`${classes.defaultContainer}`}>
-        <p className={`body`}>
-          {`Order # ${orderNum}`}
-        </p>
+        <p className={`body`}>{`Order # ${orderNum}`}</p>
       </div>
     </section>
   );
