@@ -1,28 +1,37 @@
 import classes from "./StartExchange.module.css";
 import { MRVheader } from "../../../../mrv/mrv-components/MRVheader";
-import { ExchHeader } from "../../_Resources/components/ExchHeader";
+import { actPan } from "../../_Resources/glossary/glossaryExch";
+import InvoiceContext from "../../../../store/invoice-context";
+import ProductContext from "../../../../store/product-context";
 
-import { Link } from "react-router-dom";
-
-import produce from "immer";
-import { useOutletContext } from "react-router-dom";
+import { useContext } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 function StartExchange() {
   const exchCtx = useOutletContext();
-  const handleSetInvoice = ((draft)=>{
-    
-  })
+  const setExchState = exchCtx.setExchSession;
+  const invoiceContext = useContext(InvoiceContext);
+  const navigate = useNavigate();
 
+  const handleSetInvoice = (invoNum) => {
+    setExchState((draft) => {
+      draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
+      draft.invoiceProducts = invoiceContext[invoNum].products;
+    });
+  };
 
+  const handleClick = () => {
+    handleSetInvoice("XAAA");
+    navigate("chooseitems")
+  };
 
   return (
-    <section
-      className={`mrv-primary-columns ${classes.container}`}
-    >
+    <section className={`mrv-primary-columns ${classes.container}`}>
       <section className={`mrv-panel__main exch-rows`}>
-        <ExchHeader hasIcon={"back"} hasCluster={true} navBtnClick={() => console.log("TAST")} />
         <div className={`main_content main_col`}>
-          <Link to={"chooseitems"}>Continue</Link>
+          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
+            Add Order
+          </button>
         </div>
       </section>
     </section>

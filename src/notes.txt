@@ -4501,3 +4501,18 @@ BUG - cash refund finalization screen is displaying as store credit.
         -Search the store for a given invoice number.
 
     OK.  For the time being, I'm just going to write a function that accepts an invoice# and adds the appropriate parts to the state.  I can handle the display and search later, but that already exists and is a super low priority.  I'm going to handle this in StartExchange b/c AFACIT there's nowhere else in this process an order could be added from.
+
+    1:30.
+    Groceries delivered and stowed, good start, good momentum, and plenty of time to run up the score.  Focus is good, at this point I need to emphasize velocity.  
+
+    I'm trying to decide whether to make a map of the Invoice Items here or not.  I suppose it's technically duplicate data, but I've got to loop through it all anyways.  Might as well get it here, right?  
+
+    ...or not?  I can't see any reason not to do it in the next phase, either.  It's not being consumed here, and my pattern is to process right before consumption unless I have a reason to do it somewhere else.
+
+    OK.  And I think I'm done with the start of the process?  I think I'm finally ready to work on picking items.
+
+    Two things I am definitely going to need: an effect that sets the active panels, and the pizza tracker.  The pizza tracker is probably more fun.  Since I'm feeling pretty good, I think that means I should do the activePanelSetter.  Where possible I should put off the fun stuff until I can't proceed without it because if I'm spinning wheels, that helps me get into it.  
+
+    OK.  Let's do this.  Remember that one of our goals in this second app was to become more familiar with custom hooks, so this is probably a good one.  
+
+    

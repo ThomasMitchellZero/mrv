@@ -20,8 +20,6 @@ function ExchHeader({
 
   const setExchState = exchCtx.setExchSession;
 
-  console.log(exchCtx);
-
   const iconsObj = {
     close: <MdOutlineClose fontSize="1.5rem" />,
     back: <MdArrowBack fontSize="1.5rem" />,

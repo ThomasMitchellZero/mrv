@@ -7,6 +7,17 @@ const nav_SelectItems = {
 export {nav_SelectItems}
 // end Nav Terms
 
+// Active Panels ////
+
+const actPan = {
+    selectItems: {
+        k: {
+            invoItemsTable: "invoItemsTable"
+        }
+    }
+}
+
+export {actPan}
 
 
 // CSS Terms /////////////////////////////
@@ -21,6 +32,8 @@ const defaultExchState = {
         mainCSSclass: null,
       },
       activeOrder: "ERROR - No Order",
+      activeInvoice: null,
+      invoiceProducts:{},
       sessionItems: new Map(),
 }
 
