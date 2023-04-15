@@ -1,7 +1,10 @@
 import classes from "./ExchHeader.module.css";
+
+import { defaultExchState } from "../glossary/glossaryExch";
+
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
-import { useOutletContext } from "react-router";
+import { useOutletContext, useNavigate } from "react-router";
 
 function ExchHeader({
   hasIcon = null,
@@ -11,15 +14,24 @@ function ExchHeader({
     console.log("nothing here");
   },
 }) {
-  
   const exchCtx = useOutletContext();
+  const navigate = useNavigate();
   const activeOrder = exchCtx.exchSession.activeOrder;
 
-  console.log(exchCtx)
+  const setExchState = exchCtx.setExchSession;
+
+  console.log(exchCtx);
 
   const iconsObj = {
     close: <MdOutlineClose fontSize="1.5rem" />,
     back: <MdArrowBack fontSize="1.5rem" />,
+  };
+
+  const handleClearSession = () => {
+    navigate("/mrv/exchanges")
+    setExchState(() => {
+      return defaultExchState;
+    });
   };
 
   // Sets nav button with user-specified icon and function.  Null if no icon
@@ -37,7 +49,10 @@ function ExchHeader({
   const orderCancelCluster = (
     <section className={`${classes.defaultHeight}`}>
       <p className={`body`}>{`Order # ${activeOrder}`}</p>
-      <button className={`mrvBtn ghost ${classes.defaultHeight}`}>
+      <button
+        className={`mrvBtn ghost ${classes.defaultHeight}`}
+        onClick={() => handleClearSession()}
+      >
         Cancel Exchange <MdArrowBack />
       </button>
     </section>

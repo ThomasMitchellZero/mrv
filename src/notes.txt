@@ -4484,10 +4484,20 @@ BUG - cash refund finalization screen is displaying as store credit.
 
         X-An order to use as the template for Exchanges.
         X-A default state for Exchanges.
-        -I need to track the items in the Order separate from the items in the Session.  The user can clear  items from the order, but not from the Session.  
-        -A data structure in State (probably a Map) that will contain all the info I need about the Cart items.  
-        
-        -A function that loops through the Items in an order and populates that data structure.
-        - Auto-populate the cluster.  No need to be passing props because those will never change.  
+        X - Auto-populate the cluster.  No need to be passing props because those will never change.  
+            X -Should be simple - a very easy function that changes the State back to default.  But I'm unfamiliar with Immer and so I fear this.
         X - I should add an activeOrder property into the state and read from there.  
+        X-A data structure in State (probably a Map) that will contain all the info I need about the Cart items.          
 
+        -A function that loops through the Items in an order and populates that data structure.
+
+    12:10.
+    OK.  Decision time.  Gotta decide how hard I want to go on this.  Let's start by listing the functions I DEFINITELY need, and then the optional ones.
+
+    Definitely:
+        -Add the contents of an Invoice to the active state.
+
+    Optional:
+        -Search the store for a given invoice number.
+
+    OK.  For the time being, I'm just going to write a function that accepts an invoice# and adds the appropriate parts to the state.  I can handle the display and search later, but that already exists and is a super low priority.  I'm going to handle this in StartExchange b/c AFACIT there's nowhere else in this process an order could be added from.

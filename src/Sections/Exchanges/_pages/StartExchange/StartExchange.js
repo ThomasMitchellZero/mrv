@@ -8,8 +8,12 @@ import produce from "immer";
 import { useOutletContext } from "react-router-dom";
 
 function StartExchange() {
-  const exchangesCtx = useOutletContext();
-  const todosCtx = exchangesCtx.sessionToDo;
+  const exchCtx = useOutletContext();
+  const handleSetInvoice = ((draft)=>{
+    
+  })
+
+
 
   return (
     <section
