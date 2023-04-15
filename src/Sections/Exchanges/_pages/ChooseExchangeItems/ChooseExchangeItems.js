@@ -1,6 +1,6 @@
 import classes from "./ChooseExchangeItems.module.css";
 
-import { PizzaTracker } from "../../../../mrv/mrv-components/mrvPizzaTracker/PizzaTracker";
+import { ExchPizzaTracker } from "../../_Resources/components/exchPizzaTracker";
 
 import ProductContext from "../../../../store/product-context";
 
@@ -19,8 +19,8 @@ function ChooseExchangeItems() {
           hasIcon={"back"}
           navBtnClick={() => navigate(-1)}
         />
-        <PizzaTracker />
         <div className={`main_content main_col`}></div>
+        <ExchPizzaTracker />
       </section>
     </section>
   );
