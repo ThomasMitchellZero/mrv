@@ -1,5 +1,7 @@
 import classes from "./ChooseExchangeItems.module.css";
 
+import { PizzaTracker } from "../../../../mrv/mrv-components/mrvPizzaTracker/PizzaTracker";
+
 import ProductContext from "../../../../store/product-context";
 
 import { ExchHeader } from "../../_Resources/components/ExchHeader";
@@ -15,8 +17,9 @@ function ChooseExchangeItems() {
           headerTitle="Select items to exchange"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={()=>navigate(-1)}
+          navBtnClick={() => navigate(-1)}
         />
+        <PizzaTracker />
         <div className={`main_content main_col`}></div>
       </section>
     </section>
