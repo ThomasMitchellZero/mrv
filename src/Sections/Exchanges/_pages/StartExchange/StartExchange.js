@@ -12,6 +12,7 @@ function StartExchange() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
+  const nextAp = actPan.selectItems
 
   const setActivePanels = useSetActivePanels()
   const navigate = useNavigate();
@@ -23,10 +24,12 @@ function StartExchange() {
     });
   };
 
+  console.log(nextAp.invoItemsTable.k)
+
   const handleClick = () => {
     handleSetInvoice("XAAA");
     navigate("chooseitems");
-    setActivePanels({main:"cat", left:"godEmperor", right:"Sorin"})
+    setActivePanels({main:`${nextAp.invoItemsTable.k}`})
   };
 
   return (
