@@ -29,7 +29,7 @@ function StartExchange() {
   const handleClick = () => {
     handleSetInvoice("XAAA");
     navigate("chooseitems");
-    setActivePanels({main:`${nextAp.invoItemsTable.k}`})
+    setActivePanels({main:nextAp.invoItemsTable.k})
   };
 
   return (
