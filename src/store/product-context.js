@@ -47,7 +47,7 @@ const ProductContext = React.createContext({
 
   400: {
     img: toilet_img,
-    price: 99500,
+    price: 39500,
     itemNum: "400",
     modelNum: "RT3301", 
     description: "American Standard Grand Duke II with Royal Flush",

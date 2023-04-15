@@ -2081,7 +2081,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
         -I need to do the function that totals up the payments in the Invoices.  I guess I could just do it by hand, but that's bad if I ever change anything and also no real coder would choose that.
 
-    -4:30.  A fun new twist.  Apparently, Javascript can't always represent decimals accurately, and I think I finally understand why.  Any integer is easy to represent in binary.  But decimals must be represented fractions of two binary integers, and sometimes those are decimals are really long, or even infinite, like how 1/3 = 0.33333∞ .  To solve this, JS will round a number off at some point.  
+    -4:30.  A fun new twist.  Apparently, Javascript can't always represent decimals accurately, and I think I finally understand why.  Any integer is easy to represent in binary.  But decimals must be represented fractions of two binary integers, and sometimes those are decimals are really long, or even infinite, like how 1/3 = 0.33333∞ .  To solve this, JS will round a number off at some point.  This is also why this observations pops up so much when doing division - it's easy to accidentally make a recurring decimal with small integers.  
 
         -The solution I have found looks hacky, but I saw it recommended in several places so I think I'm gonna do it.  You represent money as the total of cents rather than the total of dollars, and then just n/100 right before you show it anywhere in the interface.
 
@@ -4471,17 +4471,23 @@ BUG - cash refund finalization screen is displaying as store credit.
         -The other thing I will frequently need to deal with is the fact that ~50% of the time, the Order will not have the Order # / Cancel cluster.
         -OK.  So I think the right move is:
             X-Move it into Exchanges.  (Already did't.  Thanks, Past Me!)
-            -Style the Nav button.  Figure out why the icon is the wrong size.
-            -Have some prop, default false, that controls the presence of the cluster.
-            -Auto-populate the cluster.  No need to be passing props because those will never change.  
-            -And I think I'm just gonna do it in the component.  I'm not re-using this thing so it doesn't need to live on its own.  
-            -I should add an activeOrder property into the state and read from there.  
+            X-Style the Nav button.  Figure out why the icon is the wrong size.
+            X-Have some prop, default false, that controls the presence of the cluster.
+            X-And I think I'm just gonna do it in the component.  I'm not re-using this thing so it doesn't need to live on its own.  
 
 
+    Ok, gonna call it a night.  My starting point tomorrow will be boring, 
 
+15 Apr
+    9:25.
+    Look at you, all early and shit!  I'm here because I have made a conscious effort to move quick on house chores and turn away from time-wasters.  I felt really good working yesterday.  I'm hoping to cath that waqge early and get moving.  I knew yesterday that the start wasn't going to be the most fun, but other than some decisions, I don't think there's anything TOO terribly difficult?  So, the list, ported over from what wasn't finished yesterday.  I need:
 
-
-    
-    
-
+        X-An order to use as the template for Exchanges.
+        X-A default state for Exchanges.
+        -I need to track the items in the Order separate from the items in the Session.  The user can clear  items from the order, but not from the Session.  
+        -A data structure in State (probably a Map) that will contain all the info I need about the Cart items.  
+        
+        -A function that loops through the Items in an order and populates that data structure.
+        - Auto-populate the cluster.  No need to be passing props because those will never change.  
+        X - I should add an activeOrder property into the state and read from there.  
 

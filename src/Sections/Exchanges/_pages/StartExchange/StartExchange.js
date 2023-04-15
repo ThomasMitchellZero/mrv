@@ -16,7 +16,7 @@ function StartExchange() {
       className={`mrv-primary-columns ${classes.container}`}
     >
       <section className={`mrv-panel__main exch-rows`}>
-        <ExchHeader hasIcon={"back"} navBtnClick={() => console.log("TAST")} />
+        <ExchHeader hasIcon={"back"} hasCluster={true} navBtnClick={() => console.log("TAST")} />
         <div className={`main_content main_col`}>
           <Link to={"chooseitems"}>Continue</Link>
         </div>
@@ -29,15 +29,28 @@ export default StartExchange;
 
 /*
 
-      <div className={`mrv-panel__left`}>
-         
-      </div>
+  XAAA:{
 
-      <div className={`mrv-panel__main`}>
-        <div className={`xxx`}>bottoms</div>
-      </div>
+      invoiceDetails: {
+        store: 1234,
+        date: new Date(2022, 3, 8),
+        payment: {
+          44443333: {
+            tenderType: tType.check,
+            tenderLabel: "Check ****3333",
+            paid: 0,
+            routingNum: "44443333",
+            accountNum: "33334444",
+          },
+        },
+        orderNum: "X11111111",
+      },
 
-      <div className={`mrv-panel__right`}>Side</div>
-
+      products: {
+        900: { quantity: 2, price: 103115, tax: 11030 },
+        910: { quantity: 1, price: 91234, tax: 9120 },
+        400: { quantity: 1, price: 38723, tax: 3810 },
+    },
+  },
 
 */

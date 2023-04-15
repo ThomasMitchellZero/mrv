@@ -152,6 +152,7 @@ const invoiceObj = {
       payment: {
         [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
       },
+      
       orderNum: "33334444",
       genericSOS: true,
     },
@@ -162,6 +163,32 @@ const invoiceObj = {
       10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
     },
   },
+
+  XAAA:{
+
+      invoiceDetails: {
+        store: 1234,
+        date: new Date(2022, 3, 8),
+        payment: {
+          44443333: {
+            tenderType: tType.check,
+            tenderLabel: "Check ****3333",
+            paid: 0,
+            routingNum: "44443333",
+            accountNum: "33334444",
+          },
+        },
+        orderNum: "X11111111",
+      },
+
+      products: {
+        900: { quantity: 2, price: 103115, tax: 11030 },
+        910: { quantity: 1, price: 91234, tax: 9120 },
+        400: { quantity: 1, price: 38723, tax: 3810 },
+    },
+  },
+
+
 
 
 

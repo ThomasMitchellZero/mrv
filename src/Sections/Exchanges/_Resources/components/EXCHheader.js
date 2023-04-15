@@ -1,20 +1,28 @@
 import classes from "./ExchHeader.module.css";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
+import { useOutletContext } from "react-router";
+
 function ExchHeader({
-  hasIcon = "back",
+  hasIcon = null,
   headerTitle = "Title",
-  orderNum = "XXX",
   hasCluster = true,
   navBtnClick = () => {
     console.log("nothing here");
   },
 }) {
+  
+  const exchCtx = useOutletContext();
+  const activeOrder = exchCtx.exchSession.activeOrder;
+
+  console.log(exchCtx)
+
   const iconsObj = {
-    back: <MdOutlineClose fontSize="1.5rem" />,
-    close: <MdArrowBack fontSize="1.5rem" />,
+    close: <MdOutlineClose fontSize="1.5rem" />,
+    back: <MdArrowBack fontSize="1.5rem" />,
   };
 
+  // Sets nav button with user-specified icon and function.  Null if no icon
   const navButton = hasIcon ? (
     <button
       onClick={() => {
@@ -28,7 +36,7 @@ function ExchHeader({
 
   const orderCancelCluster = (
     <section className={`${classes.defaultHeight}`}>
-      <p className={`body`}>{`Order # ${orderNum}`}</p>
+      <p className={`body`}>{`Order # ${activeOrder}`}</p>
       <button className={`mrvBtn ghost ${classes.defaultHeight}`}>
         Cancel Exchange <MdArrowBack />
       </button>

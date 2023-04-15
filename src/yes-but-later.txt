@@ -24,14 +24,15 @@
 
     -I can never destroy my ADD.  But I can get better at defeating it.
 
--Look up what's inside Vyvanse.  See if dissolving in water has any affect.
-
 -Since we now have a clear understanding of why not to do programmatic state changes in useEffect (it's redundant) this would be a fun little section to write later.  
 
--What is the deal with Cruella De Vil?  It seems like we have a very incomplete story.  How does she know Roger and Anita?  If someone described a person like her to me in real life I would expect I was being lied to.  
+-What is the deal with Cruella De Vil?  It seems like we have a very incomplete story.  Where does her money come from, and why does this coat matter so much to her? How does she know Roger and Anita?  If someone described a person like her to me in real life I would expect I was being lied to.  
 
--Check some reviews of Ace of the Diamond.
 
 -For the next 69420, instead of discarding distractions, I want to try just focusing on one thing, like breathing, for 69 secons.
 
--Different Reef colors and the best case I can make for each one.
+15 Apr 2023
+
+-How did binary start getting used in computer science?
+
+-With money, and showing dollar values in cents.  Why does that work for not generating recurring decimal values?  We're still doing division, right?
