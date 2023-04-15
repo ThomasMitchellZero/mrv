@@ -1,5 +1,5 @@
 import "../../mrv/mrv-styles/mrvAllStyles.css";
-import "../Exchanges/_Resources/EXCH_styles/exchAllStyles.css";
+import "../Exchanges/_Resources/exchStyles/exchAllStyles.css";
 
 import { useImmer } from "use-immer";
 import { defaultExchState } from "./_Resources/glossary/glossaryExch";
