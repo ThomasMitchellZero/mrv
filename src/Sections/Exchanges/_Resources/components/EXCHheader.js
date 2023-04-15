@@ -26,7 +26,7 @@ function ExchHeader({
   };
 
   const handleClearSession = () => {
-    navigate("/mrv/exchanges")
+    navigate("/mrv/exchanges");
     setExchState(() => {
       return defaultExchState;
     });
@@ -51,7 +51,7 @@ function ExchHeader({
         className={`mrvBtn ghost ${classes.defaultHeight}`}
         onClick={() => handleClearSession()}
       >
-        Cancel Exchange <MdArrowBack />
+        Cancel Exchange
       </button>
     </section>
   );

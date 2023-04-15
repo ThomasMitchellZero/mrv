@@ -4516,4 +4516,9 @@ BUG - cash refund finalization screen is displaying as store credit.
     OK.  Let's do this.  Remember that one of our goals in this second app was to become more familiar with custom hooks, so this is probably a good one.  
 
     2:45.
-    Well, that went alarming smoothly.  Active Panel setter appears to be up and running.  
+    Well, that went alarming smoothly.  Active Panel setter appears to be up and running.  Next, got to add the correct page to the glossary and use it in the Nav.
+
+    3:05:
+    OK, that's all squared away.  Next is the itemEntry page.  I need:
+        -The header, because we are using the header now.
+        -The Pizza Tracker.  This will be kind of hard, but hopefully fun, too.
