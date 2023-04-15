@@ -4515,4 +4515,5 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK.  Let's do this.  Remember that one of our goals in this second app was to become more familiar with custom hooks, so this is probably a good one.  
 
-    
+    2:45.
+    Well, that went alarming smoothly.  Active Panel setter appears to be up and running.  

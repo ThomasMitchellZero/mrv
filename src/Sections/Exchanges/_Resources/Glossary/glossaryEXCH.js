@@ -26,10 +26,10 @@ export {actPan}
 
 const defaultExchState = {
     activePanels: {
-        left: null,
-        main: null,
-        right: null,
-        mainCSSclass: null,
+        left: "",
+        main: "",
+        right: "",
+        mainCSSclass: "",
       },
       activeOrder: "ERROR - No Order",
       activeInvoice: null,

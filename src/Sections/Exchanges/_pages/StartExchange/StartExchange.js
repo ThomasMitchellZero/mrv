@@ -1,6 +1,7 @@
 import classes from "./StartExchange.module.css";
 import { MRVheader } from "../../../../mrv/mrv-components/MRVheader";
 import { actPan } from "../../_Resources/glossary/glossaryExch";
+import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
 
@@ -11,6 +12,8 @@ function StartExchange() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
+
+  const setActivePanels = useSetActivePanels()
   const navigate = useNavigate();
 
   const handleSetInvoice = (invoNum) => {
@@ -22,7 +25,8 @@ function StartExchange() {
 
   const handleClick = () => {
     handleSetInvoice("XAAA");
-    navigate("chooseitems")
+    navigate("chooseitems");
+    setActivePanels({main:"cat", left:"godEmperor", right:"Sorin"})
   };
 
   return (
