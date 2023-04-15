@@ -35,7 +35,7 @@ const defaultExchState = {
   sessionItems: new Map(),
   ptState: {
     activeNode: 0,
-    ptArr: [
+    ptNodes: [
       { title: "Select Items" },
       { title: "Reason For Exchange" },
       { title: "Set Up Exchange" },

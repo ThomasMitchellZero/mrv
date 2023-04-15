@@ -3,8 +3,6 @@
     grid-template-rows: var(--exch-template-rows);
 }
 
-
-
 /* Vertical Positions*/
 
 .exch-rows .pizzaTracker{
@@ -14,7 +12,7 @@
     flex-direction: row;
     padding: var(--PrimaryPadding__both);
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     background-color: burlywood;
 
 }
@@ -25,7 +23,7 @@
     flex-direction: column;
     padding: var(--PrimaryPadding__both);
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .exch-rows .footer_text{

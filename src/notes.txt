@@ -4522,3 +4522,29 @@ BUG - cash refund finalization screen is displaying as store credit.
     OK, that's all squared away.  Next is the itemEntry page.  I need:
         -The header, because we are using the header now.
         -The Pizza Tracker.  This will be kind of hard, but hopefully fun, too.
+
+    3:35.  I'm still thrashing here but I kind of feel like a swalk.
+
+    OK.  Pizza tracker.  Let's think here.  I'm going to need to populate from a session state, since the Tracker lives within pages.  So I'm thinking:
+
+    pizzaTracker:{
+        activeItem: index,
+        nodes: [{first}, {second}]
+    }
+    An array is fine because I can use the index as the keys, and I'll have to loop through it many times.  
+
+    In the object for each node, I'll track all the relevant details.  The nodes themselves will be dumb.  They don't even need a local state.  All the parts will live at the MRV level, since this should be reusable.  
+        -
+        -Node component
+            -Track all three states
+            -I should make the nodes as buttons because at some point they will need to be clickable.
+        -Spacer component that can either have fixed value or a flex value.
+        -Probably a single CSS file for this whole shebang.
+        -A top-level tracker component that renders from any number of nodes.  
+        -I might make an Exchanges Pizza Tracker component so I can feed in all the configurations once and not have to dick around with it anymore.  TBD.  Until I add button clicks, I think it's fine without this.  
+
+        -I think I might actually want the local component.  If I don't actually need this, who gives a fuck, it's one extra component layer.  If I am right, I might need to do a bunch of replacing and re-mapping.  And I suspect I will need this at some point.  
+
+        OK, got that up and running.  I THINK that all further work should be doable in the global component. 
+        
+
