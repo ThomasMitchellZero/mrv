@@ -20,15 +20,30 @@
   line-height: 4rem;
 }
 
+
 .mrv-top .body{
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 2rem;
 }
 
+.mrv-top .body.small{
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+
+
+
 .mrv-top .tiny-text{
   font-weight: 500;
   font-size: .875rem;
   line-height: 1.5rem;
   color: var(--color__text__primary)
+}
+
+/*  Modifiers  */
+
+.mrv-top .bold{
+  font-weight: 600;
 }

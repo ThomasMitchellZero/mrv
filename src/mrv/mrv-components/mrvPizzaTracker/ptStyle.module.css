@@ -1,5 +1,10 @@
+.pt{
+    --ptSize: 2.5rem;
+}
+
 
 section.pt{
+
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -12,5 +17,32 @@ section.pt{
 }
 
 .spacer{
-    
+
+}
+
+.ptNode{
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    align-items: center;
+    width: var(--ptSize);
+}
+
+.ptNode p{
+    text-align: center;
+    color: green;
+    overflow: visible;
+    white-space: nowrap;
+}
+
+.ptBtn{
+    height: var(--ptSize);
+    width: var(--ptSize);
+    border: .125rem solid black;
+    border-radius: var(--ptSize);
+    background-color: brown;
+}
+
+.ptBtn.notStarted{
+
 }
