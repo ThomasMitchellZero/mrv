@@ -20,7 +20,7 @@
         var(--LPanel) 
         var(--Mid_L-R) 
         var(--RPanel);
-
+        
     grid-template-rows: 1fr;
     box-sizing: border-box;
 }
@@ -81,7 +81,7 @@
 
 /* The Main panel has multiple sub-divisions which can be selected with these */
 
-/* These might be a waste? Or maybe not, since they'll mostly be used as horizontal selectors combined with a row selection? */
+/* These might be a waste? Or maybe not, since they'll mostly be used as horizontal selectors combined with a row */
 .mrv-panel__main .right_col{
     grid-column: V3 / V4;
 }
