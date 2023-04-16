@@ -12,11 +12,11 @@ function PTnode({ dataObj, nodeIndex = 99 }) {
   return (
     <section className={`${classes.ptNode}`}>
       <button
-        className={`body__small bold ${classes.ptBtn} ${statusObj[status].css}`}
+        className={`body small bold ${classes.ptBtn} ${statusObj[status].css}`}
       >
         {nodeIndex}
       </button>
-        <p className={`body__small bold`}>{dataObj.title}</p>
+        <p className={`body small bold`}>{dataObj.title}</p>
     </section>
   );
 }

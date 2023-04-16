@@ -1,5 +1,6 @@
 .pt{
     --ptSize: 2.5rem;
+    --borderSize: .0625rem;
 }
 
 
@@ -17,7 +18,21 @@ section.pt{
 }
 
 .spacer{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem;
+    height: var(--ptSize);
+    align-items: center;
+}
 
+.spacer div{
+    background-color: black;
+    height: var(--borderSize);
+    width: 100%;
+}
+
+.spacer.end{
+    flex: 0 0 16rem;
 }
 
 .ptNode{
@@ -38,7 +53,7 @@ section.pt{
 .ptBtn{
     height: var(--ptSize);
     width: var(--ptSize);
-    border: .125rem solid black;
+    border: var(--borderSize) solid black;
     border-radius: var(--ptSize);
     background-color: brown;
 }
