@@ -4546,5 +4546,17 @@ BUG - cash refund finalization screen is displaying as store credit.
         -I think I might actually want the local component.  If I don't actually need this, who gives a fuck, it's one extra component layer.  If I am right, I might need to do a bunch of replacing and re-mapping.  And I suspect I will need this at some point.  
 
         OK, got that up and running.  I THINK that all further work should be doable in the global component. 
+
+    6:05.
+    Damn.  It got kind of late.
+
+    6:40.
+    OK.  I'm gonna knock off for today.  The hardest part of the pizza tracker, accepting (n) possible nodes and populating accordingly, interspersed with spacers of different sizes, has been accomplished.  It looks like ass but all that's left is styling and it should all clean up pretty quick.
+
+16 Apr 2023
+    2:30.
+    I know I left for the workout at ~12:30 and I did some time-wasting so this is not my best start, but I will earn a swalk if I can jam till 6:30.  Let's go.
+
+    
         
 

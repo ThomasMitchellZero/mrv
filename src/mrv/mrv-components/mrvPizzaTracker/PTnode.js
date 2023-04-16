@@ -3,8 +3,8 @@ import classes from "./ptStyle.module.css";
 function PTnode({dataObj, nodeIndex = 99}) {
   return (
     <section>
-      <button className={``}>{dataObj.title}</button>
-      <p className={`${nodeIndex}`}></p>
+      <button className={``}>{nodeIndex}</button>
+      <p className={``}>{dataObj.title}</p>
     </section>
   );
 }

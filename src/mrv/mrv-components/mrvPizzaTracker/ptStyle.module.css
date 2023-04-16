@@ -2,11 +2,15 @@
 section.pt{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex: 1 1 0rem;
     height: 100%;
     margin: 0rem;
     padding: 0rem;
     background-color: cyan;
+}
+
+.spacer{
+    
 }
