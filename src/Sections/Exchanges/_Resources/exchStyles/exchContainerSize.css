@@ -7,7 +7,7 @@
 
 .exch-rows .pizzaTracker{
     grid-row: 2 / span 1;
-    grid-column: V1 / V4;
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: row;
     padding: var(--PrimaryPadding__both);
@@ -33,6 +33,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: darkolivegreen;
 }
 
 .exch-rows .footer_content{

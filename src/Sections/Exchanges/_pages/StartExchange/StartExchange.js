@@ -4,7 +4,6 @@ import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
 
-
 import { useContext } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 
@@ -12,9 +11,9 @@ function StartExchange() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
-  const nextAp = actPan.selectItems
+  const nextAp = actPan.selectItems;
 
-  const setActivePanels = useSetActivePanels()
+  const setActivePanels = useSetActivePanels();
   const navigate = useNavigate();
 
   const handleSetInvoice = (invoNum) => {
@@ -24,22 +23,22 @@ function StartExchange() {
     });
   };
 
-  console.log(nextAp.invoItemsTable.k)
+  console.log(nextAp.invoItemsTable.k);
 
   const handleClick = () => {
     handleSetInvoice("XAAA");
     navigate("chooseitems");
-    setActivePanels({main:nextAp.invoItemsTable.k})
+    setActivePanels({ main: nextAp.invoItemsTable.k });
   };
 
   return (
-    <section className={`mrv-primary-columns ${classes.container}`}>
-      <section className={`mrv-panel__main exch-rows`}>
-        <div className={`main_content main_col`}>
-          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
-            Add Order
-          </button>
-        </div>
+    <section className={`mrv-page ${classes.container}`}>
+
+      <section className={`mrvPanel__main exch-rows ${classes.container}`}>
+        <div className={`pizzaTracker`}></div>
+      </section>
+      <section className={`mrvPanel__side exch-rows ${classes.container}`}>
+        <div className={`pizzaTracker`}></div>
       </section>
     </section>
   );
@@ -48,5 +47,13 @@ function StartExchange() {
 export default StartExchange;
 
 /*
+
+      <section className={`mrv-panel__main exch-rows`}>
+        <div className={`main_content main_col`}>
+          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
+            Add Order
+          </button>
+        </div>
+      </section>
 
 */

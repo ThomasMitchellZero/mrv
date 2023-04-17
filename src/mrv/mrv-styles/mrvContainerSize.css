@@ -1,34 +1,38 @@
 
 
 .mrv-primary-columns{
-
     /*Column Parts*/
-    --Pcol: 16rem 1fr;
-    --LPanel: [V1] var(--Pcol) [V2];
-    --RPanel: [V3] var(--Pcol) [V4];
-    /*In ALL cases, V1-V3 represents the leftmost column, V3-V4 represents the rightmost, and V1-V4 represents the entire span */
-    
-    /*Middle columns, based on # of columns present*/
-    --Mid_L-R: var(--Pcol) 1fr var(--Pcol);
-    --Mid_x-R: 1fr var(--Pcol);
-    --Mid_L-x: var(--Pcol) 1fr;
-    --Mid_x-x: 1fr;
-
+    --Pcol: clamp(16rem , 22.5vw, 32rem);
+    --MainCol: [v2] var(--Pcol) 1fr var(--Pcol) [v3];
     display: grid;
     height: 100%;
     grid-template-columns: 
-        var(--LPanel) 
-        var(--Mid_L-R) 
-        var(--RPanel);
-        
+        [v1]
+        var(--Pcol) 
+        var(--MainCol)
+        var(--Pcol)
+        [v4];
     grid-template-rows: 1fr;
     box-sizing: border-box;
 }
 
-/*Since the standard size of rows will be different in different MRV products, grid-template-row is specified at the product level. */
+.mrv-page{
+        /*Column Parts*/
+        --Pcol: clamp(16rem , 22.5vw, 32rem);
+        --MainCol: [V1]var(--Pcol) [V2] 1fr [V3] var(--Pcol) [V4];
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        align-items: flex-start;
+        background-color:darkkhaki;
+
+}
+
+/*Since the standard size of rows will be different in different MRV Products, grid-template-row is specified at the Product level. */
 
 
-
+/* OLD - DELETE if new approach works */
 .mrv-panel__left{
     grid-column: V1 / V2;
     grid-row: 1;
@@ -46,37 +50,46 @@
         var(--RPanel);
 }
 
+
+
 .mrv-panel__right{
     grid-column: V3 / V4;
     grid-row: 1;
     display: grid;
 }
 
+/* NEW - Don't delete*/
+
+.mrv-page .mrvPanel__main{
+    flex: 1 1 0rem;
+    height: 100%;
+    display: grid;
+    grid-template-columns: var(--MainCol);
+    background-color: coral;
+
+}
+
+.mrv-page .mrvPanel__side{
+    height: 100%;
+    display: grid;
+    width: var(--Pcol);
+    background-color: cornflowerblue;
+}
+
+
 /*This trick works by having a standard column size and then changing the NUMBER of columns in the Main section.  So if there is a Main section and then a Right panel,  the Main section is smaller by 1 standard column on the right side. */
 
 /* Names describe panels present, NOT size of middle panel */
 .mrv-panel__main.LMR{
     grid-column: V2 / V3;
-    grid-template-columns: 
-        var(--LPanel) 
-        var(--Mid_x-x)
-        var(--RPanel)
 }
 
 .mrv-panel__main.LM{
     grid-column: V2 / V4;
-    grid-template-columns: 
-        var(--LPanel) 
-        var(--Mid_x-R)
-        var(--RPanel)
 }
 
 .mrv-panel__main.MR{
     grid-column: V1 / V3;
-    grid-template-columns:     
-        var(--LPanel) 
-        var(--Mid_L-x)
-        var(--RPanel)
 }
 
 /* The Main panel has multiple sub-divisions which can be selected with these */
