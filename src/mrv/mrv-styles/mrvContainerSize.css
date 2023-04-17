@@ -1,21 +1,5 @@
 
 
-.mrv-primary-columns{
-    /*Column Parts*/
-    --Pcol: clamp(16rem , 22.5vw, 32rem);
-    --MainCol: [v2] var(--Pcol) 1fr var(--Pcol) [v3];
-    display: grid;
-    height: 100%;
-    grid-template-columns: 
-        [v1]
-        var(--Pcol) 
-        var(--MainCol)
-        var(--Pcol)
-        [v4];
-    grid-template-rows: 1fr;
-    box-sizing: border-box;
-}
-
 .mrv-page{
         /*Column Parts*/
         --Pcol: clamp(16rem , 22.5vw, 32rem);
@@ -31,32 +15,6 @@
 
 /*Since the standard size of rows will be different in different MRV Products, grid-template-row is specified at the Product level. */
 
-
-/* OLD - DELETE if new approach works */
-.mrv-panel__left{
-    grid-column: V1 / V2;
-    grid-row: 1;
-    display: grid;
-
-}
-
-.mrv-panel__main{
-    grid-row: 1;
-    display: grid;
-    grid-column: V1 / V4;
-    grid-template-columns: 
-        var(--LPanel) 
-        var(--Mid_L-R)
-        var(--RPanel);
-}
-
-
-
-.mrv-panel__right{
-    grid-column: V3 / V4;
-    grid-row: 1;
-    display: grid;
-}
 
 /* NEW - Don't delete*/
 
