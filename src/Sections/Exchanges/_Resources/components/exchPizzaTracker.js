@@ -4,7 +4,6 @@ import { useOutletContext } from "react-router";
 
 function ExchPizzaTracker() {
   const exchCtx = useOutletContext();
-  console.log(exchCtx)
 
   return (
     <section className={`pizzaTracker`}>

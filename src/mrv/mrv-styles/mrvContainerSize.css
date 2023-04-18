@@ -27,6 +27,7 @@
     flex: 2 2 0rem;
     max-width: 30rem;
     background-color: cornflowerblue;
+    grid-template-columns: 1fr;
 }
 
 /* The Main panel has multiple sub-divisions which can be selected with these */

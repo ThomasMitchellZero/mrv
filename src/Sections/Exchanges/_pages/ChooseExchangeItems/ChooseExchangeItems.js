@@ -11,17 +11,19 @@ function ChooseExchangeItems() {
   const navigate = useNavigate();
 
   return (
-    <section className={`mrv-primary-columns ${classes.container}`}>
-      <section className={`mrv-panel__main exch-rows`}>
+    <section className={`mrvPage ${classes.container}`}>
+
+      <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
           headerTitle="Select items to exchange"
           hasCluster={true}
           hasIcon={"back"}
           navBtnClick={() => navigate(-1)}
         />
-        <div className={`main_content main_col`}></div>
+        <section className={`main_content main_col`}></section>
         <ExchPizzaTracker />
       </section>
+      
     </section>
   );
 }
