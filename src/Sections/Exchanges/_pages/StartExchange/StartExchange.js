@@ -34,7 +34,7 @@ function StartExchange() {
   return (
     <section className={`mrvPage ${classes.container}`}>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
-        <ExchHeader />
+        <ExchHeader headerTitle="Start Exchange" hasCluster={false}/>
         <div className={`main_content main_col`}>
           <button onClick={() => handleClick()} className={`mrvBtn primary`}>
             Add Order
