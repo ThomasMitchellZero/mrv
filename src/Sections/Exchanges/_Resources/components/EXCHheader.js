@@ -45,7 +45,7 @@ function ExchHeader({
   ) : null;
 
   const orderCancelCluster = (
-    <section className={`${classes.defaultHeight}`}>
+    <section className={` ${classes.defaultHeight}`}>
       <p className={`body`}>{`Order # ${activeOrder}`}</p>
       <button
         className={`mrvBtn ghost ${classes.defaultHeight}`}
@@ -57,7 +57,7 @@ function ExchHeader({
   );
 
   return (
-    <section className={`main_col  ${classes.container}`}>
+    <section className={`main_col exchHeader ${classes.container}`}>
       {navButton}
       <section className={`${classes.mainTitle}`}>
         <p className={`tiny-text`}>Exchanges</p>

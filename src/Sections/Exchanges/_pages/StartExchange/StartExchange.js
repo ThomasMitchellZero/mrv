@@ -1,5 +1,7 @@
 import classes from "./StartExchange.module.css";
 
+import { ExchHeader } from "../../_Resources/components/ExchHeader";
+
 import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
@@ -32,7 +34,8 @@ function StartExchange() {
   return (
     <section className={`mrvPage ${classes.container}`}>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
-      <div className={`main_content main_col`}>
+        <ExchHeader />
+        <div className={`main_content main_col`}>
           <button onClick={() => handleClick()} className={`mrvBtn primary`}>
             Add Order
           </button>

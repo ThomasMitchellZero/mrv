@@ -6,7 +6,7 @@
 
 .exch-rows{
     --exch-template-rows: 
-        [header] 8rem 
+        [header] 7rem 
         [pTracker] 10rem 
         [main]1fr 
         [fText]1rem 
@@ -24,7 +24,7 @@
     display: flex;
     flex-direction: row;
     padding: var(--PrimaryPadding__both);
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }
 
