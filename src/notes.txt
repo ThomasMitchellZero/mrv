@@ -4602,11 +4602,13 @@ BUG - cash refund finalization screen is displaying as store credit.
     
     One thing I learned is that if I have X columns in the template but I see <X columns and no errors, usually it's because I'm doing some calculation wrong, I THINK it's causing the columns driven by it to evaluate to 0, and it's usually because I have the format wrong in the calculation (values need to be separated by commas)
 
-    OK.  Next question.  Do I account for a ribbon?  I hope the answer is no, but perhaps it wouldn't hurt to add in some named spacers?  Let's just do it and be done.
+    X - OK.  Next question.  Do I account for a ribbon?  I hope the answer is no, but perhaps it wouldn't hurt to add in some named spacers?  Let's just do it and be done.
 
-    Oh.  and I probably need a fixed height for the header.
+    X - And it sounds like unless I am gonna use SCSS I should be keeping my CSS in a single file.
 
-    And it sounds like unless I am gonna use SCSS I should be keeping my CSS in a single file.
+    - I probably need a fixed height for the header.
+
+    - I'm going to get the Exch Index page working as it was before.  Then I will go to the next page and get the header sized.
 
 
         

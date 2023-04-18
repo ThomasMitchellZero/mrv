@@ -31,13 +31,12 @@ function StartExchange() {
 
   return (
     <section className={`mrvPage ${classes.container}`}>
-    
-      <section className={`mrvPanel__side exch-rows ${classes.container}`}>
-        <div className={`footer_text`}></div>
-      </section>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
-        <div className={`pizzaTracker`}></div>
-        <div className={`footer_text main_col`}></div>
+      <div className={`main_content main_col`}>
+          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
+            Add Order
+          </button>
+        </div>
       </section>
     </section>
   );

@@ -63,5 +63,5 @@
     grid-row: footer / span 1;
     padding: var(--PrimaryPadding__both);
     display: flex;
-    flex-direction: column
+    flex-direction: row;
 }
