@@ -4604,6 +4604,10 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK.  Next question.  Do I account for a ribbon?  I hope the answer is no, but perhaps it wouldn't hurt to add in some named spacers?  Let's just do it and be done.
 
+    Oh.  and I probably need a fixed height for the header.
+
+    And it sounds like unless I am gonna use SCSS I should be keeping my CSS in a single file.
+
 
         
 
