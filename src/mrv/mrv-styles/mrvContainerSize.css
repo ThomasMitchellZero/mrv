@@ -1,6 +1,5 @@
 
-
-.mrv-page{
+.mrvPage{
         height: 100%;
         display: flex;
         flex-direction: row;
@@ -13,9 +12,7 @@
 /*Since the standard size of rows will be different in different MRV Products, grid-template-row is specified at the Product level. */
 
 
-/* NEW - Don't delete*/
-
-.mrv-page .mrvPanel__main{
+.mrvPage .mrvPanel__main{
     --Mcol: min(40%, 30rem);
     flex: 5 5 0rem;
     height: 100%;
@@ -24,7 +21,7 @@
     background-color: coral;
 }
 
-.mrv-page .mrvPanel__side{
+.mrvPage .mrvPanel__side{
     height: 100%;
     display: grid;
     flex: 2 2 0rem;
@@ -32,35 +29,19 @@
     background-color: cornflowerblue;
 }
 
-
-/*This trick works by having a standard column size and then changing the NUMBER of columns in the Main section.  So if there is a Main section and then a Right panel,  the Main section is smaller by 1 standard column on the right side. */
-
-/* Names describe panels present, NOT size of middle panel */
-.mrv-panel__main.LMR{
-    grid-column: V2 / V3;
-}
-
-.mrv-panel__main.LM{
-    grid-column: V2 / V4;
-}
-
-.mrv-panel__main.MR{
-    grid-column: V1 / V3;
-}
-
 /* The Main panel has multiple sub-divisions which can be selected with these */
 
 /* These might be a waste? Or maybe not, since they'll mostly be used as horizontal selectors combined with a row */
-.mrv-panel__main .right_col{
-    grid-column: V3 / V4;
+.mrvPanel__main .right_col{
+    grid-column: -1 / -2;
 }
 
-.mrv-panel__main .left_col{
-    grid-column: V1 / V2;
+.mrvPanel__main .left_col{
+    grid-column: 1 / span 1;
 }
 
-.mrv-panel__main .main_col{
-    grid-column: V1 / V4;
+.mrvPanel__main .main_col{
+    grid-column: 1 / -1;
 }
 
 

@@ -4557,6 +4557,53 @@ BUG - cash refund finalization screen is displaying as store credit.
     2:30.
     I know I left for the workout at ~12:30 and I did some time-wasting so this is not my best start, but I will earn a swalk if I can jam till 6:30.  Let's go.
 
+    4:40.
+    OK.  I've been absolutely jamming so far.  Here is where I am stuck.  Apparently you can do some simple math in CSS.  
+
+    Now.  I could absolutely blaze ahead.  I could finish the pizza tracker and the function that controls it.  But I feel like there's got to be a way I could simplify the column system.  And if everything is using the column system and I decide to fix it later, I might potentially have to re-do EVERYTHING.  
+
+    Eh.  Who am I kidding?  I'm not going to let this drop. Let's see what I can do.  I think the VERY first thing I need to do is to have a way to test, and I think the best way to do that is right from the index screen.  
+        
+    OK.  So what if I go: --Pcol: max(16rem, 20vw)
+
+    My column arrangement is:  
+        var(--Pcol) 
+        var(--Pcol) 
+        1fr
+        var(--Pcol)
+        var(--Pcol);
+
+    When I shrink sizes, my middle column starts getting eaten, just like I want.  However, when I get smaller than 1024 (4 * 16rem) my rightmost column is chopped too short, and that happens even if I scroll over.
+
+    So I think where I was running into trouble was that the min width at the app level was 900px, but the sum of my columns was less than that.  When I changed the min-size in the app to be 64rem, it all started working as expected.  So I think my issue was that the vw was able to be smaller than the sum of all my minimum sizes, and that's why that column was getting chopped off.  
+
+    OK.  It's all mostly working.  The main thing I'm fiddling with is if/how big to have the middle-middle column.  
+
+    And what I'm wondering now is if I need the grid for ANYTHING outside the middle column.  Because if I can specify the width of the column, I think if I just have a class with that width, then its position in the layout is going to be determined by render order.  Because as long as the columns are all reading off of the same shared dimension, whether they belong to a grid or not, that should mitigate my dumb concern of buttons being the same size.
+
+    OK.  I'm not technically at the end but I am getting hungry and I think the next conceptual step is way too much to dive into.  Gonna call it a night.  
+
+17 Apr 2023
+    4:35.
+    I think I'm at a point in my work-work where I can knock off and do some work on this.  I also didn't take anything at all today, so if I can raw-dog a decent 90 minutes in this semi-retarded state I definitely earn a swalk.  
+
+    OK.  So the plan last time was to use the grid ONLY for the main column.  I'm going to try that first.
+
+    5:25.  OK.  So it is working.  There are now two things on my mind here.  The first is that I think I need to have a fixed size for the header space.  It's probably not a problem since every section should have a header, but we're counting on the grid to line it all up.  Also, since the rows are now determined at the Product level, I don't need to universalize any of this.  
+
+    7:10.
+    I have tried and failed to disengage like 4 times and failed.  I think it's good enough for now.  When a second column isn't present, the first takes up a larger percentage of the total.  
+
+18 Apr
+
+    5:10.
+    Same Bat-time, same Bat-bribe.  Let's go.  
+    OK.  Panels appear to be spacing correctly.  
     
+    One thing I learned is that if I have X columns in the template but I see <X columns and no errors, usually it's because I'm doing some calculation wrong, I THINK it's causing the columns driven by it to evaluate to 0, and it's usually because I have the format wrong in the calculation (values need to be separated by commas)
+
+    OK.  Next question.  Do I account for a ribbon?  I hope the answer is no, but perhaps it wouldn't hurt to add in some named spacers?  Let's just do it and be done.
+
+
         
 
