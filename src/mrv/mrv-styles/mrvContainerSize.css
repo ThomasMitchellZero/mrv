@@ -16,13 +16,12 @@
 /* NEW - Don't delete*/
 
 .mrv-page .mrvPanel__main{
-    --Mcol: max(40% );
+    --Mcol: min(40%, 30rem);
     flex: 5 5 0rem;
     height: 100%;
     display: grid;
     grid-template-columns: var(--Mcol) 1fr var(--Mcol);
     background-color: coral;
-
 }
 
 .mrv-page .mrvPanel__side{

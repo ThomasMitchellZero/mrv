@@ -33,11 +33,13 @@ function StartExchange() {
 
   return (
     <section className={`mrv-page ${classes.container}`}>
+    
       <section className={`mrvPanel__side exch-rows ${classes.container}`}>
         <div className={`footer_text`}></div>
       </section>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
         <div className={`pizzaTracker`}></div>
+        <div className={`footer_text`}></div>
       </section>
 
     </section>
