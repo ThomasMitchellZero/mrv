@@ -1,9 +1,6 @@
 
 
 .mrv-page{
-        /*Column Parts*/
-        --Pcol: clamp(16rem , 22.5vw, 32rem);
-        --MainCol: [V1]var(--Pcol) [V2] 1fr [V3] var(--Pcol) [V4];
         height: 100%;
         display: flex;
         flex-direction: row;
@@ -19,10 +16,11 @@
 /* NEW - Don't delete*/
 
 .mrv-page .mrvPanel__main{
-    flex: 1 1 0rem;
+    --Mcol: max(40% );
+    flex: 5 5 0rem;
     height: 100%;
     display: grid;
-    grid-template-columns: var(--MainCol);
+    grid-template-columns: var(--Mcol) 1fr var(--Mcol);
     background-color: coral;
 
 }
@@ -30,7 +28,8 @@
 .mrv-page .mrvPanel__side{
     height: 100%;
     display: grid;
-    width: var(--Pcol);
+    flex: 2 2 0rem;
+    max-width: 30rem;
     background-color: cornflowerblue;
 }
 

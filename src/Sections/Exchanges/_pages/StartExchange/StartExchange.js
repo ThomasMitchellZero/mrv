@@ -39,9 +39,7 @@ function StartExchange() {
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
         <div className={`pizzaTracker`}></div>
       </section>
-      <section className={`mrvPanel__side exch-rows ${classes.container}`}>
-        <div className={`pizzaTracker`}></div>
-      </section>
+
     </section>
   );
 }
