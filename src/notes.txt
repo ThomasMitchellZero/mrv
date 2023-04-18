@@ -4606,10 +4606,14 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     X - And it sounds like unless I am gonna use SCSS I should be keeping my CSS in a single file.
 
-    - I probably need a fixed height for the header.
+    X - I probably need a fixed height for the header.
 
-    - I'm going to get the Exch Index page working as it was before.  Then I will go to the next page and get the header sized.
+    X - I'm going to get the Exch Index page working as it was before.  Then I will go to the next page and get the header sized.
+
+    6:45.  
+    Damn.  That was all really pretty easy.  I kept expecting to run into some kind of block but it was all really smooth.  OK.  There's nothing I can point to as 'This is bad and needs resolution before I can proceed'.  I think the next roadblock I am going to run into is the tables, and if I want to try doing them as a grid.  I don't have to do the whole thing as a grid, I suppose.  I could just use a grid to control the horizontal sizing of each row.  I mean, the SMART thing to do would be just use a table since the only conceivable objection I could have is "finer control over the sizing".  
+
+    Gotta keep in mind that the ideal for this and all projects is today, not yesterday.  The goal is not to program.  The goal is to get this thing out as fast as I can.  I should look for ways to speed progress, not dragons to slay.  
 
 
-        
 
