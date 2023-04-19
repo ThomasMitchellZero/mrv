@@ -36,7 +36,7 @@
     padding: var(--PrimaryPadding__both);
     align-items: center;
     justify-content: center;
-    background-color: burlywood;
+
 }
 
 .exch-rows .main_content{
@@ -55,7 +55,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: darkolivegreen;
+
 }
 
 .exch-rows .footer_content{

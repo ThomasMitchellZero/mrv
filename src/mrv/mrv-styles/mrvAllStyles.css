@@ -14,7 +14,11 @@
     font-family: "Fellix";
 
     /* Colors */
+    --color__border: #9ea4b2;
+
     --color__text__primary: #001544;
     --color__text__primary__inverse: #ebf1ff;
     --color__interactive: #0072ce;
+
+    
 }

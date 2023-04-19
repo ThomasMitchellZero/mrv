@@ -20,8 +20,17 @@ function PizzaTracker({ ptObj = {}, localStyles = "" }) {
   const spacedNodeArr = nodeArr.flat();
   //removes the first element and then adds fixed-size spacers to the end.
 
-  spacedNodeArr.push(<p key="last">A</p>);
-  spacedNodeArr[0] = <p key="first">A</p>;
+  spacedNodeArr.push(
+    <section key="last" className={`${classes.spacer} ${classes.end}`}>
+      <div />
+    </section>
+  );
+  
+  spacedNodeArr[0] = (
+    <section key="first" className={`${classes.spacer} ${classes.end}`}>
+      <div />
+    </section>
+  );
 
   return <section className={`${classes.pt}`}>{spacedNodeArr}</section>;
 }

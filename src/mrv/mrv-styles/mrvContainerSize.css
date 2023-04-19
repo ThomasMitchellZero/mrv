@@ -5,7 +5,7 @@
         flex-direction: row;
         box-sizing: border-box;
         align-items: flex-start;
-        background-color:darkkhaki;
+        background-color: #fff;
 
 }
 
@@ -18,7 +18,7 @@
     height: 100%;
     display: grid;
     grid-template-columns: var(--Mcol) 1fr var(--Mcol);
-    background-color: coral;
+
 }
 
 .mrvPage .mrvPanel__side{
