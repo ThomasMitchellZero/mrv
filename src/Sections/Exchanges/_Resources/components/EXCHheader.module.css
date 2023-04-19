@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-end;
+    color: var(--color__primary);
     --standard-height: 3.5rem;
 }
 
@@ -12,7 +13,6 @@
     height: var(--standard-height);
     width: 3rem;
     padding: 0rem;
-    color: var(--color__text__primary);
     border-color: transparent;
     background-color: transparent;
 }
@@ -30,4 +30,8 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+}
+
+.defaultHeight p{
+    color: brown;
 }

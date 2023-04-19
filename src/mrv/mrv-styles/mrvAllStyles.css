@@ -16,9 +16,24 @@
     /* Colors */
     --color__border: #9ea4b2;
 
-    --color__text__primary: #001544;
-    --color__text__primary__inverse: #ebf1ff;
-    --color__interactive: #0072ce;
+    --color__surface__default: #ffffff;
+    --color__surface__subdued: #f4f6fa;
+    --color__surface__darkblue:  #012169;
 
-    
+    --color__primary: #001544;
+    --color__primary__inverse: #ebf1ff;
+    --color__secondary: #001544d6;
+    --color__tertiary: #001544ad;
+    --color__interactive: #0072ce;
+    --color__green: #007a33;
+    --color__green__inverse: #37c271;
+    --color__gold: #f5b62f;
+    --color__red: #971b2f;
+    --color__red__inverse: #f19caa;
+
+    --color__card__selected: #e7f1fd;
+    --color__card__hover: #f0f0f0;
+    --color__card__selected__hover: #d9e9fc;
+    --color__th__border: #d8d8d8;
+
 }

@@ -22,12 +22,14 @@ section.pt{
     flex: 1 1 0rem;
     height: var(--ptSize);
     align-items: center;
+    padding: .125rem;
 }
 
 .spacer div{
     background-color: var(--color__border);
     height: var(--borderSize);
     width: 100%;
+
 }
 
 .end{
@@ -44,7 +46,7 @@ section.pt{
 
 .ptNode p{
     text-align: center;
-    color: green;
+    color: var(--color__primary);
     overflow: visible;
     white-space: nowrap;
 }
@@ -52,9 +54,10 @@ section.pt{
 .ptBtn{
     height: var(--ptSize);
     width: var(--ptSize);
-    border: var(--borderSize) solid black;
+    color: var(--color__primary);
+    padding: 0rem;
+    border: var(--borderSize) solid var(--color__primary);
     border-radius: var(--ptSize);
-    background-color: brown;
 }
 
 .ptBtn.notStarted{
