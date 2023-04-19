@@ -52,14 +52,26 @@ section.pt{
 }
 
 .ptBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--ptSize);
     width: var(--ptSize);
     color: var(--color__primary);
     padding: 0rem;
     border: var(--borderSize) solid var(--color__primary);
     border-radius: var(--ptSize);
+    background-color: transparent;
 }
 
-.ptBtn.notStarted{
+.active{
+    background-color: var(--color__interactive);
+    border: none;
+    color: #fff;
+}
 
+.complete{
+    background-color: var(--color__green);
+    border: none;
+    color: #fff;
 }

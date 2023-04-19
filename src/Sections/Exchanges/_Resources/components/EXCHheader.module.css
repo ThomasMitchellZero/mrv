@@ -33,5 +33,5 @@
 }
 
 .defaultHeight p{
-    color: brown;
+    color: var(--color__tertiary);
 }

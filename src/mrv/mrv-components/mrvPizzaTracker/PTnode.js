@@ -1,12 +1,13 @@
 import classes from "./ptStyle.module.css";
+import { MdDone, } from "react-icons/md";
 
 function PTnode({ dataObj, nodeIndex = 99 }) {
-  const status = "notStarted";
+  const status = "complete";
 
   const statusObj = {
-    notStarted: { css: classes.notStarted },
-    active: { css: classes.active },
-    complete: { css: classes.complete },
+    notStarted: { css: classes.notStarted, text: nodeIndex },
+    active: { css: classes.active, text: nodeIndex },
+    complete: { css: classes.complete, text: <MdDone fontSize="1.5rem"/> },
   };
 
   return (
@@ -14,7 +15,7 @@ function PTnode({ dataObj, nodeIndex = 99 }) {
       <button
         className={`body small bold ${classes.ptBtn} ${statusObj[status].css}`}
       >
-        {nodeIndex}
+        {statusObj[status].text}
       </button>
         <p className={`body small bold`}>{dataObj.title}</p>
     </section>
