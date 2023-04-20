@@ -1,25 +1,41 @@
 import classes from "./ChooseExchangeItems.module.css";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
-import { useOutletContext } from "react-router";
+import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
+
+import { useOutletContext } from "react-router";
 import { useNavigate } from "react-router";
 
 function ChooseExchangeItems() {
-
   const navigate = useNavigate();
   const exchCtx = useOutletContext();
-  const orderProducts = exchCtx.invoiceProducts;
+  const orderProducts = exchCtx.exchSession.invoiceProducts;
 
+  console.log(exchCtx);
+  console.log(orderProducts);
+
+  // make headers with titles
   const thFactory = (title = "") => {
     return { title };
   };
-
   const thInputs = [thFactory("Product Details"), { title: "Sold" }];
-
   const thArray = thInputs.map((th) => {
     return <th key={th.title}>{th.title}</th>;
+  });
+
+  // make TRs
+
+  const trArray = Object.keys(orderProducts).map((product) => {
+    return (
+      <tr key={product}>
+        <td>
+          <ProductInfo itemObj={orderProducts[product]} />
+        </td>
+        <td>a</td>
+      </tr>
+    );
   });
 
   return (
@@ -36,6 +52,7 @@ function ChooseExchangeItems() {
             <thead>
               <tr>{thArray}</tr>
             </thead>
+            <tbody>{trArray}</tbody>
           </table>
         </section>
         <ExchPizzaTracker />

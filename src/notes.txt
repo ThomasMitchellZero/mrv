@@ -4628,7 +4628,10 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     For now I'm gonna start with getting item details into the state.  Then at least the bare bones of the table.  And whatever I do with getting the items into the state, I need to remember that the order# won't always be fixed.  
 
-    
+    7:10.
+    OK, I feel like I am at a decent stopping point.  Item details are added to state, I've got a basic ProductInfo component, and that component is correctly reading from the Exch state.  That means I've got most of the boring wiring done, and that means tomorrow I can really get jamming on this.  
+
+
     
 
 
