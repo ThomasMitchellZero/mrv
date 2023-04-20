@@ -1,7 +1,4 @@
-.mrv-top button{
 
-
-}
 
 .mrvBtn{
     display: flex;
@@ -31,7 +28,7 @@
 }
 
 .mrvBtn.primary{
-    color: var(--color__text__primary__inverse);
+    color: var(--color__primary__inverse);
     border-color: transparent;
     background-color: var(--color__interactive);
 }

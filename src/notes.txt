@@ -4615,5 +4615,21 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     Gotta keep in mind that the ideal for this and all projects is today, not yesterday.  The goal is not to program.  The goal is to get this thing out as fast as I can.  I should look for ways to speed progress, not dragons to slay.  
 
+420, 2023
+    I actually worked yesterday too, but didn't record it.  I want to work for at least 90 minutes and then after that I'll just go as long as I feel like.  
+
+    For Item Selection, I will need:
+    - A template for a table row
+    - An Item Details template that I will reuse damn near everywhere.  
+    - A way to get and store the item details in state, since I will be using it damn near everywhere.
+    - CSS handling for <tr> (basics only?  Maybe an MRV component?)
+    - CSS handling for <th>
+    - Input, probably going to have to be a component.  And also a decision on how hard I want to go on this for things like the Text.  
+
+    For now I'm gonna start with getting item details into the state.  Then at least the bare bones of the table.  And whatever I do with getting the items into the state, I need to remember that the order# won't always be fixed.  
+
+    
+    
+
 
 

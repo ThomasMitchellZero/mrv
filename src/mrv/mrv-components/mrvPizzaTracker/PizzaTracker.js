@@ -6,26 +6,45 @@ function PizzaTracker({ ptObj = {}, localStyles = "" }) {
   const activeIndex = ptObj.activeNode;
   const ptArr = ptObj.ptNodes;
 
+  //Computed here and not stored in state because node status is only used for display.  The actual, active value is ptState.activeNode
+  const makeNodeStatus = (thisIndex) => {
+    const outStatus =
+      thisIndex > activeIndex
+        ? "notStarted"
+        : thisIndex < activeIndex
+        ? "complete"
+        : "active";
+    return outStatus;
+  };
+
+  // Makes an array of arrays containing a PT node and a spacer
   const nodeArr = ptArr.map((node, index) => {
-    // Makes an array of arrays containing a PT node and a spacer
+    const thisNodeStatus = makeNodeStatus(index);
+
     return [
-      <section className={`${classes.spacer}`} key={index}>
+      <section key={index} className={`${classes.spacer}`}>
         <div />
       </section>,
-      <PTnode key={node.title} dataObj={node} nodeIndex={index} />,
+      <PTnode
+        key={node.title}
+        dataObj={node}
+        nodeIndex={index}
+        nodeStatus={thisNodeStatus}
+      />,
     ];
   });
 
   //flattens that array
   const spacedNodeArr = nodeArr.flat();
-  //removes the first element and then adds fixed-size spacers to the end.
-
+  
+  //adds fixed-size spacers to the end.
   spacedNodeArr.push(
     <section key="last" className={`${classes.spacer} ${classes.end}`}>
       <div />
     </section>
   );
   
+  //replaces first element with fixed-size spacer.
   spacedNodeArr[0] = (
     <section key="first" className={`${classes.spacer} ${classes.end}`}>
       <div />

@@ -7,7 +7,7 @@
 .exch-rows{
     --exch-template-rows: 
         [header] 7rem 
-        [pTracker] 10rem 
+        [pTracker] 8rem 
         [main]1fr 
         [fText]1rem 
         [footer]8rem;
