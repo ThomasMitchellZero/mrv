@@ -1,6 +1,6 @@
 import classes from "./ExchHeader.module.css";
 
-import { defaultExchState } from "../glossary/glossaryExch";
+import { defaultExchState } from "../../glossary/glossaryExch";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 

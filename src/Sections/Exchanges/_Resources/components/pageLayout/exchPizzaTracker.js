@@ -1,4 +1,4 @@
-import { PizzaTracker } from "../../../../mrv/mrv-components/mrvPizzaTracker/PizzaTracker";
+import { PizzaTracker } from "../../../../../mrv/mrv-components/DisplayOutputs/mrvPizzaTracker/PizzaTracker";
 
 import { useOutletContext } from "react-router";
 

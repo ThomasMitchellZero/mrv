@@ -1,6 +1,6 @@
 import classes from "./StartExchange.module.css";
 
-import { ExchHeader } from "../../_Resources/components/ExchHeader";
+import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
@@ -30,10 +30,10 @@ function StartExchange() {
       draft.invoiceProducts = invoiceContext[invoNum].products;
 
       for(const i of Object.keys(draft.invoiceProducts)){
+        // for some reason, this doesn't work if I try to assign the property directly instead of assigning const 'details' first. 
         const details = productContext[i];
         draft.invoiceProducts[i].productDetails = details;
       }
-
     });
   };
 
