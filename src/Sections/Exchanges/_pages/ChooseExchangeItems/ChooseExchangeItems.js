@@ -17,13 +17,24 @@ function ChooseExchangeItems() {
   const thFactory = (title = "") => {
     return { title };
   };
-  const thInputs = [thFactory("Product Details"), { title: "Sold" }];
+  const thInputs = [
+    thFactory("Product Details"),
+    thFactory("Sold"),
+    thFactory("In Stock"),
+    thFactory("Exchange Qty"),
+    thFactory("Status"),
+    thFactory("Sold Price / Unit"),
+    thFactory("Manager Approval Needed"),
+  ];
+
+  console.log(thInputs);
+
   const thArray = thInputs.map((th) => {
     return <th key={th.title}>{th.title}</th>;
   });
 
   // Generate the TRs
-  
+
   const trArray = Object.keys(orderProducts).map((product) => {
     return (
       <tr key={product}>
