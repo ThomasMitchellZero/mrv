@@ -27,7 +27,7 @@
   line-height: 2rem;
 }
 
-.mrv-top .body.small{
+.mrv-top .body__small{
   font-size: 1rem;
   line-height: 1.5rem;
 }
@@ -37,7 +37,6 @@
   font-weight: 500;
   font-size: .875rem;
   line-height: 1.5rem;
-  color: var(--color__text__primary)
 }
 
 /*  Modifiers  */

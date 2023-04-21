@@ -1,7 +1,13 @@
 import classes from "./ProductInfo.module.css";
 
-function ProductInfo({ itemObj }) {
+function ProductInfo({ itemObj, hasPrice = false }) {
   const productDetails = itemObj.productDetails;
+
+  const price = hasPrice ? (
+    <p className={`body ${classes.description}`}>{`$${
+      itemObj.price / 100
+    }`}</p>
+  ) : null;
 
   return (
     <section className={`${classes.container}`}>
@@ -10,6 +16,15 @@ function ProductInfo({ itemObj }) {
         alt="test"
         className={classes.productImage}
       />
+      <section className={`${classes.textColumn}`}>
+        {price}
+        <p
+          className={`tiny-text ${classes.itemModel}`}
+        >{`Item# ${productDetails.itemNum}    Model# ${productDetails.modelNum}`}</p>
+        <p
+          className={`body__small ${classes.description}`}
+        >{`${productDetails.description}`}</p>
+      </section>
     </section>
   );
 }

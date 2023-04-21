@@ -13,9 +13,6 @@ function ChooseExchangeItems() {
   const exchCtx = useOutletContext();
   const orderProducts = exchCtx.exchSession.invoiceProducts;
 
-  console.log(exchCtx);
-  console.log(orderProducts);
-
   // make headers with titles
   const thFactory = (title = "") => {
     return { title };
@@ -25,8 +22,8 @@ function ChooseExchangeItems() {
     return <th key={th.title}>{th.title}</th>;
   });
 
-  // make TRs
-
+  // Generate the TRs
+  
   const trArray = Object.keys(orderProducts).map((product) => {
     return (
       <tr key={product}>
