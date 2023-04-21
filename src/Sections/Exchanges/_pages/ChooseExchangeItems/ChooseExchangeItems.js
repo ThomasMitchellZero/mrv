@@ -23,25 +23,30 @@ function ChooseExchangeItems() {
     thFactory("In Stock"),
     thFactory("Exchange Qty"),
     thFactory("Status"),
-    thFactory("Sold Price / Unit"),
     thFactory("Manager Approval Needed"),
   ];
-
-  console.log(thInputs);
 
   const thArray = thInputs.map((th) => {
     return <th key={th.title}>{th.title}</th>;
   });
 
+
   // Generate the TRs
 
   const trArray = Object.keys(orderProducts).map((product) => {
+    const thisProd = orderProducts[product];
+    const pDetails = thisProd.productDetails
+
     return (
       <tr key={product}>
         <td>
-          <ProductInfo itemObj={orderProducts[product]} />
+          <ProductInfo hasPrice={true} itemObj={thisProd} />
         </td>
-        <td>a</td>
+        <td>{`${thisProd.quantity}`}</td>
+        <td>{`${pDetails.inStock}`}</td>
+        <td>Input</td>
+        <td>Picked Up</td>
+        <td></td>
       </tr>
     );
   });
@@ -70,3 +75,23 @@ function ChooseExchangeItems() {
 }
 
 export default ChooseExchangeItems;
+
+  /*
+  
+  200: { 
+    quantity: 1, 
+    price: 463, 
+    tax: 41, 
+    productDetails: {img: frontload_washer_img,
+        price: 76600,
+        itemNum: "910",
+        modelNum: "SFL456",
+        description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
+        categories: ["Stock","Delivery"],
+        specialCategories: {SOS:true},
+        restockFee: 0.2,
+        inStock: 2,
+    },
+ }
+  
+  */

@@ -45,6 +45,7 @@ export { ProductInfo };
         categories: ["Stock","Delivery"],
         specialCategories: {SOS:true},
         restockFee: 0.2,
+        inStock: 2,
     },
  }
 

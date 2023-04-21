@@ -52,6 +52,7 @@ const ProductContext = React.createContext({
     modelNum: "RT3301", 
     description: "American Standard Grand Duke II with Royal Flush",
     categories: ["Stock","Special Order"],
+    inStock: 1,
   },
   900: {
     img: topload_washer_img,
@@ -62,6 +63,7 @@ const ProductContext = React.createContext({
     categories: ["Stock","Delivery"],
     specialCategories: {SOS:true},
     restockFee: 0.2,
+    inStock: 99,
   },
   910: {
     img: frontload_washer_img,
@@ -72,6 +74,7 @@ const ProductContext = React.createContext({
     categories: ["Stock","Delivery"],
     specialCategories: {SOS:true},
     restockFee: 0.2,
+    inStock: 99,
   },
 
   10001:{
