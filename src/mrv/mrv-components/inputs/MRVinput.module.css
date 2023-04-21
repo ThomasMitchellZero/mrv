@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.container input{
+    height: 4rem;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--color__tertiary);
+}
+
+.container p{
+    padding: 0rem 1rem;
+    color: var(--color__primary)
+}
+
+.active{
+
+}
+
+.inactive{
+    
+}

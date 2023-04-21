@@ -3,20 +3,10 @@
 
 }
 
-.row__top{
-    display: flex;
-    flex-direction: row;
-    flex: 1 1 0rem;
-    width: 3rem;
+.main{
+    gap: 1rem;
 }
 
-.row__bottom{
-    display: flex;
-    flex-direction: row;
-    flex: 0 0 4rem;
-}
-
-.iconHolder{
-    display: flex;
-    flex-direction: column;
+.testInput{
+    width: 40rem;
 }

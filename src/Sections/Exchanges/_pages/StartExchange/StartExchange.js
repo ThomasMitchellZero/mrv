@@ -1,6 +1,7 @@
 import classes from "./StartExchange.module.css";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
+import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
@@ -46,10 +47,11 @@ function StartExchange() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <section className={`mrvPage ${classes.container}`}>
+    <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
         <ExchHeader headerTitle="Start Exchange" hasCluster={false}/>
-        <div className={`main_content main_col`}>
+        <div className={`main_content main_col ${classes.main}`}>
+          <MRVinput extClasses={`${classes.testInput}`}/>
           <button onClick={() => handleClick()} className={`mrvBtn primary`}>
             Add Order
           </button>
@@ -63,12 +65,6 @@ export default StartExchange;
 
 /*
 
-      <section className={`mrv-panel__main exch-rows`}>
-        <div className={`main_content main_col`}>
-          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
-            Add Order
-          </button>
-        </div>
-      </section>
+
 
 */
