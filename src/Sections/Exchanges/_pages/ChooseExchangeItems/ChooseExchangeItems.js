@@ -13,6 +13,9 @@ function ChooseExchangeItems() {
   const exchCtx = useOutletContext();
   const orderProducts = exchCtx.exchSession.invoiceProducts;
 
+// Returns TR ref
+// <th onClick={clickHandler} style={{ width: `${props.width}` }}>
+
   // make headers with titles
   const thFactory = (title = "") => {
     return { title };
@@ -38,7 +41,7 @@ function ChooseExchangeItems() {
     const pDetails = thisProd.productDetails
 
     return (
-      <tr key={product}>
+      <tr key={product} className={``}>
         <td>
           <ProductInfo hasPrice={true} itemObj={thisProd} />
         </td>

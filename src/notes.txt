@@ -13,7 +13,7 @@ Pictograph => Think REAALLLY HARD => Alphabet.
 Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a stop en route to good code, not a detour from it.  
 
 RULE 5: 
-Be very careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if it MUST be highly abstract, leave DETAILED comments and look for ways to improve the clarity of those comments.
+Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if it MUST be highly abstract, leave DETAILED comments and constantly look for ways to improve the clarity of those comments as we re-read them in the future.
 
 
 
@@ -4630,6 +4630,26 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     7:10.
     OK, I feel like I am at a decent stopping point.  Item details are added to state, I've got a basic ProductInfo component, and that component is correctly reading from the Exch state.  That means I've got most of the boring wiring done, and that means tomorrow I can really get jamming on this.  
+
+    21 Apr.
+    10:45 and just now getting started.  I honestly don't know why this is so hard.  The work ahead SHOULD be very satisfying but I'm struggling to move.
+
+    12:00.
+    OK.  Item Info is basically working.  I have a few things to do and not sure in what order to take them.  
+
+    - Finish populating the <tr>
+    X - Assign column sizes to the <th>s 
+    X - MRV table style.
+    - A plan for the input fields.
+
+    Inputs are definitely the hardest.  Normally I try to tackle the hardest stuff first, but in this case my instinct is telling me to crank out the easier stuff.  For the input, the 'hard stuff' looks fairly optional, like the title still being visible.  This looks to me like a pretty clear Rule 1 situation.
+
+    Got the non-computed values reading correctly.  I'm thinking the next thing to do is the MRV table styles.  I definitely need them and I don't think they have any dependencies. OK, let's make it happen.
+
+    Actually, first I'd better check what I did in returns because if I need a specific component to make the size work then maybe those styles live in a Table component?
+
+    -I don't have fixed column sizes, but I'm not sure I need it.  At worst I don't need it right now, so I am going to let that pass.  
+
 
 
     

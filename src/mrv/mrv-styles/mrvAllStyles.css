@@ -1,7 +1,12 @@
 @import"./mrvColors.css";
 @import"./mrvContainerSize.css";
-@import"./mrvText.css";
+
 @import url("./mrvButtons.css");
+
+@font-face {
+    font-family: 'Fellix';
+    src:  url('../../assets/fonts/fellix/Fellix-Regular.otf') format('otf'),
+  }
 
 .mrv-top{
     height: 100%;
@@ -14,7 +19,7 @@
     font-family: "Fellix";
 
     /* Colors */
-    --color__border: #9ea4b2;
+
 
     --color__surface__default: #ffffff;
     --color__surface__subdued: #f4f6fa;
@@ -34,6 +39,102 @@
     --color__card__selected: #e7f1fd;
     --color__card__hover: #f0f0f0;
     --color__card__selected__hover: #d9e9fc;
-    --color__th__border: #d8d8d8;
 
+    --color__border: #9ea4b2;
+    --color__border__th: #d8d8d8;
+    --color__border__subdued: #cdb1dd;
+
+}
+
+
+
+/* ---- MRV TEXT STYLES ---- */
+
+.mrv-top h1{
+    font-weight: 500;
+}
+
+.mrv-top h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color__text__primary);
+  line-height: 3.5rem;
+}
+
+.mrv-top h3.txt__large{
+  font-size: 2.5rem;
+  line-height: 4rem;
+}
+
+
+.mrv-top .body{
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.mrv-top .body__small{
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+
+.mrv-top .tiny-text{
+  font-weight: 500;
+  font-size: .875rem;
+  line-height: 1.5rem;
+}
+
+/*  Modifiers  */
+
+.mrv-top .bold{
+  font-weight: 600;
+}
+
+/* ---- MRV TABLE STYLES ---- */
+
+.mrv-top table{
+    border-radius: 0.5rem 0.5rem 0rem 0rem;
+    overflow: hidden;
+    background-color: #fff;
+    table-layout: auto;
+}
+
+.mrv-top td{
+    color: var(--color__primary);
+}
+
+.mrv-top th{
+    --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent;
+    border-bottom: var(--primaryBorder);
+    border-right: var(--primaryBorder);
+}
+
+.mrv-top thead{
+    height: 3rem;
+    background-color: #f5f5f5;
+
+}
+
+.mrv-top table .pad{
+    padding-left: 2rem;
+}
+
+.mrv-top tr {
+    border-bottom: calc( 1.5rem / 16 ) solid var(--color__border);
+}
+
+.mrv-top tbody tr.active{
+    background-color: var(--color__card__selected);
+}
+
+.mrv-top tbody tr:hover{
+    background-color: var(--color__card__hover);
+}
+
+.mrv-top tbody tr.active:hover{
+    background-color: var(--color__card__selected__hover);
 }
