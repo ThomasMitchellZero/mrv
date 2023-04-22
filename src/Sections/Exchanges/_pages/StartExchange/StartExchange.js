@@ -29,18 +29,14 @@ function StartExchange() {
 
   const handleSetInvoice = (invoNum) => {
     setExchState((draft) => {
-      const orderNum = ""
-
+      
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
       draft.invoiceProducts = cloneDeep(invoiceContext[invoNum].products) 
-      console.log(invoiceContext[invoNum].products);
-      console.log(draft.invoiceProducts);
 
       for (const i of Object.keys(draft.invoiceProducts)) {
-        draft.invoiceProducts[i].productDetails = { ...productContext[i] };
+        draft.invoiceProducts[i].productDetails = cloneDeep(productContext[i]);
       }
 
-      console.log(draft.invoiceProducts);
     });
   };
 
