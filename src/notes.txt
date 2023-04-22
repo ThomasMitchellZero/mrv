@@ -4697,18 +4697,8 @@ BUG - cash refund finalization screen is displaying as store credit.
     11:15.
     I had a great early start and I'm feeling full of energy but I'm kind of struggling to translate that into forward progress.  I'm going to list out what I need and hope that helps with some momentum.
 
-    -I need a local state and a state-setter.
-        -Map of all item:quantity
-        -page validity
-        -Error Visibility
+        -moved to later...
 
-    -I need a function to update the state based on inputs.
-    
-    -On Continue, I need a function that:
-        -Checks Validity:
-            -If invalid, displays the Error state.  
-
-    
 
     11:40.
     OK.  I'm trying to identify how to reproduce the problem.  When I navigate to Returns, then back to Exchanges, then hit Add Invoice, I get a big red failure saying: 
@@ -4736,11 +4726,47 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     I was going to take a swalk but I think I will skip.  I'm still feeling pretty good, and today is a day of 'Make Good Decisions'.  Instead I will eat something and then get back after it.
 
-    -Can I use produce instead of cloneDeep on the invoice?
+    -Can I use produce instead of cloneDeep on the invoice?  (If I can, it's not apparent how)
+
+    2:35.
+    Well, here we are after that unfortunate detour, some code cleanup, and some house chores.  I am glad I did it because that was going to be a problem at some point, but I was hoping for big progress today and that's not where we are.
+
+    Also.  I made a mistake that didn't bite me, but it was still a mistake.  When I was writing my description of the mutability problem in the Figma link above, I didn't test my solution (cloneDeep).  I should have done that before I wrote my explanation because if it hadn't worked then my hypothesis was invalid and all that work would have been wasted.  
+
+    OK.
+
+    -I need a local state and a state-setter.
+        -Map of all item:quantity
+        -page validity
+        -Error Visibility
+
+    -I need a function to update the state based on inputs.
+    
+    -On Continue, I need a function that:
+        -Checks Validity:
+            -If invalid, displays the Error state.  
+
+    -I need to populate each input field with the appropriate functions.
+
+    -The end result is going to be a map of the items being returned, all of their details, and their quantities.  So I think my Continue step should loop through all the items in the local state, delete any with a quantity of zero, and populate them with their item data.  
+
+    -I guess the other way I could do that is to add a check in the input step that deletes the item if the input is falsy?  
+
+    -More decisions to make.  Do I want my top-level container to be an Object or a Map?
+
+    Map:
+    + Maps are naturally iterable, which we will definitely be doing.  They remember insertion order, which is at least a nice thing not to worry about.  We're partially here to learn, and this is a structure we have no experience with.
+        -It's not that hard to just do a loop on Object.keys().  We did plenty of that in Returns, where we could probably have made a much better case for using Map.  Insertion order of the keys really doesn't mean much to us.  
+
+        As for the learning, we could probably use the Map for the time-picker.  We will definitely be iterating there, 
         
 
+    I just really can't see a good case for a Map here.  I wish I knew about Immer and Maps with Returns because I bet that would have made a lot of shit easier, but I think this is where we are.
 
+    If I ever do end up working Returns again, I might just flush the whole thing and start again with Maps.  
 
+    OK. So Object it is.  If that is the case, what to do?  I feel like no matter what, I should hang onto the original InvoProducts obj.  So I think what I do is add an extra field, probably when the order/invoice is added, that tracks Exch qty.  I can preserve that - no reason to discard it when I move on - but then I think for the objects being exchanged, I just clone it and clear any zero quantities.  
 
+    I think I am going to create the ExchangingItems 
 
 

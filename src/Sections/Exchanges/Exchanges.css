@@ -46,6 +46,7 @@
     padding: var(--PrimaryPadding__both);
     align-items: center;
     justify-content: flex-start;
+    overflow: auto;
 }
 
 .exch-rows .footer_text{

@@ -10,7 +10,7 @@ import ProductContext from "../../../../store/product-context";
 
 import { useContext } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import {produce} from "immer"
+
 import cloneDeep from "lodash.clonedeep";
 
 function StartExchange() {
@@ -18,6 +18,8 @@ function StartExchange() {
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
+
+
 
   const nextAp = actPan.selectItems;
 
@@ -29,14 +31,15 @@ function StartExchange() {
 
   const handleSetInvoice = (invoNum) => {
     setExchState((draft) => {
-      
-      draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
-      draft.invoiceProducts = cloneDeep(invoiceContext[invoNum].products) 
 
-      for (const i of Object.keys(draft.invoiceProducts)) {
-        draft.invoiceProducts[i].productDetails = cloneDeep(productContext[i]);
+      const outInvoProducts = cloneDeep(invoiceContext[invoNum].products)
+
+      for (const i of Object.keys(outInvoProducts)) {
+        outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
+        outInvoProducts[i].qtyExchanging = "";
       }
-
+      draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
+      draft.invoiceProducts = outInvoProducts;
     });
   };
 

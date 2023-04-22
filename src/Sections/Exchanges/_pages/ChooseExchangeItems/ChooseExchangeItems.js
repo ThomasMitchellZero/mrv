@@ -1,21 +1,39 @@
 import classes from "./ChooseExchangeItems.module.css";
 
-import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
+import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
+import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
-import { useOutletContext } from "react-router";
-import { useNavigate } from "react-router";
+import { useOutletContext, useNavigate } from "react-router";
+import { useImmer } from "use-immer";
+
+const defaultState = {
+  itemsToExch: new Map(),
+  formValid: false,
+  formWarning: false,
+};
 
 function ChooseExchangeItems() {
   const navigate = useNavigate();
   const exchCtx = useOutletContext();
+  const setExchState = exchCtx.setExchSession;
   const orderProducts = exchCtx.exchSession.invoiceProducts;
 
-// Returns TR ref
-// <th onClick={clickHandler} style={{ width: `${props.width}` }}>
+  // LocalState
+  const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
+  // Returns TR ref
+  // <th onClick={clickHandler} style={{ width: `${props.width}` }}>
+
+  /* ---- Shared Functions ---- */
+  const handleFieldInput = (event, itemNum) => {
+    const input = event.target.value;
+    setExchState((draft) => {
+      draft.invoiceProducts[itemNum].qtyExchanging = input;
+    });
+  };
+
 
   // make headers with titles
   const thFactory = (title = "") => {
@@ -34,12 +52,11 @@ function ChooseExchangeItems() {
     return <th key={th.title}>{th.title}</th>;
   });
 
-
   // Generate the TRs
 
   const trArray = Object.keys(orderProducts).map((product) => {
     const thisProd = orderProducts[product];
-    const pDetails = thisProd.productDetails
+    const pDetails = thisProd.productDetails;
 
     return (
       <tr key={product} className={``}>
@@ -48,7 +65,18 @@ function ChooseExchangeItems() {
         </td>
         <td>{`${thisProd.quantity}`}</td>
         <td>{`${pDetails.inStock}`}</td>
-        <td><MRVinput width={"5rem"} type="number" min={0}></MRVinput></td>
+        <td>
+          <MRVinput
+            width={"5rem"}
+            type="number"
+            min={0}
+            step={1}
+            value={thisProd.qtyExchanging}
+            onChange={(event) => {
+              handleFieldInput(event, product);
+            }}
+          ></MRVinput>
+        </td>
         <td>Picked Up</td>
         <td></td>
       </tr>
@@ -80,7 +108,7 @@ function ChooseExchangeItems() {
 
 export default ChooseExchangeItems;
 
-  /*
+/*
   
   200: { 
     quantity: 1, 

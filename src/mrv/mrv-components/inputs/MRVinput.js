@@ -10,6 +10,8 @@ function MRVinput({
   extClasses = "", //populate with a template literal, usual pattern.
   disabled = false,
   min=null,
+  max=null,
+  step=undefined,
   width = null,
   flex = null,
   onChange = null,
@@ -31,9 +33,11 @@ function MRVinput({
         placeholder={placeholder}
         label={label}
         value={value}
-        onChange={() => onChange}
+        onChange={onChange}
         disabled={disabled}
         min={min}
+        max={max}
+        step={step}
         aria-invalid="true"
       ></input>
       {helperText ? (
