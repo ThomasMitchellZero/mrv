@@ -1,40 +1,43 @@
 import classes from "./MRVinput.module.css";
 
 function MRVinput({
-  label = "label",
+  label = "",
   type = "",
-  helperText = "Helper",
-  status = "active",
+  helperText = "",
+  hasError = false,
   autoFocus = false,
   placeholder = "",
-  extClasses = "",  //populate with a template literal, usual pattern.
-  onChange = () => {},
-  value = "",
+  extClasses = "", //populate with a template literal, usual pattern.
+  disabled = false,
+
+  onChange = null,
+  value = null,
 }) {
-
-  const statusObj = {
-    active: {},
-    inactive: {},
-    error: {},
-  };
-
   return (
-    <section className={`${classes.container} ${classes[status]} ${extClasses}`}>
+    <section
+      className={`${classes.container} ${
+        hasError ? classes.error : null
+      } ${extClasses}`}
+    >
       <input
         type={type}
         autoFocus={autoFocus}
         placeholder={placeholder}
         label={label}
-        /*
-        onChange={() => onChange}
         value={value}
-         */
-
-
+        onChange={() => onChange}
+        disabled={disabled}
+        aria-invalid="true"
       ></input>
-      <p className={`body__small ${classes.helperText}`}>{helperText}</p>
+      <p className={`body__small ${disabled ? classes.disabled : null}`}>
+        {helperText}
+      </p>
     </section>
   );
 }
 
 export { MRVinput };
+
+/*
+
+*/

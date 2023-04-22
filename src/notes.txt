@@ -4650,9 +4650,40 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     -I don't have fixed column sizes, but I'm not sure I need it.  At worst I don't need it right now, so I am going to let that pass.  
 
+    Next, I should make a plan for the input fields.  Let's do some thinking here.  Styles are a given so I'm adding that down below.
 
+        -Styles for the input field states.
+            -inactive
+            -active
+            -focus
+            -error
+        
+    I found a tutorial online and it doesn't look especially hard?  I think I should probably have a component no matter what.  The other thing slowing my roll was wondering whether I should be using default validation, but if there's a reason I'm not seeing it.  
 
-    
+    I THINK I don't need to have the styles live outside the component?  I mean, if I did I could just use the component, right?
+
+    4:15.
+    Ok, either it's harder than it looks or I'm dumber than I look and I'm not going to get into this bullshit for a cosmetic feature.  
+
+    Is it still worth it to have an Input component?  Gut instinct is still yes, although I am worried about the permutations.  
+
+    6:05.
+    Ran into a bit of a stumper, but the solve is that there is an additional state called focus-visible and it was applying an extra class called 'outline'  Two things to be proud of: first, I (correctly) guessed that it had something to do with a pseudo-class and figured out how to display it, and two, that I identified the source rather than clearing every style or attempting to brute-force it.  
+
+    OK.  I think I'm going to stop here for now.  For tomorrow: first, it seems like most of what this Input is doing for me is holding the input and label in position and applying the classes.  Or, to put it another way, is it more convenient to just accept a child (which will always be an input) and apply the classes and such to the child directly?  Seems kind of hacky, but hand-copying every HTML property I plan to use into the component props and then back into the Input seems sort of goofish, too?  Either way I have definitely earned a swalk today.  
+
+22 Apr
+    8:50.
+    Goal was 9:00.  We've got a little lead.  We don't want to be the kind of people who squander a lead, right?  
+
+    So afaict, there's no easy way to just set an "invalid" pseudo class.  So I need to have an .invalid class that I will apply or remove by hand.
+
+    OK.  So then I THINK that if I just create styles for Invalid and Disabled I should be good to leave this and get into the coding.  I should also remember that this doesn't have to be perfect.  A rebus is fine for this.  
+
+    It seems to me that there's really only one class, Error.  Disabled has a pseudo class, and I definitely want to use that because it actually disables the button.  So I could also just have an Error property, and that applies the error class or not based on its presence.
+
+    OK.  I think I'm good to go.  
+
 
 
 

@@ -1,6 +1,5 @@
-@import"./mrvColors.css";
-@import"./mrvContainerSize.css";
 
+@import"./mrvContainerSize.css";
 @import url("./mrvButtons.css");
 
 @font-face {
@@ -35,6 +34,7 @@
     --color__gold: #f5b62f;
     --color__red: #971b2f;
     --color__red__inverse: #f19caa;
+    --color__disabled__text: #00000052;
 
     --color__card__selected: #e7f1fd;
     --color__card__hover: #f0f0f0;

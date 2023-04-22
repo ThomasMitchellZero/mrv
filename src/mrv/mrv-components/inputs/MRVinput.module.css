@@ -1,25 +1,52 @@
 .container{
+
+    --border__default: calc(1.5rem / 16) solid var(--color__border);
+    --border__focus: calc(1.5rem / 8) solid var(--color__interactive);
+
     display: flex;
     flex-direction: column;
     gap: .5rem;
-}
-
-.container input{
-    height: 4rem;
-    font-weight: 500;
-    font-size: 1.25rem;
     color: var(--color__tertiary);
 }
 
+.container input {
+    
+    box-sizing: border-box;
+    height: 4rem;
+    padding: 0rem 1rem;
+
+    font-weight: 500;
+    font-size: 1.25rem;
+
+
+    border: var(--border__default);
+    border-radius: 0.5rem;
+}
+
+.container input:focus {
+    outline: transparent;
+    border: var(--border__focus);
+}
+
+.container input:disabled{
+    color: var(--color__disabled__text);
+}
+
+.container.error input{
+    border-color: var(--color__red);
+}
+
+
 .container p{
     padding: 0rem 1rem;
-    color: var(--color__primary)
+    color: var(--color__primary);
+    font-weight: 500;
 }
 
-.active{
-
+.container.error p{
+    color: var(--color__red);
 }
 
-.inactive{
-    
+.container p.disabled{
+    color: var(--color__disabled__text);
 }
