@@ -51,7 +51,7 @@ function StartExchange() {
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
         <ExchHeader headerTitle="Start Exchange" hasCluster={false}/>
         <div className={`main_content main_col ${classes.main}`}>
-          <MRVinput extClasses={`${classes.testInput}`}/>
+          <MRVinput width={"40rem"} extClasses={``}/>
           <button onClick={() => handleClick()} className={`mrvBtn primary`}>
             Add Order
           </button>

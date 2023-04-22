@@ -4684,6 +4684,8 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK.  I think I'm good to go.  
 
+    Actually.  Now wondering if I would like to add the ability to control size or flex from the Component level.  It wouldn't be hard, right?
+
 
 
 

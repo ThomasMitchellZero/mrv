@@ -5,19 +5,21 @@
 
     display: flex;
     flex-direction: column;
+    
     gap: .5rem;
     color: var(--color__tertiary);
 }
 
 .container input {
+    width: 100%;
+    flex: 0 0 4rem;
     
     box-sizing: border-box;
-    height: 4rem;
+
     padding: 0rem 1rem;
 
     font-weight: 500;
     font-size: 1.25rem;
-
 
     border: var(--border__default);
     border-radius: 0.5rem;
@@ -38,6 +40,7 @@
 
 
 .container p{
+    flex: 1 1 0rem;
     padding: 0rem 1rem;
     color: var(--color__primary);
     font-weight: 500;
