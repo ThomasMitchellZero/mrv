@@ -3,7 +3,7 @@ import classes from "./MRVinput.module.css";
 function MRVinput({
   label = "",
   type = "",
-  helperText = null,
+  helperText = "",
   hasError = false,
   autoFocus = false,
   placeholder = "",
