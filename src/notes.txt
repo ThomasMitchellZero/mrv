@@ -4686,6 +4686,61 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     Actually.  Now wondering if I would like to add the ability to control size or flex from the Component level.  It wouldn't be hard, right?
 
+    OK, got that done.  Might seem silly but I really am glad I did it.  I think there would have been a lot of cases where I had to make a module for the component with input-width as the only class otherwise :/
+
+    OK.  So the displays are done.  Now I need to think about how to handle the logic.  
+        
+    I was thinking I needed a local state.  However, if I added in a "returning" property into the Session state maybe I could do it there?  
+
+    That said, I think a local state might be better.  Or, to put it another way, I'm pretty sure I'm going to need a local state for the error handling, so I might as well do the quantities there as well.  
+
+    11:15.
+    I had a great early start and I'm feeling full of energy but I'm kind of struggling to translate that into forward progress.  I'm going to list out what I need and hope that helps with some momentum.
+
+    -I need a local state and a state-setter.
+        -Map of all item:quantity
+        -page validity
+        -Error Visibility
+
+    -I need a function to update the state based on inputs.
+    
+    -On Continue, I need a function that:
+        -Checks Validity:
+            -If invalid, displays the Error state.  
+
+    
+
+    11:40.
+    OK.  I'm trying to identify how to reproduce the problem.  When I navigate to Returns, then back to Exchanges, then hit Add Invoice, I get a big red failure saying: 
+    
+    Uncaught TypeError: Cannot assign to read only property 'productDetails' of object '#<Object>'
+
+    The error is also not something happening in Returns because it also happens if I tab to Orders (which is just an empty placeholder) and do the same thing.
+
+    Also, if I start at the url mrv/returns , then navigate to Exchanges, then press the button, it all works fine.  So I THINK the error is in fact happening in Exchanges.
+
+    I ALSO notice that if I start at /exchanges, navigate to /returns and then back to /exchanges, and THEN add the order, it also works fine.  
+
+    Now.  Since I know how to avoid this error, perhaps the smart thing to do would be to just forge ahead.  But I don't really like that.  If this is something specific to Immer that can't be solved, I don't want to use Immer.  I'll just go back to my old approach of 'cloneDeep'.  And this could legitimately be a problem, because when I wanted to start over, my intuition was not to hit Cancel Order, it was to go to a different tab to restart the process.  That means it's something a user might do in a test.  
+
+    OK.  I notice I am confused.  
+
+    12:35.  
+    OK, so here's where I think I'm running into trouble.  My assumption was that once I'm inside an Immer function, it's a free-for-all and I can mutate as I please.  It turns out that is not the case.  
+
+    Here's my understanding with pictures: https://www.figma.com/file/MkOFBSDjSMm1GJCyW7VNZu/React---Past-Errors?node-id=629%3A31&t=o9HjZLGZgsVQyUaJ-1
+
+    So my hypothesis is that if I cloneDeep the {products} obj from the invoice, I should be fine because I'm no longer re-assigning anything that's read-only.
+
+    OK.  So that works.  I still don't know why my console.log() shows {productDetails} obj present in the {invoiceProducts} before it gets assigned by my for() loop, but I don't think it blocks me so I'll just move ahead.  
+
+    I was going to take a swalk but I think I will skip.  I'm still feeling pretty good, and today is a day of 'Make Good Decisions'.  Instead I will eat something and then get back after it.
+
+    -Can I use produce instead of cloneDeep on the invoice?
+        
+
+
+
 
 
 

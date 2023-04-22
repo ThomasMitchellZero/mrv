@@ -10,6 +10,8 @@ import ProductContext from "../../../../store/product-context";
 
 import { useContext } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import {produce} from "immer"
+import cloneDeep from "lodash.clonedeep";
 
 function StartExchange() {
   const exchCtx = useOutletContext();
@@ -24,17 +26,21 @@ function StartExchange() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
+
   const handleSetInvoice = (invoNum) => {
     setExchState((draft) => {
+      const orderNum = ""
 
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
-      draft.invoiceProducts = invoiceContext[invoNum].products;
+      draft.invoiceProducts = cloneDeep(invoiceContext[invoNum].products) 
+      console.log(invoiceContext[invoNum].products);
+      console.log(draft.invoiceProducts);
 
-      for(const i of Object.keys(draft.invoiceProducts)){
-        // for some reason, this doesn't work if I try to assign the property directly instead of assigning const 'details' first. 
-        const details = productContext[i];
-        draft.invoiceProducts[i].productDetails = details;
+      for (const i of Object.keys(draft.invoiceProducts)) {
+        draft.invoiceProducts[i].productDetails = { ...productContext[i] };
       }
+
+      console.log(draft.invoiceProducts);
     });
   };
 
@@ -49,10 +55,14 @@ function StartExchange() {
   return (
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
-        <ExchHeader headerTitle="Start Exchange" hasCluster={false}/>
+        <ExchHeader headerTitle="Start Exchange" hasCluster={false} />
         <div className={`main_content main_col ${classes.main}`}>
-          <MRVinput width={"40rem"} extClasses={``}/>
-          <button onClick={() => handleClick()} className={`mrvBtn primary`}>
+          <MRVinput width={"40rem"} extClasses={``} />
+          <button
+            type="button"
+            onClick={() => handleClick()}
+            className={`mrvBtn primary`}
+          >
             Add Order
           </button>
         </div>

@@ -48,7 +48,7 @@ function ChooseExchangeItems() {
         </td>
         <td>{`${thisProd.quantity}`}</td>
         <td>{`${pDetails.inStock}`}</td>
-        <td>Input</td>
+        <td><MRVinput width={"5rem"} type="number" min={0}></MRVinput></td>
         <td>Picked Up</td>
         <td></td>
       </tr>

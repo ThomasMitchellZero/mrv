@@ -9,6 +9,7 @@ function MRVinput({
   placeholder = "",
   extClasses = "", //populate with a template literal, usual pattern.
   disabled = false,
+  min=null,
   width = null,
   flex = null,
   onChange = null,
@@ -32,6 +33,7 @@ function MRVinput({
         value={value}
         onChange={() => onChange}
         disabled={disabled}
+        min={min}
         aria-invalid="true"
       ></input>
       {helperText ? (
