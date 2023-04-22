@@ -12,7 +12,7 @@ function MRVinput({
   width = null,
   flex = null,
   onChange = null,
-  value = null,
+  value = undefined,
 }) {
   const widthStyle = width ? { width: width } : {};
   const flexStyle = flex ? { flex: flex } : {};
