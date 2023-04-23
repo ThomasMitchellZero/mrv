@@ -1,25 +1,19 @@
+
 import classes from "./MRVinput.module.css";
 
 function MRVinput({
-  label = "",
-  type = "",
+  children,
   helperText = "",
   hasError = false,
-  autoFocus = false,
-  placeholder = "",
   extClasses = "", //populate with a template literal, usual pattern.
   disabled = false,
-  min=null,
-  max=null,
-  step=undefined,
   width = null,
   flex = null,
-  onChange = null,
-  value = undefined,
 }) {
   const widthStyle = width ? { width: width } : {};
   const flexStyle = flex ? { flex: flex } : {};
 
+  
   return (
     <section
       className={`${classes.container} ${
@@ -27,19 +21,7 @@ function MRVinput({
       } ${extClasses}`}
       style={{ ...widthStyle, ...flexStyle }}
     >
-      <input
-        type={type}
-        autoFocus={autoFocus}
-        placeholder={placeholder}
-        label={label}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        min={min}
-        max={max}
-        step={step}
-        aria-invalid="true"
-      ></input>
+      {children /* Put an Input container as a child b/c I am not passing 8 billion props from the parent by hand. */}
       {helperText ? (
         <p className={`body__small ${disabled ? classes.disabled : null}`}>
           {helperText}

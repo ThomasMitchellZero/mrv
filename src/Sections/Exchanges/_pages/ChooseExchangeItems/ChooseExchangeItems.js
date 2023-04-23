@@ -8,6 +8,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
+import cloneDeep from "lodash.clonedeep";
 
 const defaultState = {
   itemsToExch: new Map(),
@@ -27,12 +28,42 @@ function ChooseExchangeItems() {
   // <th onClick={clickHandler} style={{ width: `${props.width}` }}>
 
   /* ---- Shared Functions ---- */
+
+
+  const isQtyEmpty = (prodNum)=>{
+      const intTarget = parseInt(prodNum.qtyExchanging);
+      return intTarget ? false : prodNum;
+    }
+  
+
+  // Will we ever need this outside 
+  const validateInputs = (target)=>{
+    let isValid = false
+    for(const prodNum of Object.keys(target)){
+      if( parseInt(target[prodNum].qtyExchanging)){
+        isValid = true;
+        break;
+      }
+    }
+    console.log(isValid)
+    return isValid
+  }
+
+  
+
   const handleFieldInput = (event, itemNum) => {
     const input = event.target.value;
+    let outProducts = cloneDeep(orderProducts)
+    outProducts[itemNum].qtyExchanging = input;
+
+    validateInputs(outProducts);
+
     setExchState((draft) => {
-      draft.invoiceProducts[itemNum].qtyExchanging = input;
+      draft.invoiceProducts = outProducts
     });
+
   };
+
 
 
   // make headers with titles
@@ -66,16 +97,17 @@ function ChooseExchangeItems() {
         <td>{`${thisProd.quantity}`}</td>
         <td>{`${pDetails.inStock}`}</td>
         <td>
-          <MRVinput
-            width={"5rem"}
-            type="number"
-            min={0}
-            step={1}
-            value={thisProd.qtyExchanging}
-            onChange={(event) => {
-              handleFieldInput(event, product);
-            }}
-          ></MRVinput>
+          <MRVinput width={"5rem"}>
+            <input
+              type="number"
+              min={0}
+              step={1}
+              value={thisProd.qtyExchanging}
+              onChange={(event) => {
+                handleFieldInput(event, product);
+              }}
+            />
+          </MRVinput>
         </td>
         <td>Picked Up</td>
         <td></td>

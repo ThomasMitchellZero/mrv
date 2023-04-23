@@ -1,10 +1,10 @@
 Rule 0: Hands On Keyboard, Butt In Chair.  If we know what to do, we should be coding.  If we don't know what to do, we should be writing our thoughts as we try to find the path forward.
 
-RULE 1:  Coding time is in short supply and this is just a testing tool. Avoid high-effort solutions to non-central features or problems we don't expect to face.
+RULE 1:  At the end of the day, we are building testing tools.  Don't spend time and anguish on problems we don't actually expect to face.  
 
-RULE 2:  This is practice, and we can only learn by doing.  The more central a feature is to life-like function of the application, the more preferable building the hard-but-right way becomes.
+RULE 2:  We are trying to grow our skills.  Every pattern that is now routine to us was once unfamiliar and frightening.  If we have legitimate reason to believe that an unfamiliar pattern is the best way to solve the problem, do the unfamiliar pattern.
 
-RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
+RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  We literally have NEVER encoutered a situation where processing speed had any effect on the UI.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
 RULE 4:
 IME, it's generally faster to go: 
@@ -13,7 +13,7 @@ Pictograph => Think REAALLLY HARD => Alphabet.
 Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a stop en route to good code, not a detour from it.  
 
 RULE 5: 
-Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if it MUST be highly abstract, leave DETAILED comments and constantly look for ways to improve the clarity of those comments as we re-read them in the future.
+Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  The EV of 'maintain and refine your current knowledge' is generally higher than the EV of new knoweledge because if the existing knoweledge wasn't useful to you, you wouldn't have acquired it in the first place.  
 
 
 
@@ -4733,20 +4733,7 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     Also.  I made a mistake that didn't bite me, but it was still a mistake.  When I was writing my description of the mutability problem in the Figma link above, I didn't test my solution (cloneDeep).  I should have done that before I wrote my explanation because if it hadn't worked then my hypothesis was invalid and all that work would have been wasted.  
 
-    OK.
 
-    -I need a local state and a state-setter.
-        -Map of all item:quantity
-        -page validity
-        -Error Visibility
-
-    -I need a function to update the state based on inputs.
-    
-    -On Continue, I need a function that:
-        -Checks Validity:
-            -If invalid, displays the Error state.  
-
-    -I need to populate each input field with the appropriate functions.
 
     -The end result is going to be a map of the items being returned, all of their details, and their quantities.  So I think my Continue step should loop through all the items in the local state, delete any with a quantity of zero, and populate them with their item data.  
 
@@ -4767,6 +4754,29 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK. So Object it is.  If that is the case, what to do?  I feel like no matter what, I should hang onto the original InvoProducts obj.  So I think what I do is add an extra field, probably when the order/invoice is added, that tracks Exch qty.  I can preserve that - no reason to discard it when I move on - but then I think for the objects being exchanged, I just clone it and clear any zero quantities.  
 
-    I think I am going to create the ExchangingItems 
+    5:00.
+    OK.  If I have to keep adding every prop by hand to my input field I am gonna lose my fucking mind.  Let's just try this and see how it goes.
+    OK.  It worked.  And it was really easy.  I'm glad I tried this.
 
+    OK.
 
+    -I need a local state and a state-setter.
+
+        -page validity
+        -Error Visibility
+
+    X -I need a function to update the state based on inputs.
+    
+    -On Continue, I need a function that:
+        -Checks Validity:
+            -If invalid, displays the Error state.  
+
+    -I need to populate each input field with the appropriate functions.
+
+    6:20.
+    -I'm hitting a wall.  I feel like there's got to be an easier way to do what I am trying to do but I feel slow and dull and I think it's time to stop.  I'm not stuck.  I don't expect it will be hard to get back into.  I have a huge amount of freedom for how I tackle this problem.
+
+23 Apr.
+    12:20.  I don't really want to get started, but then again I never want to get started.  Instead of waiting another hour for guilt and shame to push me into action, I could just start now :)
+
+    -When I left last time, I was struggling to make the validation function work, and I think part of the reason I was struggling is because I was trying to 'universalize a ~3 line function.  Who gives a fuck.  Ditch the abstraction and write it in a way that's easy to read and understand.  Rule 3.  

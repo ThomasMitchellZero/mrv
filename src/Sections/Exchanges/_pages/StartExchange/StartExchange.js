@@ -36,7 +36,7 @@ function StartExchange() {
 
       for (const i of Object.keys(outInvoProducts)) {
         outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
-        outInvoProducts[i].qtyExchanging = "";
+        outInvoProducts[i].qtyExchanging = 0;
       }
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
       draft.invoiceProducts = outInvoProducts;
@@ -56,7 +56,10 @@ function StartExchange() {
       <section className={`mrvPanel__main exch-rows ${classes.container}`}>
         <ExchHeader headerTitle="Start Exchange" hasCluster={false} />
         <div className={`main_content main_col ${classes.main}`}>
-          <MRVinput width={"40rem"} extClasses={``} />
+          <MRVinput width={"40rem"}>
+            <input></input>
+          </MRVinput>
+
           <button
             type="button"
             onClick={() => handleClick()}
