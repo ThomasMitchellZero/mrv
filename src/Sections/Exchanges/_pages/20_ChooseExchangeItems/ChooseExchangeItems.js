@@ -24,15 +24,8 @@ function ChooseExchangeItems() {
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
-  // Returns TR ref
-  // <th onClick={clickHandler} style={{ width: `${props.width}` }}>
 
   /* ---- Shared Functions ---- */
-
-  const isQtyEmpty = (prodNum) => {
-    const intTarget = parseInt(prodNum.qtyExchanging);
-    return intTarget ? false : prodNum;
-  };
 
   // Will we ever need this outside
   const validateInputs = (target) => {
@@ -60,6 +53,10 @@ function ChooseExchangeItems() {
     setExchState((draft) => {
       draft.invoiceProducts = outProducts;
     });
+  };
+
+  const handleContinue = () => {
+    console.log("continue")
   };
 
   // make headers with titles
@@ -120,6 +117,7 @@ function ChooseExchangeItems() {
           hasIcon={"back"}
           navBtnClick={() => navigate(-1)}
         />
+        <ExchPizzaTracker />
         <section className={`main_content main_col`}>
           <table>
             <thead>
@@ -128,7 +126,14 @@ function ChooseExchangeItems() {
             <tbody>{trArray}</tbody>
           </table>
         </section>
-        <ExchPizzaTracker />
+        <section className={`footer_content right_col`}>
+          <button
+            className={`mrvBtn primary fullWidth jumbo`}
+            onClick={handleContinue}
+          >
+            Continue
+          </button>
+        </section>
       </section>
     </section>
   );

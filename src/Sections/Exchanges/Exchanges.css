@@ -62,6 +62,9 @@
 .exch-rows .footer_content{
     grid-row: footer / span 1;
     padding: var(--PrimaryPadding__both);
+    align-items: center;
     display: flex;
     flex-direction: row;
 }
+
+

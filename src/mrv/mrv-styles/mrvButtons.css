@@ -49,3 +49,7 @@
     height: 6rem;
     font-size: 1.75rem;
 }
+
+.mrvBtn.fullWidth{
+    flex: 1 1 0rem;
+}

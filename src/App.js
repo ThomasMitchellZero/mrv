@@ -30,6 +30,7 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 import Exchanges from "./Sections/Exchanges/Exchanges";
 import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
 import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
+import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="exchanges" element={<Exchanges />}>
             <Route index element={<StartExchage />} />
             <Route path="chooseitems" element={<ChooseExchangeItems />} />
+            <Route path="exch-reason" element={<ExchReason />} />
           </Route>
         </Route>
       </Routes>
