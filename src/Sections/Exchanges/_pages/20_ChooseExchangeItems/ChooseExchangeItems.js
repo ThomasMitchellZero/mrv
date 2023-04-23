@@ -50,26 +50,37 @@ function ChooseExchangeItems() {
     let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
 
-    validateInputs(outProducts);
-
     setExchState((draft) => {
       draft.invoiceProducts = outProducts;
     });
   };
 
   const handleContinue = () => {
+    const outProdMap = new Map();
     for (const itemNum of Object.keys(orderProducts)){
-      console.log(orderProducts[itemNum].qtyExchanging);
       if (orderProducts[itemNum].qtyExchanging) {
-        setExchState((draft) => {
-          //const draftItemNum = cloneDeep(draft.invoiceProducts[itemNum])
-          const draftItemNum = ""
-          draft.exchProducts.set(itemNum, 2)
-        });
-        
-        // for Manager Override, add check here.
+        outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]))
       }
     }
+
+    if(outProdMap.size){ // if there are any non-zero quantities..
+      
+      setLocSt_PickItems((draft)=>{
+        draft.formWarning = false
+      })
+
+      setExchState((draft) => {
+        draft.exchProducts = outProdMap
+      });
+    } else {
+      setLocSt_PickItems((draft)=>{
+        draft.formWarning = true
+      })
+    }
+
+
+
+
 
 
 
