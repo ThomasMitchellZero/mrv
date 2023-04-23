@@ -32,7 +32,7 @@ const defaultExchState = {
   activeOrder: "ERROR - No Order",
   activeInvoice: null,
   invoiceProducts: {},
-  sessionItems: new Map(),
+  exchProducts: new Map(),
   ptState: {
     activeNode: 0,
     ptNodes: [

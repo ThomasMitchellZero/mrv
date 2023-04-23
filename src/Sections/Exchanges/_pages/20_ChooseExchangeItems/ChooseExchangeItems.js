@@ -11,9 +11,9 @@ import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
 const defaultState = {
-  itemsToExch: new Map(),
   formValid: false,
   formWarning: false,
+  needsMO: false,
 };
 
 function ChooseExchangeItems() {
@@ -29,42 +29,38 @@ function ChooseExchangeItems() {
 
   /* ---- Shared Functions ---- */
 
+  const isQtyEmpty = (prodNum) => {
+    const intTarget = parseInt(prodNum.qtyExchanging);
+    return intTarget ? false : prodNum;
+  };
 
-  const isQtyEmpty = (prodNum)=>{
-      const intTarget = parseInt(prodNum.qtyExchanging);
-      return intTarget ? false : prodNum;
-    }
-  
-
-  // Will we ever need this outside 
-  const validateInputs = (target)=>{
-    let isValid = false
-    for(const prodNum of Object.keys(target)){
-      if( parseInt(target[prodNum].qtyExchanging)){
+  // Will we ever need this outside
+  const validateInputs = (target) => {
+    let isValid = false;
+    for (const prodNum of Object.keys(target)) {
+      if (parseInt(target[prodNum].qtyExchanging)) {
         isValid = true;
-        break;
+
+        // for Manager Override, add check here.
       }
     }
-    console.log(isValid)
-    return isValid
-  }
 
-  
+    setLocSt_PickItems((draft) => {
+      draft.formValid = isValid;
+    });
+  };
 
   const handleFieldInput = (event, itemNum) => {
     const input = event.target.value;
-    let outProducts = cloneDeep(orderProducts)
+    let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
 
     validateInputs(outProducts);
 
     setExchState((draft) => {
-      draft.invoiceProducts = outProducts
+      draft.invoiceProducts = outProducts;
     });
-
   };
-
-
 
   // make headers with titles
   const thFactory = (title = "") => {

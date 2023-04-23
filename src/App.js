@@ -28,8 +28,8 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 
 // Exchanges
 import Exchanges from "./Sections/Exchanges/Exchanges";
-import StartExchage from "./Sections/Exchanges/_pages/StartExchange/StartExchange";
-import ChooseExchangeItems from "./Sections/Exchanges/_pages/ChooseExchangeItems/ChooseExchangeItems";
+import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
+import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 
 function App() {
   return (
