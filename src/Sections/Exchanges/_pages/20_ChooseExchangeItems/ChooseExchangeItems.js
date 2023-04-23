@@ -44,7 +44,9 @@ function ChooseExchangeItems() {
   };
 
   const handleFieldInput = (event, itemNum) => {
-    const input = event.target.value;
+    let input = parseInt(event.target.value)
+    input = input ? input : 0;
+    
     let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
 
@@ -56,7 +58,22 @@ function ChooseExchangeItems() {
   };
 
   const handleContinue = () => {
-    console.log("continue")
+    for (const itemNum of Object.keys(orderProducts)){
+      console.log(orderProducts[itemNum].qtyExchanging);
+      if (orderProducts[itemNum].qtyExchanging) {
+        setExchState((draft) => {
+          //const draftItemNum = cloneDeep(draft.invoiceProducts[itemNum])
+          const draftItemNum = ""
+          draft.exchProducts.set(itemNum, 2)
+        });
+        
+        // for Manager Override, add check here.
+      }
+    }
+
+
+
+    //navigate("../exch-reason")
   };
 
   // make headers with titles

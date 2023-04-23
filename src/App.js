@@ -32,6 +32,10 @@ import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExch
 import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
 
+import {enableMapSet} from "immer"
+
+enableMapSet()
+
 function App() {
   return (
     <div className="App">

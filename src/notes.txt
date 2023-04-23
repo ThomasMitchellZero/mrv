@@ -4758,20 +4758,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     OK.  If I have to keep adding every prop by hand to my input field I am gonna lose my fucking mind.  Let's just try this and see how it goes.
     OK.  It worked.  And it was really easy.  I'm glad I tried this.
 
-    OK.
 
-    -I need a local state and a state-setter.
-
-        -page validity
-        -Error Visibility
-
-    X -I need a function to update the state based on inputs.
-    
-    -On Continue, I need a function that:
-        -Checks Validity:
-            -If invalid, displays the Error state.  
-
-    -I need to populate each input field with the appropriate functions.
 
     6:20.
     -I'm hitting a wall.  I feel like there's got to be an easier way to do what I am trying to do but I feel slow and dull and I think it's time to stop.  I'm not stuck.  I don't expect it will be hard to get back into.  I have a huge amount of freedom for how I tackle this problem.
@@ -4780,3 +4767,50 @@ BUG - cash refund finalization screen is displaying as store credit.
     12:20.  I don't really want to get started, but then again I never want to get started.  Instead of waiting another hour for guilt and shame to push me into action, I could just start now :)
 
     -When I left last time, I was struggling to make the validation function work, and I think part of the reason I was struggling is because I was trying to 'universalize a ~3 line function.  Who gives a fuck.  Ditch the abstraction and write it in a way that's easy to read and understand.  Rule 3.  
+
+
+    X-I need a local state and a state-setter.
+
+        X - page validity
+        X - Error Visibility
+        X - requiresMO
+
+    X -I need a function to update the state based on inputs.
+
+    - Before I can do any work on Continue, I need:
+        X - A button on this page
+        - Helper Text for the button
+        X - A ReturnReason page
+        X - A route to the Return Reason component.
+    
+    -On Continue, I need a function that:
+        -Checks Validity:
+
+            -If invalid: Displays the Error state. 
+            
+            -If valid: 
+                -Loop through invoiceProducts
+                -Adds anything with non-zero value to ExchProducts
+                -Increment the Pizza Tracker
+                -set Active Panels
+                -Navigate to next page
+
+    X-I need to populate each input field with the appropriate functions.
+
+    - I need to set the max{} of each input field to the lesser of invoQty and inStock  qty.  I can figure out the conditional display later, but with the max I can at least prevent any mistakes from being made.
+
+    2:35.
+    OK, so thinking about the validity.  AFAICT we aren't using form validity at ANY time other than when the button is clicked.  I don't think we even need to store it in state.  Here's what I have in mind instead.  On click:
+        
+        -Loop through invoiceProducts
+        -Adds anything with non-zero value to ExchProducts obj/map (tbd)
+        -If nothing has been added, set the formWarning state.
+        -Otherwise, set the Session state and navigate.
+
+    I really don't think we lose anything.  That 'state' doesn't need to persist at all.  And this is actually better because if we navigate back to this page, the exchange Qty will still be represented (because it's stored in the InvoItems{} obj) but the validity would be wrong because the default value is false.  OK. I think we're gonna do it.  
+
+    Now.  Object or map?  Fuck, I am so sick of this question.  OK.  How about this.  Let's TRY it as a Map.  If it's awful, I don't lose the entire app.  I do want to learn, and familiarity would help.  If my very first experience with Map were something as complex as Matchmaker, it would be much harder.
+
+    Even if it sucks or is of little value, it seems worth the exercise.  Even though I'm currently down on useReducer(), I still learned a lot by using it.  For instance, now I know that my pattern should be '1 case per expected user action, updating multiple parts of the state' and not '1 case to update each slice of the state, called in series per expected user action.' I wouldn't have known that without the context.  
+
+    
