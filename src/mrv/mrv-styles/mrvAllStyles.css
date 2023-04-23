@@ -79,7 +79,7 @@
 }
 
 
-.mrv-top .tiny-text{
+.mrv-top .tinyText{
   font-weight: 500;
   font-size: .875rem;
   line-height: 1.5rem;
@@ -89,6 +89,10 @@
 
 .mrv-top .bold{
   font-weight: 600;
+}
+
+.mrv-top .warning{
+  color: var(--color__red);
 }
 
 /* ---- MRV TABLE STYLES ---- */

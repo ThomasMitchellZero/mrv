@@ -27,26 +27,11 @@ function ChooseExchangeItems() {
 
   /* ---- Shared Functions ---- */
 
-  // Will we ever need this outside
-  const validateInputs = (target) => {
-    let isValid = false;
-    for (const prodNum of Object.keys(target)) {
-      if (parseInt(target[prodNum].qtyExchanging)) {
-        isValid = true;
-
-        // for Manager Override, add check here.
-      }
-    }
-
-    setLocSt_PickItems((draft) => {
-      draft.formValid = isValid;
-    });
-  };
 
   const handleFieldInput = (event, itemNum) => {
-    let input = parseInt(event.target.value)
+    let input = parseInt(event.target.value);
     input = input ? input : 0;
-    
+
     let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
 
@@ -55,34 +40,39 @@ function ChooseExchangeItems() {
     });
   };
 
+  const handleFieldFocus = ()=>{
+    setLocSt_PickItems((draft)=>{
+      draft.formWarning = false
+    })
+  }
+
   const handleContinue = () => {
     const outProdMap = new Map();
-    for (const itemNum of Object.keys(orderProducts)){
+
+    // check if any items have a non-zero qty.
+    for (const itemNum of Object.keys(orderProducts)) {
       if (orderProducts[itemNum].qtyExchanging) {
-        outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]))
+        outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
       }
     }
 
-    if(outProdMap.size){ // if there are any non-zero quantities..
-      
-      setLocSt_PickItems((draft)=>{
-        draft.formWarning = false
-      })
+    if (outProdMap.size) {
+      // if there are any non-zero quantities..
 
+      // clear warnings, may be redundant?
+      setLocSt_PickItems((draft) => {
+        draft.formWarning = false;
+      });
+
+      // update the global state
       setExchState((draft) => {
-        draft.exchProducts = outProdMap
+        draft.exchProducts = outProdMap;
       });
     } else {
-      setLocSt_PickItems((draft)=>{
-        draft.formWarning = true
-      })
+      setLocSt_PickItems((draft) => {
+        draft.formWarning = true;
+      });
     }
-
-
-
-
-
-
 
     //navigate("../exch-reason")
   };
@@ -124,6 +114,7 @@ function ChooseExchangeItems() {
               min={0}
               step={1}
               value={thisProd.qtyExchanging}
+              onFocus={handleFieldFocus}
               onChange={(event) => {
                 handleFieldInput(event, product);
               }}
@@ -153,6 +144,13 @@ function ChooseExchangeItems() {
             </thead>
             <tbody>{trArray}</tbody>
           </table>
+        </section>
+        <section className={`footer_text right_col`}>
+          {locSt_PickItems.formWarning ? (
+            <p className={`tinyText warning`}>
+              Enter at least one item to exchange
+            </p>
+          ) : null}
         </section>
         <section className={`footer_content right_col`}>
           <button
