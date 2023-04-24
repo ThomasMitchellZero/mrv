@@ -63,7 +63,7 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
     -At some point I need to make the little indicator that shows number of receipts / unmatched / invoices / etc. at the top left of my components.  The part on SessionItems70 where it shows Receipt List (coming soon)
 
     -For the MatchMaker - I might need a way of prioritizing Invoices and Dispo types.  Like, for each item, I think we would want to refund the highest-value invoices first.  For dispo types, I think we would want to refund Damaged dispos first.  Right now, both of these are not being processed in any intentional order.  It shouldn't be too hard - I'm already making an array to loop through, so I should just be able to sort those arrays pre-looping.
-        -This is going to become a NEED as soon as we start adding in Unwanted dispositions. AFACIT if an unwanted disposition matches first on an item with a Restock fee, customer wouldn't get the full refund?  
+        -This is going to become a NEED as soon as we start adding in Unwanted dispositions. AFAICT if an unwanted disposition matches first on an item with a Restock fee, customer wouldn't get the full refund?  
 
     -SessionItems70 and SessionInvoices70 are currently making the choice to render their respective tables or the StartScanning70 panel as conditionals within these components.  These conditions should probably be handled in the dispatching?
 
@@ -101,7 +101,7 @@ If: state on screen appears be one change behind what you've actually done, or a
 
 
 If: we are seeing [Object object] errors in the console:
-    Check the path segments of all Objects involved.  AFACIT 
+    Check the path segments of all Objects involved.  AFAICT 
     items:{
         A1A1:{
             name: "ABC",
@@ -1641,7 +1641,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             -Rejected Review
             -Sometimes in the raw Item List
 
-            -OK.  So AFACIT, these codes are only used in relation to items, and I THINK they're all in relation to either Session Items or Unmatched Items which have the same structure.  I think what I am going to do is let the Rejection Code component accept a function, but also have a default function that works on the Item data structure.
+            -OK.  So AFAICT, these codes are only used in relation to items, and I THINK they're all in relation to either Session Items or Unmatched Items which have the same structure.  I think what I am going to do is let the Rejection Code component accept a function, but also have a default function that works on the Item data structure.
 
         -Figure out how to display rejection codes.  Maybe the component accepts a function?  Or maybe there is a function in the component?
         -Create a Rejection Code component.
@@ -1913,7 +1913,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -The other option, which I currently prefer if I had to pick right now, would be to skip the overrides and go right to the end.  AFAICT, the two last BIG challenges in this process is going to be the Total Review and then the Stepper-Refund walkthrough.  
 
     -Running into an issue with the Context.  I actually do not understand the problem but it seems like you cannot useContext inside something that isn't a React component?
-        -I'm looking at the matchMaker and AFACIT it doesn't reference any external states.  Actually it gets passed two objects, which might be a mistake since those values never change?
+        -I'm looking at the matchMaker and AFAICT it doesn't reference any external states.  Actually it gets passed two objects, which might be a mistake since those values never change?
 
         -OK.  I am going to try doing this as a non-UI component because 
             a. I don't know how to do that and should probably learn.
@@ -2121,7 +2121,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -I wouldn't mind seeing if I could get all Unwanted assignment happening in the ItemDetails30 panel.  
         -MatchMaker is just so complex that anything I can take out of it helps me.  
 
-        -While looking up what to call Break and Continue (they are statements) I found something else cool.  AFACIT all statements can be given a label in the format of labelName : statement.  A Break statement can accept a label as a argument (?) by writing    break labelName  .  If you don't specify a label name, the break statement terminates execution of the current statement or loop and transfers control to whatever is next in the script.  However, you can break out of a higher loop as well.  Just specify the name, and break will break to that level. 
+        -While looking up what to call Break and Continue (they are statements) I found something else cool.  AFAICT all statements can be given a label in the format of labelName : statement.  A Break statement can accept a label as a argument (?) by writing    break labelName  .  If you don't specify a label name, the break statement terminates execution of the current statement or loop and transfers control to whatever is next in the script.  However, you can break out of a higher loop as well.  Just specify the name, and break will break to that level. 
 
     11:30
         -Ok, the error looks like somehow we deducted the same amount from Check and Credit Card in the BBB invoice, even though Check alone had more than enough to cover it.  
@@ -2523,7 +2523,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
         -Maybe the lookup?  
             -OK, I think this could be done.  I would just change the search route to stop at the key, rather than a property.  
                 -Or, actually, I think I would have the variable as part of the path, and I would just check to confirm that the number match is has the type of 'credit card'
-            -Same for a check, afacit.
+            -Same for a check, AFAICT.
         
     -OK, now onto the real question - should I be working on any of this?
         -The EASIEST solution:
@@ -3106,7 +3106,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
 
             .progress2Line {
 
-                // AFACIT, only Debit and Check could ever get here, and only if they decline In-Kind payment. So: 
+                // AFAICT, only Debit and Check could ever get here, and only if they decline In-Kind payment. So: 
 
                 credit:         /
                 check:          /
@@ -3241,7 +3241,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
             2. processess as many as it can
             3. updates the activeIndex counter (exact approach tbd)
 
-        Thinking about it, I'm not sold.  First, AFACIT the original creation isn't a dispatch, so I'd have to change a lot of stuff to get it to happen.  Nor is my test case, and since I'm not actually communicating with an outside system, the test case is the only way I can see a failure state.
+        Thinking about it, I'm not sold.  First, AFAICT the original creation isn't a dispatch, so I'd have to change a lot of stuff to get it to happen.  Nor is my test case, and since I'm not actually communicating with an outside system, the test case is the only way I can see a failure state.
 
         Another idea.  How about a shared function that sorts and then processes as far as it can in the array and returns both the list and the index for as far as it got?  I can fire it once on creation, and then again every time I change the array state?  That seems like it could work.  And I can also use it on my sample case if I need to.  OK.  I'm liking this.  I need to:
 
@@ -3564,7 +3564,7 @@ I think if I really blaze, I could complete my work tasks in the 20 section :)
     5:20.
     I'm at time and I don't feel like stopping now, so I'll move on ahead.  The issue I am running into is that downstream of SnP expects the tenders to be in a sorted array, but they're coming into the matchMaker from invoice-context as objects.  That's fine. That's probably what I would expect, and transforming them isn't going to be hard.  I think the two issues I will run into are:
 
-        -First, AFACIT I am using the labels as the way I look for matches, and I probably shouldn't. For one, no guarantee they are unique. I also don't even want them to have labels in the invoice-context, since that will be coming from the tenderizer.  I should probably check by primary key instead.
+        -First, AFAICT I am using the labels as the way I look for matches, and I probably shouldn't. For one, no guarantee they are unique. I also don't even want them to have labels in the invoice-context, since that will be coming from the tenderizer.  I should probably check by primary key instead.
 
         -I also need to add the primary key as a property since there's really no other point at which that will happen before this gets fed into SnP.  
 
@@ -3990,7 +3990,7 @@ BUG - cash refund finalization screen is displaying as store credit.
         -It might also have something to do with data?
         -It might also have something to do with Step In The Process, although that might be more of an emergent property.
 
-    AFACIT I really only have 2 big multi-display clusters - those being Index at the start and then Finalize_Refund at the end.  Storing the ActivePanels in some State seems like a pretty good option for Index, and it does not seem like a very good option for Finalize_Refund.  Part of the reason I am getting hung up is that it feels strange to handle the same problem in different ways.  So it seems like one of my two intuitions is incorrect.  Either:
+    AFAICT I really only have 2 big multi-display clusters - those being Index at the start and then Finalize_Refund at the end.  Storing the ActivePanels in some State seems like a pretty good option for Index, and it does not seem like a very good option for Finalize_Refund.  Part of the reason I am getting hung up is that it feels strange to handle the same problem in different ways.  So it seems like one of my two intuitions is incorrect.  Either:
         -They are different in a way I don't quite grok and my intuition to use the same approach is incorrect.
         -My intuition that they are different is incorrect.
 
@@ -4028,7 +4028,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     1:05
     Considering the time change and my workout, I've actually been pretty good about avoiding time-wasters all day.
 
-    I need to make two decisions.  Where to store the modal, and where to store the on-screen information.  And even if it takes the full 20, I should stay on this task until I've got a conclusion because the next two things I want to do - the in-production dispositions and the auto-request manager override - are both going to shake out differently based on what I choose.  I also need to keep in mind that AFACIT the choices aren't relevant for this app.  This is more about understanding patterns for building something else.  
+    I need to make two decisions.  Where to store the modal, and where to store the on-screen information.  And even if it takes the full 20, I should stay on this task until I've got a conclusion because the next two things I want to do - the in-production dispositions and the auto-request manager override - are both going to shake out differently based on what I choose.  I also need to keep in mind that AFAICT the choices aren't relevant for this app.  This is more about understanding patterns for building something else.  
 
     First.  I'm no longer worried about the inconsistency of hand-setting active panels in Index vs. auto-setting active panels in FinalizeRefund.  I'm going to do what's easiest for each task.  If I do have a global hand-setting capability that doesn't mean I have to use it for everything.  I only need it if it makes the work easier, and I don't know an easier way to handle the panels in Finalize_Refund.
         -Although... Looking at Finalize_Refund, I guess it could get a little simpler if I was actively specifying the 30-panels?  I should probably stop thinking about this because this is the kind of thing that causes me to spend 3 days re-working the system to eliminate 10 lines of code and the final result works exactly the same.  
@@ -4247,7 +4247,7 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     3:15
     I've spent some time looking over the ImmerReducer docs.  If I am understanding correctly: 
-        -AFACIT, this replaces the CloneDeep process.  
+        -AFAICT, this replaces the CloneDeep process.  
         -From the documentation, I THINK that if I wanted to do some complex state-changing operations, I can have nested produce() functions. 
 
     I am now wondering if I should even use useReducer at all?  As opposed to useState.  Obviously I'm going to have an app-wide state.  From what I understand, the best case for useReducer is if you're making the same kind of state change from different parts of the application.  It was a decent fit for the Session state in Returns because there were multiple points in the process where, for instance, I might be adding an invoice (add invoice, any of the lookups, a manager override for NRR, etc.) 
@@ -4500,7 +4500,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     Optional:
         -Search the store for a given invoice number.
 
-    OK.  For the time being, I'm just going to write a function that accepts an invoice# and adds the appropriate parts to the state.  I can handle the display and search later, but that already exists and is a super low priority.  I'm going to handle this in StartExchange b/c AFACIT there's nowhere else in this process an order could be added from.
+    OK.  For the time being, I'm just going to write a function that accepts an invoice# and adds the appropriate parts to the state.  I can handle the display and search later, but that already exists and is a super low priority.  I'm going to handle this in StartExchange b/c AFAICT there's nowhere else in this process an order could be added from.
 
     1:30.
     Groceries delivered and stowed, good start, good momentum, and plenty of time to run up the score.  Focus is good, at this point I need to emphasize velocity.  
@@ -4857,3 +4857,19 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     12:20.  
     Wheels spinning a bit and not 100% sur why, because I have plenty to do.  I guess I am a little bit afraid of the frustration of de-bugging the issues I'm sure I will find in the ExchNav function.
+
+    12:40.
+    OK, my test sample actually went pretty well.  OK, so what do I need to do next?
+
+        -Set up nav from index to ChooseExchItems.
+
+        -Build it and verify that it all works from Githb Pages too, because this would be a major bummer if it doesn't.
+        -Assuming success, go through all three pages and replace all(?) instances of navigate() with exchNav.  AFAICT if I have done it right useNav should go ghost green because I am not using it anymore.
+        -Make sure we are using absolute routes and not relative.  Probably     won't be an issue but I want to be sure.
+
+        -Come up with a plan to handle "Back", because IF I do change the order the URL to nav back to isn't for sure known in advance?  Thinking maybe store the previous route in Session state, and then have a ".." key that accesses it?
+
+        -Try using it for backwards nav from 03 to 02
+
+        -Get the Pizza Tracker working with the new system.
+

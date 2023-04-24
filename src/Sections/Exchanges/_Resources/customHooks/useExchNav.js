@@ -9,9 +9,11 @@ function useExchNav() {
   return ({routeStr = ""}) => {
     // if I want I can add a second argument to handle custom activePanels, but I think I'm probably fine.  
 
+    // 
+
     const exchNavObj = {
       exchreason: {
-        route: "../exchreason",
+        route: "/mrv/exchanges/exchreason",
         activePanels: {
           left: "",
           main: "fart",
@@ -21,10 +23,10 @@ function useExchNav() {
       },
 
       chooseitems: {
-        route: "chooseitems",
+        route: "/mrv/exchanges/exchreason",
         activePanels: {
           left: "",
-          main: "",
+          main: "shart",
           right: "",
         },
         ptNode: "chooseitems",
