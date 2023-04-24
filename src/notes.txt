@@ -4865,17 +4865,13 @@ BUG - cash refund finalization screen is displaying as store credit.
 
         X-Build it and verify that it all works from Githb Pages too, because this would be a major bummer if it doesn't.
 
-        -Assuming success, go through all three pages and replace all(?) instances of navigate() with exchNav.  AFAICT if I have done it right useNav should go ghost green because I am not using it anymore.
+        X -Assuming success, go through all three pages and replace all(?) instances of navigate() with exchNav.  AFAICT if I have done it right useNav should go ghost green because I am not using it anymore.
 
-        -Make sure we are using absolute routes and not relative.  Probably     won't be an issue but I want to be sure.
+        X -Make sure we are using absolute routes and not relative.  Probably     won't be an issue but I want to be sure.
 
-        -Come up with a plan to handle "Back", because IF I do change the order the URL to nav back to isn't for sure known in advance?  Thinking maybe store the previous route in Session state, and then have a ".." key that accesses it?
+        X -Try using it for backwards nav from 03 to 02
 
-            -Is this even legit?  What if the user goes back multiple times?  
-
-        -Try using it for backwards nav from 03 to 02
-
-        -Get the Pizza Tracker working with the new system.
+        X -Get the Pizza Tracker working with the new system.
 
     OK, so let's think about going back.  What are my reservations about just using ".."?  State should be fine.  Anything we care about should be either be directly stored in Session state or re-derived from date that is.  So the Session State shouldn't be a problem.  
 
@@ -4895,7 +4891,22 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK, so where does that leave me with useExchNav and Back?  How about this for a compromise?  I add in a "-1" property that just navigates back up one?  Buuuuuut, then the Pizza tracker is off, right?  
 
-    
+    4:35.  
+    I think I am finally ready to start on Choose Exch. Reason.  I will need:
+        X-Add an empty exchReason to each item.
+        X-I need to map the TRs from the itemMap.
+        X-Needs to show quantity.
+    Then I can get after the 30 panel.
+
+    6:55.
+    Normally I would knock off around now but I'm not having a bad time so I'm just going to keep going until that changes.
+
+    7:20.
+    Ok.  I'm now realizing that for the input fields I will probably need to create a stand-alone MRV component and that will be some work, so I think I'm done for the night.  Really good session today.
+
+
+
+
     
 
     

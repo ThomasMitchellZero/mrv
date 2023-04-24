@@ -29,7 +29,6 @@ function ExchReason() {
     let activeIndex = null;
 
     for (const key of exchProducts.keys()) {
-      console.log(key);
       if (!exchProducts.get(key).exchReason) {
         activeIndex = key;
         break;
