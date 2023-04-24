@@ -27,7 +27,6 @@ function ChooseExchangeItems() {
 
   /* ---- Shared Functions ---- */
 
-
   const handleFieldInput = (event, itemNum) => {
     let input = parseInt(event.target.value);
     input = input ? input : 0;
@@ -40,11 +39,11 @@ function ChooseExchangeItems() {
     });
   };
 
-  const handleFieldFocus = ()=>{
-    setLocSt_PickItems((draft)=>{
-      draft.formWarning = false
-    })
-  }
+  const handleFieldFocus = () => {
+    setLocSt_PickItems((draft) => {
+      draft.formWarning = false;
+    });
+  };
 
   const handleContinue = () => {
     const outProdMap = new Map();
@@ -67,14 +66,15 @@ function ChooseExchangeItems() {
       // update the global state
       setExchState((draft) => {
         draft.exchProducts = outProdMap;
+        draft.ptState.activeNode = 1;
       });
+
+      navigate("../exch-reason");
     } else {
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;
       });
     }
-
-    //navigate("../exch-reason")
   };
 
   // make headers with titles
@@ -108,7 +108,7 @@ function ChooseExchangeItems() {
         <td>{`${thisProd.quantity}`}</td>
         <td>{`${pDetails.inStock}`}</td>
         <td>
-          <MRVinput width={"5rem"}>
+          <MRVinput hasError={locSt_PickItems.formWarning} width={"5rem"}>
             <input
               type="number"
               min={0}
