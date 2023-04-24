@@ -49,6 +49,10 @@
     overflow: auto;
 }
 
+.exch-rows.mrvPanel__side .main_content{
+    grid-row: pTracker / span 2;
+}
+
 .exch-rows .footer_text{
     grid-row: fText / span 1;
     padding: 0rem var(--PrimaryPadding__horizontal);
