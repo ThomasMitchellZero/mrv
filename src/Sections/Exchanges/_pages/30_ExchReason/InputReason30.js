@@ -15,27 +15,21 @@ function InputReason30({}) {
   const setExchState = exchCtx.setExchSession;
   const exchProducts = exchCtx.exchSession.exchProducts;
 
-
   const defaultState = {};
-    //local state
-    const [locSt_Reason30, setLocSt_Reason30] = useImmer(defaultState);
+  //local state
+  const [locSt_Reason30, setLocSt_Reason30] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
 
-
-
-
   return (
-      <section className={`mrvPanel__side exch-rows`}>
-        <ExchHeader
-          headerTitle="Select A Reason"
-          hasCluster={false}
-        />
-        <section className={`main_content main_col`}>
-        </section>
-      </section>
- 
-
+    <section className={`mrvPanel__side exch-rows`}>
+      <ExchHeader
+        hasProductName={false}
+        headerTitle="Select A Reason"
+        hasCluster={false}
+      />
+      <section className={`main_content main_col`}></section>
+    </section>
   );
 }
 

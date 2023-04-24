@@ -8,6 +8,7 @@ import { useOutletContext, useNavigate } from "react-router";
 
 function ExchHeader({
   hasIcon = null,
+  hasProductName = true,
   headerTitle = "Title",
   hasCluster = true,
   navBtnClick = () => {
@@ -60,7 +61,7 @@ function ExchHeader({
     <section className={`main_col exchHeader ${classes.container}`}>
       {navButton}
       <section className={`${classes.mainTitle}`}>
-        <p className={`tiny-text`}>Exchanges</p>
+        <p className={`tiny-text`}>{hasProductName ? "Exchanges" : ' '}</p>
         <section className={`${classes.defaultHeight}`}>
           <h3 className={``}>{headerTitle}</h3>
         </section>
