@@ -10,13 +10,39 @@ import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-const defaultState = {};
-
 function ExchReason() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const orderProducts = exchCtx.exchSession.exchProducts;
+  const exchProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
+
+
+  const defaultState = { activeIndex: nextActive() };
+    //local state
+    const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
+
+  // Shared Functions //////////////////
+
+  function nextActive(){
+    let activeIndex = null;
+
+    for (const key of exchProducts.keys()) {
+      console.log(key);
+      if (!exchProducts.get(key).exchReason) {
+        activeIndex = key;
+        break;
+      }
+    }
+    return activeIndex;
+  };
+
+  const handleTRclick=(key)=>{
+    setLocSt_ExchReason((draft)=>{
+      draft.activeIndex = key
+    })
+  }
+
+
 
   /* ---- Shared Functions ---- */
 
@@ -28,6 +54,7 @@ function ExchReason() {
     thFactory("Product Details"),
     thFactory("Quantity"),
     thFactory("Return Reason"),
+    thFactory("Remove"),
   ];
 
   const thArray = thInputs.map((th) => {
@@ -38,14 +65,20 @@ function ExchReason() {
 
   const trArray = [];
 
-  orderProducts.forEach((value, key) => {
+  exchProducts.forEach((value, key) => {
     trArray.push(
-      <tr key={key} className={``}>
+      <tr
+        key={key}
+        className={`${locSt_ExchReason.activeIndex === key ? "active" : ""}`}
+        onClick={()=> handleTRclick(key)}
+      >
         <td>
           <ProductInfo hasPrice={true} itemObj={value} />
         </td>
+        <td>{value.qtyExchanging}</td>
+        <td>{value.exchReason}</td>
         <td>
-          {value.qtyExchanging}
+          <button className={`mrvBtn ghost`}>X</button>
         </td>
       </tr>
     );
@@ -80,6 +113,7 @@ function ExchReason() {
         </section>
         <ExchPizzaTracker />
       </section>
+      {locSt_ExchReason.activeIndex ? <section className="mrvPanel__side"></section> : null}
     </section>
   );
 }
