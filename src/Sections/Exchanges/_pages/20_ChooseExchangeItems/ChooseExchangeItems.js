@@ -55,7 +55,7 @@ function ChooseExchangeItems() {
     for (const itemNum of Object.keys(orderProducts)) {
       if (orderProducts[itemNum].qtyExchanging) {
         outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
-        outProdMap.get(itemNum).exchReason = "cat";
+        outProdMap.get(itemNum).exchReason = null;
       }
     }
 

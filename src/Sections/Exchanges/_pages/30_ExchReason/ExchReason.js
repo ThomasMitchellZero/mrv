@@ -3,6 +3,7 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
+import { InputReason30 } from "./InputReason30";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
@@ -21,9 +22,10 @@ function ExchReason() {
     //local state
     const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
 
-  // Shared Functions //////////////////
+  /* ---- Shared Functions ---- */
 
-  function nextActive(){
+  function nextActive(){ 
+    // this is a declaration because I want to keep all my functions together but I need it hoisted to use it to set the default state.
     let activeIndex = null;
 
     for (const key of exchProducts.keys()) {
@@ -44,9 +46,9 @@ function ExchReason() {
 
 
 
-  /* ---- Shared Functions ---- */
 
-  // make headers with titles
+
+  /* ---- Table Elements ---- */
   const thFactory = (title = "") => {
     return { title };
   };
@@ -86,12 +88,6 @@ function ExchReason() {
 
   /*
 
-
-
-
-
-
-
 */
 
   return (
@@ -113,7 +109,7 @@ function ExchReason() {
         </section>
         <ExchPizzaTracker />
       </section>
-      {locSt_ExchReason.activeIndex ? <section className="mrvPanel__side"></section> : null}
+      {locSt_ExchReason.activeIndex ? <InputReason30 /> : null}
     </section>
   );
 }
