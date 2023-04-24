@@ -15,7 +15,7 @@ const defaultState = {};
 function ExchReason() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const orderProducts = exchCtx.exchSession.invoiceProducts;
+  const orderProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
   /* ---- Shared Functions ---- */
@@ -24,7 +24,11 @@ function ExchReason() {
   const thFactory = (title = "") => {
     return { title };
   };
-  const thInputs = [thFactory("Product Details")];
+  const thInputs = [
+    thFactory("Product Details"),
+    thFactory("Quantity"),
+    thFactory("Return Reason"),
+  ];
 
   const thArray = thInputs.map((th) => {
     return <th key={th.title}>{th.title}</th>;
@@ -32,18 +36,30 @@ function ExchReason() {
 
   // Generate the TRs
 
-  const trArray = Object.keys(orderProducts).map((product) => {
-    const thisProd = orderProducts[product];
-    const pDetails = thisProd.productDetails;
+  const trArray = [];
 
-    return (
-      <tr key={product} className={``}>
+  orderProducts.forEach((value, key) => {
+    trArray.push(
+      <tr key={key} className={``}>
         <td>
-          <ProductInfo hasPrice={true} itemObj={thisProd} />
+          <ProductInfo hasPrice={true} itemObj={value} />
+        </td>
+        <td>
+          {value.qtyExchanging}
         </td>
       </tr>
     );
   });
+
+  /*
+
+
+
+
+
+
+
+*/
 
   return (
     <section className={`mrvPage`}>

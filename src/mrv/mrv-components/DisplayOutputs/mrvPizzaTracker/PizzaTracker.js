@@ -7,8 +7,6 @@ function PizzaTracker({ ptObj = {}, localStyles = "" }) {
   const activeNode = ptObj.activeNode;
   const activeIndex = ptArr.map(arr => arr.key).indexOf(activeNode);
 
-  console.log(ptArr , activeNode, activeIndex);
-
 
   //Computed here and not stored in state because node status is only used for display.  The actual, active value is ptState.activeNode
   const makeNodeStatus = (thisIndex) => {
