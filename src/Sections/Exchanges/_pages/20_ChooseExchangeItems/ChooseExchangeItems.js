@@ -137,7 +137,7 @@ function ChooseExchangeItems() {
           headerTitle="Select items to exchange"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => navigate(-1)}
+          navBtnClick={() => exchNav({routeStr:"index"})}
         />
         <ExchPizzaTracker />
         <section className={`main_content main_col`}>

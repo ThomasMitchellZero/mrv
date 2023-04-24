@@ -22,13 +22,6 @@ function StartExchange() {
   const productContext = useContext(ProductContext);
   const exchNav = useExchNav();
 
-
-
-  const nextAp = actPan.selectItems;
-
-  const setActivePanels = useSetActivePanels();
-  const navigate = useNavigate();
-
   /* ---- SHARED FUNCTIONS ---- */
 
 

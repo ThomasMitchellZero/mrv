@@ -30,7 +30,6 @@
 
 /* The Main panel has multiple sub-divisions which can be selected with these */
 
-/* These might be a waste? Or maybe not, since they'll mostly be used as horizontal selectors combined with a row */
 .mrvPanel__main .right_col{
     grid-column: -1 / -2;
 }

@@ -6,12 +6,23 @@ function useExchNav() {
   const exchCtx = useOutletContext();
   const setSessionSt = exchCtx.setExchSession;
 
-  return ({routeStr = ""}) => {
-    // if I want I can add a second argument to handle custom activePanels, but I think I'm probably fine.  
+  return ({ routeStr = "" }) => {
+    // if I want I can add a second argument to handle custom activePanels, but I think I'm probably fine.
 
     // How to handle back?
 
     const exchNavObj = {
+        
+      index: {
+        route: "/mrv/exchanges/",
+        activePanels: {
+          left: "shlllarrt",
+          main: "",
+          right: "",
+        },
+        ptNode: "chooseitems",
+      },
+
       exchreason: {
         route: "/mrv/exchanges/exchreason",
         activePanels: {

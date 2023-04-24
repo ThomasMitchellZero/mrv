@@ -1,34 +1,30 @@
-
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
+import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-const defaultState = {
-};
+const defaultState = {};
 
 function ExchReason() {
-  const navigate = useNavigate();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const orderProducts = exchCtx.exchSession.invoiceProducts;
-
+  const exchNav = useExchNav();
 
   /* ---- Shared Functions ---- */
-
 
   // make headers with titles
   const thFactory = (title = "") => {
     return { title };
   };
-  const thInputs = [
-    thFactory("Product Details"),
-  ];
+  const thInputs = [thFactory("Product Details")];
 
   const thArray = thInputs.map((th) => {
     return <th key={th.title}>{th.title}</th>;
@@ -56,7 +52,7 @@ function ExchReason() {
           headerTitle="Reason For Exchange"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => navigate(-1)}
+          navBtnClick={() => exchNav({ routeStr: "chooseitems" })}
         />
         <section className={`main_content main_col`}>
           <table>
@@ -72,7 +68,7 @@ function ExchReason() {
   );
 }
 
-export {ExchReason};
+export { ExchReason };
 
 /*
   
