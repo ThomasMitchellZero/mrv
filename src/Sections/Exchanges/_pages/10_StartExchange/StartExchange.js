@@ -8,6 +8,8 @@ import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePan
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
 
+import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+
 import { useContext } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 
@@ -18,6 +20,7 @@ function StartExchange() {
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
+  const exchNav = useExchNav();
 
 
 
@@ -45,8 +48,7 @@ function StartExchange() {
 
   const handleClick = () => {
     handleSetInvoice("XAAA");
-    navigate("chooseitems");
-    setActivePanels({ main: nextAp.invoItemsTable.k });
+    exchNav({routeStr:"chooseitems"})
   };
 
   /* ---- OUTPUT JSX ---- */
