@@ -34,12 +34,12 @@ const defaultExchState = {
   invoiceProducts: {},
   exchProducts: new Map(),
   ptState: {
-    activeNode: 0,
+    activeNode: "",
     ptNodes: [
-      { title: "Select Items" },
-      { title: "Reason For Exchange" },
-      { title: "Set Up Exchange" },
-      { title: "Pickup / Delivery" }
+      { key: "chooseitems", title: "Select Items" },
+      { key: "exchreason", title: "Reason For Exchange" },
+      { key: "whichforwhat", title: "Set Up Exchange" },
+      { key: "schedule", title: "Pickup / Delivery" },
     ],
   },
 };

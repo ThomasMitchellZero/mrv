@@ -3,8 +3,12 @@ import { PTnode } from "./PTnode";
 
 /*Component is designed to fill up a parent component.  That parent will be configured for the specific circumstances. */
 function PizzaTracker({ ptObj = {}, localStyles = "" }) {
-  const activeIndex = ptObj.activeNode;
   const ptArr = ptObj.ptNodes;
+  const activeNode = ptObj.activeNode;
+  const activeIndex = ptArr.map(arr => arr.key).indexOf(activeNode);
+
+  console.log(ptArr , activeNode, activeIndex);
+
 
   //Computed here and not stored in state because node status is only used for display.  The actual, active value is ptState.activeNode
   const makeNodeStatus = (thisIndex) => {
@@ -21,7 +25,7 @@ function PizzaTracker({ ptObj = {}, localStyles = "" }) {
   const nodeArr = ptArr.map((node, index) => {
 
     //0 is a PLACEHOLDER, fix soon.
-    const thisNodeStatus = makeNodeStatus(0);
+    const thisNodeStatus = makeNodeStatus(index);
     return [
       <section key={index} className={`${classes.spacer}`}>
         <div />
