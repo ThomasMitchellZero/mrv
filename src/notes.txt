@@ -4813,4 +4813,47 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     Even if it sucks or is of little value, it seems worth the exercise.  Even though I'm currently down on useReducer(), I still learned a lot by using it.  For instance, now I know that my pattern should be '1 case per expected user action, updating multiple parts of the state' and not '1 case to update each slice of the state, called in series per expected user action.' I wouldn't have known that without the context.  
 
-    
+    8:05.
+    Just came back from a STINKER of a first date, thinking about what to do next.  I think some open, systematizing questions are:
+        -Is there a really easy way to handle the Active Panels?  Maybe nested objects in the dictionary?
+        -Is there a clean way to handle the cycling I am going to have to do?  
+        -Since it is all currently Like for Like, could I skip the Item Selection screen?
+
+
+24 Apr  
+    10:10.
+    Well, slow day at work means a good day for coding!  I'm trying the same pattern as yesterday - "If you know what you should be doing, why putter until guilt overwhelms you?"  So here we are!
+
+    OK, so first things.  I don't have that 'Eureka!  I solved it!' feeling with from stashing active panels in the glossary, but I don't have any better ideas so I think I'm just gonna roll with it.  
+
+    I am also wondering about the future state where I can navigate based on nodes.  Each node/page cluster has a bunch of characteristics that are self-related.  Those include:
+        -URL
+        -Default Active Panels (would these ever change?)
+        -Active PT node that might(unlikely) change.
+        -(future) A snapshot of the state at the time?
+
+    OK, so honest question - how hard do I want to go on potential re-ordering?  I don't have that feature now.  
+
+    Let's back up.  What even are we looking at here?  I'm planning to have a custom hook that, given a key (probably a string matching the URL segment), will:
+
+        -Navigate to that URL - easy
+        -Set the Active Panels - easy
+        -Set the active PT node
+        -whatever it is I decide to do with state snapshots - hard, but a problem for Future Tom.
+
+    The reason I am wanting this is becase eventually I will add the ability to navigate by pressing the buttons.  OK, actually... this also kind of helps with the 'Back' buttons as well?  OK, so maybe it's not a stupid idea.  
+
+    So I guess what I have to do is figure out how to handle the PT node.  IF for some reason I need to add a node, that's easy.  I would need to add a condition for the new node into the code for the ExchNavigator I'm about to write, so that wouldn't be a problem.  
+
+    I need to remember that the Pizza Tracker doesn't control the sequence - it represents the sequence, and semi-loosely at that.  
+
+    So the ptNodes array in the Session state represent the steps and their order, but they aren't really the SSoT.  Should they be?  No, they can't be because there are going to be URLs in this sequence that don't have a PT node.  Between the manager approval and the Start screen I can think of two already.  
+
+    So how I need to do this is, instead of an active index, I should have an active Key.  Before rendering the pizza tracker, I get the index of the active Key, set that as my active Index, and then run the function as it is.  
+
+    And the reason to do it this way is that IF I'm ever adding/subtracting nodes, I don't know IN ADVANCE what a particular node key's index is going to be.  
+
+    OK. I think I got a plan.  Let's make this happen.  
+
+    12:20.  
+    Wheels spinning a bit and not 100% sur why, because I have plenty to do.  I guess I am a little bit afraid of the frustration of de-bugging the issues I'm sure I will find in the ExchNav function.

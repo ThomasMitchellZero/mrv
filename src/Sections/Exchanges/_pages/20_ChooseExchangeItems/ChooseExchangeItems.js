@@ -6,6 +6,8 @@ import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPiz
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
+import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
@@ -21,6 +23,7 @@ function ChooseExchangeItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const orderProducts = exchCtx.exchSession.invoiceProducts;
+  const exchNav = useExchNav();
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -66,10 +69,10 @@ function ChooseExchangeItems() {
       // update the global state
       setExchState((draft) => {
         draft.exchProducts = outProdMap;
-        draft.ptState.activeNode = 1;
       });
 
-      navigate("../exch-reason");
+      exchNav({routeStr:"exchreason"})
+
     } else {
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;

@@ -19,8 +19,9 @@ function PizzaTracker({ ptObj = {}, localStyles = "" }) {
 
   // Makes an array of arrays containing a PT node and a spacer
   const nodeArr = ptArr.map((node, index) => {
-    const thisNodeStatus = makeNodeStatus(index);
 
+    //0 is a PLACEHOLDER, fix soon.
+    const thisNodeStatus = makeNodeStatus(0);
     return [
       <section key={index} className={`${classes.spacer}`}>
         <div />
