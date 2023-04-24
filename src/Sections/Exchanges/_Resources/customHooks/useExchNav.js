@@ -12,7 +12,7 @@ function useExchNav() {
     const exchNavObj = {
       exchreason: {
         route: "../exchreason",
-        activePanel: {
+        activePanels: {
           left: "",
           main: "fart",
           right: "",
@@ -22,7 +22,7 @@ function useExchNav() {
 
       chooseitems: {
         route: "chooseitems",
-        activePanel: {
+        activePanels: {
           left: "",
           main: "",
           right: "",
@@ -34,7 +34,7 @@ function useExchNav() {
     const thisRoute = exchNavObj[routeStr];
 
     setSessionSt((draft) => {
-      draft.activePanel = thisRoute.activePanel;
+      draft.activePanels = thisRoute.activePanels;
       draft.ptState.activeNode = thisRoute.ptNode;
     });
 
