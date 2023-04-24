@@ -4861,15 +4861,42 @@ BUG - cash refund finalization screen is displaying as store credit.
     12:40.
     OK, my test sample actually went pretty well.  OK, so what do I need to do next?
 
-        -Set up nav from index to ChooseExchItems.
+        X-Set up nav from index to ChooseExchItems.
 
-        -Build it and verify that it all works from Githb Pages too, because this would be a major bummer if it doesn't.
+        X-Build it and verify that it all works from Githb Pages too, because this would be a major bummer if it doesn't.
+
         -Assuming success, go through all three pages and replace all(?) instances of navigate() with exchNav.  AFAICT if I have done it right useNav should go ghost green because I am not using it anymore.
+
         -Make sure we are using absolute routes and not relative.  Probably     won't be an issue but I want to be sure.
 
         -Come up with a plan to handle "Back", because IF I do change the order the URL to nav back to isn't for sure known in advance?  Thinking maybe store the previous route in Session state, and then have a ".." key that accesses it?
 
+            -Is this even legit?  What if the user goes back multiple times?  
+
         -Try using it for backwards nav from 03 to 02
 
         -Get the Pizza Tracker working with the new system.
+
+    OK, so let's think about going back.  What are my reservations about just using ".."?  State should be fine.  Anything we care about should be either be directly stored in Session state or re-derived from date that is.  So the Session State shouldn't be a problem.  
+
+    Nothing I care about should be stored in Local state, and it should all be derivable.  
+    
+    Any factor we change in one state shouldn't be editable in the next state, so we * shouldn't * have to worry about conflicts?  But they might not be editing in the next state...
+
+        -Could potentially be a problem?  Like if the user selects one replacement item, chooses a time, then goes back and chooses a different replacement item for which that time is not available, what happens to the time they chose?  AFACIT it's still stored in the state?  I guess for my purposes this is a minor problem and probably a Rule 1 violation.  
+
+    The other thing I have to worry about is the 30 panels. The reason I chose to store ActivePanel in the Session state rather than locally was so that I could programmatically specify WHAT 30 panels to show in URL-B from URL-A.  For the time being it's not a huge concern, since this is all pretty linear.  
+
+    So then the issue I might run into is: what if the panel depends on local information?  Like, most of the time, the Active panels are going to be determined locally, and they are going to be determined by logic that isn't available at the global level.  
+
+    Here's the compromise I think I'm going to roll with.  I will hold onto the ActivePanel object in the state for now.  If I do run into a case where I need to supersede the page logic to determine what's on screen I can use it and read from it, but otherwise I'm going to do my paneling locally.  
+
+    I think I'm going with local.  Even in Returns there was MAYBE one case where I needed to specify panels cross-url.  
+
+    OK, so where does that leave me with useExchNav and Back?  How about this for a compromise?  I add in a "-1" property that just navigates back up one?  Buuuuuut, then the Pizza tracker is off, right?  
+
+    
+    
+
+    
 

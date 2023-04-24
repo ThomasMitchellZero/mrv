@@ -18,9 +18,8 @@ const actPan = {
 
 export { actPan };
 
-// CSS Terms /////////////////////////////
 
-// end CSS Terms
+// end Active Panels
 
 const defaultExchState = {
   activePanels: {
