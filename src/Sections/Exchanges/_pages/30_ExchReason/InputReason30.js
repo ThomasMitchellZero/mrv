@@ -10,17 +10,34 @@ import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-function InputReason30({}) {
+function InputReason30({ activeItemNum }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProducts = exchCtx.exchSession.exchProducts;
+  const activeProduct = exchProducts.get(activeItemNum);
 
-  const defaultState = {};
+
+
+  const defaultState = {reason: activeProduct.exchReason};
   //local state
   const [locSt_Reason30, setLocSt_Reason30] = useImmer(defaultState);
 
+  console.log(locSt_Reason30.reason);
+
   /* ---- Shared Functions ---- */
+
+  /*
+    <label>
+    <input
+      type="radio"
+      value="option2"
+      checked={this.state.selectedOption === "option2"}
+      onChange={this.handleOptionChange}
+    />
+  </label>;
   
+  */
+
 
   return (
     <section className={`mrvPanel__side exch-rows`}>

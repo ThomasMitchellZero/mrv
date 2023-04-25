@@ -4904,7 +4904,11 @@ BUG - cash refund finalization screen is displaying as store credit.
     7:20.
     Ok.  I'm now realizing that for the input fields I will probably need to create a stand-alone MRV component and that will be some work, so I think I'm done for the night.  Really good session today.
 
+25 Apr
+    11:30.
+    Going to a store so I am raw-dogging it today.  I do have something interesting to work on so I hope that will keep me semi-on-track.
 
+    
 
 
     

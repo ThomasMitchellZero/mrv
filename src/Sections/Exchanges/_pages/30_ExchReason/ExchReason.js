@@ -17,14 +17,13 @@ function ExchReason() {
   const exchProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
-
   const defaultState = { activeIndex: nextActive() };
-    //local state
-    const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
+  //local state
+  const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
 
-  function nextActive(){ 
+  function nextActive() {
     // this is a declaration because I want to keep all my functions together but I need it hoisted to use it to set the default state.
     let activeIndex = null;
 
@@ -35,17 +34,13 @@ function ExchReason() {
       }
     }
     return activeIndex;
-  };
-
-  const handleTRclick=(key)=>{
-    setLocSt_ExchReason((draft)=>{
-      draft.activeIndex = key
-    })
   }
 
-
-
-
+  const handleTRclick = (key) => {
+    setLocSt_ExchReason((draft) => {
+      draft.activeIndex = key;
+    });
+  };
 
   /* ---- Table Elements ---- */
   const thFactory = (title = "") => {
@@ -71,7 +66,7 @@ function ExchReason() {
       <tr
         key={key}
         className={`${locSt_ExchReason.activeIndex === key ? "active" : ""}`}
-        onClick={()=> handleTRclick(key)}
+        onClick={() => handleTRclick(key)}
       >
         <td>
           <ProductInfo hasPrice={true} itemObj={value} />
@@ -108,7 +103,9 @@ function ExchReason() {
         </section>
         <ExchPizzaTracker />
       </section>
-      {locSt_ExchReason.activeIndex ? <InputReason30 /> : null}
+      {locSt_ExchReason.activeIndex ? (
+        <InputReason30 activeItemNum={locSt_ExchReason.activeIndex} />
+      ) : null}
     </section>
   );
 }
