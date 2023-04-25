@@ -13,16 +13,41 @@ import cloneDeep from "lodash.clonedeep";
 function InputReason30({ activeItemNum }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProducts = exchCtx.exchSession.exchProducts;
-  const activeProduct = exchProducts.get(activeItemNum);
+  const activeProduct = exchCtx.exchSession.exchProducts.get(activeItemNum);
 
-
-
-  const defaultState = {reason: activeProduct.exchReason};
+  const defaultState = { reason: activeProduct.exchReason };
   //local state
   const [locSt_Reason30, setLocSt_Reason30] = useImmer(defaultState);
 
   console.log(locSt_Reason30.reason);
+
+  const radioReasons = [
+    { txt: "Doesn't Work" },
+    { txt: "Missing Parts" },
+    { txt: "Broken" },
+    { txt: "Cosmetic" },
+    { txt: "Out Of Package" },
+    { txt: "Used" },
+    { txt: "Warranty" },
+  ];
+
+  const reasonRadioArr = radioReasons.map((reasonObj) => {
+    const reasonTxt = reasonObj.txt;
+    return (
+      <label key={reasonTxt}>
+        <input
+          type="radio"
+          checked={locSt_Reason30.reason === reasonTxt}
+          onChange={() =>
+            setLocSt_Reason30((draft) => {
+              draft.reason = reasonTxt;
+            })
+          }
+        />
+        {reasonTxt}
+      </label>
+    );
+  });
 
   /* ---- Shared Functions ---- */
 
@@ -38,7 +63,6 @@ function InputReason30({ activeItemNum }) {
   
   */
 
-
   return (
     <section className={`mrvPanel__side exch-rows`}>
       <ExchHeader
@@ -46,7 +70,7 @@ function InputReason30({ activeItemNum }) {
         headerTitle="Select A Reason"
         hasCluster={false}
       />
-      <section className={`main_content main_col`}></section>
+      <section className={`main_content main_col`}>{reasonRadioArr}</section>
     </section>
   );
 }
