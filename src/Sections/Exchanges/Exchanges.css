@@ -49,6 +49,11 @@
     overflow: auto;
 }
 
+.exch-rows .main_content.alignLeft{
+
+    align-items: flex-start;
+}
+
 .exch-rows.mrvPanel__side .main_content{
     grid-row: pTracker / span 2;
 }

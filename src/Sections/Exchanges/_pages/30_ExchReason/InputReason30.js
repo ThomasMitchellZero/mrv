@@ -15,11 +15,17 @@ function InputReason30({ activeItemNum }) {
   const setExchState = exchCtx.setExchSession;
   const activeProduct = exchCtx.exchSession.exchProducts.get(activeItemNum);
 
+  console.log(activeProduct);
+
   const defaultState = { reason: activeProduct.exchReason };
   //local state
   const [locSt_Reason30, setLocSt_Reason30] = useImmer(defaultState);
 
   console.log(locSt_Reason30.reason);
+
+  /* ---- Shared Functions ---- */
+
+  /* ---- UI Elements ---- */
 
   const radioReasons = [
     { txt: "Doesn't Work" },
@@ -49,20 +55,6 @@ function InputReason30({ activeItemNum }) {
     );
   });
 
-  /* ---- Shared Functions ---- */
-
-  /*
-    <label>
-    <input
-      type="radio"
-      value="option2"
-      checked={this.state.selectedOption === "option2"}
-      onChange={this.handleOptionChange}
-    />
-  </label>;
-  
-  */
-
   return (
     <section className={`mrvPanel__side exch-rows`}>
       <ExchHeader
@@ -70,7 +62,9 @@ function InputReason30({ activeItemNum }) {
         headerTitle="Select A Reason"
         hasCluster={false}
       />
-      <section className={`main_content main_col`}>{reasonRadioArr}</section>
+      <section className={`main_content main_col alignLeft`}>
+        {reasonRadioArr}
+      </section>
     </section>
   );
 }
