@@ -1,6 +1,5 @@
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
-
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
@@ -23,10 +22,15 @@ function InputReason30({
   /* ---- Shared Functions ---- */
 
   const handleApply = () => {
+    let outItems = ""
     setExchState((draft) => {
       draft.exchProducts.get(activeItemNum).itemDispo = pendingDispo;
-      const outItems = current(draft.exchProducts)
-      console.log(nextActiveFunc(outItems))
+      const outItems = current(draft.exchProducts);
+      console.log(nextActiveFunc(outItems));
+
+      setLocSt_ExchReason((draft) => {
+        return nextActiveFunc(outItems);
+      });
     });
   };
 

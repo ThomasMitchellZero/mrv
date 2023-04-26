@@ -48,10 +48,10 @@ function ExchReason() {
 
   const nextActive = (productMap)=> {
     // declaration b/c  I need this hoisted for default{}
-    let outLocStObj = "";
+    let outLocStObj = {pendingDispo: null};
     for (const key of productMap.keys()) {
       if(!productMap.get(key).itemDispo){
-          outLocStObj = key;
+          outLocStObj.activeKey = key;
           break
       }
     }
