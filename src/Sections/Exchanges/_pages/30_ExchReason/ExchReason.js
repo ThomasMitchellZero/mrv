@@ -17,34 +17,34 @@ function ExchReason() {
   const exchProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
-
-
-  const defaultState = {...nextActive(exchProducts)};
+  const defaultState = {
+    ...nextActive(exchProducts),
+    is30valid: false,
+    show30warning: false,
+  };
   //local state
 
   const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
 
-  
   /* ---- Shared Functions ---- */
 
-  function nextActive (productMap) {
+  function nextActive(productMap) {
     // declaration b/c  I need this hoisted for default{}
-    let outLocStObj = {pendingDispo: null};
+    let outLocStObj = { pendingDispo: null };
     for (const key of productMap.keys()) {
-      if(!productMap.get(key).itemDispo){
-          outLocStObj.activeKey = key;
-          break
+      if (!productMap.get(key).itemDispo) {
+        outLocStObj.activeKey = key;
+        break;
       }
     }
-    return outLocStObj
+    return outLocStObj;
   }
-
-
 
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
       draft.activeKey = key;
       draft.pendingDispo = exchProducts.get(key).itemDispo;
+      draft.show30warning = false;
     });
   };
 
@@ -116,6 +116,7 @@ function ExchReason() {
 
           activeItemNum={locSt_ExchReason.activeKey}
           pendingDispo={locSt_ExchReason.pendingDispo}
+          locSt_ExchReason={locSt_ExchReason}
           nextActiveFunc={nextActive}
           setLocSt_ExchReason={setLocSt_ExchReason}
         />

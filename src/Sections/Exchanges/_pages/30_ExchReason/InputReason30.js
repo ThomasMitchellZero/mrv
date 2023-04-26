@@ -10,27 +10,35 @@ import cloneDeep from "lodash.clonedeep";
 import { current } from "immer";
 
 function InputReason30({
-  activeItemNum,
-  pendingDispo,
   nextActiveFunc,
+  locSt_ExchReason,
   setLocSt_ExchReason,
 }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
 
-
   /* ---- Shared Functions ---- */
 
   const handleApply = () => {
+    const activeKey = locSt_ExchReason.activeKey;
+    const pendingDispo = locSt_ExchReason.pendingDispo;
 
-    setExchState((draft) => {
-      draft.exchProducts.get(activeItemNum).itemDispo = pendingDispo;
-      const outItems = current(draft.exchProducts);
+    if (pendingDispo) {
+      setExchState((draft) => {
+        draft.exchProducts.get(activeKey).itemDispo = pendingDispo;
+        const outItems = current(draft.exchProducts);
 
-      setLocSt_ExchReason(() => {
-        return nextActiveFunc(outItems);
+        setLocSt_ExchReason(() => {
+            const outObj = nextActiveFunc(outItems)
+            outObj.show30warning = false;
+          return outObj;
+        });
       });
-    });
+    } else {
+        setLocSt_ExchReason((draft) => {
+            draft.show30warning = true;
+          });
+    }
   };
 
   /* ---- UI Elements ---- */
@@ -51,10 +59,11 @@ function InputReason30({
       <label key={reasonTxt}>
         <input
           type="radio"
-          checked={pendingDispo === reasonTxt}
+          checked={locSt_ExchReason.pendingDispo === reasonTxt}
           onChange={() =>
             setLocSt_ExchReason((draft) => {
               draft.pendingDispo = reasonTxt;
+              draft.show30warning = false;
             })
           }
         />
@@ -73,6 +82,13 @@ function InputReason30({
       <section className={`main_content main_col alignLeft`}>
         {reasonRadioArr}
       </section>
+      <section className={`footer_text`}>
+          {locSt_ExchReason.show30warning ? (
+            <p className={`tinyText warning`}>
+              Select reason item is being exchanged
+            </p>
+          ) : null}
+        </section>
       <section className={`footer_content`}>
         <button
           className={`mrvBtn primary fullWidth jumbo`}
