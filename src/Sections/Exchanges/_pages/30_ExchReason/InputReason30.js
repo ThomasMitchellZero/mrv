@@ -17,18 +17,17 @@ function InputReason30({
 }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  //const setParent = setLocSt_ExchReason
+
 
   /* ---- Shared Functions ---- */
 
   const handleApply = () => {
-    let outItems = ""
+
     setExchState((draft) => {
       draft.exchProducts.get(activeItemNum).itemDispo = pendingDispo;
       const outItems = current(draft.exchProducts);
-      console.log(nextActiveFunc(outItems));
 
-      setLocSt_ExchReason((draft) => {
+      setLocSt_ExchReason(() => {
         return nextActiveFunc(outItems);
       });
     });

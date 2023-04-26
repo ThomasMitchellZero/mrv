@@ -17,36 +17,17 @@ function ExchReason() {
   const exchProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
-  const defaultState = {};
+
+
+  const defaultState = {...nextActive(exchProducts)};
   //local state
 
   const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
 
+  
   /* ---- Shared Functions ---- */
 
-  // Loops through exchProducts, looking for empty dispositions.
-
-  /*
-  
-  
-    function nextActive() {// declaration b/c  I need this hoisted for default{}
-    let outLocStObj = { activeKey: null, pendingDispo: null };
-
-    for (const key of exchProducts.keys()) {
-      outLocStObj.pendingDispo = exchProducts.get(key).itemDispo
-      if (!exchProducts.get(key).itemDispo) {
-        outLocStObj.activeKey = key;
-        break;
-      }
-    }
-    console.log(outLocStObj)
-    return outLocStObj;
-  }
-  
-  
-  */
-
-  const nextActive = (productMap)=> {
+  function nextActive (productMap) {
     // declaration b/c  I need this hoisted for default{}
     let outLocStObj = {pendingDispo: null};
     for (const key of productMap.keys()) {
@@ -57,6 +38,7 @@ function ExchReason() {
     }
     return outLocStObj
   }
+
 
 
   const handleTRclick = (key) => {
