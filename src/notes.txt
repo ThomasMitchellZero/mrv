@@ -4908,6 +4908,36 @@ BUG - cash refund finalization screen is displaying as store credit.
     11:30.
     Going to a store so I am raw-dogging it today.  I do have something interesting to work on so I hope that will keep me semi-on-track.
 
+    4:40.  
+    SBB, SBP.  If I can rawdog a solid 90, that's pretty good considering.  OK.  My first question is why changing the active TR doesn't change what is selected in the 30 panel, and I am wondering if it's because I'm tracking the 30 panel in a state and not a variable?  
+
+    6:30.  Ok.  Through a haze of incomprehension I did succeed in gettin the 30 panel to set the radio buttons purely through the parent's state.  I'm really not in a good position to determine what's happening or why it's working so I'm gonna have to put that off for another time.
+
+26 Apr
+    9:55.
+    Day CURRENTLY looks clear.  Let's see if we can't thrash ahead here.  The first thing I want to do is:
+    
+    X-Go through the code, clean it up, and make sure I've got a clear understanding of how it works.  
+
+    -Delete an item.
+        -Don't allow the last item to get deleted.
+
+    -Apply selected reason to the item.
+        -Error Handling.
+        -Run the function to get the next item.
+
+    -Continue Button.
+
+    -Styling the buttons
+        -Text, text size.
+        -Button size?
+        -Trash Can icon for buttons
+        -Get rid of the blue background.
+        -Figure out a plan for how to get the divider in.
+    
+    11:50.
+    OK, got a snag here.  Something isn't working right in my nextActive() function.  I had/have kicked around the idea of setting it as a variable, but I fear I might run into snags because variables are not preserved between renders and I think I have a lot of ways that generate renders.  
+
     
 
 

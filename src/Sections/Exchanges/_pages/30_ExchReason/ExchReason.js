@@ -17,28 +17,47 @@ function ExchReason() {
   const exchProducts = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
-  const defaultState = { activeIndex: nextActive() };
+  const defaultState = {};
   //local state
+
   const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
 
-  function nextActive() {
-    // this is a declaration because I want to keep all my functions together but I need it hoisted to use it to set the default state.
-    let activeIndex = null;
+  // Loops through exchProducts, looking for empty dispositions.
+
+  /*
+  
+  
+    function nextActive() {// declaration b/c  I need this hoisted for default{}
+    let outLocStObj = { activeKey: null, pendingDispo: null };
 
     for (const key of exchProducts.keys()) {
-      if (!exchProducts.get(key).exchReason) {
-        activeIndex = key;
+      outLocStObj.pendingDispo = exchProducts.get(key).itemDispo
+      if (!exchProducts.get(key).itemDispo) {
+        outLocStObj.activeKey = key;
         break;
       }
     }
-    return activeIndex;
+    console.log(outLocStObj)
+    return outLocStObj;
+  }
+  
+  
+  */
+
+  function nextActive() {
+    // declaration b/c  I need this hoisted for default{}
+    let outLocStObj = {};
+    for (const key of exchProducts.keys()) {
+      console.log(key);
+    }
   }
 
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
-      draft.activeIndex = key;
+      draft.activeKey = key;
+      draft.pendingDispo = exchProducts.get(key).itemDispo;
     });
   };
 
@@ -46,6 +65,7 @@ function ExchReason() {
   const thFactory = (title = "") => {
     return { title };
   };
+
   const thInputs = [
     thFactory("Product Details"),
     thFactory("Quantity"),
@@ -65,14 +85,14 @@ function ExchReason() {
     trArray.push(
       <tr
         key={key}
-        className={`${locSt_ExchReason.activeIndex === key ? "active" : ""}`}
+        className={`${locSt_ExchReason.activeKey === key ? "active" : ""}`}
         onClick={() => handleTRclick(key)}
       >
         <td>
           <ProductInfo hasPrice={true} itemObj={value} />
         </td>
         <td>{value.qtyExchanging}</td>
-        <td>{value.exchReason}</td>
+        <td>{value.itemDispo}</td>
         <td>
           <button className={`mrvBtn ghost`}>X</button>
         </td>
@@ -103,8 +123,15 @@ function ExchReason() {
         </section>
         <ExchPizzaTracker />
       </section>
-      {locSt_ExchReason.activeIndex ? (
-        <InputReason30 activeItemNum={locSt_ExchReason.activeIndex} />
+      {locSt_ExchReason.activeKey ? (
+        <InputReason30
+          /*  key={locSt_ExchReason.activeKey} */
+
+          activeItemNum={locSt_ExchReason.activeKey}
+          pendingDispo={locSt_ExchReason.pendingDispo}
+          nextActiveFunc={nextActive}
+          setLocSt_ExchReason={setLocSt_ExchReason}
+        />
       ) : null}
     </section>
   );
