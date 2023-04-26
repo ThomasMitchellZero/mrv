@@ -8,6 +8,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useOutletContext, useNavigate } from "react-router";
 
 import cloneDeep from "lodash.clonedeep";
+import { current } from "immer";
 
 function InputReason30({
   activeItemNum,
@@ -24,10 +25,9 @@ function InputReason30({
   const handleApply = () => {
     setExchState((draft) => {
       draft.exchProducts.get(activeItemNum).itemDispo = pendingDispo;
+      const outItems = current(draft.exchProducts)
+      console.log(nextActiveFunc(outItems))
     });
-
-    nextActiveFunc()
-
   };
 
   /* ---- UI Elements ---- */

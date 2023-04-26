@@ -46,13 +46,18 @@ function ExchReason() {
   
   */
 
-  function nextActive() {
+  const nextActive = (productMap)=> {
     // declaration b/c  I need this hoisted for default{}
-    let outLocStObj = {};
-    for (const key of exchProducts.keys()) {
-      console.log(key);
+    let outLocStObj = "";
+    for (const key of productMap.keys()) {
+      if(!productMap.get(key).itemDispo){
+          outLocStObj = key;
+          break
+      }
     }
+    return outLocStObj
   }
+
 
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
