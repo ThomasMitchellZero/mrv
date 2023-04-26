@@ -49,6 +49,8 @@ function ExchReason() {
   };
 
   /* ---- Table Elements ---- */
+
+  // generate <th>
   const thFactory = (title = "") => {
     return { title };
   };
@@ -64,7 +66,7 @@ function ExchReason() {
     return <th key={th.title}>{th.title}</th>;
   });
 
-  // Generate the TRs
+  // Generate <tr>s
 
   const trArray = [];
 
@@ -81,15 +83,15 @@ function ExchReason() {
         <td>{value.qtyExchanging}</td>
         <td>{value.itemDispo}</td>
         <td>
-          <button className={`mrvBtn ghost`}>X</button>
+          <button type="button" className={`mrvBtn ghost`}>
+            X
+          </button>
         </td>
       </tr>
     );
   });
 
-  /*
-
-*/
+  /* ---- Final Component ---- */
 
   return (
     <section className={`mrvPage`}>

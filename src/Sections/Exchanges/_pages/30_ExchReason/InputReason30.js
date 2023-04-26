@@ -29,15 +29,15 @@ function InputReason30({
         const outItems = current(draft.exchProducts);
 
         setLocSt_ExchReason(() => {
-            const outObj = nextActiveFunc(outItems)
-            outObj.show30warning = false;
+          const outObj = nextActiveFunc(outItems);
+          outObj.show30warning = false;
           return outObj;
         });
       });
     } else {
-        setLocSt_ExchReason((draft) => {
-            draft.show30warning = true;
-          });
+      setLocSt_ExchReason((draft) => {
+        draft.show30warning = true;
+      });
     }
   };
 
@@ -83,14 +83,15 @@ function InputReason30({
         {reasonRadioArr}
       </section>
       <section className={`footer_text`}>
-          {locSt_ExchReason.show30warning ? (
-            <p className={`tinyText warning`}>
-              Select reason item is being exchanged
-            </p>
-          ) : null}
-        </section>
+        {locSt_ExchReason.show30warning ? (
+          <p className={`tinyText warning`}>
+            Select reason item is being exchanged
+          </p>
+        ) : null}
+      </section>
       <section className={`footer_content`}>
         <button
+          type="button"
           className={`mrvBtn primary fullWidth jumbo`}
           onClick={handleApply}
         >
