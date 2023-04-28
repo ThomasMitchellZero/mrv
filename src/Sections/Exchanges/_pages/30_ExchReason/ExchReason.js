@@ -6,19 +6,22 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { InputReason30 } from "./InputReason30";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
+import { current } from "immer";
 
 function ExchReason() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProducts = exchCtx.exchSession.exchProducts;
+  const exchProdsMap = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
 
+
   const defaultState = {
-    ...nextActive(exchProducts),
+    ...nextActive(exchProdsMap),
     is30valid: false,
     show30warning: false,
   };
@@ -30,7 +33,7 @@ function ExchReason() {
 
   function nextActive(productMap) {
     // declaration b/c  I need this hoisted for default{}
-    let outLocStObj = { pendingDispo: null };
+    let outLocStObj = { pendingDispo: null, show30warning: false };
     for (const key of productMap.keys()) {
       if (!productMap.get(key).itemDispo) {
         outLocStObj.activeKey = key;
@@ -40,12 +43,32 @@ function ExchReason() {
     return outLocStObj;
   }
 
+  /*
+  
+  
+  */
+
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
       draft.activeKey = key;
-      draft.pendingDispo = exchProducts.get(key).itemDispo;
+      draft.pendingDispo = exchProdsMap.get(key).itemDispo;
       draft.show30warning = false;
     });
+  };
+
+  const handleDelete = ({ event, prodKey }) => {
+    // setLocalState
+    setExchState((draft) => {
+      draft.exchProducts.delete(prodKey);
+      const outItems = current(draft.exchProducts);
+
+      setLocSt_ExchReason(() => {
+        const outObj = nextActive(outItems);
+        return outObj;
+      });
+    });
+
+    event.stopPropagation();
   };
 
   /* ---- Table Elements ---- */
@@ -70,7 +93,7 @@ function ExchReason() {
 
   const trArray = [];
 
-  exchProducts.forEach((value, key) => {
+  exchProdsMap.forEach((value, key) => {
     trArray.push(
       <tr
         key={key}
@@ -83,7 +106,13 @@ function ExchReason() {
         <td>{value.qtyExchanging}</td>
         <td>{value.itemDispo}</td>
         <td>
-          <button type="button" className={`mrvBtn ghost`}>
+          <button
+            type="button"
+            className={`mrvBtn ghost`}
+            onClick={(event) => {
+              handleDelete({ prodKey: key, event: event });
+            }}
+          >
             X
           </button>
         </td>

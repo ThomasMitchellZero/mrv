@@ -30,7 +30,6 @@ function InputReason30({
 
         setLocSt_ExchReason(() => {
           const outObj = nextActiveFunc(outItems);
-          outObj.show30warning = false;
           return outObj;
         });
       });

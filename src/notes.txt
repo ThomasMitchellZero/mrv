@@ -4919,14 +4919,13 @@ BUG - cash refund finalization screen is displaying as store credit.
     
     X-Go through the code, clean it up, and make sure I've got a clear understanding of how it works.  
 
-    -Delete an item.
+    -Delete an item.  
         -Don't allow the last item to get deleted.
 
-    -Apply selected reason to the item.
-        -Error Handling.
-        -Run the function to get the next item.
-
     -Continue Button.
+        X -Apply selected reason to the item.
+        X -Error Handling.
+        X -Run the function to get the next item.
 
     -Styling the buttons
         -Text, text size.
@@ -4938,10 +4937,97 @@ BUG - cash refund finalization screen is displaying as store credit.
     11:50.
     OK, got a snag here.  Something isn't working right in my nextActive() function.  I had/have kicked around the idea of setting it as a variable, but I fear I might run into snags because variables are not preserved between renders and I think I have a lot of ways that generate renders.  
 
-    
+    1:50.
+    Well, I think I actually fixed it.  The key was learning about the current(draft) method(?) in Immer.  I don't actually know why, but for some reason, even though my update to the local state came second, it was reading from the old value of the Session state.  There is SO much I don't know about JS and React, but my guess is that for some reason the Session update Immer hook was resolving AFTER the local update, and that's why it was always behind?  Idk.  I got a solve, and I have a meeting in about 5 minutes that might require me to do my real job the rest of the day so we will see what goes down.  
+
+    4:00.
+    OK, things are going pretty well here.  Now I need to figure out how to handle item deletion.  
+
+    I think I need to start with a custom hook.  Whatever route I choose to handle item deletion is going to follow the same path.  
+
+    OK.  So now what do I want to do?  My first question was how to make it behave, but before that I guess I need to answer another question, and that's the local state setting.
+
+    In a worst-case scenario, I think I can set my deletion function to accept a callback that I can run to set the local state, but now I got a crazy idea.  You can nest Immers.  What if I nest a global-state-set inside a local-state-set?  Would that work?  
+
+    6:20.
+    After some puttery I at least got the deletion working.  The local state / global state still kind of sucks.
+
+27 Apr.
+
+    3:40.
+
+    Options as I see it:
+
+    * Have the Delete function accept a callback, and run the callback on the current() output?
+        -This seems a little fucky?  Maybe just aesthetic, but kind of not-flexible?  
+
+    * cloneDeep, manually set the state, and use that to set both drafts.
+        -If we are doing this then we really have no business using Immer.
+
+    * See if I can use an anonymous function to force the session update to happen before the local update?  
+        -Don't know if it will work, but cleanest solution?
+
+    * Move more functionality into the Session state.  
+        -Could work?  Maybe a shared custom hook that accepts a condition and returns the first Item that meets the condition?  But how to set the first state of the upcoming component?  
+
+    OK, of these options, only the anonymous function doesn't appear to require a giant re-write.  I am going to try that and then re-evaluate.
+
+    5:20.
+    The anonymous function didn't work.  It was the same result as trying to run the parent setter inside the local setter - can't update the parent while the child is updating, something like that.
+
+    So here's where I am struggling.  I need the value produced by the parent state to correctly calculate the local state.  I feel like I should not be struggling with this so much.  And the fact that I am struggling so much makes me afraid that I am missing something important.  
+
+    I guess the first thing to note is that I actually do have an in-system solve.  current() doesn't seem to work at getting a value outside the closure of a produce() function, but for anything within the closure, it works just fine, even another produce() function.  I'm doing damn near exactly the thing I want to do when I Apply the dispo in the 30 panel.  The only reason I'm stalling here is that:
+        -I'm thinking about adding a check for an empty cart, the value of which is dubious.
+        -If I DO decide I need this, I could make useRemoveItem accept a callback that it calls on its own current() value.  
+        -If I don't want to fiddle with the callback I could just make a function that only validates, and then do the state-setting within the closure.
+
+    -OK.  First let's test this bitch and make sure I'm not just looking dumb here.  
+
+    -Looks like I'm looking dumb here.  Exact same problem as before.  Cannot update a component (`ExchReason`) while rendering a different component (`Exchanges`).  I think I'm gonna call it a day and think about what to do next.  
+
+28 Mar
+    10:10.  Well, well, here we are again.  
+
+    OK, this looks useful.  https://react.dev/reference/react/useLayoutEffect .  Apparently I can automatically set local state on render?  Did I know that?  
+
+    When a prop changes.
+    https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
 
 
-    
+    Chains of Computation: 
+    https://react.dev/learn/you-might-not-need-an-effect#chains-of-computations
 
-    
+
+    OK, so what have we learned?  First, I don't think Immer is the problem.  A change in state (or multiple changes in state) triggers a re-render, but those renders happen concurrently, and they all depend on the current state of the application.  
+
+    AFAICT this isn't new, either.  What I was doing in the past was to make a deepClone of the target state, update the clone, then pass whatever parts of it I needed into my various update functions.  
+
+    How do I want to handle this?  And YTF am I having such a hard time focusing?  
+
+    * use CloneDeep to make a draft of anything that's involved in multiple mutations and mutate from that draft, but keep managing state in Immer.  Remember, Immer is NOT the problem.
+        -I don't see anything wrong with this, and I think that's the problem.  AFAICT this shouldn't be necessary with Immer.  
+
+    * Store ActiveItem in ExchSession.  WHAT is active will depend on the page and the calculation determine what to set as Active can be done locally, but the actual Active Index setting and storage live in the Session.
+        -Mostly good, but what to do on Page Load?  If that calculation is done locally but stored globally, I can't know what it should be before setting the parent.  
+            
+        Gun to my head solve:
+            * Write any child-specifc functions that calculate (not set) global state locally.  
+            * Export it along with the parent.  If multiple, bundle them all into one.
+            * Include it in the respective Nav object for useExchNav.  That's already setting the global state, so I should be able to get the current(draft) there.
+        -This seems like a long fucking way to go.
+
+    * Just the opposite.  Calculate local state automatically on render.  By the time the child component renders, the parent state will have already updated so the value isn't stale.  This is very clean and intuitive.  Everything lives where I would expect it to live and happens where I would expect it to happen.  
+        -My feeling is that I lose some control here.  The thought of having to pre-determine with logic how to set the local state seems kind of hairy?
+
+        -Like, if I click to set the the active item in the local state, doesn't that trigger a re-render, which would then...flush the local state I just set?  
+
+        -I'm sure I could figure out a way  to handle it with conditionals stored in the local state, like a boolean that tells it not to re-calcuate.  
+
+        -I do have this weird sense that if I go this route that in the rebus phase I might discover a more clear pattern in the logic.  
+
+        At the moment, this feels like a winner.  
+
+
+
 
