@@ -6,6 +6,15 @@
         box-sizing: border-box;
         align-items: flex-start;
         background-color: #fff;
+        --standardBorder: calc(1.5rem / 16) solid var(--color__border);
+}
+
+.mrvPage .border__left{
+    border-left: var(--standardBorder);
+}
+
+.mrvPage .border__right{
+    border-right: var(--standardBorder);
 }
 
 /*Since the standard size of rows will be different in different MRV Products, grid-template-row is specified at the Product level. */
@@ -24,7 +33,6 @@
     display: grid;
     flex: 2 2 0rem;
     max-width: 30rem;
-    background-color: cornflowerblue;
     grid-template-columns: 1fr;
 }
 

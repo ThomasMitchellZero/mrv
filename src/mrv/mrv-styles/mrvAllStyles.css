@@ -142,3 +142,33 @@
 .mrv-top tbody tr.active:hover{
     background-color: var(--color__card__selected__hover);
 }
+
+/* ---- MRV RADIO INPUT STYLES ---- */
+
+.mrv-top label.radio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 2.5rem;
+  width: 100%;
+}
+
+.mrv-top .radio input{
+  flex: 0 0 1rem;
+  height: 1rem;
+  margin: 0rem;
+}
+
+.mrv-top .radio p{
+  color: var(--color__primary);
+}
+
+input[type="radio" i]:focus-visible {
+  outline-offset: 0rem;
+  outline: none 0rem transparent;
+}
+
+
+
+

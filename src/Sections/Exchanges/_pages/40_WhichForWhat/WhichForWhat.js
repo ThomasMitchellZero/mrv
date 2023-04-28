@@ -13,7 +13,7 @@ import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 import { current } from "immer";
 
-function ExchReason() {
+function WhichForWhat() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
@@ -158,37 +158,13 @@ function ExchReason() {
         </section>
         <ExchPizzaTracker />
       </section>
-      {locSt_ExchReason.activeKey === "All Assigned" ? null : (
-        <InputReason30
-          activeItemNum={locSt_ExchReason.activeKey}
-          pendingDispo={locSt_ExchReason.pendingDispo}
-          locSt_ExchReason={locSt_ExchReason}
-          findNextEmptyDispoFunc={findNextEmptyDispo}
-          setLocSt_ExchReason={setLocSt_ExchReason}
-        />
-      )}
     </section>
   );
 }
 
-export { ExchReason };
+export { WhichForWhat };
 
 /*
   
-  200: { 
-    quantity: 1, 
-    price: 463, 
-    tax: 41, 
-    productDetails: {img: frontload_washer_img,
-        price: 76600,
-        itemNum: "910",
-        modelNum: "SFL456",
-        description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
-        categories: ["Stock","Delivery"],
-        specialCategories: {SOS:true},
-        restockFee: 0.2,
-        inStock: 2,
-    },
- }
   
-  */
+*/

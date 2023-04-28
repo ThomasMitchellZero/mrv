@@ -6,32 +6,25 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
 import { useOutletContext, useNavigate } from "react-router";
 
-import cloneDeep from "lodash.clonedeep";
-import { current } from "immer";
-
-function InputReason30({
-  nextActiveFunc,
-  locSt_ExchReason,
-  setLocSt_ExchReason,
-}) {
+function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
 
   /* ---- Shared Functions ---- */
 
-  const handleApply = () => {
+  const handleApply = (event) => {
+    event.preventDefault();
+
     const activeKey = locSt_ExchReason.activeKey;
     const pendingDispo = locSt_ExchReason.pendingDispo;
 
     if (pendingDispo) {
       setExchState((draft) => {
         draft.exchProducts.get(activeKey).itemDispo = pendingDispo;
-        const outItems = current(draft.exchProducts);
-
-        setLocSt_ExchReason(() => {
-          const outObj = nextActiveFunc(outItems);
-          return outObj;
-        });
+      });
+      setLocSt_ExchReason((draft) => {
+        // clear active key to trigger auto-check for empty dispos.
+        draft.activeKey = null;
       });
     } else {
       setLocSt_ExchReason((draft) => {
@@ -55,7 +48,7 @@ function InputReason30({
   const reasonRadioArr = radioReasons.map((reasonObj) => {
     const reasonTxt = reasonObj.txt;
     return (
-      <label key={reasonTxt}>
+      <label key={reasonTxt} className={`radio`}>
         <input
           type="radio"
           checked={locSt_ExchReason.pendingDispo === reasonTxt}
@@ -66,13 +59,16 @@ function InputReason30({
             })
           }
         />
-        {reasonTxt}
+        <p className={`body`}>{reasonTxt}</p>
       </label>
     );
   });
 
   return (
-    <section className={`mrvPanel__side exch-rows`}>
+    <form
+      onSubmit={handleApply}
+      className={`mrvPanel__side exch-rows border__left`}
+    >
       <ExchHeader
         hasProductName={false}
         headerTitle="Select A Reason"
@@ -89,15 +85,11 @@ function InputReason30({
         ) : null}
       </section>
       <section className={`footer_content`}>
-        <button
-          type="button"
-          className={`mrvBtn primary fullWidth jumbo`}
-          onClick={handleApply}
-        >
+        <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
           Apply
         </button>
       </section>
-    </section>
+    </form>
   );
 }
 
