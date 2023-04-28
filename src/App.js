@@ -31,6 +31,7 @@ import Exchanges from "./Sections/Exchanges/Exchanges";
 import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
 import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
+import { WhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
 
 import {enableMapSet} from "immer"
 
@@ -68,6 +69,7 @@ function App() {
             <Route index element={<StartExchage />} />
             <Route path="chooseitems" element={<ChooseExchangeItems />} />
             <Route path="exchreason" element={<ExchReason />} />
+            <Route path="whichforwhat" element={<WhichForWhat />} />
           </Route>
         </Route>
       </Routes>

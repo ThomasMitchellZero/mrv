@@ -42,11 +42,21 @@ function useExchNav() {
         },
         ptNode: "chooseitems",
       },
+      whichforwhat:{
+        route: "/mrv/exchanges/whichforwhat",
+        activePanels: {
+          left: "",
+          main: "",
+          right: "",
+        },
+        ptNode: "whichforwhat",
+      }
     };
 
     const thisRoute = exchNavObj[routeStr];
 
     setSessionSt((draft) => {
+
       draft.activePanels = thisRoute.activePanels;
       draft.ptState.activeNode = thisRoute.ptNode;
     });

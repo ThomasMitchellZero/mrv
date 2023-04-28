@@ -5022,12 +5022,37 @@ BUG - cash refund finalization screen is displaying as store credit.
 
         -Like, if I click to set the the active item in the local state, doesn't that trigger a re-render, which would then...flush the local state I just set?  
 
+        -Also, a small fear in the back of my mind that this solves my specific problem but there may be a more general problem that it doesn't?  I guess that if I REALLY get stuck I can always fall back on the CloneDeep pattern.  
+
         -I'm sure I could figure out a way  to handle it with conditionals stored in the local state, like a boolean that tells it not to re-calcuate.  
 
         -I do have this weird sense that if I go this route that in the rebus phase I might discover a more clear pattern in the logic.  
 
         At the moment, this feels like a winner.  
 
+    3:20.
+    OK, here's another wild idea.  What if I just have an activeKey property?  The autoActiveKey function only checks for an active key, and if all are assigned it returns a string, like "Zilch".  
+        -First, I would still need conditional logic that clears the active key if that key matches the item being deleted.
+        -Not sure that generalizes?
+        -But I guess it does save some logic in a few places.  Shit, let's try it.  
+    
+    4:05.
+    Well, it all seems to be working fine now.  My main takeaways I learned from this:
 
-
+    -Immer and the stock state-setters both batch state updates concurrently.  That means I can't have one state update depend on the forthcoming value of another.
+    -AFAICT the current() method within Immer does work, but I haven't found a way to get that value outside of its closure and I tried a lot of approaches.
+    -AFAICT it's OK to re-assign local state during the render, but not any other state.  I don't think I knew that.  
+    -If I do that, I must have logic in place to prevent infinite loops, because each state update triggers a rerender of the component.  
+    -If I need the value of one to depend on the value of the other, I have two options:
+        1. Auto-calculate the local state.  Setting parent state triggers a re-render, at which point the local state will be evaluated and set based on the new value of the parent state.
+        2. Calculate the forthcoming values outside of the state setters, then set the states to those values.
+    
+    OK, so what's left?  
+        X - Fix the CSS for the inputs.
+        X - Move everything into a form so I can use Enter to submit.
+        - I need a Continue button based on the ActiveKey Status.
+        - I need a route and an empty screen to navigate to.
+        - I need to update the useExchNav object to handle it.
+        - Fix trash button
+        - Should probably figure out a plan to control column width.  Not fun but probs. necessary.
 
