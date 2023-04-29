@@ -22,30 +22,7 @@ function Exchanges() {
     test: testData,
   });
 
-  const testTable = (
-    <table>
-      <thead>
-        <tr>
-          <th>This is just a test</th>
-        </tr>
-      </thead>
-      <tbody>{testData}</tbody>
-    </table>
-  );
-
   return (
-    <section className={`mrv-top`}>
-      <section className={`SecondLeveltest`}>
-        <section className={`testContainerTest`}>{testTable}</section>
-      </section>
-    </section>
-  );
-}
-
-export default Exchanges;
-
-/*
-
     <section className={`mrv-top`}>
       <Outlet
         context={{
@@ -54,5 +31,25 @@ export default Exchanges;
         }}
       />
     </section>
+  );
+}
+
+export default Exchanges;
+
+/*
+
+  const testTable = (
+    <section className={`testContainerTest`}>
+      <table>
+        <thead>
+          <tr>
+            <th>This is just a test</th>
+          </tr>
+        </thead>
+        <tbody>{testData}</tbody>
+      </table>
+    </section>
+  );
+
 
 */

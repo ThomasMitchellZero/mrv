@@ -5094,6 +5094,12 @@ BUG - cash refund finalization screen is displaying as store credit.
     2:55.
     I got the result.  Now I just have to figure out how I got it, and why it's not working in other places.
 
+    -OK, one issue solved.  I was wondering why when I set my width to 100% I was getting overflows.  Turns out I did not have   box-sizing: border-box;  and so my borders weren't being included in my 100% width calculations.
+
+    -As I suspected, the multi-level containers were also not necessary.  It's flex-boxes all the way down so I don't know why one more would make a difference.
+
+    -OK.  So we've got it working, at least at the top level.  Now is the time to drill in.
+
 
 
 
