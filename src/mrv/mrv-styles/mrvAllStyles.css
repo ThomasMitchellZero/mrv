@@ -16,6 +16,7 @@
         var(--PrimaryPadding__horizontal);
 
     font-family: "Fellix";
+    display: flex;
 
     /* Colors */
 
@@ -99,9 +100,9 @@
 
 .mrv-top table{
     border-radius: 0.5rem 0.5rem 0rem 0rem;
-    overflow: hidden;
     background-color: #fff;
     table-layout: fixed;
+    overflow-y: scroll;
 }
 
 

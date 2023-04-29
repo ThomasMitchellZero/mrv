@@ -55,7 +55,6 @@ function WhichForWhat() {
   });
 
   // Generate <tr>s
-
   const trArray = [];
 
   exchProdsMap.forEach((value, key) => {
@@ -91,7 +90,7 @@ function WhichForWhat() {
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
-          headerTitle="Items Customer Will Receive"
+          headerTitle="Replacement Products"
           hasCluster={true}
           hasIcon={"back"}
         />

@@ -5057,7 +5057,7 @@ BUG - cash refund finalization screen is displaying as store credit.
         X - Should probably figure out a plan to control column width.  Not fun but probs. necessary.
         X - Correct the header for WhichForWhat
         X - Assign correct back button on WhichForWhat
-        - Improve the CSS of the ItemDetails shared component.
+        X - Improve the CSS of the ItemDetails shared component.
 
     7:05.
     OK.  I'm at a pretty good stopping point.  I made a lot of progress today.  Two BIG takeways in my goodie bag today - a clearer understanding of why co-dependent state updates don't work, and learning that I can set local state on render.  I've got a lot of little ticky-tack shit to handle tomorrow, but that will be a good booster to launch me into the work.  
@@ -5067,5 +5067,17 @@ BUG - cash refund finalization screen is displaying as store credit.
 29 Apr.
     9:50.
     Not the best start but honestly don't see a lot of time I could have squeezed out of this.  
+
+    12:35.
+    OK, things have been VERY smooth today.  I want to try and set the table to handle overflow, but this is a non-crucial feature and I am aware that it could easily turn into a 4-hour rabbit hole.  So if a solution doesn't look immenent by 1:10, I'm moving on.
+
+    1:30.
+    OK, I did grocery intake and now the time has passed, but I think I still need to figure out my table scroll problem, and the reason is because the next thing I have to do is the time picker.  That DEPENDS on scrolling, so I need to solve this problem now.  And it's working in Returns, so this is a solvable problem. So my plan to solve this is:
+
+    -Make a table that makes a shitload of rows.
+    -Put that table into the very top of Exchanges.
+    -Get a solve
+    -Add in layers of the app until I have solved it all the way down.
+
 
 
