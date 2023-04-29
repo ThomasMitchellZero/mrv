@@ -13,7 +13,7 @@ import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-function WhichForWhat() {
+function ScheduleTimes() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
@@ -90,10 +90,10 @@ function WhichForWhat() {
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
-          headerTitle="Replacement Products"
+          headerTitle="Schedule Pickup And Delivery"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={exchNav({ routeStr: "exchreason" })}
+          navBtnClick={exchNav({ routeStr: "schedule" })}
         />
         <section className={`main_content main_col`}>
           <section className={`tableContainer`}>
@@ -124,7 +124,7 @@ function WhichForWhat() {
   );
 }
 
-export { WhichForWhat };
+export { ScheduleTimes };
 
 /*
   

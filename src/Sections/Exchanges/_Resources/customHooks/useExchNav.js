@@ -52,6 +52,16 @@ function useExchNav() {
           right: "",
         },
         ptNode: "whichforwhat",
+      },
+
+      schedule:{
+        route: "/mrv/exchanges/schedule",
+        activePanels: {
+          left: "",
+          main: "",
+          right: "",
+        },
+        ptNode: "schedule",
       }
     };
 

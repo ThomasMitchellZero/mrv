@@ -32,10 +32,11 @@ import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExch
 import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
 import { WhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
+import { ScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
 
-import {enableMapSet} from "immer"
+import { enableMapSet } from "immer";
 
-enableMapSet()
+enableMapSet();
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
             <Route path="chooseitems" element={<ChooseExchangeItems />} />
             <Route path="exchreason" element={<ExchReason />} />
             <Route path="whichforwhat" element={<WhichForWhat />} />
+            <Route path="schedule" element={<ScheduleTimes />} />
           </Route>
         </Route>
       </Routes>
