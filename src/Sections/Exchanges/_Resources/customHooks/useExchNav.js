@@ -23,6 +23,16 @@ function useExchNav() {
         ptNode: "chooseitems",
       },
 
+      chooseitems: {
+        route: "/mrv/exchanges/chooseitems",
+        activePanels: {
+          left: "",
+          main: "shart",
+          right: "",
+        },
+        ptNode: "chooseitems",
+      },
+
       exchreason: {
         route: "/mrv/exchanges/exchreason",
         activePanels: {
@@ -33,15 +43,7 @@ function useExchNav() {
         ptNode: "exchreason",
       },
 
-      chooseitems: {
-        route: "/mrv/exchanges/chooseitems",
-        activePanels: {
-          left: "",
-          main: "shart",
-          right: "",
-        },
-        ptNode: "chooseitems",
-      },
+
       whichforwhat:{
         route: "/mrv/exchanges/whichforwhat",
         activePanels: {

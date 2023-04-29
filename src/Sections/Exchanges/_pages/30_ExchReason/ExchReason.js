@@ -4,9 +4,10 @@ import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPiz
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { InputReason30 } from "./InputReason30";
-
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
+
+import { MdDeleteOutline } from "react-icons/md";
 
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
@@ -32,6 +33,8 @@ function ExchReason() {
   if (!locSt_ExchReason.activeKey) {
     setLocSt_ExchReason({ ...findNextEmptyDispo(exchProdsMap) });
   }
+
+  const areAllAssigned = locSt_ExchReason.activeKey === "All Assigned";
 
   /* ---- Shared Functions ---- */
 
@@ -88,6 +91,10 @@ function ExchReason() {
     event.stopPropagation();
   };
 
+  const handleContinue = () => {
+    exchNav({ routeStr: "whichforwhat" });
+  };
+
   /* ---- Table Elements ---- */
 
   // generate <th>
@@ -130,7 +137,7 @@ function ExchReason() {
               handleDelete({ prodKey: key, event: event });
             }}
           >
-            X
+            <MdDeleteOutline fontSize="1.5rem" />
           </button>
         </td>
       </tr>
@@ -148,6 +155,7 @@ function ExchReason() {
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "chooseitems" })}
         />
+        <ExchPizzaTracker />
         <section className={`main_content main_col`}>
           <table>
             <thead>
@@ -156,9 +164,26 @@ function ExchReason() {
             <tbody>{trArray}</tbody>
           </table>
         </section>
-        <ExchPizzaTracker />
+
+        <section className={`footer_text right_col`}>
+          {locSt_ExchReason.formWarning ? (
+            <p className={`tinyText warning`}>
+              Enter at least one item to exchange
+            </p>
+          ) : null}
+        </section>
+        <section className={`footer_content right_col`}>
+          {areAllAssigned ? (
+            <button
+              className={`mrvBtn primary fullWidth jumbo`}
+              onClick={handleContinue}
+            >
+              Continue
+            </button>
+          ) : null}
+        </section>
       </section>
-      {locSt_ExchReason.activeKey === "All Assigned" ? null : (
+      {areAllAssigned ? null : (
         <InputReason30
           activeItemNum={locSt_ExchReason.activeKey}
           pendingDispo={locSt_ExchReason.pendingDispo}

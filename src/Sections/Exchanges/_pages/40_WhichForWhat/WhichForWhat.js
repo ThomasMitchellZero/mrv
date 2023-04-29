@@ -7,10 +7,11 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
+import { MdDeleteOutline } from "react-icons/md";
+
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
-import { current } from "immer";
 
 function WhichForWhat() {
   const exchCtx = useOutletContext();
@@ -129,7 +130,7 @@ function WhichForWhat() {
               handleDelete({ prodKey: key, event: event });
             }}
           >
-            X
+            <MdDeleteOutline fontSize="1.5rem" />
           </button>
         </td>
       </tr>
@@ -142,10 +143,10 @@ function WhichForWhat() {
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
-          headerTitle="Reason For Exchange"
+          headerTitle="Items Customer Will Receive"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => exchNav({ routeStr: "chooseitems" })}
+          navBtnClick={() => exchNav({ routeStr: "exchreason" })}
         />
         <section className={`main_content main_col`}>
           <table>

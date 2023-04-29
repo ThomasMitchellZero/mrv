@@ -5050,9 +5050,22 @@ BUG - cash refund finalization screen is displaying as store credit.
     OK, so what's left?  
         X - Fix the CSS for the inputs.
         X - Move everything into a form so I can use Enter to submit.
-        - I need a Continue button based on the ActiveKey Status.
-        - I need a route and an empty screen to navigate to.
-        - I need to update the useExchNav object to handle it.
-        - Fix trash button
+        X - I need a Continue button based on the ActiveKey Status.
+        X - I need a route and an empty screen to navigate to.
+        X - I need to update the useExchNav object to handle it.
+        X - Fix trash button
         - Should probably figure out a plan to control column width.  Not fun but probs. necessary.
+        X - Correct the header for WhichForWhat
+        X - Assign correct back button on WhichForWhat
+        - Improve the CSS of the ItemDetails shared component.
+
+    7:05.
+    OK.  I'm at a pretty good stopping point.  I made a lot of progress today.  Two BIG takeways in my goodie bag today - a clearer understanding of why co-dependent state updates don't work, and learning that I can set local state on render.  I've got a lot of little ticky-tack shit to handle tomorrow, but that will be a good booster to launch me into the work.  
+
+    WhichForWhat should be mostly cosmetic.  It's going to be the Time Picker that really requires some work on my part.  But nothing looks too terribly daunting about the logic, right?  
+
+29 Apr.
+    9:50.
+    Not the best start but honestly don't see a lot of time I could have squeezed out of this.  
+
 

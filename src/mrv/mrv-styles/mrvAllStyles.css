@@ -101,12 +101,14 @@
     border-radius: 0.5rem 0.5rem 0rem 0rem;
     overflow: hidden;
     background-color: #fff;
-    table-layout: auto;
+    table-layout: fixed;
 }
+
 
 .mrv-top td{
     color: var(--color__primary);
 }
+
 
 .mrv-top th{
     --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
@@ -127,9 +129,15 @@
     padding-left: 2rem;
 }
 
+
 .mrv-top tr {
     border-bottom: calc( 1.5rem / 16 ) solid var(--color__border);
 }
+
+.mrv-top tr > :nth-child(1){
+  padding-left: 2rem;
+}
+
 
 .mrv-top tbody tr.active{
     background-color: var(--color__card__selected);

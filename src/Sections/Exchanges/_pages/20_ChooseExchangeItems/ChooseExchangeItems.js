@@ -72,8 +72,7 @@ function ChooseExchangeItems() {
         draft.exchProducts = outProdMap;
       });
 
-      exchNav({routeStr:"exchreason"})
-
+      exchNav({ routeStr: "exchreason" });
     } else {
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;
@@ -82,20 +81,24 @@ function ChooseExchangeItems() {
   };
 
   // make headers with titles
-  const thFactory = (title = "") => {
-    return { title };
+  const thFactory = (title = "", width = "") => {
+    return { title, width };
   };
   const thInputs = [
     thFactory("Product Details"),
-    thFactory("Sold"),
-    thFactory("In Stock"),
-    thFactory("Exchange Qty"),
-    thFactory("Status"),
-    thFactory("Manager Approval Needed"),
+    thFactory("Sold", "3.5rem"),
+    thFactory("In Stock", "5rem"),
+    thFactory("Exchange Qty", "8rem"),
+    thFactory("Status", "8rem"),
+    thFactory("Manager Approval Needed", "20%"),
   ];
 
   const thArray = thInputs.map((th) => {
-    return <th key={th.title}>{th.title}</th>;
+    return (
+      <th key={th.title} style={{ width: `${th.width}` }}>
+        {th.title}
+      </th>
+    );
   });
 
   // Generate the TRs
@@ -138,7 +141,7 @@ function ChooseExchangeItems() {
           headerTitle="Select items to exchange"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => exchNav({routeStr:"index"})}
+          navBtnClick={() => exchNav({ routeStr: "index" })}
         />
         <ExchPizzaTracker />
         <section className={`main_content main_col`}>
