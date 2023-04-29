@@ -5100,7 +5100,10 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     -OK.  So we've got it working, at least at the top level.  Now is the time to drill in.
 
+    3:45.  Well, damn, that was an anticlimax.  IIRC there were two issues: one was we had a non-flex container in our chain, and the other was that we needed another container for the table.  It can't scroll directly.  But honestly I will take this result and run.  I really had no idea how the grid and flex containers were going to work and this is a huge relief.  Cleanup and then on to next steps.  
 
+    4:30.  
+    Looks like I am having some kind of runaway loop related to navigation.  Let's dig in and see what we can find.  
 
 
 
