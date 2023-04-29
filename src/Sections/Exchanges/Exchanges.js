@@ -6,20 +6,12 @@ import { defaultExchState } from "./_Resources/glossary/glossaryExch";
 
 import { Outlet } from "react-router";
 
-let testData = [];
 
-for (let i = 0; i < 33; i++) {
-  testData.push(
-    <tr>
-      <td>{i}</td>
-    </tr>
-  );
-}
 
 function Exchanges() {
   const [exchSession, setExchSession] = useImmer({
     ...defaultExchState,
-    test: testData,
+
   });
 
   return (
