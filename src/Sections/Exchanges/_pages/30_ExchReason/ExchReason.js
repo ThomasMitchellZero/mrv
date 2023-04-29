@@ -5,14 +5,11 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { InputReason30 } from "./InputReason30";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
 import { MdDeleteOutline } from "react-icons/md";
 
-import { useOutletContext, useNavigate } from "react-router";
+import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
-import cloneDeep from "lodash.clonedeep";
-import { current } from "immer";
 
 function ExchReason() {
   const exchCtx = useOutletContext();
@@ -98,19 +95,23 @@ function ExchReason() {
   /* ---- Table Elements ---- */
 
   // generate <th>
-  const thFactory = (title = "") => {
-    return { title };
+  const thFactory = (title = "", width) => {
+    return { title, width };
   };
 
   const thInputs = [
     thFactory("Product Details"),
-    thFactory("Quantity"),
-    thFactory("Return Reason"),
-    thFactory("Remove"),
+    thFactory("Qty", "4rem"),
+    thFactory("Return Reason", "20%"),
+    thFactory("Remove", "5rem"),
   ];
 
   const thArray = thInputs.map((th) => {
-    return <th key={th.title}>{th.title}</th>;
+    return (
+      <th key={th.title} style={{ width: `${th.width}` }}>
+        {th.title}
+      </th>
+    );
   });
 
   // Generate <tr>s

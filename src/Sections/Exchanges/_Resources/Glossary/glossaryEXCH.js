@@ -36,8 +36,8 @@ const defaultExchState = {
     activeNode: "",
     ptNodes: [
       { key: "chooseitems", title: "Select Items" },
-      { key: "exchreason", title: "Reason For Exchange" },
-      { key: "whichforwhat", title: "Outgoing Items" },
+      { key: "exchreason", title: "Reason" },
+      { key: "whichforwhat", title: "Replacements" },
       { key: "schedule", title: "Schedule Time" },
       { key: "totalreview", title: "Total Review" },
     ],
