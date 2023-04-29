@@ -5079,5 +5079,22 @@ BUG - cash refund finalization screen is displaying as store credit.
     -Get a solve
     -Add in layers of the app until I have solved it all the way down.
 
+    Testing R1.
+    -I tried adding a fixed height to the table.  That did nothing.
+    -I tried setting the table height to 100%.  That also did nothing.  
+    -Having the overflow of the table as :hidden or as :scroll made no difference.
+
+    When I put the table in a container:
+    -Setting the height of the table to 100% just made the container the same size as the table.
+    -Setting a fixed height of 10rem did not constrain the table, but when I specified the overflow of the container, it did control the table.  
+    -Setting overflow-y gave me just what I was looking for.
+
+    OK, so here's my hypothesis.  The top-level container is App.  That is a flex-box.  Flex elements shrink, grow, and resize in response to other flex elements.  
+
+    2:55.
+    I got the result.  Now I just have to figure out how I got it, and why it's not working in other places.
+
+
+
 
 

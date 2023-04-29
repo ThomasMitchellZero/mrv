@@ -8,15 +8,18 @@
   }
 
 .mrv-top{
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0rem;
+  width: 100%;
     --PrimaryPadding__horizontal: 2rem;
     --PrimaryPadding__vertical: 1rem;
     --PrimaryPadding__both: 
         var(--PrimaryPadding__vertical) 
         var(--PrimaryPadding__horizontal);
 
-    font-family: "Fellix";
-    display: flex;
+  font-family: "Fellix";
+
 
     /* Colors */
 
@@ -102,7 +105,27 @@
     border-radius: 0.5rem 0.5rem 0rem 0rem;
     background-color: #fff;
     table-layout: fixed;
-    overflow-y: scroll;
+    min-height: 0rem;
+}
+
+.testContainerTest{
+  display: flex;
+  flex: 1 1 0rem;
+  height: 100%;
+  flex-direction: column;
+  border: 2px solid #001544;
+  padding: 4rem;
+  min-height: 0rem;
+  overflow-y: scroll;
+  background-color: #cdb1dd;
+}
+
+.SecondLeveltest{
+  flex: 1 1 0rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #0072ce;
+  padding: 2rem;
 }
 
 
