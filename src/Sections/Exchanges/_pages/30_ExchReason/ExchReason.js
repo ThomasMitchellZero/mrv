@@ -163,12 +163,14 @@ function ExchReason() {
         />
         <ExchPizzaTracker />
         <section className={`main_content main_col`}>
-          <table>
-            <thead>
-              <tr>{thArray}</tr>
-            </thead>
-            <tbody>{trArray}</tbody>
-          </table>
+          <section className={`tableContainer`}>
+            <table>
+              <thead>
+                <tr>{thArray}</tr>
+              </thead>
+              <tbody>{trArray}</tbody>
+            </table>
+          </section>
         </section>
 
         <section className={`footer_text right_col`}>

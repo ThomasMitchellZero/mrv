@@ -107,27 +107,13 @@
     table-layout: fixed;
 }
 
-.testContainerTest{
+.mrv-top .tableContainer{
   display: flex;
   flex: 1 1 0rem;
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  border: 2px solid #001544;
-  padding: 4rem;
-  min-height: 0rem;
-  overflow-y: scroll;
-  background-color: #cdb1dd;
-}
-
-.SecondLeveltest{
-  flex: 1 1 0rem;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 100%;
-  background-color: #0072ce;
-  padding: 2rem;
+  overflow-y: auto;
 }
 
 

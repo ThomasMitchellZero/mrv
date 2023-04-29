@@ -149,12 +149,14 @@ function ChooseExchangeItems() {
         />
         <ExchPizzaTracker />
         <section className={`main_content main_col`}>
-          <table>
-            <thead>
-              <tr>{thArray}</tr>
-            </thead>
-            <tbody>{trArray}</tbody>
-          </table>
+          <section className={`tableContainer`}>
+            <table>
+              <thead>
+                <tr>{thArray}</tr>
+              </thead>
+              <tbody>{trArray}</tbody>
+            </table>
+          </section>
         </section>
         <section className={`footer_text right_col`}>
           {locSt_PickItems.formWarning ? (
@@ -180,20 +182,29 @@ export default ChooseExchangeItems;
 
 /*
   
-  200: { 
-    quantity: 1, 
-    price: 463, 
-    tax: 41, 
-    productDetails: {img: frontload_washer_img,
-        price: 76600,
-        itemNum: "910",
-        modelNum: "SFL456",
-        description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
-        categories: ["Stock","Delivery"],
-        specialCategories: {SOS:true},
-        restockFee: 0.2,
-        inStock: 2,
-    },
- }
-  
-  */
+  let testData = [];
+
+  for (let i = 0; i < 33; i++) {
+    testData.push(
+      <tr>
+        <td>{i}</td>
+      </tr>
+    );
+  }
+
+  const testTable = (
+    <section className={`testContainerTest`}>
+      <table>
+        <thead>
+          <tr>
+            <th>This is just a test</th>
+          </tr>
+        </thead>
+        <tbody>{testData}</tbody>
+      </table>
+    </section>
+  );
+
+
+
+*/

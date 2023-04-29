@@ -95,14 +95,27 @@ function WhichForWhat() {
           hasIcon={"back"}
         />
         <section className={`main_content main_col`}>
-          <table>
-            <thead>
-              <tr>{thArray}</tr>
-            </thead>
-            <tbody>{trArray}</tbody>
-          </table>
+          <section className={`tableContainer`}>
+            <table>
+              <thead>
+                <tr>{thArray}</tr>
+              </thead>
+              <tbody>{trArray}</tbody>
+            </table>
+          </section>
         </section>
         <ExchPizzaTracker />
+        <section className={`footer_text right_col`}>
+          <p className={`tinyText warning`}>
+          </p>
+        </section>
+        <section className={`footer_content right_col`}>
+          {true ? (
+            <button className={`mrvBtn primary fullWidth jumbo`}>
+              Continue
+            </button>
+          ) : null}
+        </section>
       </section>
     </section>
   );
