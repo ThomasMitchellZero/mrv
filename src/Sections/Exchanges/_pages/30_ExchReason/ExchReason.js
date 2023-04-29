@@ -128,8 +128,13 @@ function ExchReason() {
         <td>
           <ProductInfo hasPrice={true} itemObj={value} />
         </td>
-        <td>{value.qtyExchanging}</td>
-        <td>{value.itemDispo}</td>
+        <td>
+          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+        </td>
+        <td>
+          <p className={`body__small`}>{value.itemDispo}</p>
+        </td>
+
         <td>
           <button
             type="button"

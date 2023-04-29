@@ -5054,7 +5054,7 @@ BUG - cash refund finalization screen is displaying as store credit.
         X - I need a route and an empty screen to navigate to.
         X - I need to update the useExchNav object to handle it.
         X - Fix trash button
-        - Should probably figure out a plan to control column width.  Not fun but probs. necessary.
+        X - Should probably figure out a plan to control column width.  Not fun but probs. necessary.
         X - Correct the header for WhichForWhat
         X - Assign correct back button on WhichForWhat
         - Improve the CSS of the ItemDetails shared component.

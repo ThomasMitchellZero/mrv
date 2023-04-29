@@ -20,7 +20,7 @@ function ProductInfo({ itemObj, hasPrice = false }) {
         {price}
         <p
           className={`tiny-text ${classes.itemModel}`}
-        >{`Item# ${productDetails.itemNum}    Model# ${productDetails.modelNum}`}</p>
+        >{`Item# ${productDetails.itemNum}0123    Model# ${productDetails.modelNum}`}</p>
         <p
           className={`body__small ${classes.description}`}
         >{`${productDetails.description}`}</p>

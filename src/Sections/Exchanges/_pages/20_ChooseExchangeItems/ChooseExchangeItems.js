@@ -112,8 +112,12 @@ function ChooseExchangeItems() {
         <td>
           <ProductInfo hasPrice={true} itemObj={thisProd} />
         </td>
-        <td>{`${thisProd.quantity}`}</td>
-        <td>{`${pDetails.inStock}`}</td>
+        <td>
+          <p className={`body`}>{`${thisProd.quantity}`}</p>
+        </td>
+        <td>
+          <p className={`body`}>{`${pDetails.inStock}`}</p>
+        </td>
         <td>
           <MRVinput hasError={locSt_PickItems.formWarning} width={"5rem"}>
             <input
