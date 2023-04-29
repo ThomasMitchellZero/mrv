@@ -76,4 +76,14 @@
     flex-direction: row;
 }
 
+.exch-rows.mrvPanel__side .fullColumn{
+    display: flex;
+    flex-direction: column;
+    grid-row: pTracker / -1;
+    padding: var(--PrimaryPadding__both);
+    gap: 1rem;
+}
+
+
+
 

@@ -5105,5 +5105,31 @@ BUG - cash refund finalization screen is displaying as store credit.
     4:30.  
     Looks like I am having some kind of runaway loop related to navigation.  Let's dig in and see what we can find.  
 
+    you should call navigate() in a React.useEffect(), not when your component is first rendered.     at WhichForWhat (http://localhost:3000/mrv/static/js/bundle.js:2776:81)  
+
+    I'm now wondering if it's WhichForWhat that is the problem?  Because ExchReason was fine until very recently.  I'm gonna try clearing out anthing related to navigation first.
+
+    OK, looks like that was the reason.  Fine vs. meltdown:
+
+    onClick={() => exchNav({ routeStr: "schedule" })}
+    onClick={exchNav({ routeStr: "schedule" })}
+
+    Yes, password guessing a little, but because the first wasn't wrapped in anything, on render it was calling the function, not returning assigned to an event.  So I think the general rule of thumb is 'Any function with () in its definition has to be wrapped or React is going to try to run it on the spot.'
+
+    OK!  So we're good?  Almost made the same mistake on the next page.  Ok.  Now we are good.  It's 5:00.  I would really like to share some part of this with Dave later.  I will need:
+
+    - a 30 panel that never goes away.  Component or not?  I'm thinking not?  
+    - A mini-card to represent the exchange (now realizing that different items and different times might be a bitch)
+    - A local state.
+    - A function that sets the local state.
+    - An automatic loop similar to Exchreason to auto-assign the active item.  I could probably clone but I should do this by hand to sink the knoweledge in.  
+    -I'll need an exchange time property in the Session state.  Probably set it with the exchange items upon creation.  
+
+    I think my plan is to just try and get everything besides the times first.  I've got ~1 hour-ish before I generally peter out.  
+
+    I'm also wondering about how to organize my data so as not to paint myself into a corner for later, and while it is unsatisfying, I think the smart thing is just to solve the problem in front of me.  I don't even know the situation I am solving for, and without a clear conceptual model I am just guessing.  Let's be smart and take the Floor 2 Wild Strike.  
+
+    
+
 
 

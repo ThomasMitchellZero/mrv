@@ -3,9 +3,9 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
+import { TimeMiniCard } from "./TimeMiniCard";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
 import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
@@ -56,44 +56,30 @@ function ScheduleTimes() {
 
   // Generate <tr>s
   const trArray = [];
+  const timeCardArr = [];
 
   exchProdsMap.forEach((value, key) => {
-    trArray.push(
-      <tr key={key} className={`${""}`}>
-        <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
-        </td>
-        <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
-        </td>
-        <td className={`tdCenter`}>
-          <MdArrowForward fontSize="2.5rem" />
-        </td>
-        <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
-        </td>
-        <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
-        </td>
-        <td>
-          <button type="button" className={`mrvBtn ghost`}>
-            <MdDeleteOutline fontSize="1.5rem" />
-          </button>
-        </td>
-      </tr>
-    );
+    timeCardArr.push(<TimeMiniCard key={key} prodObj={value} />);
   });
 
   /* ---- Final Component ---- */
 
   return (
     <section className={`mrvPage`}>
+      <section className={`mrvPanel__side exch-rows blankback`}>
+        <ExchHeader
+          headerTitle="Exchange Items"
+          hasCluster={false}
+          hasProductName={false}
+        />
+        <section className={`fullColumn`}>{timeCardArr}</section>
+      </section>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
-          headerTitle="Schedule Pickup And Delivery"
+          headerTitle="NOT DONE"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={exchNav({ routeStr: "schedule" })}
+          navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
         <section className={`main_content main_col`}>
           <section className={`tableContainer`}>
@@ -112,10 +98,10 @@ function ScheduleTimes() {
         <section className={`footer_content right_col`}>
           {true ? (
             <button
-              onClick={exchNav({ routeStr: "schedule" })}
+              onClick={() => {}}
               className={`mrvBtn primary fullWidth jumbo`}
             >
-              Continue
+              Apply
             </button>
           ) : null}
         </section>

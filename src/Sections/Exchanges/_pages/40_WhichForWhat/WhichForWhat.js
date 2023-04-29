@@ -5,11 +5,10 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
 import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
-import { useOutletContext, useNavigate } from "react-router";
+import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
@@ -93,7 +92,7 @@ function WhichForWhat() {
           headerTitle="Replacement Products"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={exchNav({ routeStr: "exchreason" })}
+          navBtnClick={() => exchNav({ routeStr: "exchreason" })}
         />
         <section className={`main_content main_col`}>
           <section className={`tableContainer`}>
@@ -112,7 +111,7 @@ function WhichForWhat() {
         <section className={`footer_content right_col`}>
           {true ? (
             <button
-              onClick={exchNav({ routeStr: "schedule" })}
+              onClick={() => exchNav({ routeStr: "schedule" })}
               className={`mrvBtn primary fullWidth jumbo`}
             >
               Continue

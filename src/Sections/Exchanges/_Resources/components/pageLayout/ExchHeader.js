@@ -52,7 +52,7 @@ function ExchHeader({
         className={`mrvBtn ghost ${classes.defaultHeight}`}
         onClick={() => handleClearSession()}
       >
-        Cancel Exchange
+        End Exchange
       </button>
     </section>
   );

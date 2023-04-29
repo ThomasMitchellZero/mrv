@@ -56,11 +56,12 @@ function ChooseExchangeItems() {
       if (orderProducts[itemNum].qtyExchanging) {
         outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
         outProdMap.get(itemNum).itemDispo = null;
+        outProdMap.get(itemNum).apptTime = null;
       }
     }
 
-    if (outProdMap.size) {
-      // if there are any non-zero quantities..
+    if (outProdMap.size) { // if there are any non-zero quantities..
+
 
       // clear warnings, may be redundant?
       setLocSt_PickItems((draft) => {
