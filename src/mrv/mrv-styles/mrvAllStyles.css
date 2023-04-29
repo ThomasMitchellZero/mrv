@@ -109,6 +109,11 @@
     color: var(--color__primary);
 }
 
+.mrv-top table .tdCenter{
+  text-align: center;
+
+}
+
 
 .mrv-top th{
     --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
@@ -125,17 +130,13 @@
 
 }
 
-.mrv-top table .pad{
-    padding-left: 2rem;
-}
-
 
 .mrv-top tr {
     border-bottom: calc( 1.5rem / 16 ) solid var(--color__border);
 }
 
 .mrv-top tr > :nth-child(1){
-  padding-left: 2rem;
+  padding-left: 1.5rem;
 }
 
 

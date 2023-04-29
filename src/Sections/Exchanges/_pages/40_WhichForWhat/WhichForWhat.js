@@ -7,7 +7,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useRemoveItem } from "../../_Resources/customHooks/useRemoveItem";
 
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
 import { useOutletContext, useNavigate } from "react-router";
 import { useImmer } from "use-immer";
@@ -20,90 +20,38 @@ function WhichForWhat() {
   const exchNav = useExchNav();
 
   const defaultState = {
-    activeKey: null,
-    autoCalcActive: true,
     show30warning: false,
   };
 
   //local state
-  const [locSt_ExchReason, setLocSt_ExchReason] = useImmer(defaultState);
+  const [locSt_WhichFor, setLocSt_WhichFor] = useImmer(defaultState);
 
   // on every render, check if activeKey has a value.
-  if (!locSt_ExchReason.activeKey) {
-    setLocSt_ExchReason({ ...findNextEmptyDispo(exchProdsMap) });
-  }
 
   /* ---- Shared Functions ---- */
-
-  function findNextEmptyDispo(productMap) {
-    let outLocStObj = {
-      show30warning: false,
-      autoCalcActive: false,
-      activeKey: "All Assigned", // Default unless an item has no dispo.  Prevents infinite loops.
-    };
-
-    for (const key of productMap.keys()) {
-      const thisDispo = productMap.get(key).itemDispo;
-      if (!thisDispo) {
-        // if this item doesn't have a dispo...
-        outLocStObj.activeKey = key; // return it as the active key
-        break; // stop looping because we are only looking for the first.
-      }
-    }
-    return outLocStObj;
-  }
-
-  /*
-  
-  
-  */
-
-  const handleTRclick = (key) => {
-    setLocSt_ExchReason((draft) => {
-      draft.activeKey = key;
-      draft.pendingDispo = exchProdsMap.get(key).itemDispo;
-      draft.show30warning = false;
-      draft.autoCalcActive = false;
-    });
-  };
-
-  // Delete a table row.
-  const handleDelete = ({ event, prodKey }) => {
-    // set Session state
-    setExchState((draft) => {
-      draft.exchProducts.delete(prodKey);
-    });
-
-    // set Session state
-    setLocSt_ExchReason((draft) => {
-      draft.show30warning = false;
-
-      // Only reassign activeKey if the Active item was deleted.
-      const deletingActive = locSt_ExchReason.activeKey === prodKey;
-      // Set activeKey to null so that activeKey is rechecked next render.
-      if (deletingActive) {
-        draft.activeKey = null;
-      }
-    });
-    event.stopPropagation();
-  };
 
   /* ---- Table Elements ---- */
 
   // generate <th>
-  const thFactory = (title = "") => {
-    return { title };
+  const thFactory = (title = "", width = "") => {
+    return { title, width };
   };
 
   const thInputs = [
-    thFactory("Product Details"),
-    thFactory("Quantity"),
-    thFactory("Return Reason"),
-    thFactory("Remove"),
+    thFactory("Return Product"),
+    thFactory("Qty", "3rem"),
+    thFactory(" ", "4rem"),
+    thFactory("Replacement Product"),
+    thFactory("Qty ", "3rem"),
+    thFactory("Remove", "5rem"),
   ];
 
   const thArray = thInputs.map((th) => {
-    return <th key={th.title}>{th.title}</th>;
+    return (
+      <th key={th.title} style={{ width: th.width }}>
+        {th.title}
+      </th>
+    );
   });
 
   // Generate <tr>s
@@ -112,24 +60,24 @@ function WhichForWhat() {
 
   exchProdsMap.forEach((value, key) => {
     trArray.push(
-      <tr
-        key={key}
-        className={`${locSt_ExchReason.activeKey === key ? "active" : ""}`}
-        onClick={() => handleTRclick(key)}
-      >
+      <tr key={key} className={`${""}`}>
         <td>
           <ProductInfo hasPrice={true} itemObj={value} />
         </td>
-        <td>{value.qtyExchanging}</td>
-        <td>{value.itemDispo}</td>
         <td>
-          <button
-            type="button"
-            className={`mrvBtn ghost`}
-            onClick={(event) => {
-              handleDelete({ prodKey: key, event: event });
-            }}
-          >
+          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+        </td>
+        <td className={`tdCenter`}>
+          <MdArrowForward fontSize="2.5rem" />
+        </td>
+        <td>
+          <ProductInfo hasPrice={true} itemObj={value} />
+        </td>
+        <td>
+          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+        </td>
+        <td>
+          <button type="button" className={`mrvBtn ghost`}>
             <MdDeleteOutline fontSize="1.5rem" />
           </button>
         </td>
@@ -146,7 +94,6 @@ function WhichForWhat() {
           headerTitle="Items Customer Will Receive"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => exchNav({ routeStr: "exchreason" })}
         />
         <section className={`main_content main_col`}>
           <table>
