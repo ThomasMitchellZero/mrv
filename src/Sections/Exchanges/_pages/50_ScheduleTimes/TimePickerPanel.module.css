@@ -1,0 +1,11 @@
+
+.container{
+    background-color: blanchedalmond;
+    flex: 1 1 0rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonWindow{
+    background-color: aquamarine;
+}
