@@ -5129,7 +5129,15 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     I'm also wondering about how to organize my data so as not to paint myself into a corner for later, and while it is unsatisfying, I think the smart thing is just to solve the problem in front of me.  I don't even know the situation I am solving for, and without a clear conceptual model I am just guessing.  Let's be smart and take the Floor 2 Wild Strike.  
 
-    
+1 May, 2023
+    12:50.  Next up is the time picker.  Here's how I think I want to handle it.  I'm going to get the cycling working first, and then I will get work on the times.  For that to happen, I will start with just a single time button.  
+        X -CSS cleanup to get into the groove.
+        -Add a local state.
+        -Add a function that checks for the first un-assigned time and automatically sets the local state, similar to Disposition.  
+        -Handle manual selection.
+        -A funtion to create the buttons.
+        -A function to handle the time apply.
+        -Deletion.
 
 
 

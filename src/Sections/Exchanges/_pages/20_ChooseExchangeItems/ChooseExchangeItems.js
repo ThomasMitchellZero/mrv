@@ -8,7 +8,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
-import { useOutletContext, useNavigate } from "react-router";
+import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
@@ -19,7 +19,7 @@ const defaultState = {
 };
 
 function ChooseExchangeItems() {
-  const navigate = useNavigate();
+
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const orderProducts = exchCtx.exchSession.invoiceProducts;
@@ -126,6 +126,7 @@ function ChooseExchangeItems() {
               min={0}
               step={1}
               value={thisProd.qtyExchanging}
+              max={thisProd.quantity}
               onFocus={handleFieldFocus}
               onChange={(event) => {
                 handleFieldInput(event, product);

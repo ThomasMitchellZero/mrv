@@ -27,7 +27,6 @@ function StartExchange() {
 
   const handleSetInvoice = (invoNum) => {
     setExchState((draft) => {
-
       const outInvoProducts = cloneDeep(invoiceContext[invoNum].products)
 
       for (const i of Object.keys(outInvoProducts)) {

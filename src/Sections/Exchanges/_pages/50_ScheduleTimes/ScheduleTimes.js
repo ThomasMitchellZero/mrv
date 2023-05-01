@@ -21,14 +21,36 @@ function ScheduleTimes() {
 
   const defaultState = {
     show30warning: false,
+    activeKey: null,
   };
 
   //local state
-  const [locSt_WhichFor, setLocSt_WhichFor] = useImmer(defaultState);
+  const [locSt_PickTime, setLocSt_PickTime] = useImmer(defaultState);
 
   // on every render, check if activeKey has a value.
+  if (!locSt_PickTime.activeKey) {
+    setLocSt_PickTime({ ...findNextUnscheduled() });
+  }
 
   /* ---- Shared Functions ---- */
+
+  function findNextUnscheduled() {
+    let outLocSt = {
+      show30warning: false,
+      activeKey: "All Scheduled",
+    };
+
+    // loop through the keys, return 1st with no apptTime.
+    for (const thisKey of exchProdsMap.keys()) {
+      const thisItemTime = exchProdsMap.get(thisKey).apptTime;
+      if (!thisItemTime) {
+        // if item has no time scheduled...
+        outLocSt.activeKey = thisKey;
+        break;
+      }
+    }
+    return outLocSt;
+  }
 
   /* ---- Table Elements ---- */
 
@@ -58,8 +80,14 @@ function ScheduleTimes() {
   const trArray = [];
   const timeCardArr = [];
 
-  exchProdsMap.forEach((value, key) => {
-    timeCardArr.push(<TimeMiniCard key={key} prodObj={value} />);
+  exchProdsMap.forEach((value, mapKey) => {
+    timeCardArr.push(
+      <TimeMiniCard
+        key={mapKey}
+        prodObj={value}
+        isActive={mapKey === locSt_PickTime.activeKey}
+      />
+    );
   });
 
   /* ---- Final Component ---- */

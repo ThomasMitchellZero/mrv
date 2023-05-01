@@ -99,6 +99,34 @@
   color: var(--color__red);
 }
 
+/* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
+
+
+/* ---- MRV CARD STYLES ---- */
+
+.mrv-top .cardStyle{
+  --dropShadow__01: 0px 4px 4px 0px #00000020;
+  background-color: #fff;
+  box-shadow: var(--dropShadow__01);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  border: calc( .125rem ) solid transparent;
+}
+
+.mrv-top .cardStyle:hover{
+  background-color: var(--color__card__hover);
+}
+
+.mrv-top .cardStyle.selected{
+  background-color: var(--color__card__selected);
+  border-color: var(--color__interactive);
+}
+
+.mrv-top .cardStyle.selected:hover{
+  background-color: var(--color__card__selected__hover);
+}
+
+
 /* ---- MRV TABLE STYLES ---- */
 
 .mrv-top table{
