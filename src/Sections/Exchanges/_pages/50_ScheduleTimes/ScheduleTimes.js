@@ -4,6 +4,7 @@ import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPiz
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { TimeMiniCard } from "./TimeMiniCard";
+import { TimePickerPanel } from "./TimePickerPanel";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
@@ -109,16 +110,7 @@ function ScheduleTimes() {
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
-        <section className={`main_content main_col`}>
-          <section className={`tableContainer`}>
-            <table>
-              <thead>
-                <tr>{thArray}</tr>
-              </thead>
-              <tbody>{trArray}</tbody>
-            </table>
-          </section>
-        </section>
+        <TimePickerPanel localSt={locSt_PickTime} setLocSt={setLocSt_PickTime}/>
         <ExchPizzaTracker />
         <section className={`footer_text right_col`}>
           <p className={`tinyText warning`}></p>

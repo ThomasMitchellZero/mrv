@@ -18,8 +18,28 @@ const actPan = {
 
 export { actPan };
 
+// Date arrays
 
-// end Active Panels
+const weekdayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const monthArr = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export { weekdayArr, monthArr };
+
+// default Exch State
 
 const defaultExchState = {
   activePanels: {
