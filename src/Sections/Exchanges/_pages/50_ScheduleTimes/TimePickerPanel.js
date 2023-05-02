@@ -2,8 +2,59 @@ import classes from "./TimePickerPanel.module.css";
 
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
+import { useOutletContext } from "react-router";
+
 function TimePickerPanel({ localSt, setLocSt }) {
+  const exchCtx = useOutletContext();
+  const setExchState = exchCtx.setExchSession;
+  const exchProdsMap = exchCtx.exchSession.exchProducts;
+
+  const activeKey = localSt.activeKey;
+  const show30warning = localSt.show30warning;
+  const activeTimeBtnObj = localSt.activeTimeBtnObj;
+
   /* ---- Shared Functions ---- */
+
+  const handleTimeBtnClick = (timeBtnObj) => {
+    setLocSt((draft) => {
+      draft.activeTimeBtnObj = timeBtnObj;
+      draft.show30warning = false;
+    });
+  };
+
+  const makeBtnRows = (date, month) => {
+    const timeSlotArr = [
+      "8-11 am",
+      "11-2 pm",
+      "2-5 pm",
+      "5-8 pm",
+      "8-11 pm",
+    ];
+
+    const outBtnArr = [];
+
+    for (let timeIndex of timeSlotArr) {
+
+      const btnDataObj = {
+        keyStr: `${date}${month}${timeIndex}`,
+        timeSlot: timeIndex,
+        date,
+        month,
+      };
+
+      outBtnArr.push(
+        <section className={`${classes.timeBtnContainer}`}>
+          <button
+            key={btnDataObj.keyStr}
+            onClick={() => handleTimeBtnClick(btnDataObj)}
+            className={`mrvBtn secondary ${classes.timeBtn}`}
+          >{`${timeIndex}`}</button>
+        </section>
+      );
+    }
+
+    return outBtnArr;
+  };
 
   /* ---- Table Elements ---- */
 
@@ -44,14 +95,6 @@ function TimePickerPanel({ localSt, setLocSt }) {
 
   const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
-  const timeSlotArr = [
-    "8 - 11 am",
-    "11 - 2 pm",
-    "2 - 5 pm",
-    "5 - 8 pm",
-    "8 - 11 pm",
-  ];
-
   const timeRowsArr = [];
 
   for (const i of allDatesArr) {
@@ -66,6 +109,7 @@ function TimePickerPanel({ localSt, setLocSt }) {
           <p className={`body ${classes.month}`}>{month}</p>
           <p className={`body`}>{date}</p>
         </section>
+        {makeBtnRows({ date, month })}
       </section>
     );
   }
