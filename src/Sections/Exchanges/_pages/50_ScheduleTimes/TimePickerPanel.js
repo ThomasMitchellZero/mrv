@@ -22,19 +22,12 @@ function TimePickerPanel({ localSt, setLocSt }) {
     });
   };
 
-  const makeBtnRows = (date, month) => {
-    const timeSlotArr = [
-      "8-11 am",
-      "11-2 pm",
-      "2-5 pm",
-      "5-8 pm",
-      "8-11 pm",
-    ];
+  const makeBtnRows = ({ date, month }) => {
+    const timeSlotArr = ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"];
 
     const outBtnArr = [];
 
     for (let timeIndex of timeSlotArr) {
-
       const btnDataObj = {
         keyStr: `${date}${month}${timeIndex}`,
         timeSlot: timeIndex,
@@ -42,12 +35,16 @@ function TimePickerPanel({ localSt, setLocSt }) {
         month,
       };
 
+      const isActive = localSt.activeTimeBtnObj?.keyStr === btnDataObj.keyStr;
+
       outBtnArr.push(
-        <section className={`${classes.timeBtnContainer}`}>
+        <section
+          key={btnDataObj.keyStr}
+          className={`${classes.timeBtnContainer}`}
+        >
           <button
-            key={btnDataObj.keyStr}
             onClick={() => handleTimeBtnClick(btnDataObj)}
-            className={`mrvBtn secondary ${classes.timeBtn}`}
+            className={`mrvBtn secondary fullWidth focu ${classes.timeBtn}`}
           >{`${timeIndex}`}</button>
         </section>
       );
@@ -103,13 +100,13 @@ function TimePickerPanel({ localSt, setLocSt }) {
     const date = i.getDate();
 
     timeRowsArr.push(
-      <section className={`${classes.dateBtnRow}`}>
+      <section key={`${month}${date}`} className={`${classes.dateBtnRow}`}>
         <section className={`${classes.dateText}`}>
           <p className={`body`}>{wkday}</p>
           <p className={`body ${classes.month}`}>{month}</p>
           <p className={`body`}>{date}</p>
         </section>
-        {makeBtnRows({ date, month })}
+        {makeBtnRows({ date: date, month: month })}
       </section>
     );
   }

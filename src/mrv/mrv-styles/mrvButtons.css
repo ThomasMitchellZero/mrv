@@ -53,3 +53,10 @@
 .mrvBtn.fullWidth{
     flex: 1 1 0rem;
 }
+
+.mrvBtn:focus{
+    color: var(--color__primary__inverse);
+    background-color: var(--color__interactive__pressed);
+    border: calc(3rem / 16) solid white;
+    outline: calc(3rem / 16) solid var(--color__interactive__pressed);
+}
