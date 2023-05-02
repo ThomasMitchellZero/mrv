@@ -17,7 +17,7 @@
     --PrimaryPadding__both: 
         var(--PrimaryPadding__vertical) 
         var(--PrimaryPadding__horizontal);
-
+    --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
   font-family: "Fellix";
 
 
@@ -156,7 +156,7 @@
 
 
 .mrv-top th{
-    --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
+
     font-size: 1rem;
     font-weight: 600;
     background-color: transparent;

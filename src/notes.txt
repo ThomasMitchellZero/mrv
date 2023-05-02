@@ -5131,13 +5131,30 @@ BUG - cash refund finalization screen is displaying as store credit.
 
 1 May, 2023
     12:50.  Next up is the time picker.  Here's how I think I want to handle it.  I'm going to get the cycling working first, and then I will get work on the times.  For that to happen, I will start with just a single time button.  
-        X -CSS cleanup to get into the groove.
-        -Add a local state.
-        -Add a function that checks for the first un-assigned time and automatically sets the local state, similar to Disposition.  
+        X - CSS cleanup to get into the groove.
+        X - Add a local state.
+        X - Add a function that checks for the first un-assigned time and automatically sets the local state, similar to Disposition.  
         -Handle manual selection.
         -A funtion to create the buttons.
         -A function to handle the time apply.
         -Deletion.
+
+    So, I was going to make the time buttons last, but I think I actually need to figure out how I am going to handle and populate the times because a lot of pieces here depend on those times and it will be a lot of rework if I have to retrofit.  
+
+    5:20.
+    Making progress, but definitely paying the price for not having lunch, which is completely predicable and I am a dumbass.  
+
+    6:30.
+    Losing steam and I'm gonna have to start making decisions about the button so I am gonna call it a day.  
+
+2 May
+
+    9:10.  
+    Got about 45 minutes before next standup so I am gonna try and sneak a bit of JS in there.  
+
+    
+
+
 
 
 

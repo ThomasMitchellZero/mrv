@@ -1,6 +1,5 @@
 import classes from "./TimePickerPanel.module.css";
 
-
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
 function TimePickerPanel({ localSt, setLocSt }) {
@@ -40,10 +39,10 @@ function TimePickerPanel({ localSt, setLocSt }) {
       const thisDate = new Date(2023, month, i);
       outArr.push(thisDate);
     }
-    return outArr
+    return outArr;
   };
 
-  const allDatesArr = makeDatesArr({month: 3, startDate: 3, endDate: 21})
+  const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
   const timeSlotArr = [
     "8 - 11 am",
@@ -55,16 +54,27 @@ function TimePickerPanel({ localSt, setLocSt }) {
 
   const timeRowsArr = [];
 
-  for (const i of allDatesArr){
-    const month = monthArr[i.getMonth()] 
-    timeRowsArr.push(<p>{month}</p>)
+  for (const i of allDatesArr) {
+    const month = monthArr[i.getMonth()];
+    const wkday = `${weekdayArr[i.getDay()]},`;
+    const date = i.getDate();
+
+    timeRowsArr.push(
+      <section className={`${classes.dateBtnRow}`}>
+        <section className={`${classes.dateText}`}>
+          <p className={`body`}>{wkday}</p>
+          <p className={`body ${classes.month}`}>{month}</p>
+          <p className={`body`}>{date}</p>
+        </section>
+      </section>
+    );
   }
 
   /* ---- Final Component ---- */
 
   return (
     <section className={` main_content main_col ${classes.container}`}>
-      <section className={`tableContainer`}>
+      <section className={`${classes.itemTable}`}>
         <table>
           <thead>
             <tr>{thArray}</tr>
@@ -72,9 +82,8 @@ function TimePickerPanel({ localSt, setLocSt }) {
           <tbody></tbody>
         </table>
       </section>
-      <section className={` ${classes.buttonWindow}`}>
-        {timeRowsArr}
-      </section>
+
+      <section className={` ${classes.buttonWindow}`}>{timeRowsArr}</section>
     </section>
   );
 }
