@@ -11,6 +11,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
 import { useOutletContext, useNavigate } from "react-router";
+import { current } from "immer";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
@@ -23,6 +24,7 @@ function ScheduleTimes() {
   const defaultState = {
     show30warning: false,
     activeKey: null,
+    activeTimeBtnObj: null,
   };
 
   //local state
@@ -39,19 +41,40 @@ function ScheduleTimes() {
     let outLocSt = {
       show30warning: false,
       activeKey: "All Scheduled",
+      activeTimeBtnObj: null, // Not sure if right?
     };
 
     // loop through the keys, return 1st with no apptTime.
     for (const thisKey of exchProdsMap.keys()) {
+      // Valid values are either obj or string, but both are truthy
       const thisItemTime = exchProdsMap.get(thisKey).apptTime;
       if (!thisItemTime) {
         // if item has no time scheduled...
         outLocSt.activeKey = thisKey;
+
+        //I don't think I need to do anything with activeTime?  
         break;
       }
     }
     return outLocSt;
   }
+
+  const handeApply = () => {
+    const pickedTime = locSt_PickTime.activeTimeBtnObj;
+    console.log(pickedTime);
+
+    //If a time was picked...
+    if (pickedTime) {
+      // add that time to the
+      setExchState((draft) => {
+        const activeProduct = locSt_PickTime.activeKey;
+        const test =  current(draft.exchProducts)
+        draft.exchProducts.get(locSt_PickTime.activeKey).apptTime = pickedTime;
+      });
+
+
+    }
+  };
 
   /* ---- Table Elements ---- */
 
@@ -110,7 +133,10 @@ function ScheduleTimes() {
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
-        <TimePickerPanel localSt={locSt_PickTime} setLocSt={setLocSt_PickTime}/>
+        <TimePickerPanel
+          localSt={locSt_PickTime}
+          setLocSt={setLocSt_PickTime}
+        />
         <ExchPizzaTracker />
         <section className={`footer_text right_col`}>
           <p className={`tinyText warning`}></p>
@@ -118,7 +144,7 @@ function ScheduleTimes() {
         <section className={`footer_content right_col`}>
           {true ? (
             <button
-              onClick={() => {}}
+              onClick={handeApply}
               className={`mrvBtn primary fullWidth jumbo`}
             >
               Apply

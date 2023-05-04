@@ -15,7 +15,6 @@
     border: .125rem solid;
     border-radius: .5rem;
     background-color: fuchsia;
-
     text-decoration: none;
     font-size: 1.25rem;
     font-weight: 500;
@@ -54,9 +53,13 @@
     flex: 1 1 0rem;
 }
 
-.mrvBtn:focus{
+.mrvBtn.focused{
     color: var(--color__primary__inverse);
     background-color: var(--color__interactive__pressed);
     border: calc(3rem / 16) solid white;
     outline: calc(3rem / 16) solid var(--color__interactive__pressed);
+}
+
+.mrvBtn.mainAction{
+    padding-left: var(--PrimaryPadding__horizontal);
 }
