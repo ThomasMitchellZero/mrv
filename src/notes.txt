@@ -5194,6 +5194,24 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     So I think the right move would be to straighten up the code so that it is easier for me to follow.  If the problem gets solved along the way, so be it.  
 
+    6:30.
+    Ran it again, still getting the same error.  Two things I noticed that I don't remember from before.  First, this little tidbit:
 
+    " The above error occurred in the <p> component: "
 
+    Second, I notice that the very first failure I'm seeing is in the Time Mini Card.  
+
+    I'm going to try taking out that weird string I found on my weekday just because.  It's hard to imagine that is the problem, since it does render the first time, but I want it out regardless.
+
+    I think I found it.  Registering because I feel really good about this fitting all the data.  
+ 
+    OK.  Cool.  So I THINK I solved part of the problem.  When I made the Mini Card, I set a <p> element to read the value of an 'apptTime' property from the ExchProducts map, because I didn't yet realize it was going to be an Object.  It rendered fine on the first pass, because no object had been assigned.  But then when I hit Apply, that assigned an Object where React was expecting a primitive, and so... boom.
+
+    I did learn at least one interesting thing here.  When the errors appeared in the debugger, the TimeMiniCard component was the first on the list that failed.  So for future incarnations of this, the first component that fails is probably the source of my problems.  
+
+    I wonder if I could have caught this earlier?  Was there a reason I just now noticed the failure in TimeMiniCard?  And that it was happening in a <p> element?  I guess if nothing else I should read through the whole red list for clues, because that could have gotten me on the right track sooner.  
+
+    Otherwise, this could have gone undetected for a while because it was happening in a place I wasn't looking.  
+
+    OK. I need to eat and get ready to go out.  It's still not working right but I am now unstuck.  Also, Session and Local states are updating just fine, but for some reason the auto-cycle is not.  Whatever.  That's just normal, non-error debugging.
 

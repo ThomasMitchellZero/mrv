@@ -18,9 +18,9 @@ function TimePickerPanel({ localSt, setLocSt }) {
   /* ---- Shared Functions ---- */
 
   const handleTimeBtnClick = (timeBtnObj) => {
-    console.log(timeBtnObj)
+    console.log(timeBtnObj);
     setLocSt((draft) => {
-      const ddd = current(draft)
+      const ddd = current(draft);
       //console.log(ddd)
       draft.activeTimeBtnObj = timeBtnObj;
       draft.show30warning = false;
@@ -29,47 +29,7 @@ function TimePickerPanel({ localSt, setLocSt }) {
 
   /* ---- UI Elements ---- */
 
-  
-
-
-
-  const makeBtnRows = ({ date, month }) => {
-    const timeSlotArr = ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"];
-
-    const outBtnArr = [];
-
-    for (let timeIndex of timeSlotArr) {
-
-      const btnDataObj = {
-        keyStr: `${date}${month}${timeIndex}`,
-        timeSlot: timeIndex,
-        date: date,
-        month: month,
-        fart: "Fartrell",
-      };
-
-      const isActive =
-        localSt.activeTimeBtnObj?.keyStr === btnDataObj.keyStr ? "focused" : "";
-
-      outBtnArr.push(
-        <section
-          key={btnDataObj.keyStr}
-          className={`${classes.timeBtnContainer}`}
-        >
-          <button
-            onClick={() => handleTimeBtnClick(btnDataObj)}
-            className={`mrvBtn secondary fullWidth ${isActive} ${classes.timeBtn}`}
-          >{`${timeIndex}`}</button>
-        </section>
-      );
-    }
-    return outBtnArr;
-  };
-
-
-
-  //// Times Table //////
-
+  // Fn to producethe range of date objects shown in table
   const makeDatesArr = ({ month = 8, startDate = 2, endDate = 16 }) => {
     const outArr = [];
     for (let i = startDate; i <= endDate; i++) {
@@ -79,31 +39,71 @@ function TimePickerPanel({ localSt, setLocSt }) {
     return outArr;
   };
 
+  // Fn to produce a row with all buttons for a specific day.
+  const makeBtnRow = ({ date, month }) => {
+    const timeSlotArr = ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"];
+
+    const outBtnArr = timeSlotArr.map((timeStr) => {
+      const keyString = `${date}${month}${timeStr}`;
+
+      // Clicking button stores this obj in local state.  If user hits Apply, it will be passed from local to global.
+      const btnDataObj = {
+        keyStr: keyString,
+        timeSlot: timeStr,
+        date: date,
+        month: month,
+        fart: "Fartrell",
+      };
+
+      // If this unique keyStr matches local, apply "focused" style
+      const isActive =
+        localSt.activeTimeBtnObj?.keyStr === keyString ? "focused" : "";
+
+      return (
+        <section
+          key={btnDataObj.keyStr}
+          className={`${classes.timeBtnContainer}`}
+        >
+          <button
+            onClick={() => handleTimeBtnClick(btnDataObj)}
+            className={`mrvBtn secondary fullWidth ${isActive} ${classes.timeBtn}`}
+          >{`${timeStr}`}</button>
+        </section>
+      );
+    });
+    return outBtnArr;
+  };
+
+  //Arr of all Date objs
   const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
-  const timeRowsArr = [];
+  //Arr made from applying makeBtnRow() to array of Date objects
+  const allUIdayRowsArr = allDatesArr.map((thisDateObj) => {
+    // these two values are indexes, so get the corresponding string.
+    const thisMonth = monthArr[thisDateObj.getMonth()];
+    // TODO - I think it's a template literal for the comma?
+    const wkday = `${weekdayArr[thisDateObj.getDay()]},`;
+    const thisDate = thisDateObj.getDate();
 
-  for (const i of allDatesArr) {
-    const month = monthArr[i.getMonth()];
-    const wkday = `${weekdayArr[i.getDay()]},`;
-    const date = i.getDate();
-    const btnRows = makeBtnRows({ date: date, month: month })
-    console.log(btnRows);
+    // call the fn() to make the button row for today.
+    const thisDayBtnRow = makeBtnRow({ date: thisDate, month: thisMonth });
 
-    timeRowsArr.push(
-      <section key={`${month}${date}`} className={`${classes.dateBtnRow}`}>
+    return (
+      <section
+        key={`${thisMonth}${thisDate}`}
+        className={`${classes.dateBtnRow}`}
+      >
         <section className={`${classes.dateText}`}>
           <p className={`body`}>{wkday}</p>
-          <p className={`body ${classes.month}`}>{month}</p>
-          <p className={`body`}>{date}</p>
+          <p className={`body ${classes.month}`}>{thisMonth}</p>
+          <p className={`body`}>{thisDate}</p>
         </section>
-        {btnRows}
+        {thisDayBtnRow}
       </section>
     );
-  
-  }
+  });
 
-    /* ---- Table Elements ---- */
+  /* ---- Table Elements ---- */
 
   // generate <th>
   const thFactory = (title = "", width = "") => {
@@ -127,6 +127,11 @@ function TimePickerPanel({ localSt, setLocSt }) {
     );
   });
 
+
+  /*
+  
+  */
+
   // Generate <tr>s
 
   /* ---- Final Component ---- */
@@ -142,7 +147,7 @@ function TimePickerPanel({ localSt, setLocSt }) {
         </table>
       </section>
 
-      <section className={` ${classes.buttonWindow}`}>{timeRowsArr}</section>
+      <section className={` ${classes.buttonWindow}`}>{allUIdayRowsArr}</section>
     </section>
   );
 }
