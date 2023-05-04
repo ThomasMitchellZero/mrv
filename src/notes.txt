@@ -5152,8 +5152,47 @@ BUG - cash refund finalization screen is displaying as store credit.
     9:10.  
     Got about 45 minutes before next standup so I am gonna try and sneak a bit of JS in there.  
 
-    
+    OK.  I was thinking before that I could just make a key as a combination of the date and time.  That would at least be a unique identifier for each button, which I will need both as a key and to handle highlighting.  I think I want to store those values in an object, because I think I need them separate for Total Review.  
 
+    I guess I could just parse the JSON, but dude, why?  It's one more property, just shove it in there.  
+
+    12:25.
+    OK, got the buttons populated.  Now for the selection.  First, I think I can use a console.log() to verify selection.
+
+    1:10.
+    Selection is now working.  I don't think I want to use the default "focus" state because it appears on all of my buttons.  So I should see if I can do it as a conditional instead.
+
+    2:50.
+    Having an issue where React is claiming I have an object as a React child.  It is happening after "Apply" but before the page renders.  Trying to find where this is happening.  
+
+    Stepping through the debugger, it looks like(?) I was able to successfully update the state, so I think somewhere between there and the render, something's getting an object it doesn't like.  
+
+    I'm wondering if it's got something to do with the times?  
+
+    I'm stumped.  I don't feel smart.  I feel like taking a walk and then playing Advance Wars.  
+
+    https://www.g2i.co/blog/understanding-the-objects-are-not-valid-as-a-react-child-error-in-react
+
+4:45.
+    OK.  I'm going to try and solve this problem for at least 90 minutes.  
+
+    So what do I know?  
+    -The page renders successfully the first time, so that part, at least, is fine.  
+    -I get the error when I click the Apply button, which is consistent with the first observation.  
+    -In my previous debug, I found that the global state (and I think the local state, although I took it out for debugging) did successfully update before the crash.  
+    -The object listed in the error contains all the property keys of the 
+    
+    const btnDataObj = {
+        keyStr: `${date}${month}${timeIndex}`,
+        timeSlot: timeIndex,
+        date: date,
+        month: month,
+        fart: "Fartrell",
+      };
+
+    Here's my current thought.  I DO NOT think that 'blow it all up, start from 0, and hope you eliminate the error by accident' is a good approach to programming.  However, I am having trouble following my own code, which suggests that the code is probably not arranged well.  
+
+    So I think the right move would be to straighten up the code so that it is easier for me to follow.  If the problem gets solved along the way, so be it.  
 
 
 

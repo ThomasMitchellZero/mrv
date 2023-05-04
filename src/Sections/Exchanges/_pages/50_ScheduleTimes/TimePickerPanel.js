@@ -27,6 +27,12 @@ function TimePickerPanel({ localSt, setLocSt }) {
     });
   };
 
+  /* ---- UI Elements ---- */
+
+  
+
+
+
   const makeBtnRows = ({ date, month }) => {
     const timeSlotArr = ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"];
 
