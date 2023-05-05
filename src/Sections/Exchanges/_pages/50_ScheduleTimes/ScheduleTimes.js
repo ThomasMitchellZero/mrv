@@ -32,16 +32,10 @@ function ScheduleTimes() {
 
   // on every render, check if activeKey has a value.
   if (!locSt_PickTime.activeKey) {
-    setLocSt_PickTime({ ...findNextUnscheduled() });
-  }
-
-  /* ---- Shared Functions ---- */
-
-  function findNextUnscheduled() {
     let outLocSt = {
       show30warning: false,
       activeKey: "All Scheduled",
-      activeTimeBtnObj: null, // Not sure if right?
+      //activeTimeBtnObj: null, // If active, selected btn resets after Apply
     };
 
     // loop through the keys, return 1st with no apptTime.
@@ -51,13 +45,19 @@ function ScheduleTimes() {
       if (!thisItemTime) {
         // if item has no time scheduled...
         outLocSt.activeKey = thisKey;
-
         //I don't think I need to do anything with activeTime?  
         break;
       }
     }
-    return outLocSt;
+
+    setLocSt_PickTime((draft)=>{
+      draft.activeKey = outLocSt.activeKey
+      draft.show30warning = false
+
+    });
   }
+
+  /* ---- Shared Functions ---- */
 
   const handeApply = () => {
     const pickedTime = locSt_PickTime.activeTimeBtnObj;
@@ -68,10 +68,14 @@ function ScheduleTimes() {
       // add that time to the
       setExchState((draft) => {
         const activeProduct = locSt_PickTime.activeKey;
-        const test =  current(draft.exchProducts)
-        draft.exchProducts.get(locSt_PickTime.activeKey).apptTime = pickedTime;
+        draft.exchProducts.get(activeProduct).apptTime = pickedTime;
       });
 
+      setLocSt_PickTime((draft)=>{
+        draft.activeKey = null;
+        //draft.activeTimeBtnObj = null;
+        draft.show30warning = false;
+      })
 
     }
   };

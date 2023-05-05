@@ -2,6 +2,10 @@ import classes from "./TimePickerPanel.module.css";
 
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
+import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+
+import { MdArrowForward } from "react-icons/md";
+
 import { current } from "immer";
 
 import { useOutletContext } from "react-router";
@@ -14,6 +18,7 @@ function TimePickerPanel({ localSt, setLocSt }) {
   const activeKey = localSt.activeKey;
   const show30warning = localSt.show30warning;
   const activeTimeBtnObj = localSt.activeTimeBtnObj;
+  const activeProduct = exchProdsMap.get(activeKey);
 
   /* ---- Shared Functions ---- */
 
@@ -81,8 +86,8 @@ function TimePickerPanel({ localSt, setLocSt }) {
   const allUIdayRowsArr = allDatesArr.map((thisDateObj) => {
     // these two values are indexes, so get the corresponding string.
     const thisMonth = monthArr[thisDateObj.getMonth()];
-    // TODO - I think it's a template literal for the comma?
     const wkday = `${weekdayArr[thisDateObj.getDay()]},`;
+
     const thisDate = thisDateObj.getDate();
 
     // call the fn() to make the button row for today.
@@ -116,7 +121,6 @@ function TimePickerPanel({ localSt, setLocSt }) {
     thFactory(" ", "4rem"),
     thFactory("Replacement Product"),
     thFactory("Qty ", "3rem"),
-    thFactory("Remove", "5rem"),
   ];
 
   const thArray = thInputs.map((th) => {
@@ -127,12 +131,7 @@ function TimePickerPanel({ localSt, setLocSt }) {
     );
   });
 
-
-  /*
-  
-  */
-
-  // Generate <tr>s
+  console.log(activeProduct);
 
   /* ---- Final Component ---- */
 
@@ -143,13 +142,42 @@ function TimePickerPanel({ localSt, setLocSt }) {
           <thead>
             <tr>{thArray}</tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr className={`${""}`}>
+              <td>
+                <ProductInfo hasPrice={true} itemObj={activeProduct} />
+              </td>
+              <td>
+                <p className={`body`}>{`${activeProduct.qtyExchanging}`}</p>
+              </td>
+              <td className={`tdCenter`}>
+                <MdArrowForward fontSize="2.5rem" />
+              </td>
+              <td>
+                <ProductInfo hasPrice={true} itemObj={activeProduct} />
+              </td>
+              <td>
+                <p className={`body`}>{`${activeProduct.qtyExchanging}`}</p>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </section>
 
-      <section className={` ${classes.buttonWindow}`}>{allUIdayRowsArr}</section>
+      <section className={` ${classes.buttonWindow}`}>
+        {allUIdayRowsArr}
+      </section>
     </section>
   );
 }
 
 export { TimePickerPanel };
+
+/*
+
+
+
+
+
+
+*/
