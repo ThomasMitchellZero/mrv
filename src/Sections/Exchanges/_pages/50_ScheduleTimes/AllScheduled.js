@@ -1,45 +1,14 @@
 import classes from "./_ScheduleTimesCSS.module.css";
 
-import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
+import { MdOutlineCheckCircle } from "react-icons/md";
 
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
-import { MdArrowForward, MdOutlineCheckCircle } from "react-icons/md";
-
-import { useOutletContext } from "react-router";
 
 function AllScheduled({ parentSt, setParSt }) {
-  const exchCtx = useOutletContext();
-  const setExchState = exchCtx.setExchSession;
-  const exchProdsMap = exchCtx.exchSession.exchProducts;
-
-  const activeKey = parentSt.activeKey;
-  const show30warning = parentSt.show30warning;
-  const activeTimeBtnObj = parentSt.activeTimeBtnObj;
-  const activeProduct = exchProdsMap.get(activeKey);
-
-  const allComplete = true;
+  const exchNav = useExchNav();
 
   /* ---- Shared Functions ---- */
-
-  const handleContinue = () => {
-    const pickedTime = parentSt.activeTimeBtnObj;
-
-    //If a time was picked...
-    if (pickedTime) {
-      // add that time to the
-      setExchState((draft) => {
-        const activeProduct = parentSt.activeKey;
-        draft.exchProducts.get(activeProduct).apptTime = pickedTime;
-      });
-
-      setParSt((draft) => {
-        draft.activeKey = null;
-        //draft.activeTimeBtnObj = null;
-        draft.showApplyWarning = false;
-      });
-    }
-  };
 
   /* ---- UI Elements ---- */
 
@@ -59,7 +28,7 @@ function AllScheduled({ parentSt, setParSt }) {
       </section>
       <section className={`footer_content right_col`}>
         <button
-          onClick={handleContinue}
+          onClick={() => exchNav({ routeStr: "totalreview" })}
           className={`mrvBtn primary fullWidth jumbo`}
         >
           Continue

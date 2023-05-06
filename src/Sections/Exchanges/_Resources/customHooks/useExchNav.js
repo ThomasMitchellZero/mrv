@@ -37,7 +37,7 @@ function useExchNav() {
         route: "/mrv/exchanges/exchreason",
         activePanels: {
           left: "",
-          main: "fart",
+          main: "",
           right: "",
         },
         ptNode: "exchreason",
@@ -62,6 +62,16 @@ function useExchNav() {
           right: "",
         },
         ptNode: "schedule",
+      },
+
+      totalreview:{
+        route: "/mrv/exchanges/totalreview",
+        activePanels: {
+          left: "",
+          main: "",
+          right: "",
+        },
+        ptNode: "totalreview",
       }
     };
 
