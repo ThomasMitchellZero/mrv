@@ -55,25 +55,9 @@ function ScheduleTimes() {
 
   /* ---- Shared Functions ---- */
 
-  const handeApply = () => {
 
-    const pickedTime = locSt_PickTime.activeTimeBtnObj;
 
-    //If a time was picked...
-    if (pickedTime) {
-      // add that time to the
-      setExchState((draft) => {
-        const activeProduct = locSt_PickTime.activeKey;
-        draft.exchProducts.get(activeProduct).apptTime = pickedTime;
-      });
-
-      setLocSt_PickTime((draft)=>{
-        draft.activeKey = null;
-        //draft.activeTimeBtnObj = null;
-        draft.showApplyWarning = false;
-      })
-    }
-  };
+  /* ---- UI Elements ---- */
 
   // Generate Time Cards
   const timeCardArr = [];
@@ -88,6 +72,7 @@ function ScheduleTimes() {
       />
     );
   });
+
 
   /* ---- Final Component ---- */
 
@@ -108,24 +93,11 @@ function ScheduleTimes() {
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
-        <TimePickerPanel
-          localSt={locSt_PickTime}
-          setLocSt={setLocSt_PickTime}
-        />
         <ExchPizzaTracker />
-        <section className={`footer_text right_col`}>
-          <p className={`tinyText warning`}></p>
-        </section>
-        <section className={`footer_content right_col`}>
-          {true ? (
-            <button
-              onClick={handeApply}
-              className={`mrvBtn primary fullWidth jumbo`}
-            >
-              Apply
-            </button>
-          ) : null}
-        </section>
+        <TimePickerPanel
+          parentSt={locSt_PickTime}
+          setParentSt={setLocSt_PickTime}
+        />
       </section>
     </section>
   );
