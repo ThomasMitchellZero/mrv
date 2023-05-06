@@ -5232,10 +5232,10 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK. So back to the work.  I THINK I can take this thing to the house today. Copied from above:
 
-    -Handle a Mini Card click.
-    -Populate the Mini Card.
+    X -Handle a Mini Card click.
+    X -Populate the Mini Card.
     -Error Message + handling for Items.  Maybe not needed but I'll put it in just in case.
-    -Item Details for the Active Item.
+    X -Item Details for the Active Item.
     -Everything in the Main panel needs to be in a single component because it's all going to display or hide together.  
     -All Clear screen + Continue btn.
     -Component for Total Review
@@ -5243,3 +5243,12 @@ BUG - cash refund finalization screen is displaying as store credit.
     -Nav Btn to Total Review.
 
     I could totally make the keyString straight-up readable.  Do I want that?  I can't get rid of the object parts entirely, since I do need them in the TotalReview component (putting them on 2 lines.)
+
+    OK.  So I am now kicking around the idea of moving All Clear into a completely separate component, and for both the Time Picker and All Clear, having the buttons live locally?  It's different from what I normally do, but the TimePicker will only ever have the Apply button and All Clear will only ever have Continue, so I think it's OK?  
+
+    Eh.  Let's try it.  If nothing else this could be a useful pattern to know.
+
+    1:50.
+    OK, so I got a little sidetracked but I have a new pattern that I like.  The idea is that for situations where there are multiple components in related to a single page, I just put all the CSS into a module instead of having a separate CSS file for each, which I just really do not like.
+
+    

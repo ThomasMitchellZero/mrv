@@ -10,7 +10,7 @@ import { current } from "immer";
 
 import { useOutletContext } from "react-router";
 
-function TimePickerPanel({ parentSt, setParentSt }) {
+function TimePickerPanel({ parentSt, setParSt }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
@@ -25,7 +25,7 @@ function TimePickerPanel({ parentSt, setParentSt }) {
   /* ---- Shared Functions ---- */
 
   const handleTimeBtnClick = (timeBtnObj) => {
-    setParentSt((draft) => {
+    setParSt((draft) => {
       draft.activeTimeBtnObj = timeBtnObj;
       draft.show30warning = false;
     });
@@ -43,7 +43,7 @@ function TimePickerPanel({ parentSt, setParentSt }) {
         draft.exchProducts.get(activeProduct).apptTime = pickedTime;
       });
 
-      setParentSt((draft)=>{
+      setParSt((draft)=>{
         draft.activeKey = null;
         //draft.activeTimeBtnObj = null;
         draft.showApplyWarning = false;

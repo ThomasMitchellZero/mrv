@@ -1,13 +1,11 @@
-
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
-
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { TimeMiniCard } from "./TimeMiniCard";
 import { TimePickerPanel } from "./TimePickerPanel";
+import { AllScheduled } from "./AllScheduled";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-
 
 import { useOutletContext } from "react-router";
 import { current } from "immer";
@@ -18,6 +16,7 @@ function ScheduleTimes() {
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
   const exchNav = useExchNav();
+  const allScheduledStr = "All Scheduled";
 
   const defaultState = {
     showApplyWarning: false,
@@ -32,7 +31,7 @@ function ScheduleTimes() {
   if (!locSt_PickTime.activeKey) {
     let outLocSt = {
       showApplyWarning: false,
-      activeKey: "All Scheduled",
+      activeKey: allScheduledStr,
       //activeTimeBtnObj: null, // If active, selected btn resets after Apply
     };
 
@@ -40,22 +39,20 @@ function ScheduleTimes() {
     for (const thisKey of exchProdsMap.keys()) {
       // Valid values are either obj or string, but both are truthy
       const thisItemTime = exchProdsMap.get(thisKey).apptTime;
-      if (!thisItemTime) { // if prod has no time scheduled...
+      if (!thisItemTime) {
+        // if prod has no time scheduled...
         outLocSt.activeKey = thisKey; // it befomes the new active prod
         break;
       }
     }
 
-    setLocSt_PickTime((draft)=>{
-      draft.activeKey = outLocSt.activeKey
-      draft.showApplyWarning = false
-
+    setLocSt_PickTime((draft) => {
+      draft.activeKey = outLocSt.activeKey;
+      draft.showApplyWarning = false;
     });
   }
 
   /* ---- Shared Functions ---- */
-
-
 
   /* ---- UI Elements ---- */
 
@@ -72,7 +69,6 @@ function ScheduleTimes() {
       />
     );
   });
-
 
   /* ---- Final Component ---- */
 
@@ -94,10 +90,17 @@ function ScheduleTimes() {
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
         <ExchPizzaTracker />
-        <TimePickerPanel
-          parentSt={locSt_PickTime}
-          setParentSt={setLocSt_PickTime}
-        />
+        {locSt_PickTime.activeKey === allScheduledStr ? (
+          <AllScheduled
+            parentSt={locSt_PickTime}
+            setParSt={setLocSt_PickTime}
+          />
+        ) : (
+          <TimePickerPanel
+            parentSt={locSt_PickTime}
+            setParSt={setLocSt_PickTime}
+          />
+        )}
       </section>
     </section>
   );
