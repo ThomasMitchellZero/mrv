@@ -28,7 +28,8 @@ function TimePickerPanel({ parentSt, setParSt }) {
     });
   };
 
-  const handeApply = () => {
+  const handeApply = (event) => {
+    event.preventDefault();
     const pickedTime = parentSt.activeTimeBtnObj;
 
     //If a time was picked...
@@ -49,6 +50,12 @@ function TimePickerPanel({ parentSt, setParSt }) {
         console.log("set it");
         draft.showApplyWarning = true;
       });
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handeApply(event);
     }
   };
 
@@ -89,6 +96,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
           className={`${classes.timeBtnContainer}`}
         >
           <button
+            type="button"
             onClick={() => handleTimeBtnClick(btnDataObj)}
             className={`mrvBtn secondary fullWidth ${isActive} ${classes.timeBtn}`}
           >{`${timeStr}`}</button>
@@ -152,7 +160,12 @@ function TimePickerPanel({ parentSt, setParSt }) {
 
   return (
     <>
-      <section className={` main_content main_col ${classes.tp_container}`}>
+      <section
+        onKeyDown={handleKeyDown}
+        id="tpForm"
+        onSubmit={handeApply}
+        className={` main_content main_col ${classes.tp_container}`}
+      >
         <section className={`${classes.itemTable}`}>
           <table>
             <thead>
@@ -184,13 +197,12 @@ function TimePickerPanel({ parentSt, setParSt }) {
         </section>
       </section>
       <section className={`footer_text right_col`}>
-        {applyWarning ? <p className={`tinyText warning`}>Warn me, Daddy</p> : null}
+        {applyWarning ? (
+          <p className={`tinyText warning`}>Choose a time for exchange./</p>
+        ) : null}
       </section>
       <section className={`footer_content right_col`}>
-        <button
-          onClick={handeApply}
-          className={`mrvBtn primary fullWidth jumbo`}
-        >
+        <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
           Apply
         </button>
       </section>

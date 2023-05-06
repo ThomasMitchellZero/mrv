@@ -84,7 +84,7 @@ function ExchScheduleTimes() {
       </section>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
-          headerTitle="NOT DONE"
+          headerTitle="Schedule Pickup / Delivery"
           hasCluster={true}
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
