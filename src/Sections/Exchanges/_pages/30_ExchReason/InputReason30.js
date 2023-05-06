@@ -2,7 +2,6 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
-import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
 import { useOutletContext, useNavigate } from "react-router";
 

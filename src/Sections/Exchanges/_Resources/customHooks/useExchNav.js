@@ -72,7 +72,17 @@ function useExchNav() {
           right: "",
         },
         ptNode: "totalreview",
-      }
+      },
+
+      receipt:{
+        route: "/mrv/exchanges/receipt",
+        activePanels: {
+          left: "",
+          main: "",
+          right: "",
+        },
+        ptNode: "",
+      },
     };
 
     const thisRoute = exchNavObj[routeStr];

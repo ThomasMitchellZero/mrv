@@ -5240,10 +5240,10 @@ BUG - cash refund finalization screen is displaying as store credit.
     X -All Clear screen + Continue btn.
     X -Component for Total Review
     X -Handle Delete.  
-    X -Route to Total Review
+    X -Route to Total Review.
     X -Nav Btn to Total Review.
-    -QoL - Figure out how to use Submit to apply times - back and forth with the mouse kind of sucks.
-    -QoL - Update Return Reason so that the Active Reason doesn't reset after click.  For speeding through that has been really nice.  
+    X -QoL - Figure out how to use Submit to apply times - back and forth with the mouse kind of sucks.
+    X -QoL - Update Return Reason so that the Active Reason doesn't reset after click.  For speeding through that has been really nice.  
 
     I could totally make the keyString straight-up readable.  Do I want that?  I can't get rid of the object parts entirely, since I do need them in the TotalReview component (putting them on 2 lines.)
 

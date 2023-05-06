@@ -1,5 +1,3 @@
-
-
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
@@ -21,6 +19,7 @@ function ExchReason() {
     activeKey: null,
     autoCalcActive: true,
     show30warning: false,
+    itemDispo: "Doesn't Work",
   };
 
   //local state
@@ -28,35 +27,28 @@ function ExchReason() {
 
   // on every render, check if activeKey has a value.
   if (!locSt_ExchReason.activeKey) {
-    setLocSt_ExchReason({ ...findNextEmptyDispo(exchProdsMap) });
+
+    let outActiveKey = "All Assigned"; // Only reassigned if item with no dispo is found in the loop.  Prevents infinite loops.
+
+    for (const key of exchProdsMap.keys()) {
+      const thisDispo = exchProdsMap.get(key).itemDispo;
+      if (!thisDispo) {
+        // if this item doesn't have a dispo...
+        outActiveKey = key; // return it as the active key
+        break; // stop looping because we are only looking for the first.
+      }
+    }
+
+    setLocSt_ExchReason((draft)=>{
+      draft.show30warning = false;
+      draft.activeKey = outActiveKey
+      draft.itemDispo = null;
+    });
   }
 
   const areAllAssigned = locSt_ExchReason.activeKey === "All Assigned";
 
   /* ---- Shared Functions ---- */
-
-  function findNextEmptyDispo(productMap) {
-    let outLocStObj = {
-      show30warning: false,
-      autoCalcActive: false,
-      activeKey: "All Assigned", // Default unless an item has no dispo.  Prevents infinite loops.
-    };
-
-    for (const key of productMap.keys()) {
-      const thisDispo = productMap.get(key).itemDispo;
-      if (!thisDispo) {
-        // if this item doesn't have a dispo...
-        outLocStObj.activeKey = key; // return it as the active key
-        break; // stop looping because we are only looking for the first.
-      }
-    }
-    return outLocStObj;
-  }
-
-  /*
-  
-  
-  */
 
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
@@ -192,10 +184,7 @@ function ExchReason() {
       </section>
       {areAllAssigned ? null : (
         <InputReason30
-          activeItemNum={locSt_ExchReason.activeKey}
-          pendingDispo={locSt_ExchReason.pendingDispo}
           locSt_ExchReason={locSt_ExchReason}
-          findNextEmptyDispoFunc={findNextEmptyDispo}
           setLocSt_ExchReason={setLocSt_ExchReason}
         />
       )}

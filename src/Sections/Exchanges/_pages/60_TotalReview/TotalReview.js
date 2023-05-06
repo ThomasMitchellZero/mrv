@@ -1,5 +1,4 @@
-
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import classes from "./_TotalReviewCSS.module.css";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
@@ -43,7 +42,8 @@ function ExchTotalReview() {
     thFactory(" ", "4rem"),
     thFactory("Replacement Product"),
     thFactory("Qty ", "3rem"),
-    thFactory("Remove", "5rem"),
+    thFactory("Date ", "5rem"),
+    thFactory("Balance", "5rem"),
   ];
 
   const thArray = thInputs.map((th) => {
@@ -58,6 +58,7 @@ function ExchTotalReview() {
   const trArray = [];
 
   exchProdsMap.forEach((value, key) => {
+    const timeObj = value.apptTime;
     trArray.push(
       <tr key={key} className={`${""}`}>
         <td>
@@ -75,10 +76,14 @@ function ExchTotalReview() {
         <td>
           <p className={`body`}>{`${value.qtyExchanging}`}</p>
         </td>
+        <td className={`${""}`}>
+          <p className={`body `}>{`${timeObj.month} ${timeObj.date},`}</p>
+          <p
+            className={`color__tertiary__text body`}
+          >{`${timeObj.timeSlot}`}</p>
+        </td>
         <td>
-          <button type="button" className={`mrvBtn ghost`}>
-            <MdDeleteOutline fontSize="1.5rem" />
-          </button>
+        <p className={`body bold`}>{`$0.00`}</p>
         </td>
       </tr>
     );
@@ -93,7 +98,7 @@ function ExchTotalReview() {
           headerTitle="Replacement Products"
           hasCluster={true}
           hasIcon={"back"}
-          navBtnClick={() => exchNav({ routeStr: "exchreason" })}
+          navBtnClick={() => exchNav({ routeStr: "schedule" })}
         />
         <section className={`main_content main_col`}>
           <section className={`tableContainer`}>
@@ -112,7 +117,7 @@ function ExchTotalReview() {
         <section className={`footer_content right_col`}>
           {true ? (
             <button
-              onClick={() => exchNav({ routeStr: "schedule" })}
+              onClick={() => {exchNav({routeStr:"receipt"})}}
               className={`mrvBtn primary fullWidth jumbo`}
             >
               Continue

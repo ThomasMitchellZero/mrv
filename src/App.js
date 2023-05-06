@@ -34,6 +34,7 @@ import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason
 import { ExchWhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
 import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
 import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/TotalReview";
+import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/ReceiptPage";
 
 import { enableMapSet } from "immer";
 
@@ -74,6 +75,7 @@ function App() {
             <Route path="whichforwhat" element={<ExchWhichForWhat />} />
             <Route path="schedule" element={<ExchScheduleTimes />} />
             <Route path="totalreview" element={<ExchTotalReview />} />
+            <Route path="receipt" element={<ExchReceiptPage />} />
           </Route>
         </Route>
       </Routes>
