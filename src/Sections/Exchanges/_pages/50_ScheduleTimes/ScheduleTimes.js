@@ -1,19 +1,17 @@
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+
+
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { TimeMiniCard } from "./TimeMiniCard";
 import { TimePickerPanel } from "./TimePickerPanel";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
-import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
-import { useOutletContext, useNavigate } from "react-router";
+import { useOutletContext } from "react-router";
 import { current } from "immer";
 import { useImmer } from "use-immer";
-import cloneDeep from "lodash.clonedeep";
 
 function ScheduleTimes() {
   const exchCtx = useOutletContext();
@@ -76,44 +74,19 @@ function ScheduleTimes() {
         //draft.activeTimeBtnObj = null;
         draft.show30warning = false;
       })
-
     }
   };
 
-  /* ---- Table Elements ---- */
-
-  // generate <th>
-  const thFactory = (title = "", width = "") => {
-    return { title, width };
-  };
-
-  const thInputs = [
-    thFactory("Return Product"),
-    thFactory("Qty", "3rem"),
-    thFactory(" ", "4rem"),
-    thFactory("Replacement Product"),
-    thFactory("Qty ", "3rem"),
-    thFactory("Remove", "5rem"),
-  ];
-
-  const thArray = thInputs.map((th) => {
-    return (
-      <th key={th.title} style={{ width: th.width }}>
-        {th.title}
-      </th>
-    );
-  });
-
-  // Generate <tr>s
-  const trArray = [];
+  // Generate Time Cards
   const timeCardArr = [];
 
   exchProdsMap.forEach((value, mapKey) => {
     timeCardArr.push(
       <TimeMiniCard
         key={mapKey}
-        prodObj={value}
-        isActive={mapKey === locSt_PickTime.activeKey}
+        prodKey={mapKey}
+        locSt={locSt_PickTime}
+        setLocSt={setLocSt_PickTime}
       />
     );
   });

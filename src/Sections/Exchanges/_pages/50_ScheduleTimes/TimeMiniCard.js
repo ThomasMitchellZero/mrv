@@ -4,28 +4,28 @@ import { MdDeleteOutline } from "react-icons/md";
 
 import { useOutletContext } from "react-router";
 
-function TimeMiniCard({ prodObj = {}, isActive = false, locSt, setLocSt }) {
+function TimeMiniCard({ locSt, setLocSt, prodKey }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
+  const thisProdObj = exchCtx.exchSession.exchProducts.get(prodKey);
 
-  const timeObj = prodObj.apptTime;
-  
+  const timeObj = thisProdObj.apptTime;
+  const product = thisProdObj.productDetails;
+  const isActive = locSt.activeKey === prodKey;
 
   /* ---- Shared Functions ---- */
 
   /* ---- UI Elements ---- */
   let timeStr = timeObj ? ( // if this prod has a timeObj assigned...
-
     <p // Time-specific string and CSS
       className={`body__small color__primary__text bold ${""}`}
     >{`${timeObj.month} ${timeObj.date}, ${timeObj.timeSlot}`}</p>
-  ) : ( // else, generic text and CSS
+  ) : (
+    // else, generic text and CSS
     <p className={`body__small color__tertiary__text ${""}`}>
       Schedule Appointment
     </p>
   );
-
-  const product = prodObj.productDetails;
 
   return (
     <section
