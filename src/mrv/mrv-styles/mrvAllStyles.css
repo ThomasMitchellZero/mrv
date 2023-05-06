@@ -48,9 +48,26 @@
     --color__border: #9ea4b2;
     --color__border__th: #d8d8d8;
     --color__border__subdued: #cdb1dd;
-
 }
 
+.mrv-top .color__primary__text{
+  color: var(--color__primary);
+}
+.mrv-top .color__primary{
+  background-color: var(--color__primary);
+}
+.mrv-top .color__secondary__text{
+  color: var(--color__secondary);
+}
+.mrv-top .color__secondary{
+  background-color: var(--color__secondary);
+}
+.mrv-top .color__tertiary__text{
+  color: var(--color__tertiary);
+}
+.mrv-top .color__tertiary{
+  background-color: var(--color__tertiary);
+}
 
 
 /* ---- MRV TEXT STYLES ---- */
@@ -99,6 +116,10 @@
 .mrv-top .warning{
   color: var(--color__red);
 }
+
+
+
+
 
 /* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
 

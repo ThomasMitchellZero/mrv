@@ -36,3 +36,13 @@
 -How did binary start getting used in computer science?
 
 -With money, and showing dollar values in cents.  Why does that work for not generating recurring decimal values?  We're still doing division, right?
+    -OK, I think I kind of brain-farted here.  This does make sense to me.  Because every price is measured in cents, every price is a whole number.  When we divide by 100, we move the decimal place two spaces, but that never generates an irrational number.  (Why?  Is it a base 10 thing?)
+
+    -We SHOULD also never be doing division.  It should just be multiplication.  When you multiply, by definition you cannot LOSE prime factors, so if [n] is divisible by 7, any number multiplied by [n] will also have 7 as a factor.  
+
+    I guess the exception would be percentage-based discounts.  Those could still generate irrational numbers.  
+
+
+https://www.youtube.com/watch?v=VwN8kAa_tfY
+
+https://www.youtube.com/watch?v=CicDaMO4bsA

@@ -5215,3 +5215,31 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     OK. I need to eat and get ready to go out.  It's still not working right but I am now unstuck.  Also, Session and Local states are updating just fine, but for some reason the auto-cycle is not.  Whatever.  That's just normal, non-error debugging.
 
+5 May, 2023.
+    OK, let's get this thing moving.  I think part of the reason the auto-cycling isn't happening is because IIRC I took out the interaction between Apply and the local state.  Well, let's go thow that back in and see where we are.  
+
+    2:30.
+    Automatic cycling working fine now.  So I think the rest of this should be pretty fast, hopefully!  Things I still need:
+
+    4:30.
+    I'm just not feeling it.  I think I'm gonna ditch for the rest of the day.  My focus is not focused, I feel like I am really clsoe to the finish line, and that's actually a little scary?
+
+6 May 2023
+    10:30.
+    OK.  Back after a false start.  I'm gonna be good today.  I mean it.  First things first.  This is not the end of the road for this project, and this is not the end of the road for Saturday work.  The product will continue to develop, and there are still features I can develop for it if I want to: manager override, quantity validation, navigation via buttons, how to handle Like for Unlike.  Order Lookup. There's still lots to do.  
+
+    Even if there weren't, this isn't the end of my weekend work.  I still need a portfolio and maybe even a website.  The point is that I don't have to go slow for fear of being forced to face the question of how to enjoy life.  This is a totally healthy way to think that should not concern me in any way.  
+
+    OK. So back to the work.  I THINK I can take this thing to the house today. Copied from above:
+
+    -Handle a Mini Card click.
+    -Populate the Mini Card.
+    -Error Message + handling for Items.  Maybe not needed but I'll put it in just in case.
+    -Item Details for the Active Item.
+    -Everything in the Main panel needs to be in a single component because it's all going to display or hide together.  
+    -All Clear screen + Continue btn.
+    -Component for Total Review
+    -Route to Total Review
+    -Nav Btn to Total Review.
+
+    I could totally make the keyString straight-up readable.  Do I want that?  I can't get rid of the object parts entirely, since I do need them in the TotalReview component (putting them on 2 lines.)
