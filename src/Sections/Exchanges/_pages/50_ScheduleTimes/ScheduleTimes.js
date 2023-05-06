@@ -20,7 +20,7 @@ function ScheduleTimes() {
   const exchNav = useExchNav();
 
   const defaultState = {
-    show30warning: false,
+    showApplyWarning: false,
     activeKey: null,
     activeTimeBtnObj: null,
   };
@@ -31,7 +31,7 @@ function ScheduleTimes() {
   // on every render, check if activeKey has a value.
   if (!locSt_PickTime.activeKey) {
     let outLocSt = {
-      show30warning: false,
+      showApplyWarning: false,
       activeKey: "All Scheduled",
       //activeTimeBtnObj: null, // If active, selected btn resets after Apply
     };
@@ -40,17 +40,15 @@ function ScheduleTimes() {
     for (const thisKey of exchProdsMap.keys()) {
       // Valid values are either obj or string, but both are truthy
       const thisItemTime = exchProdsMap.get(thisKey).apptTime;
-      if (!thisItemTime) {
-        // if item has no time scheduled...
-        outLocSt.activeKey = thisKey;
-        //I don't think I need to do anything with activeTime?  
+      if (!thisItemTime) { // if prod has no time scheduled...
+        outLocSt.activeKey = thisKey; // it befomes the new active prod
         break;
       }
     }
 
     setLocSt_PickTime((draft)=>{
       draft.activeKey = outLocSt.activeKey
-      draft.show30warning = false
+      draft.showApplyWarning = false
 
     });
   }
@@ -58,8 +56,8 @@ function ScheduleTimes() {
   /* ---- Shared Functions ---- */
 
   const handeApply = () => {
+
     const pickedTime = locSt_PickTime.activeTimeBtnObj;
-    console.log(pickedTime);
 
     //If a time was picked...
     if (pickedTime) {
@@ -72,7 +70,7 @@ function ScheduleTimes() {
       setLocSt_PickTime((draft)=>{
         draft.activeKey = null;
         //draft.activeTimeBtnObj = null;
-        draft.show30warning = false;
+        draft.showApplyWarning = false;
       })
     }
   };

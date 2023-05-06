@@ -15,6 +15,14 @@ function TimeMiniCard({ locSt, setLocSt, prodKey }) {
 
   /* ---- Shared Functions ---- */
 
+  const handleCardClick = () => {
+    setLocSt((draft) => {
+      draft.activeKey = prodKey;
+      draft.showApplyWarning = false;
+      draft.activeTimeBtnObj = timeObj
+    });
+  };
+
   /* ---- UI Elements ---- */
   let timeStr = timeObj ? ( // if this prod has a timeObj assigned...
     <p // Time-specific string and CSS
@@ -30,6 +38,7 @@ function TimeMiniCard({ locSt, setLocSt, prodKey }) {
   return (
     <section
       className={`cardStyle ${isActive ? "selected" : ""} ${classes.container}`}
+      onClick={handleCardClick}
     >
       <img src={product.img} alt="test" className={classes.productImage} />
       <section className={`${classes.column}`}>{timeStr}</section>
