@@ -1,4 +1,4 @@
-import classes from "./TimeMiniCard.module.css";
+import classes from "./_ScheduleTimesCSS.module.css";
 
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -19,7 +19,7 @@ function TimeMiniCard({ locSt, setLocSt, prodKey }) {
     setLocSt((draft) => {
       draft.activeKey = prodKey;
       draft.showApplyWarning = false;
-      draft.activeTimeBtnObj = timeObj
+      draft.activeTimeBtnObj = timeObj;
     });
   };
 
@@ -37,7 +37,9 @@ function TimeMiniCard({ locSt, setLocSt, prodKey }) {
 
   return (
     <section
-      className={`cardStyle ${isActive ? "selected" : ""} ${classes.container}`}
+      className={`cardStyle ${isActive ? "selected" : ""} ${
+        classes.mc_container
+      }`}
       onClick={handleCardClick}
     >
       <img src={product.img} alt="test" className={classes.productImage} />

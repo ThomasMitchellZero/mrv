@@ -1,4 +1,4 @@
-import classes from "./ScheduleTimesCSS.module.css";
+import classes from "./_ScheduleTimesCSS.module.css";
 
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
