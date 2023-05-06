@@ -84,7 +84,6 @@
 .allScheduled{
     display: flex;
     flex-direction: row;
-    background-color: aquamarine;
     color: var(--color__primary);
     align-items: center;
     justify-content: center;

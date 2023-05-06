@@ -48,10 +48,11 @@ function AllScheduled({ parentSt, setParSt }) {
   return (
     <>
       <section className={` main_col ${classes.allScheduled}`}>
-        <MdOutlineCheckCircle />
-        <h4 className={`heading__small`}>
-          All exchanges have been scheduled.
-        </h4>
+        <MdOutlineCheckCircle
+          color={`var(--color__green)`}
+          fontSize={"1.75rem"}
+        />
+        <h4 className={`heading__small`}>All exchanges have been scheduled.</h4>
       </section>
       <section className={`footer_text right_col`}>
         <p className={`tinyText warning`}></p>
