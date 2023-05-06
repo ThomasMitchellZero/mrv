@@ -64,8 +64,8 @@ function ExchScheduleTimes() {
       <TimeMiniCard
         key={mapKey}
         prodKey={mapKey}
-        locSt={locSt_PickTime}
-        setLocSt={setLocSt_PickTime}
+        parentSt={locSt_PickTime}
+        setParSt={setLocSt_PickTime}
       />
     );
   });

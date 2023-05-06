@@ -161,6 +161,8 @@
 }
 
 
+
+
 /* ---- MRV TABLE STYLES ---- */
 
 .mrv-top table{
@@ -252,6 +254,8 @@ input[type="radio" i]:focus-visible {
   outline: none 0rem transparent;
 }
 
+/* ---- Universal Modifiers ----*/
 
-
-
+.mrv-top .nohover{
+  pointer-events: none;
+}

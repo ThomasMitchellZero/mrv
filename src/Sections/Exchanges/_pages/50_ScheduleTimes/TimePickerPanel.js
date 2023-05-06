@@ -1,4 +1,4 @@
-import classes from "./_ScheduleTimesCSS.module.css"
+import classes from "./_ScheduleTimesCSS.module.css";
 
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
@@ -16,23 +16,19 @@ function TimePickerPanel({ parentSt, setParSt }) {
   const exchProdsMap = exchCtx.exchSession.exchProducts;
 
   const activeKey = parentSt.activeKey;
-  const show30warning = parentSt.show30warning;
-  const activeTimeBtnObj = parentSt.activeTimeBtnObj;
   const activeProduct = exchProdsMap.get(activeKey);
-
-  const allComplete = true;
+  const applyWarning = parentSt.showApplyWarning;
 
   /* ---- Shared Functions ---- */
 
   const handleTimeBtnClick = (timeBtnObj) => {
     setParSt((draft) => {
       draft.activeTimeBtnObj = timeBtnObj;
-      draft.show30warning = false;
+      draft.showApplyWarning = false;
     });
   };
 
   const handeApply = () => {
-
     const pickedTime = parentSt.activeTimeBtnObj;
 
     //If a time was picked...
@@ -43,11 +39,16 @@ function TimePickerPanel({ parentSt, setParSt }) {
         draft.exchProducts.get(activeProduct).apptTime = pickedTime;
       });
 
-      setParSt((draft)=>{
+      setParSt((draft) => {
         draft.activeKey = null;
         //draft.activeTimeBtnObj = null;
         draft.showApplyWarning = false;
-      })
+      });
+    } else {
+      setParSt((draft) => {
+        console.log("set it");
+        draft.showApplyWarning = true;
+      });
     }
   };
 
@@ -158,7 +159,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
               <tr>{thArray}</tr>
             </thead>
             <tbody>
-              <tr className={`${""}`}>
+              <tr className={`nohover ${""}`}>
                 <td>
                   <ProductInfo hasPrice={true} itemObj={activeProduct} />
                 </td>
@@ -183,17 +184,15 @@ function TimePickerPanel({ parentSt, setParSt }) {
         </section>
       </section>
       <section className={`footer_text right_col`}>
-        <p className={`tinyText warning`}></p>
+        {applyWarning ? <p className={`tinyText warning`}>Warn me, Daddy</p> : null}
       </section>
       <section className={`footer_content right_col`}>
-        {true ? (
-          <button
-            onClick={handeApply}
-            className={`mrvBtn primary fullWidth jumbo`}
-          >
-            Apply
-          </button>
-        ) : null}
+        <button
+          onClick={handeApply}
+          className={`mrvBtn primary fullWidth jumbo`}
+        >
+          Apply
+        </button>
       </section>
     </>
   );

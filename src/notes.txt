@@ -5234,12 +5234,12 @@ BUG - cash refund finalization screen is displaying as store credit.
 
     X -Handle a Mini Card click.
     X -Populate the Mini Card.
-    -Error Message + handling for Items. 
+    X -Error Message + handling for Items. 
     X -Item Details for the Active Item.
     X -Everything in the Main panel needs to be in a single component because it's all going to display or hide together.  
-    X-All Clear screen + Continue btn.
+    X -All Clear screen + Continue btn.
     X -Component for Total Review
-    -Handle Delete.  
+    X -Handle Delete.  
     X -Route to Total Review
     X -Nav Btn to Total Review.
     -QoL - Figure out how to use Submit to apply times - back and forth with the mouse kind of sucks.
