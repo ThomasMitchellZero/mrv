@@ -83,7 +83,11 @@
 
 .allScheduled{
     display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
+    flex-direction: row;
     background-color: aquamarine;
+    color: var(--color__primary);
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: var(--PrimaryPadding__both);
 }
