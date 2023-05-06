@@ -15,7 +15,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 
 import cloneDeep from "lodash.clonedeep";
 
-function StartExchange() {
+function ExchStartExchange() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
@@ -24,10 +24,9 @@ function StartExchange() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
-
   const handleSetInvoice = (invoNum) => {
     setExchState((draft) => {
-      const outInvoProducts = cloneDeep(invoiceContext[invoNum].products)
+      const outInvoProducts = cloneDeep(invoiceContext[invoNum].products);
 
       for (const i of Object.keys(outInvoProducts)) {
         outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
@@ -40,7 +39,7 @@ function StartExchange() {
 
   const handleClick = () => {
     handleSetInvoice("XAAA");
-    exchNav({routeStr:"chooseitems"})
+    exchNav({ routeStr: "chooseitems" });
   };
 
   /* ---- OUTPUT JSX ---- */
@@ -63,7 +62,7 @@ function StartExchange() {
   );
 }
 
-export default StartExchange;
+export { ExchStartExchange };
 
 /*
 

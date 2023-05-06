@@ -11,7 +11,7 @@ import { useOutletContext } from "react-router";
 import { current } from "immer";
 import { useImmer } from "use-immer";
 
-function ScheduleTimes() {
+function ExchScheduleTimes() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
@@ -106,7 +106,7 @@ function ScheduleTimes() {
   );
 }
 
-export { ScheduleTimes };
+export { ExchScheduleTimes };
 
 /*
   

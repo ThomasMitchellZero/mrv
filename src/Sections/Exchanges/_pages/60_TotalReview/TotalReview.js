@@ -1,3 +1,4 @@
+
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
@@ -12,7 +13,7 @@ import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-function ExchWhichForWhat() {
+function ExchTotalReview() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
@@ -23,7 +24,7 @@ function ExchWhichForWhat() {
   };
 
   //local state
-  const [locSt_WhichFor, setLocSt_WhichFor] = useImmer(defaultState);
+  const [locSt_TotalRev, setLocSt_TotalRev] = useImmer(defaultState);
 
   // on every render, check if activeKey has a value.
 
@@ -123,7 +124,7 @@ function ExchWhichForWhat() {
   );
 }
 
-export { ExchWhichForWhat };
+export { ExchTotalReview };
 
 /*
   

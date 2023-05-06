@@ -18,7 +18,7 @@ const defaultState = {
   needsMO: false,
 };
 
-function ChooseExchangeItems() {
+function ExchChooseExchItems() {
 
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
@@ -180,7 +180,7 @@ function ChooseExchangeItems() {
   );
 }
 
-export default ChooseExchangeItems;
+export {ExchChooseExchItems} 
 
 /*
   

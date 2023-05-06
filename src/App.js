@@ -28,11 +28,12 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 
 // Exchanges
 import Exchanges from "./Sections/Exchanges/Exchanges";
-import StartExchage from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
-import ChooseExchangeItems from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
+import {ExchStartExchange} from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
+import {ExchChooseExchItems} from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
-import { WhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
-import { ScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
+import { ExchWhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
+import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
+import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/TotalReview";
 
 import { enableMapSet } from "immer";
 
@@ -67,11 +68,12 @@ function App() {
             <Route path="receipt" element={<SelectReceiptType />} />
           </Route>
           <Route path="exchanges" element={<Exchanges />}>
-            <Route index element={<StartExchage />} />
-            <Route path="chooseitems" element={<ChooseExchangeItems />} />
+            <Route index element={<ExchStartExchange />} />
+            <Route path="chooseitems" element={<ExchChooseExchItems />} />
             <Route path="exchreason" element={<ExchReason />} />
-            <Route path="whichforwhat" element={<WhichForWhat />} />
-            <Route path="schedule" element={<ScheduleTimes />} />
+            <Route path="whichforwhat" element={<ExchWhichForWhat />} />
+            <Route path="schedule" element={<ExchScheduleTimes />} />
+            <Route path="totalreview" element={<ExchTotalReview />} />
           </Route>
         </Route>
       </Routes>
