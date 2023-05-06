@@ -1,4 +1,4 @@
-import classes from "./TimePickerPanel.module.css";
+import classes from "./ScheduleTimesCSS.module.css"
 
 import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
 
@@ -151,7 +151,7 @@ function TimePickerPanel({ parentSt, setParentSt }) {
 
   return (
     <>
-      <section className={` main_content main_col ${classes.container}`}>
+      <section className={` main_content main_col ${classes.tp_container}`}>
         <section className={`${classes.itemTable}`}>
           <table>
             <thead>
