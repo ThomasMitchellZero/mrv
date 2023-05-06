@@ -6,7 +6,6 @@ import { useOutletContext } from "react-router";
 
 function TimeMiniCard({ locSt, setLocSt, prodKey }) {
   const exchCtx = useOutletContext();
-  const setExchState = exchCtx.setExchSession;
   const thisProdObj = exchCtx.exchSession.exchProducts.get(prodKey);
 
   const timeObj = thisProdObj.apptTime;

@@ -59,7 +59,7 @@ function ExchScheduleTimes() {
   // Generate Time Cards
   const timeCardArr = [];
 
-  exchProdsMap.forEach((value, mapKey) => {
+  exchProdsMap.forEach((_value, mapKey) => {
     timeCardArr.push(
       <TimeMiniCard
         key={mapKey}

@@ -183,30 +183,6 @@ function ExchChooseExchItems() {
 export {ExchChooseExchItems} 
 
 /*
-  
-  let testData = [];
-
-  for (let i = 0; i < 33; i++) {
-    testData.push(
-      <tr>
-        <td>{i}</td>
-      </tr>
-    );
-  }
-
-  const testTable = (
-    <section className={`testContainerTest`}>
-      <table>
-        <thead>
-          <tr>
-            <th>This is just a test</th>
-          </tr>
-        </thead>
-        <tbody>{testData}</tbody>
-      </table>
-    </section>
-  );
-
 
 
 */
