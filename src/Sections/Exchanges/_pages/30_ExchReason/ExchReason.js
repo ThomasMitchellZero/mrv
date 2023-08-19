@@ -19,7 +19,7 @@ function ExchReason() {
     activeKey: null,
     autoCalcActive: true,
     show30warning: false,
-    itemDispo: "Doesn't Work",
+
   };
 
   //local state
@@ -42,7 +42,6 @@ function ExchReason() {
     setLocSt_ExchReason((draft)=>{
       draft.show30warning = false;
       draft.activeKey = outActiveKey
-      draft.itemDispo = null;
     });
   }
 
