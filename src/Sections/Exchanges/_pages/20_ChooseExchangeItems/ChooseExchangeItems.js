@@ -31,11 +31,12 @@ function ExchChooseExchItems() {
   /* ---- Shared Functions ---- */
 
 
+
   const handleFieldInput = (event, itemNum) => {
     let input = parseInt(event.target.value);
     input = input ? input : 0;
 
-
+    // is this needed?
     let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
 
