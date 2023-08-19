@@ -60,6 +60,7 @@ function ExchChooseExchItems() {
     for (const itemNum of Object.keys(orderProducts)) {
       if (orderProducts[itemNum].qtyExchanging) {
         outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
+        //this is how you set an object nested within a Map.
         outProdMap.get(itemNum).itemDispo = null;
         outProdMap.get(itemNum).apptTime = null;
       }

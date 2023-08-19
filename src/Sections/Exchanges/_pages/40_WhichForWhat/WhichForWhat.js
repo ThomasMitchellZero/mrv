@@ -1,5 +1,3 @@
-
-
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
@@ -10,7 +8,6 @@ import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
 import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
-
 
 function ExchWhichForWhat() {
   const exchCtx = useOutletContext();
@@ -25,9 +22,22 @@ function ExchWhichForWhat() {
   //local state
   const [locSt_WhichFor, setLocSt_WhichFor] = useImmer(defaultState);
 
-  // on every render, check if activeKey has a value.
-
   /* ---- Shared Functions ---- */
+
+  const handleReplacementContinue = () => {
+
+    //calculate, populate shipments
+
+    let outShipmentsObj = {};
+
+    exchProdsMap.forEach((value, key) => {
+      const itemDC = value.productDetails.dcLocation;
+      console.log(itemDC)
+    });
+
+    // nav to Schedule
+    exchNav({ routeStr: "schedule" });
+  };
 
   /* ---- Table Elements ---- */
 
@@ -111,7 +121,7 @@ function ExchWhichForWhat() {
         <section className={`footer_content right_col`}>
           {true ? (
             <button
-              onClick={() => exchNav({ routeStr: "schedule" })}
+              onClick={handleReplacementContinue}
               className={`mrvBtn primary fullWidth jumbo`}
             >
               Continue

@@ -30,7 +30,8 @@ function ExchStartExchange() {
 
       for (const i of Object.keys(outInvoProducts)) {
         outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
-        outInvoProducts[i].qtyExchanging = 0;
+
+        outInvoProducts[i].qtyExchanging = 1; // change for live app
       }
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
       draft.invoiceProducts = outInvoProducts;

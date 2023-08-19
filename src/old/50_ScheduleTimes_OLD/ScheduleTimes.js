@@ -27,10 +27,6 @@ function ExchScheduleTimes() {
   //local state
   const [locSt_PickTime, setLocSt_PickTime] = useImmer(defaultState);
 
-  //---- On Render ----
-
-
-
   // on every render, check if activeKey has a value.
   if (!locSt_PickTime.activeKey) {
     let outLocSt = {

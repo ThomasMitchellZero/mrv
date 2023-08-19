@@ -19,6 +19,7 @@ function ExchReason() {
     activeKey: null,
     autoCalcActive: true,
     show30warning: false,
+    pendingDispo: "Doesn't Work",
 
   };
 
