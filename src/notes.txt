@@ -5258,3 +5258,32 @@ BUG - cash refund finalization screen is displaying as store credit.
     OK.  Snag.  I want to have Enter apply the condition, but if I wrap the whole thing as a form my CSS is all fucked up and if I have the button not as a child of the form (which AFAICT is necessary not to fuck up the CSS)
 
     5:40.  Ok, so it turns out the answer was easy.  Apparently holder elements, like Div and Section, can have an onKeyDown property that runs a function on an event.  From the Event object you can get what key was pressed and then respond.  I called the same function I used when Apply is pressed via mouse and it worked fine.  Nice, and good to know.  
+
+9 May 2023
+
+    1:20.
+    OK.  So I do have a pile of stuff to do for my Real Job, but I'm planning to go in the office tomorrow and I ought to have Real Job work posponed for then.  Maybe I should sort out that Qty field for Tejas, but other than that I don't think anything bad happens if I wait a day.
+
+    OK.  So what are the most important things to work on today that should not be done in the office?
+
+    Most obvious is the portfolio.  This one is interesting, because it's got the highest danger if caught but is easiest to hide as being 'real work'.
+
+    I guess I could do coding there?  I would need to figure out how to clone a repository, although I think I could do that there as well.  So I guess I am in the clear.  I could work on either one here or there.  
+
+    For the coding, what do I need?
+
+        -IIRC, I was not able to apply auto-selected elements without clicking them first.  Can't remember if it was in Pick Reason or Pick Time, but I would like that not to be the case.  I am guessing it was Pick Reason, since IIRC I don't start with a time selected.
+
+        -I'm kind of iffy about having the selections not clear.  It's nice for me racing through, although I'm not sure if I want that feature in the demo?  AFAICT, it SHOULD be just two variables.  Maybe I can set it up like that, add notes to the variables, and then just de/activate them as I need?  
+
+        -Or.  Heh.  I could add a fastMode variable to the Session state, and then do them all as conditionals based on a single variable? 
+
+19 Aug 2023
+
+10:00.
+Well, well!  Back in the saddle again :)  I've actually been looking forward to this.  Recently I have mostly been working on my portofolio (mixed results) and now I am back in the hunt.  I have been very tempted by Haikyuu games this morning, but I think (hope) I will be able to avoid temptation.  
+
+The second temptation I need t o avoid is fucking with the column sizing.  It tempts me, oh yes it does.  I can feel my mind turning it over, wondering if there's a simple key to this puzzle.  But we're not doing that, nor should we.  It's controlled by CSS components at the top MRV level.  When the time comes to fiddle with it, that can be done.  
+
+11:30.
+Whoops.  Well, I just wasted a whole session.  But I am back, full of guilt, and ready to do this.  

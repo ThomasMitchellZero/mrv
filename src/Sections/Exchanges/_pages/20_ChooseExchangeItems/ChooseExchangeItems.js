@@ -30,9 +30,11 @@ function ExchChooseExchItems() {
 
   /* ---- Shared Functions ---- */
 
+
   const handleFieldInput = (event, itemNum) => {
     let input = parseInt(event.target.value);
     input = input ? input : 0;
+
 
     let outProducts = cloneDeep(orderProducts);
     outProducts[itemNum].qtyExchanging = input;
@@ -42,12 +44,14 @@ function ExchChooseExchItems() {
     });
   };
 
+  // clears error states when a new field is focused.
   const handleFieldFocus = () => {
     setLocSt_PickItems((draft) => {
       draft.formWarning = false;
     });
   };
 
+  // makes Map of products being exchanges, navs to next page.
   const handleContinue = () => {
     const outProdMap = new Map();
 
@@ -61,7 +65,6 @@ function ExchChooseExchItems() {
     }
 
     if (outProdMap.size) { // if there are any non-zero quantities..
-
 
       // clear warnings, may be redundant?
       setLocSt_PickItems((draft) => {

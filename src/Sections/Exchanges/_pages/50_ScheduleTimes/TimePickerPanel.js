@@ -163,7 +163,6 @@ function TimePickerPanel({ parentSt, setParSt }) {
       <section
         onKeyDown={handleKeyDown}
         id="tpForm"
-        onSubmit={handeApply}
         className={` main_content main_col ${classes.tp_container}`}
       >
         <section className={`${classes.itemTable}`}>
@@ -202,7 +201,11 @@ function TimePickerPanel({ parentSt, setParSt }) {
         ) : null}
       </section>
       <section className={`footer_content right_col`}>
-        <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
+        <button
+          onClick={handeApply}
+          type="button"
+          className={`mrvBtn primary fullWidth jumbo`}
+        >
           Apply
         </button>
       </section>

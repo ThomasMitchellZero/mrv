@@ -32,8 +32,8 @@ function ExchReason() {
 
     for (const key of exchProdsMap.keys()) {
       const thisDispo = exchProdsMap.get(key).itemDispo;
-      if (!thisDispo) {
-        // if this item doesn't have a dispo...
+      
+      if (!thisDispo) { // if this item doesn't have a dispo...
         outActiveKey = key; // return it as the active key
         break; // stop looping because we are only looking for the first.
       }
@@ -55,7 +55,7 @@ function ExchReason() {
       draft.activeKey = key;
       draft.pendingDispo = exchProdsMap.get(key).itemDispo;
       draft.show30warning = false;
-      draft.autoCalcActive = false;
+
     });
   };
 
