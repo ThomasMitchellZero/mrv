@@ -25,15 +25,24 @@ function ExchWhichForWhat() {
   /* ---- Shared Functions ---- */
 
   const handleReplacementContinue = () => {
-
     //calculate, populate shipments
 
+    let outShipmentsMap = new Map();
     let outShipmentsObj = {};
 
     exchProdsMap.forEach((value, key) => {
-      const itemDC = value.productDetails.dcLocation;
-      console.log(itemDC)
+      const thisitemDC = value.productDetails.dcLocations[0];
+      if (!outShipmentsObj[thisitemDC]) {
+        // if this DC doesn't exist, create it.
+        outShipmentsObj[thisitemDC] = [];
+      }
+      // add this item# to that DC.
+      outShipmentsObj[thisitemDC].push(key);
     });
+
+    setExchState((draft)=>{
+      draft.shipments = outShipmentsObj;
+    })
 
     // nav to Schedule
     exchNav({ routeStr: "schedule" });

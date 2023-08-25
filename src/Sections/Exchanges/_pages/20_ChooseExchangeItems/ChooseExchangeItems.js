@@ -30,9 +30,37 @@ function ExchChooseExchItems() {
 
   /* ---- Shared Functions ---- */
 
+  /*
+quantity:1
+price:38723
+tax:3810
+productDetails:{categories: Array(2), dcLocations: Array(1), descr…}
+qtyExchanging:1
+itemDispo:null
+apptTime:null
+  
+  */
+
+  const dataModel = {
+    keyItemNum: {
+      qtySold: 2,
+      qtyExchanging: 2,
+      returningItems:{
+        pickupQty: 1,
+        productDetails: {},
+        price: 11111,
+        tax: 111,
+        itemDispo: null,
+      },
+      replacementItems:{
+        deliveryQty: 2,
+        productDetails:{},
+      }
+    }
+  }
 
 
-  const handleFieldInput = (event, itemNum) => {
+  const handleExchQtyInput = (event, itemNum) => {
     let input = parseInt(event.target.value);
     input = input ? input : 0;
 
@@ -134,7 +162,7 @@ function ExchChooseExchItems() {
               max={thisProd.quantity}
               onFocus={handleFieldFocus}
               onChange={(event) => {
-                handleFieldInput(event, product);
+                handleExchQtyInput(event, product);
               }}
             />
           </MRVinput>

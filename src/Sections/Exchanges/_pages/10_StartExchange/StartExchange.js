@@ -1,7 +1,7 @@
 import classes from "./StartExchange.module.css";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";

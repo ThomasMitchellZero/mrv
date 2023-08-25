@@ -5288,6 +5288,30 @@ The second temptation I need t o avoid is fucking with the column sizing.  It te
 11:30.
 Whoops.  Well, I just wasted a whole session.  But I am back, full of guilt, and ready to do this.  
 
-I think the most valuable thing I can do today is to bring the Scheduling section up to speed.  I doubt I'll get more done but maybe I will surprise myself.  
+I'm going to need to do some work on Choose Replacements, but that can come later.
 
-After that, I'm going to need to do some work on Choose Replacements.
+I think the most valuable thing I can do today is to bring the Scheduling section up to speed.  I doubt I'll get more done but maybe I will surprise myself.  I need:
+    -I need to group items into deliveries.  That will be determined by the DCs they are available at.  
+        MRV CONTEXT
+        X -I think the DC availability should live on the product in the product-context.  It's not related to the order or the invoice.  
+        X -I will just make it one value.  I don't need to solve the matching problem.  The real version is a big hairy monster with no value added for me.
+        X -I think I need a separate store for Orders.  I guess I could fit it into the Invoice for the time being?  But that could be a PITA later.
+
+        -I think I need to track the Exchange Quantity and the Pickup Quantity separately on the incoming items.
+        -I should probably track the outgoing quantity and the delivery quantity separately, too.
+        -I think I need to track shipments independently of the items, and I think that needs to live in the top level of Exchanges.  First, that's more realistic.  Second, at this moment that info will be consumed in more than one route.
+        -A custom hook that accepts the items and returns the groups.  For now it will just be the 0-index of the first(only) DC.  
+
+    4:00.
+    Kind of struggling to push here.  I'm gonna take a walk.  If I'm feeling it, I'll run another 90 when I get back.  If not, I'll knock off for the day.
+    
+    5:20.  Got a little break because the DnD game is not until next week.  I set a timer.  I have no idea how much time is left but I am committing to just jam as hard as I can.  
+
+    6:10.  I am just not feeling it.  Next session, I need to make an approach for figuring out how to represent the items, their replacements, and their children in the exchProdsMap.  
+
+25 Aug
+3:30.
+Wrapped up my real job and I have a perfect little 90-minute window in which to do some programming.  My goal is to get the data right so that I can hit it hard tomorrow.  Let's go!
+    -Make sure that the exchProdsMap is created with the selection of the items to exchange.  Yeah, we're good.
+    -Figure out a plan for the data map.
+    
