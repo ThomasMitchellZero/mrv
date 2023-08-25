@@ -5314,4 +5314,5 @@ I think the most valuable thing I can do today is to bring the Scheduling sectio
 Wrapped up my real job and I have a perfect little 90-minute window in which to do some programming.  My goal is to get the data right so that I can hit it hard tomorrow.  Let's go!
     -Make sure that the exchProdsMap is created with the selection of the items to exchange.  Yeah, we're good.
     -Figure out a plan for the data map.
-    
+
+4:15.  Ok.  I am going to be smart here.  This is not a production app.  The user shouldn't be entering decimals, and I am not going to go terribly hard to stop them.  I will make a shared function that will handle integerization, and just have it return the input for the time being.

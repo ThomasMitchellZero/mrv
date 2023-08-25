@@ -59,18 +59,18 @@ apptTime:null
     }
   }
 
+  const integerizer = (input)=>{
+    // Placeholder.  If we decide later to force integers, do it here.
+    return input
+  }
+
 
   const handleExchQtyInput = (event, itemNum) => {
-    //let input = parseInt(event.target.value);
-    let input = event.target.value;
 
-
-    // is this needed?
-    let outProducts = cloneDeep(orderProducts);
-    outProducts[itemNum].qtyExchanging = input;
+    let input = integerizer(event.target.value);
 
     setExchState((draft) => {
-      draft.invoiceProducts = outProducts;
+      draft.invoiceProducts[itemNum].qtyExchanging = input
     });
   };
 
