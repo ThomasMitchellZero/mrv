@@ -61,7 +61,7 @@ apptTime:null
 
   const integerizer = (input)=>{
     // Placeholder.  If we decide later to force integers, do it here.
-    return input
+    return parseInt(input)
   }
 
 
