@@ -61,8 +61,9 @@ apptTime:null
 
 
   const handleExchQtyInput = (event, itemNum) => {
-    let input = parseInt(event.target.value);
-    input = input ? input : 0;
+    //let input = parseInt(event.target.value);
+    let input = event.target.value;
+
 
     // is this needed?
     let outProducts = cloneDeep(orderProducts);
@@ -156,8 +157,8 @@ apptTime:null
           <MRVinput hasError={locSt_PickItems.formWarning} width={"5rem"}>
             <input
               type="number"
-              min={0}
-              step={1}
+              min="0"
+              step="1"
               value={thisProd.qtyExchanging}
               max={thisProd.quantity}
               onFocus={handleFieldFocus}
