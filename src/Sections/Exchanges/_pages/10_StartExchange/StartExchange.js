@@ -32,6 +32,7 @@ function ExchStartExchange() {
         outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
 
         outInvoProducts[i].qtyExchanging = 1; // change for live app
+        outInvoProducts[i].pickupQty = 1; // change for live app
       }
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
       draft.invoiceProducts = outInvoProducts;

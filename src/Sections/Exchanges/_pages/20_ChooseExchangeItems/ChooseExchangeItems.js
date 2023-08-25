@@ -68,9 +68,10 @@ apptTime:null
   const handleExchQtyInput = (event, itemNum) => {
 
     let input = integerizer(event.target.value);
-
     setExchState((draft) => {
       draft.invoiceProducts[itemNum].qtyExchanging = input
+      // move pickupQty out when we add ability to edit this separately.
+      draft.invoiceProducts[itemNum].pickupQty = input
     });
   };
 

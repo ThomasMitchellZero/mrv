@@ -5316,3 +5316,5 @@ Wrapped up my real job and I have a perfect little 90-minute window in which to 
     -Figure out a plan for the data map.
 
 4:15.  Ok.  I am going to be smart here.  This is not a production app.  The user shouldn't be entering decimals, and I am not going to go terribly hard to stop them.  I will make a shared function that will handle integerization, and just have it return the input for the time being.
+
+I'm going to do a SECOND smart thing and bypass the Pickup Qty for the time being.  We don't yet know from testing that this pattern works, and as long as I make it so the value can be changed later this will be fine.
