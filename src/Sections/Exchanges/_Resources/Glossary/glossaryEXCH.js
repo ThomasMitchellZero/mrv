@@ -80,7 +80,7 @@ export { defaultExchState };
 
 // Term names for different sale records.
 
-class salesRecord {
+class SalesRecord {
   constructor({ key, string }) {
     this.k = key;
     this.str = string;
@@ -88,8 +88,8 @@ class salesRecord {
 }
 
 const saleRecordTypes = {
-  order: salesRecord({ k: "order", str: "Order" }),
-  invoice: salesRecord({ k: "order", str: "Invoice" }),
+  order: new SalesRecord({ k: "order", str: "Order" }),
+  invoice: new SalesRecord({ k: "order", str: "Invoice" }),
 };
 
 export { saleRecordTypes };

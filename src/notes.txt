@@ -5318,3 +5318,80 @@ Wrapped up my real job and I have a perfect little 90-minute window in which to 
 4:15.  Ok.  I am going to be smart here.  This is not a production app.  The user shouldn't be entering decimals, and I am not going to go terribly hard to stop them.  I will make a shared function that will handle integerization, and just have it return the input for the time being.
 
 I'm going to do a SECOND smart thing and bypass the Pickup Qty for the time being.  We don't yet know from testing that this pattern works, and as long as I make it so the value can be changed later this will be fine.
+
+For tomorrow.  I think part of the thing that is tripping me up is the discontinuity between the data structure of InvoiceProducts and ExchangeProducts.  I don't *think* there's any reason to transmute the structure?  ExchangeProducts should just be InvoiceProducts with the zero values removed, right?  So I think that the thing to do would be to make the Map I want out of the invoice, right at the start, and then the last step before continuing is 
+
+26 Aug 2023.
+9:55.
+
+I wasn't my smartest.  I spent at least 45 minutes just looking up helicopters.  I don't feel tired but by the clock I slept 6 hours last night so we'll see what effect that has, but atm I feel sharp and energetic.  
+
+Before we can get to anything fun we have some choices to make.  First.  we are going to be blowing up the main data object.  If we want to switch to an Object, now is the time.  I'm already upending the data model.  Everything downstream is going to break no matter what.  The switch will never cost less than it does now.
+    -I'm kind of thinking this might be the move.  I don't actually care about INSERTION order for my item keys - I just care that the order is consistent.  Since the keys won't change, it will be.
+    -I feel like I've got what I came for.  I tried Maps.  I have some familiarity so if I do find a really good use case for them in the future there's less of a fear field.
+    -But I think for the time being, Object is the way to go.
+
+OK, so then.  The next question is what to do with the Order object vs. the Exchange object.  So what do I truly NEED for the Order object?  It should be all the historical information that cannot change.  I need:
+    -Item number
+    -Quantity Sold
+    -$ paid (price + tax)
+    -Child items?
+
+-The other thing I need to provide is shared format for item details.  Since we use the same ProductInfo component everywhere, I should set the product details ONCE and never have to edit them by hand.
+
+  const dataModel = {
+    keyItemNum: {
+      qtySold: 2,
+      qtyToExchange: 2,
+      returningItems:{
+        pickupQty: 1,
+        productDetails: {},
+        price: 11111,
+        tax: 111,
+        itemDispo: null,
+      },
+      replacementItems:{
+        deliveryQty: 2,
+        productDetails:{},
+      }
+    }
+  }
+
+
+
+OK.  I THINK I can just use one universal format for everything.  So the way this will work is:
+    10
+        - An invoice / order is chosen.
+    20
+        -On load, populate the itemsFromOrder obj with all items in the order, in the standard format.
+        -Populate the TRs from the values in the itemsFromOrder obj.
+        -Edits change properties in itemsFromOrder.  I won't change permanent properties, like qtySold or Price, but some properties, like qtyToExchange and qtyForPickup can be edited.  This is so that if the user does go back to 20 later in the process, these properties are preserved.
+        -On Continue, loop through itemsFromOrder{}.  If qtyExchanging is truthy, clone it into exchItems{}
+
+    30+
+
+-OK.  Here's another thought.  I would LIKE to preserve as much information added by the user past 20 as possible, like Disposition or even Replacement Items.  What to do?
+    -Fuck 'em.  Go back = start all over again.  This is the most reliable.  
+    -Update itemsFromOrder separately, at my discretion.  If I want to keep your dispositions but not your replacement items, this approach lets me do that.
+    -It would be kind of nice to have just a single object to maintain.  I could run a check on qtyToExchange when populating my tables, which honestly wouldn't be hard since the tables will always be filled in a loop.  Alternatively, I could have a SUPER thin qtyExchanging array that JUST contains the numbers being exchanged, but that's the same check and more crap to maintain.  OK. I think I talked myself into it.  One Big Fine Object it is.  
+
+1:25
+It's weird.  I'm not doing great in terms of progress, but I do feel interested and engaged.
+
+Now here's the question.  How hard do I want to go on Orders?  First, DO I need to go hard on Orders?
+
+At some point, we are going to need the ability to do a return on an Invoice, separate from an Order, for the In-Store Returns, so I ought to have some clear distinction.  I also need the ability to get Order-specific information, like address and delivery instructions. 
+
+My concern is that when we start processing products, we need to have some universal format.  I don't want to maintain that shit by hand.  Options are:
+
+    -Just do everything as an invoice, and include some additional properties related to the Order.  
+
+    -Have an Order that contains a property that indicates the associated invoice.  Maybe an array?  I'm thinking this is the way to go.  That way, the Invoice is the universal format.  OK, let's do it.
+
+3:00.
+OK, still not blasting away at progress but I am proud of myself.  I am using classes for the Orders, and I think this is a good, useful pattern.  In any situation where I need to have many instances of objects with shared properties, this should be helpful.  And this is a pattern I really ought to get used to because I think that familiarity will open up possibilities.
+
+
+
+
+

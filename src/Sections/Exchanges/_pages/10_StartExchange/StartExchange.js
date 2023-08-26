@@ -7,6 +7,7 @@ import { actPan } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
+import OrdersContext from "../../../../store/orders-context";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
@@ -21,7 +22,11 @@ function ExchStartExchange() {
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
+  const ordersContext = useContext(OrdersContext)
   const exchNav = useExchNav();
+
+  console.log(ordersContext.rrr22);
+
 
   /* ---- SHARED FUNCTIONS ---- */
 
