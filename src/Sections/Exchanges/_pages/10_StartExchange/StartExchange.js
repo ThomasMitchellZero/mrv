@@ -25,7 +25,7 @@ function ExchStartExchange() {
   const ordersContext = useContext(OrdersContext)
   const exchNav = useExchNav();
 
-  console.log(ordersContext.rrr22);
+  console.log(ordersContext.X11111111.salesRecordType);
 
 
   /* ---- SHARED FUNCTIONS ---- */

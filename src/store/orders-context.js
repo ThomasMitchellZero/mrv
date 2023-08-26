@@ -26,6 +26,7 @@ class Order {
     state = "",
     zip = "",
   }) {
+    this.salesRecordType = saleRecordTypes.order.k;
     this.invoice = invoice;
     this.contact = {
       email: email,
