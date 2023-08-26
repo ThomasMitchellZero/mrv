@@ -3,7 +3,10 @@ import classes from "./StartExchange.module.css";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
-import { actPan } from "../../_Resources/glossary/glossaryExch";
+import {
+  actPan,
+  saleRecordTypes,
+} from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
@@ -22,11 +25,9 @@ function ExchStartExchange() {
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
-  const ordersContext = useContext(OrdersContext)
+  const ordersContext = useContext(OrdersContext);
   const exchNav = useExchNav();
-
-  console.log(ordersContext.X11111111.salesRecordType);
-
+  const srt = saleRecordTypes;
 
   /* ---- SHARED FUNCTIONS ---- */
 
@@ -45,8 +46,25 @@ function ExchStartExchange() {
     });
   };
 
+  const setOrder = (orderNum) => {
+    console.log(ordersContext[orderNum].invoice);
+  };
+
+  const handleSetSaleRecord = ({ srType, srKey }) => {
+    // Eventually we will handle different types of sales records.
+    switch (srType) {
+      case srt.order.k:
+        setOrder(srKey);
+        break;
+
+      default:
+        console.log("No matching record");
+    }
+  };
+
   const handleClick = () => {
-    handleSetInvoice("XAAA");
+    handleSetSaleRecord({ srType: srt.order.k, srKey: "X11111111" });
+
     exchNav({ routeStr: "chooseitems" });
   };
 

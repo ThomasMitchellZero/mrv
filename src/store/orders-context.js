@@ -8,15 +8,6 @@ import { saleRecordTypes } from "../Sections/Exchanges/_Resources/glossary/gloss
 
 //products = 100, 200, 300, 400, 900, 910
 
-const tType = tenderTypes;
-
-class salesRecord {
-  constructor({ key, string }) {
-    this.k = key;
-    this.str = string;
-  }
-}
-
 class Order {
   constructor({
     invoice = "",
