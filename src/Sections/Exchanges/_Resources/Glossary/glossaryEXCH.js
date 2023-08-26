@@ -49,7 +49,7 @@ const setDefaultValues = (fastMode = false) => {
     dfExchQty: 1,
   };
 
-  return fastMode ? fastValues : actualValues
+  return fastMode ? fastValues : actualValues;
 };
 
 const defaultExchState = {
@@ -77,3 +77,19 @@ const defaultExchState = {
 };
 
 export { defaultExchState };
+
+// Term names for different sale records.
+
+class salesRecord {
+  constructor({ key, string }) {
+    this.k = key;
+    this.str = string;
+  }
+}
+
+const saleRecordTypes = {
+  order: salesRecord({ k: "order", str: "Order" }),
+  invoice: salesRecord({ k: "order", str: "Invoice" }),
+};
+
+export { saleRecordTypes };
