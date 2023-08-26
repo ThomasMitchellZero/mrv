@@ -41,6 +41,12 @@ export { weekdayArr, monthArr };
 
 // default Exch State
 
+const setDefaultValues = ({toReturn=0, })=>{
+
+}
+const defaultValuesObj = setDefaultValues();
+const fastValuesObj = setDefaultValues({toReturn:1})
+
 const defaultExchState = {
   activePanels: {
     left: "",
@@ -48,6 +54,10 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
+  defaultValues: 
+    //defaultValuesObj, 
+    fastValuesObj,
+  
   activeOrder: "ERROR - No Order",
   activeInvoice: null,
   invoiceProducts: {},

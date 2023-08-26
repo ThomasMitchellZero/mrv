@@ -17,6 +17,7 @@ import cloneDeep from "lodash.clonedeep";
 
 function ExchStartExchange() {
   const exchCtx = useOutletContext();
+  const defaultVals = exchCtx.defaultValues;
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);

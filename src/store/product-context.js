@@ -50,7 +50,7 @@ const ProductContext = React.createContext({
     price: 39500,
     itemNum: "400",
     modelNum: "RT3301", 
-    description: "American Standard Grand Duke II with Royal Flush",
+    description: "Kohler Grand Duke II with Royal Flush",
     categories: ["Stock","Special Order"],
     inStock: 1,
     dcLocations:["AAA"],
