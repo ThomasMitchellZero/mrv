@@ -19,7 +19,6 @@ const defaultState = {
 };
 
 function ExchChooseExchItems() {
-
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const orderProducts = exchCtx.exchSession.invoiceProducts;
@@ -38,40 +37,37 @@ productDetails:{categories: Array(2), dcLocations: Array(1), descr…}
 qtyExchanging:1
 itemDispo:null
 apptTime:null
-  
   */
 
   const dataModel = {
     keyItemNum: {
       qtySold: 2,
       qtyExchanging: 2,
-      returningItems:{
+      returningItems: {
         pickupQty: 1,
         productDetails: {},
         price: 11111,
         tax: 111,
         itemDispo: null,
       },
-      replacementItems:{
+      replacementItems: {
         deliveryQty: 2,
-        productDetails:{},
-      }
-    }
-  }
+        productDetails: {},
+      },
+    },
+  };
 
-  const integerizer = (input)=>{
+  const integerizer = (input) => {
     // Placeholder.  If we decide later to force integers, do it here.
-    return parseInt(input)
-  }
-
+    return parseInt(input);
+  };
 
   const handleExchQtyInput = (event, itemNum) => {
-
     let input = integerizer(event.target.value);
     setExchState((draft) => {
-      draft.invoiceProducts[itemNum].qtyExchanging = input
+      draft.invoiceProducts[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.invoiceProducts[itemNum].pickupQty = input
+      draft.invoiceProducts[itemNum].pickupQty = input;
     });
   };
 
@@ -86,9 +82,11 @@ apptTime:null
   const handleContinue = () => {
     const outProdMap = new Map();
 
-    // check if any items have a non-zero qty.
     for (const itemNum of Object.keys(orderProducts)) {
       if (orderProducts[itemNum].qtyExchanging) {
+        // Only add items with non-zero qty.
+
+        //Start here tomorrow
         outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
         //this is how you set an object nested within a Map.
         outProdMap.get(itemNum).itemDispo = null;
@@ -96,7 +94,8 @@ apptTime:null
       }
     }
 
-    if (outProdMap.size) { // if there are any non-zero quantities..
+    if (outProdMap.size) {
+      // if there are any non-zero quantities..
 
       // clear warnings, may be redundant?
       setLocSt_PickItems((draft) => {
@@ -129,6 +128,7 @@ apptTime:null
     thFactory("Manager Approval Needed", "20%"),
   ];
 
+  // Make the Table
   const thArray = thInputs.map((th) => {
     return (
       <th key={th.title} style={{ width: `${th.width}` }}>
@@ -137,8 +137,9 @@ apptTime:null
     );
   });
 
-  // Generate the TRs
+  const trArray = [];
 
+  /*
   const trArray = Object.keys(orderProducts).map((product) => {
     const thisProd = orderProducts[product];
     const pDetails = thisProd.productDetails;
@@ -174,6 +175,8 @@ apptTime:null
       </tr>
     );
   });
+  
+  */
 
   return (
     <section className={`mrvPage ${classes.container}`}>
@@ -215,7 +218,7 @@ apptTime:null
   );
 }
 
-export {ExchChooseExchItems} 
+export { ExchChooseExchItems };
 
 /*
 

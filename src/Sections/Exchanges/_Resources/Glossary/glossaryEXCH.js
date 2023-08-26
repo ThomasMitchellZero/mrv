@@ -41,15 +41,15 @@ export { weekdayArr, monthArr };
 
 // default Exch State
 
-const setDefaultValues = ({fastMode = false}) => {
+const setDefaultValues = (fastMode = false) => {
   const actualValues = {
-    dfExchQty: 0,
+    dfExchQty: null,
   };
   const fastValues = {
     dfExchQty: 1,
   };
 
-  return fastMode ? fastValues : actualValues;
+  return fastMode ? fastValues : actualValues
 };
 
 const defaultExchState = {
@@ -59,7 +59,7 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-  defaultValues: setDefaultValues({fastMode:true}),
+  defaultValues: setDefaultValues(true),
   activeOrder: "ERROR - No Order",
   activeInvoice: null,
   invoiceProducts: {},

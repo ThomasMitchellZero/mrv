@@ -17,7 +17,7 @@ import cloneDeep from "lodash.clonedeep";
 
 function ExchStartExchange() {
   const exchCtx = useOutletContext();
-  const defaultVals = exchCtx.defaultValues;
+  const defaultVals = exchCtx.exchSession.defaultValues;
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
@@ -32,8 +32,8 @@ function ExchStartExchange() {
       for (const i of Object.keys(outInvoProducts)) {
         outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
 
-        outInvoProducts[i].qtyExchanging = 1; // change for live app
-        outInvoProducts[i].pickupQty = 1; // change for live app
+        outInvoProducts[i].qtyExchanging = defaultVals.dfExchQty;
+        outInvoProducts[i].pickupQty = defaultVals.dfExchQty;
       }
       draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
       draft.invoiceProducts = outInvoProducts;
