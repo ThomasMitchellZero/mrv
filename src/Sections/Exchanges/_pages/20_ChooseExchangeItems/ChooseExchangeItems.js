@@ -21,39 +21,27 @@ const defaultState = {
 function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const orderProducts = exchCtx.exchSession.invoiceProducts;
+  const exchItems = exchCtx.exchSession.itemsInExch;
   const exchNav = useExchNav();
+
+  console.log(exchItems);
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
 
-  /*
-quantity:1
-price:38723
-tax:3810
-productDetails:{categories: Array(2), dcLocations: Array(1), descr…}
-qtyExchanging:1
-itemDispo:null
-apptTime:null
-  */
-
   const dataModel = {
-    keyItemNum: {
-      qtySold: 2,
-      qtyExchanging: 2,
-      returningItems: {
-        pickupQty: 1,
-        productDetails: {},
-        price: 11111,
-        tax: 111,
-        itemDispo: null,
-      },
-      replacementItems: {
-        deliveryQty: 2,
-        productDetails: {},
-      },
+    qtySold: "",
+    qtyExchanging: "",
+    returningItems: {
+      pickupQty: "",
+      productDetails: "",
+      itemDispo: "",
+    },
+    replacementItems: {
+      deliveryQty: "",
+      productDetails: "",
     },
   };
 
@@ -65,9 +53,9 @@ apptTime:null
   const handleExchQtyInput = (event, itemNum) => {
     let input = integerizer(event.target.value);
     setExchState((draft) => {
-      draft.invoiceProducts[itemNum].qtyExchanging = input;
+      draft.itemsInExchange[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.invoiceProducts[itemNum].pickupQty = input;
+      draft.invoiceProducts[itemNum].returningItems.pickupQty = input;
     });
   };
 
@@ -78,37 +66,20 @@ apptTime:null
     });
   };
 
-  // makes Map of products being exchanges, navs to next page.
   const handleContinue = () => {
-    const outProdMap = new Map();
+    // user can't proceed without at least 1 exch item.
+    for (const itemNum of Object.keys(exchItems)) {
+      const thisItemRt = exchItems[itemNum];
+      if (thisItemRt.qtyExchanging) {
+        // if this item has any qty...
 
-    for (const itemNum of Object.keys(orderProducts)) {
-      if (orderProducts[itemNum].qtyExchanging) {
-        // Only add items with non-zero qty.
-
-        //Start here tomorrow
-        outProdMap.set(itemNum, cloneDeep(orderProducts[itemNum]));
-        //this is how you set an object nested within a Map.
-        outProdMap.get(itemNum).itemDispo = null;
-        outProdMap.get(itemNum).apptTime = null;
+        // clear warnings, may be redundant?
+        setLocSt_PickItems((draft) => {
+          draft.formWarning = false;
+        });
+        // go to next page.
+        exchNav({ routeStr: "exchreason" });
       }
-    }
-
-    if (outProdMap.size) {
-      // if there are any non-zero quantities..
-
-      // clear warnings, may be redundant?
-      setLocSt_PickItems((draft) => {
-        draft.formWarning = false;
-      });
-
-      // update the global state
-      setExchState((draft) => {
-        draft.exchProducts = outProdMap;
-      });
-
-      exchNav({ routeStr: "exchreason" });
-    } else {
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;
       });
