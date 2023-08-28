@@ -62,6 +62,7 @@ const defaultExchState = {
   defaultValues: setDefaultValues(true),
   activeOrder: "ERROR - No Order",
   activeInvoice: null,
+  activeSaleRecord: null,
   invoiceProducts: {},
   itemsInExch:{},
   exchProducts: new Map(),

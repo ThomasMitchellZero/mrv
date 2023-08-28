@@ -75,11 +75,14 @@ function ExchStartExchange() {
 
     // Populate Items in the exchange
 
+    const invoiceItemsRoute =
+      invoiceContext[outSRTypeProperties.invoiceNum].products;
+
     let outItemsInExch = {};
 
-    //const invoiceRoute = invoiceContext[srTypeProperties.invoice];
-
-    //console.log(invoiceRoute);
+    for (const i of Object.keys(invoiceItemsRoute)) {
+      outItemsInExch[i] = invoiceItemsRoute[i];
+    }
 
     /*    
 
@@ -93,7 +96,9 @@ function ExchStartExchange() {
     draft.invoiceProducts = outInvoProducts; */
 
     setExchState((draft) => {
-      draft.order = outSRTypeProperties;
+      draft.activeSaleRecord = outSRTypeProperties;
+      draft.invoiceProducts = invoiceItemsRoute;
+      draft.itemsInExch = outItemsInExch;
     });
   };
 
