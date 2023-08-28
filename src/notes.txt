@@ -5412,6 +5412,7 @@ So then, what will vary based on SR Type?
 3:55
 Got a little late start due to some interference from my job but I am HOPING to put in a solid 2.5 hours.  
 
-
+Things to do:
+    -I need to loop through and capture all the per-item details.  This is probably the hardest part.
 
 
