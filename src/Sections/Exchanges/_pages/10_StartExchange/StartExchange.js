@@ -31,35 +31,70 @@ function ExchStartExchange() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
-  const handleSetInvoice = (invoNum) => {
-    setExchState((draft) => {
-      const outInvoProducts = cloneDeep(invoiceContext[invoNum].products);
-
-      for (const i of Object.keys(outInvoProducts)) {
-        outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
-
-        outInvoProducts[i].qtyExchanging = defaultVals.dfExchQty;
-        outInvoProducts[i].pickupQty = defaultVals.dfExchQty;
-      }
-      draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
-      draft.invoiceProducts = outInvoProducts;
-    });
+  const setInvoice = (invoNum) => {
+    return { invoiceNum: invoNum };
   };
 
   const setOrder = (orderNum) => {
     console.log(ordersContext[orderNum].invoice);
+    return {
+      out: "Your papers are in order, comrade",
+      invoiceNum: ordersContext[orderNum].invoice,
+    };
+  };
+
+  const dataModel = {
+    keyItemNum: {
+      qtySold: 2,
+      qtyExchanging: 2,
+      returningItems: {
+        pickupQty: 1,
+        productDetails: {},
+        price: 11111,
+        tax: 111,
+        itemDispo: null,
+      },
+      replacementItems: {
+        deliveryQty: 2,
+        productDetails: {},
+      },
+    },
   };
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
-    // Eventually we will handle different types of sales records.
-    switch (srType) {
-      case srt.order.k:
-        setOrder(srKey);
-        break;
+    // Data that varies with record type.
 
-      default:
-        console.log("No matching record");
+    let outSRTypeProperties =
+      srType === srt.order.k
+        ? setOrder(srKey)
+        : srType === srt.invoice.k
+        ? setInvoice(srKey)
+        : {};
+
+    // ----Properties for all cases----//
+
+    // Populate Items in the exchange
+
+    let outItemsInExch = {};
+
+    //const invoiceRoute = invoiceContext[srTypeProperties.invoice];
+
+    //console.log(invoiceRoute);
+
+    /*    
+
+        for (const i of Object.keys(srTypeProperties.invoice)) {}
+      outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
+
+      outInvoProducts[i].qtyExchanging = defaultVals.dfExchQty;
+      outInvoProducts[i].pickupQty = defaultVals.dfExchQty;
     }
+    draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
+    draft.invoiceProducts = outInvoProducts; */
+
+    setExchState((draft) => {
+      draft.order = outSRTypeProperties;
+    });
   };
 
   const handleClick = () => {

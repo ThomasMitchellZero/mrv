@@ -16,8 +16,10 @@ class Order {
     city = "",
     state = "",
     zip = "",
+    instructions="",
   }) {
     this.salesRecordType = saleRecordTypes.order.k;
+    this.instructions = instructions;
     this.invoice = invoice;
     this.contact = {
       email: email,
@@ -28,6 +30,7 @@ class Order {
       state: state,
       zip: zip
     }
+    
   }
 }
 
@@ -39,6 +42,7 @@ const ordersObj = {
     city: "Washington",
     state: "DC",
     zip:"20001",
+
   })
 };
 

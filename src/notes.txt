@@ -5346,8 +5346,8 @@ OK, so then.  The next question is what to do with the Order object vs. the Exch
       returningItems:{
         pickupQty: 1,
         productDetails: {},
-        price: 11111,
-        tax: 111,
+        price: 11111,  // these need to go into product details.
+        tax: 111,  // these need to go into product details.
         itemDispo: null,
       },
       replacementItems:{
@@ -5391,6 +5391,26 @@ My concern is that when we start processing products, we need to have some unive
 3:00.
 OK, still not blasting away at progress but I am proud of myself.  I am using classes for the Orders, and I think this is a good, useful pattern.  In any situation where I need to have many instances of objects with shared properties, this should be helpful.  And this is a pattern I really ought to get used to because I think that familiarity will open up possibilities.
 
+4:15.
+Still feeling pretty good.  I'm engaged with the work and while I always wish I were more organized about attacking problems, I think(?) I'm doing better than my normal.
+
+Writing to avoid mental backtracking.  The purpose of this is to populate the Session State with as much info as I can to be used throughout the app.  Factors that can affect what happens here:
+    Facility Type:
+        -I'm wondering about this.  IF none of the values we collect are going to change, then the way I populate the data doesn't need to check this condition.  And I don't think any of them do.  
+        -My thinking is just to collect all values that could be used in all cases, and let what is displayed be handled in the consuming components.  I've got to set wire it all up by hand anyways, so it's no extra work.
+
+    Sales Record Type:
+        -This will have an effect.  If nothing else, some of this info just may not exist, depending on the record.  Address and delivery info SHOULD be irrelevant for a FoS exchange.  
+        -Will any properties specific to the items themselves be affected?  I don't think so?
+
+So then, what will vary based on SR Type?
+    -Orders:
+        -Address
+        -Delivery instructions
+
+28 Aug 2023
+3:55
+Got a little late start due to some interference from my job but I am HOPING to put in a solid 2.5 hours.  
 
 
 

@@ -43,10 +43,10 @@ export { weekdayArr, monthArr };
 
 const setDefaultValues = (fastMode = false) => {
   const actualValues = {
-    dfExchQty: null,
+    dvExchQty: null,
   };
   const fastValues = {
-    dfExchQty: 1,
+    dvExchQty: 1,
   };
 
   return fastMode ? fastValues : actualValues;
@@ -63,6 +63,7 @@ const defaultExchState = {
   activeOrder: "ERROR - No Order",
   activeInvoice: null,
   invoiceProducts: {},
+  itemsInExch:{},
   exchProducts: new Map(),
   ptState: {
     activeNode: "",
@@ -86,7 +87,7 @@ const salesRecord = ({ k, str }) => {
 
 const saleRecordTypes = {
   order: salesRecord({ k: "order", str: "Order" }),
-  invoice: salesRecord({ k: "order", str: "Invoice" }),
+  invoice: salesRecord({ k: "invoice", str: "Invoice" }),
 };
 
 export { saleRecordTypes };
