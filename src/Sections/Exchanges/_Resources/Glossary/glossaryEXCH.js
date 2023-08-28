@@ -44,9 +44,11 @@ export { weekdayArr, monthArr };
 const setDefaultValues = (fastMode = false) => {
   const actualValues = {
     dvExchQty: null,
+    dvPickupQty: null,
   };
   const fastValues = {
     dvExchQty: 1,
+    dvPickupQty: 1,
   };
 
   return fastMode ? fastValues : actualValues;
@@ -59,13 +61,9 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-  defaultValues: setDefaultValues(true),
-  activeOrder: "ERROR - No Order",
-  activeInvoice: null,
+  defaultValues: setDefaultValues(false),
   activeSaleRecord: null,
-  invoiceProducts: {},
   itemsInExch:{},
-  exchProducts: new Map(),
   ptState: {
     activeNode: "",
     ptNodes: [

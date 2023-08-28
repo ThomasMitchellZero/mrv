@@ -43,23 +43,6 @@ function ExchStartExchange() {
     };
   };
 
-  const dataModel = {
-    keyItemNum: {
-      qtySold: 2,
-      qtyExchanging: 2,
-      returningItems: {
-        pickupQty: 1,
-        productDetails: {},
-        price: 11111,
-        tax: 111,
-        itemDispo: null,
-      },
-      replacementItems: {
-        deliveryQty: 2,
-        productDetails: {},
-      },
-    },
-  };
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
     // Data that varies with record type.
@@ -80,24 +63,39 @@ function ExchStartExchange() {
 
     let outItemsInExch = {};
 
+    // loop through all item numbers of this invoice
     for (const i of Object.keys(invoiceItemsRoute)) {
-      outItemsInExch[i] = invoiceItemsRoute[i];
+
+      //data routes
+      const thisInvoProductRt = cloneDeep(invoiceItemsRoute[i]);
+
+      const getItemDetails = ()=>{
+        let outItemDetails = cloneDeep(productContext[i])
+
+        // If we need the Sale price and not Catalog price, use this:
+        // outItemDetails.price = thisInvoProductRt.price;
+        return outItemDetails
+      }
+
+      //populate the main object for this item.
+      outItemsInExch[i] = {
+        qtySold: thisInvoProductRt.quantity,
+        qtyExchanging: defaultVals.dvExchQty,
+        returningItems: {
+          pickupQty: defaultVals.dvPickupQty,
+          productDetails: getItemDetails(),
+          itemDispo: null,
+        },
+        replacementItems: {
+          deliveryQty: defaultVals.dvExchQty,
+          productDetails: getItemDetails(),
+        },
+      };
     }
 
-    /*    
-
-        for (const i of Object.keys(srTypeProperties.invoice)) {}
-      outInvoProducts[i].productDetails = cloneDeep(productContext[i]);
-
-      outInvoProducts[i].qtyExchanging = defaultVals.dfExchQty;
-      outInvoProducts[i].pickupQty = defaultVals.dfExchQty;
-    }
-    draft.activeOrder = invoiceContext[invoNum].invoiceDetails.orderNum;
-    draft.invoiceProducts = outInvoProducts; */
-
+    //set the Exch Session State
     setExchState((draft) => {
       draft.activeSaleRecord = outSRTypeProperties;
-      draft.invoiceProducts = invoiceItemsRoute;
       draft.itemsInExch = outItemsInExch;
     });
   };

@@ -5415,4 +5415,11 @@ Got a little late start due to some interference from my job but I am HOPING to 
 Things to do:
     -I need to loop through and capture all the per-item details.  This is probably the hardest part.
 
+Gotta think a little bit about how to handle taxes.  For the sake of this model, I am JUST going to compare actual prices and then apply a 10% tax on the difference.  I am not going to store that shit and pass it all around the data.
 
+For the prices.  How hard do I want to go on the prices?  The issue is that the Sale price isn't connected to the price the item actually sold for.  Do I want to fiddle around with replacing the item price with the Sale price for this mockup?
+    YES:
+        +it's not that much extra code.  One line to replace it when the Item data is populated, and then an extra check when picking an item number.
+        -This SHOULD have no effect on how the mockup works.  
+
+OK, here's my compromise.  I'm going to go by catalog price for everything for now, but add in a note that if I DO want to replace it with sale price in the item detail getter function, to do it there.
