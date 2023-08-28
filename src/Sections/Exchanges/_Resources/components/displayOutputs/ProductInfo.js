@@ -1,11 +1,16 @@
 import classes from "./ProductInfo.module.css";
 
-function ProductInfo({ itemObj, hasPrice = false }) {
+// this should work from a completely standard product details object, since the actual product can be changed.
+
+function ProductInfo({ itemObj, hasPrice = false, hasQty = true }) {
+
   const productDetails = itemObj.productDetails;
+
+  // Qty needs to be variable and needs to come from the outside, since the var name might be different.  Do tomorrow.
 
   const price = hasPrice ? (
     <p className={`body ${classes.description}`}>{`$${
-      itemObj.price / 100
+      (productDetails.price / 100).toFixed(2)
     }`}</p>
   ) : null;
 

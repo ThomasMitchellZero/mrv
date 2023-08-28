@@ -108,23 +108,22 @@ function ExchChooseExchItems() {
     );
   });
 
-  const trArray = [];
+  //const trArray = [];
 
-  /*
-  const trArray = Object.keys(orderProducts).map((product) => {
-    const thisProd = orderProducts[product];
-    const pDetails = thisProd.productDetails;
+
+  const trArray = Object.keys(exchItems).map((product) => {
+    const thisProd = exchItems[product];
 
     return (
       <tr key={product} className={``}>
         <td>
-          <ProductInfo hasPrice={true} itemObj={thisProd} />
+          <ProductInfo hasPrice={true} itemObj={thisProd.returningItems} />
         </td>
         <td>
-          <p className={`body`}>{`${thisProd.quantity}`}</p>
+          <p className={`body`}>{`${thisProd.qtySold}`}</p>
         </td>
         <td>
-          <p className={`body`}>{`${pDetails.inStock}`}</p>
+          <p className={`body`}>{99}</p>
         </td>
         <td>
           <MRVinput hasError={locSt_PickItems.formWarning} width={"5rem"}>
@@ -133,7 +132,7 @@ function ExchChooseExchItems() {
               min="0"
               step="1"
               value={thisProd.qtyExchanging}
-              max={thisProd.quantity}
+              max={thisProd.qtySold}
               onFocus={handleFieldFocus}
               onChange={(event) => {
                 handleExchQtyInput(event, product);
@@ -146,6 +145,8 @@ function ExchChooseExchItems() {
       </tr>
     );
   });
+
+  /*
   
   */
 
