@@ -52,10 +52,11 @@ function ExchChooseExchItems() {
 
   const handleExchQtyInput = (event, itemNum) => {
     let input = integerizer(event.target.value);
+    console.log(input)
     setExchState((draft) => {
-      draft.itemsInExchange[itemNum].qtyExchanging = input;
+      draft.itemsInExch[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.invoiceProducts[itemNum].returningItems.pickupQty = input;
+      draft.itemsInExch[itemNum].returningItems.pickupQty = input;
     });
   };
 
