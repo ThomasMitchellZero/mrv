@@ -24,6 +24,13 @@
     gap: 0.25rem;
 }
 
+.textRow{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0rem;
+    gap: 2rem;
+}
+
 .itemModel{
     color: var(--color__tertiary)
 }

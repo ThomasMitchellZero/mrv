@@ -110,14 +110,17 @@ function ExchChooseExchItems() {
 
   //const trArray = [];
 
-
   const trArray = Object.keys(exchItems).map((product) => {
     const thisProd = exchItems[product];
 
     return (
       <tr key={product} className={``}>
         <td>
-          <ProductInfo hasPrice={true} itemObj={thisProd.returningItems} />
+          <ProductInfo
+            hasPrice={true}
+            itemObj={thisProd.returningItems}
+            qty={thisProd.qtySold}
+          />
         </td>
         <td>
           <p className={`body`}>{`${thisProd.qtySold}`}</p>
