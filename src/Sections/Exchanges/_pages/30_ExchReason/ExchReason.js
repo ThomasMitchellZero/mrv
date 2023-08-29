@@ -12,7 +12,7 @@ import { useImmer } from "use-immer";
 function ExchReason() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const sessionItems = exchCtx.exchSession.itemsInExch;
+  const exchItems = exchCtx.exchSession.itemsInExch;
   const exchNav = useExchNav();
 
   const defaultState = {
@@ -20,7 +20,6 @@ function ExchReason() {
     autoCalcActive: true,
     show30warning: false,
     pendingDispo: "Doesn't Work",
-
   };
 
   //local state
@@ -28,21 +27,21 @@ function ExchReason() {
 
   // on every render, check if activeKey has a value.
   if (!locSt_ExchReason.activeKey) {
+    let outActiveKey = "All Assigned"; // Only reassigned if item without a dispo is found in the loop.  Prevents infinite loops.
 
-    let outActiveKey = "All Assigned"; // Only reassigned if item with no dispo is found in the loop.  Prevents infinite loops.
+    for (const key of Object.keys(exchItems)) {
+      const thisDispo = exchItems[key].returningItems.itemDispo;
 
-    for (const key of sessionItems.keys()) {
-      const thisDispo = sessionItems[key].returningItems.itemDispo;
-      
-      if (!thisDispo) { // if this item doesn't have a dispo...
+      if (!thisDispo) {
+        // if this item doesn't have a dispo...
         outActiveKey = key; // return it as the active key
         break; // stop looping because we are only looking for the first.
       }
     }
 
-    setLocSt_ExchReason((draft)=>{
+    setLocSt_ExchReason((draft) => {
       draft.show30warning = false;
-      draft.activeKey = outActiveKey
+      draft.activeKey = outActiveKey;
     });
   }
 
@@ -53,9 +52,8 @@ function ExchReason() {
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
       draft.activeKey = key;
-      draft.pendingDispo = exchProdsMap.get(key).itemDispo;
+      draft.pendingDispo = exchItems[key].returningItems.itemDispo;
       draft.show30warning = false;
-
     });
   };
 
@@ -63,7 +61,7 @@ function ExchReason() {
   const handleDelete = ({ event, prodKey }) => {
     // set Session state
     setExchState((draft) => {
-      draft.exchProducts.delete(prodKey);
+      delete draft.itemsInExch[prodKey];
     });
 
     // set Session state
@@ -93,7 +91,7 @@ function ExchReason() {
 
   const thInputs = [
     thFactory("Product Details"),
-    thFactory("Qty", "4rem"),
+    thFactory("PickupQty", "8rem"),
     thFactory("Return Reason", "20%"),
     thFactory("Remove", "5rem"),
   ];
@@ -110,7 +108,8 @@ function ExchReason() {
 
   const trArray = [];
 
-  exchProdsMap.forEach((value, key) => {
+  for (const key of Object.keys(exchItems)) {
+    const thisItemRt = exchItems[key].returningItems;
 
     // Check for Exch. Qty before adding
     trArray.push(
@@ -120,13 +119,17 @@ function ExchReason() {
         onClick={() => handleTRclick(key)}
       >
         <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
+          <ProductInfo
+            hasPrice={true}
+            itemObj={thisItemRt}
+            qty={exchItems[key].qtyExchanging}
+          />
         </td>
         <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+          <p className={`body__small`}>{thisItemRt.pickupQty}</p>
         </td>
         <td>
-          <p className={`body__small`}>{value.itemDispo}</p>
+          <p className={`body__small`}>{thisItemRt.itemDispo}</p>
         </td>
         <td>
           <button
@@ -141,7 +144,7 @@ function ExchReason() {
         </td>
       </tr>
     );
-  });
+  }
 
   /* ---- Final Component ---- */
 
