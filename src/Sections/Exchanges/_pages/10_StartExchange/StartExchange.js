@@ -3,10 +3,7 @@ import classes from "./StartExchange.module.css";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
-import {
-  actPan,
-  saleRecordTypes,
-} from "../../_Resources/glossary/glossaryExch";
+import { saleRecordTypes } from "../../_Resources/glossary/glossaryExch";
 import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
@@ -43,7 +40,6 @@ function ExchStartExchange() {
     };
   };
 
-
   const handleSetSaleRecord = ({ srType, srKey }) => {
     // Data that varies with record type.
 
@@ -61,24 +57,21 @@ function ExchStartExchange() {
     const invoiceItemsRoute =
       invoiceContext[outSRTypeProperties.invoiceNum].products;
 
-    let outItemsInExch = {};
+    let outInvoiceItems = {};
 
     // loop through all item numbers of this invoice
     for (const i of Object.keys(invoiceItemsRoute)) {
-
       //data routes
       const thisInvoProductRt = cloneDeep(invoiceItemsRoute[i]);
 
-      const getItemDetails = ()=>{
-        let outItemDetails = cloneDeep(productContext[i])
+      const getItemDetails = () => {
+        let outItemDetails = cloneDeep(productContext[i]);
 
-        // If we need the Sale price and not Catalog price, use this:
-        // outItemDetails.price = thisInvoProductRt.price;
-        return outItemDetails
-      }
+        return outItemDetails;
+      };
 
       //populate the main object for this item.
-      outItemsInExch[i] = {
+      outInvoiceItems[i] = {
         qtySold: thisInvoProductRt.quantity,
         qtyExchanging: defaultVals.dvExchQty,
         returningItems: {
@@ -96,7 +89,7 @@ function ExchStartExchange() {
     //set the Exch Session State
     setExchState((draft) => {
       draft.activeSaleRecord = outSRTypeProperties;
-      draft.itemsInExch = outItemsInExch;
+      draft.invoiceItems = outInvoiceItems;
     });
   };
 

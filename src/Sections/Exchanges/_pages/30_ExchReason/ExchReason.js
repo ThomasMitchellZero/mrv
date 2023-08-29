@@ -12,7 +12,7 @@ import { useImmer } from "use-immer";
 function ExchReason() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProdsMap = exchCtx.exchSession.exchProducts;
+  const sessionItems = exchCtx.exchSession.itemsInExch;
   const exchNav = useExchNav();
 
   const defaultState = {
@@ -31,8 +31,8 @@ function ExchReason() {
 
     let outActiveKey = "All Assigned"; // Only reassigned if item with no dispo is found in the loop.  Prevents infinite loops.
 
-    for (const key of exchProdsMap.keys()) {
-      const thisDispo = exchProdsMap.get(key).itemDispo;
+    for (const key of sessionItems.keys()) {
+      const thisDispo = sessionItems[key].returningItems.itemDispo;
       
       if (!thisDispo) { // if this item doesn't have a dispo...
         outActiveKey = key; // return it as the active key
@@ -111,6 +111,8 @@ function ExchReason() {
   const trArray = [];
 
   exchProdsMap.forEach((value, key) => {
+
+    // Check for Exch. Qty before adding
     trArray.push(
       <tr
         key={key}

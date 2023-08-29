@@ -13,7 +13,7 @@ Pictograph => Think REAALLLY HARD => Alphabet.
 Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a stop en route to good code, not a detour from it.  
 
 RULE 5: 
-Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  The EV of 'maintain and refine your current knowledge' is generally higher than the EV of new knoweledge because if the existing knoweledge wasn't useful to you, you wouldn't have acquired it in the first place.  
+Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  The EV of 'maintain and refine your current knowledge' is generally higher than the EV of new knoweledge because if the existing knoweledge wasn't useful to you, you wouldn't have acquired it in the first place, and if the new knowledge IS so useful, why haven't you needed it until now?
 
 
 
@@ -5423,3 +5423,22 @@ For the prices.  How hard do I want to go on the prices?  The issue is that the 
         -This SHOULD have no effect on how the mockup works.  
 
 OK, here's my compromise.  I'm going to go by catalog price for everything for now, but add in a note that if I DO want to replace it with sale price in the item detail getter function, to do it there.
+
+29 Aug 2023
+4:45
+OK.  Time to make a decision.  Should I track the Invoice Items separate from the Exchange Items?  I still believe it is correct to have a single, universal format for the data.  But do I want them stored and edited separately?  
+    YES:
+    +A lot of our interactions with the data (rendering TRs, loops checking for completion) must operate ONLY on the items actually being exchanged.  If we keep it universal, we need to remember to do a check for "Are we actually exchanging this item" for EVERY one of those interactions.  That does not seem very clear.  We also need to consider the possiblity that we step away from this code for an extended period of time.  If we do, something that opaque is gonna be hard to remember.  Rule 5.
+        -How about a custom hook that we run at the start of each page component that filters the InvoItems component based on whether anything's being exchanged?
+            -How is that not just a worse version of keeping them separate?
+
+    NO:
+    +If we do not have a single, shared source of data, then if a user does go all the way back to Choose Exch. Items, all of their work will be lost.
+        -I'm thinking we could actually live with that.  
+            ~It shouldn't happen much.
+            ~This isn't production code, and that would be the user's problem, not mine.  Rule 1.
+            ~If I find that it is a TRULY terrible problem, instead of just updating the state I can probably write a custom update hook that applies any changes to both the Invoice Items and the Exch. Items.  Or just do it manually.
+
+As it stands, I think I can make a better case for separating them.
+
+-At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  

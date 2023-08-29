@@ -12,6 +12,12 @@ import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
+/*
+
+To simplify downstream logic, we will store items from invoiceItems that DO have a qty being exchanged in a separate object, itemsInExh{}.  
+
+*/
+
 const defaultState = {
   formValid: false,
   formWarning: false,
@@ -21,10 +27,10 @@ const defaultState = {
 function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchItems = exchCtx.exchSession.itemsInExch;
+  const invoItems = exchCtx.exchSession.invoiceItems;
   const exchNav = useExchNav();
 
-  console.log(exchItems);
+  console.log(invoItems);
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -52,11 +58,11 @@ function ExchChooseExchItems() {
 
   const handleExchQtyInput = (event, itemNum) => {
     let input = integerizer(event.target.value);
-    console.log(input)
+    console.log(input);
     setExchState((draft) => {
-      draft.itemsInExch[itemNum].qtyExchanging = input;
+      draft.invoiceItems[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.itemsInExch[itemNum].returningItems.pickupQty = input;
+      draft.invoiceItems[itemNum].returningItems.pickupQty = input;
     });
   };
 
@@ -68,19 +74,34 @@ function ExchChooseExchItems() {
   };
 
   const handleContinue = () => {
-    // user can't proceed without at least 1 exch item.
-    for (const itemNum of Object.keys(exchItems)) {
-      const thisItemRt = exchItems[itemNum];
+    const outItemsInExch = {};
+
+    // Only items with qtyExchanging are added to ItemsInExch.
+    for (const itemNum of Object.keys(invoItems)) {
+      const thisItemRt = invoItems[itemNum];
       if (thisItemRt.qtyExchanging) {
         // if this item has any qty...
-
-        // clear warnings, may be redundant?
-        setLocSt_PickItems((draft) => {
-          draft.formWarning = false;
-        });
-        // go to next page.
-        exchNav({ routeStr: "exchreason" });
+        outItemsInExch[itemNum] = cloneDeep(thisItemRt);
       }
+    }
+
+    // If any items are being exchanged...
+    if (Object.keys(outItemsInExch).length) {
+      // clear warnings.  Probably redundant but safer and doesn't hurt.
+      setLocSt_PickItems((draft) => {
+        draft.formWarning = false;
+      });
+
+      // Add obj of items being exchanged to Session
+      setExchState((draft) => {
+        draft.itemsInExch = outItemsInExch;
+      });
+
+      // go to next page.
+      exchNav({ routeStr: "exchreason" });
+    } else {
+
+      // warning, no navigation.
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;
       });
@@ -111,8 +132,8 @@ function ExchChooseExchItems() {
 
   //const trArray = [];
 
-  const trArray = Object.keys(exchItems).map((product) => {
-    const thisProd = exchItems[product];
+  const trArray = Object.keys(invoItems).map((product) => {
+    const thisProd = invoItems[product];
 
     return (
       <tr key={product} className={``}>
