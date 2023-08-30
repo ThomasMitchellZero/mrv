@@ -10,16 +10,18 @@ import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 
 function ExchReason() {
+  const exchNav = useExchNav();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExch;
-  const exchNav = useExchNav();
+  const defaultVals = exchCtx.exchSession.defaultValues;
+
 
   const defaultState = {
     activeKey: null,
     autoCalcActive: true,
     show30warning: false,
-    pendingDispo: "Doesn't Work",
+    pendingDispo: defaultVals.dvReturnReason,
   };
 
   //local state

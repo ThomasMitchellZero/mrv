@@ -45,10 +45,12 @@ const setDefaultValues = (fastMode = false) => {
   const actualValues = {
     dvExchQty: null,
     dvPickupQty: null,
+    dvReturnReason: null,
   };
   const fastValues = {
     dvExchQty: 1,
     dvPickupQty: 1,
+    dvReturnReason: "Doesn't Work",
   };
 
   return fastMode ? fastValues : actualValues;
@@ -61,7 +63,7 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-  defaultValues: setDefaultValues(true),
+  defaultValues: setDefaultValues(false),
   activeSaleRecord: null,
   itemsInExch:{},
   ptState: {

@@ -3,7 +3,7 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 
-import { useOutletContext, useNavigate } from "react-router";
+import { useOutletContext } from "react-router";
 
 function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
   const exchCtx = useOutletContext();
@@ -19,7 +19,7 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
 
     if (pendingDispo) {
       setExchState((draft) => {
-        draft.exchProducts.get(activeKey).itemDispo = pendingDispo;
+        draft.itemsInExch[activeKey].returningItems.itemDispo = pendingDispo;
       });
       setLocSt_ExchReason((draft) => {
         // clear active key to trigger auto-check for empty dispos.

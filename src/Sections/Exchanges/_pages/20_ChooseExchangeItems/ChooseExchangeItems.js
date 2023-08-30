@@ -74,6 +74,7 @@ function ExchChooseExchItems() {
   };
 
   const handleContinue = () => {
+    // output that will hold items with an Exch Qty.
     const outItemsInExch = {};
 
     // Only items with qtyExchanging are added to ItemsInExch.
