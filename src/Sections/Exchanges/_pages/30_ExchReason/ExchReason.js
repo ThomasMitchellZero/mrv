@@ -13,7 +13,7 @@ function ExchReason() {
   const exchNav = useExchNav();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchItems = exchCtx.exchSession.itemsInExch;
+  const exchItems = exchCtx.exchSession.itemsInExchange;
   const defaultVals = exchCtx.exchSession.defaultValues;
 
 
@@ -63,7 +63,7 @@ function ExchReason() {
   const handleDelete = ({ event, prodKey }) => {
     // set Session state
     setExchState((draft) => {
-      delete draft.itemsInExch[prodKey];
+      delete draft.itemsInExchange[prodKey];
     });
 
     // set Session state

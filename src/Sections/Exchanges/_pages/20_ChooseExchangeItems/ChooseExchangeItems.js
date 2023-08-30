@@ -30,7 +30,6 @@ function ExchChooseExchItems() {
   const invoItems = exchCtx.exchSession.invoiceItems;
   const exchNav = useExchNav();
 
-  console.log(invoItems);
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -95,7 +94,7 @@ function ExchChooseExchItems() {
 
       // Add obj of items being exchanged to Session
       setExchState((draft) => {
-        draft.itemsInExch = outItemsInExch;
+        draft.itemsInExchange = outItemsInExch;
       });
 
       // go to next page.

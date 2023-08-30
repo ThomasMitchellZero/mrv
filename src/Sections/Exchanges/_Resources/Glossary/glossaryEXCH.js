@@ -65,7 +65,7 @@ const defaultExchState = {
   },
   defaultValues: setDefaultValues(false),
   activeSaleRecord: null,
-  itemsInExch:{},
+  itemsInExchange:{},
   ptState: {
     activeNode: "",
     ptNodes: [
