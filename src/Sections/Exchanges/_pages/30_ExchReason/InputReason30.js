@@ -19,7 +19,7 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
 
     if (pendingDispo) {
       setExchState((draft) => {
-        draft.itemsInExchange[activeKey].returningItems.itemDispo = pendingDispo;
+        draft.itemsInExchange[activeKey].returningItem.itemDispo = pendingDispo;
       });
       setLocSt_ExchReason((draft) => {
         // clear active key to trigger auto-check for empty dispos.

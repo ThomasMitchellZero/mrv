@@ -74,12 +74,12 @@ function ExchStartExchange() {
       outInvoiceItems[i] = {
         qtySold: thisInvoProductRt.quantity,
         qtyExchanging: defaultVals.dvExchQty,
-        returningItems: {
+        returningItem: {
           pickupQty: defaultVals.dvPickupQty,
           productDetails: getItemDetails(),
           itemDispo: null,
         },
-        replacementItems: {
+        replacementItem: {
           deliveryQty: defaultVals.dvExchQty,
           productDetails: getItemDetails(),
         },

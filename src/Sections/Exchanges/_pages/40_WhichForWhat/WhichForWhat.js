@@ -12,7 +12,7 @@ import { useImmer } from "use-immer";
 function ExchWhichForWhat() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProdsMap = exchCtx.exchSession.exchProducts;
+  const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchNav = useExchNav();
 
   const defaultState = {
@@ -27,22 +27,8 @@ function ExchWhichForWhat() {
   const handleReplacementContinue = () => {
     //calculate, populate shipments
 
-    let outShipmentsMap = new Map();
+
     let outShipmentsObj = {};
-
-    exchProdsMap.forEach((value, key) => {
-      const thisitemDC = value.productDetails.dcLocations[0];
-      if (!outShipmentsObj[thisitemDC]) {
-        // if this DC doesn't exist, create it.
-        outShipmentsObj[thisitemDC] = [];
-      }
-      // add this item# to that DC.
-      outShipmentsObj[thisitemDC].push(key);
-    });
-
-    setExchState((draft)=>{
-      draft.shipments = outShipmentsObj;
-    })
 
     // nav to Schedule
     exchNav({ routeStr: "schedule" });
@@ -62,7 +48,7 @@ function ExchWhichForWhat() {
     thFactory("Replacement Product"),
     thFactory("Qty ", "3rem"),
     thFactory("Remove", "5rem"),
-  ];
+  ]; 
 
   const thArray = thInputs.map((th) => {
     return (
@@ -75,7 +61,10 @@ function ExchWhichForWhat() {
   // Generate <tr>s
   const trArray = [];
 
-  exchProdsMap.forEach((value, key) => {
+  for (const key of Object.keys(exchItems)) {
+
+    const thisItemRt = exchItems[key].returningItems; 
+    const returnItem = replacementItem
     trArray.push(
       <tr key={key} className={`${""}`}>
         <td>
@@ -100,7 +89,7 @@ function ExchWhichForWhat() {
         </td>
       </tr>
     );
-  });
+  };
 
   /* ---- Final Component ---- */
 

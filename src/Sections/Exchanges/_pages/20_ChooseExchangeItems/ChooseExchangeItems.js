@@ -36,20 +36,6 @@ function ExchChooseExchItems() {
 
   /* ---- Shared Functions ---- */
 
-  const dataModel = {
-    qtySold: "",
-    qtyExchanging: "",
-    returningItems: {
-      pickupQty: "",
-      productDetails: "",
-      itemDispo: "",
-    },
-    replacementItems: {
-      deliveryQty: "",
-      productDetails: "",
-    },
-  };
-
   const integerizer = (input) => {
     // Placeholder.  If we decide later to force integers, do it here.
     return parseInt(input);
@@ -61,7 +47,7 @@ function ExchChooseExchItems() {
     setExchState((draft) => {
       draft.invoiceItems[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.invoiceItems[itemNum].returningItems.pickupQty = input;
+      draft.invoiceItems[itemNum].returningItem.pickupQty = input;
     });
   };
 
@@ -140,7 +126,7 @@ function ExchChooseExchItems() {
         <td>
           <ProductInfo
             hasPrice={true}
-            itemObj={thisProd.returningItems}
+            itemObj={thisProd.returningItem}
             qty={thisProd.qtySold}
           />
         </td>

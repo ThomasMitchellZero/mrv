@@ -5441,4 +5441,11 @@ OK.  Time to make a decision.  Should I track the Invoice Items separate from th
 
 As it stands, I think I can make a better case for separating them.
 
+30 Aug 2023
+4:50.
+OK.  What I WANT to do is plow TF ahead and get to the fun stuff.  What I know I ought to do is test the model and see if there's anything obviously wrong before I do, because I'll just be making it harder to handle later.
+
+4:55.  Ok, I'm glad I did.  I found a problem right away (applying dispositions) and I'm sure it's because the 30 panel is still using the old data structure.  
+
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
+

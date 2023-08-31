@@ -32,7 +32,7 @@ function ExchReason() {
     let outActiveKey = "All Assigned"; // Only reassigned if item without a dispo is found in the loop.  Prevents infinite loops.
 
     for (const key of Object.keys(exchItems)) {
-      const thisDispo = exchItems[key].returningItems.itemDispo;
+      const thisDispo = exchItems[key].returningItem.itemDispo;
 
       if (!thisDispo) {
         // if this item doesn't have a dispo...
@@ -54,7 +54,7 @@ function ExchReason() {
   const handleTRclick = (key) => {
     setLocSt_ExchReason((draft) => {
       draft.activeKey = key;
-      draft.pendingDispo = exchItems[key].returningItems.itemDispo;
+      draft.pendingDispo = exchItems[key].returningItem.itemDispo;
       draft.show30warning = false;
     });
   };
@@ -111,7 +111,7 @@ function ExchReason() {
   const trArray = [];
 
   for (const key of Object.keys(exchItems)) {
-    const thisItemRt = exchItems[key].returningItems;
+    const thisItemRt = exchItems[key].returningItem;
 
     // Check for Exch. Qty before adding
     trArray.push(
