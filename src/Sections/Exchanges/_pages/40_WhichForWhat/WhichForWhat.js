@@ -27,7 +27,6 @@ function ExchWhichForWhat() {
   const handleReplacementContinue = () => {
     //calculate, populate shipments
 
-
     let outShipmentsObj = {};
 
     // nav to Schedule
@@ -43,12 +42,10 @@ function ExchWhichForWhat() {
 
   const thInputs = [
     thFactory("Return Product"),
-    thFactory("Qty", "3rem"),
     thFactory(" ", "4rem"),
     thFactory("Replacement Product"),
-    thFactory("Qty ", "3rem"),
     thFactory("Remove", "5rem"),
-  ]; 
+  ];
 
   const thArray = thInputs.map((th) => {
     return (
@@ -62,26 +59,29 @@ function ExchWhichForWhat() {
   const trArray = [];
 
   for (const key of Object.keys(exchItems)) {
-
-    const thisItemRt = exchItems[key].returningItems; 
-    const returnItem = replacementItem
+    const thisItemRt = exchItems[key]
+    const returning = thisItemRt.returningItem;
+    const replacement = thisItemRt.replacementItem;
     trArray.push(
       <tr key={key} className={`${""}`}>
         <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
-        </td>
-        <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+          <ProductInfo
+            hasPrice={true}
+            itemObj={returning}
+            qty={thisItemRt.qtyExchanging}
+          />
         </td>
         <td className={`tdCenter`}>
           <MdArrowForward fontSize="2.5rem" />
         </td>
         <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
+          <ProductInfo
+            hasPrice={true}
+            itemObj={replacement}
+            qty={replacement.deliveryQty}
+          />
         </td>
-        <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
-        </td>
+
         <td>
           <button type="button" className={`mrvBtn ghost`}>
             <MdDeleteOutline fontSize="1.5rem" />
@@ -89,7 +89,7 @@ function ExchWhichForWhat() {
         </td>
       </tr>
     );
-  };
+  }
 
   /* ---- Final Component ---- */
 
