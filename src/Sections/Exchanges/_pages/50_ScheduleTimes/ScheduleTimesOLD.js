@@ -67,7 +67,7 @@ function ExchScheduleTimes() {
   /* ---- Final Component ---- */
 
   return (
-    <section className={`mrvPage`}>
+    <section className={`mrvPage `}>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
           headerTitle="Schedule Pickup / Delivery"

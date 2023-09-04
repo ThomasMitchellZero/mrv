@@ -130,13 +130,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
     thFactory("Qty ", "3rem"),
   ];
 
-  const thArray = thInputs.map((th) => {
-    return (
-      <th key={th.title} style={{ width: th.width }}>
-        {th.title}
-      </th>
-    );
-  });
+
 
   /* ---- Final Component ---- */
 

@@ -4,6 +4,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { TimeMiniCard } from "./TimeMiniCard";
 import { TimePickerPanel } from "./TimePickerPanel30";
 import { AllScheduled } from "./AllScheduled";
+import { ApptCardFull } from "./ApptCardFull";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
@@ -14,7 +15,7 @@ import { useImmer } from "use-immer";
 function ExchScheduleTimes() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProdsMap = exchCtx.exchSession.exchProducts;
+  const delivGroups = exchCtx.exchSession.deliveryGroups;
   const exchNav = useExchNav();
   const allScheduledStr = "All Scheduled";
 
@@ -62,13 +63,18 @@ function ExchScheduleTimes() {
   /* ---- UI Elements ---- */
 
   // Generate Time Cards
+  const timesArr = ["900"];
   const timeCardArr = [];
+
+  for (const apptKey of Object.keys(delivGroups)) {
+    timeCardArr.push(<ApptCardFull key={apptKey} appt={apptKey} />);
+  }
 
   /* ---- Final Component ---- */
 
   return (
-    <section className={`mrvPage`}>
-      <section className={`mrvPanel__main exch-rows`}>
+    <section className={`mrvPage `}>
+      <section className={`mrvPanel__main exch-rows blankback`}>
         <ExchHeader
           headerTitle="Schedule Pickup / Delivery"
           hasCluster={true}
@@ -76,8 +82,11 @@ function ExchScheduleTimes() {
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
         <ExchPizzaTracker />
+        <section className={`main_content main_col cardContainer ${""}`}>
+          {timeCardArr}
+        </section>
       </section>
-      <section className={`mrvPanel__side exch-rows blankback`}>
+      <section className={`mrvPanel__side exch-rows`}>
         <ExchHeader
           headerTitle="Exchange Items"
           hasCluster={false}

@@ -11,11 +11,15 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ item }) {
+function ApptCardFull({ appt , locSt, setLocSt}) {
   const exchCtx = useOutletContext();
+  const delivGroups = exchCtx.deliveryGroups;
+  const itemsInExch = exchCtx.itemsInExch;
 
-  return <section>
-    
+  //---- Shared Functions ----
+
+  return <section className={`cardStyle ${classes.apptCard_container}`}>
+    <p>{appt}</p>
   </section>;
 }
 

@@ -138,6 +138,13 @@
 
 /* ---- MRV CARD STYLES ---- */
 
+.mrvPage .cardContainer{
+  flex: 1 1 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;    
+}
+
 .mrv-top .cardStyle{
   --dropShadow__01: 0px 4px 4px 0px #00000020;
   background-color: #fff;
