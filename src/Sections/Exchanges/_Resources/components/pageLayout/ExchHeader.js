@@ -17,9 +17,12 @@ function ExchHeader({
 }) {
   const exchCtx = useOutletContext();
   const navigate = useNavigate();
-  const activeOrder = exchCtx.exchSession.activeOrder;
-
+  const activeSr = exchCtx.exchSession.activeSaleRecord;
   const setExchState = exchCtx.setExchSession;
+
+  const srString = activeSr?.key
+    ? `${activeSr.type.str} # ${activeSr.key}`
+    : "";
 
   const iconsObj = {
     close: <MdOutlineClose fontSize="1.5rem" />,
@@ -47,7 +50,7 @@ function ExchHeader({
 
   const orderCancelCluster = (
     <section className={` ${classes.defaultHeight}`}>
-      <p className={`body`}>{`Order # ${activeOrder}`}</p>
+      <p className={`body`}>{`${srString}`}</p>
       <button
         className={`mrvBtn ghost ${classes.defaultHeight}`}
         onClick={() => handleClearSession()}
@@ -61,7 +64,7 @@ function ExchHeader({
     <section className={`main_col exchHeader ${classes.container}`}>
       {navButton}
       <section className={`${classes.mainTitle}`}>
-        <p className={`tiny-text`}>{hasProductName ? "Exchanges" : ' '}</p>
+        <p className={`tiny-text`}>{hasProductName ? "Exchanges" : " "}</p>
         <section className={`${classes.defaultHeight}`}>
           <h3 className={``}>{headerTitle}</h3>
         </section>

@@ -12,7 +12,7 @@ import OrdersContext from "../../../../store/orders-context";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
 import { useContext } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 import cloneDeep from "lodash.clonedeep";
 
@@ -28,16 +28,24 @@ function ExchStartExchange() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
+  const makeSrObj = ({ type, key, invoiceNum }) => {
+    return {
+      type,
+      key,
+      invoiceNum,
+    };
+  };
+
   const setInvoice = (invoNum) => {
-    return { invoiceNum: invoNum };
+    return makeSrObj({ type: srt.invoice, key: invoNum, invoiceNum: invoNum });
   };
 
   const setOrder = (orderNum) => {
-    console.log(ordersContext[orderNum].invoice);
-    return {
-      out: "Your papers are in order, comrade",
+    return makeSrObj({
+      type: srt.order,
+      key: orderNum,
       invoiceNum: ordersContext[orderNum].invoice,
-    };
+    });
   };
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
@@ -94,7 +102,10 @@ function ExchStartExchange() {
   };
 
   const handleClick = () => {
-    handleSetSaleRecord({ srType: srt.order.k, srKey: "X11111111" });
+    handleSetSaleRecord(
+      { srType: srt.order.k, srKey: "X11111111" }
+      //{ srType: srt.invoice.k, srKey: "XAAA" }
+    );
 
     exchNav({ routeStr: "chooseitems" });
   };

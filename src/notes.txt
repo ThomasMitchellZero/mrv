@@ -4879,7 +4879,7 @@ BUG - cash refund finalization screen is displaying as store credit.
     
     Any factor we change in one state shouldn't be editable in the next state, so we * shouldn't * have to worry about conflicts?  But they might not be editing in the next state...
 
-        -Could potentially be a problem?  Like if the user selects one replacement item, chooses a time, then goes back and chooses a different replacement item for which that time is not available, what happens to the time they chose?  AFACIT it's still stored in the state?  I guess for my purposes this is a minor problem and probably a Rule 1 violation.  
+        -Could potentially be a problem?  Like if the user selects one replacement item, chooses a time, then goes back and chooses a different replacement item for which that time is not available, what happens to the time they chose?  AFAICT it's still stored in the state?  I guess for my purposes this is a minor problem and probably a Rule 1 violation.  
 
     The other thing I have to worry about is the 30 panels. The reason I chose to store ActivePanel in the Session state rather than locally was so that I could programmatically specify WHAT 30 panels to show in URL-B from URL-A.  For the time being it's not a huge concern, since this is all pretty linear.  
 
@@ -5446,6 +5446,13 @@ As it stands, I think I can make a better case for separating them.
 OK.  What I WANT to do is plow TF ahead and get to the fun stuff.  What I know I ought to do is test the model and see if there's anything obviously wrong before I do, because I'll just be making it harder to handle later.
 
 4:55.  Ok, I'm glad I did.  I found a problem right away (applying dispositions) and I'm sure it's because the 30 panel is still using the old data structure.  
+
+4 Sep 2023
+2:45.
+AFAICT everything up to the Time Picker is working as expected.  Several weeks later and I finally got the data model working, but I think that actually helped.  If I take a swalk today I should think about the data structure, how I got it wrong before, and how I can get it right in the future.  
+
+
+
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
 
