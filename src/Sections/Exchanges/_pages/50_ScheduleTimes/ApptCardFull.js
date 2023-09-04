@@ -11,16 +11,36 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ appt , locSt, setLocSt}) {
+function ApptCardFull({ appt, locSt, setLocSt }) {
   const exchCtx = useOutletContext();
-  const delivGroups = exchCtx.deliveryGroups;
-  const itemsInExch = exchCtx.itemsInExch;
+
+  const itemsInExch = exchCtx.exchSession.itemsInExchange;
+
+
+  const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
+
 
   //---- Shared Functions ----
 
-  return <section className={`cardStyle ${classes.apptCard_container}`}>
-    <p>{appt}</p>
-  </section>;
+  //---- UI Elements----
+
+  const itemsArr = [];
+
+  for (const item of thisDeliv.apptItemKeys) {
+    const thisItemkey = itemsInExch[item];
+    const returnItem = thisItemkey.returningItem;
+    itemsArr.push(
+      <section key={item}>
+        <p>{returnItem.productDetails.modelNum}</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className={`cardStyle ${classes.apptCard_container}`}>
+      {itemsArr}
+    </section>
+  );
 }
 
 export { ApptCardFull };

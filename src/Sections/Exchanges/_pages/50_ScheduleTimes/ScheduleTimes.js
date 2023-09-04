@@ -63,7 +63,7 @@ function ExchScheduleTimes() {
   /* ---- UI Elements ---- */
 
   // Generate Time Cards
-  const timesArr = ["900"];
+
   const timeCardArr = [];
 
   for (const apptKey of Object.keys(delivGroups)) {
@@ -103,7 +103,6 @@ function ExchScheduleTimes() {
             setParSt={setLocSt_PickTime}
           />
         )}
-        <section className={`fullColumn`}>{timeCardArr}</section>
       </section>
     </section>
   );
