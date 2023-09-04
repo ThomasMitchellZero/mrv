@@ -3,6 +3,7 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useGroupAppointments } from "../../_Resources/customHooks/useGroupAppointments";
 
 import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
@@ -14,6 +15,7 @@ function ExchWhichForWhat() {
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchNav = useExchNav();
+  const groupAppointments = useGroupAppointments();
 
   const defaultState = {
     show30warning: false,
@@ -27,7 +29,7 @@ function ExchWhichForWhat() {
   const handleReplacementContinue = () => {
     //calculate, populate shipments
 
-    let outShipmentsObj = {};
+    groupAppointments();
 
     // nav to Schedule
     exchNav({ routeStr: "schedule" });
@@ -59,7 +61,7 @@ function ExchWhichForWhat() {
   const trArray = [];
 
   for (const key of Object.keys(exchItems)) {
-    const thisItemRt = exchItems[key]
+    const thisItemRt = exchItems[key];
     const returning = thisItemRt.returningItem;
     const replacement = thisItemRt.replacementItem;
     trArray.push(
