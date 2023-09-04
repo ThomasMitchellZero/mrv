@@ -5451,6 +5451,28 @@ OK.  What I WANT to do is plow TF ahead and get to the fun stuff.  What I know I
 2:45.
 AFAICT everything up to the Time Picker is working as expected.  Several weeks later and I finally got the data model working, but I think that actually helped.  If I take a swalk today I should think about the data structure, how I got it wrong before, and how I can get it right in the future.  
 
+For now, I'm finally into the fun stuff and I would LOVE to get the Scheduling portion done.  I need:
+
+-A way of sorting and storing the deliveries.  
+    X -IMO the deliveries themselves should live in the Session state but seprarate from the item objects.  
+    X -I think this should be set when the user hits Continue from Replacement Selection.  The grouping is ONLY determined by when we can get the replacements from the DC, so until we actually know the replacements we won't know how to group them.
+    X -A custom hook for doing the grouping, just in case we change it later.  Hook should probably be called as part of the HandleContinue function in WhichForWhat.
+    X -Clear out most of the data in ScheduleTimes.  I need this page to load and I don't think we can use much of this.  I just need the page to load without errors.
+
+4:40.
+OK, page is now loading correctly, although the contents are all crap.  So what I need to do is start creating the actual components and then fill this thing up.  For the time being, I'm just going to use dummy data.  I will need:
+    -Update delivery data.  For now, just add the items to a property.
+    -A new card for the delivery
+    -A TR for the contents of the card
+    -A 30 panel for the time picking
+    -A TR for each time slot
+
+
+
+
+
+
+
 
 
 

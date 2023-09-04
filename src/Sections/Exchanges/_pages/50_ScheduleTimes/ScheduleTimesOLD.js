@@ -76,13 +76,6 @@ function ExchScheduleTimes() {
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
         <ExchPizzaTracker />
-      </section>
-      <section className={`mrvPanel__side exch-rows blankback`}>
-        <ExchHeader
-          headerTitle="Exchange Items"
-          hasCluster={false}
-          hasProductName={false}
-        />
         {locSt_PickTime.activeKey === allScheduledStr ? (
           <AllScheduled
             parentSt={locSt_PickTime}
@@ -94,6 +87,13 @@ function ExchScheduleTimes() {
             setParSt={setLocSt_PickTime}
           />
         )}
+      </section>
+      <section className={`mrvPanel__side exch-rows blankback`}>
+        <ExchHeader
+          headerTitle="Exchange Items"
+          hasCluster={false}
+          hasProductName={false}
+        />
         <section className={`fullColumn`}>{timeCardArr}</section>
       </section>
     </section>

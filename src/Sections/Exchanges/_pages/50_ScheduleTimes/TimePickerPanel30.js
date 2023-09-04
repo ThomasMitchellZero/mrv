@@ -16,7 +16,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
   const exchProdsMap = exchCtx.exchSession.exchProducts;
 
   const activeKey = parentSt.activeKey;
-  const activeProduct = exchProdsMap.get(activeKey);
+  const activeProduct = ""
   const applyWarning = parentSt.showApplyWarning;
 
   /* ---- Shared Functions ---- */
@@ -32,25 +32,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
     event.preventDefault();
     const pickedTime = parentSt.activeTimeBtnObj;
 
-    //If a time was picked...
-    if (pickedTime) {
-      // add that time to the
-      setExchState((draft) => {
-        const activeProduct = parentSt.activeKey;
-        draft.exchProducts.get(activeProduct).apptTime = pickedTime;
-      });
 
-      setParSt((draft) => {
-        draft.activeKey = null;
-        //draft.activeTimeBtnObj = null;
-        draft.showApplyWarning = false;
-      });
-    } else {
-      setParSt((draft) => {
-        console.log("set it");
-        draft.showApplyWarning = true;
-      });
-    }
   };
 
   const handleKeyDown = (event) => {
@@ -165,32 +147,6 @@ function TimePickerPanel({ parentSt, setParSt }) {
         id="tpForm"
         className={` main_content main_col ${classes.tp_container}`}
       >
-        <section className={`${classes.itemTable}`}>
-          <table>
-            <thead>
-              <tr>{thArray}</tr>
-            </thead>
-            <tbody>
-              <tr className={`nohover ${""}`}>
-                <td>
-                  <ProductInfo hasPrice={true} itemObj={activeProduct} />
-                </td>
-                <td>
-                  <p className={`body`}>{`${activeProduct.qtyExchanging}`}</p>
-                </td>
-                <td className={`tdCenter`}>
-                  <MdArrowForward fontSize="2.5rem" />
-                </td>
-                <td>
-                  <ProductInfo hasPrice={true} itemObj={activeProduct} />
-                </td>
-                <td>
-                  <p className={`body`}>{`${activeProduct.qtyExchanging}`}</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
         <section className={` ${classes.buttonWindow}`}>
           {allUIdayRowsArr}
         </section>

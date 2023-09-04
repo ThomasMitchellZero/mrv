@@ -4,7 +4,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { saleRecordTypes } from "../../_Resources/glossary/glossaryExch";
-import { useSetActivePanels } from "../../_Resources/customHooks/useSetActivePanels";
+
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
 import OrdersContext from "../../../../store/orders-context";
