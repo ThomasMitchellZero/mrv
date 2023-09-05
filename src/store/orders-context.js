@@ -2,9 +2,8 @@ import React from "react";
 
 import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
 
-import tenderTypes from "../components/global_functions/tenderTypes";
 
-import { Order } from "../globalFunctions/globalJS_classes";
+import { Order_SR } from "../globalFunctions/globalJS_classes";
 //products = 100, 200, 300, 400, 900, 910
 
 /*
@@ -12,7 +11,7 @@ import { Order } from "../globalFunctions/globalJS_classes";
 */
 
 const ordersObj = {
-  X11111111: new Order({
+  X11111111: new Order_SR({
     invoice: "XAAA",
     email: "snow.white@apple.com",
     street: "1600 Pennsylvania Ave",
