@@ -4,6 +4,7 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { TimeMiniCard } from "./TimeMiniCard";
 import { TimePickerPanel } from "./TimePickerPanel30";
 import { AllScheduled } from "./AllScheduled";
+import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
@@ -16,29 +17,44 @@ function ApptCardFull({ appt, locSt, setLocSt }) {
 
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
 
-
   const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
-
 
   //---- Shared Functions ----
 
   //---- UI Elements----
 
-  const itemsArr = [];
+
+  const trArray = [];
 
   for (const item of thisDeliv.apptItemKeys) {
     const thisItemkey = itemsInExch[item];
     const returnItem = thisItemkey.returningItem;
-    itemsArr.push(
-      <section key={item}>
-        <p>{returnItem.productDetails.modelNum}</p>
-      </section>
+
+    // populate Items
+    trArray.push(
+      <tr
+        key={item}
+        className={`${""}`}
+      >
+        <td>
+          <ProductInfo
+            hasPrice={true}
+            itemObj={returnItem}
+            qty={thisItemkey.qtyExchanging}
+          />
+        </td>
+      </tr>
+
+    // populate Children (LPP, etc)
+    
     );
   }
 
   return (
     <section className={`cardStyle ${classes.apptCard_container}`}>
-      {itemsArr}
+      <table>
+        <tbody>{trArray}</tbody>
+      </table>
     </section>
   );
 }

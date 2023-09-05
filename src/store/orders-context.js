@@ -4,35 +4,12 @@ import invoicePaymentPricer from "../components/global_functions/invoicePaymentP
 
 import tenderTypes from "../components/global_functions/tenderTypes";
 
-import { saleRecordTypes } from "../Sections/Exchanges/_Resources/glossary/glossaryExch";
-
+import { Order } from "../globalFunctions/globalJS_classes";
 //products = 100, 200, 300, 400, 900, 910
 
-class Order {
-  constructor({
-    invoice = "",
-    email = "",
-    street = "",
-    city = "",
-    state = "",
-    zip = "",
-    instructions="",
-  }) {
-    this.salesRecordType = saleRecordTypes.order.k;
-    this.instructions = instructions;
-    this.invoice = invoice;
-    this.contact = {
-      email: email,
-    }
-    this.deliveryAddress = {
-      street: street,
-      city: city,
-      state: state,
-      zip: zip
-    }
-    
-  }
-}
+/*
+
+*/
 
 const ordersObj = {
   X11111111: new Order({
@@ -41,9 +18,8 @@ const ordersObj = {
     street: "1600 Pennsylvania Ave",
     city: "Washington",
     state: "DC",
-    zip:"20001",
-
-  })
+    zip: "20001",
+  }),
 };
 
 const OrdersContext = React.createContext(ordersObj);

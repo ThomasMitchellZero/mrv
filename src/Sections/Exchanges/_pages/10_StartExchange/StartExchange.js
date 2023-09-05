@@ -3,7 +3,7 @@ import classes from "./StartExchange.module.css";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
-import { saleRecordTypes } from "../../_Resources/glossary/glossaryExch";
+import { saleRecordTypes } from "../../../../globalFunctions/globalJS_classes";
 
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";

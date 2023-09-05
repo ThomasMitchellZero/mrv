@@ -2,11 +2,14 @@ import React from "react";
 
 import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
 
+import { saleRecordTypes } from "../globalFunctions/globalJS_classes";
+
 import tenderTypes from "../components/global_functions/tenderTypes";
 
 //products = 100, 200, 300, 400, 900, 910
 
 const tType = tenderTypes;
+
 
 const invoiceObj = {
   AAA: {
