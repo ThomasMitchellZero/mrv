@@ -5467,6 +5467,24 @@ OK, page is now loading correctly, although the contents are all crap.  So what 
     -A 30 panel for the time picking
     -A TR for each time slot
 
+5 Sep 2023
+3:00
+Again the fun train stops :/  looks like I have some more work to do.  Today I am going to need:
+
+-Either: styling to handle table items in a card OR a plan for how to fill up a card with lots of instances.  
+
+    -Kind of wondering about doing it without a table.  Not sure a table makes a huge amount of sense for this presentation, and I'm kind of curious about doing it on my own.  How hard can it be?  (he said, swaddled in blissful ignorance)
+
+    -The other thing I like about this approach is that I could POTENTIALLY re-use the same spacing for the header and the children, which is going to be an issue if I make a table.
+    -How about a grid?  Isn't that perfect for this?
+
+-A plan for how to handle child items in data
+    -The items, or at least the full items, probably should not live as part of the parent item.  I'm thinking maybe the invoice?  
+
+-A plan for how to represent child items in Item Details
+    -OK.  Here's a thought.  What if I make another component of ProductInfoConfigs?  I just make one configuration for each special ProductInfo I need (child item, All Items Returned, etc.)  And then I just export them all out of the same component?  
+
+
 
 
 

@@ -82,13 +82,4 @@ export { defaultExchState };
 
 // Term names for different sale records.
 
-const salesRecord = ({ k, str }) => {
-  return { k, str };
-};
 
-const saleRecordTypes = {
-  order: salesRecord({ k: "order", str: "Order" }),
-  invoice: salesRecord({ k: "invoice", str: "Invoice" }),
-};
-
-export { saleRecordTypes };
