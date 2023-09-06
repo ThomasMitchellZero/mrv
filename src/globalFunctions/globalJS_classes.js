@@ -13,14 +13,12 @@ export { saleRecordTypes };
 
 class InvoProduct {
   constructor({
-    productNum = "",
-    quantity = 1,
+    qtySold = 1,
     salePrice = 100,
     saleTax = 10,
     childItemsObj = {},
   }) {
-    this.productNum = productNum;
-    this.quantity = quantity;
+    this.quantity = qtySold;
     this.price = salePrice;
     this.tax = saleTax;
     this.childItemsObj = childItemsObj

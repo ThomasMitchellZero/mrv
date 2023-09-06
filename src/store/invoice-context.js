@@ -2,14 +2,13 @@ import React from "react";
 
 import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
 
-import { saleRecordTypes } from "../globalFunctions/globalJS_classes";
+import { Invoice_SR, InvoProduct } from "../globalFunctions/globalJS_classes";
 
 import tenderTypes from "../components/global_functions/tenderTypes";
 
 //products = 100, 200, 300, 400, 900, 910
 
 const tType = tenderTypes;
-
 
 const invoiceObj = {
   AAA: {
@@ -91,6 +90,7 @@ const invoiceObj = {
       400: { quantity: 1, price: 102415, tax: 9821 },
     },
   },
+
   EEE: {
     invoiceDetails: {
       store: 1234,
@@ -143,62 +143,76 @@ const invoiceObj = {
 
     products: {
       10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
-      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered"},
+      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
       10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
     },
   },
 
-  "53451": {
+  53451: {
     invoiceDetails: {
       store: 1234,
       date: new Date(2022, 3, 8),
       payment: {
         [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
       },
-      
+
       orderNum: "33334444",
       genericSOS: true,
     },
 
     products: {
       10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
-      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered"},
+      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
       10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
     },
   },
 
-  XAAA:{
-
-      invoiceDetails: {
-        store: 1234,
-        date: new Date(2022, 3, 8),
-        payment: {
-          44443333: {
-            tenderType: tType.check,
-            tenderLabel: "Check ****3333",
-            paid: 0,
-            routingNum: "44443333",
-            accountNum: "33334444",
-          },
-        },
-        orderNum: "X11111111",
+  XBBB: new Invoice_SR({
+    date: new Date(2022, 3, 8),
+    pmntTypes: {
+      44443333: {
+        tenderType: tType.check,
+        tenderLabel: "Check ****3333",
+        paid: 0,
+        routingNum: "44443333",
+        accountNum: "33334444",
       },
+    },
+    products:{
+      900: new InvoProduct({
+        qtySold: 2,
+        salePrice: 103115,
+        saleTax: 11030,
+        childItemsObj: {
+          // start here, probably need a constructor for Products
+        }
+      })
+    }
+  }),
 
-      products: {
-        900: { quantity: 2, price: 103115, tax: 11030 },
-        910: { quantity: 1, price: 91234, tax: 9120 },
-        400: { quantity: 1, price: 38723, tax: 3810 },
+  XAAA: {
+    invoiceDetails: {
+      store: 1234,
+      date: new Date(2022, 3, 8),
+      payment: {
+        44443333: {
+          tenderType: tType.check,
+          tenderLabel: "Check ****3333",
+          paid: 0,
+          routingNum: "44443333",
+          accountNum: "33334444",
+        },
+      },
+      orderNum: "X11111111",
+    },
+
+    products: {
+      900: { quantity: 2, price: 103115, tax: 11030 },
+      910: { quantity: 1, price: 91234, tax: 9120 },
+      400: { quantity: 1, price: 38723, tax: 3810 },
     },
   },
-
-
-
-
-
 };
-
-
-
 
 invoicePaymentPricer(invoiceObj);
 
