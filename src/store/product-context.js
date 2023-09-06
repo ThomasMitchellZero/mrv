@@ -3,7 +3,7 @@ import faucet_img from "../assets/product-images/faucet.png";
 import flowers_img from "../assets/product-images/flowers.png";
 import frontload_washer_img from "../assets/product-images/samsung-front-load.png";
 import hoses_img from "../assets/product-images/hoses.png";
-import no_img from "../assets/product-images/no-image.png"
+import no_img from "../assets/product-images/no-image.png";
 import paint_img from "../assets/product-images/paint.png";
 import plant_img from "../assets/product-images/plant.png";
 import plywood_img from "../assets/product-images/plywood.png";
@@ -16,7 +16,7 @@ import topload_washer_img from "../assets/product-images/samsung-top-load.png";
 import wallwart_img from "../assets/product-images/wall-wart.png";
 import washer_img from "../assets/product-images/washer.png";
 
-
+import { Product } from "../globalFunctions/globalJS_classes";
 
 const ProductContext = React.createContext({
   100: {
@@ -26,7 +26,7 @@ const ProductContext = React.createContext({
     modelNum: "DR3345",
     description: "Two handle classic faucet in wrought iron",
     categories: ["Stock"],
-    specialCategories: {ARD:true}
+    specialCategories: { ARD: true },
   },
   200: {
     img: flowers_img,
@@ -38,7 +38,7 @@ const ProductContext = React.createContext({
   },
   300: {
     img: hoses_img,
-    price: 1575,                                       
+    price: 1575,
     itemNum: "300",
     modelNum: "DR3345",
     description: "Replacement hoses for Samsung refrigerator",
@@ -49,12 +49,11 @@ const ProductContext = React.createContext({
     img: toilet_img,
     price: 39500,
     itemNum: "400",
-    modelNum: "RT3301", 
+    modelNum: "RT3301",
     description: "Kohler Grand Duke II with Royal Flush",
-    categories: ["Stock","Special Order"],
+    categories: ["Stock", "Special Order"],
     inStock: 1,
-    dcLocations:["AAA"],
-    
+    dcLocations: ["AAA"],
   },
   900: {
     img: topload_washer_img,
@@ -62,58 +61,66 @@ const ProductContext = React.createContext({
     itemNum: "900",
     modelNum: "STL301",
     description: "Samsung 7.1-cu ft Reversible Side Load Washer",
-    categories: ["Stock","Delivery"],
-    specialCategories: {SOS:true},
+    categories: ["Stock", "Delivery"],
+    specialCategories: { SOS: true },
     restockFee: 0.2,
     inStock: 99,
-    dcLocations:["AAA"],
+    dcLocations: ["AAA"],
   },
-  910: {
+
+  910: new Product({
     img: frontload_washer_img,
     price: 76600,
     itemNum: "910",
     modelNum: "SFL456",
     description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
-    categories: ["Stock","Delivery"],
-    specialCategories: {SOS:true},
+    categories: ["Stock", "Delivery"],
+    specialCategories: { SOS: true },
     restockFee: 0.2,
     inStock: 99,
-    dcLocations:["BBB"],
-  },
+    dcLocations: ["BBB"],
+  }),
 
-  10001:{
+  10001: {
     img: no_img,
     price: 7899,
     itemNum: "10001",
     modelNum: "GSOS001",
-    description: "Base 18 Wastebasket with double-walled catch envelope, ceramic thermal diffusers and lint roller",
+    description:
+      "Base 18 Wastebasket with double-walled catch envelope, ceramic thermal diffusers and lint roller",
     categories: ["Configurable"],
-    specialCategories: {SOS:true},
+    specialCategories: { SOS: true },
     restockFee: 0.2,
-  }, 
+  },
 
-  10002:{
+  10002: {
     img: no_img,
     price: 212,
     itemNum: "10002",
     modelNum: "GSOS002",
     description: "Free-range White Rhino Ivory Knob",
     categories: ["Configurable"],
-    specialCategories: {SOS:true},
+    specialCategories: { SOS: true },
     restockFee: 0.2,
-  }, 
+  },
 
-  10003:{
+  10003: {
     img: no_img,
     price: 6123,
     itemNum: "10003",
     modelNum: "GSOS003",
     description: "5-Piece Oak Drawer",
     categories: ["Configurable"],
-    specialCategories: {SOS:true},
+    specialCategories: { SOS: true },
     restockFee: 0.2,
-  }, 
+  },
 
+  555: new Product({
+    image: "",
+    itemNum: "555",
+    modelNum: "5YY",
+    description: "5 Year LPP",
+  }),
 });
 
 export default ProductContext;

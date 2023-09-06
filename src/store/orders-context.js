@@ -12,7 +12,7 @@ import { Order_SR } from "../globalFunctions/globalJS_classes";
 
 const ordersObj = {
   X11111111: new Order_SR({
-    invoice: "XAAA",
+    invoice: "XBBB",
     email: "snow.white@apple.com",
     street: "1600 Pennsylvania Ave",
     city: "Washington",

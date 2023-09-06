@@ -169,26 +169,27 @@ const invoiceObj = {
 
   XBBB: new Invoice_SR({
     date: new Date(2022, 3, 8),
-    pmntTypes: {
-      44443333: {
-        tenderType: tType.check,
-        tenderLabel: "Check ****3333",
-        paid: 0,
-        routingNum: "44443333",
-        accountNum: "33334444",
-      },
+    payment: {
+      [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
     },
-    products:{
+    soldProducts: {
       900: new InvoProduct({
         qtySold: 2,
         salePrice: 103115,
         saleTax: 11030,
         childItemsObj: {
           // start here, probably need a constructor for Products
-        }
-      })
-    }
+        },
+      }),
+    },
   }),
+
+  /*
+  
+    
+  
+  
+  */
 
   XAAA: {
     invoiceDetails: {
