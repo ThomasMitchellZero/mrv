@@ -19,7 +19,7 @@
 
 class Product {
   constructor({
-    image,
+    img = "",
     price = 1,
     itemNum = "1",
     modelNum = "1",
@@ -30,7 +30,7 @@ class Product {
     inStock = 99,
     dcLocations = [],
   }) {
-    this.img = image;
+    this.img = img;
     this.price = price;
     this.itemNum = itemNum;
     this.modelNum = modelNum;

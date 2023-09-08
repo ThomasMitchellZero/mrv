@@ -5469,7 +5469,17 @@ OK, page is now loading correctly, although the contents are all crap.  So what 
 
 5 Sep 2023
 3:00
-Again the fun train stops :/  looks like I have some more work to do.  Today I am going to need:
+Again the fun train stops :/  looks like I have some more work to do.  Today I am going to need: [moved to 8 SD]
+
+
+
+8 Sep 2023.
+OK.  Just where the heck am I on this?  I now have Classes for many of the important data elements in my files, and I think(hope) I'm ready to get after it.
+
+3:50.
+OK, stop the bus.  My images are now failing to show up and I don't know why.  I think it has something to do with the class because my older products (the non-class ones) are still showing the images just fine.  So what gives?  
+    -Take a look in the PD component and see if anything stands out.
+    -OK, nvm, it was just a mislabeled property name.  Derp.
 
 -Either: styling to handle table items in a card OR a plan for how to fill up a card with lots of instances.  
 
@@ -5480,15 +5490,13 @@ Again the fun train stops :/  looks like I have some more work to do.  Today I a
 
 -A plan for how to handle child items in data
     -The items, or at least the full items, probably should not live as part of the parent item.  I'm thinking maybe the invoice?  
+    -Child items should also be recursively added.
+    -So first I need to add some child items to my items.
+    -A plan to handle the child item's image.  
+
 
 -A plan for how to represent child items in Item Details
     -OK.  Here's a thought.  What if I make another component of ProductInfoConfigs?  I just make one configuration for each special ProductInfo I need (child item, All Items Returned, etc.)  And then I just export them all out of the same component?  
-
-
-
-
-
-
 
 
 

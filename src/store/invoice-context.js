@@ -176,20 +176,27 @@ const invoiceObj = {
       900: new InvoProduct({
         qtySold: 2,
         salePrice: 103115,
-        saleTax: 11030,
+        saleTax: 1103,
         childItemsObj: {
-          // start here, probably need a constructor for Products
         },
       }),
+      910: new InvoProduct({
+        qtySold: 2,
+        salePrice: 99877,
+        saleTax: 9776,
+        childItemsObj: {
+        },
+      }),
+
+      400: new InvoProduct({
+        qtySold: 2,
+        salePrice: 407200,
+        saleTax: 4066,
+        childItemsObj:{
+        }
+      })
     },
   }),
-
-  /*
-  
-    
-  
-  
-  */
 
   XAAA: {
     invoiceDetails: {
