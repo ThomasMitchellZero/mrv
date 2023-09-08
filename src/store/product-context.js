@@ -113,11 +113,11 @@ const ProductContext = React.createContext({
     restockFee: 0.2,
   },
 
-  555: new Product({
+  333: new Product({
     image: "",
-    itemNum: "555",
-    modelNum: "5YY",
-    description: "5 Year LPP",
+    itemNum: "333",
+    modelNum: "3YY",
+    description: "3 Year LPP",
   }),
 });
 
