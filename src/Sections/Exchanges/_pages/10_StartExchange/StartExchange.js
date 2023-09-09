@@ -93,7 +93,7 @@ function ExchStartExchange() {
 
         // If this product has any child items...
         if (!isEmpty(thisProdChildRt)){
-
+          // recursively run mergeProdData on any of the kids.
           for (const [key, value] of Object.entries(thisProdChildRt)){
             mergeProdData(key, value)
           }
