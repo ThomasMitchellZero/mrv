@@ -1,7 +1,6 @@
 import classes from "./StartExchange.module.css";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
-import { MRVinput90 } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { saleRecordTypes } from "../../../../globalFunctions/globalJS_classes";
 
@@ -36,6 +35,9 @@ function ExchStartExchange() {
     };
   };
 
+
+  // Sale Record-specific handlers
+
   const setInvoice = (invoNum) => {
     return makeSrObj({ type: srt.invoice, key: invoNum, invoiceNum: invoNum });
   };
@@ -47,6 +49,8 @@ function ExchStartExchange() {
       invoiceNum: ordersContext[orderNum].invoice,
     });
   };
+
+  // Setter for all Sale Records.
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
     // Data that varies with record type.
@@ -60,36 +64,39 @@ function ExchStartExchange() {
 
     // ----Properties for all cases----//
 
-    // Populate Items in the exchange
-
+    // A route to this invoice in invoice-context.
     const invoiceItemsRoute =
       invoiceContext[outSRTypeProperties.invoiceNum].products;
 
     let outInvoiceItems = {};
 
-    // loop through all item numbers of this invoice
-    for (const i of Object.keys(invoiceItemsRoute)) {
-      //data routes
-      const thisInvoProductRt = cloneDeep(invoiceItemsRoute[i]);
+    // loop through all products sold on this invoice
+    for (const thisItem of Object.keys(invoiceItemsRoute)) {
+      //Routes
+      const thisInvoProdDetails = cloneDeep(invoiceItemsRoute[thisItem]);
 
-      const getItemDetails = () => {
-        let outItemDetails = cloneDeep(productContext[i]);
+      //Pulls in the full details of this item from the catalog.
+      const getItemDetails = (itemNum) => {
+        let outItemDetails = cloneDeep(productContext[itemNum]);
+
+        //overwrite the catalog details(price, tax, etc) with what was in the invoice
+        outItemDetails = { ...outItemDetails, ...thisInvoProdDetails };
 
         return outItemDetails;
       };
 
       //populate the main object for this item.
-      outInvoiceItems[i] = {
-        qtySold: thisInvoProductRt.quantity,
+      outInvoiceItems[thisItem] = {
+        qtySold: thisInvoProdDetails.quantity,
         qtyExchanging: defaultVals.dvExchQty,
         returningItem: {
           pickupQty: defaultVals.dvPickupQty,
-          productDetails: getItemDetails(),
+          productDetails: getItemDetails(thisItem),
           itemDispo: null,
         },
         replacementItem: {
           deliveryQty: defaultVals.dvExchQty,
-          productDetails: getItemDetails(),
+          productDetails: getItemDetails(thisItem),
         },
       };
     }

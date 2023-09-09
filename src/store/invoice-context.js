@@ -172,26 +172,26 @@ const invoiceObj = {
     payment: {
       [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
     },
-    soldProducts: {
+    products: {
       900: new InvoProduct({
-        qtySold: 2,
-        salePrice: 103115,
-        saleTax: 1103,
+        quantity: 2,
+        price: 103115,
+        tax: 1103,
         childItemsObj: {
         },
       }),
       910: new InvoProduct({
-        qtySold: 2,
-        salePrice: 99877,
-        saleTax: 9776,
+        quantity: 2,
+        price: 99877,
+        tax: 9776,
         childItemsObj: {
         },
       }),
 
       400: new InvoProduct({
-        qtySold: 2,
-        salePrice: 407200,
-        saleTax: 4066,
+        quantity: 2,
+        price: 407200,
+        tax: 4066,
         childItemsObj:{
         }
       })

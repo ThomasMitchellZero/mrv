@@ -1,3 +1,5 @@
+
+
 /*
 
   BBB: {
@@ -28,9 +30,9 @@
 const invoicePaymentPricer = (invoiceObj) => {
   for (const thisInvo of Object.keys(invoiceObj)) {
     let totalPaid = 0;
-
-    // calculate the total paid for all products in this invoice.
+    
     for (const thisProduct of Object.values(invoiceObj[thisInvo].products)) {
+
       const thisItemCost = thisProduct.quantity * thisProduct.price;
       totalPaid += thisItemCost;
     }

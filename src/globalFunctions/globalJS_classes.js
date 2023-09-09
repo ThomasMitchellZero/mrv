@@ -28,7 +28,7 @@ class Product {
     specialCategories = {},
     restockFee = null,
     inStock = 99,
-    dcLocations = [],
+    dcLocations = {},
   }) {
     this.img = img;
     this.price = price;
@@ -61,15 +61,10 @@ export { saleRecordTypes };
 //---- Orders ----
 
 class InvoProduct {
-  constructor({
-    qtySold = 1,
-    salePrice = 100,
-    saleTax = 10,
-    childItemsObj = {},
-  }) {
-    this.quantity = qtySold;
-    this.price = salePrice;
-    this.tax = saleTax;
+  constructor({ quantity = 1, price = 100, tax = 10, childItemsObj = {} }) {
+    this.quantity = quantity;
+    this.price = price;
+    this.tax = tax;
     this.childItemsObj = childItemsObj;
   }
 }
@@ -97,15 +92,10 @@ class InvoProduct {
 */
 
 class Invoice_SR {
-  constructor({
-    store = "1234",
-    date = Date,
-    payment = {},
-    soldProducts = {},
-  }) {
+  constructor({ store = "1234", date = Date, payment = {}, products = {} }) {
     this.invoiceDetails = { store: store, date: date, payment: payment };
 
-    this.products = soldProducts;
+    this.products = products;
   }
 }
 

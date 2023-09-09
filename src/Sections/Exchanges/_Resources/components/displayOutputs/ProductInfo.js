@@ -2,17 +2,21 @@ import classes from "./ProductInfo.module.css";
 
 // this should work from a completely standard product details object, since the actual product can be changed.
 
-function ProductInfo({ itemObj, hasPrice = false, qty = null }) {
-  const productDetails = itemObj.productDetails;
+function ProductInfo({ itemObj, hasPrice = false, qty = null, config = null }) {
+  const rawProdDetails = itemObj.productDetails;
 
-  // Qty needs to be variable and needs to come from the outside, since the var name might be different.  Do tomorrow.
+  const configObj = {
+    lpp: {},
+  };
 
+  // Price is separate because it isn't always displayed.
   const price = hasPrice ? (
     <p className={`body ${classes.description}`}>{`$${(
-      productDetails.price / 100
+      rawProdDetails.price / 100
     ).toFixed(2)}`}</p>
   ) : null;
 
+  // itemQty is separate because it isn't always displayed.  The source can also vary.
   const itemQty = qty ? (
     <p className={`body ${classes.description}`}>{`Qty: ${qty}`}</p>
   ) : null;
@@ -20,7 +24,7 @@ function ProductInfo({ itemObj, hasPrice = false, qty = null }) {
   return (
     <section className={`${classes.container}`}>
       <img
-        src={productDetails.img}
+        src={rawProdDetails.img}
         alt="test"
         className={classes.productImage}
       />
@@ -32,10 +36,10 @@ function ProductInfo({ itemObj, hasPrice = false, qty = null }) {
 
         <p
           className={`tiny-text ${classes.itemModel}`}
-        >{`Item# ${productDetails.itemNum}0123    Model# ${productDetails.modelNum}`}</p>
+        >{`Item# ${rawProdDetails.itemNum}0123    Model# ${rawProdDetails.modelNum}`}</p>
         <p
           className={`body__small ${classes.description}`}
-        >{`${productDetails.description}`}</p>
+        >{`${rawProdDetails.description}`}</p>
       </section>
     </section>
   );
@@ -45,11 +49,22 @@ export { ProductInfo };
 
 /*
 
+function LPPproductInfo({ itemObj, hasPrice = false, qty = null }) {
+  let newItemObj = itemObj;
+  return <ProductInfo itemObj={newItemObj} hasPrice={hasPrice} qty={qty} />;
+}
+
+export { LPPproductInfo };
+
+*/
+
+/*
+
 200: { 
     quantity: 1, 
     price: 463, 
     tax: 41, 
-    productDetails: {img: frontload_washer_img,
+    rawProdDetails: {img: frontload_washer_img,
         price: 76600,
         itemNum: "910",
         modelNum: "SFL456",

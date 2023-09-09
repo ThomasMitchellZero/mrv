@@ -55,7 +55,7 @@ const ProductContext = React.createContext({
     inStock: 1,
     dcLocations: ["AAA"],
   },
-  900: new Product({
+  900: {
     img: topload_washer_img,
     price: 88000,
     itemNum: "900",
@@ -65,9 +65,9 @@ const ProductContext = React.createContext({
     restockFee: 0.2,
     inStock: 99,
     dcLocations: ["AAA"],
-  }),
+  },
 
-  910: new Product({
+  910: {
     img: frontload_washer_img,
     price: 76600,
     itemNum: "910",
@@ -77,7 +77,7 @@ const ProductContext = React.createContext({
     restockFee: 0.2,
     inStock: 99,
     dcLocations: ["BBB"],
-  }),
+  },
 
   10001: {
     img: no_img,
@@ -113,11 +113,37 @@ const ProductContext = React.createContext({
     restockFee: 0.2,
   },
 
-  333: new Product({
+  // For use in Exchanges
+
+  3333: new Product({
     image: "",
     itemNum: "333",
     modelNum: "3YY",
     description: "3 Year LPP",
+  }),
+
+  9900: new Product({
+    img: topload_washer_img,
+    price: 88000,
+    itemNum: "9900",
+    modelNum: "STL301",
+    description: "Samsung 7.1-cu ft Reversible Side Load Washer",
+    specialCategories: { SOS: true },
+    restockFee: 0.2,
+    inStock: 99,
+    dcLocations: ["AAA"],
+  }),
+
+  9910: new Product({
+    img: frontload_washer_img,
+    price: 76600,
+    itemNum: "9910",
+    modelNum: "SFL456",
+    description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
+    specialCategories: { SOS: true },
+    restockFee: 0.2,
+    inStock: 99,
+    dcLocations: ["BBB"],
   }),
 });
 
