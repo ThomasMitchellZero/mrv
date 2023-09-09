@@ -173,14 +173,15 @@ const invoiceObj = {
       [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
     },
     products: {
-      900: new InvoProduct({
+      9900: new InvoProduct({
         quantity: 2,
         price: 103115,
-        tax: 1103,
+        tax: 11033,
         childItemsObj: {
+
         },
       }),
-      910: new InvoProduct({
+      9910: new InvoProduct({
         quantity: 2,
         price: 99877,
         tax: 9776,
@@ -190,10 +191,8 @@ const invoiceObj = {
 
       400: new InvoProduct({
         quantity: 2,
-        price: 407200,
+        price: 40700,
         tax: 4066,
-        childItemsObj:{
-        }
       })
     },
   }),

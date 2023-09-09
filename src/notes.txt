@@ -5505,8 +5505,6 @@ Stuck, spinning wheels.  The thing to do in these situations is to BISHOK.  So, 
 9 Sep 2023
 10:50.
 I started poorly and now it's almost 11.  Still plenty of time to salvage the day.  Since I really want to get to the fun stuff, I am giving this the full 69-420 treatment.
-    -I need to have the items in the exchange contain the price they sold for, not their catalog price.  That's how it should really work so it should be more intuitive.
-    -I need to be able to populate child items with full data.
     
 I was kind of thinking life would be easier if I just populated the exchange with ALL the information.  In my limited experience, a single data object containing everything is better than merging and extracting.  But there's invoice-specific information that CANNOT live on the item (like sale qty) and so if I'm going to be merging data, why not keep the classes clean and just do all the merging in the apps as needed?  
 
@@ -5531,8 +5529,11 @@ OK.  This is turning into a sticky situation.  Options:
 
     *Conditionally process the Invoices depending on their class, since CURRENTLY the invoicePaymentPricer is the only thing holding me up.
 
-
-
+12:45.  Ok.  I made the choice that felt wrong but was probably correct.  So now, the next task is going to be:
+    -I need to have the items in the exchange contain the price they sold for, not their catalog price.  That's how it should really work so it should be more intuitive.
+    -I need to be able to populate child items with full data.
+    -So I think the correct approach is a shared function that adds the specific InvoItem data into the product details.
+        -The resulting object should be the same format whether it's a regular item or a child item, since we'll be populating the table no matter what.  
 
 
 

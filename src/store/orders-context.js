@@ -1,7 +1,5 @@
 import React from "react";
 
-import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
-
 
 import { Order_SR } from "../globalFunctions/globalJS_classes";
 //products = 100, 200, 300, 400, 900, 910

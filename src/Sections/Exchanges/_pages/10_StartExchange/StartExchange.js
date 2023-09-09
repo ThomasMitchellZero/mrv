@@ -13,7 +13,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 
-import cloneDeep from "lodash.clonedeep";
+import {cloneDeep, isEmpty} from "lodash";
 
 function ExchStartExchange() {
   const exchCtx = useOutletContext();
@@ -36,6 +36,7 @@ function ExchStartExchange() {
   };
 
 
+
   // Sale Record-specific handlers
 
   const setInvoice = (invoNum) => {
@@ -53,6 +54,8 @@ function ExchStartExchange() {
   // Setter for all Sale Records.
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
+
+    
     // Data that varies with record type.
 
     let outSRTypeProperties =
@@ -72,18 +75,40 @@ function ExchStartExchange() {
 
     // loop through all products sold on this invoice
     for (const thisItem of Object.keys(invoiceItemsRoute)) {
+
+      const mergeProdData = ( itemNum, invoProductObj ) => {
+        /*
+            quantity: 2,
+            price: 103115,
+            tax: 1103,
+            childItemsObj: {
+            },
+        */
+        let outMergedProdObj = {
+          ...cloneDeep(productContext[itemNum]),
+          ...cloneDeep(invoProductObj),
+        };
+
+        let thisProdChildRt = outMergedProdObj.childItemsObj;
+
+        // If this product has any child items...
+        if (!isEmpty(thisProdChildRt)){
+
+          for (const [key, value] of Object.entries(thisProdChildRt)){
+            mergeProdData(key, value)
+          }
+        }
+
+        return outMergedProdObj;
+      };
+
+      // merges itemNum's Product and Invoice data.
+
+
       //Routes
       const thisInvoProdDetails = cloneDeep(invoiceItemsRoute[thisItem]);
 
-      //Pulls in the full details of this item from the catalog.
-      const getItemDetails = (itemNum) => {
-        let outItemDetails = cloneDeep(productContext[itemNum]);
-
-        //overwrite the catalog details(price, tax, etc) with what was in the invoice
-        outItemDetails = { ...outItemDetails, ...thisInvoProdDetails };
-
-        return outItemDetails;
-      };
+      const mergedProdInfo = mergeProdData(thisItem, thisInvoProdDetails);
 
       //populate the main object for this item.
       outInvoiceItems[thisItem] = {
@@ -91,12 +116,12 @@ function ExchStartExchange() {
         qtyExchanging: defaultVals.dvExchQty,
         returningItem: {
           pickupQty: defaultVals.dvPickupQty,
-          productDetails: getItemDetails(thisItem),
+          productDetails: mergedProdInfo,
           itemDispo: null,
         },
         replacementItem: {
           deliveryQty: defaultVals.dvExchQty,
-          productDetails: getItemDetails(thisItem),
+          productDetails: mergedProdInfo,
         },
       };
     }
