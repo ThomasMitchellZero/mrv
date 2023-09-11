@@ -4,13 +4,14 @@
     --EXCHBLANK: true;
 }
 
+/* I guess I just don't see any reason for this to be a grid? */
 .exch-rows{
     --exch-template-rows: 
         [header] 7rem 
         [pTracker] 8rem 
         [main]1fr 
         [fText]auto
-        [footer]8rem;
+        [footer]auto;
     grid-template-rows: var(--exch-template-rows);
 }
 
@@ -83,6 +84,8 @@
     padding: var(--PrimaryPadding__both);
     gap: 1rem;
 }
+
+/* ---- Exch. Shared Component Styles  ---- */
 
 
 

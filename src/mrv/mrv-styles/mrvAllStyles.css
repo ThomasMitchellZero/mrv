@@ -17,7 +17,9 @@
     --PrimaryPadding__both: 
         var(--PrimaryPadding__vertical) 
         var(--PrimaryPadding__horizontal);
-    --primaryBorder: calc( 1.5rem / 16 ) solid var(--color__border__th);
+    --primaryBorder:  .125rem  solid var(--color__border);
+    --clearBorder: 0rem .125rem solid transparent;
+
   font-family: "Fellix";
 
 
@@ -50,6 +52,10 @@
     --color__border__subdued: #cdb1dd;
 }
 
+.mrv-top .color__surface__subdued{
+  background-color: var(--color__surface__subdued);
+}
+
 .mrv-top .color__primary__text{
   color: var(--color__primary);
 }
@@ -67,6 +73,10 @@
 }
 .mrv-top .color__tertiary{
   background-color: var(--color__tertiary);
+}
+
+.mrv-top .color__transparent{
+  background-color: transparent;
 }
 
 
@@ -152,6 +162,7 @@
   border-radius: 0.5rem;
   box-sizing: border-box;
   border: calc( .125rem ) solid transparent;
+
 }
 
 .mrv-top .cardStyle:hover{
@@ -174,8 +185,9 @@
 
 .mrv-top table{
     border-radius: 0.5rem 0.5rem 0rem 0rem;
-    background-color: #fff;
+    background-color: transparent;
     table-layout: fixed;
+    
 }
 
 .mrv-top .tableContainer{
@@ -192,35 +204,50 @@
     color: var(--color__primary);
 }
 
+
 .mrv-top table .tdCenter{
   text-align: center;
-
-}
-
-
-.mrv-top th{
-
-    font-size: 1rem;
-    font-weight: 600;
-    background-color: transparent;
-    border-bottom: var(--primaryBorder);
-    border-right: var(--primaryBorder);
 }
 
 .mrv-top thead{
     height: 3rem;
-    background-color: #f5f5f5;
+    background-color: transparent;
+}
 
+.mrv-top th{
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: var(--primaryBorder);
+  border-right: var(--primaryBorder);
+  background-color: #f5f5f5;
+}
+
+.mrv-top .cardContainer th{
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: transparent;
+  border: var(--clearBorder);
+  border-bottom: var(--primaryBorder);
 }
 
 
-.mrv-top tr {
-    border-bottom: calc( 1.5rem / 16 ) solid var(--color__border);
-}
 
 .mrv-top tr > :nth-child(1){
   padding-left: 1.5rem;
 }
+
+.mrv-top tr {
+  border-bottom: var(--primaryBorder);
+}
+
+.mrv-top .cardContainer tr{
+  border: var(--clearBorder);
+  border-top: var(--primaryBorder);
+
+
+}
+
+
 
 
 .mrv-top tbody tr.active{
@@ -234,6 +261,8 @@
 .mrv-top tbody tr.active:hover{
     background-color: var(--color__card__selected__hover);
 }
+
+
 
 /* ---- MRV RADIO INPUT STYLES ---- */
 
@@ -265,4 +294,8 @@ input[type="radio" i]:focus-visible {
 
 .mrv-top .nohover{
   pointer-events: none;
+}
+
+.mrv-top .nohover_bg:hover{
+  background-color: initial;
 }

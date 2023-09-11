@@ -13,7 +13,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 
-import {cloneDeep, isEmpty} from "lodash";
+import { cloneDeep, isEmpty } from "lodash";
 
 function ExchStartExchange() {
   const exchCtx = useOutletContext();
@@ -35,8 +35,6 @@ function ExchStartExchange() {
     };
   };
 
-
-
   // Sale Record-specific handlers
 
   const setInvoice = (invoNum) => {
@@ -54,8 +52,6 @@ function ExchStartExchange() {
   // Setter for all Sale Records.
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
-
-    
     // Data that varies with record type.
 
     let outSRTypeProperties =
@@ -75,27 +71,22 @@ function ExchStartExchange() {
 
     // loop through all products sold on this invoice
     for (const thisItem of Object.keys(invoiceItemsRoute)) {
+      const mergeProdData = (itemNum, invoProductObj) => {
 
-      const mergeProdData = ( itemNum, invoProductObj ) => {
-        /*
-            quantity: 2,
-            price: 103115,
-            tax: 1103,
-            childItemsObj: {
-            },
-        */
         let outMergedProdObj = {
           ...cloneDeep(productContext[itemNum]),
           ...cloneDeep(invoProductObj),
         };
 
+        delete outMergedProdObj.quantity;
+
         let thisProdChildRt = outMergedProdObj.childItemsObj;
 
         // If this product has any child items...
-        if (!isEmpty(thisProdChildRt)){
+        if (!isEmpty(thisProdChildRt)) {
           // recursively run mergeProdData on any of the kids.
-          for (const [key, value] of Object.entries(thisProdChildRt)){
-            mergeProdData(key, value)
+          for (const [key, value] of Object.entries(thisProdChildRt)) {
+            mergeProdData(key, value);
           }
         }
 
@@ -103,7 +94,6 @@ function ExchStartExchange() {
       };
 
       // merges itemNum's Product and Invoice data.
-
 
       //Routes
       const thisInvoProdDetails = cloneDeep(invoiceItemsRoute[thisItem]);

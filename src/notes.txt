@@ -5530,11 +5530,33 @@ OK.  This is turning into a sticky situation.  Options:
     *Conditionally process the Invoices depending on their class, since CURRENTLY the invoicePaymentPricer is the only thing holding me up.
 
 12:45.  Ok.  I made the choice that felt wrong but was probably correct.  So now, the next task is going to be:
-    -I need to have the items in the exchange contain the price they sold for, not their catalog price.  That's how it should really work so it should be more intuitive.
-    -I need to be able to populate child items with full data.
-    -So I think the correct approach is a shared function that adds the specific InvoItem data into the product details.
-        -The resulting object should be the same format whether it's a regular item or a child item, since we'll be populating the table no matter what.  
+    X -I need to have the items in the exchange contain the price they sold for, not their catalog price.  That's how it should really work so it should be more intuitive.
+    X -I need to be able to populate child items with full data.
+    X -So I think the correct approach is a shared function that adds the specific InvoItem data into the product details.
+        -The resulting object should be the same format whether it's a regular item or a child item, since we'll be populating the table no matter what.  In this case, recursion isn't just programmer wankery - it's actually ensuring consistency.
 
+2:40.
+OK, that recursion plan actually went surprisingly well.  I think I've got all the child items in there?  
+
+OK, what's next?
+    * Replacements: 
+        + Even with Like for Like, we need to be able to handle child items.
+        - Assuming no child items, this works as-is.
+        - Depending on what info we get back, this could potentially change, wasting work.
+    * Schedule: 
+        + This is just busted.  We need this no matter what.
+        + Also, we have this pretty well nailed down.  Right now it doesn't seem likely to change.
+
+Requirements for Schedule:
+    -A class for each table row
+    -A class for the header
+    -Some CSS (thinking a grid) that can be shared between header and contents.
+
+OK, looking at this it kind of feels like I don't actually need a grid or a header?  A table is probably fine.  I kind of feel like my main objection is the hover behavior of the rows?  
+
+11 Sep. 2023
+5:10.
+OK.  I'm going to jam for however long I feel like and then I'm going to stop.  
 
 
 

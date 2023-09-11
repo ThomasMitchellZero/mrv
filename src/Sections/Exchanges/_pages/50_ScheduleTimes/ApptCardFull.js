@@ -23,6 +23,24 @@ function ApptCardFull({ appt, locSt, setLocSt }) {
 
   //---- UI Elements----
 
+  const thFactory = (title, width) => {
+    return { title, width };
+  };
+
+  const thInputs = [
+    thFactory("Picking up from customer"),
+    thFactory("Qty", "5rem"),
+    thFactory("", "4rem"),
+    thFactory("Delivering to customer"),
+    thFactory("Qty", "5rem"),
+  ];
+  const thArray = thInputs.map((th) => {
+    return (
+      <th key={th.title} style={{ width: th.width }} className={``}>
+        {th.title}
+      </th>
+    );
+  });
 
   const trArray = [];
 
@@ -32,10 +50,7 @@ function ApptCardFull({ appt, locSt, setLocSt }) {
 
     // populate Items
     trArray.push(
-      <tr
-        key={item}
-        className={`${""}`}
-      >
+      <tr key={item} className={`nohover_bg ${""}`}>
         <td>
           <ProductInfo
             hasPrice={true}
@@ -45,14 +60,14 @@ function ApptCardFull({ appt, locSt, setLocSt }) {
         </td>
       </tr>
 
-    // populate Children (LPP, etc)
-    
+      // populate Children (LPP, etc)
     );
   }
 
   return (
     <section className={`cardStyle ${classes.apptCard_container}`}>
       <table>
+        <thead className={`clearCell ${""}`}>{thArray}</thead>
         <tbody>{trArray}</tbody>
       </table>
     </section>

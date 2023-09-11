@@ -74,7 +74,7 @@ function ExchScheduleTimes() {
 
   return (
     <section className={`mrvPage `}>
-      <section className={`mrvPanel__main exch-rows blankback`}>
+      <section className={`mrvPanel__main exch-rows color__surface__subdued`}>
         <ExchHeader
           headerTitle="Schedule Pickup / Delivery"
           hasCluster={true}

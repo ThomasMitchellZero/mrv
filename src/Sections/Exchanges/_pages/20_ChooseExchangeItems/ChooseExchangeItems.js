@@ -30,7 +30,6 @@ function ExchChooseExchItems() {
   const invoItems = exchCtx.exchSession.invoiceItems;
   const exchNav = useExchNav();
 
-
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
 
@@ -86,7 +85,6 @@ function ExchChooseExchItems() {
       // go to next page.
       exchNav({ routeStr: "exchreason" });
     } else {
-
       // warning, no navigation.
       setLocSt_PickItems((draft) => {
         draft.formWarning = true;
@@ -122,13 +120,9 @@ function ExchChooseExchItems() {
     const thisProd = invoItems[product];
 
     return (
-      <tr key={product} className={``}>
+      <tr key={product} className={`nohover_bg`}>
         <td>
-          <ProductInfo
-            hasPrice={true}
-            itemObj={thisProd.returningItem}
-            qty={thisProd.qtySold}
-          />
+          <ProductInfo itemObj={thisProd.returningItem} />
         </td>
         <td>
           <p className={`body`}>{`${thisProd.qtySold}`}</p>

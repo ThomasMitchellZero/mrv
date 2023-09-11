@@ -117,7 +117,7 @@ function ExchReason() {
     trArray.push(
       <tr
         key={key}
-        className={`${locSt_ExchReason.activeKey === key ? "active" : ""}`}
+        className={` ${locSt_ExchReason.activeKey === key ? "active" : ""}`}
         onClick={() => handleTRclick(key)}
       >
         <td>
