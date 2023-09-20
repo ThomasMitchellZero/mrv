@@ -5556,8 +5556,21 @@ OK, looking at this it kind of feels like I don't actually need a grid or a head
 
 11 Sep. 2023
 5:10.
-OK.  I'm going to jam for however long I feel like and then I'm going to stop.  
+OK.  I'm going to jam for however long I feel like and then I'm going to stop.  First up, the CSS classes for the column spacing.  I can't actually see any reason for them to be a grid.  
 
+OK.  I've deleted everything related to the grid and as far as I can tell, it seems(?) to be working OK.  Small issue is the background color, but I know that will be fine.  Larger issue is the buttons in the main panel no longer have a horizontal size, so they are spilling out of everything, and I am now kind of stuck figuring out how to handle them.
+
+It does seem that a grid could be useful in situations where I DO NOT want empty space to get filled.  
+
+-Look at vh and vw.  I think that this might be what I need.   
+
+20 Sep 2023
+4:50.
+Had some time off, being busy at work and then with a weekend vacation.  Looking forward to being back!  
+
+OK, so very first thing today is to try and get my columns working.  This is no longer just aesthetic silliness.  Now that the grid is no more, I legitimately need to figure out horizontal control for the various columns.  I think the VERY easiest approach is just to make a standard width of 25% of the viewport and leave it at that for now.  
+
+OK, so here's a question.  I need to have padding in the button container or else the buttons won't be quite aligned.  I would *prefer* to have it standard all the way around, but I think it should be OK?  I guess I could also have anything that's a direct child of the Footer container have the padding?  Seems confusing.
 
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  

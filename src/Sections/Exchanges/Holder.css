@@ -5,11 +5,14 @@
 }
 
 /* I guess I just don't see any reason for this to be a grid? */
-
 .exch-rows{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
+    --exch-template-rows: 
+        [header] 7rem 
+        [pTracker] 8rem 
+        [main]1fr 
+        [fText]auto
+        [footer]auto;
+    grid-template-rows: var(--exch-template-rows);
 }
 
 /* ---- CONTAINER STYLES ---- */
@@ -17,7 +20,8 @@
 /* Vertical Positions*/
 
 .exch-rows .exchHeader{
-    flex: 0 0 5rem;
+    grid-row: header / span 1;
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: row;
     padding: var(--PrimaryPadding__both);
@@ -26,7 +30,8 @@
 }
 
 .exch-rows .pizzaTracker{
-    flex: 0 0 6rem;
+    grid-row: pTracker / span 1;
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: row;
     padding: var(--PrimaryPadding__both);
@@ -36,7 +41,7 @@
 }
 
 .exch-rows .main_content{
-    flex: 1 1 0rem;
+    grid-row: main / span 1;
     display: flex;
     flex-direction: column;
     padding: var(--PrimaryPadding__both);
@@ -45,16 +50,17 @@
     overflow-x: auto;
 }
 
-.exch-rows .main_content .right_col{
-    
-}
-
 .exch-rows .main_content.alignLeft{
+
     align-items: flex-start;
 }
 
+.exch-rows.mrvPanel__side .main_content{
+    grid-row: pTracker / span 2;
+}
+
 .exch-rows .footer_text{
-    flex: 0 0 auto;
+    grid-row: fText / span 1;
     padding: 0rem var(--PrimaryPadding__horizontal);
     display: flex;
     flex-direction: row;
@@ -64,16 +70,25 @@
 
 
 .exch-rows .footer_content{
-    flex: 0 0 6rem;
-    padding: var(--PrimaryPadding__vertical) 0rem;
-    justify-content: flex-end;
+    grid-row: footer / span 1;
+    padding: var(--PrimaryPadding__both);
+    align-items: center;
     display: flex;
     flex-direction: row;
 }
 
+.exch-rows.mrvPanel__side .fullColumn{
+    display: flex;
+    flex-direction: column;
+    grid-row: pTracker / -1;
+    padding: var(--PrimaryPadding__both);
+    gap: 1rem;
+}
 
 /* ---- Exch. Shared Component Styles  ---- */
 
 
-/*----*/
+/*--
+
+--*/
 

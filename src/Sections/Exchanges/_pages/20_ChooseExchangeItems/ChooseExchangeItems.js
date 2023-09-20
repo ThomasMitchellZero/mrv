@@ -42,7 +42,7 @@ function ExchChooseExchItems() {
 
   const handleExchQtyInput = (event, itemNum) => {
     let input = integerizer(event.target.value);
-    console.log(input);
+
     setExchState((draft) => {
       draft.invoiceItems[itemNum].qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
@@ -165,7 +165,7 @@ function ExchChooseExchItems() {
           navBtnClick={() => exchNav({ routeStr: "index" })}
         />
         <ExchPizzaTracker />
-        <section className={`main_content main_col`}>
+        <section className={`main_content`}>
           <section className={`tableContainer`}>
             <table>
               <thead>
@@ -175,20 +175,22 @@ function ExchChooseExchItems() {
             </table>
           </section>
         </section>
-        <section className={`footer_text right_col`}>
+        <section className={`footer_text`}>
           {locSt_PickItems.formWarning ? (
             <p className={`tinyText warning`}>
               Enter at least one item to exchange
             </p>
           ) : null}
         </section>
-        <section className={`footer_content right_col`}>
-          <button
-            className={`mrvBtn primary fullWidth jumbo`}
-            onClick={handleContinue}
-          >
-            Continue
-          </button>
+        <section className={`footer_content`}>
+          <div className={`buttonBox`}>
+            <button
+              className={`mrvBtn primary fullWidth jumbo`}
+              onClick={handleContinue}
+            >
+              Continue
+            </button>
+          </div>
         </section>
       </section>
     </section>

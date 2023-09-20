@@ -8,6 +8,7 @@
         align-items: flex-start;
 
         --standardBorder: calc(1.5rem / 16) solid var(--color__border);
+        --primaryColumn: 25vw;
 }
 
 
@@ -18,35 +19,30 @@
 
 
 .mrvPage .mrvPanel__main{
-    --Mcol: min(40%, 30rem);
-    flex: 5 5 0rem;
+    flex: 1 1 0rem;
     height: 100%;
-    display: grid;
-    grid-template-columns: var(--Mcol) 1fr var(--Mcol);
-    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .mrvPage .mrvPanel__side{
     height: 100%;
-    display: grid;
-    flex: 2 2 0rem;
-    max-width: 30rem;
-    grid-template-columns: 1fr;
-    background-color: #fff;
+    width: var(primaryColumn);
+    display: flex;
+    flex-direction: column;
 }
 
-/* The Main panel has multiple sub-divisions which can be selected with these */
-
-.mrvPanel__main .right_col{
-    grid-column: -1 / -2;
+.mrvPage .buttonBox{
+    height: 100%;
+    flex: 1 1 0rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0rem var(--PrimaryPadding__horizontal);
 }
 
-.mrvPanel__main .left_col{
-    grid-column: 1 / span 1;
-}
-
-.mrvPanel__main .main_col{
-    grid-column: 1 / -1;
+.mrvPage .mrvPanel__main .buttonBox {
+    flex: 0 0 var(--primaryColumn);
 }
 
 
