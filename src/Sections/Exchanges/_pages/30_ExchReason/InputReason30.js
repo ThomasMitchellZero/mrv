@@ -2,7 +2,6 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
-
 import { useOutletContext } from "react-router";
 
 function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
@@ -84,9 +83,11 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
         ) : null}
       </section>
       <section className={`footer_content`}>
-        <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
-          Apply
-        </button>
+        <div className={`buttonBox`}>
+          <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
+            Apply
+          </button>
+        </div>
       </section>
     </form>
   );

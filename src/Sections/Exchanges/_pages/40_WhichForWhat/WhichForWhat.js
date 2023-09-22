@@ -104,6 +104,7 @@ function ExchWhichForWhat() {
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "exchreason" })}
         />
+        <ExchPizzaTracker />
         <section className={`main_content main_col`}>
           <section className={`tableContainer`}>
             <table>
@@ -114,19 +115,21 @@ function ExchWhichForWhat() {
             </table>
           </section>
         </section>
-        <ExchPizzaTracker />
+
         <section className={`footer_text right_col`}>
           <p className={`tinyText warning`}></p>
         </section>
         <section className={`footer_content right_col`}>
-          {true ? (
-            <button
-              onClick={handleReplacementContinue}
-              className={`mrvBtn primary fullWidth jumbo`}
-            >
-              Continue
-            </button>
-          ) : null}
+          <div className={`buttonBox`}>
+            {true ? (
+              <button
+                onClick={handleReplacementContinue}
+                className={`mrvBtn primary fullWidth jumbo`}
+              >
+                Continue
+              </button>
+            ) : null}
+          </div>
         </section>
       </section>
     </section>

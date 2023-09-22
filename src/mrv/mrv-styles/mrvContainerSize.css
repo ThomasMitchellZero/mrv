@@ -6,6 +6,7 @@
         flex-direction: row;
         box-sizing: border-box;
         align-items: flex-start;
+        background-color: var(--color__surface__default);
 
         --standardBorder: calc(1.5rem / 16) solid var(--color__border);
         --primaryColumn: 25vw;
@@ -19,6 +20,7 @@
 
 
 .mrvPage .mrvPanel__main{
+    box-sizing: border-box;
     flex: 1 1 0rem;
     height: 100%;
     display: flex;
@@ -28,12 +30,13 @@
 
 .mrvPage .mrvPanel__side{
     height: 100%;
-    width: var(primaryColumn);
+    flex: 0 0 var(--primaryColumn);
     display: flex;
     flex-direction: column;
 }
 
 .mrvPage .buttonBox{
+    box-sizing: border-box;
     height: 100%;
     flex: 1 1 0rem;
     display: flex;
@@ -43,6 +46,11 @@
 
 .mrvPage .mrvPanel__main .buttonBox {
     flex: 0 0 var(--primaryColumn);
+
+}
+
+.swlddlksgfl{
+    
 }
 
 

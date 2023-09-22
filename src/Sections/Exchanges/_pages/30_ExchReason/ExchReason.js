@@ -16,7 +16,6 @@ function ExchReason() {
   const exchItems = exchCtx.exchSession.itemsInExchange;
   const defaultVals = exchCtx.exchSession.defaultValues;
 
-
   const defaultState = {
     activeKey: null,
     autoCalcActive: true,
@@ -180,12 +179,14 @@ function ExchReason() {
         </section>
         <section className={`footer_content right_col`}>
           {areAllAssigned ? (
-            <button
-              className={`mrvBtn primary fullWidth jumbo`}
-              onClick={handleContinue}
-            >
-              Continue
-            </button>
+            <div className={`buttonBox`}>
+              <button
+                className={`mrvBtn primary fullWidth jumbo`}
+                onClick={handleContinue}
+              >
+                Continue
+              </button>
+            </div>
           ) : null}
         </section>
       </section>

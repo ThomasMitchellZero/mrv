@@ -5572,6 +5572,24 @@ OK, so very first thing today is to try and get my columns working.  This is no 
 
 OK, so here's a question.  I need to have padding in the button container or else the buttons won't be quite aligned.  I would *prefer* to have it standard all the way around, but I think it should be OK?  I guess I could also have anything that's a direct child of the Footer container have the padding?  Seems confusing.
 
+6:40.
+OK.  It's working in the sense that the button container is controlling the size and responding to whether or not it's in a side panel.  It's NOT working in the sense that the button container size in the main panel is still larger than its counterpart in the side panel.  And I think the flex-box has got something to do with it because however much I shrink the screen, the delta is ~64 pixels, the size of my padding.  If that's not the problem then it is at least a hell of a coincidence.  I'm gonna call it a night and start here next time.  I feel like I am super close.
+
+Can I just use width within a flexbox?
+
+22 Sep 2023
+
+It's Friday evening.  In 6 days I have a skip-level with Julee.  It would be cool to have a working version of the Exchanges proto to show her.  I should always try to be efficient with time, but in this case I really need to use my powers and make good decisions.  Like, early to bed tonight, no time-wasters tomorrow, and really try to crank through.  
+
+6:15.  Already we're starting off with stakes.  Good.  That makes it exciting.  First, let me acknlowedge in advance that this is in fact a dumb thing to spend my time on.  It doesn't affect the app's function at all.  But I want it, and if I can't solve it tonight I shouldn't spend any more time on it tomorrow.  
+
+6:40.  Well, that was ass-lucky.  Turns out I just needed to set the box-sizing property to border-box.  I actually can't believe that worked.  And it's all flex-box, no width fuckery required.  OK, so with all this unexpected time, I think I should try and get the rest of the CSS working.
+
+First main issue is the backgrounds.  I could assign them at the column level, since those are normally different.  However, I could assign a color to the mrv-top container (probably white) and then assign a different color to the columns as needed?  Probably saves some code.
+
+
+
+
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
 
