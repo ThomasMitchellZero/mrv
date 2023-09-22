@@ -4,6 +4,7 @@
     grid-row: header / span 1;
     display: flex;
     flex-direction: row;
+    gap: 1rem;
     align-items: flex-end;
     color: var(--color__primary);
     --standard-height: 3.5rem;
@@ -22,6 +23,7 @@
     flex-direction: column;
     flex: 1 1 0rem;
     text-transform: capitalize;
+
 }
 
 .defaultHeight{
@@ -30,8 +32,16 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    
+}
+
+.mainTitle h3{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .defaultHeight p{
+    white-space: nowrap;
     color: var(--color__tertiary);
 }

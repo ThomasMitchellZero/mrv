@@ -90,7 +90,8 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -use useRef to auto-focus on ItemNum field on Render and Submit.
         -Should be able to useAddItem?
 
-
+/////////// Exchanges Backlog ////////////////
+    -Fix the CSS in the ExchHeader.  It's a disorganized, illogical mess.  It's also a low priority.
 
 
 
@@ -119,6 +120,8 @@ If: children of a flex-container are overflowing their parent:
     Apparently, the default min-width property for flex-items is auto, not zero.  Flex-items cannot shrink below their minimum size, even if that causes them to overflow their containers.  
     Also note that this is DIFFERENT from the flex-basis (the third argument in flex: 1 1 auto). That determines the starting size, but it is not the minimum size.  
 
+If: Elements in a flex-box are rendering at unexpected sizes:
+    box-sizing: border-box has been the magic one-line fix so many times that I actually don't know why it isn't the default.  It accounts for the padding/border/margin when calculating the element's size .
 
 
 
@@ -4202,11 +4205,10 @@ BUG - cash refund finalization screen is displaying as store credit.
         -Using Objects for conditionals worked pretty darn well.
         - ?? and .?
         -Use custom hooks to re-use logic.
-        -have my useReducer cases tailored to use cases, not outputs.
+        -have my useReducer cases tailored to causes, not outputs.
         -Don't use a component when a CSS class will do.
         -useRef to auto-focus input fields.
         -New URL if no shared UI elements, conditional rendering otherwise.
-        -For mapping UI elements, 
 
     Things I Want To Use
         -Use Immer instead of CloneDeep/reducer.  I think this will be cleaner.
@@ -5587,7 +5589,10 @@ It's Friday evening.  In 6 days I have a skip-level with Julee.  It would be coo
 
 First main issue is the backgrounds.  I could assign them at the column level, since those are normally different.  However, I could assign a color to the mrv-top container (probably white) and then assign a different color to the columns as needed?  Probably saves some code.
 
+7:15.
+OK, the CSS for the ExchHeader is a damn mess (who wrote this shit?) but it shouldn't affect much and since we are making great decisions, this is a stupid thing to worry about.  I'm moving on.
 
+7:35.  Ok.  The cleanup for the Time Picker is gonna be a much bigger lift than I can get into tonight.  I'm gonna call it a day and then call my mom.
 
 
 

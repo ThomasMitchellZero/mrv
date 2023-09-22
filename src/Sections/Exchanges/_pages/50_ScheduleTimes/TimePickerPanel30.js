@@ -16,7 +16,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
   const exchProdsMap = exchCtx.exchSession.exchProducts;
 
   const activeKey = parentSt.activeKey;
-  const activeProduct = ""
+  const activeProduct = "";
   const applyWarning = parentSt.showApplyWarning;
 
   /* ---- Shared Functions ---- */
@@ -31,8 +31,6 @@ function TimePickerPanel({ parentSt, setParSt }) {
   const handeApply = (event) => {
     event.preventDefault();
     const pickedTime = parentSt.activeTimeBtnObj;
-
-
   };
 
   const handleKeyDown = (event) => {
@@ -130,8 +128,6 @@ function TimePickerPanel({ parentSt, setParSt }) {
     thFactory("Qty ", "3rem"),
   ];
 
-
-
   /* ---- Final Component ---- */
 
   return (
@@ -151,13 +147,15 @@ function TimePickerPanel({ parentSt, setParSt }) {
         ) : null}
       </section>
       <section className={`footer_content right_col`}>
-        <button
-          onClick={handeApply}
-          type="button"
-          className={`mrvBtn primary fullWidth jumbo`}
-        >
-          Apply
-        </button>
+        <div className={`buttonBox`}>
+          <button
+            onClick={handeApply}
+            type="button"
+            className={`mrvBtn primary fullWidth jumbo`}
+          >
+            Apply
+          </button>
+        </div>
       </section>
     </>
   );
