@@ -51,9 +51,24 @@ function TimePickerPanel({ parentSt, setParSt }) {
     return outArr;
   };
 
+  //Arr of all Date objs
+  const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
+
   // Fn to produce a row with all buttons for a specific day.
   const makeBtnRow = ({ date, month }) => {
-    const timeSlotArr = ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"];
+    const timeSlotsObj = {
+      3: ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"],
+      2: ["8-11 am", "2-5 pm"],
+      1: ["8-6 pm"],
+    };
+
+    // generates a "random" time slot based on factor of date.
+    const timeSlotArr =
+      date % 3 === 0
+        ? timeSlotsObj["3"]
+        : date % 2 === 0
+        ? timeSlotsObj["2"]
+        : timeSlotsObj["1"];
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
       const keyString = `${date}${month}${timeStr}`;
@@ -85,9 +100,6 @@ function TimePickerPanel({ parentSt, setParSt }) {
     });
     return outBtnArr;
   };
-
-  //Arr of all Date objs
-  const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
   //Arr made from applying makeBtnRow() to array of Date objects
   const allUIdayRowsArr = allDatesArr.map((thisDateObj) => {

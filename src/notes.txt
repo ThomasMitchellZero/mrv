@@ -5594,6 +5594,28 @@ OK, the CSS for the ExchHeader is a damn mess (who wrote this shit?) but it shou
 
 7:35.  Ok.  The cleanup for the Time Picker is gonna be a much bigger lift than I can get into tonight.  I'm gonna call it a day and then call my mom.
 
+The Schedule 30 panels are overflowing and I'm  pretty sure the reason is that there's just too much crap in there.  This didn't start out as a 30 panel.  It started life as a main panel, and whatever size you set for a Flexbox, it can't shrink below the minimum sizes of its child elements.  That's where I will start tomorrow.
+
+23 Sep 2023
+9:40.
+Actually a very little bit bummed that I am just now starting.  Sleep was not great - I felt like I was waking up every cycle.  I have wasted a total of 2 minutes today and I jammed hard on house chores and playing with Sorin, but still, here we are.
+
+That said, today I am going to be my very best, and my very best would acknlowedge that the past is done and what matters now is what I do next.  So let's do that.  
+
+10:10.
+Well, I wasted 30 minutes.  Best-me would use this as a good warning that time-wasters are dangerous and get back after it :).  
+
+69420
+Got the document open.  I think the very first thing I need to do is figure out the time picker 30 panel. '
+    -VERY first thing is probably to clear out most/all of the contents.  Gotta make sure the 30 panel size is behaving as expected.
+    -Need a component for the time rows.
+    -Need to figure out how to wrap the components.
+        -I think I can handle this by having a maximum size to the buttons.
+    -Times should probably be irregular.  While crude, I think the actual correct play is to just make a big, stupid array.  The times should never change, so I don't need to create them programmatically.
+
+!!! After Session 1 !!!
+    Give Dave some creative feedback.  He's been such a good friend and this is an area you can actually help him.
+
 
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  

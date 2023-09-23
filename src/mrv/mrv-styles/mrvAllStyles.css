@@ -184,9 +184,9 @@
 /* ---- MRV TABLE STYLES ---- */
 
 .mrv-top table{
-    border-radius: 0.5rem 0.5rem 0rem 0rem;
-    background-color: transparent;
-    table-layout: fixed;
+  border-radius: 0.5rem 0.5rem 0rem 0rem;
+  background-color: transparent;
+  table-layout: fixed;
     
 }
 
