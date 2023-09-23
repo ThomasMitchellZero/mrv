@@ -69,8 +69,8 @@ function ExchScheduleTimes() {
       <ApptCardFull
         key={apptKey}
         appt={apptKey}
-        locSt={locSt_Schedule}
-        setLocSt={setlocSt_Schedule}
+        parentLocSt={locSt_Schedule}
+        setparentLocSt={setlocSt_Schedule}
         cardNum={cardNumber}
 
       />

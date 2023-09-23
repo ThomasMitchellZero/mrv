@@ -12,11 +12,11 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ appt, locSt, setLocSt, cardNum }) {
+function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum }) {
   const exchCtx = useOutletContext();
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
   const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
-  const isActive = locSt.activeKey === thisDeliv;
+  const isActive = parentLocSt.activeKey === appt ? "selected" : "";
 
   //---- Shared Functions ----
 
@@ -64,11 +64,7 @@ function ApptCardFull({ appt, locSt, setLocSt, cardNum }) {
   }
 
   return (
-    <section
-      className={`cardStyle ${isActive ? "selected" : ""} ${
-        classes.apptCard_container
-      }`}
-    >
+    <section className={`cardStyle ${isActive}`}>
       <table>
         <thead className={`clearCell ${""}`}>
           <tr>{thArray}</tr>
