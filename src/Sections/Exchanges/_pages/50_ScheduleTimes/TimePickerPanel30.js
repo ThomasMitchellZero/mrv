@@ -10,14 +10,14 @@ import { current } from "immer";
 
 import { useOutletContext } from "react-router";
 
-function TimePickerPanel({ parentSt, setParSt }) {
+function TimePickerPanel({ parentLocSt, setparentLocSt }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchProdsMap = exchCtx.exchSession.exchProducts;
 
-  const activeKey = parentSt.activeKey;
+  const activeKey = parentLocSt.activeKey;
   const activeProduct = "";
-  const applyWarning = parentSt.showApplyWarning;
+  const applyWarning = parentLocSt.showApplyWarning;
 
   const timeSlotsObj = {
     3: ["8-11 am", "11-2 pm", "2-5 pm", "5-8 pm", "8-11 pm"],
@@ -28,7 +28,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
   /* ---- Shared Functions ---- */
 
   const handleTimeBtnClick = (timeBtnObj) => {
-    setParSt((draft) => {
+    setparentLocSt((draft) => {
       draft.activeTimeBtnObj = timeBtnObj;
       draft.showApplyWarning = false;
     });
@@ -36,7 +36,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
 
   const handeApply = (event) => {
     event.preventDefault();
-    const pickedTime = parentSt.activeTimeBtnObj;
+    const pickedTime = parentLocSt.activeTimeBtnObj;
   };
 
   const handleKeyDown = (event) => {
@@ -83,7 +83,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
 
       // If this unique keyStr matches local, apply "focused" style
       const isActive =
-        parentSt.activeTimeBtnObj?.keyStr === keyString ? "focused" : "";
+        parentLocSt.activeTimeBtnObj?.keyStr === keyString ? "focused" : "";
 
       return (
         <button

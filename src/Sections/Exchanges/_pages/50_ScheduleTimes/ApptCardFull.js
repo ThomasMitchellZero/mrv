@@ -20,6 +20,13 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum }) {
 
   //---- Shared Functions ----
 
+  const handleCardClick = ()=>{
+    // sets this card's number to Active in the parent state.
+    setparentLocSt((draft)=>{
+      draft.activeKey = appt
+    })
+  }
+
   //---- UI Elements----
 
   const thFactory = (title, key, width) => {
@@ -58,13 +65,11 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum }) {
           />
         </td>
       </tr>
-
-      // populate Children (LPP, etc)
     );
   }
 
   return (
-    <section className={`cardStyle ${isActive}`}>
+    <section className={`cardStyle ${isActive}`} onClick={handleCardClick}>
       <table>
         <thead className={`clearCell ${""}`}>
           <tr>{thArray}</tr>

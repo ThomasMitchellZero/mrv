@@ -5636,9 +5636,21 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
 
     I think what I want to get done today is:
         -Get Schedule all squared away
-            -Allow for an Active card
+            X -Allow for an Active card
+            -30 Panel behavior
+                -IF active delivery has a time, set that time to Active
+                -Make sure that selecting a Time clears the warning state
+                -Default time button Selection from fastMode.
+                -Handle Apply behavior
+                    -Check that a time is selected
+                    -if not, set the Warning state
+                    -Set this delivery's time to the chosen time
+                    -Set locSt active key to null (to trigger the search for the next unassigned)
+
+                    
             -Auto-select cards with unassigned times
             -Add in the bit that shows the Exchange and the time
+            -Correctly populate the card <tr>
             -MAYBE show the Exchange card in the header?
             -I'll need SOMETHING for ALL Scheduled.
         -Get Total Review working (not updated)

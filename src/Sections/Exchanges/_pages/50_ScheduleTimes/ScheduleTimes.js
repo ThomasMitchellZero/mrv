@@ -64,7 +64,7 @@ function ExchScheduleTimes() {
   const timeCardArr = [];
 
   for (const apptKey of Object.keys(delivGroups)) {
-    const cardNumber = timeCardArr.length + 1
+    const cardNumber = timeCardArr.length + 1;
     timeCardArr.push(
       <ApptCardFull
         key={apptKey}
@@ -72,7 +72,6 @@ function ExchScheduleTimes() {
         parentLocSt={locSt_Schedule}
         setparentLocSt={setlocSt_Schedule}
         cardNum={cardNumber}
-
       />
     );
   }
@@ -93,7 +92,10 @@ function ExchScheduleTimes() {
           {timeCardArr}
         </section>
       </section>
-      <TimePickerPanel parentSt={locSt_Schedule} setParSt={setlocSt_Schedule} />
+      <TimePickerPanel
+        parentLocSt={locSt_Schedule}
+        setparentLocSt={setlocSt_Schedule}
+      />
     </section>
   );
 }
