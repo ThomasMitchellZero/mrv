@@ -16,7 +16,7 @@ function useGroupAppointments() {
 
       //Check if this DC code already exists in outShipmentsObj
       if (!outShipmentsObj[thisItemDC]) {
-        outShipmentsObj[thisItemDC] = { apptItemKeys: [] };
+        outShipmentsObj[thisItemDC] = { apptItemKeys: [], apptTime: null };
       }
       //add this item to the array of its DC
       outShipmentsObj[thisItemDC].apptItemKeys.push(item);
