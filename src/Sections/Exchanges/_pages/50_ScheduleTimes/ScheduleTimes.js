@@ -29,29 +29,30 @@ function ExchScheduleTimes() {
 
   //---- On Render ----
 
-  // on every render, check if activeKey has a value.
+  // on every render, check if activeKey has a value.  Applying a time in TimePicker sets this to null to trigger a search for any unassigned times.
 
   if (!locSt_Schedule.activeKey) {
+
     let outLocSt = {
       showApplyWarning: false,
       activeKey: allScheduledStr,
-      //activeTimeBtnObj: null, // If active, selected btn resets after Apply
+      cat: true,
+      activeTimeBtnObj: locSt_Schedule.activeTimeBtnObj, // or null, if slow
     };
 
     // loop through the keys, return 1st with no apptTime.
-    for (const thisKey of Object.entries(delivGroups)) {
+    for (const thisAppt of Object.entries(delivGroups)) {
       // Valid values are either obj or string, but both are truthy
-      const thisItemTime = thisKey[1].apptTime;
+      const thisItemTime = thisAppt[1].apptTime;
       if (!thisItemTime) {
         // if prod has no time scheduled...
-        outLocSt.activeKey = thisKey[0]; // it befomes the new active prod
+        outLocSt.activeKey = thisAppt[0]; // it befomes the new active prod
         break;
       }
     }
 
-    setlocSt_Schedule((draft) => {
-      draft.activeKey = outLocSt.activeKey;
-      draft.showApplyWarning = false;
+    setlocSt_Schedule(() => {
+      return outLocSt // this replaces the whole draft.
     });
   }
 
