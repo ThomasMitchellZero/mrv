@@ -12,31 +12,30 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ appt, locSt, setLocSt }) {
+function ApptCardFull({ appt, locSt, setLocSt, cardNum }) {
   const exchCtx = useOutletContext();
-
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
-
   const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
+  const isActive = locSt.activeKey === thisDeliv;
 
   //---- Shared Functions ----
 
   //---- UI Elements----
 
-  const thFactory = (title, width) => {
-    return { title, width };
+  const thFactory = (title, key, width) => {
+    return { title, key, width };
   };
 
   const thInputs = [
-    thFactory("Picking up from customer"),
-    thFactory("Qty", "5rem"),
-    thFactory("", "4rem"),
-    thFactory("Delivering to customer"),
-    thFactory("Qty", "5rem"),
+    thFactory("Picking up from customer", "custPickup"),
+    thFactory("Qty", "pickupQty", "5rem"),
+    thFactory("", "spacer", "4rem"),
+    thFactory("Delivering to customer", "custDeliv"),
+    thFactory("Qty", "delivQty", "5rem"),
   ];
   const thArray = thInputs.map((th) => {
     return (
-      <th key={th.title} style={{ width: th.width }} className={``}>
+      <th key={th.key} style={{ width: th.width }} className={``}>
         {th.title}
       </th>
     );
@@ -65,9 +64,15 @@ function ApptCardFull({ appt, locSt, setLocSt }) {
   }
 
   return (
-    <section className={`cardStyle ${classes.apptCard_container}`}>
+    <section
+      className={`cardStyle ${isActive ? "selected" : ""} ${
+        classes.apptCard_container
+      }`}
+    >
       <table>
-        <thead className={`clearCell ${""}`}>{thArray}</thead>
+        <thead className={`clearCell ${""}`}>
+          <tr>{thArray}</tr>
+        </thead>
         <tbody>{trArray}</tbody>
       </table>
     </section>

@@ -14,18 +14,12 @@
 
 
 
-
-
-/*Since the standard size of rows will be different in different MRV Products, grid-template-row is specified at the Product level. */
-
-
 .mrvPage .mrvPanel__main{
     box-sizing: border-box;
     flex: 1 1 0rem;
     height: 100%;
     display: flex;
     flex-direction: column;
-
 }
 
 .mrvPage .mrvPanel__side{
@@ -47,10 +41,6 @@
 .mrvPage .mrvPanel__main .buttonBox {
     flex: 0 0 var(--primaryColumn);
 
-}
-
-.swlddlksgfl{
-    
 }
 
 

@@ -1,7 +1,6 @@
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
-import { TimeMiniCard } from "./TimeMiniCard";
 import { TimePickerPanel } from "./TimePickerPanel30";
 import { AllScheduled } from "./AllScheduled";
 import { ApptCardFull } from "./ApptCardFull";
@@ -26,14 +25,13 @@ function ExchScheduleTimes() {
   };
 
   //local state
-  const [locSt_PickTime, setLocSt_PickTime] = useImmer(defaultState);
+  const [locSt_Schedule, setlocSt_Schedule] = useImmer(defaultState);
 
   //---- On Render ----
 
   // on every render, check if activeKey has a value.
 
-  /*
-     if (!locSt_PickTime.activeKey) {
+  if (!locSt_Schedule.activeKey) {
     let outLocSt = {
       showApplyWarning: false,
       activeKey: allScheduledStr,
@@ -41,22 +39,21 @@ function ExchScheduleTimes() {
     };
 
     // loop through the keys, return 1st with no apptTime.
-    for (const thisKey of exchProdsMap.keys()) {
+    for (const thisKey of Object.entries(delivGroups)) {
       // Valid values are either obj or string, but both are truthy
-      const thisItemTime = exchProdsMap.get(thisKey).apptTime;
+      const thisItemTime = thisKey[1].apptTime;
       if (!thisItemTime) {
         // if prod has no time scheduled...
-        outLocSt.activeKey = thisKey; // it befomes the new active prod
+        outLocSt.activeKey = thisKey[0]; // it befomes the new active prod
         break;
       }
     }
 
-    setLocSt_PickTime((draft) => {
+    setlocSt_Schedule((draft) => {
       draft.activeKey = outLocSt.activeKey;
       draft.showApplyWarning = false;
     });
   }
-  */
 
   /* ---- Shared Functions ---- */
 
@@ -67,7 +64,17 @@ function ExchScheduleTimes() {
   const timeCardArr = [];
 
   for (const apptKey of Object.keys(delivGroups)) {
-    timeCardArr.push(<ApptCardFull key={apptKey} appt={apptKey} />);
+    const cardNumber = timeCardArr.length + 1
+    timeCardArr.push(
+      <ApptCardFull
+        key={apptKey}
+        appt={apptKey}
+        locSt={locSt_Schedule}
+        setLocSt={setlocSt_Schedule}
+        cardNum={cardNumber}
+
+      />
+    );
   }
 
   /* ---- Final Component ---- */
@@ -86,7 +93,7 @@ function ExchScheduleTimes() {
           {timeCardArr}
         </section>
       </section>
-      <TimePickerPanel parentSt={locSt_PickTime} setParSt={setLocSt_PickTime} />
+      <TimePickerPanel parentSt={locSt_Schedule} setParSt={setlocSt_Schedule} />
     </section>
   );
 }

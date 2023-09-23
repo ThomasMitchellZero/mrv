@@ -87,6 +87,7 @@ function TimePickerPanel({ parentSt, setParSt }) {
 
       return (
         <button
+          key={keyString}
           type="button"
           onClick={() => handleTimeBtnClick(btnDataObj)}
           className={`mrvBtn secondary ${isActive} ${classes.timeBtn}`}

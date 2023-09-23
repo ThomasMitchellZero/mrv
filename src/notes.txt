@@ -5613,8 +5613,47 @@ Got the document open.  I think the very first thing I need to do is figure out 
         -I think I can handle this by having a maximum size to the buttons.
     -Times should probably be irregular.  While crude, I think the actual correct play is to just make a big, stupid array.  The times should never change, so I don't need to create them programmatically.
 
-!!! After Session 1 !!!
-    Give Dave some creative feedback.  He's been such a good friend and this is an area you can actually help him.
+1:20.
+Welp, I really stepped in shit and hurt Dave's feelings with my comments on his logo.  I've apologized, provided a few designs and offered to workshop tomorrow.  What happens next is up to him.  I can't do anything else for the time being and I don't want to lose the day, so like my big blowup with Harrison, I am going to ATTEMPT to give myself a pass to mentally set it aside and get on with my day.  That's what the man I want to be would do.  
+
+OK. So back to work.  Where are we?  I think the styles are good enough.  So then I think the next thing to do is to get the time application working.  I also need the styling, but that is fun and less urgent.  So I need:
+
+    -Automatic selection of the first card.
+    -When hitting Apply in the 30 panel, apply the time to the selected deliveries.
+    -Cycle through the deliveries and select the next active.
+    -Selecting a card makes it active
+    -If no card is active, show the All Scheduled panel.
+
+2:30.
+    CSS is really giving me the business.  Instead of continuing to layer epicycles, I need to just come up with a simple plan.  I think it should be:
+    
+    -Every <tr> has a top border
+    -A <tr> that is a child of <thead> should have no borders.
+    -No border at all for a <th> element.  I think it looks shitty anyways.
+
+4:00.
+    Just popped half a pill and hoping to grind late tonight.  Like, 9:00 would be nice.  I'm MUCH happier with the CSS.  I honestly feel like at least a third of my improvement in this app has been just CSS technique.  
+
+    I think what I want to get done today is:
+        -Get Schedule all squared away
+            -Allow for an Active card
+            -Auto-select cards with unassigned times
+            -Add in the bit that shows the Exchange and the time
+            -MAYBE show the Exchange card in the header?
+            -I'll need SOMETHING for ALL Scheduled.
+        -Get Total Review working (not updated)
+        -Push the update live
+        -Get to working on bringing Replacements up to speed.
+            -New style
+            -Show child items, especially LPP
+            -Some SUPER simple way to pick an Unlike replacement
+            -Show $ difference
+            -Price Adjustment
+        
+    Realistically, if I get all the Schedule items done I'd have to consider this a very good day.  
+
+
+
 
 
 
