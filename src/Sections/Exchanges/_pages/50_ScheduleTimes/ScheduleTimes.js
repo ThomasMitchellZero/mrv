@@ -86,24 +86,7 @@ function ExchScheduleTimes() {
           {timeCardArr}
         </section>
       </section>
-      <section className={`mrvPanel__side exch-rows`}>
-        <ExchHeader
-          headerTitle="Exchange Items"
-          hasCluster={false}
-          hasProductName={false}
-        />
-        {locSt_PickTime.activeKey === allScheduledStr ? (
-          <AllScheduled
-            parentSt={locSt_PickTime}
-            setParSt={setLocSt_PickTime}
-          />
-        ) : (
-          <TimePickerPanel
-            parentSt={locSt_PickTime}
-            setParSt={setLocSt_PickTime}
-          />
-        )}
-      </section>
+      <TimePickerPanel parentSt={locSt_PickTime} setParSt={setLocSt_PickTime} />
     </section>
   );
 }
