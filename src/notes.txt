@@ -5723,4 +5723,4 @@ So I think the thing to do is populate the <tr>s in Schedule.  Then I NEED to ge
 6:00.
 Losing steam here.  I think if I can get Total Review working-ish, I can call it a night.
 
-
+Got just a few more minutes until Mr. Sorin's dinner arrives.  
