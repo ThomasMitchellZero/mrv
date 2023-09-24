@@ -4,16 +4,11 @@
 .cardSchedText{
     display: flex;
     flex-direction: row;
+    height: 3rem;
     flex: 0 0 auto;
+    align-items: center;
     gap: 2rem;
-    padding: 0rem .5rem;
-
-    .apptNumText{
-        color: var(--color__primary)
-    }
-    .apptTimetext{
-        color: aqua;
-    }
+    padding-left: var(--tablePadding__horizontal);
 }
 
 
@@ -53,7 +48,6 @@
     display: flex;
     flex-direction: row;
     flex: 0 0 7rem;
-
 }
 
 .dateText{

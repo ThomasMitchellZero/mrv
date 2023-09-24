@@ -12,19 +12,38 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum, setDelivFn }) {
+function ApptCardFull({
+  appt,
+  parentLocSt,
+  setparentLocSt,
+  cardNum,
+  setDelivFn,
+}) {
   const exchCtx = useOutletContext();
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
-  const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
+  const thisDelivery = exchCtx.exchSession.deliveryGroups[appt];
+  const thisDelivTime = thisDelivery?.apptTime;
+
   const isActive = parentLocSt.activeKey === appt ? "selected" : "";
 
   //---- Shared Functions ----
 
-  const handleCardClick = ()=>{
-    setDelivFn(appt)
-  }
+  const handleCardClick = () => {
+    setDelivFn(appt);
+  };
 
   //---- UI Elements----
+
+  console.log(thisDelivTime);
+
+  //
+  let apptTimeJSX = thisDelivTime ? (
+    <p className={"color__tertiary__text body__large bold"}>
+      {thisDelivTime?.timeTxtStr}
+    </p>
+  ) : (
+    <p className={"color__tertiary__text body__small"}>Choose date and time</p>
+  );
 
   const thFactory = (title, key, width) => {
     return { title, key, width };
@@ -47,7 +66,7 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum, setDelivFn }
 
   const trArray = [];
 
-  for (const item of thisDeliv.apptItemKeys) {
+  for (const item of thisDelivery.apptItemKeys) {
     const thisItemkey = itemsInExch[item];
     const returnItem = thisItemkey.returningItem;
 
@@ -67,6 +86,12 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum, setDelivFn }
 
   return (
     <section className={`cardStyle ${isActive}`} onClick={handleCardClick}>
+      <section className={` ${classes.cardSchedText}`}>
+        <p
+          className={`body color__secondary__text`}
+        >{`Exchange ${cardNum}:`}</p>
+        {apptTimeJSX}
+      </section>
       <table>
         <thead className={`clear ${""}`}>
           <tr>{thArray}</tr>

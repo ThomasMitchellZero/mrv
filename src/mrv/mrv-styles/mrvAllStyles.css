@@ -133,6 +133,12 @@
   line-height: 2rem;
 }
 
+.mrv .body__large{
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .mrv .body__small{
   font-size: 1rem;
   line-height: 1.5rem;
@@ -381,7 +387,6 @@
 .mrv tbody tr.active:hover{
     background-color: var(--color__card__selected__hover);
 }
-
 
 
 /* ---- MRV RADIO INPUT STYLES ---- */

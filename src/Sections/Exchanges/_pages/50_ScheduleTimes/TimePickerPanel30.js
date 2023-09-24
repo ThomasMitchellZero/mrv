@@ -74,6 +74,8 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
   /* ---- UI Elements ---- */
 
+  // should clean this up, I feel like there's a lot of duplication happening.
+
   // Fn to produce a row with all buttons for a specific day.
   const makeBtnRow = ({ date, month }) => {
     // generates a "random" time slot based on factor of date.
@@ -85,23 +87,23 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
         : timeSlotsObj["1"];
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
-      const keyString = `${date}${month}${timeStr}`;
+      const thisTimeString = `${date}${month}${timeStr}`;
 
       // Clicking button stores this obj in local state.  If user hits Apply, it will be passed from local to global.
       const btnDataObj = {
-        keyStr: keyString,
+        timeTxtStr: thisTimeString,
         timeSlot: timeStr,
         date: date,
         month: month,
       };
 
-      // If this unique keyStr matches local, apply "focused" style
+      // If this unique timeTxtStr matches local, apply "focused" style
       const isActive =
-        parentLocSt.activeTimeBtnObj?.keyStr === keyString ? "focused" : "";
+        parentLocSt.activeTimeBtnObj?.timeTxtStr === thisTimeString ? "focused" : "";
 
       return (
         <button
-          key={keyString}
+          key={thisTimeString}
           type="button"
           onClick={() => handleTimeBtnClick(btnDataObj)}
           className={`mrvBtn secondary ${isActive} ${classes.timeBtn}`}
