@@ -1,13 +1,11 @@
 
-@import"./mrvContainerSize.css";
-@import url("./mrvButtons.css");
 
 @font-face {
     font-family: 'Fellix';
     src:  url('../../assets/fonts/fellix/Fellix-Regular.otf') format('otf'),
   }
 
-.mrv-top{
+.mrv{
   display: flex;
   flex-direction: column;
   flex: 1 1 0rem;
@@ -52,78 +50,134 @@
     --color__border__subdued: #cdb1dd;
 }
 
-.mrv-top .color__surface__subdued{
+.mrv .color__surface__subdued{
   background-color: var(--color__surface__subdued);
 }
 
-.mrv-top .color__primary__text{
+.mrv .color__primary__text{
   color: var(--color__primary);
 }
-.mrv-top .color__primary{
+.mrv .color__primary{
   background-color: var(--color__primary);
 }
-.mrv-top .color__secondary__text{
+.mrv .color__secondary__text{
   color: var(--color__secondary);
 }
-.mrv-top .color__secondary{
+.mrv .color__secondary{
   background-color: var(--color__secondary);
 }
-.mrv-top .color__tertiary__text{
+.mrv .color__tertiary__text{
   color: var(--color__tertiary);
 }
-.mrv-top .color__tertiary{
+.mrv .color__tertiary{
   background-color: var(--color__tertiary);
 }
 
-.mrv-top .color__transparent{
+.mrv .color__transparent{
   background-color: transparent;
+}
+
+
+.mrvPage{
+  height: 100%;
+  display: flex;
+  flex: 1 1 0rem;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  background-color: var(--color__surface__default);
+  --standardBorder: calc(1.5rem / 16) solid var(--color__border);
+  --primaryColumn: 25vw;
+}
+
+/* ---- MRV Containers ---- */
+
+.mrvPage .mrvPanel__main{
+box-sizing: border-box;
+flex: 1 1 0rem;
+height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.mrvPage .mrvPanel__side{
+height: 100%;
+flex: 0 0 var(--primaryColumn);
+display: flex;
+flex-direction: column;
+}
+
+.mrvPage .buttonBox{
+box-sizing: border-box;
+height: 100%;
+flex: 1 1 0rem;
+display: flex;
+flex-direction: column;
+padding: 0rem var(--PrimaryPadding__horizontal);
+}
+
+.mrvPage .mrvPanel__main .buttonBox {
+flex: 0 0 var(--primaryColumn);
+
+}
+
+.mrvPage .border__left{
+border-left: var(--standardBorder);
+}
+
+.mrvPage .border__right{
+border-right: var(--standardBorder);
+}
+
+.mrvPage .blankback{
+background-color: transparent;
 }
 
 
 /* ---- MRV TEXT STYLES ---- */
 
-.mrv-top h1{
+.mrv h1{
     font-weight: 500;
 }
 
-.mrv-top h3 {
+.mrv h3 {
   font-size: 2rem;
   font-weight: 600;
   color: var(--color__text__primary);
   line-height: 3.5rem;
 }
 
-.mrv-top h3.heading__large{
+.mrv h3.heading__large{
   font-size: 2.5rem;
   line-height: 4rem;
 }
 
-.mrv-top h4{
+.mrv h4{
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 600;
   color: var(--color__text__primary);
 }
 
-.mrv-top h4.heading__small{
+.mrv h4.heading__small{
   font-size: 1.5rem;
   line-height: 2rem;
 }
 
 
-.mrv-top .body{
+.mrv .body{
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 2rem;
 }
 
-.mrv-top .body__small{
+.mrv .body__small{
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
 
-.mrv-top .tinyText{
+.mrv .tinyText{
   font-weight: 500;
   font-size: .875rem;
   line-height: 1.5rem;
@@ -131,11 +185,11 @@
 
 /*  Modifiers  */
 
-.mrv-top .bold{
+.mrv .bold{
   font-weight: 600;
 }
 
-.mrv-top .warning{
+.mrv .warning{
   color: var(--color__red);
 }
 
@@ -144,6 +198,72 @@
 
 
 /* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
+
+/* ---- MRV BUTTON STYLES ---- */
+
+.mrvBtn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  height: 4rem;
+  padding: 0rem 1rem;
+  margin: 0rem;
+  gap: .25rem;
+
+  border: .125rem solid;
+  border-radius: .5rem;
+  background-color: fuchsia;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.mrvBtn:hover{
+  opacity: 80%;
+}
+
+.mrvBtn.primary{
+  color: var(--color__primary__inverse);
+  border-color: transparent;
+  background-color: var(--color__interactive);
+}
+
+.mrvBtn.secondary{
+  color: var(--color__interactive);
+  border-color: var(--color__interactive);
+  background-color: transparent;
+}
+
+.mrvBtn.ghost{
+  color: var(--color__interactive);
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.mrvBtn.jumbo{
+  height: 6rem;
+  font-size: 1.75rem;
+}
+
+.mrvBtn.fullWidth{
+  flex: 1 1 0rem;
+}
+
+.mrvBtn.focused{
+  color: var(--color__primary__inverse);
+  background-color: var(--color__interactive__pressed);
+  border: calc(3rem / 16) solid white;
+  outline: calc(3rem / 16) solid var(--color__interactive__pressed);
+}
+
+.mrvBtn.mainAction{
+  padding-left: var(--PrimaryPadding__horizontal);
+}
 
 
 /* ---- MRV CARD STYLES ---- */
@@ -155,7 +275,7 @@
   gap: 1rem;    
 }
 
-.mrv-top .cardStyle{
+.mrv .cardStyle{
   --dropShadow__01: 0px 4px 4px 0px #00000020;
   background-color: var(--color__surface__default);
   box-shadow: var(--dropShadow__01);
@@ -165,16 +285,16 @@
   padding: 0.5rem 1rem;
 }
 
-.mrv-top .cardStyle:hover{
+.mrv .cardStyle:hover{
   background-color: var(--color__card__hover);
 }
 
-.mrv-top .cardStyle.selected{
+.mrv .cardStyle.selected{
   background-color: var(--color__card__selected);
   border-color: var(--color__interactive);
 }
 
-.mrv-top .cardStyle.selected:hover{
+.mrv .cardStyle.selected:hover{
   background-color: var(--color__card__selected__hover);
 }
 
@@ -183,12 +303,12 @@
 
 /* ---- MRV TABLE STYLES ---- */
 
-.mrv-top table{
+.mrv table{
   background-color: transparent;
   table-layout: fixed;
 }
 
-.mrv-top .tableContainer{
+.mrv .tableContainer{
   display: flex;
   flex: 1 1 0rem;
   flex-direction: column;
@@ -197,52 +317,52 @@
   overflow-y: auto;
 }
 
-.mrv-top tr {
+.mrv tr {
   border: unset;
   border-top: var(--primaryBorder);
 }
 
-.mrv-top td{
+.mrv td{
     color: var(--color__primary);
 }
 
-.mrv-top table .tdCenter{
+.mrv table .tdCenter{
   text-align: center;
 }
 
-.mrv-top thead{
+.mrv thead{
     height: 3rem;
     background-color: #f5f5f5;
 }
 
-.mrv-top thead.clear{
+.mrv thead.clear{
   background-color: transparent;
 }
 
-.mrv-top thead > tr {
+.mrv thead > tr {
   border-radius: 0.5rem 0.5rem 0rem 0rem;
   border: var(--clearBorder);
 }
 
-.mrv-top th{
+.mrv th{
   font-size: 1rem;
   font-weight: 600;
 }
 
-.mrv-top .cardStyle thead{
+.mrv .cardStyle thead{
   background-color: transparent;
 }
 
 
-.mrv-top tbody tr.active{
+.mrv tbody tr.active{
     background-color: var(--color__card__selected);
 }
 
-.mrv-top tbody tr:hover{
+.mrv tbody tr:hover{
     background-color: var(--color__card__hover);
 }
 
-.mrv-top tbody tr.active:hover{
+.mrv tbody tr.active:hover{
     background-color: var(--color__card__selected__hover);
 }
 
@@ -250,7 +370,7 @@
 
 /* ---- MRV RADIO INPUT STYLES ---- */
 
-.mrv-top label.radio {
+.mrv label.radio {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -259,13 +379,13 @@
   width: 100%;
 }
 
-.mrv-top .radio input{
+.mrv .radio input{
   flex: 0 0 1rem;
   height: 1rem;
   margin: 0rem;
 }
 
-.mrv-top .radio p{
+.mrv .radio p{
   color: var(--color__primary);
 }
 
@@ -276,10 +396,10 @@ input[type="radio" i]:focus-visible {
 
 /* ---- Universal Modifiers ----*/
 
-.mrv-top .nohover{
+.mrv .nohover{
   pointer-events: none;
 }
 
-.mrv-top .nohover_bg:hover{
+.mrv .nohover_bg:hover{
   background-color: initial;
 }

@@ -1,4 +1,9 @@
 
+
+
+/*
+
+
 .mrvPage{
         height: 100%;
         display: flex;
@@ -7,7 +12,6 @@
         box-sizing: border-box;
         align-items: flex-start;
         background-color: var(--color__surface__default);
-
         --standardBorder: calc(1.5rem / 16) solid var(--color__border);
         --primaryColumn: 25vw;
 }
@@ -44,8 +48,6 @@
 }
 
 
-/* Extra Styles */
-
 .mrvPage .border__left{
     border-left: var(--standardBorder);
 }
@@ -57,9 +59,6 @@
 .mrvPage .blankback{
     background-color: transparent;
 }
-
-
-/*
 
 */
 

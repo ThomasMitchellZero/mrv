@@ -14,7 +14,7 @@ function AllScheduled({ parentSt, setParSt }) {
   /* ---- Final Component ---- */
 
   return (
-    <>
+    <section className={`mrvPanel__side`}>
       <section className={` main_col ${classes.allScheduled}`}>
         <MdOutlineCheckCircle
           color={`var(--color__green)`}
@@ -35,7 +35,7 @@ function AllScheduled({ parentSt, setParSt }) {
           </button>
         </div>
       </section>
-    </>
+    </section>
   );
 }
 

@@ -15,7 +15,7 @@ function Exchanges() {
   });
 
   return (
-    <section className={`mrv-top`}>
+    <section className={`mrv`}>
       <Outlet
         context={{
           exchSession: exchSession,
@@ -29,19 +29,6 @@ function Exchanges() {
 export default Exchanges;
 
 /*
-
-  const testTable = (
-    <section className={`testContainerTest`}>
-      <table>
-        <thead>
-          <tr>
-            <th>This is just a test</th>
-          </tr>
-        </thead>
-        <tbody>{testData}</tbody>
-      </table>
-    </section>
-  );
 
 
 */

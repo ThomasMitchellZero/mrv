@@ -1,22 +1,10 @@
 
 
-.exch{
-    --EXCHBLANK: true;
-}
-
-/* I guess I just don't see any reason for this to be a grid? */
-
-.exch-rows{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
-}
-
 /* ---- CONTAINER STYLES ---- */
 
 /* Vertical Positions*/
 
-.exch-rows .exchHeader{
+.mrv .exchHeader{
     flex: 0 0 5rem;
     display: flex;
     flex-direction: row;
@@ -25,7 +13,7 @@
     justify-content: center;
 }
 
-.exch-rows .pizzaTracker{
+.mrv .pizzaTracker{
     flex: 0 0 6rem;
     display: flex;
     flex-direction: row;
@@ -35,7 +23,7 @@
 
 }
 
-.exch-rows .main_content{
+.mrv .main_content{
     flex: 1 1 0rem;
     display: flex;
     flex-direction: column;
@@ -46,11 +34,11 @@
 }
 
 
-.exch-rows .main_content.alignLeft{
+.mrv .main_content.alignLeft{
     align-items: flex-start;
 }
 
-.exch-rows .footer_text{
+.mrv .footer_text{
     flex: 0 0 auto;
     padding: 0rem var(--PrimaryPadding__horizontal);
     display: flex;
@@ -60,7 +48,7 @@
 }
 
 
-.exch-rows .footer_content{
+.mrv .footer_content{
     flex: 0 0 6rem;
     padding: var(--PrimaryPadding__vertical) 0rem;
     justify-content: flex-end;
