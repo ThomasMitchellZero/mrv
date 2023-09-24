@@ -63,7 +63,8 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-  defaultValues: setDefaultValues(true),
+  
+  defaultValues: setDefaultValues(false),
   activeSaleRecord: null,
   itemsInExchange:{},
   ptState: {

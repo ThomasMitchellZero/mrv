@@ -5698,13 +5698,11 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
 
     "Prevents showing Thursday"
 
-        -Get Total Review working (Old version is OK)
+        X -Get Total Review working (Old version is OK)
         X -Add in the bit that shows the Exchange and the time
         X -Correctly populate the card <tr>
         -Deploy
 
-
-            
     "Other Stuff"
         -Schedule
             -MAYBE show the Exchange card in the header?

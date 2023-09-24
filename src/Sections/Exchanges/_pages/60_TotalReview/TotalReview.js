@@ -25,7 +25,6 @@ function ExchTotalReview() {
   //local state
   const [locSt_TotalRev, setLocSt_TotalRev] = useImmer(defaultState);
 
-  // on every render, check if activeKey has a valeue.
 
   /* ---- Shared Functions ---- */
 
@@ -56,15 +55,14 @@ function ExchTotalReview() {
   // Generate <tr>s
   const trArray = [];
 
-  for(const thisItemObj of Object.entries(exchItems)){
-    console.log(thisItemObj);
-    const key = thisItemObj[0]
-    const thisExchObj = thisItemObj[1]
+  for (const thisItemObj of Object.entries(exchItems)) {
+    const key = thisItemObj[0];
+    const thisExchObj = thisItemObj[1];
     const rtrnItem = thisExchObj.returningItem;
     const replcItem = thisExchObj.replacementItem;
 
     trArray.push(
-      <tr key={key} className={`${""}`}>
+      <tr key={key} className={`nohover_bg`}>
         <td>
           <ProductInfo hasPrice={true} itemObj={rtrnItem} />
         </td>
@@ -72,7 +70,7 @@ function ExchTotalReview() {
           <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
         </td>
         <td className={`tdCenter`}>
-          <MdArrowForward fontSize="2.5rem" />
+          <MdArrowForward fontSize="2.5rem" className={`color__green__text`} />
         </td>
         <td>
           <ProductInfo hasPrice={true} itemObj={replcItem} />
@@ -81,24 +79,25 @@ function ExchTotalReview() {
           <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
         </td>
         <td>
-        <p className={`body bold`}>{`$0.00`}</p>
+          <p className={`body bold`}>{`$0.00`}</p>
         </td>
       </tr>
     );
-  };
+  }
 
   /* ---- Final Component ---- */
 
   return (
     <section className={`mrvPage`}>
-      <section className={`mrvPanel__main exch-rows`}>
+      <section className={`mrvPanel__main`}>
         <ExchHeader
-          headerTitle="Replacement Products"
+          headerTitle="Total Review"
           hasCluster={true}
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "schedule" })}
         />
-        <section className={`main_content main_col`}>
+        <ExchPizzaTracker />
+        <section className={`main_content`}>
           <section className={`tableContainer`}>
             <table>
               <thead>
@@ -108,19 +107,20 @@ function ExchTotalReview() {
             </table>
           </section>
         </section>
-        <ExchPizzaTracker />
-        <section className={`footer_text right_col`}>
+        <section className={`footer_text`}>
           <p className={`tinyText warning`}></p>
         </section>
-        <section className={`footer_content right_col`}>
-          {true ? (
+        <section className={`footer_content`}>
+          <div className={`buttonBox`}>
             <button
-              onClick={() => {exchNav({routeStr:"receipt"})}}
+              onClick={() => {
+                exchNav({ routeStr: "receipt" });
+              }}
               className={`mrvBtn primary fullWidth jumbo`}
             >
               Continue
             </button>
-          ) : null}
+          </div>
         </section>
       </section>
     </section>
