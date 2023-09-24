@@ -151,7 +151,7 @@ function ExchReason() {
 
   return (
     <section className={`mrvPage`}>
-      <section className={`mrvPanel__main exch-rows`}>
+      <section className={`mrvPanel__main`}>
         <ExchHeader
           headerTitle="Reason For Exchange"
           hasCluster={true}
@@ -159,7 +159,7 @@ function ExchReason() {
           navBtnClick={() => exchNav({ routeStr: "chooseitems" })}
         />
         <ExchPizzaTracker />
-        <section className={`main_content main_col`}>
+        <section className={`main_content`}>
           <section className={`tableContainer`}>
             <table>
               <thead>
@@ -170,14 +170,14 @@ function ExchReason() {
           </section>
         </section>
 
-        <section className={`footer_text right_col`}>
+        <section className={`footer_text`}>
           {locSt_ExchReason.formWarning ? (
             <p className={`tinyText warning`}>
               Enter at least one item to exchange
             </p>
           ) : null}
         </section>
-        <section className={`footer_content right_col`}>
+        <section className={`footer_content`}>
           {areAllAssigned ? (
             <div className={`buttonBox`}>
               <button
