@@ -77,19 +77,42 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
   // should clean this up, I feel like there's a lot of duplication happening.
 
   // Fn to produce a row with all buttons for a specific day.
-  const makeBtnRow = ({ date, month }) => {
+  const makeBtnRow = ({ date, month, dayInfoObject }) => {
     // generates a "random" time slot based on factor of date.
+
+    const thisDayInfoObj = { ...dayInfoObject };
+    const thisDate = thisDayInfoObj.date;
+
+    // make into external function?
     const timeSlotArr =
-      date % 3 === 0
+      thisDate % 3 === 0
+        ? timeSlotsObj["3"]
+        : thisDate % 2 === 0
+        ? timeSlotsObj["2"]
+        : timeSlotsObj["1"];
+
+    /*
+    OLD
+
+          date % 3 === 0
         ? timeSlotsObj["3"]
         : date % 2 === 0
         ? timeSlotsObj["2"]
         : timeSlotsObj["1"];
+    
+    
+    */
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
-      const thisTimeString = `${date}${month}${timeStr}`;
+      const outBtnDataObj = { ...dayInfoObject };
+      outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString} : ${timeStr}`;
+      //const thisTimeString = `${date}${month}${timeStr}`;
+      const thisTimeString = outBtnDataObj.timeTxtStr;
+      thisDayInfoObj.timeTxtStr = thisTimeString;
 
       // Clicking button stores this obj in local state.  If user hits Apply, it will be passed from local to global.
+
+      // OLD, going to replace
       const btnDataObj = {
         timeTxtStr: thisTimeString,
         timeSlot: timeStr,
@@ -98,15 +121,17 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
       };
 
       // If this unique timeTxtStr matches local, apply "focused" style
-      const isActive =
-        parentLocSt.activeTimeBtnObj?.timeTxtStr === thisTimeString ? "focused" : "";
+      const btnActiveStatus =
+        parentLocSt.activeTimeBtnObj?.timeTxtStr === thisTimeString
+          ? "focused"
+          : "";
 
       return (
         <button
           key={thisTimeString}
           type="button"
-          onClick={() => handleTimeBtnClick(btnDataObj)}
-          className={`mrvBtn secondary ${isActive} ${classes.timeBtn}`}
+          onClick={() => handleTimeBtnClick(outBtnDataObj)}
+          className={`mrvBtn secondary ${btnActiveStatus} ${classes.timeBtn}`}
         >{`${timeStr}`}</button>
       );
     });
@@ -121,25 +146,39 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
     const thisDate = thisDateObj.getDate();
 
+    const outDayObj = {
+      month: monthArr[thisDateObj.getMonth()],
+      wkday: `${weekdayArr[thisDateObj.getDay()]}`,
+      date: thisDateObj.getDate(),
+    };
+    outDayObj.dayTextString = `${outDayObj.wkday},  ${outDayObj.month}  ${outDayObj.date}`;
+
     // call the fn() to make the button row for today.
-    const thisDayBtnRow = makeBtnRow({ date: thisDate, month: thisMonth });
+    const thisDayBtnRow = makeBtnRow({
+      date: thisDate,
+      month: thisMonth,
+      dayInfoObject: outDayObj,
+    });
 
     return (
       <section
         key={`${thisMonth}${thisDate}`}
         className={`${classes.dayFullHolder}`}
       >
-        <section className={`${classes.dateText}`}>
-          <p className={`body bold`}>{wkday}</p>
-          <p className={`body ${classes.month}`}>{thisMonth}</p>
-          <p className={`body bold`}>{thisDate}</p>
-        </section>
+        <p className={`body bold keepSpace`}>{outDayObj.dayTextString}</p>
         <section className={`${classes.timeBtnContainer}`}>
           {thisDayBtnRow}
         </section>
       </section>
     );
   });
+
+  /*
+            <p className={`body bold`}>{outDayObj.wkday}</p>
+          <p className={`body color__tertiary__text`}>{outDayObj.month}</p>
+          <p className={`body bold`}>{outDayObj.date}</p>
+  
+  */
 
   /* ---- Final Component ---- */
 

@@ -157,6 +157,10 @@
   font-weight: 600;
 }
 
+.mrv .keepSpace{
+  white-space: pre-wrap;
+}
+
 .mrv .warning{
   color: var(--color__red);
 }
