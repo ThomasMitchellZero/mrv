@@ -85,7 +85,12 @@
 .mrv .color__tertiary{
   background-color: var(--color__tertiary);
 }
-
+.mrv .color__green__text{
+  color: var(--color__green);
+}
+.mrv .color__green{
+  background-color: var(--color__green);
+}
 .mrv .color__transparent{
   background-color: transparent;
 }

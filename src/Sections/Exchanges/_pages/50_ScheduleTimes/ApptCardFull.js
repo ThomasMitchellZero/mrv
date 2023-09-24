@@ -1,14 +1,10 @@
 import classes from "./_ScheduleTimesCSS.module.css";
 
-import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
-import { TimeMiniCard } from "./TimeMiniCard";
-import { TimePickerPanel } from "./TimePickerPanel30";
-import { AllScheduled } from "./AllScheduled";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 
-import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-
 import { useOutletContext } from "react-router";
+
+import { MdArrowForward } from "react-icons/md";
 
 import { useImmer } from "use-immer";
 
@@ -34,17 +30,16 @@ function ApptCardFull({
 
   //---- UI Elements----
 
-  console.log(thisDelivTime);
-
-  //
+  // Shows appt time if picked, else msg to choose time.
   let apptTimeJSX = thisDelivTime ? (
-    <p className={"color__tertiary__text body__large bold"}>
+    <p className={"color__primary__text body bold keepSpace"}>
       {thisDelivTime?.timeTxtStr}
     </p>
   ) : (
     <p className={"color__tertiary__text body__small"}>Choose date and time</p>
   );
 
+  //headers for the table of items on this card.
   const thFactory = (title, key, width) => {
     return { title, key, width };
   };
@@ -64,21 +59,31 @@ function ApptCardFull({
     );
   });
 
+  // make this a map in the future?
   const trArray = [];
 
   for (const item of thisDelivery.apptItemKeys) {
     const thisItemkey = itemsInExch[item];
     const returnItem = thisItemkey.returningItem;
+    const replacementItem = thisItemkey.replacementItem;
 
     // populate Items
     trArray.push(
       <tr key={item} className={`nohover_bg ${""}`}>
         <td>
-          <ProductInfo
-            hasPrice={true}
-            itemObj={returnItem}
-            qty={thisItemkey.qtyExchanging}
-          />
+          <ProductInfo hasPrice={false} itemObj={returnItem} />
+        </td>
+        <td>
+          <h4>{returnItem.pickupQty}</h4>
+        </td>
+        <td>
+          <MdArrowForward fontSize="2.5rem" className={`color__green__text`} />
+        </td>
+        <td>
+          <ProductInfo hasPrice={false} itemObj={replacementItem} />
+        </td>
+        <td>
+          <h4>{replacementItem.deliveryQty}</h4>
         </td>
       </tr>
     );

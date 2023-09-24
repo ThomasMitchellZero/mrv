@@ -74,7 +74,7 @@ function ExchWhichForWhat() {
           />
         </td>
         <td className={`tdCenter`}>
-          <MdArrowForward fontSize="2.5rem" />
+          <MdArrowForward fontSize="2.5rem" className={`color__green__text`} />
         </td>
         <td>
           <ProductInfo

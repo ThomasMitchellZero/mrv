@@ -6,7 +6,6 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { MdArrowForward, MdOutlineCheckCircle } from "react-icons/md";
 
-
 import { useOutletContext } from "react-router";
 
 function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
@@ -83,7 +82,6 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
   //Arr of all Date objs
   const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
-
   /* ---- UI Elements ---- */
 
   // Fn to produce a row with all buttons for a specific day.
@@ -97,7 +95,7 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
     const outBtnArr = timeSlotArr.map((timeStr) => {
       // Clicking button stores this obj in local. Apply stores in session.
       const outBtnDataObj = { ...dayInfoObject };
-      outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString} : ${timeStr}`;
+      outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString}  :  ${timeStr}`;
       const thisTimeString = outBtnDataObj.timeTxtStr;
 
       // If this unique timeTxtStr matches local, apply "focused" style
@@ -145,7 +143,6 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
       </section>
     );
   });
-
 
   /* ---- Final Component ---- */
 

@@ -5699,8 +5699,8 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
     "Prevents showing Thursday"
 
         -Get Total Review working (Old version is OK)
-        -Add in the bit that shows the Exchange and the time
-        -Correctly populate the card <tr>
+        X -Add in the bit that shows the Exchange and the time
+        X -Correctly populate the card <tr>
         -Deploy
 
 
@@ -5720,6 +5720,9 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
 5:10.
 Really not sure that was a good use of time, but I did clean up the code in the Time Picker 30 window.
 
+So I think the thing to do is populate the <tr>s in Schedule.  Then I NEED to get something up and running for Total Review.  After that, I'm actually kind of thinking the new Total Review would be best?  Jesus, there's just SO much to do on this app.  I'm cutting so many corners.  When I swalk today, I need to figure out a better approach for 'works but dirty'.  I feel like I've spend a good 6 hours this weekend 'fixing' things that were good enough.  
 
+6:00.
+Losing steam here.  I think if I can get Total Review working-ish, I can call it a night.
 
 
