@@ -1,4 +1,4 @@
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+
 
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
@@ -65,14 +65,14 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
   return (
     <form
       onSubmit={handleApply}
-      className={`mrvPanel__side exch-rows border__left`}
+      className={`mrvPanel__side color__surface__subdued `}
     >
       <ExchHeader
         hasProductName={false}
         headerTitle="Select A Reason"
         hasCluster={false}
       />
-      <section className={`main_content main_col alignLeft`}>
+      <section className={`main_content alignLeft`}>
         {reasonRadioArr}
       </section>
       <section className={`footer_text`}>
