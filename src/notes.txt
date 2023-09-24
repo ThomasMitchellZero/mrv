@@ -5683,9 +5683,35 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
     Sorin's getting bitey and I was able to get to Total Review, although it's a CSS turd-pile.  I think that's my cue to knock off for the day.
 
 24 Sep 2023
+    12:30.
     Back in the hunt!  Let's get some fun stuff today.  I think my VERY first task will be to clean up the All Scheduled panel.
 
-    
+    2:20.
+    OK, looks like most of what I NEED is working.  Here's what's left, divided into  and "Other Stuff".
+
+    "Prevents showing Thursday"
+
+        -Get Total Review working (Old version is OK)
+        -Add in the bit that shows the Exchange and the time
+        -Correctly populate the card <tr>
+        -Deploy
+
+
+            
+    "Other Stuff"
+        -Schedule
+            -MAYBE show the Exchange card in the header?
+            -Default time button Selection from fastMode?
+
+        -Replacements.
+            -New style
+            -Show child items, especially LPP
+            -Some SUPER simple way to pick an Unlike replacement
+            -Show $ difference
+            -Price Adjustment
+
+
+
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
 

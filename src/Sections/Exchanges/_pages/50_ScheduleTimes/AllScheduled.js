@@ -2,6 +2,8 @@ import classes from "./_ScheduleTimesCSS.module.css";
 
 import { MdOutlineCheckCircle } from "react-icons/md";
 
+import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
+
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 
 function AllScheduled({ parentSt, setParSt }) {
@@ -15,12 +17,15 @@ function AllScheduled({ parentSt, setParSt }) {
 
   return (
     <section className={`mrvPanel__side`}>
-      <section className={` ${classes.allScheduled}`}>
-        <MdOutlineCheckCircle
-          color={`var(--color__green)`}
-          fontSize={"1.75rem"}
-        />
-        <h4 className={`heading__small`}>All exchanges have been scheduled.</h4>
+      <ExchHeader headerTitle={`Exchange Details`} hasCluster={false} hasProductName={false} />
+      <section className={`main_content `}>
+        <section className={` ${classes.allScheduled}`}>
+          <MdOutlineCheckCircle
+            color={`var(--color__green)`}
+            fontSize={"1.75rem"}
+          />
+          <p className={`body`}>All deliveries scheduled.</p>
+        </section>
       </section>
       <section className={`footer_text `}>
         <p className={`tinyText warning`}></p>
