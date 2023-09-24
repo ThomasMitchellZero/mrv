@@ -18,15 +18,10 @@ function ExchScheduleTimes() {
   const exchNav = useExchNav();
   const allScheduledStr = "All Scheduled";
 
-
-
-
-
   const defaultState = {
     showApplyWarning: false,
     activeKey: null,
     activeTimeBtnObj: null,
-
   };
 
   //local state
@@ -45,7 +40,6 @@ function ExchScheduleTimes() {
       draft.showApplyWarning = false;
     });
   };
-
 
   //---- On Render ----
 
@@ -106,11 +100,15 @@ function ExchScheduleTimes() {
           {timeCardArr}
         </section>
       </section>
-      <TimePickerPanel
-        parentLocSt={locSt_Schedule}
-        setparentLocSt={setlocSt_Schedule}
-        setDelivFn={setActiveDeliveryFn}
-      />
+      {locSt_Schedule.activeKey === allScheduledStr ? (
+        <AllScheduled />
+      ) : (
+        <TimePickerPanel
+          parentLocSt={locSt_Schedule}
+          setparentLocSt={setlocSt_Schedule}
+          setDelivFn={setActiveDeliveryFn}
+        />
+      )}
     </section>
   );
 }

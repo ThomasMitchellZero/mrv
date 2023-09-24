@@ -16,7 +16,6 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
   const delivGroups = exchCtx.exchSession.deliveryGroups;
   const activeAppt = parentLocSt.activeKey;
 
-
   const applyWarning = parentLocSt.showApplyWarning;
 
   const timeSlotsObj = {
@@ -46,7 +45,11 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
       });
 
       setDelivFn(null);
-
+    } else {
+      // if no picked time, show the warning state.
+      setparentLocSt((draft) => {
+        draft.showApplyWarning = true;
+      });
     }
   };
 
@@ -156,7 +159,7 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
       <section className={`footer_text right_col`}>
         {applyWarning ? (
-          <p className={`tinyText warning`}>Choose a time for exchange./</p>
+          <p className={`tinyText warning`}>Choose a time for exchange</p>
         ) : null}
       </section>
       <section className={`footer_content right_col`}>

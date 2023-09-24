@@ -5637,22 +5637,24 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
     I think what I want to get done today is:
         -Get Schedule all squared away
             X -Allow for an Active card
-            -30 Panel behavior
-                -IF active delivery has a time, set that time to Active
-                -Make sure that selecting a Time clears the warning state
-                -Default time button Selection from fastMode.
-                -Handle Apply behavior
-                    -Check that a time is selected
-                    -if not, set the Warning state
-                    -Set this delivery's time to the chosen time
-                    -Set locSt active key to null (to trigger the search for the next unassigned)
-
+            X -30 Panel behavior
+                X -IF active delivery has a time, set that time to Active
+                X -Make sure that selecting a Time clears the warning state
+                X -Handle Apply behavior
+                    X -Check that a time is selected
+                    X -if not, set the Warning state
+                    X -Set this delivery's time to the chosen time
+                    X -Set locSt active key to null (to trigger the search for the next unassigned)
                     
             X -Auto-select cards with unassigned times
             -Add in the bit that shows the Exchange and the time
             -Correctly populate the card <tr>
-            -MAYBE show the Exchange card in the header?
+
             -I'll need SOMETHING for ALL Scheduled.
+            -MAYBE show the Exchange card in the header?
+            -Default time button Selection from fastMode?
+
+            
         -Get Total Review working (not updated)
         -Push the update live
         -Get to working on bringing Replacements up to speed.
@@ -5674,7 +5676,16 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
 
     Nice.  Working like a dream now.
 
+9:00.
+    OK, I have dispensed with the circus shit I don't understand and it's all working real good.  I actually don't super feel like stopping, although it's probably a good idea.  I need to get away from the screen for a while so I can sleep.
 
+9:25.
+    Sorin's getting bitey and I was able to get to Total Review, although it's a CSS turd-pile.  I think that's my cue to knock off for the day.
+
+24 Sep 2023
+    Back in the hunt!  Let's get some fun stuff today.  I think my VERY first task will be to clean up the All Scheduled panel.
+
+    
 
 -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
 
