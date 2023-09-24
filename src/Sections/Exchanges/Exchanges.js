@@ -2,7 +2,7 @@ import "../../mrv/mrv-styles/mrvAllStyles.css";
 import "../Exchanges/Exchanges.css";
 
 import { useImmer } from "use-immer";
-import { defaultExchState } from "./_Resources/glossary/glossaryExch";
+import { defaultExchState } from "./_Resources/glossary/glossaryExch.js";
 
 import { Outlet } from "react-router";
 
