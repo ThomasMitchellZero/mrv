@@ -1,11 +1,11 @@
-import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
+import { ExchPizzaTracker } from "../Sections/Exchanges/_Resources/components/pageLayout/exchPizzaTracker";
 
-import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
-import { TimeMiniCard } from "./TimeMiniCard";
-import { TimePickerPanel } from "./TimePickerPanel30";
-import { AllScheduled } from "./AllScheduled";
+import { ExchHeader } from "../Sections/Exchanges/_Resources/components/pageLayout/ExchHeader";
+import { TimeMiniCard } from "../Sections/Exchanges/_pages/50_ScheduleTimes/TimeMiniCard";
+import { TimePickerPanel } from "../Sections/Exchanges/_pages/50_ScheduleTimes/TimePickerPanel30";
+import { AllScheduled } from "../Sections/Exchanges/_pages/50_ScheduleTimes/AllScheduled";
 
-import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useExchNav } from "../Sections/Exchanges/_Resources/customHooks/useExchNav";
 
 import { useOutletContext } from "react-router";
 

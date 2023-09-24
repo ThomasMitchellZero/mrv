@@ -1,8 +1,8 @@
 import classes from "./_ScheduleTimesCSS.module.css";
 
-import { weekdayArr, monthArr } from "../../_Resources/glossary/glossaryExch";
+import { weekdayArr, monthArr } from "../Sections/Exchanges/_Resources/glossary/glossaryExch";
 
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+import { ProductInfo } from "../Sections/Exchanges/_Resources/components/displayOutputs/ProductInfo";
 
 import { MdArrowForward, MdOutlineCheckCircle } from "react-icons/md";
 
