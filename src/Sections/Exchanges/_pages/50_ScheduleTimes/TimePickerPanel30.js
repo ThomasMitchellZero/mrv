@@ -104,21 +104,10 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
     */
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
+      // Clicking button stores this obj in local. Apply stores in session.
       const outBtnDataObj = { ...dayInfoObject };
       outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString} : ${timeStr}`;
-      //const thisTimeString = `${date}${month}${timeStr}`;
       const thisTimeString = outBtnDataObj.timeTxtStr;
-      thisDayInfoObj.timeTxtStr = thisTimeString;
-
-      // Clicking button stores this obj in local state.  If user hits Apply, it will be passed from local to global.
-
-      // OLD, going to replace
-      const btnDataObj = {
-        timeTxtStr: thisTimeString,
-        timeSlot: timeStr,
-        date: date,
-        month: month,
-      };
 
       // If this unique timeTxtStr matches local, apply "focused" style
       const btnActiveStatus =
@@ -140,29 +129,23 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
   //Arr made from applying makeBtnRow() to array of Date objects
   const allUIdayRowsArr = allDatesArr.map((thisDateObj) => {
-    // these two values are indexes, so get the corresponding string.
-    const thisMonth = monthArr[thisDateObj.getMonth()];
-    const wkday = `${weekdayArr[thisDateObj.getDay()]},`;
-
-    const thisDate = thisDateObj.getDate();
 
     const outDayObj = {
       month: monthArr[thisDateObj.getMonth()],
       wkday: `${weekdayArr[thisDateObj.getDay()]}`,
       date: thisDateObj.getDate(),
     };
+    
     outDayObj.dayTextString = `${outDayObj.wkday},  ${outDayObj.month}  ${outDayObj.date}`;
 
     // call the fn() to make the button row for today.
     const thisDayBtnRow = makeBtnRow({
-      date: thisDate,
-      month: thisMonth,
       dayInfoObject: outDayObj,
     });
 
     return (
       <section
-        key={`${thisMonth}${thisDate}`}
+        key={`${outDayObj.dayTextString}`}
         className={`${classes.dayFullHolder}`}
       >
         <p className={`body bold keepSpace`}>{outDayObj.dayTextString}</p>
