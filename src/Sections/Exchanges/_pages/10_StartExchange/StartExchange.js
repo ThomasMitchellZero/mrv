@@ -136,9 +136,9 @@ function ExchStartExchange() {
 
   return (
     <section className={`mrvPage`}>
-      <section className={`mrvPanel__main exch-rows ${classes.container}`}>
+      <section className={`mrvPanel__main ${classes.container}`}>
         <ExchHeader headerTitle="Start Exchange" hasCluster={false} />
-        <div className={`main_content main_col ${classes.main}`}>
+        <div className={`main_content ${classes.main}`}>
           <button
             type="button"
             onClick={() => handleClick()}

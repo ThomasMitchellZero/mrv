@@ -1,4 +1,3 @@
-import classes from "./ChooseExchangeItems.module.css";
 
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
@@ -156,7 +155,7 @@ function ExchChooseExchItems() {
   */
 
   return (
-    <section className={`mrvPage ${classes.container}`}>
+    <section className={`mrvPage`}>
       <section className={`mrvPanel__main exch-rows`}>
         <ExchHeader
           headerTitle="Select items to exchange"

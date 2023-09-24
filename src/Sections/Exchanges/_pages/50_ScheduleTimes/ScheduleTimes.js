@@ -88,7 +88,7 @@ function ExchScheduleTimes() {
 
   return (
     <section className={`mrvPage `}>
-      <section className={`mrvPanel__main exch-rows color__surface__subdued`}>
+      <section className={`mrvPanel__main color__surface__subdued`}>
         <ExchHeader
           headerTitle="Schedule Pickup / Delivery"
           hasCluster={true}
@@ -96,7 +96,7 @@ function ExchScheduleTimes() {
           navBtnClick={() => exchNav({ routeStr: "whichforwhat" })}
         />
         <ExchPizzaTracker />
-        <section className={`main_content main_col cardContainer ${""}`}>
+        <section className={`main_content cardContainer ${""}`}>
           {timeCardArr}
         </section>
       </section>
