@@ -10,15 +10,27 @@
   flex-direction: column;
   flex: 1 1 0rem;
   width: 100%;
-    --PrimaryPadding__horizontal: 2rem;
-    --PrimaryPadding__vertical: 1rem;
-    --PrimaryPadding__both: 
-        var(--PrimaryPadding__vertical) 
-        var(--PrimaryPadding__horizontal);
-    --primaryBorder:  .125rem  solid var(--color__border);
-    --clearBorder: 0rem .125rem solid transparent;
-
   font-family: "Fellix";
+
+  /* MRV vars */
+
+  --PrimaryPadding__vertical: 1rem;
+  --PrimaryPadding__horizontal: 2rem;
+  --PrimaryPadding__both: 
+    var(--PrimaryPadding__vertical) 
+    var(--PrimaryPadding__horizontal);
+
+  --tablePadding__vertical: 0rem;
+  --tablePadding__horizontal: 1rem;
+  --tablePadding__both: 
+      var(--PrimaryPadding__vertical) 
+      var(--tablePadding__horizontal);
+
+  --primaryBorder:  .125rem  solid var(--color__border);
+  --clearBorder: 0rem .125rem solid transparent;
+
+
+
 
 
     /* Colors */
@@ -324,9 +336,7 @@
   border-top: var(--primaryBorder);
 }
 
-.mrv td{
-    color: var(--color__primary);
-}
+
 
 .mrv table .tdCenter{
   text-align: center;
@@ -346,9 +356,15 @@
   border: var(--clearBorder);
 }
 
+.mrv td{
+  color: var(--color__primary);
+  padding-left: var(--tablePadding__horizontal);
+}
+
 .mrv th{
   font-size: 1rem;
   font-weight: 600;
+  padding-left: var(--tablePadding__horizontal);
 }
 
 
