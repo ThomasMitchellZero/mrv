@@ -10,7 +10,7 @@ import { current } from "immer";
 
 import { useOutletContext } from "react-router";
 
-function TimePickerPanel({ parentLocSt, setparentLocSt }) {
+function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const delivGroups = exchCtx.exchSession.deliveryGroups;
@@ -40,19 +40,13 @@ function TimePickerPanel({ parentLocSt, setparentLocSt }) {
     // this will be null if a time isn't active.
     const pickedTime = parentLocSt.activeTimeBtnObj;
 
-    console.log(delivGroups[activeAppt].apptTime);
-    console.log(pickedTime);
-
     if (pickedTime) {
       setExchState((draft) => {
         draft.deliveryGroups[activeAppt].apptTime = pickedTime;
       });
-      setparentLocSt((draft) => {
-        // set localSt activeKey to null to trigger search for unscheduled.
-        draft.activeKey = null;
-        // if we want to clear selected times...
-        // draft.activeTimeBtnObj = null
-      });
+
+      setDelivFn(null);
+
     }
   };
 

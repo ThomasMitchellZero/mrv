@@ -18,27 +18,43 @@ function ExchScheduleTimes() {
   const exchNav = useExchNav();
   const allScheduledStr = "All Scheduled";
 
+
+
+
+
   const defaultState = {
     showApplyWarning: false,
     activeKey: null,
     activeTimeBtnObj: null,
+
   };
 
   //local state
   const [locSt_Schedule, setlocSt_Schedule] = useImmer(defaultState);
+
+  /* ---- Shared Functions ---- */
+
+  const setActiveDeliveryFn = (delivNum) => {
+    // allScheduledStr is never a delivery key, so this is safe.
+    // Narrator: It was not safe.
+    const thisDelivTimeObj = delivGroups[delivNum]?.apptTime ?? null;
+
+    setlocSt_Schedule((draft) => {
+      draft.activeKey = delivNum;
+      draft.activeTimeBtnObj = thisDelivTimeObj;
+      draft.showApplyWarning = false;
+    });
+  };
+
 
   //---- On Render ----
 
   // on every render, check if activeKey has a value.  Applying a time in TimePicker sets this to null to trigger a search for any unassigned times.
 
   if (!locSt_Schedule.activeKey) {
+    // this function ONLY checks for unassigned times.
 
-    let outLocSt = {
-      showApplyWarning: false,
-      activeKey: allScheduledStr,
-      cat: true,
-      activeTimeBtnObj: locSt_Schedule.activeTimeBtnObj, // or null, if slow
-    };
+    let outActiveKey = allScheduledStr;
 
     // loop through the keys, return 1st with no apptTime.
     for (const thisAppt of Object.entries(delivGroups)) {
@@ -46,17 +62,13 @@ function ExchScheduleTimes() {
       const thisItemTime = thisAppt[1].apptTime;
       if (!thisItemTime) {
         // if prod has no time scheduled...
-        outLocSt.activeKey = thisAppt[0]; // it befomes the new active prod
+        outActiveKey = thisAppt[0]; // it becomes the new active prod
         break;
       }
     }
 
-    setlocSt_Schedule(() => {
-      return outLocSt // this replaces the whole draft.
-    });
+    setActiveDeliveryFn(outActiveKey);
   }
-
-  /* ---- Shared Functions ---- */
 
   /* ---- UI Elements ---- */
 
@@ -73,6 +85,7 @@ function ExchScheduleTimes() {
         parentLocSt={locSt_Schedule}
         setparentLocSt={setlocSt_Schedule}
         cardNum={cardNumber}
+        setDelivFn={setActiveDeliveryFn}
       />
     );
   }
@@ -96,6 +109,7 @@ function ExchScheduleTimes() {
       <TimePickerPanel
         parentLocSt={locSt_Schedule}
         setparentLocSt={setlocSt_Schedule}
+        setDelivFn={setActiveDeliveryFn}
       />
     </section>
   );

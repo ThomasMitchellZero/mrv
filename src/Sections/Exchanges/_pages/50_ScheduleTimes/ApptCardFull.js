@@ -12,7 +12,7 @@ import { useOutletContext } from "react-router";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum }) {
+function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum, setDelivFn }) {
   const exchCtx = useOutletContext();
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
   const thisDeliv = exchCtx.exchSession.deliveryGroups[appt];
@@ -21,10 +21,7 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum }) {
   //---- Shared Functions ----
 
   const handleCardClick = ()=>{
-    // sets this card's number to Active in the parent state.
-    setparentLocSt((draft)=>{
-      draft.activeKey = appt
-    })
+    setDelivFn(appt)
   }
 
   //---- UI Elements----

@@ -5648,7 +5648,7 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
                     -Set locSt active key to null (to trigger the search for the next unassigned)
 
                     
-            -Auto-select cards with unassigned times
+            X -Auto-select cards with unassigned times
             -Add in the bit that shows the Exchange and the time
             -Correctly populate the card <tr>
             -MAYBE show the Exchange card in the header?
@@ -5664,8 +5664,15 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
         
     Realistically, if I get all the Schedule items done I'd have to consider this a very good day.  
 
+    OK.  So what I need now is that when an appointment becomes active, it should set the date Obj to what the parent had.  And right now I'm thinking that perhaps that should be null if the parent is empty?
 
+    Since this is happening in multiple places, maybe I make it a shared function?  But I'm kind of feeling like a swalk at the moment.  
 
+7:30.  One last session should take me straight to 9:00.  Let's do this.  
+
+    OK.  So the automatic assignment is working, but it's failing to set the previously-selected time when I click the card, and I think the reason is that I'm not using the new SetActiveDelivery function there yet.  Let's try it.
+
+    Nice.  Working like a dream now.
 
 
 
