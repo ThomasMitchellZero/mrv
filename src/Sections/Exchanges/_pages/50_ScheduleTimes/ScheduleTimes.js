@@ -72,6 +72,7 @@ function ExchScheduleTimes() {
 
   for (const apptKey of Object.keys(delivGroups)) {
     const cardNumber = timeCardArr.length + 1;
+
     timeCardArr.push(
       <ApptCardFull
         key={apptKey}

@@ -15,7 +15,7 @@ import cloneDeep from "lodash.clonedeep";
 function ExchTotalReview() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchProdsMap = exchCtx.exchSession.exchProducts;
+  const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchNav = useExchNav();
 
   const defaultState = {
@@ -25,7 +25,7 @@ function ExchTotalReview() {
   //local state
   const [locSt_TotalRev, setLocSt_TotalRev] = useImmer(defaultState);
 
-  // on every render, check if activeKey has a value.
+  // on every render, check if activeKey has a valeue.
 
   /* ---- Shared Functions ---- */
 
@@ -42,7 +42,6 @@ function ExchTotalReview() {
     thFactory(" ", "4rem"),
     thFactory("Replacement Product"),
     thFactory("Qty ", "3rem"),
-    thFactory("Date ", "5rem"),
     thFactory("Balance", "5rem"),
   ];
 
@@ -57,37 +56,36 @@ function ExchTotalReview() {
   // Generate <tr>s
   const trArray = [];
 
-  exchProdsMap.forEach((value, key) => {
-    const timeObj = value.apptTime;
+  for(const thisItemObj of Object.entries(exchItems)){
+    console.log(thisItemObj);
+    const key = thisItemObj[0]
+    const thisExchObj = thisItemObj[1]
+    const rtrnItem = thisExchObj.returningItem;
+    const replcItem = thisExchObj.replacementItem;
+
     trArray.push(
       <tr key={key} className={`${""}`}>
         <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
+          <ProductInfo hasPrice={true} itemObj={rtrnItem} />
         </td>
         <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
+          <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
         </td>
         <td className={`tdCenter`}>
           <MdArrowForward fontSize="2.5rem" />
         </td>
         <td>
-          <ProductInfo hasPrice={true} itemObj={value} />
+          <ProductInfo hasPrice={true} itemObj={replcItem} />
         </td>
         <td>
-          <p className={`body`}>{`${value.qtyExchanging}`}</p>
-        </td>
-        <td className={`${""}`}>
-          <p className={`body `}>{`${timeObj.month} ${timeObj.date},`}</p>
-          <p
-            className={`color__tertiary__text body`}
-          >{`${timeObj.timeSlot}`}</p>
+          <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
         </td>
         <td>
         <p className={`body bold`}>{`$0.00`}</p>
         </td>
       </tr>
     );
-  });
+  };
 
   /* ---- Final Component ---- */
 
