@@ -6,7 +6,6 @@ import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { MdArrowForward, MdOutlineCheckCircle } from "react-icons/md";
 
-import { current } from "immer";
 
 import { useOutletContext } from "react-router";
 
@@ -26,6 +25,18 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
   /* ---- Shared Functions ---- */
 
+  // produces a 'random' arr of time slots by factors of the date.
+  const makeTimeSlots = (date) => {
+    const outTimeSlotArr =
+      date % 3 === 0
+        ? timeSlotsObj["3"]
+        : date % 2 === 0
+        ? timeSlotsObj["2"]
+        : timeSlotsObj["1"];
+
+    return outTimeSlotArr;
+  };
+
   const handleTimeBtnClick = (timeBtnObj) => {
     setparentLocSt((draft) => {
       draft.activeTimeBtnObj = timeBtnObj;
@@ -43,7 +54,7 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
       setExchState((draft) => {
         draft.deliveryGroups[activeAppt].apptTime = pickedTime;
       });
-
+      // clears active appt so ScheduledTimes can search for unscheduled
       setDelivFn(null);
     } else {
       // if no picked time, show the warning state.
@@ -72,36 +83,16 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
   //Arr of all Date objs
   const allDatesArr = makeDatesArr({ month: 3, startDate: 3, endDate: 21 });
 
+
   /* ---- UI Elements ---- */
 
-  // should clean this up, I feel like there's a lot of duplication happening.
-
   // Fn to produce a row with all buttons for a specific day.
-  const makeBtnRow = ({ date, month, dayInfoObject }) => {
-    // generates a "random" time slot based on factor of date.
-
+  const makeBtnRow = ({ dayInfoObject }) => {
+    // most of the info about the day comes from the day.
     const thisDayInfoObj = { ...dayInfoObject };
     const thisDate = thisDayInfoObj.date;
 
-    // make into external function?
-    const timeSlotArr =
-      thisDate % 3 === 0
-        ? timeSlotsObj["3"]
-        : thisDate % 2 === 0
-        ? timeSlotsObj["2"]
-        : timeSlotsObj["1"];
-
-    /*
-    OLD
-
-          date % 3 === 0
-        ? timeSlotsObj["3"]
-        : date % 2 === 0
-        ? timeSlotsObj["2"]
-        : timeSlotsObj["1"];
-    
-    
-    */
+    const timeSlotArr = makeTimeSlots(thisDate);
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
       // Clicking button stores this obj in local. Apply stores in session.
@@ -127,15 +118,14 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
     return outBtnArr;
   };
 
-  //Arr made from applying makeBtnRow() to array of Date objects
+  //Makes full Date element w/ data obj, plus title and time buttons.
   const allUIdayRowsArr = allDatesArr.map((thisDateObj) => {
-
     const outDayObj = {
       month: monthArr[thisDateObj.getMonth()],
       wkday: `${weekdayArr[thisDateObj.getDay()]}`,
       date: thisDateObj.getDate(),
     };
-    
+
     outDayObj.dayTextString = `${outDayObj.wkday},  ${outDayObj.month}  ${outDayObj.date}`;
 
     // call the fn() to make the button row for today.
@@ -156,12 +146,6 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
     );
   });
 
-  /*
-            <p className={`body bold`}>{outDayObj.wkday}</p>
-          <p className={`body color__tertiary__text`}>{outDayObj.month}</p>
-          <p className={`body bold`}>{outDayObj.date}</p>
-  
-  */
 
   /* ---- Final Component ---- */
 

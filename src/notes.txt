@@ -28,7 +28,17 @@ I was actually able to skip to Step 7, and I think with what I've done, Step 7 i
 To push it live, I just have to type:     npm run deploy     into the console.
 
 
-//// Returns Backlog ////
+
+******** Exchanges Backlog ****************
+
+    -Fix the CSS in the ExchHeader.  It's a disorganized, illogical mess.  It's also a low priority.
+
+    -If the user goes back and then comes forward, the dates they picked are lost.  Losing data after going back is an app-wide problem. Annoying, but not a dealbreaker.
+
+    -At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
+
+
+******** Returns Backlog ****************
 
 Anything problem I identify with no dependencies is probably getting bypassed.  This is my personal Backlog:
 
@@ -89,9 +99,6 @@ Anything problem I identify with no dependencies is probably getting bypassed.  
         -only show Invalid ItemNum warning on de-focus.  
         -use useRef to auto-focus on ItemNum field on Render and Submit.
         -Should be able to useAddItem?
-
-/////////// Exchanges Backlog ////////////////
-    -Fix the CSS in the ExchHeader.  It's a disorganized, illogical mess.  It's also a low priority.
 
 
 
@@ -5710,8 +5717,9 @@ OK. So back to work.  Where are we?  I think the styles are good enough.  So the
             -Show $ difference
             -Price Adjustment
 
+5:10.
+Really not sure that was a good use of time, but I did clean up the code in the Time Picker 30 window.
 
 
 
--At some early point, can I just merge the contents of {...invoiceItems ...itemsInExch} and then have itemsInExch start as an empty object?  That SHOULD overrwrite all the values I have added (like Disposition).  Needs to happen before any quantities are edited from input fields or else those won't be captured.  
 
