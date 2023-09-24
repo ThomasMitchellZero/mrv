@@ -157,12 +157,12 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
         {allUIdayRowsArr}
       </section>
 
-      <section className={`footer_text right_col`}>
+      <section className={`footer_text`}>
         {applyWarning ? (
           <p className={`tinyText warning`}>Choose a time for exchange</p>
         ) : null}
       </section>
-      <section className={`footer_content right_col`}>
+      <section className={`footer_content`}>
         <div className={`buttonBox`}>
           <button
             onClick={handeApply}

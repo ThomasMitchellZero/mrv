@@ -68,7 +68,7 @@ function ApptCardFull({ appt, parentLocSt, setparentLocSt, cardNum, setDelivFn }
   return (
     <section className={`cardStyle ${isActive}`} onClick={handleCardClick}>
       <table>
-        <thead className={`clearCell ${""}`}>
+        <thead className={`clear ${""}`}>
           <tr>{thArray}</tr>
         </thead>
         <tbody>{trArray}</tbody>
