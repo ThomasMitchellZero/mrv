@@ -1,4 +1,3 @@
-
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
@@ -43,9 +42,11 @@ function ExchChooseExchItems() {
     let input = integerizer(event.target.value);
 
     setExchState((draft) => {
-      draft.invoiceItems[itemNum].qtyExchanging = input;
+      const thisInvoItemDraft = draft.invoiceItems[itemNum];
+      thisInvoItemDraft.qtyExchanging = input;
       // move pickupQty out when we add ability to edit this separately.
-      draft.invoiceItems[itemNum].returningItem.pickupQty = input;
+      thisInvoItemDraft.returningItem.pickupQty = input;
+      thisInvoItemDraft.replacementItem.deliveryQty = input;
     });
   };
 
