@@ -1,7 +1,9 @@
 import classes from "./_TotalReviewCSS.module.css";
 
+import { ApptCardTR } from "./ApptCardTR";
+
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
@@ -16,6 +18,7 @@ function ExchTotalReview() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
+  const exchDeliveries = exchCtx.exchSession.deliveryGroups;
   const exchNav = useExchNav();
 
   const defaultState = {
@@ -52,35 +55,13 @@ function ExchTotalReview() {
   });
 
   // Generate <tr>s
-  const trArray = [];
+  const apptCardsArr = [];
 
-  for (const thisItemObj of Object.entries(exchItems)) {
-    const key = thisItemObj[0];
-    const thisExchObj = thisItemObj[1];
-    const rtrnItem = thisExchObj.returningItem;
-    const replcItem = thisExchObj.replacementItem;
+  for (const thisAppointment of Object.entries(exchDeliveries)) {
+    const [thisApptCode, thisApptObj] = thisAppointment;
 
-    trArray.push(
-      <tr key={key} className={`nohover_bg`}>
-        <td>
-          <ProductInfo hasPrice={true} itemObj={rtrnItem} />
-        </td>
-        <td>
-          <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
-        </td>
-        <td className={`tdCenter`}>
-          <MdArrowForward fontSize="2.5rem" className={`color__green__text`} />
-        </td>
-        <td>
-          <ProductInfo hasPrice={true} itemObj={replcItem} />
-        </td>
-        <td>
-          <p className={`body`}>{`${thisExchObj.qtyExchanging}`}</p>
-        </td>
-        <td>
-          <p className={`body bold`}>{`$0.00`}</p>
-        </td>
-      </tr>
+    apptCardsArr.push(
+      <ApptCardTR key={thisApptCode} apptCode={thisApptCode} />
     );
   }
 
@@ -98,7 +79,8 @@ function ExchTotalReview() {
         <ExchPizzaTracker />
         <section className={`main_content`}>
           <section className={`cardContainer`}>
-              <p className={`body__large`}>Exchange Appointments</p>
+            <p className={`body__large`}>Exchange Appointments</p>
+            {apptCardsArr}
           </section>
         </section>
       </section>
