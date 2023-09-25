@@ -4,12 +4,13 @@ import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-function ApptCardTR({ apptCode = "" }) {
+function ApptCardTR({ apptData = "" }) {
   const exchCtx = useOutletContext();
+  const [thisApptCode, thisApptObj] = apptData;
 
   return (
     <section className={`cardStyle nohover ${classes.apptCard}`}>
-      <p>{apptCode}</p>
+      <p>{thisApptCode}</p>
     </section>
   );
 }

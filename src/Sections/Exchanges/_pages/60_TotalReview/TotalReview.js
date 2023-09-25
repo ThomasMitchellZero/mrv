@@ -61,7 +61,7 @@ function ExchTotalReview() {
     const [thisApptCode, thisApptObj] = thisAppointment;
 
     apptCardsArr.push(
-      <ApptCardTR key={thisApptCode} apptCode={thisApptCode} />
+      <ApptCardTR key={thisApptCode} apptData={thisAppointment} />
     );
   }
 
