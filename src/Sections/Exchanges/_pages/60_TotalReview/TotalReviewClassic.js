@@ -25,6 +25,7 @@ function ExchTotalReview() {
   //local state
   const [locSt_TotalRev, setLocSt_TotalRev] = useImmer(defaultState);
 
+
   /* ---- Shared Functions ---- */
 
   /* ---- Table Elements ---- */
@@ -90,25 +91,22 @@ function ExchTotalReview() {
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main`}>
         <ExchHeader
-          headerTitle="Review Exchange"
+          headerTitle="Total Review"
           hasCluster={true}
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "schedule" })}
         />
         <ExchPizzaTracker />
         <section className={`main_content`}>
-          <section className={`cardContainer`}>
-              <p className={`body__large`}>Exchange Appointments</p>
+          <section className={`tableContainer`}>
+            <table>
+              <thead>
+                <tr>{thArray}</tr>
+              </thead>
+              <tbody>{trArray}</tbody>
+            </table>
           </section>
         </section>
-      </section>
-      <section className={`mrvPanel__side color__surface__subdued`}>
-        <ExchHeader
-          hasCluster={false}
-          headerTitle={"Payment Summary"}
-          hasProductName={false}
-        />
-        <section className={`main_content`}></section>
         <section className={`footer_text`}>
           <p className={`tinyText warning`}></p>
         </section>

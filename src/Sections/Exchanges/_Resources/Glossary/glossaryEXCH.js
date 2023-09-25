@@ -64,7 +64,7 @@ const defaultExchState = {
     mainCSSclass: "",
   },
   
-  defaultValues: setDefaultValues(false),
+  defaultValues: setDefaultValues(true),
   activeSaleRecord: null,
   itemsInExchange:{},
   ptState: {
@@ -73,8 +73,8 @@ const defaultExchState = {
       { key: "chooseitems", title: "Select Items" },
       { key: "exchreason", title: "Reason" },
       { key: "whichforwhat", title: "Replacements" },
-      { key: "schedule", title: "Schedule Time" },
-      { key: "totalreview", title: "Total Review" },
+      { key: "schedule", title: "Schedule" },
+      { key: "totalreview", title: "Review" },
     ],
   },
 };
