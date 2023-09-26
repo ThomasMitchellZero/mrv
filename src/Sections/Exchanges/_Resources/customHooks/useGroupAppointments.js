@@ -4,6 +4,7 @@ function useGroupAppointments() {
   const exchCtx = useOutletContext();
   const setSessionSt = exchCtx.setExchSession;
   const itemsInExch = exchCtx.exchSession.itemsInExchange;
+  const defaultTime = exchCtx.exchSession.defaultValues.dvScheduledTime;
 
   return () => {
     let outShipmentsObj = {};
@@ -23,7 +24,7 @@ function useGroupAppointments() {
           apptItemKeys: [],
           totalApptPickupQty: 0,
           totalApptDeliveryQty: 0,
-          apptTime: null,
+          apptTime: defaultTime,
           address: {
             street: "1600 Pennsylvania Avenue",
             addressStr: "Washington, DC 20001",
