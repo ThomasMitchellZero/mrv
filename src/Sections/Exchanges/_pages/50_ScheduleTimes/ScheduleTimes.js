@@ -71,7 +71,7 @@ function ExchScheduleTimes() {
   const timeCardArr = [];
 
   for (const apptKey of Object.keys(delivGroups)) {
-    const cardNumber = timeCardArr.length + 1;
+
 
     timeCardArr.push(
       <ApptCardFull
@@ -79,7 +79,7 @@ function ExchScheduleTimes() {
         appt={apptKey}
         parentLocSt={locSt_Schedule}
         setparentLocSt={setlocSt_Schedule}
-        cardNum={cardNumber}
+
         setDelivFn={setActiveDeliveryFn}
       />
     );

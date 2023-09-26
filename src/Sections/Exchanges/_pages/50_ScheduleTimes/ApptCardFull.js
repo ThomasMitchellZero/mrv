@@ -12,7 +12,6 @@ function ApptCardFull({
   appt,
   parentLocSt,
   setparentLocSt,
-  cardNum,
   setDelivFn,
 }) {
   const exchCtx = useOutletContext();
@@ -94,7 +93,7 @@ function ApptCardFull({
       <section className={` ${classes.cardSchedText}`}>
         <p
           className={`body color__secondary__text`}
-        >{`Exchange ${cardNum}:`}</p>
+        >{`Exchange ${thisDelivery.appointmentIndex}:`}</p>
         {apptTimeJSX}
       </section>
       <table>

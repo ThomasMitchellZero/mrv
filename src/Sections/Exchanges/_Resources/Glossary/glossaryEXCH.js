@@ -41,7 +41,7 @@ export { weekdayArr, monthArr };
 
 // default Exch State
 
-const setDefaultValues = ({ fastMode = false }) => {
+const setDefaultValues = ({ fastMode = true }) => {
   const actualValues = {
     dvExchQty: "",
     dvPickupQty: null,
@@ -74,7 +74,7 @@ const defaultExchState = {
     mainCSSclass: "",
   },
 
-  defaultValues: setDefaultValues({ fastMode: true }),
+  defaultValues: setDefaultValues({ fastMode: false }),
   activeSaleRecord: null,
   itemsInExchange: {},
   ptState: {
