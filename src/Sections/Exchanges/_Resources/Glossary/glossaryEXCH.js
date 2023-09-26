@@ -41,7 +41,7 @@ export { weekdayArr, monthArr };
 
 // default Exch State
 
-const setDefaultValues = (fastMode = false) => {
+const setDefaultValues = ({ fastMode = false }) => {
   const actualValues = {
     dvExchQty: "",
     dvPickupQty: null,
@@ -52,6 +52,7 @@ const setDefaultValues = (fastMode = false) => {
     dvExchQty: 1,
     dvPickupQty: 1,
     dvReturnReason: "Doesn't Work",
+    // turn this into a class or factory function since times are re-used and depend on format.
     dvScheduledTime: {
       month: "Apr",
       wkday: "Mon",
@@ -72,7 +73,7 @@ const defaultExchState = {
     mainCSSclass: "",
   },
 
-  defaultValues: setDefaultValues(true),
+  defaultValues: setDefaultValues({ fastMode: true }),
   activeSaleRecord: null,
   itemsInExchange: {},
   ptState: {

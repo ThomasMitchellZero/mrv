@@ -7,6 +7,8 @@ import cloneDeep from "lodash.clonedeep";
 function ApptCardTR({ apptData = "" }) {
   const exchCtx = useOutletContext();
   const [thisApptCode, thisApptObj] = apptData;
+  const thisApptTime = thisApptObj.apptTime;
+  const thisDayStr = `${thisApptTime.wkday}, ${thisApptTime.month} ${thisApptTime.date} :`;
 
   const cardDataGroup = ({
     name = "",
@@ -16,9 +18,9 @@ function ApptCardTR({ apptData = "" }) {
   }) => {
     return (
       <section style={{ flex: `${flex}` }} className={` ${classes.dataGroup}`}>
-        <p>{name}</p>
-        <h4>{content}</h4>
-        <p>{sub}</p>
+        <p className={`color__secondary__text body__small`} >{name}</p>
+        <h4 className={`color__primary__text heading__small`}>{content}</h4>
+        <p className={`color__tertiary__text body`}>{sub}</p>
       </section>
     );
   };
@@ -26,7 +28,11 @@ function ApptCardTR({ apptData = "" }) {
   return (
     <section className={`cardStyle nohover ${classes.apptCard}`}>
       <section className={` ${classes.cardContent}`}>
-        {cardDataGroup({ name: "xyz", content: "Contented", sub: "blerrgs" })}
+        {cardDataGroup({
+          name: "xyz",
+          content: thisDayStr,
+          sub: "blerrgs",
+        })}
         {cardDataGroup({ name: "xyz", content: "Contented", sub: "blerrgs" })}
       </section>
     </section>
