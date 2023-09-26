@@ -69,7 +69,7 @@ function ExchTotalReview() {
 
   return (
     <section className={`mrvPage`}>
-      <section className={`mrvPanel__main`}>
+      <section className={`mrvPanel__main color__surface__subdued`}>
         <ExchHeader
           headerTitle="Review Exchange"
           hasCluster={true}
@@ -77,14 +77,14 @@ function ExchTotalReview() {
           navBtnClick={() => exchNav({ routeStr: "schedule" })}
         />
         <ExchPizzaTracker />
-        <section className={`main_content`}>
+        <section className={`main_content `}>
           <section className={`cardContainer`}>
             <p className={`body__large`}>Exchange Appointments</p>
             {apptCardsArr}
           </section>
         </section>
       </section>
-      <section className={`mrvPanel__side color__surface__subdued`}>
+      <section className={`mrvPanel__side `}>
         <ExchHeader
           hasCluster={false}
           headerTitle={"Payment Summary"}

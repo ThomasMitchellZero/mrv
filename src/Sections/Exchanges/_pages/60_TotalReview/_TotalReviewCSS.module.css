@@ -3,5 +3,39 @@
 /* ---- Appointment Card ---- */
 
 .apptCard{
-    
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+
+    .cardContent{
+        padding: 0.5rem;
+        display: flex;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .dataGroup{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        gap: 0.5rem;
+
+
+        &.fixed{
+            flex: 0 0 16rem;
+        };
+        &.full{
+            flex: 1 1 0rem;
+        };
+        
+        /*Looks weird, but this selects children*/
+        >*{
+            flex: 0 0 auto;
+            width: 100%
+        }
+        
+    }
+
 }
