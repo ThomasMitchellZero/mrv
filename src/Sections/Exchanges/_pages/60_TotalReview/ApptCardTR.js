@@ -34,9 +34,10 @@ function ApptCardTR({ apptData = "" }) {
           sub: `${thisApptTime.timeSlot}`,
         })}
         {cardDataGroup({
-          name: "xyz",
-          content: "Contented",
-          sub: `${thisApptTime.timeSlot}`,
+          name: "Address",
+          content: `${thisApptObj.address.street}`,
+          sub: `${thisApptObj.address.addressStr}`,
+          flex: "1 1 0rem",
         })}
       </section>
     </section>
