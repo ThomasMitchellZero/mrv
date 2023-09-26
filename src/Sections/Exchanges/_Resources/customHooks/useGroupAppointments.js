@@ -24,6 +24,7 @@ function useGroupAppointments() {
           apptItemKeys: [],
           totalApptPickupQty: 0,
           totalApptDeliveryQty: 0,
+          timeSlot: "",
           apptTime: defaultTime,
           address: {
             street: "1600 Pennsylvania Avenue",

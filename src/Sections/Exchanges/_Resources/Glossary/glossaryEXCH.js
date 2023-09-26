@@ -57,6 +57,7 @@ const setDefaultValues = ({ fastMode = false }) => {
       month: "Apr",
       wkday: "Mon",
       date: 3,
+      timeSlot: "8-11 am",
       dayTextString: "Mon,  Apr  3",
       timeTxtStr: "Mon,  Apr  3  :  8-11 am",
     },

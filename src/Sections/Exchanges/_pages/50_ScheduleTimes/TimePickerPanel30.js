@@ -94,8 +94,9 @@ function TimePickerPanel({ parentLocSt, setparentLocSt, setDelivFn }) {
 
     const outBtnArr = timeSlotArr.map((timeStr) => {
       // Clicking button stores this obj in local. Apply stores in session.
-      const outBtnDataObj = { ...dayInfoObject };
-      outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString}  :  ${timeStr}`;
+      const outBtnDataObj = { ...dayInfoObject, timeSlot: timeStr };
+      outBtnDataObj.timeTxtStr = `${thisDayInfoObj.dayTextString}  : ${timeStr}`;
+
       const thisTimeString = outBtnDataObj.timeTxtStr;
 
       // If this unique timeTxtStr matches local, apply "focused" style

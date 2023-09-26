@@ -18,7 +18,7 @@ function ApptCardTR({ apptData = "" }) {
   }) => {
     return (
       <section style={{ flex: `${flex}` }} className={` ${classes.dataGroup}`}>
-        <p className={`color__secondary__text body__small`} >{name}</p>
+        <p className={`color__secondary__text body__small`}>{name}</p>
         <h4 className={`color__primary__text heading__small`}>{content}</h4>
         <p className={`color__tertiary__text body`}>{sub}</p>
       </section>
@@ -29,11 +29,15 @@ function ApptCardTR({ apptData = "" }) {
     <section className={`cardStyle nohover ${classes.apptCard}`}>
       <section className={` ${classes.cardContent}`}>
         {cardDataGroup({
-          name: "xyz",
+          name: `Exchange ${thisApptObj.appointmentIndex}`,
           content: thisDayStr,
-          sub: "blerrgs",
+          sub: `${thisApptTime.timeSlot}`,
         })}
-        {cardDataGroup({ name: "xyz", content: "Contented", sub: "blerrgs" })}
+        {cardDataGroup({
+          name: "xyz",
+          content: "Contented",
+          sub: `${thisApptTime.timeSlot}`,
+        })}
       </section>
     </section>
   );
