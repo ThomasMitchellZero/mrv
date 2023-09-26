@@ -46,11 +46,19 @@ const setDefaultValues = (fastMode = false) => {
     dvExchQty: "",
     dvPickupQty: null,
     dvReturnReason: null,
+    dvScheduledTime: null,
   };
   const fastValues = {
     dvExchQty: 1,
     dvPickupQty: 1,
     dvReturnReason: "Doesn't Work",
+    dvScheduledTime: {
+      month: "Apr",
+      wkday: "Mon",
+      date: 3,
+      dayTextString: "Mon,  Apr  3",
+      timeTxtStr: "Mon,  Apr  3  :  8-11 am",
+    },
   };
 
   return fastMode ? fastValues : actualValues;
@@ -63,10 +71,10 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-  
+
   defaultValues: setDefaultValues(true),
   activeSaleRecord: null,
-  itemsInExchange:{},
+  itemsInExchange: {},
   ptState: {
     activeNode: "",
     ptNodes: [
@@ -82,5 +90,3 @@ const defaultExchState = {
 export { defaultExchState };
 
 // Term names for different sale records.
-
-
