@@ -14,7 +14,7 @@ function ApptCardTR({ apptData = "" }) {
     name = "",
     content = "",
     sub = "",
-    flex = "0 0 16rem",
+    flex = "1 1 0rem",
   }) => {
     return (
       <section style={{ flex: `${flex}` }} className={` ${classes.dataGroup}`}>
@@ -37,8 +37,24 @@ function ApptCardTR({ apptData = "" }) {
           name: "Address",
           content: `${thisApptObj.address.street}`,
           sub: `${thisApptObj.address.addressStr}`,
-          flex: "1 1 0rem",
+          flex: "3 3 0rem",
         })}
+        {cardDataGroup({
+          name: `Pick up from customer`,
+          content: `${thisApptObj.totalApptPickupQty} item(s)`,
+          flex: "1.5 1.5 0rem",
+        })}
+        {cardDataGroup({
+          name: `Deliver to customer`,
+          content: `${thisApptObj.totalApptDeliveryQty} item(s)`,
+        })}
+      </section>
+      <div className={`divider horizontal`}></div>
+      <section className={` ${classes.cardContent} ${classes.delivery}`}>
+        <p className={`color__secondary__text body__small`}>Delivery Instructions : </p>
+        <p className={`color__tertiary__text body`}>
+          {`${thisApptObj.deliveryInstructions}`}
+        </p>
       </section>
     </section>
   );
