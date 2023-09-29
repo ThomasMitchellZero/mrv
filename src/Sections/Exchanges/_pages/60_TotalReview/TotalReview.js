@@ -1,6 +1,6 @@
 import classes from "./_TotalReviewCSS.module.css";
 
-import { ApptCardTR } from "./ApptCardTR";
+import { ApptCardTotRev } from "./ApptCardTotRev.js";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 
@@ -33,26 +33,6 @@ function ExchTotalReview() {
   /* ---- Table Elements ---- */
 
   // generate <th>
-  const thFactory = (title = "", width = "") => {
-    return { title, width };
-  };
-
-  const thInputs = [
-    thFactory("Return Product"),
-    thFactory("Qty", "3rem"),
-    thFactory(" ", "4rem"),
-    thFactory("Replacement Product"),
-    thFactory("Qty ", "3rem"),
-    thFactory("Balance", "5rem"),
-  ];
-
-  const thArray = thInputs.map((th) => {
-    return (
-      <th key={th.title} style={{ width: th.width }}>
-        {th.title}
-      </th>
-    );
-  });
 
   // Generate <tr>s
   const apptCardsArr = [];
@@ -61,7 +41,7 @@ function ExchTotalReview() {
     const [thisApptCode, thisApptObj] = thisAppointment;
 
     apptCardsArr.push(
-      <ApptCardTR key={thisApptCode} apptData={thisAppointment} />
+      <ApptCardTotRev key={thisApptCode} apptData={thisAppointment} />
     );
   }
 
@@ -84,29 +64,7 @@ function ExchTotalReview() {
           </section>
         </section>
       </section>
-      <section className={`mrvPanel__side `}>
-        <ExchHeader
-          hasCluster={false}
-          headerTitle={"Payment Summary"}
-          hasProductName={false}
-        />
-        <section className={`main_content`}></section>
-        <section className={`footer_text`}>
-          <p className={`tinyText warning`}></p>
-        </section>
-        <section className={`footer_content`}>
-          <div className={`buttonBox`}>
-            <button
-              onClick={() => {
-                exchNav({ routeStr: "receipt" });
-              }}
-              className={`mrvBtn primary fullWidth jumbo`}
-            >
-              Continue
-            </button>
-          </div>
-        </section>
-      </section>
+
     </section>
   );
 }

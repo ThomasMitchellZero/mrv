@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
 import cloneDeep from "lodash.clonedeep";
 
-function ApptCardTR({ apptData = "" }) {
+function ApptCardTotRev({ apptData = "" }) {
   const exchCtx = useOutletContext();
   const [thisApptCode, thisApptObj] = apptData;
   const thisApptTime = thisApptObj.apptTime;
@@ -60,4 +60,4 @@ function ApptCardTR({ apptData = "" }) {
   );
 }
 
-export { ApptCardTR };
+export { ApptCardTotRev };
