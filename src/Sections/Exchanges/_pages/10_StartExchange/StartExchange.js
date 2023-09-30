@@ -50,8 +50,7 @@ function ExchStartExchange() {
     });
   };
 
-  const mergeProdData = (invoiceEntry) => {
-    const [itemNum, invoProductObj] = invoiceEntry;
+  const mergeProdData = (itemNum, invoProductObj) => {
     //Merges the invoice information (e.g price) with full product-context info
     // invoProductObj is separate because for child items, it can have a different source??
 
@@ -61,6 +60,7 @@ function ExchStartExchange() {
     };
 
     delete outMergedProdDetails.quantity; // we're tracking more specific qtys.
+    console.log(outMergedProdDetails);
 
     // everything in this Rt is cloned, so it's safe to work.
     let thisProdChildRt = outMergedProdDetails.childItemsObj;
@@ -68,30 +68,37 @@ function ExchStartExchange() {
     // If this product has any child items...
     if (!isEmpty(thisProdChildRt)) {
       // recursively run mergeProdData on any of the kids.
-      for (const childInvoEntry of Object.entries(thisProdChildRt)) {
-        const [childItemNum, childProductObj] = invoiceEntry;
-        thisProdChildRt[childItemNum] = mergeProdData(childInvoEntry);
+      for (const [childItemNum, childProductObj] of Object.entries(
+        thisProdChildRt
+      )) {
+        thisProdChildRt[childItemNum] = mergeProdData(
+          childItemNum,
+          childProductObj
+        );
       }
     }
     return outMergedProdDetails;
   };
 
   // Setter for all Sale Records.
-
   const buildAllExchItems = (draftSt) => {
     // routes to the active Invoice + its products
     const activeInvoNum = draftSt.activeSaleRecord.invoiceNum;
     const invoiceItemsRt = invoiceContext[activeInvoNum].products;
+    console.log(activeInvoNum);
+    console.log(invoiceItemsRt);
 
     // Loop through all items listed in Invoice and fully populate.
-    for (const entry in Object.entries(draftSt.invoiceItemsRt)) {
-      const [thisInvoItemKey, thisInvoItemObj] = entry;
+    for (const invoItemEntry in Object.entries(invoiceItemsRt)) {
+      const [thisInvoNum, thisInvObj] = invoItemEntry;
+      console.log(thisInvoNum);
+      console.log(thisInvObj);
 
-      const thisMergedProdInfo = mergeProdData(thisInvoItemKey)
+      const thisMergedProdInfo = mergeProdData([thisInvoNum, thisInvObj]);
 
       // populate the draft state
-      draftSt.invoiceItems[thisInvoItemKey] = {
-        qtySold: thisInvoItemObj.quantity,
+      draftSt.invoiceItems[thisInvoNum] = {
+        qtySold: thisInvObj.quantity,
         qtyExchanging: defaultVals.dvExchQty,
         returningItem: {
           pickupQty: defaultVals.dvPickupQty,
@@ -105,22 +112,51 @@ function ExchStartExchange() {
       };
     }
   };
-  const handleSetSaleRecord = ({ srType, srKey }) => {
-    setExchState((draft)=>{
 
+  const handleSetSaleRecord = ({ srType, srKey }) => {
+    setExchState((draft) => {
       let outSRTypeProperties =
-      srType === srt.order.k
-        ? setOrder(srKey)
-        : srType === srt.invoice.k
-        ? setInvoice(srKey)
-        : {};
+        srType === srt.order.k
+          ? setOrder(srKey)
+          : srType === srt.invoice.k
+          ? setInvoice(srKey)
+          : {}; ///////////////////////
 
       draft.activeSaleRecord = outSRTypeProperties;
-      buildAllExchItems(draft);
 
-    })
+      const activeInvoNum = draft.activeSaleRecord.invoiceNum;
+      const invoiceItemsRt = invoiceContext[activeInvoNum].products;
+      console.log(activeInvoNum);
+      console.log(invoiceItemsRt);
 
-  }
+      // Loop through all items listed in Invoice and fully populate.
+      for (const [thisInvoItemNum, thisInvoItemObj] of Object.entries(
+        invoiceItemsRt
+      )) {
+        console.log(thisInvoItemObj);
+        const thisMergedProdInfo = mergeProdData(
+          thisInvoItemNum,
+          thisInvoItemObj
+        );
+
+        draft.invoiceItems[thisInvoItemNum] = {
+          qtySold: thisInvoItemObj.quantity,
+          qtyExchanging: defaultVals.dvExchQty,
+          returningItem: {
+            pickupQty: defaultVals.dvPickupQty,
+            productDetails: thisMergedProdInfo,
+            itemDispo: null,
+          },
+          replacementItem: {
+            deliveryQty: defaultVals.dvExchQty,
+            productDetails: thisMergedProdInfo,
+          },
+        };
+
+        // populate the draft state
+      }
+    });
+  };
 
   const handleSetSaleRecordOLD = ({ srType, srKey }) => {
     // Data that varies with record type.

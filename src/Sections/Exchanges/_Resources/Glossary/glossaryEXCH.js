@@ -6,8 +6,6 @@ const nav_SelectItems = {
 export { nav_SelectItems };
 // end Nav Terms
 
-
-
 // Active Panels ////
 
 const actPan = {
@@ -78,6 +76,7 @@ const defaultExchState = {
 
   defaultValues: setDefaultValues({ fastMode: true }),
   activeSaleRecord: null,
+  invoiceItems: {},
   itemsInExchange: {},
   ptState: {
     activeNode: "",

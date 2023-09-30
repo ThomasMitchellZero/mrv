@@ -5756,3 +5756,12 @@ Kind of weird.  I feel like I'm just sort of slinging code without a plan.  And 
         -Set draft.moneyTotal to that value?  Really not sure it works, although it shouldn't be hard to test.
 
     OK.  So before anything, I NEED a function that adds a moneyTotal obj to each exchItem.  So let's just make a very simple one and test that it is working before doing anything else.  
+
+    When dealing with a draft, I'm now wondering if the move is to call setExchState right at the top, and then do all operations on the drafts?  I feel like I'm writing extra code and placeholders now, because once I start an Immer Produce on a draft, I can mutate that draft to my heart's content without fear.  
+
+    That also suggests to me that I should be writing my functions to expect to be passed a draft, but that they should not be setting the state themselves.  This also doesn't prevent me from putting functions in hooks.  They're fine in hooks.  
+
+    4:20.
+    Feeling stuck.  This is exactly the kind of thing I should not be spending time on.  But I feel like this is kind of important?  For some reason I am having all kinds of problems working with the current state in Immer, and I honestly want to just rip it all out and use CloneDeep.  That, at least, made sense to me.  
+
+    Hold up.  Somewhere I had a for-in loop instead of for-of.  With for-of I am getting the values I expected?
