@@ -65,9 +65,9 @@ function ReplacementItems() {
           hasCluster={true}
           hasIcon={"back"}
           navBtnClick={() => exchNav({ routeStr: "exchreason" })}
-        /> 
+        />
         <ExchPizzaTracker />
-        <section className={`main_content `}> {cardsArr}</section>
+        <section className={`main_content cardContainer`}> {cardsArr}</section>
 
         <section className={`footer_text`}>
           <p className={`tinyText warning`}></p>

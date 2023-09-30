@@ -14,7 +14,9 @@ function ReplacementCard({
   exchItemNum,
 }) {
   const exchCtx = useOutletContext();
-  const itemsInExch = exchCtx.exchSession.itemsInExchange;
+  const thisExchItem = exchCtx.exchSession.itemsInExchange[exchItemNum];
+  const returnItem = thisExchItem.returningItem;
+  const replaceItem = thisExchItem.replacementItem;
 
   //---- Shared Functions ----
 
@@ -24,9 +26,20 @@ function ReplacementCard({
 
   const itemArray = [];
 
+  const makeCardRow = () => {
+    itemArray.push(
+      <section className={`cardRow `}>
+        <ProductInfo itemObj={returnItem} />
+        <ProductInfo itemObj={replaceItem} />
+      </section>
+    );
+  };
+
+  makeCardRow();
+
   return (
     <section className={`cardStyle `} onClick={handleCardClick}>
-      {exchItemNum}
+      {itemArray}
     </section>
   );
 }
