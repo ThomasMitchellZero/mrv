@@ -6,7 +6,7 @@
     width: 100%;
     gap: 1rem;
 
-    .priceTxt{
+    .titleText{
         flex: 1 1 0rem;
     }
 }

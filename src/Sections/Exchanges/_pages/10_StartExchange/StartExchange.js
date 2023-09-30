@@ -9,6 +9,7 @@ import ProductContext from "../../../../store/product-context";
 import OrdersContext from "../../../../store/orders-context";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useItemTotaler } from "../../_Resources/customHooks/moneyHooks";
 
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -24,6 +25,7 @@ function ExchStartExchange() {
   const ordersContext = useContext(OrdersContext);
   const exchNav = useExchNav();
   const srt = saleRecordTypes;
+  const itemTots = useItemTotaler()
 
   /* ---- SHARED FUNCTIONS ---- */
 
@@ -71,29 +73,30 @@ function ExchStartExchange() {
 
     // loop through all products sold on this invoice
     for (const thisItem of Object.keys(invoiceItemsRoute)) {
+      // merges itemNum's Product and Invoice data.
       const mergeProdData = (itemNum, invoProductObj) => {
-
         let outMergedProdObj = {
           ...cloneDeep(productContext[itemNum]),
           ...cloneDeep(invoProductObj),
         };
 
-        delete outMergedProdObj.quantity;
 
+        delete outMergedProdObj.quantity; // we're tracking more specific qtys.
+
+        // everything in this Rt is cloned, so it's safe to work.
         let thisProdChildRt = outMergedProdObj.childItemsObj;
 
         // If this product has any child items...
         if (!isEmpty(thisProdChildRt)) {
+
           // recursively run mergeProdData on any of the kids.
           for (const [key, value] of Object.entries(thisProdChildRt)) {
-            mergeProdData(key, value);
+            thisProdChildRt[key] = mergeProdData(key, value);
           }
         }
 
         return outMergedProdObj;
       };
-
-      // merges itemNum's Product and Invoice data.
 
       //Routes
       const thisInvoProdDetails = cloneDeep(invoiceItemsRoute[thisItem]);
@@ -121,6 +124,7 @@ function ExchStartExchange() {
       draft.activeSaleRecord = outSRTypeProperties;
       draft.invoiceItems = outInvoiceItems;
     });
+
   };
 
   const handleClick = () => {

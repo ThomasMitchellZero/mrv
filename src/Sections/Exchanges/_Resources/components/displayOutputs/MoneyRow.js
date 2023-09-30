@@ -7,9 +7,9 @@ function MoneyRow({
 }) {
   return (
     <section className={`${classes.container}`}>
-      <p className={`body ${textColorClass}`}>{title}</p>
-      <p className={`body__large ${classes.priceTxt} ${textColorClass}`}>
-        {money}
+      <p className={`body ${textColorClass} ${classes.titleText}`}>{title}</p>
+      <p className={`body__large ${textColorClass}`}>
+        {`$ ${money}`}
       </p>
     </section>
   );

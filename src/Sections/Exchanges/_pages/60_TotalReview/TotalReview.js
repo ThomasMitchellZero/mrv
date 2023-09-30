@@ -1,6 +1,7 @@
 import classes from "./_TotalReviewCSS.module.css";
 
 import { ApptCardTotRev } from "./ApptCardTotRev.js";
+import { PaymentSummary } from "./PaymentSummary";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 
@@ -59,12 +60,14 @@ function ExchTotalReview() {
         <ExchPizzaTracker />
         <section className={`main_content `}>
           <section className={`cardContainer`}>
-            <p className={`color__primary__text body__large`}>Exchange Appointments</p>
+            <p className={`color__primary__text body__large`}>
+              Exchange Appointments
+            </p>
             {apptCardsArr}
           </section>
         </section>
       </section>
-
+      <PaymentSummary />
     </section>
   );
 }
