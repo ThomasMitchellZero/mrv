@@ -5732,5 +5732,15 @@ Been going really smoothly so far.  I think I want to get the item totals into t
 
 27 Sept 2023:
 6:50.
-
 Actually started earlier, working on the delivery card.  I want to get it as far as I can, check it in Slow Mode, and then deploy it. at 7:20 the party stops because I need to be able to fix it if it's skunking up and I don't want to be here all night.
+
+30 Sep 2023
+10:05.
+I've been a little bit afraid of today.  So far this week, I have been cruising, making the UI up very easily.  But now, I need to make some behind-the-scenes decisions and those seem to be the sections where I'm just stuck with little visible progress for weeks.  
+
+I need to calculate a running total of all the items.  I need to consume the state in two places, Item Selection and then again at the end.  I don't know where all I would need to consume it, but even if I only ever use it once it makes the code neater to have it as a custom hook so I am going to do that.  
+
+So my open question is: given that I am going to have to poke through the data in the state in the Chrome Developer Tools, would it not have been easier to make a Class or just a plain old constructor function for the items?
+
+This is probably a bad idea.  My gut says this is the kind of thing where I spend 2 weekends tearing up roots and then the end result is mostly like what I had.
+
