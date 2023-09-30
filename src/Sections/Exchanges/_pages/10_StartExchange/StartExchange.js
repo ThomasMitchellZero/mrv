@@ -60,7 +60,6 @@ function ExchStartExchange() {
     };
 
     delete outMergedProdDetails.quantity; // we're tracking more specific qtys.
-    console.log(outMergedProdDetails);
 
     // everything in this Rt is cloned, so it's safe to work.
     let thisProdChildRt = outMergedProdDetails.childItemsObj;
@@ -85,16 +84,10 @@ function ExchStartExchange() {
     // routes to the active Invoice + its products
     const activeInvoNum = draftSt.activeSaleRecord.invoiceNum;
     const invoiceItemsRt = invoiceContext[activeInvoNum].products;
-    console.log(activeInvoNum);
-    console.log(invoiceItemsRt);
 
     // Loop through all items listed in Invoice and fully populate.
-    for (const invoItemEntry in Object.entries(invoiceItemsRt)) {
-      const [thisInvoNum, thisInvObj] = invoItemEntry;
-      console.log(thisInvoNum);
-      console.log(thisInvObj);
-
-      const thisMergedProdInfo = mergeProdData([thisInvoNum, thisInvObj]);
+    for (const [thisInvoNum, thisInvObj] of Object.entries(invoiceItemsRt)) {
+      const thisMergedProdInfo = mergeProdData(thisInvoNum, thisInvObj);
 
       // populate the draft state
       draftSt.invoiceItems[thisInvoNum] = {
@@ -120,112 +113,13 @@ function ExchStartExchange() {
           ? setOrder(srKey)
           : srType === srt.invoice.k
           ? setInvoice(srKey)
-          : {}; ///////////////////////
+          : {};
 
       draft.activeSaleRecord = outSRTypeProperties;
 
-      const activeInvoNum = draft.activeSaleRecord.invoiceNum;
-      const invoiceItemsRt = invoiceContext[activeInvoNum].products;
-      console.log(activeInvoNum);
-      console.log(invoiceItemsRt);
+      ////
 
-      // Loop through all items listed in Invoice and fully populate.
-      for (const [thisInvoItemNum, thisInvoItemObj] of Object.entries(
-        invoiceItemsRt
-      )) {
-        console.log(thisInvoItemObj);
-        const thisMergedProdInfo = mergeProdData(
-          thisInvoItemNum,
-          thisInvoItemObj
-        );
-
-        draft.invoiceItems[thisInvoItemNum] = {
-          qtySold: thisInvoItemObj.quantity,
-          qtyExchanging: defaultVals.dvExchQty,
-          returningItem: {
-            pickupQty: defaultVals.dvPickupQty,
-            productDetails: thisMergedProdInfo,
-            itemDispo: null,
-          },
-          replacementItem: {
-            deliveryQty: defaultVals.dvExchQty,
-            productDetails: thisMergedProdInfo,
-          },
-        };
-
-        // populate the draft state
-      }
-    });
-  };
-
-  const handleSetSaleRecordOLD = ({ srType, srKey }) => {
-    // Data that varies with record type.
-
-    let outSRTypeProperties =
-      srType === srt.order.k
-        ? setOrder(srKey)
-        : srType === srt.invoice.k
-        ? setInvoice(srKey)
-        : {};
-
-    // ----Properties for all cases----//
-
-    // A route to this invoice in invoice-context.
-    const invoiceItemsRoute =
-      invoiceContext[outSRTypeProperties.invoiceNum].products;
-
-    let outInvoiceItems = {};
-
-    // loop through all products sold on this invoice
-    for (const thisItem of Object.keys(invoiceItemsRoute)) {
-      // merges itemNum's Product and Invoice data.
-      const mergeProdData = (itemNum, invoProductObj) => {
-        let outMergedProdObj = {
-          ...cloneDeep(productContext[itemNum]),
-          ...cloneDeep(invoProductObj),
-        };
-
-        delete outMergedProdObj.quantity; // we're tracking more specific qtys.
-
-        // everything in this Rt is cloned, so it's safe to work.
-        let thisProdChildRt = outMergedProdObj.childItemsObj;
-
-        // If this product has any child items...
-        if (!isEmpty(thisProdChildRt)) {
-          // recursively run mergeProdData on any of the kids.
-          for (const [key, value] of Object.entries(thisProdChildRt)) {
-            thisProdChildRt[key] = mergeProdData(key, value);
-          }
-        }
-
-        return outMergedProdObj;
-      };
-
-      //Routes
-      const thisInvoProdDetails = cloneDeep(invoiceItemsRoute[thisItem]);
-
-      const mergedProdInfo = mergeProdData(thisItem, thisInvoProdDetails);
-
-      //populate the main object for this item.
-      outInvoiceItems[thisItem] = {
-        qtySold: thisInvoProdDetails.quantity,
-        qtyExchanging: defaultVals.dvExchQty,
-        returningItem: {
-          pickupQty: defaultVals.dvPickupQty,
-          productDetails: mergedProdInfo,
-          itemDispo: null,
-        },
-        replacementItem: {
-          deliveryQty: defaultVals.dvExchQty,
-          productDetails: mergedProdInfo,
-        },
-      };
-    }
-
-    //set the Exch Session State
-    setExchState((draft) => {
-      draft.activeSaleRecord = outSRTypeProperties;
-      draft.invoiceItems = outInvoiceItems;
+      buildAllExchItems(draft);
     });
   };
 
