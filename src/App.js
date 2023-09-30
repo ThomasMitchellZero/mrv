@@ -31,7 +31,7 @@ import Exchanges from "./Sections/Exchanges/Exchanges";
 import {ExchStartExchange} from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
 import {ExchChooseExchItems} from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
-import { ExchWhichForWhat } from "./Sections/Exchanges/_pages/40_WhichForWhat/WhichForWhat";
+import { ReplacementItems } from "./Sections/Exchanges/_pages/40_ExchReplacements/ReplacementItems";
 import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
 import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/TotalReview";
 import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/ReceiptPage";
@@ -72,7 +72,7 @@ function App() {
             <Route index element={<ExchStartExchange />} />
             <Route path="chooseitems" element={<ExchChooseExchItems />} />
             <Route path="exchreason" element={<ExchReason />} />
-            <Route path="whichforwhat" element={<ExchWhichForWhat />} />
+            <Route path="whichforwhat" element={<ReplacementItems />} />
             <Route path="schedule" element={<ExchScheduleTimes />} />
             <Route path="totalreview" element={<ExchTotalReview />} />
             <Route path="receipt" element={<ExchReceiptPage />} />
