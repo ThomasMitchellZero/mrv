@@ -9,7 +9,7 @@ import ProductContext from "../../../../store/product-context";
 import OrdersContext from "../../../../store/orders-context";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useItemTotaler } from "../../_Resources/customHooks/moneyHooks";
+import { useExchItemTotaler } from "../../_Resources/customHooks/moneyHooks";
 
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -25,7 +25,7 @@ function ExchStartExchange() {
   const ordersContext = useContext(OrdersContext);
   const exchNav = useExchNav();
   const srt = saleRecordTypes;
-  const itemTots = useItemTotaler()
+
 
   /* ---- SHARED FUNCTIONS ---- */
 

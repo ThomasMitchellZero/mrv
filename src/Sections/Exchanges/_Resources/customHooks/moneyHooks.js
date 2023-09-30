@@ -76,7 +76,7 @@ const itemsInExchSmpl = {
   },
 };
 
-const itemMoneyObj = ({
+const newMoneyObj = ({
   costDif = 0,
   charge = 0,
   refund = 0,
@@ -94,16 +94,54 @@ const itemMoneyObj = ({
   };
 };
 
-const useItemTotaler = (itemNum) => {
+const pullItemMoneyVals = (itemNum) => {
+  const itemDetails = itemNum.productDetails;
+  // Fn to pull the vals we need out of any object.
+  newMoneyObj({
+    charge: itemDetails.price,
+    tax: itemNum.tax,
+  });
+};
+
+const useExchItemTotaler = (exchItemEntry) => {
+  const [thisExchItemKey, thisExchItemObj] = exchItemEntry;
+
+  const exchCtx = useOutletContext();
+  const setExchState = exchCtx.setExchSession;
+  const exchItems = exchCtx.exchSession.itemsInExchange;
+
   return () => {
-    console.log("Money bitch!");
+    // money comparison Obj, all values 0
+    let outItemMoneyDifObj = newMoneyObj();
+
+    let returnItemRt = [thisExchItemObj].returningItem;
+    let replaceItemRt = [thisExchItemObj].replacementItem;
+
+    /*
+
+  Commented out because right now the items are always the same.
+
+      if (
+    // If the same items are being exchanged...
+    // Net $ is always zero, so return the output with values = 0 and stop.
+    returnItemRt.productDetails.itemNum === replaceItemRt.productDetails.itemNum
+  ) {
+    return outItemMoneyDifObj;
+  }
+  */
+
+    outItemMoneyDifObj.RetItem = 1;
+    outItemMoneyDifObj.ReplItem = 2;
+
+    setExchState((draft) => {
+      draft[thisExchItemKey].moneyDifObj = outItemMoneyDifObj;
+    });
   };
+  // this object represents the price DIFFERENCES, not the price totals.
 };
 
 function useMoneyTotaler() {
-  const exchCtx = useOutletContext();
-
   return () => {};
 }
 
-export { useMoneyTotaler, useItemTotaler };
+export { useMoneyTotaler, useExchItemTotaler };

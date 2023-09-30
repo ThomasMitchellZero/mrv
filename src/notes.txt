@@ -5744,3 +5744,15 @@ So my open question is: given that I am going to have to poke through the data i
 
 This is probably a bad idea.  My gut says this is the kind of thing where I spend 2 weekends tearing up roots and then the end result is mostly like what I had.
 
+1:05.
+Kind of weird.  I feel like I'm just sort of slinging code without a plan.  And I need to be building and testing things in parts, not big, dependent structures.
+
+    -I THINK I need a separate hook to set the money for each Exch Item separately.  They're going to be set separately, after all.  
+
+    -Is that even correct?  Like, the money needs to be updated, right?  
+    -OK.  I THINK that if I have a function that totals the sums, I SHOULD be able to:
+        -Update draft.itemsInExch[item]
+        -Run the total-getting function on the draft or whatever part of it I target.
+        -Set draft.moneyTotal to that value?  Really not sure it works, although it shouldn't be hard to test.
+
+    OK.  So before anything, I NEED a function that adds a moneyTotal obj to each exchItem.  So let's just make a very simple one and test that it is working before doing anything else.  
