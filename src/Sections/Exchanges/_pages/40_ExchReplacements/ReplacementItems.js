@@ -22,12 +22,14 @@ function ReplacementItems() {
   const exchNav = useExchNav();
   const groupAppointments = useGroupAppointments();
 
-  const defaultState = {
+
+  const defaultLocSt = {
+    replacementSum: 42000,
     show30warning: false,
-  };
+  }
 
   //local state
-  const [locSt_Replace, setLocSt_Replace] = useImmer(defaultState);
+  const [locSt_Replace, setLocSt_Replace] = useImmer(defaultLocSt);
 
   /* ---- Shared Functions ---- */
 
@@ -83,7 +85,10 @@ function ReplacementItems() {
           </div>
         </section>
       </section>
-      <ReplacementDetails30 />
+      <ReplacementDetails30
+        parLocSt_Replace={locSt_Replace}
+        setParLocSt_Replace={setLocSt_Replace}
+      />
     </section>
   );
 }

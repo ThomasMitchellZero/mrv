@@ -10,4 +10,11 @@
         flex-direction: row;
         width: 100%;
     }
+
+    .RI_Panel30{
+        .main_content{
+            gap: 1rem;
+        }
+        
+    }
 }

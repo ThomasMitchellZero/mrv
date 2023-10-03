@@ -10,11 +10,10 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
   const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchDeliveries = exchCtx.exchSession.deliveryGroups;
 
-
-
   const exchNav = useExchNav();
 
   const handleApply = () => {};
+
 
   return (
     <section className={`mrvPanel__side RI_Panel30 `}>
@@ -26,7 +25,10 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
       <section className={`main_content`}>
         <ProductInfo itemObj={exchItems["400"].returningItem} />
         <div className={`divider horizontal`} />
-        <MoneyRow />
+        <MoneyRow
+          title={`Replacement Items`}
+          moneyVal={parLocSt_Replace.replacementSum}
+        />
       </section>
       <section className={`footer_text`}>
         <p className={`tinyText warning`}></p>
