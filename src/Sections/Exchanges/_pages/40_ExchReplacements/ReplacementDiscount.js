@@ -17,18 +17,24 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
   const locdiscountedTotal = parLocSt_Replace.discountedTotal;
 
   const handleDiscountInput = (event) => {
-    let input = parseInt(event.target.value);
+    let discoInput = parseInt(event.target.value);
+
+    const newDiscoPct = Math.round((discoInput / locReplacementSum) * 100);
 
     setParLocSt_Replace((draft) => {
-      draft.discount = input;
+      draft.discount = discoInput;
+      draft.discountPct = newDiscoPct;
     });
   };
 
   const handlePctInput = (event) => {
-    let input = parseInt(event.target.value);
+    let pctInput = parseInt(event.target.value);
+
+    const newDollarDisco = (locReplacementSum * pctInput) / 100;
 
     setParLocSt_Replace((draft) => {
-      draft.discountPct = input;
+      draft.discountPct = pctInput;
+      draft.discount = newDollarDisco;
     });
   };
 
@@ -41,6 +47,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
           <input
             type="number"
             min="0"
+            max={100}
             step="1"
             value={locDiscountPct}
             onChange={handlePctInput}
@@ -50,6 +57,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
           <input
             type="number"
             min="0"
+            max={locReplacementSum}
             step="1"
             value={locDiscount}
             onChange={handleDiscountInput}
