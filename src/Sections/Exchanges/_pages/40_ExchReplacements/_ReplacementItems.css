@@ -15,6 +15,16 @@
         .main_content{
             gap: 1rem;
         }
+
+        .discountCtnr{
+            box-sizing: border-box;
+            flex-direction: column;
+            display: flex;
+            flex: 0 0 auto;
+            width: 100%;
+            background-color: aquamarine;
+            gap: 1rem;
+        }
         
     }
 }

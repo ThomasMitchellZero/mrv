@@ -1,7 +1,10 @@
+import { ReplacementDiscount } from "./ReplacementDiscount";
+
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { MoneyRow } from "../../_Resources/components/displayOutputs/MoneyRow";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+
 import { useOutletContext } from "react-router";
 
 function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
@@ -13,7 +16,6 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
   const exchNav = useExchNav();
 
   const handleApply = () => {};
-
 
   return (
     <section className={`mrvPanel__side RI_Panel30 `}>
@@ -28,6 +30,10 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
         <MoneyRow
           title={`Replacement Items`}
           moneyVal={parLocSt_Replace.replacementSum}
+        />
+        <ReplacementDiscount
+          parLocSt_Replace={parLocSt_Replace}
+          setParLocSt_Replace={setParLocSt_Replace}
         />
       </section>
       <section className={`footer_text`}>

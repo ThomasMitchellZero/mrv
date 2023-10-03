@@ -22,7 +22,7 @@ function MoneyRow({
 
   return (
     <section className={`${classes.container}`}>
-      <p className={`body ${textColorClass} ${classes.titleText}`}>{title}</p>
+      <p className={`body body__small ${textColorClass} ${classes.titleText}`}>{title}</p>
       {moneyJSX}
     </section>
   );
