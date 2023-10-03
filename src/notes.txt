@@ -2,7 +2,7 @@ Rule 0: Hands On Keyboard, Butt In Chair.  If we know what to do, we should be c
 
 RULE 1:  At the end of the day, we are building testing tools.  Don't spend time and anguish on problems we don't actually expect to face.  
 
-RULE 2:  We are trying to grow our skills.  Every pattern that is now routine to us was once unfamiliar and frightening.  If we have legitimate reason to believe that an unfamiliar pattern is the best way to solve the problem, do the unfamiliar pattern.
+RULE 2:  We are trying to grow our skills.  Every pattern that is now routine to us was once unfamiliar and frightening.  If there's an opportunity to try out a new pattern in something that doesn't have a lot of dependencies, strongly consider it.  Even our failures have yielded valuable knowledge.  
 
 RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  We literally have NEVER encoutered a situation where processing speed had any effect on the UI.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
 
@@ -10,10 +10,12 @@ RULE 4:
 IME, it's generally faster to go: 
 Pictograph => Rebus => Alphabet  than 
 Pictograph => Think REAALLLY HARD => Alphabet.  
-Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a stop en route to good code, not a detour from it.  
+Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint on the route to good code, not a detour from it.  
 
 RULE 5: 
-Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in tight, concise code, you still have to understand what it does later.  If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  The EV of 'maintain and refine your current knowledge' is generally higher than the EV of new knoweledge because if the existing knoweledge wasn't useful to you, you wouldn't have acquired it in the first place, and if the new knowledge IS so useful, why haven't you needed it until now?
+Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in very short code, you still have to understand what it does later.  There are a lot of regex expressions that are 1-liners, but we don't know regex and it looks hard AF to read. If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  
+
+
 
 
 
@@ -5765,3 +5767,52 @@ Kind of weird.  I feel like I'm just sort of slinging code without a plan.  And 
     Feeling stuck.  This is exactly the kind of thing I should not be spending time on.  But I feel like this is kind of important?  For some reason I am having all kinds of problems working with the current state in Immer, and I honestly want to just rip it all out and use CloneDeep.  That, at least, made sense to me.  
 
     Hold up.  Somewhere I had a for-in loop instead of for-of.  With for-of I am getting the values I expected?
+
+    OK.  Holy fuck.  It worked.  Jesus, that was really lucky.  I barely noticed the mistake.  If I hadn't pulled the function out and realized that I was also getting indices instead of keys OUTSIDE the Immer function, I might never have gone back to check.  
+
+    The other clue, which I am glad I didn't disregard, is that I was able to read information from the draft of the sale record just fine.  It wasn't like the contents of the .draft are just unreadable.  
+
+    Although there is actually no reason for this to be an external function, I'm going to leave it how it is as a museum exhibit to myself.
+
+    OK.  So this has actually been some really valuable learning.  I do think this kind of refactor-root-ripping is a bad habit of mine, but I really do think that the code was weird and sloppy and I'm glad I got it fixed.
+
+    OK, swalk and then think about next steps.  
+
+    6:00.
+    Gonna jam one more session and then call it a day.  I want to have the ExchItem prices done, and I REALLY want to have the full prices done.  Although, come to think of it, maybe the better play is to work on the Replacement Items.  I won't really be able to tell that it is working until I can choose a replacement, so maybe that's where I go.  
+
+    6:40.  OK, done some of the basic setup but man, there is so much I barely know where to begin.  I guess the card is the place to start, since nothing really works without it.  
+
+    That means I need to come up with a plan for how to handle the spacing.  I guess I COULD use a grid, but I think I could just make a standard set of sizes and be fine as well.  Hello, variables!
+
+2 Oct 2023
+5:15.
+Got a real good rhythm going at work today and going to try to get some code done too.  There's plenty I could do and most of it looks juicy, but the hairiest-feeling part is figuring out how to handle the LPP.  First, I need to get an image into the LPP, and then how to handle the size in a child item.  But before I can do any of that, I need to populate the child items.  
+
+So how to think about this?  I THINK some child items should live on the item's entry in product-context.  But that is a question of where we get child items on CREATION, which is less immediately relevant.
+
+What I need to think about instead is how I process the child items.  Right now, I have the children of the Returning item living within it, and the children of the Replacement living within that.  They're all sort of far down in the tree.  Like, it's one level down, and if someone wants me to handle children of children I could just tell them to fuck off.  
+
+I guess the issue I have is that a lot of my presentation generally assumes a THIS => THAT format.  Like, literally the format of each Exch is: 
+
+returnItemNum:{
+    qtySold:2
+    qtyExchanging:1
+    returningItem: {…}
+    replacementItem: {…}
+}
+
+And I feel like for the Child items, it's also important.  I feel like I want them stored as a pair.  I suspect we're going to have to deal with actual child items, like a hose, and they could be missing.  Like if the new item requires a hose and the old item doesn't have one because the user lost it (VERY possible) then I feel like I still need to represent them as a THIS => THAT pair, even if it is blank.  Or if the customer does like for unlike and they decide they want to cancel the LPP on the new item to save money (also possible), I need to be able to handle that.  And these aren't Rule 1 violations, because when we start handling these cases I'm sure we will want to test.  
+
+returnItemNum:{
+    qtySold:2,
+    qtyExchanging:1,
+    returningItem: {…},
+    replacementItem: {…},
+    childItems:{
+        3yrLPP:{
+            returningItem: {…}
+            replacementItem: {…}}
+        },
+    }
+}

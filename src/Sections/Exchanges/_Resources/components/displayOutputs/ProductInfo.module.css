@@ -13,6 +13,10 @@
     border-radius: .5rem;
 }
 
+.container img.child{
+    
+}
+
 .textColumn{
     display: flex;
     flex-direction: column;

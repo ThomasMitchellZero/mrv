@@ -1,8 +1,16 @@
 import classes from "./ProductInfo.module.css";
 
+import { MdSubdirectoryArrowRight } from "react-icons/md";
+
 // this should work from a completely standard product details object, since the actual product can be changed.
 
-function ProductInfo({ itemObj, hasPrice = false, qty = null, config = null }) {
+function ProductInfo({
+  itemObj,
+  hasPrice = false,
+  qty = null,
+  config = null,
+  isChild = false,
+}) {
   const rawProdDetails = itemObj.productDetails;
 
   const configObj = {
@@ -21,13 +29,15 @@ function ProductInfo({ itemObj, hasPrice = false, qty = null, config = null }) {
     <p className={`body ${classes.description}`}>{`Qty: ${qty}`}</p>
   ) : null;
 
+  const prodImg = isChild ? (
+    ""
+  ) : (
+    <img src={rawProdDetails.img} alt="test" className={classes.productImage} />
+  );
+
   return (
     <section className={`${classes.container}`}>
-      <img
-        src={rawProdDetails.img}
-        alt="test"
-        className={classes.productImage}
-      />
+      {prodImg}
       <section className={`${classes.textColumn}`}>
         <div className={`${classes.textRow}`}>
           {price}

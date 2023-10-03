@@ -35,6 +35,14 @@ function ReplacementCard({
     );
   };
 
+  const populateTable = (targetObjRt)=>{
+    const thisReturnItem = targetObjRt.returningItem;
+    const thisReplaceItem = targetObjRt.replacementItem;
+
+
+
+  }
+
   makeCardRow();
 
   return (

@@ -50,9 +50,13 @@ function ExchStartExchange() {
     });
   };
 
+
+
   const mergeProdData = (itemNum, invoProductObj) => {
     //Merges the invoice information (e.g price) with full product-context info
     // invoProductObj is separate because for child items, it can have a different source??
+
+    ///XXX This should JUST merge a given object with its invoice data.  No recursion.
 
     let outMergedProdDetails = {
       ...cloneDeep(productContext[itemNum]),
@@ -89,6 +93,8 @@ function ExchStartExchange() {
     for (const [thisInvoNum, thisInvObj] of Object.entries(invoiceItemsRt)) {
       const thisMergedProdInfo = mergeProdData(thisInvoNum, thisInvObj);
 
+      //XXX I think this is where we want to get the child products, run mergeProdData on them, and populate a new childItems obj. with returningItem and ReplacementItem data.  
+
       // populate the draft state
       draftSt.invoiceItems[thisInvoNum] = {
         qtySold: thisInvObj.quantity,
@@ -102,6 +108,7 @@ function ExchStartExchange() {
           deliveryQty: defaultVals.dvExchQty,
           productDetails: thisMergedProdInfo,
         },
+        childItems:{}
       };
     }
   };
