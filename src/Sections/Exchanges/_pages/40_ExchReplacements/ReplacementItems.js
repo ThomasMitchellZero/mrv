@@ -25,7 +25,9 @@ function ReplacementItems() {
 
   const defaultLocSt = {
     replacementSum: 42000,
-    show30warning: false,
+    discount: 0,
+    discountPct: 0,
+    discountedTotal: 42000,
   }
 
   //local state

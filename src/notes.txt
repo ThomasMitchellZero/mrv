@@ -5816,3 +5816,12 @@ returnItemNum:{
         },
     }
 }
+
+3 Oct 2023
+4:10.
+This is actually for work so I don't mind getting started early.  My TOP priority for today is getting a working version of the price input fields.  After that I can do some more fiddlefucking around with Replacements.  
+
+Since this is VERY much just a placeholder, I need to make sure that everything I put in is easy to use with different parameters.  
+
+6:05.
+Got sort of a hard problem here - how to handle the user inputs for $ discount?  I'm storing everything as cents but the user wants to input in dollars.  Maybe the correct move is to get it working as cents right now and then figure the rest out later?  

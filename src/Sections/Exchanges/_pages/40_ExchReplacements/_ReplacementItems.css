@@ -24,6 +24,21 @@
             width: 100%;
             background-color: aquamarine;
             gap: 1rem;
+
+            .inputsCtnr{
+                box-sizing: border-box;
+                flex-direction: row;
+                display: flex;
+                flex: 1 1 0rem;
+                height: 4rem;
+                gap: 0.5rem;
+                background-color: bisque;
+
+                input{
+                    height: 4rem;
+                }
+
+            }
         }
         
     }
