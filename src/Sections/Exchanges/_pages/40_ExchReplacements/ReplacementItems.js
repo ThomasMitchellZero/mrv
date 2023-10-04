@@ -23,11 +23,12 @@ function ReplacementItems() {
   const groupAppointments = useGroupAppointments();
 
 
+  // all values need to be in dollars, not cents, to reflect user inputs
   const defaultLocSt = {
-    replacementSum: 42000,
+    replacementSum: 420,
     discount: 0,
     discountPct: 0,
-    discountedTotal: 42000,
+    discountedTotal: 420,
   }
 
   //local state

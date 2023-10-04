@@ -1,3 +1,8 @@
+import {
+  useDollarsToCents,
+  useCentsToDollars,
+} from "../../_Resources/customHooks/exchHooks";
+
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
@@ -7,6 +12,9 @@ import { useOutletContext } from "react-router";
 
 function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
   const exchCtx = useOutletContext();
+  const dollarsToCents = useDollarsToCents();
+  const centsToDollars = useCentsToDollars;
+
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchDeliveries = exchCtx.exchSession.deliveryGroups;
@@ -16,19 +24,24 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
   const locDiscountPct = parLocSt_Replace.discountPct;
   const locdiscountedTotal = parLocSt_Replace.discountedTotal;
 
-  const handleDiscountInput = (event) => {
-    let discoInput = parseInt(event.target.value);
+  const fghgf = parseFloat(22.3);
 
-    const newDiscoPct = Math.round((discoInput / locReplacementSum) * 100);
+  console.log(fghgf);
+
+  const handleDiscountInput = (event) => {
+    let discoInDollars = event.target.value;
+
+    const rawDiscoPct = (discoInDollars / locReplacementSum) * 100;
+    const newDiscoPct = parseFloat(rawDiscoPct.toFixed(1));
 
     setParLocSt_Replace((draft) => {
-      draft.discount = discoInput;
+      draft.discount = discoInDollars;
       draft.discountPct = newDiscoPct;
     });
   };
 
   const handlePctInput = (event) => {
-    let pctInput = parseInt(event.target.value);
+    let pctInput = parseFloat(event.target.value);
 
     const newDollarDisco = (locReplacementSum * pctInput) / 100;
 
@@ -47,8 +60,8 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
           <input
             type="number"
             min="0"
+            step={10}
             max={100}
-            step="1"
             value={locDiscountPct}
             onChange={handlePctInput}
           />
@@ -58,7 +71,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
             type="number"
             min="0"
             max={locReplacementSum}
-            step="1"
+            step={10}
             value={locDiscount}
             onChange={handleDiscountInput}
           />

@@ -1,6 +1,6 @@
 import classes from "./MoneyRow.module.css";
 
-import { useDeCentsitize } from "../../customHooks/mrvHooks";
+import { useCentsToDollars } from "../../customHooks/exchHooks";
 
 function MoneyRow({
   title = "",
@@ -9,10 +9,9 @@ function MoneyRow({
   moneyColorClass = textColorClass,
   bigMoney = false,
 }) {
+  const centsToDollars = useCentsToDollars();
 
-  const deCentsitize = useDeCentsitize()
-
-  const moneyStr = deCentsitize(moneyVal)
+  const moneyStr = moneyVal.toFixed(2);
 
   const moneyJSX = bigMoney ? (
     <h4 className={` ${textColorClass}`}>{`$ ${moneyStr}`}</h4>
@@ -22,7 +21,9 @@ function MoneyRow({
 
   return (
     <section className={`${classes.container}`}>
-      <p className={`body body__small ${textColorClass} ${classes.titleText}`}>{title}</p>
+      <p className={`body body__small ${textColorClass} ${classes.titleText}`}>
+        {title}
+      </p>
       {moneyJSX}
     </section>
   );
