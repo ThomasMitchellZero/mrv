@@ -383,8 +383,8 @@
 }
 
 .mrv td{
+  padding: 1rem 0rem 1rem var(--tablePadding__horizontal);
   color: var(--color__primary);
-  padding-left: var(--tablePadding__horizontal);
 }
 
 .mrv th{
@@ -392,8 +392,6 @@
   font-weight: 600;
   padding-left: var(--tablePadding__horizontal);
 }
-
-
 
 
 .mrv tbody tr.active{
