@@ -5825,3 +5825,34 @@ Since this is VERY much just a placeholder, I need to make sure that everything 
 
 6:05.
 Got sort of a hard problem here - how to handle the user inputs for $ discount?  I'm storing everything as cents but the user wants to input in dollars.  Maybe the correct move is to get it working as cents right now and then figure the rest out later?  
+
+4 Oct 2023.
+2:00 p.m.  
+
+Got my real job done for the day and now on to this.  It's actually kind of my real job because I do want to demonstrate this tomorrow to show what it's like.  
+
+The thing I have to figure out is how to do the rounding.  It gets sticky because the user is going to be doing inputs in dollars, but I'm storing everything in cents.
+
+So the model I have in my head right now is to handle everything in the local state in "dollars" and then convert to cents when sending up?
+
+OR, the OTHER other model I have... I feel like my pattern is to do absolutely everything in cents, and only translate it to dollars at the very last minute.
+
+OK, so I have this feeling of being stuck, but it's actually working.  Right now, I have only a few issues which all seem pretty easy.
+    X -Add conditions so the values can't exceed their maxes.
+    X -Discount $ needs to be a number, not a string. (actually, how is this even working now?)
+    X -Discount $ needs to always be 2 digits.
+    X -Need Total After Discount to reflect the values.
+
+And then after that it should just be cosmetic shit?  I feel like I'm pretty nearly there.  So why do I feel so slow?
+
+5:20.  It's not perfect - I'm still not getting the dollar value to display cents after direct input - but I think it's good enough to show that this is a pretty good user experience.
+
+So let's get the cosmetic shit together so this isn't an embarrassment tomorrow and then we can fiddle with some other stuff.
+    - Need titles on the input fields.
+    X - handling for NaN values
+    -Proper spacing
+    -Get rid of backgrounds
+    -Figure out why I am getting a 'key' error.
+    -Show both Replacement Items + Replacement Items Total
+
+

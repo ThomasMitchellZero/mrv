@@ -24,12 +24,15 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
   const locDiscountPct = parLocSt_Replace.discountPct;
   const locdiscountedTotal = parLocSt_Replace.discountedTotal;
 
-  const fghgf = parseFloat(22.3);
-
-  console.log(fghgf);
-
   const handleDiscountInput = (event) => {
-    let discoInDollars = event.target.value;
+    let discoInDollars = parseFloat(event.target.value);
+
+    discoInDollars =
+      discoInDollars > locReplacementSum
+        ? locReplacementSum
+        : discoInDollars
+        ? discoInDollars
+        : 0;
 
     const rawDiscoPct = (discoInDollars / locReplacementSum) * 100;
     const newDiscoPct = parseFloat(rawDiscoPct.toFixed(1));
@@ -37,17 +40,21 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
     setParLocSt_Replace((draft) => {
       draft.discount = discoInDollars;
       draft.discountPct = newDiscoPct;
+      draft.discountedTotal = locReplacementSum - discoInDollars;
     });
   };
 
   const handlePctInput = (event) => {
     let pctInput = parseFloat(event.target.value);
+    pctInput = pctInput > 100 ? 100 : pctInput ? pctInput : 0;
 
-    const newDollarDisco = (locReplacementSum * pctInput) / 100;
+    const rawDollarDisco = (locReplacementSum * pctInput) / 100;
+    const newDollarDisco = rawDollarDisco.toFixed(2);
 
     setParLocSt_Replace((draft) => {
       draft.discountPct = pctInput;
       draft.discount = newDollarDisco;
+      draft.discountedTotal = locReplacementSum - newDollarDisco;
     });
   };
 
@@ -56,7 +63,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
       <div className={`divider horizontal`} />
 
       <section className={`inputsCtnr`}>
-        <MRVinput>
+        <MRVinput helperText={`Discount %`} flex={`1 1 0rem`}>
           <input
             type="number"
             min="0"
@@ -66,7 +73,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
             onChange={handlePctInput}
           />
         </MRVinput>
-        <MRVinput>
+        <MRVinput helperText={`Discount $`} flex={`1 1 0rem`}>
           <input
             type="number"
             min="0"
@@ -78,8 +85,9 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
         </MRVinput>
       </section>
       <MoneyRow
-        title={`Replacement Items`}
-        moneyVal={parLocSt_Replace.replacementSum}
+        title={`Total After Discount:`}
+        moneyVal={locdiscountedTotal}
+        bigMoney={true}
       />
     </section>
   );

@@ -1,4 +1,3 @@
-
 import classes from "./MRVinput.module.css";
 
 function MRVinput({
@@ -13,7 +12,6 @@ function MRVinput({
   const widthStyle = width ? { width: width } : {};
   const flexStyle = flex ? { flex: flex } : {};
 
-  
   return (
     <section
       className={`${classes.container} ${
@@ -21,9 +19,15 @@ function MRVinput({
       } ${extClasses}`}
       style={{ ...widthStyle, ...flexStyle }}
     >
-      {children /* Put an Input container as a child b/c I am not passing 8 billion props from the parent by hand. */}
+      {
+        children /* Put an Input container as a child b/c I am not passing 8 billion props from the parent by hand. */
+      }
       {helperText ? (
-        <p className={`body__small ${disabled ? classes.disabled : null}`}>
+        <p
+          className={`body__small color__tertiary__text ${
+            disabled ? classes.disabled : null
+          }`}
+        >
           {helperText}
         </p>
       ) : null}
