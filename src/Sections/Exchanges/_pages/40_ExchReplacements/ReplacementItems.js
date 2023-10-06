@@ -22,14 +22,13 @@ function ReplacementItems() {
   const exchNav = useExchNav();
   const groupAppointments = useGroupAppointments();
 
-
   // all values need to be in dollars, not cents, to reflect user inputs
   const defaultLocSt = {
     replacementSum: 420,
     discount: 0,
     discountPct: 0,
     discountedTotal: 420,
-  }
+  };
 
   //local state
   const [locSt_Replace, setLocSt_Replace] = useImmer(defaultLocSt);
@@ -63,8 +62,8 @@ function ReplacementItems() {
   /* ---- Final Component ---- */
 
   return (
-    <section className={`mrvPage replacementTop`}>
-      <section className={`mrvPanel__main `}>
+    <section className={`mrvPage replacementTop `}>
+      <section className={`mrvPanel__main color__surface__subdued`}>
         <ExchHeader
           headerTitle="Replacement Products"
           hasCluster={true}
@@ -72,8 +71,7 @@ function ReplacementItems() {
           navBtnClick={() => exchNav({ routeStr: "exchreason" })}
         />
         <ExchPizzaTracker />
-        <section className={`main_content cardContainer`}> {cardsArr}</section>
-
+        <section className={`main_content cardContainer`}>{cardsArr}</section>
         <section className={`footer_text`}>
           <p className={`tinyText warning`}></p>
         </section>

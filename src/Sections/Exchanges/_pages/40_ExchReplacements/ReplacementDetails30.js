@@ -21,15 +21,21 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
     <section className={`mrvPanel__side RI_Panel30 `}>
       <ExchHeader
         hasCluster={false}
-        headerTitle={"ReplacementItems"}
+        headerTitle={"Replacement Items"}
         hasProductName={false}
       />
       <section className={`main_content`}>
         <ProductInfo itemObj={exchItems["400"].returningItem} />
         <div className={`divider horizontal`} />
+        <p className={`panel30__section__label`}>Cost Differences:</p>
         <MoneyRow
-          title={`Replacement Items`}
+          title={`Replacement Items:`}
           moneyVal={parLocSt_Replace.replacementSum}
+        />
+        <MoneyRow
+          title={`Replacement Total:`}
+          moneyVal={parLocSt_Replace.replacementSum}
+          bigMoney={true}
         />
         <ReplacementDiscount
           parLocSt_Replace={parLocSt_Replace}

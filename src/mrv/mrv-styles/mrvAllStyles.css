@@ -179,6 +179,14 @@
   color: var(--color__red);
 }
 
+.mrv .panel30__section__label{
+  font-weight: 500;
+  font-size: .875rem;
+  line-height: 1.5rem;
+  color: var(--color__tertiary);
+  width: 100%;
+}
+
 
 /* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
 

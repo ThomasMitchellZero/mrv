@@ -28,20 +28,17 @@ function ReplacementCard({
 
   const makeCardRow = () => {
     itemArray.push(
-      <section className={`cardRow `}>
+      <section key={`${exchItemNum}`} className={`cardRow `}>
         <ProductInfo itemObj={returnItem} />
         <ProductInfo itemObj={replaceItem} />
       </section>
     );
   };
 
-  const populateTable = (targetObjRt)=>{
+  const populateTable = (targetObjRt) => {
     const thisReturnItem = targetObjRt.returningItem;
     const thisReplaceItem = targetObjRt.replacementItem;
-
-
-
-  }
+  };
 
   makeCardRow();
 

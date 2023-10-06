@@ -61,7 +61,7 @@ function ReplacementDiscount({ parLocSt_Replace, setParLocSt_Replace }) {
   return (
     <section className={`discountCtnr`}>
       <div className={`divider horizontal`} />
-
+      <p className={`panel30__section__label`}>Discount:</p>
       <section className={`inputsCtnr`}>
         <MRVinput helperText={`Discount %`} flex={`1 1 0rem`}>
           <input
