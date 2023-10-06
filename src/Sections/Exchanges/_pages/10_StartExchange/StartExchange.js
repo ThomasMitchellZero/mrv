@@ -11,6 +11,12 @@ import OrdersContext from "../../../../store/orders-context";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useExchItemTotaler } from "../../_Resources/customHooks/moneyHooks";
 
+import {
+  useDollarsToCents,
+  useCentsToDollars,
+  useMakeMergedItemData,
+} from "../../_Resources/customHooks/exchHooks";
+
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -24,6 +30,7 @@ function ExchStartExchange() {
   const productContext = useContext(ProductContext);
   const ordersContext = useContext(OrdersContext);
   const exchNav = useExchNav();
+  const makeMergedItemData = useMakeMergedItemData();
   const srt = saleRecordTypes;
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -50,20 +57,13 @@ function ExchStartExchange() {
     });
   };
 
-
-
   const mergeProdData = (itemNum, invoProductObj) => {
     //Merges the invoice information (e.g price) with full product-context info
-    // invoProductObj is separate because for child items, it can have a different source??
 
-    ///XXX This should JUST merge a given object with its invoice data.  No recursion.
-
-    let outMergedProdDetails = {
-      ...cloneDeep(productContext[itemNum]),
-      ...cloneDeep(invoProductObj),
-    };
-
-    delete outMergedProdDetails.quantity; // we're tracking more specific qtys.
+    let outMergedProdDetails = makeMergedItemData({
+      itemNum: itemNum,
+      invoItemDataRt: invoProductObj,
+    });
 
     // everything in this Rt is cloned, so it's safe to work.
     let thisProdChildRt = outMergedProdDetails.childItemsObj;
@@ -93,7 +93,7 @@ function ExchStartExchange() {
     for (const [thisInvoNum, thisInvObj] of Object.entries(invoiceItemsRt)) {
       const thisMergedProdInfo = mergeProdData(thisInvoNum, thisInvObj);
 
-      //XXX I think this is where we want to get the child products, run mergeProdData on them, and populate a new childItems obj. with returningItem and ReplacementItem data.  
+      //XXX I think this is where we want to get the child products, run mergeProdData on them, and populate a new childItems obj. with returningItem and ReplacementItem data.
 
       // populate the draft state
       draftSt.invoiceItems[thisInvoNum] = {
@@ -108,7 +108,7 @@ function ExchStartExchange() {
           deliveryQty: defaultVals.dvExchQty,
           productDetails: thisMergedProdInfo,
         },
-        childItems:{}
+        childItems: {},
       };
     }
   };
