@@ -120,6 +120,7 @@ const ProductContext = React.createContext({
     itemNum: "3333",
     modelNum: "3YY",
     description: "3 Year LPP",
+    specialCategories: { service: true },
   }),
 
   9900: new Product({
@@ -141,10 +142,21 @@ const ProductContext = React.createContext({
     modelNum: "SFL456",
     description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
     specialCategories: { SOS: true },
+    requiredChildItems: {"100001": 3},
     restockFee: 0.2,
     inStock: 99,
     dcLocations: ["BBB"],
   }),
+
+  100001: new Product({
+    img: hoses_img,
+    price: 910,
+    itemNum: "100001",
+    modelNum: "BFH01",
+    description: "Replacement Water Hose",
+    inStock: 99,
+    dcLocations: ["BBB"],
+  })
 });
 
 export default ProductContext;

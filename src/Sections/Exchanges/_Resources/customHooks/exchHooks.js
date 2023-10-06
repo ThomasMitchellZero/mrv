@@ -18,7 +18,9 @@ const useDollarsToCents = () => {
   };
 };
 
-const useGenerateChildren = () => {};
+const useGenerateChildren = () => {
+  return ()=>{}
+};
 
 const useMakeMergedItemData = () => {
   // Merge stock product data with sale-specific data.

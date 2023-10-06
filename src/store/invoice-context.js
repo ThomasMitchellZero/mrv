@@ -178,7 +178,11 @@ const invoiceObj = {
         price: 103115,
         tax: 11033,
         childItemsObj: {
-
+          100001:{
+            quantity: 1,
+            price: 800,
+            tax: 79,
+          }
         },
       }),
       9910: new InvoProduct({

@@ -26,6 +26,7 @@ class Product {
     description = "",
     categories = {}, // I changed this
     specialCategories = {},
+    requiredChildItems = {},
     restockFee = null,
     inStock = 99,
     dcLocations = {},
