@@ -6,15 +6,10 @@ import { defaultExchState } from "./_Resources/glossary/glossaryExch.js";
 
 import { Outlet } from "react-router";
 
-
-
 function Exchanges() {
   const [exchSession, setExchSession] = useImmer({
     ...defaultExchState,
-
   });
-
-  console.log(exchSession.defaultValues);
 
   return (
     <section className={`mrv`}>

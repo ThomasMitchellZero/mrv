@@ -79,10 +79,10 @@ function ExchStartExchange() {
       for (const [childItemNum, childProductObj] of Object.entries(
         thisProdChildRt
       )) {
-        thisProdChildRt[childItemNum] = mergeItemData(
-          childItemNum,
-          childProductObj
-        );
+        thisProdChildRt[childItemNum] = mergeItemData({
+          itemNum: childItemNum,
+          childProductObj,
+        });
       }
     }
     return outMergedProdDetails;
@@ -127,6 +127,7 @@ function ExchStartExchange() {
 
     // Loop through all items listed in Invoice and fully populate.
     for (const [thisInvoNum, thisInvObj] of Object.entries(invoItemsRt)) {
+      console.log(thisInvObj);
       const thisSwapsGroup = []; // the final output
 
       const thisMergedProdInfo = mergeItemData(thisInvoNum, thisInvObj);
@@ -163,6 +164,7 @@ function ExchStartExchange() {
 
       const activeInvoNum = draft.activeSaleRecord.invoiceNum;
       const invoiceItemsRt = invoiceContext[activeInvoNum].products;
+
       draft.allSwapGroups = makeAllSwaps(invoiceItemsRt);
     });
   };

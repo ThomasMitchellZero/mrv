@@ -30,6 +30,7 @@ const useMergeItemData = () => {
       // if product isn't from an invoice, this will be {}
       ...cloneDeep(invoItemDataRt),
     };
+    console.log(outMergedProdDetails);
 
     // Relevant quantities are tracked elsewhere, so delete?
     delete outMergedProdDetails.quantity;
@@ -44,7 +45,7 @@ const useMakeSwap = () => {
   // All qtys start at default values.
 
   const exchCtx = useOutletContext();
-  console.log(exchCtx);
+
   const defaultVals = exchCtx.exchSession.defaultValues;
 
   const makeSwapObj = ({
