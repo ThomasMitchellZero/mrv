@@ -16,6 +16,19 @@ RULE 5:
 Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in very short code, you still have to understand what it does later.  There are a lot of regex expressions that are 1-liners, but we don't know regex and it looks hard AF to read. If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  
 
 
+Root-Ripping check:
+We want to be clean and clear to make it easier on ourselves.  Enforced conscientiousness.  But some of the days we regret the most are the ones where we code for a couple of days and at the end we get pretty much the same output we had before.  
+
+    Rip away:
+
+    -We have a specific reason to believe that the current model won't handle something we need to do.
+    -The current model is unintuitive AND we have a clear idea of how to simplify it.
+    -We expect to have numerous future dependencies on the roots and doing it later only makes more work.
+    -We have a clear understanding of the advantage we expect to get.
+
+
+
+
 
 
 
@@ -5848,11 +5861,123 @@ And then after that it should just be cosmetic shit?  I feel like I'm pretty nea
 5:20.  It's not perfect - I'm still not getting the dollar value to display cents after direct input - but I think it's good enough to show that this is a pretty good user experience.
 
 So let's get the cosmetic shit together so this isn't an embarrassment tomorrow and then we can fiddle with some other stuff.
-    - Need titles on the input fields.
+    X - Need titles on the input fields.
     X - handling for NaN values
-    -Proper spacing
-    -Get rid of backgrounds
-    -Figure out why I am getting a 'key' error.
-    -Show both Replacement Items + Replacement Items Total
+    X -Proper spacing
+    X -Get rid of backgrounds
+    X -Figure out why I am getting a 'key' error.
+    X -Show both Replacement Items + Replacement Items Total
+
+6 Oct 2023
+3:45.
+
+I could keep cranking on my regular job, but since I am going into work on Monday I'm gonna work on this.  Man, I would LOVE to have my work with Replacement Items all settled come Monday.  Can we make that happen?  We need:
+
+    ---- CHILD ITEMS ----
+
+    -A format for how child-item pairs are stored, probably at the top level of each ExchItem object.
+    -A loop for populating those child items.  Make this as a hook, since we might need it more than once.  Like in an unlike exchange, we need to populate the child items again.
+    -A way of representing non-existent items.  For instance, the user doesn't return a hose, but the replacement needs a hose.
+    -Handling mandatory child items.  Even in a Like for Like exchange, we can't re-use the hose.  The exchange price must be equal, but we can still charge them for the hose.
+
+    ---- MONEY ----
+    -A way of getting the money total for each ExchItem Obj, including child items.
+    -A way of getting the top-level money.
+    -Should also probably be a hook, since we should be re-deriving this with every change and not storing it.  
+
+    ---- Child Wrangler ----
+    
+    Items and Services should be handled differently.
+        
+        -Child Items: 
+            -Return Qty is specified by the user, but for the replacements, the Child Qty is always equal to the Parent Qty.
+            -I think we can use our normal L4L rules here - IF the Replacement Item# is identical to the Return Item#, make the per-unit cost the same.  
+
+        -Services: Return Qty starts out equal to Replace Qty, BUT Replace Qty CAN be 0 if the user removes it.  The logic is a little more complex, too.  
+
+    ---- Select Items To Exchange ----
+        Also complicated.  We do still need to preserve the parent/child relationship in some fashion, because that's relevant in future stages.  
+        
+        -Some crazy part of me is wondering if it's not easier just to treat ALL items as equivalent in the top level, but have an extra Parent property.  
+            -Deletion gets kind of weird.  Is that a deal-breaker?
+
+        -Maybe I get the best of both worlds by having some sort of ExchItem class or hook from which I build everything?  That way I can at least be sure that the format for each object is identical (for all functions that process items?)
+
+6:30.  
+Getting kind of tired here and there's so much more to do tomorrow.  I've got a few good ideas to pursue.  I really like the idea of a universal ExchItem format for both parents and children.  I'll need some conditional behavior for parents and children, but I *hope* that the logic is simple?
+
+7 Oct 2023
+10:15.
+If you don't start a Saturday session with 45 minutes of reading about submarines... are you really even programming?  
+
+It's good.  It's all good.  This is still a decent start time and I'm gonna have a good day.  And be smart.  
+
+OK, so first up.  I need to move the function that builds out an ExchItem into a hook.  We'll definitely need it for Like for Unlike exchanges.  A good conceptual model of this is going to be crucial.  I don't want to just sling code, although I wish I was good enough to do that.
+
+Also, not related but I just did a little teste (heh) and it turns out you can return a named function from a custom hook, and you can assign that output to a variable name of your choice, so that allows me to use recursion if I want it.
+
+New term - Swap, or SwapObj.  ExchItem is a misleading term, and it's misleading me.  
+
+    -From a given InvoItem#, I need to be able to create a full Swap object.  
+        - I THINK it's OK to start all values at 0? 
+        
+
+    Scenarios where a SwapObj is CREATED
+        -Initial.  QtySold comes from invoice, all other values should start at 0?
+        -A replacement with different children?  It shouldn't be, right?  Children are also full Swaps, they are just nested within a parent Swap.  
+        
+        -This could actually happen with some frequency.  The Replacement could still have required accessories even if the Return doesn't (either because they aren't being swapped or because it was never sold with them)
+
+        -The other way to handle this:  I could just keep ALL the child swaps, and conditionally render based on Qty.  
+            -DOES NOT enable Make All Swaps Once. I would still need the ability to create new Swap objects at Choose replacements, because if the Replacement has a reqAccessory and the parent doesn't, I'm still a little hosed (heh).
+            -I think(?) this would let me have just a single Swaps state, instead of separate-but-compatible InvoiceItems and itemsInExchange.  Makes it easier to preserve state when going back to the VERY start.
+                -This is the kind of questionable root-ripping I should probably avoid.  Trying to be smart today.
+        
+        -Once set, the Returning items (both parents and children) should never change.
+
+        -I am wondering.  Instead of having the Children as a property of the parent, could we just have it as:
+            400:{
+                Product:{
+                    Sold Qty
+                    Exch Qty
+                    ReturningItem:{}
+                    ReplacementItem:{}
+                }
+                Attachment:{
+                    Sold Qty
+                    Exch Qty
+                    ReturningItem:{}
+                    ReplacementItem:{}
+                }
+                3YLPP:{
+                    Sold Qty
+                    Exch Qty
+                    ReturningItem:{}
+                    ReplacementItem:{}
+                }
+            }
+
+        Is that good?  It makes loops a little more straightforward, since we don't have to have a separate look for the kids.  Not trivial, since that really does reduce some cognitive complexity.  Deletion would require a special check, since one of the conditions requires us to delete the whole thing and the others do not.  
+
+        I actually kind of like it?  I actually kind of like it.  The only really hairy part is putting these together from the invoices, but I actually kind of like it.
+
+        In almost every render, I'm going to need to conditionally exclude some items, so I could just write a custom hook with parameters where I can specify what I am looking for.  So on each loop I just run that at the top, and if the item fails the check I just skip ahead to the next one.  AND, if I am doing that, I can store EVERYTHING all in One Big Fine State.  Whew.  OK.  Lots to do, but I think this is a good direction.  
+
+
+            
+
+
+
+
+
+
+    
+    
+    
+    
+
+
+
+
 
 
