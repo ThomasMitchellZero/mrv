@@ -18,7 +18,7 @@ const useDollarsToCents = () => {
   };
 };
 
-const useMakeMergedItemData = () => {
+const useMergeItemData = () => {
   // Merge stock product data with sale-specific data.
 
   const exchCtx = useOutletContext();
@@ -39,13 +39,42 @@ const useMakeMergedItemData = () => {
   };
 };
 
-const useMakeExchItem = () => {
+const useMakeSwap = () => {
   // purpose is to produce a fully-populated ExchItem obj.
-  // All qtys start at 0.
-  return ({ returnItemInvoProd, replaceItemNum }) => {};
+  // All qtys start at default values.
+
+  const exchCtx = useOutletContext();
+  console.log(exchCtx);
+  const defaultVals = exchCtx.exchSession.defaultValues;
+
+  const makeSwapObj = ({
+    returnItemInfo = {},
+    replaceItemInfo = returnItemInfo,
+  }) => {
+    // populate the Swap object
+    const outSwapObj = {
+      returningItem: {
+        pickupQty: defaultVals.dvPickupQty,
+        productDetails: returnItemInfo,
+        itemDispo: null,
+      },
+      replacementItem: {
+        deliveryQty: defaultVals.dvExchQty,
+        productDetails: replaceItemInfo,
+      },
+    };
+    return outSwapObj;
+  };
+
+  return makeSwapObj;
 };
 
 const useTestes = () => {
+  const exchCtx = useOutletContext();
+  console.log(exchCtx.session);
+  const defaultVals = exchCtx.session.defaultValues;
+
+  
   const testesOutput = (didOnce = true) => {
     console.log("By the Power Of Left And Right");
     if (didOnce) {
@@ -59,6 +88,7 @@ const useTestes = () => {
 export {
   useCentsToDollars,
   useDollarsToCents,
-  useMakeMergedItemData,
+  useMergeItemData,
+  useMakeSwap,
   useTestes,
 };

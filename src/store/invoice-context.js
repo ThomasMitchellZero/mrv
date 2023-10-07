@@ -2,7 +2,11 @@ import React from "react";
 
 import invoicePaymentPricer from "../components/global_functions/invoicePaymentPricer";
 
-import { Invoice_SR, InvoProduct } from "../globalFunctions/globalJS_classes";
+import {
+  Invoice_SR,
+  InvoProduct,
+  ProdClass,
+} from "../globalFunctions/globalJS_classes";
 
 import tenderTypes from "../components/global_functions/tenderTypes";
 
@@ -174,27 +178,31 @@ const invoiceObj = {
     },
     products: {
       9900: new InvoProduct({
+        prodClass: ProdClass({ mainItem: true }),
         quantity: 2,
         price: 103115,
         tax: 11033,
         childItemsObj: {
-          100001:{
+          100001: {
+            prodClass: ProdClass({ accessory: true }),
             quantity: 1,
             price: 800,
             tax: 79,
-          }
+          },
         },
       }),
       9910: new InvoProduct({
+        prodClass: ProdClass({ mainItem: true }),
         quantity: 2,
         price: 99877,
         tax: 9776,
         childItemsObj: {
           3333: new InvoProduct({
+            prodClass: ProdClass({LPP_3yr:true}),
             quantity: 1,
             price: 4500,
             tax: 500,
-          })
+          }),
         },
       }),
 
@@ -202,7 +210,7 @@ const invoiceObj = {
         quantity: 2,
         price: 40700,
         tax: 4066,
-      })
+      }),
     },
   }),
 

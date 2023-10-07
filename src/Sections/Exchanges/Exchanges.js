@@ -14,6 +14,8 @@ function Exchanges() {
 
   });
 
+  console.log(exchSession.defaultValues);
+
   return (
     <section className={`mrv`}>
       <Outlet

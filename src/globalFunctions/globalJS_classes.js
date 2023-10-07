@@ -30,6 +30,7 @@ class Product {
     restockFee = null,
     inStock = 99,
     dcLocations = {},
+    cat,
   }) {
     this.img = img;
     this.price = price;
@@ -38,13 +39,36 @@ class Product {
     this.description = description;
     this.categories = categories;
     this.specialCategories = specialCategories;
+    this.reqAccessories = reqAccessories;
     this.restockFee = restockFee;
     this.inStock = inStock;
     this.dcLocations = dcLocations;
   }
 }
 
-export { Product };
+const ProdClass = ({
+  mainItem = false,
+  service = false,
+  LPP_3yr = false,
+  LPP_5yr,
+  accessory = false,
+}) => {
+  const classStr = mainItem
+    ? "mainItem"
+    : service
+    ? "service"
+    : LPP_3yr
+    ? "LPP_3yr"
+    : LPP_5yr
+    ? "LPP_5yr"
+    : accessory
+    ? "Accessory"
+    : null;
+
+  return classStr;
+};
+
+export { Product, ProdClass };
 
 //---- Sales Record ----
 
@@ -62,33 +86,22 @@ export { saleRecordTypes };
 //---- Orders ----
 
 class InvoProduct {
-  constructor({ quantity = 1, price = 100, tax = 10, childItemsObj = {} }) {
+  constructor({
+    quantity = 1,
+    price = 100,
+    tax = 10,
+    childItemsObj = {},
+    prodClass = "",
+  }) {
     this.quantity = quantity;
     this.price = price;
     this.tax = tax;
     this.childItemsObj = childItemsObj;
+    this.prodClass = prodClass;
   }
 }
 
 /*
-  53451: {
-    invoiceDetails: {
-      store: 1234,
-      date: new Date(2022, 3, 8),
-      payment: {
-        [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
-      },
-
-      orderNum: "33334444",
-      genericSOS: true,
-    },
-
-    products: {
-      10001: { quantity: 2, price: 7766, tax: 720, delivery: "delivered" },
-      10002: { quantity: 6, price: 234, tax: 22, delivery: "delivered" },
-      10003: { quantity: 3, price: 6012, tax: 601, delivery: "due" },
-    },
-  },
 
 */
 

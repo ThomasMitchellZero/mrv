@@ -73,7 +73,7 @@ const defaultExchState = {
     right: "",
     mainCSSclass: "",
   },
-
+  allSwapGroups:[],
   defaultValues: setDefaultValues({ fastMode: true }),
   activeSaleRecord: null,
   invoiceItems: {},
