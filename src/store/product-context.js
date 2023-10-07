@@ -142,7 +142,7 @@ const ProductContext = React.createContext({
     modelNum: "SFL456",
     description: "Samsung 5.1-cu ft High Efficiency Top Load Washer",
     specialCategories: { SOS: true },
-    requiredChildItems: {"100001": 3},
+    reqAccessories: {"100001": 3},
     restockFee: 0.2,
     inStock: 99,
     dcLocations: ["BBB"],

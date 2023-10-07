@@ -15,6 +15,7 @@ import {
   useDollarsToCents,
   useCentsToDollars,
   useMakeMergedItemData,
+  useTestes,
 } from "../../_Resources/customHooks/exchHooks";
 
 import { useContext } from "react";
@@ -44,6 +45,9 @@ function ExchStartExchange() {
   };
 
   // Sale Record-specific handlers
+
+  const ballerFn = useTestes();
+  ballerFn();
 
   const setInvoice = (invoNum) => {
     return makeSrObj({ type: srt.invoice, key: invoNum, invoiceNum: invoNum });

@@ -18,34 +18,47 @@ const useDollarsToCents = () => {
   };
 };
 
-const useGenerateChildren = () => {
-  return ()=>{}
-};
-
 const useMakeMergedItemData = () => {
   // Merge stock product data with sale-specific data.
 
   const exchCtx = useOutletContext();
-  const exchItems = exchCtx.exchSession.itemsInExchange;
-
-  const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
 
-  return ({ itemNum, invoItemDataRt = {}, prodQty }) => {
+  return ({ itemNum, invoItemDataRt = {} }) => {
     let outMergedProdDetails = {
       ...cloneDeep(productContext[itemNum]),
       // if product isn't from an invoice, this will be {}
       ...cloneDeep(invoItemDataRt),
     };
 
-    // Because this may need to be provided independently
-    if (prodQty) {
-      outMergedProdDetails.quantity = prodQty;
-    }
+    // Relevant quantities are tracked elsewhere, so delete?
+    delete outMergedProdDetails.quantity;
 
     // everything in this Rt is cloned, so it's safe to work.
     return outMergedProdDetails;
   };
 };
 
-export { useCentsToDollars, useDollarsToCents, useMakeMergedItemData };
+const useMakeExchItem = () => {
+  // purpose is to produce a fully-populated ExchItem obj.
+  // All qtys start at 0.
+  return ({ returnItemInvoProd, replaceItemNum }) => {};
+};
+
+const useTestes = () => {
+  const testesOutput = (didOnce = true) => {
+    console.log("By the Power Of Left And Right");
+    if (didOnce) {
+      console.log("ding");
+      testesOutput(false);
+    }
+  };
+  return testesOutput;
+};
+
+export {
+  useCentsToDollars,
+  useDollarsToCents,
+  useMakeMergedItemData,
+  useTestes,
+};
