@@ -126,20 +126,23 @@ function ExchStartExchange() {
     const outAllSwapsGroup = [];
 
     // Loop through all items listed in Invoice and fully populate.
-    for (const [thisInvoNum, thisInvObj] of Object.entries(invoItemsRt)) {
-      console.log(thisInvObj);
-      const thisSwapsGroup = []; // the final output
-
-      const thisMergedProdInfo = mergeItemData(thisInvoNum, thisInvObj);
+    for (const [thisInvoItemNum, thisInvObj] of Object.entries(invoItemsRt)) {
+      const thisMergedProdInfo = mergeItemData({
+        itemNum: thisInvoItemNum,
+        invoItemDataRt: thisInvObj,
+      });
       const thisSwap = makeSwap({ returnItemInfo: thisMergedProdInfo });
-      thisSwapsGroup.push(thisSwap);
 
       const thisProdChildRt = thisMergedProdInfo?.childItemsObj;
 
+      // START HERE: Needs to return as a flat array and it is not.  
+
       // If this product has any child items...
-      if (!isEmpty(thisProdChildRt)) {
-        makeAllSwaps(thisProdChildRt);
-      }
+      const childSwaps = !isEmpty(thisProdChildRt)
+        ? makeAllSwaps(thisProdChildRt)
+        : [];
+
+      const thisSwapsGroup = [thisSwap, ...childSwaps];
 
       outAllSwapsGroup.push(thisSwapsGroup);
     }
