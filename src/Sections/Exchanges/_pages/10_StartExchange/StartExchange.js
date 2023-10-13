@@ -123,19 +123,29 @@ function ExchStartExchange() {
   const makeAllSwaps = (invoItemsRt) => {
     // Recursively make swap groups out of all items and children
 
-    const outAllSwapsGroup = [];
+    const outAllSwapsGroup = {};
 
     // Loop through all items listed in Invoice and fully populate.
     for (const [thisInvoItemNum, thisInvObj] of Object.entries(invoItemsRt)) {
+
+
+      // this is a mess.  I need to think more about what this is and what it represents.  
+      const thisProdClass = thisInvObj.prodClass
+      const thisSwapGroupRt = outAllSwapsGroup[thisInvoItemNum]
+      outAllSwapsGroup[thisInvoItemNum] = {};
+
+
+
       const thisMergedProdInfo = mergeItemData({
         itemNum: thisInvoItemNum,
         invoItemDataRt: thisInvObj,
       });
+
       const thisSwap = makeSwap({ returnItemInfo: thisMergedProdInfo });
 
       const thisProdChildRt = thisMergedProdInfo?.childItemsObj;
 
-      // START HERE: Needs to return as a flat array and it is not.  
+      // START HERE: Needs to return as a flat array and it is not.
 
       // If this product has any child items...
       const childSwaps = !isEmpty(thisProdChildRt)

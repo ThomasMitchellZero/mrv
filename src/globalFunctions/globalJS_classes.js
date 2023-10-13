@@ -50,7 +50,7 @@ const ProdClass = ({
   mainItem = false,
   service = false,
   LPP_3yr = false,
-  LPP_5yr,
+  LPP_5yr = false,
   accessory = false,
 }) => {
   const classStr = mainItem

@@ -191,6 +191,7 @@ const invoiceObj = {
           },
         },
       }),
+      
       9910: new InvoProduct({
         prodClass: ProdClass({ mainItem: true }),
         quantity: 2,
@@ -198,7 +199,7 @@ const invoiceObj = {
         tax: 9776,
         childItemsObj: {
           3333: new InvoProduct({
-            prodClass: ProdClass({LPP_3yr:true}),
+            prodClass: ProdClass({ LPP_3yr: true }),
             quantity: 1,
             price: 4500,
             tax: 500,
@@ -207,6 +208,7 @@ const invoiceObj = {
       }),
 
       400: new InvoProduct({
+        prodClass: ProdClass({ mainItem: true }),
         quantity: 2,
         price: 40700,
         tax: 4066,

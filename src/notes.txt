@@ -5963,12 +5963,40 @@ New term - Swap, or SwapObj.  ExchItem is a misleading term, and it's misleading
 
         In almost every render, I'm going to need to conditionally exclude some items, so I could just write a custom hook with parameters where I can specify what I am looking for.  So on each loop I just run that at the top, and if the item fails the check I just skip ahead to the next one.  AND, if I am doing that, I can store EVERYTHING all in One Big Fine State.  Whew.  OK.  Lots to do, but I think this is a good direction.  
 
+    OK, so how to do this?  I have a new branch.  I can use the fact that I am about to cause a shitload of breaks to find all the places I need to switch to the Swaps.
 
+    2:55.
+    Lost a little velocity.  I should actually be excited here.  I have a pretty clear direction.  I do just want to put down in advance: I'm going ahead with the "All swaps in groups as siblings", but I have this bad feeling that the solution might be a little too cute and I might regret this later.
+
+    OK, now another question.  I am WONDERING if I should make represent each SwapGroup as an array?  I can get to each item via its index, so I don't have to loop through arrays.  I don't THINK I need the keys, right?  
+
+    Case for Object:
+        +If you find even one example where you need to get back to a specific spot, you're going to have to go back and make it all an object.  
+        +Our main 'fear' is 'what do we do if there's more than 1 accessory item?'  Well, we just don't let that happen!  
+
+    Case for Array:
+        We are struggling with what to even call the items if we were to make them an object.  We were literally thinking about using numbers as our keys. That should be a sign to us that an Array is what we want.  Re-accessing any particular thing is easy - we're just using index instead of key.  
+        -Basically every damn time we want to do anything, we're converting the object to an array.  Why not just be an array?
+        -Accessing a particular element shouldn't be hard.  We just target our shared functions with indices rather than keys.  
+        -We haven't really tried this pattern before.  Why not see what it's worth?  Worst case, we learn something.
+
+    I also kind of like the idea of creating the Swaps state in parallel, keeping it separate from the old states, and switching everything in parallel.  
+
+        -A function that produces a new Swap from a set of inputs.
+            -All swaps blank and populate later?
             
+12 Oct 2023
 
+5:00.
+OK, got a date at 6:30 so this is going to be a short-ish one.  What can I get done in an hour?  I was thinking last night about the organization.  I feel like I NEED to name the rows.  They're going to behave differently based on type, and if I am adding in an Accessories row, I need to know where to put it.
 
+13 Oct 2023
+4:05.  Finally done with my real job and ready to get cranking.  So in the shower yesterday, my thought was that recursion might not be a great fit for this.  
+    -There are some slight differences (where the output is ending up)
+    -I'm not sure it will be clear to Future Me why I'm handling this recursively.
+    -We're only going one layer deep into Child Items.  It's not like solving recursion really cleans up the code.  
 
-
+I'm going to at least try it without recursion and see where we end up.  
 
 
     
