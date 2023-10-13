@@ -30,7 +30,6 @@ const useMergeItemData = () => {
       // if product isn't from an invoice, this will be {}
       ...cloneDeep(invoItemDataRt),
     };
-    console.log(outMergedProdDetails);
 
     // Relevant quantities are tracked elsewhere, so delete?
     delete outMergedProdDetails.quantity;
@@ -70,26 +69,10 @@ const useMakeSwap = () => {
   return makeSwapObj;
 };
 
-const useTestes = () => {
-  const exchCtx = useOutletContext();
-  console.log(exchCtx.session);
-  const defaultVals = exchCtx.session.defaultValues;
-
-  
-  const testesOutput = (didOnce = true) => {
-    console.log("By the Power Of Left And Right");
-    if (didOnce) {
-      console.log("ding");
-      testesOutput(false);
-    }
-  };
-  return testesOutput;
-};
-
 export {
   useCentsToDollars,
   useDollarsToCents,
   useMergeItemData,
   useMakeSwap,
-  useTestes,
+
 };

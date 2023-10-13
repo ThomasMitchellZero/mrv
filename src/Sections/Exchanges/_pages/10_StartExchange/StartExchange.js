@@ -12,14 +12,10 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import { useExchItemTotaler } from "../../_Resources/customHooks/moneyHooks";
 
 import {
-  useDollarsToCents,
-  useCentsToDollars,
   useMergeItemData,
   useMakeSwap,
-  useTestes,
 } from "../../_Resources/customHooks/exchHooks";
 
-import { useMakeWAP } from "../../_Resources/customHooks/useMakeWAP";
 
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -61,6 +57,8 @@ function ExchStartExchange() {
       invoiceNum: ordersContext[orderNum].invoice,
     });
   };
+
+  //// Post-swap, delete from HERE ......
 
   const mergeProdData = (itemNum, invoProductObj) => {
     //Merges the invoice information (e.g price) with full product-context info
@@ -118,21 +116,24 @@ function ExchStartExchange() {
     }
   };
 
+
+  // To HERE....................
+
+
+
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
-  const makeSwapGroup = ({
-    itemNum,
-    itemObj,
-    outputTargetObj,
-    outputKey = itemObj.prodClass,
-    outputTarget,
-  }) => {
+  const makeSwapGroup = ({ itemNum, itemObj, targetObj }) => {
+
+    //Combine the invoice and product data
     const mergedProdInfo = mergeItemData({
       itemNum: itemNum,
       invoItemDataRt: itemObj,
     });
 
-    outputTargetObj[outputKey] = makeSwap({
+    //Make a new swap, assign to target with key of prodClass
+    targetObj[mergedProdInfo.prodClass] = makeSwap({
+      // Only one argument b/c Like4Like is default
       returnItemInfo: mergedProdInfo,
     });
 
@@ -145,39 +146,12 @@ function ExchStartExchange() {
         makeSwapGroup({
           itemNum: childItemNum,
           itemObj: childItemObj,
-          outputTargetObj: outputTargetObj,
+          targetObj: targetObj,
         });
       }
     }
   };
 
-  const makeAllSwaps = () => {
-    // Make swap groups out of all items and children
-
-    const activeInvoNum = exchCtx.exchSession.activeSaleRecord.invoiceNum;
-    const invoiceItemsRt = invoiceContext[activeInvoNum].products;
-
-    const outAllSwapsGroup = {};
-    const outAllSwapsArr = [];
-
-    // Loop through all items listed in Invoice and fully populate.
-    for (const [thisInvoItemNum, thisInvObj] of Object.entries(
-      invoiceItemsRt
-    )) {
-      const outThisSwapGroup = {};
-      const thisProdClass = thisInvObj.prodClass;
-
-      const thisMergedProdInfo = mergeItemData({
-        itemNum: thisInvoItemNum,
-        invoItemDataRt: thisInvObj,
-      });
-
-      const thisSwap = makeSwap({ returnItemInfo: thisMergedProdInfo });
-
-      const thisProdChildRt = thisMergedProdInfo?.childItemsObj;
-    }
-    return outAllSwapsGroup;
-  };
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
     setExchState((draft) => {
@@ -201,11 +175,11 @@ function ExchStartExchange() {
       let outAllSwaps = {};
 
       for (const [thisInvoKey, thisInvoObj] of Object.entries(invoiceItemsRt)) {
+        outAllSwaps[thisInvoKey] = {};
         makeSwapGroup({
           itemNum: thisInvoKey,
           itemObj: thisInvoObj,
-          outputTargetObj: outAllSwaps,
-          outputKey: thisInvoKey,
+          targetObj: outAllSwaps[thisInvoKey],
         });
       }
 

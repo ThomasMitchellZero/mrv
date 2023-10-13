@@ -5998,8 +5998,33 @@ OK, got a date at 6:30 so this is going to be a short-ish one.  What can I get d
 
 I'm going to at least try it without recursion and see where we end up.  
 
+If I DID want to do this via recursion, I am wondering if I could?  It just feels weird to be writing damn near the same code twice.   Getting the output to wind up in the same place is where I'm getting stuck.  
+    -I guess the very dumbest solution would be to provide a parameter for the destination to dump the output in?  Remember, I'm just defining the function, not calling it yet.
 
-    
+Let's try defining what we want the recursive function to do.
+
+    -Given an object containing (n) InvoItems:
+        -Loop through those invoice items. For each:
+            -Merge InvoItem data and product data
+            -Create a new swap from this
+            -Output to ???
+    -I just had a thought.  The handling of the Main item and any children is the same.  IF I am recurring, that's where it needs to happen.  MakeSwapGroup and makeAllSwaps are the separate functions.  
+
+    -Another problem.  I need all the nested swaps within the set to output based on their prodClass, but the SwapGroup itself needs to be assigned to something else.  (thinking either original prod num. or array index)  
+
+
+6:05.
+OK, it's actually kind of working, in the sense that I am doing some kind of recursion and populating accordingly.  The issue is that my child elements are ending up outside the group, and my Main items aren't listed as such.  OK.  I can deal with that.  
+    -I think I understand what I'm running into.  I JUST need to make all the swaps, and for each swap, including the main one, the key will always be the ProdType.
+
+7:05.  OK!  It's working!  For tomorrow, I will need to create filtering hook.  We're going to have a single store of product data, so we will need 
+    -a way to conditionally sort the product types.  
+    -re-mapping the UI and logic to the SwapGroups.  
+    -Then I can work on the money.  
+
+If I am smart about this, I might want to rig it so NOTHING depends on the ProdClass keys, and instead just check ProdClass values.  OK.  Let's swalk and think.  But I think I need to make a decision on this because whatever I choose, there's gonna be a LOT of root-ripping if I guess wrong.  
+
+
     
     
     

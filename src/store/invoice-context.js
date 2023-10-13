@@ -204,6 +204,12 @@ const invoiceObj = {
             price: 4500,
             tax: 500,
           }),
+          100001: {
+            prodClass: ProdClass({ accessory: true }),
+            quantity: 1,
+            price: 800,
+            tax: 79,
+          },
         },
       }),
 
