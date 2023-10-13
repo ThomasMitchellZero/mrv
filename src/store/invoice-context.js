@@ -191,7 +191,7 @@ const invoiceObj = {
           },
         },
       }),
-      
+
       9910: new InvoProduct({
         prodClass: ProdClass({ mainItem: true }),
         quantity: 2,

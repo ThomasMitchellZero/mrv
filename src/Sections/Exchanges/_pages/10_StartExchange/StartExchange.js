@@ -120,21 +120,52 @@ function ExchStartExchange() {
 
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
-  const makeAllSwaps = (invoItemsRt) => {
-    // Recursively make swap groups out of all items and children
+  const makeSwapGroup = ({
+    itemNum,
+    itemObj,
+    outputTargetObj,
+    outputKey = itemObj.prodClass,
+    outputTarget,
+  }) => {
+    const mergedProdInfo = mergeItemData({
+      itemNum: itemNum,
+      invoItemDataRt: itemObj,
+    });
+
+    outputTargetObj[outputKey] = makeSwap({
+      returnItemInfo: mergedProdInfo,
+    });
+
+    const thisProdChildRt = mergedProdInfo?.childItemsObj;
+
+    if (!isEmpty(thisProdChildRt)) {
+      for (const [childItemNum, childItemObj] of Object.entries(
+        thisProdChildRt
+      )) {
+        makeSwapGroup({
+          itemNum: childItemNum,
+          itemObj: childItemObj,
+          outputTargetObj: outputTargetObj,
+        });
+      }
+    }
+  };
+
+  const makeAllSwaps = () => {
+    // Make swap groups out of all items and children
+
+    const activeInvoNum = exchCtx.exchSession.activeSaleRecord.invoiceNum;
+    const invoiceItemsRt = invoiceContext[activeInvoNum].products;
 
     const outAllSwapsGroup = {};
+    const outAllSwapsArr = [];
 
     // Loop through all items listed in Invoice and fully populate.
-    for (const [thisInvoItemNum, thisInvObj] of Object.entries(invoItemsRt)) {
-
-
-      // this is a mess.  I need to think more about what this is and what it represents.  
-      const thisProdClass = thisInvObj.prodClass
-      const thisSwapGroupRt = outAllSwapsGroup[thisInvoItemNum]
-      outAllSwapsGroup[thisInvoItemNum] = {};
-
-
+    for (const [thisInvoItemNum, thisInvObj] of Object.entries(
+      invoiceItemsRt
+    )) {
+      const outThisSwapGroup = {};
+      const thisProdClass = thisInvObj.prodClass;
 
       const thisMergedProdInfo = mergeItemData({
         itemNum: thisInvoItemNum,
@@ -144,17 +175,6 @@ function ExchStartExchange() {
       const thisSwap = makeSwap({ returnItemInfo: thisMergedProdInfo });
 
       const thisProdChildRt = thisMergedProdInfo?.childItemsObj;
-
-      // START HERE: Needs to return as a flat array and it is not.
-
-      // If this product has any child items...
-      const childSwaps = !isEmpty(thisProdChildRt)
-        ? makeAllSwaps(thisProdChildRt)
-        : [];
-
-      const thisSwapsGroup = [thisSwap, ...childSwaps];
-
-      outAllSwapsGroup.push(thisSwapsGroup);
     }
     return outAllSwapsGroup;
   };
@@ -178,7 +198,18 @@ function ExchStartExchange() {
       const activeInvoNum = draft.activeSaleRecord.invoiceNum;
       const invoiceItemsRt = invoiceContext[activeInvoNum].products;
 
-      draft.allSwapGroups = makeAllSwaps(invoiceItemsRt);
+      let outAllSwaps = {};
+
+      for (const [thisInvoKey, thisInvoObj] of Object.entries(invoiceItemsRt)) {
+        makeSwapGroup({
+          itemNum: thisInvoKey,
+          itemObj: thisInvoObj,
+          outputTargetObj: outAllSwaps,
+          outputKey: thisInvoKey,
+        });
+      }
+
+      draft.allSwapGroups = outAllSwaps;
     });
   };
 
