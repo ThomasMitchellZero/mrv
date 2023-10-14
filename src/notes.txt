@@ -6057,9 +6057,43 @@ OK, so first... what am I actually checking?
 12:05.  The AllSwaps state is ready, and so is the filter.  Now I need to start the re-mappening.
     
     
-    
+2:30.
+    I can see that constantly re-looping through the swaps of the swap groups is going to be a pain in the dick.  I am wondering if there is a way I could handle that with a custom hook.  There's gotta be, right?  And while this feels like extra work, we were going to hit this as soon as we began dealing with the accessories and LPPs.  
 
+    I think there's two ways I could do this.  The easiest way is just to have it return an Array of 
+    {
+        swapGroupKey,
+        swapItemKey,
+        swapItemValue,
+    }
 
+    At which point I just iterate through the array.  That's really not bad at all.  It gives me a lot of flexibility.
+
+    OK, so it's working-ish.  Now wondering if I could have the hook just return the array, instead of a function that produces the array.  Update: Got it working, produces the array just fine, although it is still printing 4x :/  OK, let's drink some lunch and coffee.
+
+    -Do we want this as a state?  Because I think we could have that.  Like, just set it when the original SwapGroups are created?  I guess we kind of use the contents for checks, but in that case we kind of DON'T want it as a state, because we want it refreshing on every re-render.  
+        
+    -How do we handle deletion?  We can't just remove it from the table b/c we'd need it if the user back-tracks.  
+            -have another hook that just sets the Return and Replace qtys of the parent and its children to 0?  Or just the parent?
+            -We could also have a Deleted state, but I THINK we would have to apply that to the kids.  
+            -This is also something we can put on the back burner.  I don't think we need to solve it for a while.  
+        
+5:50.
+Day is kind of getting away from me, but I really am making progress.  Getting everything remapped and working would be a nice win, and anything more is even nicer.
+    I'm HOPING the delivery groups won't be so bad.  IDEALLY we're just re-mapping the delivery grouper from ExchItems to allSwapGroups.  
+
+    The only kicker is the handling of the child items.  They need to go with their parents.  
+
+    OK, wondering if I am going about this in the wrong way.  Like, kind of?  I don't THINK I need all the actual item routes themselves - or maybe I do?  I don't have the ability to delete an item and I don't think we should allow it, so at this point the parent-child relationships don't mean anything.  I also need to count ALL quantities.  So I guess yes, I am indeed looping through everything.  
+
+7:10.
+Well, somehow I got the remapping done.  Everything is working except for ChooseReplacements, which I have not touched.  Still QUITE a bit to do:
+    -Deletion handling
+    -Money
+    -Handling of accessory items for replacements.
+    -Choosing a replacement.
+
+But I think this was a good, valid root-rip.  The 'Swap' model really helped this thing out, and flattening + standardizing the child items just makes everything much more smooth and clear.  Even though I slept like ass I pulled out a very good day.  I'd take a day like this every time.  
 
 
 
