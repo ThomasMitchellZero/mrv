@@ -79,7 +79,6 @@ function ExchScheduleTimes() {
         appt={apptKey}
         parentLocSt={locSt_Schedule}
         setparentLocSt={setlocSt_Schedule}
-
         setDelivFn={setActiveDeliveryFn}
       />
     );

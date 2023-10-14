@@ -2,23 +2,19 @@ import classes from "./_ScheduleTimesCSS.module.css";
 
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 
+import { useSwapGroupsArr } from "../../_Resources/customHooks/exchHooks";
+
 import { useOutletContext } from "react-router";
 
 import { MdArrowForward } from "react-icons/md";
 
 import { useImmer } from "use-immer";
 
-function ApptCardFull({
-  appt,
-  parentLocSt,
-  setparentLocSt,
-  setDelivFn,
-}) {
+function ApptCardFull({ appt, parentLocSt, setparentLocSt, setDelivFn }) {
   const exchCtx = useOutletContext();
-  const itemsInExch = exchCtx.exchSession.itemsInExchange;
+
   const thisDelivery = exchCtx.exchSession.deliveryGroups[appt];
   const thisDelivTime = thisDelivery?.apptTime;
-
   const isActive = parentLocSt.activeKey === appt ? "selected" : "";
 
   //---- Shared Functions ----
@@ -58,17 +54,19 @@ function ApptCardFull({
     );
   });
 
-  // make this a map in the future?
+
   const trArray = [];
 
   for (const item of thisDelivery.apptItemKeys) {
-    const thisItemkey = itemsInExch[item];
-    const returnItem = thisItemkey.returningItem;
-    const replacementItem = thisItemkey.replacementItem;
+    const returnItem = item.thisSwapValue.returningItem;
+    const replacementItem = item.thisSwapValue.replacementItem;
 
     // populate Items
     trArray.push(
-      <tr key={item} className={`nohover_bg ${""}`}>
+      <tr
+        key={`${item.swapGroupKey}${item.thisSwapkey}`}
+        className={`nohover_bg ${""}`}
+      >
         <td>
           <ProductInfo hasPrice={false} itemObj={returnItem} />
         </td>
