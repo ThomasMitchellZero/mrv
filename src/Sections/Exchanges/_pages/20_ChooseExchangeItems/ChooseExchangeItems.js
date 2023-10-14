@@ -186,26 +186,7 @@ function ExchChooseExchItems() {
   }
 
   /*
-    for (const [swapGroupKey, swapGroupValue] of Object.entries(exchSwapGroups)) {
-    for (const [thisSwapkey, thisSwapValue] of Object.entries(swapGroupValue)) {
-      if (
-        swapFilter({
-          targetSwap: thisSwapValue,
-          mainItem: true,
-          accessory: true,
-          includeEmpty: true,
-        })
-      ) {
-        trArray.push(
-          makeTR({
-            swapGroupKey: swapGroupKey,
-            thisSwapKey: thisSwapkey,
-            swapObj: thisSwapValue,
-          })
-        );
-      }
-    }
-  }
+
   */
 
   return (

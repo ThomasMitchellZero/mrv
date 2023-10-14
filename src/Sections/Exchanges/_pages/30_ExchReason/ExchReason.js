@@ -3,7 +3,10 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { InputReason30 } from "./InputReason30";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useSwapGroupsArr } from "../../_Resources/customHooks/exchHooks";
+import {
+  useSwapGroupsArr,
+  useSwapFilter,
+} from "../../_Resources/customHooks/exchHooks";
 
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -14,6 +17,7 @@ function ExchReason() {
   const exchNav = useExchNav();
 
   const swapGroupArr = useSwapGroupsArr();
+  const swapFilter = useSwapFilter();
   const exchCtx = useOutletContext();
   const defaultVals = exchCtx.exchSession.defaultValues;
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
@@ -33,12 +37,14 @@ function ExchReason() {
     let outActiveKey = "All Assigned"; // Only reassigned if item without a dispo is found in the loop.  Prevents infinite loops.
 
     for (const i of swapGroupArr) {
-      const thisDispo = i.thisSwapValue.returningItem.itemDispo;
+      if (swapFilter({ targetSwap: i.thisSwapValue, mainItem: true })) {
+        const thisDispo = i.thisSwapValue.returningItem.itemDispo;
 
-      if (!thisDispo) {
-        // if this item doesn't have a dispo...
-        outActiveKey = i; // return it as the active key
-        break; // stop looping because we are only looking for the first.
+        if (!thisDispo) {
+          // if this item doesn't have a dispo...
+          outActiveKey = i; // return it as the active key
+          break; // stop looping because we are only looking for the first.
+        }
       }
     }
 
@@ -112,47 +118,49 @@ function ExchReason() {
   const trArray = [];
 
   for (const i of swapGroupArr) {
-    const thisItemRt =
-      exchSwapGroups[i.swapGroupKey][i.thisSwapkey].returningItem;
-    const activeKeyRt = locSt_ExchReason.activeKey;
+    if (swapFilter({ targetSwap: i.thisSwapValue, mainItem: true })) {
+      const thisItemRt =
+        exchSwapGroups[i.swapGroupKey][i.thisSwapkey].returningItem;
+      const activeKeyRt = locSt_ExchReason.activeKey;
 
-    const isActive =
-      activeKeyRt?.swapGroupKey === i.swapGroupKey &&
-      activeKeyRt?.thisSwapkey === i.thisSwapkey;
+      const isActive =
+        activeKeyRt?.swapGroupKey === i.swapGroupKey &&
+        activeKeyRt?.thisSwapkey === i.thisSwapkey;
 
-    // Check for Exch. Qty before adding
-    trArray.push(
-      <tr
-        key={`${i.swapGroupKey}${i.thisSwapkey}`}
-        className={` ${isActive ? "active" : ""}`}
-        onClick={() => handleTRclick(i)}
-      >
-        <td>
-          <ProductInfo
-            hasPrice={true}
-            itemObj={thisItemRt}
-            qty={thisItemRt.returnQty}
-          />
-        </td>
-        <td>
-          <p className={`body__small`}>{thisItemRt.pickupQty}</p>
-        </td>
-        <td>
-          <p className={`body__small`}>{thisItemRt.itemDispo}</p>
-        </td>
-        <td>
-          <button
-            type="button"
-            className={`mrvBtn ghost`}
-            onClick={(event) => {
-              handleDelete({ prodKey: i, event: event });
-            }}
-          >
-            <MdDeleteOutline fontSize="1.5rem" />
-          </button>
-        </td>
-      </tr>
-    );
+      // Check for Exch. Qty before adding
+      trArray.push(
+        <tr
+          key={`${i.swapGroupKey}${i.thisSwapkey}`}
+          className={` ${isActive ? "active" : ""}`}
+          onClick={() => handleTRclick(i)}
+        >
+          <td>
+            <ProductInfo
+              hasPrice={true}
+              itemObj={thisItemRt}
+              qty={thisItemRt.returnQty}
+            />
+          </td>
+          <td>
+            <p className={`body__small`}>{thisItemRt.pickupQty}</p>
+          </td>
+          <td>
+            <p className={`body__small`}>{thisItemRt.itemDispo}</p>
+          </td>
+          <td>
+            <button
+              type="button"
+              className={`mrvBtn ghost`}
+              onClick={(event) => {
+                handleDelete({ prodKey: i, event: event });
+              }}
+            >
+              <MdDeleteOutline fontSize="1.5rem" />
+            </button>
+          </td>
+        </tr>
+      );
+    }
   }
 
   /* ---- Final Component ---- */
