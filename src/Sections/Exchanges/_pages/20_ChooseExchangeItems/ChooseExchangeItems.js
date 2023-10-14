@@ -5,6 +5,7 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useSwapFilter } from "../../_Resources/customHooks/exchHooks";
 
 import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
@@ -28,6 +29,7 @@ function ExchChooseExchItems() {
   const invoItems = exchCtx.exchSession.invoiceItems;
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
   const exchNav = useExchNav();
+  const swapFilter = useSwapFilter();
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -61,6 +63,8 @@ function ExchChooseExchItems() {
   };
 
   const handleContinue = () => {
+
+    // NEEDS CLEANUP /////////////////////////////////////////////
     // output that will hold items with an Exch Qty.
     const outItemsInExch = {};
 
@@ -159,13 +163,22 @@ function ExchChooseExchItems() {
 
   for (const [swapGroupKey, swapGroupValue] of Object.entries(exchSwapGroups)) {
     for (const [thisSwapkey, thisSwapValue] of Object.entries(swapGroupValue)) {
-      trArray.push(
-        makeTR({
-          swapGroupKey: swapGroupKey,
-          thisSwapKey: thisSwapkey,
-          swapObj: thisSwapValue,
+      if (
+        swapFilter({
+          targetSwap: thisSwapValue,
+          mainItem: true,
+          accessory: true,
+          includeEmpty: true,
         })
-      );
+      ) {
+        trArray.push(
+          makeTR({
+            swapGroupKey: swapGroupKey,
+            thisSwapKey: thisSwapkey,
+            swapObj: thisSwapValue,
+          })
+        );
+      }
     }
   }
   /*
