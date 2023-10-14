@@ -12,7 +12,7 @@ import { useImmer } from "use-immer";
 
 function ExchReason() {
   const exchNav = useExchNav();
-  //const useSGA = useSwapGroupsArr();
+
   const swapGroupArr = useSwapGroupsArr();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
@@ -34,12 +34,12 @@ function ExchReason() {
   if (!locSt_ExchReason.activeKey) {
     let outActiveKey = "All Assigned"; // Only reassigned if item without a dispo is found in the loop.  Prevents infinite loops.
 
-    for (const key of Object.keys(exchItems)) {
-      const thisDispo = exchItems[key].returningItem.itemDispo;
+    for (const i of swapGroupArr) {
+      const thisDispo = i.thisSwapValue.returningItem.itemDispo;
 
       if (!thisDispo) {
         // if this item doesn't have a dispo...
-        outActiveKey = key; // return it as the active key
+        outActiveKey = i; // return it as the active key
         break; // stop looping because we are only looking for the first.
       }
     }
@@ -50,18 +50,21 @@ function ExchReason() {
     });
   }
 
-  for (const i of swapGroupArr){
-    console.log(i)
+  for (const i of swapGroupArr) {
+    console.log(i);
   }
 
   const areAllAssigned = locSt_ExchReason.activeKey === "All Assigned";
 
   /* ---- Shared Functions ---- */
 
-  const handleTRclick = (key) => {
+  const handleTRclick = (keyObj) => {
     setLocSt_ExchReason((draft) => {
-      draft.activeKey = key;
-      draft.pendingDispo = exchItems[key].returningItem.itemDispo;
+      draft.activeKey = keyObj;
+      draft.pendingDispo =
+        exchSwapGroups[keyObj.swapGroupKey][
+          keyObj.thisSwapkey
+        ].returningItem.itemDispo;
       draft.show30warning = false;
     });
   };
@@ -69,9 +72,6 @@ function ExchReason() {
   // Delete a table row.
   const handleDelete = ({ event, prodKey }) => {
     // set Session state
-    setExchState((draft) => {
-      delete draft.itemsInExchange[prodKey];
-    });
 
     // set Session state
     setLocSt_ExchReason((draft) => {
@@ -117,21 +117,22 @@ function ExchReason() {
 
   const trArray = [];
 
-  for (const key of Object.keys(exchItems)) {
-    const thisItemRt = exchItems[key].returningItem;
+  for (const i of swapGroupArr) {
+    const thisItemRt =
+      exchSwapGroups[i.swapGroupKey][i.thisSwapkey].returningItem;
 
     // Check for Exch. Qty before adding
     trArray.push(
       <tr
-        key={key}
-        className={` ${locSt_ExchReason.activeKey === key ? "active" : ""}`}
-        onClick={() => handleTRclick(key)}
+        key={`${i.swapGroupKey}${i.thisSwapkey}`}
+        className={` ${locSt_ExchReason.activeKey === i ? "active" : ""}`}
+        onClick={() => handleTRclick(i)}
       >
         <td>
           <ProductInfo
             hasPrice={true}
             itemObj={thisItemRt}
-            qty={exchItems[key].qtyExchanging}
+            qty={thisItemRt.returnQty}
           />
         </td>
         <td>
@@ -145,7 +146,7 @@ function ExchReason() {
             type="button"
             className={`mrvBtn ghost`}
             onClick={(event) => {
-              handleDelete({ prodKey: key, event: event });
+              handleDelete({ prodKey: i, event: event });
             }}
           >
             <MdDeleteOutline fontSize="1.5rem" />
