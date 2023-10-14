@@ -3,6 +3,7 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 import { InputReason30 } from "./InputReason30";
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
+import { useSwapGroupsArr } from "../../_Resources/customHooks/exchHooks";
 
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -11,10 +12,13 @@ import { useImmer } from "use-immer";
 
 function ExchReason() {
   const exchNav = useExchNav();
+  const useSGA = useSwapGroupsArr();
+  const swapGroupArr = useSGA();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
   const defaultVals = exchCtx.exchSession.defaultValues;
+  const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
 
   const defaultState = {
     activeKey: null,
@@ -44,6 +48,10 @@ function ExchReason() {
       draft.show30warning = false;
       draft.activeKey = outActiveKey;
     });
+  }
+
+  for (const i of swapGroupArr){
+    console.log(i)
   }
 
   const areAllAssigned = locSt_ExchReason.activeKey === "All Assigned";

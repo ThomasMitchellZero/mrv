@@ -88,7 +88,6 @@ const useSwapFilter = () => {
     service = false,
     anyProdClass = false,
   }) => {
-
     // True if Repl or Return has qty, or if includeEmpty
     const hasValidContent =
       includeEmpty ||
@@ -109,10 +108,35 @@ const useSwapFilter = () => {
   return swapFilterFor;
 };
 
+const useSwapGroupsArr = () => {
+  const exchCtx = useOutletContext();
+  const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
+  return () => {
+    const outArr = [];
+    for (const [swapGroupKey, swapGroupValue] of Object.entries(
+      exchSwapGroups
+    )) {
+      for (const [thisSwapkey, thisSwapValue] of Object.entries(
+        swapGroupValue
+      )) {
+        const swapDataObj = {
+          swapGroupKey,
+          swapGroupValue,
+          thisSwapkey,
+          thisSwapValue,
+        };
+        outArr.push(swapDataObj);
+      }
+    }
+    return outArr;
+  };
+};
+
 export {
   useCentsToDollars,
   useDollarsToCents,
   useSwapFilter,
+  useSwapGroupsArr,
   useMakeSwap,
   useMergeItemData,
 };
