@@ -1,5 +1,5 @@
-import InvoiceContext from "../../../../store/invoice-context";
-import ProductContext from "../../../../store/product-context";
+import InvoiceContext from "../store/invoice-context";
+import ProductContext from "../store/product-context";
 
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
