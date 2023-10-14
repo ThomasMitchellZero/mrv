@@ -1,5 +1,3 @@
-
-
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useOutletContext } from "react-router";
@@ -18,7 +16,9 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
 
     if (pendingDispo) {
       setExchState((draft) => {
-        draft.itemsInExchange[activeKey].returningItem.itemDispo = pendingDispo;
+        draft.allSwapGroups[activeKey.swapGroupKey][
+          activeKey.thisSwapkey
+        ].returningItem.itemDispo = pendingDispo;
       });
       setLocSt_ExchReason((draft) => {
         // clear active key to trigger auto-check for empty dispos.
@@ -72,9 +72,7 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
         headerTitle="Select A Reason"
         hasCluster={false}
       />
-      <section className={`main_content alignLeft`}>
-        {reasonRadioArr}
-      </section>
+      <section className={`main_content alignLeft`}>{reasonRadioArr}</section>
       <section className={`footer_text`}>
         {locSt_ExchReason.show30warning ? (
           <p className={`tinyText warning`}>
