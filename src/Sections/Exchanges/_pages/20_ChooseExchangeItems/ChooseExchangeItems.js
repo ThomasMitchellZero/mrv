@@ -42,7 +42,9 @@ function ExchChooseExchItems() {
   };
 
   const handleExchQtyInput = ({ event, inputSwapGroup, inputSwapKey }) => {
-    let input = integerizer(event.target.value);
+    const maxVal =
+      exchSwapGroups[inputSwapGroup][inputSwapKey].returningItem.qtySold;
+    let input = Math.min(integerizer(event.target.value), maxVal);
 
     setExchState((draft) => {
       const thisReturnItem = draft.allSwapGroups[inputSwapGroup][inputSwapKey];
@@ -63,7 +65,6 @@ function ExchChooseExchItems() {
   };
 
   const handleContinue = () => {
-
     // NEEDS CLEANUP /////////////////////////////////////////////
     // output that will hold items with an Exch Qty.
     const outItemsInExch = {};
