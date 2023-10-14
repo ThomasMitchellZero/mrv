@@ -4,7 +4,11 @@ import ProductContext from "../../../../store/product-context";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
+import { ProdClass } from "../../../../globalFunctions/globalJS_classes";
+
 import { cloneDeep, isEmpty } from "lodash";
+
+//// Money Handlers ////
 
 const useCentsToDollars = () => {
   return (priceInCents = 4200) => {
@@ -18,6 +22,8 @@ const useDollarsToCents = () => {
   };
 };
 
+//// Hooks for Swap handling ////
+
 const useMergeItemData = () => {
   // Merge stock product data with sale-specific data.
 
@@ -30,9 +36,6 @@ const useMergeItemData = () => {
       // if product isn't from an invoice, this will be {}
       ...cloneDeep(invoItemDataRt),
     };
-
-    // Relevant quantities are tracked elsewhere, so delete?
-    delete outMergedProdDetails.quantity;
 
     // everything in this Rt is cloned, so it's safe to work.
     return outMergedProdDetails;
@@ -53,12 +56,17 @@ const useMakeSwap = () => {
   }) => {
     // populate the Swap object
     const outSwapObj = {
+      swapClass: replaceItemInfo.prodClass,
+      moneyObj: {},
       returningItem: {
+        qtySold: returnItemInfo.quantity,
+        returnQty: defaultVals.dvPickupQty,
         pickupQty: defaultVals.dvPickupQty,
         productDetails: returnItemInfo,
         itemDispo: null,
       },
       replacementItem: {
+        replaceQty: defaultVals.dvExchQty,
         deliveryQty: defaultVals.dvExchQty,
         productDetails: replaceItemInfo,
       },
@@ -69,10 +77,42 @@ const useMakeSwap = () => {
   return makeSwapObj;
 };
 
+const useSwapFilter = () => {
+  const swapFilterFor = ({
+    targetSwap,
+    includeEmpty = false,
+    mainItem = false,
+    accessory = false,
+    lpp_3yr = false,
+    lpp_5yr = false,
+    service = false,
+    anyProdClass = false,
+  }) => {
+
+    // True if Repl or Return has qty, or if includeEmpty
+    const hasValidContent =
+      includeEmpty ||
+      targetSwap.returningItem.returnQty ||
+      targetSwap.replacementItem.replaceQty;
+
+    const hasValidProdClass =
+      (mainItem && targetSwap.swapClass === "mainItem") ||
+      (accessory && targetSwap.swapClass === "accessory") ||
+      (lpp_3yr && targetSwap.swapClass === "lpp_3yr") ||
+      (lpp_5yr && targetSwap.swapClass === "lpp_5yr") ||
+      (service && targetSwap.swapClass === "service") ||
+      anyProdClass;
+
+    return hasValidContent && hasValidProdClass;
+  };
+
+  return swapFilterFor;
+};
+
 export {
   useCentsToDollars,
   useDollarsToCents,
-  useMergeItemData,
+  useSwapFilter,
   useMakeSwap,
-
+  useMergeItemData,
 };

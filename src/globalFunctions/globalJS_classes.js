@@ -48,21 +48,21 @@ class Product {
 
 const ProdClass = ({
   mainItem = false,
-  service = false,
-  LPP_3yr = false,
-  LPP_5yr = false,
   accessory = false,
+  lpp_3yr = false,
+  lpp_5yr = false,
+  service = false,
 }) => {
   const classStr = mainItem
     ? "mainItem"
+    : accessory
+    ? "accessory"
+    : lpp_3yr
+    ? "lpp_3yr"
+    : lpp_5yr
+    ? "lpp_5yr"
     : service
     ? "service"
-    : LPP_3yr
-    ? "LPP_3yr"
-    : LPP_5yr
-    ? "LPP_5yr"
-    : accessory
-    ? "Accessory"
     : null;
 
   return classStr;

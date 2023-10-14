@@ -6020,11 +6020,41 @@ OK, it's actually kind of working, in the sense that I am doing some kind of rec
 7:05.  OK!  It's working!  For tomorrow, I will need to create filtering hook.  We're going to have a single store of product data, so we will need 
     -a way to conditionally sort the product types.  
     -re-mapping the UI and logic to the SwapGroups.  
+    -A way to populate mandatory accessories for replacements.
     -Then I can work on the money.  
+
 
 If I am smart about this, I might want to rig it so NOTHING depends on the ProdClass keys, and instead just check ProdClass values.  OK.  Let's swalk and think.  But I think I need to make a decision on this because whatever I choose, there's gonna be a LOT of root-ripping if I guess wrong.  
 
+14 Oct 2024
+10:00.  Giving this the full 69420 it deserves.  When I left off last night, I was successfully populating the allSwapGroups state in the session.  Since I am maintaining only a single state for everything, I need a hook to filter the state because I'm going to conditionally render everything.
 
+OK, so first... what am I actually checking?
+    -I think I need to fiddle with the Swaps.  Each swap needs to be an object.  
+        swap:{
+            swapType: prodClass
+            moneyObj: {}
+            ReturningItem:{}
+            ReplacementItem:{}
+        }
+    -And so the question I feel like I am coming to is: should the SwapGroup be stored as an array or an object?  (or an ES6 Map?)
+
+    For Object:
+        +For the use-case as we understand it, this is better.  As far as we know, there will only be one Accessory and one Service per MainItem.  And we will NEED to get to the Accessory property.  Rule 1.
+            -If this isn't true we're going to have a huge root rip.  
+                +OK, but, like... worst-case scenario, we just make some more AccessoryN or a ServiceN ProdClass-es, right?  
+
+        +The logic should be a lot cleaner.  And since we're doing the maintaining, we need clarity.
+
+    For Array:
+        +We can sort this pretty easily.  For clarity, the MainItem MUST be the first item in the group.
+            -Currently not an issue, right?  It currently ends up that way in the way we are building SwapGroups.
+
+        +Having 'The One Accessory' doesn't truly represent reality, and those collisions tend to have consequences, right?
+
+    OK.  I feel like, again, I am back to Object.  But I don't feel very good about it.  
+
+12:05.  The AllSwaps state is ready, and so is the filter.  Now I need to start the re-mappening.
     
     
     

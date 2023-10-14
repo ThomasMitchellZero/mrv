@@ -26,6 +26,7 @@ function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const invoItems = exchCtx.exchSession.invoiceItems;
+  const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
   const exchNav = useExchNav();
 
   // LocalState
@@ -38,15 +39,17 @@ function ExchChooseExchItems() {
     return parseInt(input);
   };
 
-  const handleExchQtyInput = (event, itemNum) => {
+  const handleExchQtyInput = ({ event, inputSwapGroup, inputSwapKey }) => {
     let input = integerizer(event.target.value);
 
     setExchState((draft) => {
-      const thisInvoItemDraft = draft.invoiceItems[itemNum];
-      thisInvoItemDraft.qtyExchanging = input;
+      const thisReturnItem = draft.allSwapGroups[inputSwapGroup][inputSwapKey];
+
+      thisReturnItem.returningItem.returnQty = input;
       // move pickupQty out when we add ability to edit this separately.
-      thisInvoItemDraft.returningItem.pickupQty = input;
-      thisInvoItemDraft.replacementItem.deliveryQty = input;
+      thisReturnItem.returningItem.pickupQty = input;
+      thisReturnItem.replacementItem.deliveryQty = input;
+      thisReturnItem.replacementItem.replaceQty = input;
     });
   };
 
@@ -114,18 +117,17 @@ function ExchChooseExchItems() {
     );
   });
 
-  //const trArray = [];
+  const trArray = [];
 
-  const trArray = Object.keys(invoItems).map((product) => {
-    const thisProd = invoItems[product];
-
+  const makeTR = ({ swapGroupKey, thisSwapKey, swapObj }) => {
+    const rtrnItem = swapObj.returningItem;
     return (
-      <tr key={product} className={`nohover_bg`}>
+      <tr key={`${swapGroupKey}${thisSwapKey}`} className={`nohover_bg`}>
         <td>
-          <ProductInfo itemObj={thisProd.returningItem} />
+          <ProductInfo itemObj={rtrnItem} />
         </td>
         <td>
-          <p className={`body`}>{`${thisProd.qtySold}`}</p>
+          <p className={`body`}>{`${rtrnItem.qtySold}`}</p>
         </td>
         <td>
           <p className={`body`}>{99}</p>
@@ -136,11 +138,15 @@ function ExchChooseExchItems() {
               type="number"
               min="0"
               step="1"
-              value={thisProd.qtyExchanging}
-              max={thisProd.qtySold}
+              value={rtrnItem.returnQty}
+              max={rtrnItem.qtySold}
               onFocus={handleFieldFocus}
               onChange={(event) => {
-                handleExchQtyInput(event, product);
+                handleExchQtyInput({
+                  event: event,
+                  inputSwapGroup: swapGroupKey,
+                  inputSwapKey: thisSwapKey,
+                });
               }}
             />
           </MRVinput>
@@ -149,8 +155,19 @@ function ExchChooseExchItems() {
         <td></td>
       </tr>
     );
-  });
+  };
 
+  for (const [swapGroupKey, swapGroupValue] of Object.entries(exchSwapGroups)) {
+    for (const [thisSwapkey, thisSwapValue] of Object.entries(swapGroupValue)) {
+      trArray.push(
+        makeTR({
+          swapGroupKey: swapGroupKey,
+          thisSwapKey: thisSwapkey,
+          swapObj: thisSwapValue,
+        })
+      );
+    }
+  }
   /*
   
   */
