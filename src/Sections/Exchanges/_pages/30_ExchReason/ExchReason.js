@@ -15,8 +15,6 @@ function ExchReason() {
 
   const swapGroupArr = useSwapGroupsArr();
   const exchCtx = useOutletContext();
-  const setExchState = exchCtx.setExchSession;
-  const exchItems = exchCtx.exchSession.itemsInExchange;
   const defaultVals = exchCtx.exchSession.defaultValues;
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
 
@@ -48,10 +46,6 @@ function ExchReason() {
       draft.show30warning = false;
       draft.activeKey = outActiveKey;
     });
-  }
-
-  for (const i of swapGroupArr) {
-    console.log(i);
   }
 
   const areAllAssigned = locSt_ExchReason.activeKey === "All Assigned";
@@ -120,12 +114,17 @@ function ExchReason() {
   for (const i of swapGroupArr) {
     const thisItemRt =
       exchSwapGroups[i.swapGroupKey][i.thisSwapkey].returningItem;
+    const activeKeyRt = locSt_ExchReason.activeKey;
+
+    const isActive =
+      activeKeyRt?.swapGroupKey === i.swapGroupKey &&
+      activeKeyRt?.thisSwapkey === i.thisSwapkey;
 
     // Check for Exch. Qty before adding
     trArray.push(
       <tr
         key={`${i.swapGroupKey}${i.thisSwapkey}`}
-        className={` ${locSt_ExchReason.activeKey === i ? "active" : ""}`}
+        className={` ${isActive ? "active" : ""}`}
         onClick={() => handleTRclick(i)}
       >
         <td>
