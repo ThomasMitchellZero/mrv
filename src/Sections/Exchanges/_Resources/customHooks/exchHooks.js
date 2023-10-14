@@ -111,25 +111,20 @@ const useSwapFilter = () => {
 const useSwapGroupsArr = () => {
   const exchCtx = useOutletContext();
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
-  return () => {
-    const outArr = [];
-    for (const [swapGroupKey, swapGroupValue] of Object.entries(
-      exchSwapGroups
-    )) {
-      for (const [thisSwapkey, thisSwapValue] of Object.entries(
-        swapGroupValue
-      )) {
-        const swapDataObj = {
-          swapGroupKey,
-          swapGroupValue,
-          thisSwapkey,
-          thisSwapValue,
-        };
-        outArr.push(swapDataObj);
-      }
+
+  const outArr = [];
+  for (const [swapGroupKey, swapGroupValue] of Object.entries(exchSwapGroups)) {
+    for (const [thisSwapkey, thisSwapValue] of Object.entries(swapGroupValue)) {
+      const swapDataObj = {
+        swapGroupKey,
+        swapGroupValue,
+        thisSwapkey,
+        thisSwapValue,
+      };
+      outArr.push(swapDataObj);
     }
-    return outArr;
-  };
+  }
+  return outArr;
 };
 
 export {

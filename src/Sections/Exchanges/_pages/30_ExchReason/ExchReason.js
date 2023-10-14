@@ -12,8 +12,8 @@ import { useImmer } from "use-immer";
 
 function ExchReason() {
   const exchNav = useExchNav();
-  const useSGA = useSwapGroupsArr();
-  const swapGroupArr = useSGA();
+  //const useSGA = useSwapGroupsArr();
+  const swapGroupArr = useSwapGroupsArr();
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
