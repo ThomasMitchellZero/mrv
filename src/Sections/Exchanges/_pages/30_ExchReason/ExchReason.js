@@ -62,7 +62,7 @@ function ExchReason() {
     setLocSt_ExchReason((draft) => {
       draft.activeKey = keyObj;
       draft.pendingDispo =
-        exchSwapGroups[keyObj.swapGroupKey][
+        exchSwapGroups[keyObj.swapGroupKey].swaps[
           keyObj.thisSwapkey
         ].returningItem.itemDispo;
       draft.show30warning = false;
@@ -120,7 +120,7 @@ function ExchReason() {
   for (const i of swapGroupArr) {
     if (swapFilter({ targetSwap: i.thisSwapValue, mainItem: true })) {
       const thisItemRt =
-        exchSwapGroups[i.swapGroupKey][i.thisSwapkey].returningItem;
+        exchSwapGroups[i.swapGroupKey].swaps[i.thisSwapkey].returningItem;
       const activeKeyRt = locSt_ExchReason.activeKey;
 
       const isActive =

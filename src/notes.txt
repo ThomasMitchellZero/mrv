@@ -6095,6 +6095,15 @@ Well, somehow I got the remapping done.  Everything is working except for Choose
 
 But I think this was a good, valid root-rip.  The 'Swap' model really helped this thing out, and flattening + standardizing the child items just makes everything much more smooth and clear.  Even though I slept like ass I pulled out a very good day.  I'd take a day like this every time.  
 
+16 Oct 2023
+5:15.
+I'm feeling sick, and also feeling like the pill I took barely did anything.  I'm gonna try and get some work done, but if I feel like I'm hating it I'm not going to push.  
 
+-I think the card is a good place to start.  It's nice and visible, it makes it easier for me to see what's happening, and it shouldn't require any root-ripping.  I think.  
+
+19 Oct.
+Got about 40 minutes before I need to get ready for VB.  What can I do in 40 minutes?  Well, I can definitely think of one thing.  The swaps need to be contained within something else inside of their parent.  I don't want them at the top level because there's other stuff, like the Money Obj, that needs to be stored as well, so I think I create another holder for the swaps themselves.  This will also require some re-mapping, and I think that would be a good way to get clear for tomorrow.  
+
+-OK, I think it is working.  Time to eat up and get out to VB.
 
 

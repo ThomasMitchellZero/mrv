@@ -16,7 +16,6 @@ import {
   useMakeSwap,
 } from "../../_Resources/customHooks/exchHooks";
 
-
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -116,15 +115,11 @@ function ExchStartExchange() {
     }
   };
 
-
   // To HERE....................
-
-
 
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
   const makeSwapGroup = ({ itemNum, itemObj, targetObj }) => {
-
     //Combine the invoice and product data
     const mergedProdInfo = mergeItemData({
       itemNum: itemNum,
@@ -152,7 +147,6 @@ function ExchStartExchange() {
     }
   };
 
-
   const handleSetSaleRecord = ({ srType, srKey }) => {
     setExchState((draft) => {
       let outSRTypeProperties =
@@ -175,11 +169,11 @@ function ExchStartExchange() {
       let outAllSwaps = {};
 
       for (const [thisInvoKey, thisInvoObj] of Object.entries(invoiceItemsRt)) {
-        outAllSwaps[thisInvoKey] = {};
+        outAllSwaps[thisInvoKey] = { swaps: {} };
         makeSwapGroup({
           itemNum: thisInvoKey,
           itemObj: thisInvoObj,
-          targetObj: outAllSwaps[thisInvoKey],
+          targetObj: outAllSwaps[thisInvoKey].swaps,
         });
       }
 

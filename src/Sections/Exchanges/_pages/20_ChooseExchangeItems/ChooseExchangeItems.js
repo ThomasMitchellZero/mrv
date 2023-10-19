@@ -34,6 +34,7 @@ function ExchChooseExchItems() {
   const exchNav = useExchNav();
   const swapFilter = useSwapFilter();
   const swapGroupArr = useSwapGroupsArr();
+  console.log(swapGroupArr);
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -47,11 +48,12 @@ function ExchChooseExchItems() {
 
   const handleExchQtyInput = ({ event, inputSwapGroup, inputSwapKey }) => {
     const maxVal =
-      exchSwapGroups[inputSwapGroup][inputSwapKey].returningItem.qtySold;
+      exchSwapGroups[inputSwapGroup].swaps[inputSwapKey].returningItem.qtySold;
     let input = Math.min(integerizer(event.target.value), maxVal);
 
     setExchState((draft) => {
-      const thisReturnItem = draft.allSwapGroups[inputSwapGroup][inputSwapKey];
+      const thisReturnItem =
+        draft.allSwapGroups[inputSwapGroup].swaps[inputSwapKey];
 
       thisReturnItem.returningItem.returnQty = input;
       // move pickupQty out when we add ability to edit this separately.

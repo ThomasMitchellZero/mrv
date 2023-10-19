@@ -16,7 +16,7 @@ function InputReason30({ locSt_ExchReason, setLocSt_ExchReason }) {
 
     if (pendingDispo) {
       setExchState((draft) => {
-        draft.allSwapGroups[activeKey.swapGroupKey][
+        draft.allSwapGroups[activeKey.swapGroupKey].swaps[
           activeKey.thisSwapkey
         ].returningItem.itemDispo = pendingDispo;
       });

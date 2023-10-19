@@ -114,7 +114,9 @@ const useSwapGroupsArr = () => {
 
   const outArr = [];
   for (const [swapGroupKey, swapGroupValue] of Object.entries(exchSwapGroups)) {
-    for (const [thisSwapkey, thisSwapValue] of Object.entries(swapGroupValue)) {
+    for (const [thisSwapkey, thisSwapValue] of Object.entries(
+      swapGroupValue.swaps
+    )) {
       const swapDataObj = {
         swapGroupKey,
         swapGroupValue,
