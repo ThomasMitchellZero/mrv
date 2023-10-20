@@ -6110,7 +6110,9 @@ Got about 40 minutes before I need to get ready for VB.  What can I do in 40 min
 
 4:25.
 Done with my real job and going to my fun job :D  OK.  Next up is getting Choose Replacements working. 
+    -Get ReplacementItems reading from allSwapGroups
     -A card for each SwapGroup
+        -Get the cards reading from AllSwapGroups
     -A moneyObj for each Swap, SwapGroup, and the whole exchange.
     -A shared component for the Total Price.
         -Handle recursively?

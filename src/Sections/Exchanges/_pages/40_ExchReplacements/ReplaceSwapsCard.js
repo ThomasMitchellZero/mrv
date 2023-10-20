@@ -15,9 +15,11 @@ function ReplaceSwapsCard({
   exchSwapGroupNum,
 }) {
   const exchCtx = useOutletContext();
-  const thisExchItem = exchCtx.exchSession.itemsInExchange[exchItemNum];
-  const returnItem = thisExchItem.returningItem;
-  const replaceItem = thisExchItem.replacementItem;
+  const thisExchItem = exchCtx.exchSession.itemsInExchange;
+  const thisSwapGroupRt = exchCtx.exchSession.allSwapGroups[exchSwapGroupNum];
+  console.log(exchSwapGroupNum);
+
+  console.log(exchCtx.exchSession.allSwapGroups.exchSwapGroupNum);
 
   //---- Shared Functions ----
 
@@ -28,12 +30,17 @@ function ReplaceSwapsCard({
   const itemArray = [];
 
   const makeCardRow = () => {
-    itemArray.push(
-      <section key={`${exchItemNum}`} className={`cardRow `}>
-        <ProductInfo itemObj={returnItem} />
-        <ProductInfo itemObj={replaceItem} />
-      </section>
-    );
+    for (const [swapKey, swapValue] of Object.entries(thisSwapGroupRt.swaps)) {
+      const returnItem = swapValue.returningItem;
+      const replaceItem = swapValue.replacementItem;
+
+      itemArray.push(
+        <section key={`${exchSwapGroupNum}${swapKey}`} className={`cardRow `}>
+          <ProductInfo itemObj={returnItem} />
+          <ProductInfo itemObj={replaceItem} />
+        </section>
+      );
+    }
   };
 
   const populateTable = (targetObjRt) => {
