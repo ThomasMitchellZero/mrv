@@ -135,7 +135,7 @@ function ExchChooseExchItems() {
     return (
       <tr key={`${swapGroupKey}${thisSwapKey}`} className={`nohover_bg`}>
         <td>
-          <ProductInfo itemObj={rtrnItem} isChild={true} />
+          <ProductInfo itemObj={rtrnItem} />
         </td>
         <td>
           <p className={`body`}>{`${rtrnItem.qtySold}`}</p>

@@ -13,6 +13,7 @@ function ProductInfo({
   isChild = false,
 }) {
   const rawProdDetails = itemObj.productDetails;
+  const swapFilter = useSwapFilter();
 
   const configObj = {
     mainItem: {
@@ -44,16 +45,17 @@ function ProductInfo({
   ) : null;
 
   // probably move this tomorrow.
-  const prodImg = isChild ? (
-    <div className={`childImage`}>
-      <MdSubdirectoryArrowRight
-        fontSize="2.5rem"
-        className={`color__green__text`}
-      />
-    </div>
-  ) : (
-    <img src={rawProdDetails.img} alt="test" className={`productImage`} />
-  );
+  const prodImg =
+    rawProdDetails.prodClass === "mainItem" ? (
+      <img src={rawProdDetails.img} alt="test" className={`productImage`} />
+    ) : (
+      <div className={`childImage`}>
+        <MdSubdirectoryArrowRight
+          fontSize="2.5rem"
+          className={`color__green__text`}
+        />
+      </div>
+    );
 
   return (
     <section className={`exchProdInfoCmpnt`}>
