@@ -129,11 +129,79 @@ const useSwapGroupsArr = () => {
   return outArr;
 };
 
+//// Hooks for Delivery Groups ////////
+
+function useGroupAppointments() {
+  const exchCtx = useOutletContext();
+  const swapGroupArr = useSwapGroupsArr();
+  const swapFilter = useSwapFilter();
+  const setSessionSt = exchCtx.setExchSession;
+  const defaultTime = exchCtx.exchSession.defaultValues.dvScheduledTime;
+
+  return () => {
+    let outShipmentsObj = {};
+    // apptIndex isn't used in logic.  Just for the UI.
+    let apptIndex = 1;
+    let activeDC = null;
+
+    for (const i of swapGroupArr) {
+      if (
+        swapFilter({
+          targetSwap: i.thisSwapValue,
+          mainItem: true,
+          accessory: true,
+        })
+      ) {
+        const thisItemPickupQty = i.thisSwapValue.returningItem.pickupQty;
+        const thisItemDelivQty = i.thisSwapValue.replacementItem.deliveryQty;
+
+        if (i.thisSwapkey === ProdClass({ mainItem: true })) {
+          // Only using MainItem's DC because I am not dealing with this crap.
+          activeDC =
+            i.thisSwapValue.replacementItem.productDetails.dcLocations[0];
+        }
+
+        //Check if this DC code already exists in outShipmentsObj
+        if (!outShipmentsObj[activeDC]) {
+          outShipmentsObj[activeDC] = {
+            appointmentIndex: apptIndex,
+            apptItemKeys: [],
+            totalApptPickupQty: 0,
+            totalApptDeliveryQty: 0,
+            timeSlot: "",
+            apptTime: defaultTime,
+            address: {
+              street: "1600 Pennsylvania Avenue",
+              addressStr: "Washington, DC 20001",
+            },
+            deliveryInstructions:
+              "Leave it on the doorstep and get the hell outta here",
+          };
+          apptIndex++;
+        }
+        //add this item to the array of its DC
+        outShipmentsObj[activeDC].apptItemKeys.push(i);
+
+        //increase this appointment's pickup and delivery qtys
+        outShipmentsObj[activeDC].totalApptPickupQty += thisItemPickupQty;
+        outShipmentsObj[activeDC].totalApptDeliveryQty += thisItemDelivQty;
+      }
+    }
+
+    setSessionSt((draft) => {
+      draft.deliveryGroups = outShipmentsObj;
+    });
+  };
+}
+
+
 export {
   useCentsToDollars,
   useDollarsToCents,
-  useSwapFilter,
-  useSwapGroupsArr,
+  useGroupAppointments,
   useMakeSwap,
   useMergeItemData,
+  useSwapFilter,
+  useSwapGroupsArr,
+
 };

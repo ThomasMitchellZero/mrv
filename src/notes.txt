@@ -6106,4 +6106,21 @@ Got about 40 minutes before I need to get ready for VB.  What can I do in 40 min
 
 -OK, I think it is working.  Time to eat up and get out to VB.
 
+20 Oct 2023.
+
+4:25.
+Done with my real job and going to my fun job :D  OK.  Next up is getting Choose Replacements working. 
+    -A card for each SwapGroup
+    -A moneyObj for each Swap, SwapGroup, and the whole exchange.
+    -A shared component for the Total Price.
+        -Handle recursively?
+    -Replacement Items:
+        -A way to choose one
+        -Populating the swap with needed accessories
+        -Price handling (in Like for Like cases)
+    -represent child items.
+        -Set picture @ item?  Override in ProductInfo?
+    
+ First, I think I am gonna need a way to handle the cards.  That's needed no matter what, and it will make it easier to see what I'm looking at.
+
 

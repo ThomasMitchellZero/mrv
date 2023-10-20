@@ -2,13 +2,15 @@ import classes from "./_ReplacementItems.css";
 
 import { ReplacementDetails30 } from "./ReplacementDetails30";
 import { ReplacementCard } from "./ReplacementCard";
+import { ReplaceSwapsCard } from "./ReplaceSwapsCard";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
 import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useGroupAppointments } from "../../_Resources/customHooks/useGroupAppointments";
+
+import { useSwapGroupsArr, useGroupAppointments } from "../../_Resources/customHooks/exchHooks";
 
 import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
@@ -19,6 +21,10 @@ function ReplacementItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
   const exchItems = exchCtx.exchSession.itemsInExchange;
+  const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
+
+  const swapGroupArr = useSwapGroupsArr();
+
   const exchNav = useExchNav();
   const groupAppointments = useGroupAppointments();
 
@@ -50,7 +56,7 @@ function ReplacementItems() {
 
   for (const itemNum of Object.keys(exchItems)) {
     cardsArr.push(
-      <ReplacementCard
+      <ReplaceSwapsCard
         key={itemNum}
         parLocSt_Replace={locSt_Replace}
         setParLocSt_Replace={setLocSt_Replace}

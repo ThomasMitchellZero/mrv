@@ -1,7 +1,7 @@
 import { useOutletContext, useNavigate } from "react-router";
-import { ProdClass } from "../../../../globalFunctions/globalJS_classes";
+import { ProdClass } from "../globalFunctions/globalJS_classes";
 
-import { useSwapGroupsArr, useSwapFilter } from "./exchHooks";
+import { useSwapGroupsArr, useSwapFilter } from "../Sections/Exchanges/_Resources/customHooks/exchHooks";
 
 function useGroupAppointments() {
   const exchCtx = useOutletContext();
