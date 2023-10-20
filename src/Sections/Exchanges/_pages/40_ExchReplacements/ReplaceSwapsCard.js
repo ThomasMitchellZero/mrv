@@ -17,9 +17,7 @@ function ReplaceSwapsCard({
   const exchCtx = useOutletContext();
   const thisExchItem = exchCtx.exchSession.itemsInExchange;
   const thisSwapGroupRt = exchCtx.exchSession.allSwapGroups[exchSwapGroupNum];
-  console.log(exchSwapGroupNum);
 
-  console.log(exchCtx.exchSession.allSwapGroups.exchSwapGroupNum);
 
   //---- Shared Functions ----
 
@@ -33,9 +31,10 @@ function ReplaceSwapsCard({
     for (const [swapKey, swapValue] of Object.entries(thisSwapGroupRt.swaps)) {
       const returnItem = swapValue.returningItem;
       const replaceItem = swapValue.replacementItem;
+      const keyStr = `${exchSwapGroupNum}${swapKey}`
 
       itemArray.push(
-        <section key={`${exchSwapGroupNum}${swapKey}`} className={`cardRow `}>
+        <section key={keyStr} className={`cardRow `}>
           <ProductInfo itemObj={returnItem} />
           <ProductInfo itemObj={replaceItem} />
         </section>

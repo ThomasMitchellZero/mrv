@@ -1,4 +1,4 @@
-import classes from "./ProductInfo.module.css";
+import classes from "./ProductInfo.css";
 
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 
@@ -14,41 +14,54 @@ function ProductInfo({
   const rawProdDetails = itemObj.productDetails;
 
   const configObj = {
-    lpp: {},
+    mainItem: {
+      imgSrc: (
+        <img src={rawProdDetails.img} alt="test" className={`productImage`} />
+      ),
+    },
+    childClass: {
+      imgSrc: (
+        <MdSubdirectoryArrowRight
+          fontSize="2.5rem"
+          className={`color__green__text`}
+        />
+      ),
+    },
+    empty: {},
   };
 
   // Price is separate because it isn't always displayed.
   const price = hasPrice ? (
-    <p className={`body ${classes.description}`}>{`$${(
+    <p className={`body prodDescription`}>{`$${(
       rawProdDetails.price / 100
     ).toFixed(2)}`}</p>
   ) : null;
 
   // itemQty is separate because it isn't always displayed.  The source can also vary.
   const itemQty = qty ? (
-    <p className={`body ${classes.description}`}>{`Qty: ${qty}`}</p>
+    <p className={`body prodDescription`}>{`Qty: ${qty}`}</p>
   ) : null;
 
   const prodImg = isChild ? (
     ""
   ) : (
-    <img src={rawProdDetails.img} alt="test" className={classes.productImage} />
+    <img src={rawProdDetails.img} alt="test" className={`productImage`} />
   );
 
   return (
-    <section className={`${classes.container}`}>
+    <section className={`exchProdInfoCmpnt`}>
       {prodImg}
-      <section className={`${classes.textColumn}`}>
-        <div className={`${classes.textRow}`}>
+      <section className={`textColumn`}>
+        <div className={`textRow`}>
           {price}
           {itemQty}
         </div>
 
         <p
-          className={`tiny-text ${classes.itemModel}`}
+          className={`tiny-text itemModel`}
         >{`Item# ${rawProdDetails.itemNum}0123    Model# ${rawProdDetails.modelNum}`}</p>
         <p
-          className={`body__small ${classes.description}`}
+          className={`body__small description`}
         >{`${rawProdDetails.description}`}</p>
       </section>
     </section>

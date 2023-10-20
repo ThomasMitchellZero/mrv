@@ -1,7 +1,7 @@
 import classes from "./_ReplacementItems.css";
 
 import { ReplacementDetails30 } from "./ReplacementDetails30";
-import { ReplacementCard } from "./ReplacementCard";
+
 import { ReplaceSwapsCard } from "./ReplaceSwapsCard";
 
 import { ExchPizzaTracker } from "../../_Resources/components/pageLayout/exchPizzaTracker";
@@ -15,7 +15,7 @@ import {
   useGroupAppointments,
 } from "../../_Resources/customHooks/exchHooks";
 
-import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
+
 
 import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
@@ -58,7 +58,6 @@ function ReplacementItems() {
   const cardsArr = [];
 
   for (const swapGroupNum of Object.keys(exchSwapGroups)) {
-    console.log(swapGroupNum);
     cardsArr.push(
       <ReplaceSwapsCard
         key={swapGroupNum}

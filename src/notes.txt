@@ -6110,9 +6110,9 @@ Got about 40 minutes before I need to get ready for VB.  What can I do in 40 min
 
 4:25.
 Done with my real job and going to my fun job :D  OK.  Next up is getting Choose Replacements working. 
-    -Get ReplacementItems reading from allSwapGroups
-    -A card for each SwapGroup
-        -Get the cards reading from AllSwapGroups
+    X -Get ReplacementItems reading from allSwapGroups
+    X -A card for each SwapGroup
+        X -Get the cards reading from AllSwapGroups
     -A moneyObj for each Swap, SwapGroup, and the whole exchange.
     -A shared component for the Total Price.
         -Handle recursively?
@@ -6125,4 +6125,17 @@ Done with my real job and going to my fun job :D  OK.  Next up is getting Choose
     
  First, I think I am gonna need a way to handle the cards.  That's needed no matter what, and it will make it easier to see what I'm looking at.
 
+6:15.
+Now populating from the AllSwapGroups.  Child items are bugging me, so I should figure out a solve for this.  Also, I am just, like, REALLY having a good time programming at the moment.  
 
+How to handle the child items?  Got a few decisions to make.
+    -How to get the picture in there?
+        -I could just change the item details, but that seems kind of weak and hacky.  It also doesn't let me change the picture size.  
+    -Do I want to show pictures for a replacement item?  
+        -I don't actually hate this idea.  The thinking is I would represent the SwapGroups in cards, and then every item just gets a picture.  
+        -I probably shouldn't.  At this time, we're representing child items with arrows.  
+    -This would all be happening in the ProductInfo component, so that seems like the logical place to make it happen.  
+    -I'm thinking we:
+        - check for the ProdClass
+        - If MainItem, use the default pic with default style.
+        - else, use the Child pic.

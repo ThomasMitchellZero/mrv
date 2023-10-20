@@ -1,10 +1,10 @@
 import classes from "./_ReplacementItems.css";
 
-import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductInfo";
+import { ProductInfo } from "../Sections/Exchanges/_Resources/components/displayOutputs/ProductInfo";
 
 import { useOutletContext } from "react-router";
 
-import { MdArrowForward } from "react-icons/md";
+import { MdDeleteOutline, MdArrowForward } from "react-icons/md";
 
 import { useImmer } from "use-immer";
 

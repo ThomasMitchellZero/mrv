@@ -1,20 +1,21 @@
 
 .replacementTop{
     --main__column: flex: 6 6 0rem;
+    
 
     .cardStyle{
         width: 100%;
-    }
+    };
     .cardRow{
         display: flex;
         flex-direction: row;
         width: 100%;
-    }
+    };
 
     .RI_Panel30{
         .main_content{
             gap: 1.5rem;
-        }
+        };
 
         .discountCtnr{
             box-sizing: border-box;
@@ -35,10 +36,10 @@
 
                 input{
                     height: 4rem;
-                }
+                };
 
-            }
-        }
+            };
+        };
         
-    }
+    };
 }
