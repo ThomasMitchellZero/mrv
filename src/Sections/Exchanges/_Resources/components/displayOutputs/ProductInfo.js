@@ -1,6 +1,7 @@
-import classes from "./ProductInfo.css";
+import "./ProductInfo.css";
 
 import { MdSubdirectoryArrowRight } from "react-icons/md";
+import { useSwapFilter } from "../../customHooks/exchHooks";
 
 // this should work from a completely standard product details object, since the actual product can be changed.
 
@@ -42,8 +43,14 @@ function ProductInfo({
     <p className={`body prodDescription`}>{`Qty: ${qty}`}</p>
   ) : null;
 
+  // probably move this tomorrow.
   const prodImg = isChild ? (
-    ""
+    <div className={`childImage`}>
+      <MdSubdirectoryArrowRight
+        fontSize="2.5rem"
+        className={`color__green__text`}
+      />
+    </div>
   ) : (
     <img src={rawProdDetails.img} alt="test" className={`productImage`} />
   );
