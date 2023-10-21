@@ -12,7 +12,7 @@ function Exchanges() {
   });
 
   return (
-    <section className={`mrv`}>
+    <section className={`mrv exch_Top`}>
       <Outlet
         context={{
           exchSession: exchSession,

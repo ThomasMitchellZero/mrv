@@ -2,9 +2,96 @@
 
 /* ---- CONTAINER STYLES ---- */
 
+
+
+.mrv.exch_Top{
+
+/* Special Colors */
+    --ExchArrow: var(--color__green: #007a33);
+
+/* Shared Dimensions */
+    --trashcan__col: 5rem;
+    --arrow__col: 5rem;
+
 /* Vertical Positions*/
 
-.mrv .exchHeader{
+    .exchHeader{
+        flex: 0 0 5rem;
+        display: flex;
+        flex-direction: row;
+        padding: var(--PrimaryPadding__both);
+        align-items: flex-end;
+        justify-content: center;
+    }
+    
+    .pizzaTracker{
+        flex: 0 0 6rem;
+        display: flex;
+        flex-direction: row;
+        padding: var(--PrimaryPadding__both);
+        align-items: center;
+        justify-content: center;
+    
+    }
+    
+    .main_content{
+        flex: 1 1 0rem;
+        display: flex;
+        flex-direction: column;
+        padding: var(--PrimaryPadding__both);
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+    
+    
+    .main_content.alignLeft{
+        align-items: flex-start;
+    }
+    
+    .footer_text{
+        flex: 0 0 auto;
+        padding: 0rem var(--PrimaryPadding__horizontal);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    
+    .footer_content{
+        flex: 0 0 6rem;
+        padding: var(--PrimaryPadding__vertical) 0rem;
+        justify-content: flex-end;
+        display: flex;
+        flex-direction: row;
+    }
+
+    /* ---- Exch. Shared Component Styles  ---- */
+    .exchArrow_col{
+        flex: 0 0 var(--arrow__col)
+    }
+
+}
+
+/* ----   ---- */
+
+
+
+
+
+
+
+
+
+/*----*/
+
+
+
+
+/*
+
+.mrv  .exchHeader{
     flex: 0 0 5rem;
     display: flex;
     flex-direction: row;
@@ -57,8 +144,5 @@
 }
 
 
-/* ---- Exch. Shared Component Styles  ---- */
 
-
-/*----*/
-
+*/
