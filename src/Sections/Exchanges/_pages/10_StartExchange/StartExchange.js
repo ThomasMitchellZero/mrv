@@ -9,7 +9,6 @@ import ProductContext from "../../../../store/product-context";
 import OrdersContext from "../../../../store/orders-context";
 
 import { useExchNav } from "../../_Resources/customHooks/useExchNav";
-import { useExchItemTotaler } from "../../_Resources/customHooks/moneyHooks";
 
 import {
   useMergeItemData,
@@ -26,7 +25,6 @@ function ExchStartExchange() {
   const defaultVals = exchCtx.exchSession.defaultValues;
   const setExchState = exchCtx.setExchSession;
   const invoiceContext = useContext(InvoiceContext);
-  const productContext = useContext(ProductContext);
   const ordersContext = useContext(OrdersContext);
   const exchNav = useExchNav();
   const mergeItemData = useMergeItemData();

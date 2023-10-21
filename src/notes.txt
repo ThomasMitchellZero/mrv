@@ -6113,15 +6113,6 @@ Done with my real job and going to my fun job :D  OK.  Next up is getting Choose
     X -Get ReplacementItems reading from allSwapGroups
     X -A card for each SwapGroup
         X -Get the cards reading from AllSwapGroups
-    -A moneyObj for each Swap, SwapGroup, and the whole exchange.
-    -A shared component for the Total Price.
-        -Handle recursively?
-    -Replacement Items:
-        -A way to choose one
-        -Populating the swap with needed accessories
-        -Price handling (in Like for Like cases)
-    -represent child items.
-        -Set picture @ item?  Override in ProductInfo?
     
  First, I think I am gonna need a way to handle the cards.  That's needed no matter what, and it will make it easier to see what I'm looking at.
 
@@ -6139,3 +6130,70 @@ How to handle the child items?  Got a few decisions to make.
         - check for the ProdClass
         - If MainItem, use the default pic with default style.
         - else, use the Child pic.
+
+7:30.  Just found out I'm going out tonight, which really is not great for my long-term decision-making.  Like, the problem I have really is one I could probably solve in half an hour.  But knowing that I've got to stop in half an hour just makes me not think about it very well.
+
+OK, so here's my situation.  I've got enough conditions in the ProductInfo component that I need to figure out a rational way to organize this or I'm just going to be slinging spaghetti.  I don't really know a clear distinction, though.
+
+I guess the idea I have is:
+    -have 1+ Config objects that handle all configurations.
+    -Have all those Config objects share properties.
+    -Set most / all elements which particular property name to always read from, and then use smartness to set the appropriate config object.
+
+And then my rough, first idea is to have one Config obj that sets itself based on conditions of the product details passed in, and then another for user-specified options?  Possibly with some conditions/logic that choose the target config obj?
+
+I could also export a small object of the user-specified options from this same file so I can see in the editor what I should input.
+
+But time is running out.  What I would like to achieve is to conditionally alter the picture based on prodClass, and then I'll figure out where/how to specify that tomorrow.
+
+21 Oct 2023
+9:25.
+OK, I am technically working, but I'm going to go play a pickup volleyball game in about 30 minutes.  I'm OK with this.  The outdoor season is almost over and I need to gorge myself before volleyball hibernation begins.  
+
+
+11:50.
+Volleys balled successfully, back in the seat.  I'm looking forward to this.  Last few coding sessions have been really fun.  I started tearing out the last of ExchItems, and I might as well finish because it has to be done at some point.  
+
+So what I can do is start listing out conditions I expect to have in the ProductInfo bit, and then see if there is a systematic way to set them.  
+
+    -Empty Product: Sometimes half of a swap will have nothing.  Right now the only case I can think of is Acccessories, but maybe more?
+        -ProdInfo can't see the Swap, so this must be an argument.
+
+    -All Returned: Once we add in the ability to specify product location, sometimes we will need to show this status.
+        -ProdInfo can't see the Swap, so this must be an argument.
+
+    -Has Qty / Has Price:   I think they need to be independent.
+        -Qty source can vary, so must be an argument.
+
+    -Is / Isn't Child: in ProductInfo, should only change graphic?
+        -Whether or not it is a child can be derived automatically.
+
+    -Has ItemNum / Has ModelNum?  Could skip, doesn't make a huge difference.
+        -Probably needs to be an argument.
+
+OK, so most of these need to be arguments.  
+    -Next question is how to sort hierarchically.  Some of these conflict.  Like, if I provide price and qty but I need Empty Product, all those values get overwritten.  
+
+    The first thing I can think of is just define all my relevant variables, and then use conditions to re-assign as needed, and then sequence those conditions in reverse order of priority?  
+
+1:00.  Ok, so here's a cool pattern that I can't recall having tried in the past.  So JSX elements with no content do not render.  I've got some configurations where I need to not render most / all of the itemObj contents.
+
+So what I will do is set up the structure like normal, and have all the JSX elements set to accept variables from their respective properties in a Config object.  Then, when I have one of the big empties, I re-assign the Config object to a new object with ONLY the properties the Big Empty will contain.  All the other JSX elements will look for their values via the normal routes, find they are undefined, and just not render.  
+
+2:55.
+OK, so Dave wants to try and stand up the BTP instance in 60 minutes.  I don't know what this is going to do to the rest of my day but I'm gonna try and squeeze as much into this time as I can.
+
+OK.  Got the ItemDetails clean enough.  I think I should drop that part and move on to what's next.  I still need: 
+
+    -Get the visuals right on the cards.
+        -Create shared column width 
+        -Populate the columns
+        -Create the 'header', also with table widths.
+
+    -A moneyObj for each Swap, SwapGroup, and the whole exchange.
+    -A shared component for the Total Price.
+        -Handle recursively?
+    -Replacement Items:
+        -A way to choose one
+        -Populating the swap with needed accessories
+        -Price handling (in Like for Like cases)

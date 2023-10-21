@@ -23,6 +23,16 @@
         justify-content: center;
     };
 
+    .prodImgBox{
+        display: flex;
+        flex-direction: row;
+        box-sizing: border-box;
+        width: 5rem;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+    }
+
     .textColumn{
         display: flex;
         flex-direction: column;
