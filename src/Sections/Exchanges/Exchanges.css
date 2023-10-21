@@ -7,7 +7,6 @@
 .mrv.exch_Top{
 
 /* Special Colors */
-    --ExchArrow: var(--color__green: #007a33);
 
 /* Shared Dimensions */
     --trashcan__col: 5rem;
@@ -68,8 +67,17 @@
     }
 
     /* ---- Exch. Shared Component Styles  ---- */
+
+    .exchArrowIcon{
+        color:  var(--color__green);
+        font-size: 2.5rem;
+    }
+
     .exchArrow_col{
-        flex: 0 0 var(--arrow__col)
+        display: flex;
+        flex: 0 0 var(--arrow__col);
+        height: auto;
+        align-items: center;
     }
 
 }

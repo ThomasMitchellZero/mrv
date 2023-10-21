@@ -4,7 +4,7 @@ import { ProductInfo } from "../../_Resources/components/displayOutputs/ProductI
 
 import { useOutletContext } from "react-router";
 
-import { MdArrowForward } from "react-icons/md";
+import { MdArrowForward, MdDeleteOutline } from "react-icons/md";
 
 import { useImmer } from "use-immer";
 
@@ -15,14 +15,31 @@ function ReplaceSwapsCard({
   exchSwapGroupNum,
 }) {
   const exchCtx = useOutletContext();
-  const thisExchItem = exchCtx.exchSession.itemsInExchange;
   const thisSwapGroupRt = exchCtx.exchSession.allSwapGroups[exchSwapGroupNum];
 
   //---- Shared Functions ----
 
   const handleCardClick = () => {};
+  const handleRemoveMain = (target) => {};
+  const handeRemoveLPP = (target) => {};
 
   //---- UI Elements----
+
+  const rowClassVariants = {
+    mainItem: {
+      trash: (
+        <button
+          type="button"
+          className={`mrvBtn ghost`}
+          onClick={handleRemoveMain}
+        >
+          <MdDeleteOutline fontSize="1.5rem" />
+        </button>
+      ),
+      arrowIcon: <MdArrowForward className={`exchArrowIcon`} />,
+    },
+
+  };
 
   const itemArray = [];
 
@@ -32,24 +49,17 @@ function ReplaceSwapsCard({
       const replaceItem = swapValue.replacementItem;
       const keyStr = `${exchSwapGroupNum}${swapKey}`;
 
+      console.log(swapKey);
       itemArray.push(
         <section key={keyStr} className={`cardRow `}>
           <ProductInfo itemObj={returnItem} />
           <div className={`exchArrow_col `}>
-            <MdArrowForward
-              fontSize="2.5rem"
-              className={`color__green__text`}
-            />
+            {rowClassVariants[swapKey]?.arrowIcon}
           </div>
           <ProductInfo itemObj={replaceItem} />
         </section>
       );
     }
-  };
-
-  const populateTable = (targetObjRt) => {
-    const thisReturnItem = targetObjRt.returningItem;
-    const thisReplaceItem = targetObjRt.replacementItem;
   };
 
   makeCardRow();
