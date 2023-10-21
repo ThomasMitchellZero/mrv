@@ -1,4 +1,4 @@
-import classes from "./_ReplacementItems.css";
+import "./_ReplacementItems.css";
 
 import { ReplacementDetails30 } from "./ReplacementDetails30";
 
@@ -23,7 +23,6 @@ import { useImmer } from "use-immer";
 function ReplacementItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchItems = exchCtx.exchSession.itemsInExchange;
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
 
   const swapGroupArr = useSwapGroupsArr();
@@ -58,6 +57,7 @@ function ReplacementItems() {
   const cardsArr = [];
 
   for (const swapGroupNum of Object.keys(exchSwapGroups)) {
+    // Cards are for Swap Groups.  Single swaps are rows within the cards.
     cardsArr.push(
       <ReplaceSwapsCard
         key={swapGroupNum}

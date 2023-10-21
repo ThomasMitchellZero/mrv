@@ -78,6 +78,7 @@ const useMakeSwap = () => {
 };
 
 const useSwapFilter = () => {
+  // Takes a swap, returns true if it has a valid quantity AND has at least one of the prodClass arguments.
   const swapFilterFor = ({
     targetSwap,
     includeEmpty = false,

@@ -1,7 +1,6 @@
 import "./ProductInfo.css";
 
 import { MdSubdirectoryArrowRight } from "react-icons/md";
-import { useSwapFilter } from "../../customHooks/exchHooks";
 
 // this should work from a completely standard product details object, since the actual product can be changed.
 
@@ -13,65 +12,46 @@ function ProductInfo({
   isChild = false,
 }) {
   const rawProdDetails = itemObj.productDetails;
-  const swapFilter = useSwapFilter();
 
-  const configObj = {
-    mainItem: {
-      imgSrc: (
-        <img src={rawProdDetails.img} alt="test" className={`productImage`} />
-      ),
-    },
-    childClass: {
-      imgSrc: (
-        <MdSubdirectoryArrowRight
-          fontSize="2.5rem"
-          className={`color__green__text`}
-        />
-      ),
-    },
-    empty: {},
-  };
+  ////CONFIGURABLE DEFAULT VALUES ////
 
-  // Price is separate because it isn't always displayed.
-  const price = hasPrice ? (
-    <p className={`body prodDescription`}>{`$${(
-      rawProdDetails.price / 100
-    ).toFixed(2)}`}</p>
-  ) : null;
+  const configs={};
 
-  // itemQty is separate because it isn't always displayed.  The source can also vary.
-  const itemQty = qty ? (
-    <p className={`body prodDescription`}>{`Qty: ${qty}`}</p>
-  ) : null;
+  let itemAndModelStr = `Item# ${rawProdDetails.itemNum}0123    Model# ${rawProdDetails.modelNum}`;
 
-  // probably move this tomorrow.
-  const prodImg =
+  let descriptionStr = `${rawProdDetails.description}`;
+
+  let thisProdImg =
     rawProdDetails.prodClass === "mainItem" ? (
       <img src={rawProdDetails.img} alt="test" className={`productImage`} />
     ) : (
       <div className={`childImage`}>
         <MdSubdirectoryArrowRight
           fontSize="2.5rem"
-          className={`color__green__text`}
+          className={`color__tertiary__text`}
         />
       </div>
     );
 
+  // Price is separate because it isn't always displayed.
+  let priceStr = hasPrice
+    ? `$${(rawProdDetails.price / 100).toFixed(2)}`
+    : null;
+
+  let qtyStr = qty ? `Qty: ${qty}` : null;
+
+
+
   return (
     <section className={`exchProdInfoCmpnt`}>
-      {prodImg}
+      {thisProdImg}
       <section className={`textColumn`}>
         <div className={`textRow`}>
-          {price}
-          {itemQty}
+          <p className={`body prodDescription`}>{priceStr}</p>
+          <p className={`body prodDescription`}>{qtyStr}</p>
         </div>
-
-        <p
-          className={`tiny-text itemModel`}
-        >{`Item# ${rawProdDetails.itemNum}0123    Model# ${rawProdDetails.modelNum}`}</p>
-        <p
-          className={`body__small description`}
-        >{`${rawProdDetails.description}`}</p>
+        <p className={`tiny-text itemModel`}>{itemAndModelStr}</p>
+        <p className={`body__small description`}>{descriptionStr}</p>
       </section>
     </section>
   );
