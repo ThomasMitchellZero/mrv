@@ -10,8 +10,7 @@ import { useOutletContext } from "react-router";
 function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const exchItems = exchCtx.exchSession.itemsInExchange;
-  const exchDeliveries = exchCtx.exchSession.deliveryGroups;
+  const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
 
   const exchNav = useExchNav();
 
@@ -25,7 +24,9 @@ function ReplacementDetails30({ parLocSt_Replace, setParLocSt_Replace }) {
         hasProductName={false}
       />
       <section className={`main_content`}>
-        <ProductInfo itemObj={exchItems["400"].returningItem} />
+        <ProductInfo
+          itemObj={exchSwapGroups["400"].swaps["mainItem"].returningItem}
+        />
         <div className={`divider horizontal`} />
         <p className={`panel30__section__label`}>Cost Differences:</p>
         <MoneyRow

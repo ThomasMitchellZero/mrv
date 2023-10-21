@@ -59,63 +59,6 @@ function ExchStartExchange() {
 
   //// Post-swap, delete from HERE ......
 
-  const mergeProdData = (itemNum, invoProductObj) => {
-    //Merges the invoice information (e.g price) with full product-context info
-
-    let outMergedProdDetails = mergeItemData({
-      itemNum: itemNum,
-      invoItemDataRt: invoProductObj,
-    });
-
-    // everything in this Rt is cloned, so it's safe to work.
-    let thisProdChildRt = outMergedProdDetails.childItemsObj;
-
-    // If this product has any child items...
-    if (!isEmpty(thisProdChildRt)) {
-      // recursively run mergeProdData on any of the kids.
-      for (const [childItemNum, childProductObj] of Object.entries(
-        thisProdChildRt
-      )) {
-        thisProdChildRt[childItemNum] = mergeItemData({
-          itemNum: childItemNum,
-          childProductObj,
-        });
-      }
-    }
-    return outMergedProdDetails;
-  };
-
-  // Setter for all Sale Records.
-  const buildAllExchItems = (draftSt) => {
-    // routes to the active Invoice + its products
-    const activeInvoNum = draftSt.activeSaleRecord.invoiceNum;
-    const invoiceItemsRt = invoiceContext[activeInvoNum].products;
-
-    // Loop through all items listed in Invoice and fully populate.
-    for (const [thisInvoNum, thisInvObj] of Object.entries(invoiceItemsRt)) {
-      const thisMergedProdInfo = mergeProdData(thisInvoNum, thisInvObj);
-
-      //XXX I think this is where we want to get the child products, run mergeProdData on them, and populate a new childItems obj. with returningItem and ReplacementItem data.
-
-      // populate the draft state
-      draftSt.invoiceItems[thisInvoNum] = {
-        qtySold: thisInvObj.quantity,
-        qtyExchanging: defaultVals.dvExchQty,
-        returningItem: {
-          pickupQty: defaultVals.dvPickupQty,
-          productDetails: thisMergedProdInfo,
-          itemDispo: null,
-        },
-        replacementItem: {
-          deliveryQty: defaultVals.dvExchQty,
-          productDetails: thisMergedProdInfo,
-        },
-        childItems: {},
-      };
-    }
-  };
-
-  // To HERE....................
 
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
@@ -158,8 +101,6 @@ function ExchStartExchange() {
 
       draft.activeSaleRecord = outSRTypeProperties;
 
-      // Delete once Swaps work
-      buildAllExchItems(draft);
 
       //// Swaps
 

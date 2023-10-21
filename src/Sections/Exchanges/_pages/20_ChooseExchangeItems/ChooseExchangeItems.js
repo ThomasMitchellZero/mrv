@@ -12,13 +12,6 @@ import {
 
 import { useOutletContext } from "react-router";
 import { useImmer } from "use-immer";
-import cloneDeep from "lodash.clonedeep";
-
-/*
-
-To simplify downstream logic, we will store items from invoiceItems that DO have a qty being exchanged in a separate object, itemsInExh{}.  
-
-*/
 
 const defaultState = {
   formValid: false,
@@ -29,12 +22,10 @@ const defaultState = {
 function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
-  const invoItems = exchCtx.exchSession.invoiceItems;
   const exchSwapGroups = exchCtx.exchSession.allSwapGroups;
   const exchNav = useExchNav();
   const swapFilter = useSwapFilter();
   const swapGroupArr = useSwapGroupsArr();
-  console.log(swapGroupArr);
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -71,39 +62,9 @@ function ExchChooseExchItems() {
   };
 
   const handleContinue = () => {
-    // NEEDS CLEANUP AFTER REMAPPENING ////////////////////////////////////
-    // output that will hold items with an Exch Qty.
-    const outItemsInExch = {};
+    //Still Needs Validation
 
-    // Only items with qtyExchanging are added to ItemsInExch.
-    for (const itemNum of Object.keys(invoItems)) {
-      const thisItemRt = invoItems[itemNum];
-      if (thisItemRt.qtyExchanging) {
-        // if this item has any qty...
-        outItemsInExch[itemNum] = cloneDeep(thisItemRt);
-      }
-    }
-
-    // If any items are being exchanged...
-    if (Object.keys(outItemsInExch).length) {
-      // clear warnings.  Probably redundant but safer and doesn't hurt.
-      setLocSt_PickItems((draft) => {
-        draft.formWarning = false;
-      });
-
-      // Add obj of items being exchanged to Session
-      setExchState((draft) => {
-        draft.itemsInExchange = outItemsInExch;
-      });
-
-      // go to next page.
-      exchNav({ routeStr: "exchreason" });
-    } else {
-      // warning, no navigation.
-      setLocSt_PickItems((draft) => {
-        draft.formWarning = true;
-      });
-    }
+    exchNav({ routeStr: "exchreason" });
   };
 
   // make headers with titles

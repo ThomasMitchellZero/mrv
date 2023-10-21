@@ -76,8 +76,6 @@ const defaultExchState = {
   allSwapGroups:[],
   defaultValues: setDefaultValues({ fastMode: true }),
   activeSaleRecord: null,
-  invoiceItems: {},
-  itemsInExchange: {},
   ptState: {
     activeNode: "",
     ptNodes: [
