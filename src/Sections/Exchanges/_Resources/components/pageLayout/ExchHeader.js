@@ -60,7 +60,7 @@ function ExchHeader({
   );
 
   return (
-    <section className={`main_col exchHeader exchHeader_Top`}>
+    <section className={`exchHeader exchHeader_Top`}>
       {navButton}
       <section className={`mainTitle`}>
         <p className={`tiny-text`}>{hasProductName ? "Exchanges" : " "}</p>

@@ -188,30 +188,39 @@
     background-color: var(--color__surface__default);
     --standardBorder: calc(1.5rem / 16) solid var(--color__border);
     --primaryColumn: 25vw;
-  }
 
-  & .mrvPage .mrvPanel__main {
-    box-sizing: border-box;
-    flex: 1 1 0rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+    & .mrvPanel__main {
+      box-sizing: border-box;
+      flex: 1 1 0rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-  & .mrvPage .mrvPanel__side {
-    height: 100%;
-    flex: 0 0 var(--primaryColumn);
-    display: flex;
-    flex-direction: column;
-  }
+    & .mrvPanel__side {
+      height: 100%;
+      flex: 0 0 var(--primaryColumn);
+      display: flex;
+      flex-direction: column;
+    }
 
-  & .mrvPage .buttonBox {
-    box-sizing: border-box;
-    height: 100%;
-    flex: 1 1 0rem;
-    display: flex;
-    flex-direction: column;
-    padding: 0rem var(--PrimaryPadding__horizontal);
+    & .buttonBox {
+      box-sizing: border-box;
+      height: 100%;
+      flex: 1 1 0rem;
+      display: flex;
+      flex-direction: column;
+      padding: 0rem var(--PrimaryPadding__horizontal);
+    }
+
+    & .cardContainer {
+      box-sizing: border-box;
+      flex: 1 1 0rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
   }
 
   & .mrvPage .mrvPanel__main .buttonBox {
@@ -295,136 +304,128 @@
   & .mrvBtn.mainAction {
     padding-left: var(--PrimaryPadding__horizontal);
   }
-}
 
-/* ---- MRV CARD STYLES ---- */
+  /* ---- MRV CARD STYLES ---- */
 
-.mrvPage .cardContainer {
-  box-sizing: border-box;
-  flex: 1 1 0rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-}
+  & .cardStyle {
+    --dropShadow__01: 0px 4px 4px 0px #00000020;
+    background-color: var(--color__surface__default);
+    box-shadow: var(--dropShadow__01);
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    border: calc(0.125rem) solid transparent;
+    padding: 0.5rem 1rem;
+  }
 
-.mrv .cardStyle {
-  --dropShadow__01: 0px 4px 4px 0px #00000020;
-  background-color: var(--color__surface__default);
-  box-shadow: var(--dropShadow__01);
-  border-radius: 0.5rem;
-  box-sizing: border-box;
-  border: calc(0.125rem) solid transparent;
-  padding: 0.5rem 1rem;
-}
+  & .cardStyle:hover {
+    background-color: var(--color__card__hover);
+  }
 
-.mrv .cardStyle:hover {
-  background-color: var(--color__card__hover);
-}
+  & .cardStyle.selected {
+    background-color: var(--color__card__selected);
+    border-color: var(--color__interactive);
+  }
 
-.mrv .cardStyle.selected {
-  background-color: var(--color__card__selected);
-  border-color: var(--color__interactive);
-}
+  & .cardStyle.selected:hover {
+    background-color: var(--color__card__selected__hover);
+  }
 
-.mrv .cardStyle.selected:hover {
-  background-color: var(--color__card__selected__hover);
-}
+  /* ---- MRV TABLE STYLES ---- */
 
-/* ---- MRV TABLE STYLES ---- */
+  & table {
+    background-color: transparent;
+    table-layout: fixed;
+  }
 
-.mrv table {
-  background-color: transparent;
-  table-layout: fixed;
-}
+  & .tableContainer {
+    display: flex;
+    flex: 1 1 0rem;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-y: auto;
+  }
 
-.mrv .tableContainer {
-  display: flex;
-  flex: 1 1 0rem;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 100%;
-  overflow-y: auto;
-}
+  & tr {
+    border: unset;
+    border-top: var(--primaryBorder);
+  }
 
-.mrv tr {
-  border: unset;
-  border-top: var(--primaryBorder);
-}
+  & table .tdCenter {
+    text-align: center;
+  }
 
-.mrv table .tdCenter {
-  text-align: center;
-}
+  & thead {
+    height: 3rem;
+    background-color: #f5f5f5;
+  }
 
-.mrv thead {
-  height: 3rem;
-  background-color: #f5f5f5;
-}
+  & thead.clear {
+    background-color: transparent;
+  }
 
-.mrv thead.clear {
-  background-color: transparent;
-}
+  & thead > tr {
+    border-radius: 0.5rem 0.5rem 0rem 0rem;
+    border: var(--clearBorder);
+  }
 
-.mrv thead > tr {
-  border-radius: 0.5rem 0.5rem 0rem 0rem;
-  border: var(--clearBorder);
-}
+  & td {
+    padding: 1rem 0rem 1rem var(--tablePadding__horizontal);
+    color: var(--color__primary);
+  }
 
-.mrv td {
-  padding: 1rem 0rem 1rem var(--tablePadding__horizontal);
-  color: var(--color__primary);
-}
+  & th {
+    font-size: 1rem;
+    font-weight: 600;
+    padding-left: var(--tablePadding__horizontal);
+  }
 
-.mrv th {
-  font-size: 1rem;
-  font-weight: 600;
-  padding-left: var(--tablePadding__horizontal);
-}
+  & tbody tr.active {
+    background-color: var(--color__card__selected);
+  }
 
-.mrv tbody tr.active {
-  background-color: var(--color__card__selected);
-}
+  & tbody tr:hover {
+    background-color: var(--color__card__hover);
+  }
 
-.mrv tbody tr:hover {
-  background-color: var(--color__card__hover);
-}
+  & tbody tr.active:hover {
+    background-color: var(--color__card__selected__hover);
+  }
 
-.mrv tbody tr.active:hover {
-  background-color: var(--color__card__selected__hover);
-}
+  /* ---- MRV RADIO INPUT STYLES ---- */
 
-/* ---- MRV RADIO INPUT STYLES ---- */
+  & label.radio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 2.5rem;
+    width: 100%;
+  }
 
-.mrv label.radio {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  flex: 0 0 2.5rem;
-  width: 100%;
-}
+  & .radio input {
+    flex: 0 0 1rem;
+    height: 1rem;
+    margin: 0rem;
+  }
 
-.mrv .radio input {
-  flex: 0 0 1rem;
-  height: 1rem;
-  margin: 0rem;
-}
+  & .radio p {
+    color: var(--color__primary);
+  }
 
-.mrv .radio p {
-  color: var(--color__primary);
-}
+  input[type="radio" i]:focus-visible {
+    outline-offset: 0rem;
+    outline: none 0rem transparent;
+  }
 
-input[type="radio" i]:focus-visible {
-  outline-offset: 0rem;
-  outline: none 0rem transparent;
-}
+  /* ---- Universal Modifiers ----*/
 
-/* ---- Universal Modifiers ----*/
+  & .nohover {
+    pointer-events: none;
+  }
 
-.mrv .nohover {
-  pointer-events: none;
-}
-
-.mrv .nohover_bg:hover {
-  background-color: initial;
+  & .nohover_bg:hover {
+    background-color: initial;
+  }
+  
 }
