@@ -8,6 +8,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import {
   useSwapFilter,
   useSwapGroupsArr,
+  useMakeSwapMoneyObj,
 } from "../../_Resources/customHooks/exchHooks";
 
 import { useOutletContext } from "react-router";
@@ -26,6 +27,7 @@ function ExchChooseExchItems() {
   const exchNav = useExchNav();
   const swapFilter = useSwapFilter();
   const swapGroupArr = useSwapGroupsArr();
+  const makeSwapMoneyObj = useMakeSwapMoneyObj();
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
@@ -130,6 +132,9 @@ function ExchChooseExchItems() {
   };
 
   for (const i of swapGroupArr) {
+    console.log(i.thisSwapValue);
+    makeSwapMoneyObj({ targetSwap: i.thisSwapValue });
+
     if (
       swapFilter({
         targetSwap: i.thisSwapValue,

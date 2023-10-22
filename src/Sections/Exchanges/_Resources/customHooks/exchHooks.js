@@ -22,6 +22,39 @@ const useDollarsToCents = () => {
   };
 };
 
+const newMoneyObj = ({
+  costDif = 0,
+  charge = 0,
+  refund = 0,
+  tax = 0,
+  costAdj = 0,
+  fullItemBalance = 0,
+}) => {
+  return {
+    costDif,
+    charge,
+    refund,
+    tax,
+    costAdj,
+    fullItemBalance,
+  };
+};
+
+const useMakeSwapMoneyObj = () => {
+  const outFn = ({ targetSwap }) => {
+    const thisReturnQty = targetSwap.returningItem?.returnQty;
+    const thisReturnInfo = targetSwap.returningItem?.productDetails;
+    const thisReplaceQty = targetSwap.replacementItem?.replaceQty;
+    const thisReplaceInfo = targetSwap.replacementItem?.productDetails;
+    console.log(targetSwap);
+    console.log(
+      `cat ${thisReturnQty} ${thisReturnInfo.price} ${thisReplaceQty} ${thisReplaceInfo.price}`
+    );
+  };
+
+  return outFn;
+};
+
 //// Hooks for Swap handling ////
 
 const useMergeItemData = () => {
@@ -195,14 +228,16 @@ function useGroupAppointments() {
   };
 }
 
-
 export {
+  //Money
   useCentsToDollars,
   useDollarsToCents,
+  useMakeSwapMoneyObj,
+  //Group Appts
   useGroupAppointments,
+  // Swap stuff
   useMakeSwap,
   useMergeItemData,
   useSwapFilter,
   useSwapGroupsArr,
-
 };

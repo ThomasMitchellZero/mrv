@@ -62,7 +62,6 @@ function ReplaceSwapsCard({
       const replaceItem = swapValue.replacementItem;
       const keyStr = `${exchSwapGroupNum}${swapKey}`;
 
-      console.log(swapKey);
       itemArray.push(
         <section key={keyStr} className={`cardRow `}>
           <div className={`prodinfo_col`}>
