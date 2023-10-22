@@ -1,11 +1,9 @@
-
-
 @font-face {
-    font-family: 'Fellix';
-    src:  url('../../assets/fonts/fellix/Fellix-Regular.otf') format('otf'),
-  }
+  font-family: "Fellix";
+  src: url("../../assets/fonts/fellix/Fellix-Regular.otf") format("otf");
+}
 
-.mrv{
+.mrv {
   display: flex;
   flex-direction: column;
   flex: 1 1 0rem;
@@ -16,316 +14,292 @@
 
   --PrimaryPadding__vertical: 1rem;
   --PrimaryPadding__horizontal: 2rem;
-  --PrimaryPadding__both: 
-    var(--PrimaryPadding__vertical) 
+  --PrimaryPadding__both: var(--PrimaryPadding__vertical)
     var(--PrimaryPadding__horizontal);
 
   --tablePadding__vertical: 0rem;
   --tablePadding__horizontal: 1rem;
-  --tablePadding__both: 
-      var(--PrimaryPadding__vertical) 
-      var(--tablePadding__horizontal);
+  --tablePadding__both: var(--PrimaryPadding__vertical)
+    var(--tablePadding__horizontal);
 
-  --primaryBorder:  .125rem  solid var(--color__border);
-  --clearBorder: 0rem .125rem solid transparent;
+  --primaryBorder: 0.125rem solid var(--color__border);
+  --clearBorder: 0rem 0.125rem solid transparent;
 
+  /* Colors */
 
+  --color__surface__default: #ffffff;
+  --color__surface__subdued: #f4f6fa;
+  --color__surface__darkblue: #012169;
+  --color__surface__lightgreen: #ebfce3;
 
+  --color__primary: #001544;
+  --color__primary__inverse: #ebf1ff;
+  --color__secondary: #001544d6;
+  --color__tertiary: #001544ad;
+  --color__interactive: #0072ce;
+  --color__interactive__pressed: #0e52a4;
+  --color__green: #007a33;
+  --color__green__inverse: #37c271;
+  --color__gold: #f5b62f;
+  --color__red: #971b2f;
+  --color__red__inverse: #f19caa;
+  --color__disabled__text: #00000052;
 
+  --color__card__selected: #e7f1fd;
+  --color__card__hover: #f0f0f0;
+  --color__card__selected__hover: #d9e9fc;
 
-    /* Colors */
+  --color__border: #9ea4b2;
+  --color__border__th: #d8d8d8;
+  --color__border__subdued: #cdb1dd;
 
+  .divider {
+    display: flex;
+    background-color: var(--color__border);
 
-    --color__surface__default: #ffffff;
-    --color__surface__subdued: #f4f6fa;
-    --color__surface__darkblue:  #012169;
-    --color__surface__lightgreen:  #ebfce3;
+    &.horizontal {
+      height: 0.125rem;
+      width: 100%;
+    }
+    &.vertical {
+      height: 100%;
+      width: 0.125rem;
+    }
+  }
 
-    --color__primary: #001544;
-    --color__primary__inverse: #ebf1ff;
-    --color__secondary: #001544d6;
-    --color__tertiary: #001544ad;
-    --color__interactive: #0072ce;
-    --color__interactive__pressed: #0e52a4;
-    --color__green: #007a33;
-    --color__green__inverse: #37c271;
-    --color__gold: #f5b62f;
-    --color__red: #971b2f;
-    --color__red__inverse: #f19caa;
-    --color__disabled__text: #00000052;
+  & .color__surface__subdued {
+    background-color: var(--color__surface__subdued);
+  }
 
-    --color__card__selected: #e7f1fd;
-    --color__card__hover: #f0f0f0;
-    --color__card__selected__hover: #d9e9fc;
+  & .color__primary__text {
+    color: var(--color__primary);
+  }
+  & .color__primary {
+    background-color: var(--color__primary);
+  }
+  & .color__secondary__text {
+    color: var(--color__secondary);
+  }
+  & .color__secondary {
+    background-color: var(--color__secondary);
+  }
+  & .color__tertiary__text {
+    color: var(--color__tertiary);
+  }
+  & .color__tertiary {
+    background-color: var(--color__tertiary);
+  }
+  & .color__green__text {
+    color: var(--color__green);
+  }
+  & .color__green {
+    background-color: var(--color__green);
+  }
+  & .color__transparent {
+    background-color: transparent;
+  }
 
-    --color__border: #9ea4b2;
-    --color__border__th: #d8d8d8;
-    --color__border__subdued: #cdb1dd;
+  /* ---- MRV TEXT STYLES ---- */
 
-    .divider{
-      display: flex;
-      background-color: var(--color__border);
-
-      &.horizontal{
-        height: .125rem;
-        width: 100%;
-      };
-      &.vertical{
-        height: 100%;
-        width: .125rem;
-      };
-    };
-
-    .color__surface__subdued{
-      background-color: var(--color__surface__subdued);
-    };
-    
-    .color__primary__text{
-      color: var(--color__primary);
-    };
-    .color__primary{
-      background-color: var(--color__primary);
-    };
-    .color__secondary__text{
-      color: var(--color__secondary);
-    };
-    .color__secondary{
-      background-color: var(--color__secondary);
-    };
-    .color__tertiary__text{
-      color: var(--color__tertiary);
-    };
-    .color__tertiary{
-      background-color: var(--color__tertiary);
-    };
-    .color__green__text{
-      color: var(--color__green);
-    };
-    .color__green{
-      background-color: var(--color__green);
-    };
-    .color__transparent{
-      background-color: transparent;
-    };
-
-
-
-    
-}
-
-
-
-
-
-
-
-
-
-/* ---- MRV TEXT STYLES ---- */
-
-.mrv h1{
+  & h1 {
     font-weight: 500;
-}
-
-.mrv h3 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--color__text__primary);
-  line-height: 3.5rem;
-}
-
-.mrv h3.heading__large{
-  font-size: 2.5rem;
-  line-height: 4rem;
-}
-
-.mrv h4{
-  font-size: 2rem;
-  line-height: 2.5rem;
-  font-weight: 600;
-  color: var(--color__text__primary);
-}
-
-.mrv h4.heading__small{
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-
-.mrv .body{
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 2rem;
-}
-
-.mrv .body__large{
-  font-weight: 500;
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.mrv .body__small{
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-
-.mrv .tinyText{
-  font-weight: 500;
-  font-size: .875rem;
-  line-height: 1.5rem;
-}
-
-/*  Modifiers  */
-
-.mrv .bold{
-  font-weight: 600;
-}
-
-.mrv .keepSpace{
-  white-space: pre-wrap;
-}
-
-.mrv .warning{
-  color: var(--color__red);
-}
-
-.mrv .panel30__section__label{
-  font-weight: 500;
-  font-size: .875rem;
-  line-height: 1.5rem;
-  color: var(--color__tertiary);
-  width: 100%;
-}
-
-
-/* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
-
-/* ---- MRV Containers ---- */
-
-.mrvPage{
-  height: 100%;
-  display: flex;
-  flex: 1 1 0rem;
-  flex-direction: row;
-  box-sizing: border-box;
-  align-items: flex-start;
-  background-color: var(--color__surface__default);
-  --standardBorder: calc(1.5rem / 16) solid var(--color__border);
-  --primaryColumn: 25vw;
-}
-
-.mrvPage .mrvPanel__main{
-  box-sizing: border-box;
-  flex: 1 1 0rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  }
-  
-  .mrvPage .mrvPanel__side{
-  height: 100%;
-  flex: 0 0 var(--primaryColumn);
-  display: flex;
-  flex-direction: column;
-  }
-  
-  .mrvPage .buttonBox{
-  box-sizing: border-box;
-  height: 100%;
-  flex: 1 1 0rem;
-  display: flex;
-  flex-direction: column;
-  padding: 0rem var(--PrimaryPadding__horizontal);
-  }
-  
-  .mrvPage .mrvPanel__main .buttonBox {
-  flex: 0 0 var(--primaryColumn);
-  
-  }
-  
-  .mrvPage .border__left{
-  border-left: var(--standardBorder);
-  }
-  
-  .mrvPage .border__right{
-  border-right: var(--standardBorder);
-  }
-  
-  .mrvPage .blankback{
-  background-color: transparent;
   }
 
-/* ---- MRV BUTTON STYLES ---- */
+  & h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color__text__primary);
+    line-height: 3.5rem;
+  }
 
-.mrvBtn{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+  & h3.heading__large {
+    font-size: 2.5rem;
+    line-height: 4rem;
+  }
 
-  height: 4rem;
-  padding: 0rem 1rem;
-  margin: 0rem;
-  gap: .25rem;
+  & h4 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    color: var(--color__text__primary);
+  }
 
-  border: .125rem solid;
-  border-radius: .5rem;
-  background-color: fuchsia;
-  text-decoration: none;
-  font-size: 1.25rem;
-  font-weight: 500;
+  & h4.heading__small {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 
-  cursor: pointer;
+  & .body {
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 2rem;
+  }
+
+  & .body__large {
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  & .body__small {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  & .tinyText {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+  }
+
+  /*  Modifiers  */
+
+  & .bold {
+    font-weight: 600;
+  }
+
+  & .keepSpace {
+    white-space: pre-wrap;
+  }
+
+  & .warning {
+    color: var(--color__red);
+  }
+
+  & .panel30__section__label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: var(--color__tertiary);
+    width: 100%;
+  }
+
+  /* &&&&&&&&&&&&    UI ELEMENT STYLES   &&&&&&&&&&&&&&*/
+
+  /* ---- MRV Containers ---- */
+
+  & .mrvPage {
+    height: 100%;
+    display: flex;
+    flex: 1 1 0rem;
+    flex-direction: row;
+    box-sizing: border-box;
+    align-items: flex-start;
+    background-color: var(--color__surface__default);
+    --standardBorder: calc(1.5rem / 16) solid var(--color__border);
+    --primaryColumn: 25vw;
+  }
+
+  & .mrvPage .mrvPanel__main {
+    box-sizing: border-box;
+    flex: 1 1 0rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .mrvPage .mrvPanel__side {
+    height: 100%;
+    flex: 0 0 var(--primaryColumn);
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .mrvPage .buttonBox {
+    box-sizing: border-box;
+    height: 100%;
+    flex: 1 1 0rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0rem var(--PrimaryPadding__horizontal);
+  }
+
+  & .mrvPage .mrvPanel__main .buttonBox {
+    flex: 0 0 var(--primaryColumn);
+  }
+
+  & .mrvPage .border__left {
+    border-left: var(--standardBorder);
+  }
+
+  & .mrvPage .border__right {
+    border-right: var(--standardBorder);
+  }
+
+  & .mrvPage .blankback {
+    background-color: transparent;
+  }
+
+  /* ---- MRV BUTTON STYLES ---- */
+
+  & .mrvBtn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    height: 4rem;
+    padding: 0rem 1rem;
+    margin: 0rem;
+    gap: 0.25rem;
+
+    border: 0.125rem solid;
+    border-radius: 0.5rem;
+    background-color: fuchsia;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+
+    cursor: pointer;
+  }
+
+  & .mrvBtn:hover {
+    opacity: 80%;
+  }
+
+  & .mrvBtn.primary {
+    color: var(--color__primary__inverse);
+    border-color: transparent;
+    background-color: var(--color__interactive);
+  }
+
+  & .mrvBtn.secondary {
+    color: var(--color__interactive);
+    border-color: var(--color__interactive);
+    background-color: transparent;
+  }
+
+  & .mrvBtn.ghost {
+    color: var(--color__interactive);
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  & .mrvBtn.jumbo {
+    height: 6rem;
+    font-size: 1.75rem;
+  }
+
+  & .mrvBtn.fullWidth {
+    flex: 1 1 0rem;
+  }
+
+  & .mrvBtn.focused {
+    color: var(--color__primary__inverse);
+    background-color: var(--color__interactive__pressed);
+    border: calc(3rem / 16) solid white;
+    outline: calc(3rem / 16) solid var(--color__interactive__pressed);
+  }
+
+  & .mrvBtn.mainAction {
+    padding-left: var(--PrimaryPadding__horizontal);
+  }
 }
-
-.mrvBtn:hover{
-  opacity: 80%;
-}
-
-.mrvBtn.primary{
-  color: var(--color__primary__inverse);
-  border-color: transparent;
-  background-color: var(--color__interactive);
-}
-
-.mrvBtn.secondary{
-  color: var(--color__interactive);
-  border-color: var(--color__interactive);
-  background-color: transparent;
-}
-
-.mrvBtn.ghost{
-  color: var(--color__interactive);
-  border-color: transparent;
-  background-color: transparent;
-}
-
-.mrvBtn.jumbo{
-  height: 6rem;
-  font-size: 1.75rem;
-}
-
-.mrvBtn.fullWidth{
-  flex: 1 1 0rem;
-}
-
-.mrvBtn.focused{
-  color: var(--color__primary__inverse);
-  background-color: var(--color__interactive__pressed);
-  border: calc(3rem / 16) solid white;
-  outline: calc(3rem / 16) solid var(--color__interactive__pressed);
-}
-
-.mrvBtn.mainAction{
-  padding-left: var(--PrimaryPadding__horizontal);
-}
-
 
 /* ---- MRV CARD STYLES ---- */
 
-.mrvPage .cardContainer{
+.mrvPage .cardContainer {
   box-sizing: border-box;
   flex: 1 1 0rem;
   display: flex;
@@ -334,40 +308,37 @@
   width: 100%;
 }
 
-.mrv .cardStyle{
+.mrv .cardStyle {
   --dropShadow__01: 0px 4px 4px 0px #00000020;
   background-color: var(--color__surface__default);
   box-shadow: var(--dropShadow__01);
   border-radius: 0.5rem;
   box-sizing: border-box;
-  border: calc( .125rem ) solid transparent;
+  border: calc(0.125rem) solid transparent;
   padding: 0.5rem 1rem;
 }
 
-.mrv .cardStyle:hover{
+.mrv .cardStyle:hover {
   background-color: var(--color__card__hover);
 }
 
-.mrv .cardStyle.selected{
+.mrv .cardStyle.selected {
   background-color: var(--color__card__selected);
   border-color: var(--color__interactive);
 }
 
-.mrv .cardStyle.selected:hover{
+.mrv .cardStyle.selected:hover {
   background-color: var(--color__card__selected__hover);
 }
 
-
-
-
 /* ---- MRV TABLE STYLES ---- */
 
-.mrv table{
+.mrv table {
   background-color: transparent;
   table-layout: fixed;
 }
 
-.mrv .tableContainer{
+.mrv .tableContainer {
   display: flex;
   flex: 1 1 0rem;
   flex-direction: column;
@@ -381,18 +352,16 @@
   border-top: var(--primaryBorder);
 }
 
-
-
-.mrv table .tdCenter{
+.mrv table .tdCenter {
   text-align: center;
 }
 
-.mrv thead{
-    height: 3rem;
-    background-color: #f5f5f5;
+.mrv thead {
+  height: 3rem;
+  background-color: #f5f5f5;
 }
 
-.mrv thead.clear{
+.mrv thead.clear {
   background-color: transparent;
 }
 
@@ -401,30 +370,28 @@
   border: var(--clearBorder);
 }
 
-.mrv td{
+.mrv td {
   padding: 1rem 0rem 1rem var(--tablePadding__horizontal);
   color: var(--color__primary);
 }
 
-.mrv th{
+.mrv th {
   font-size: 1rem;
   font-weight: 600;
   padding-left: var(--tablePadding__horizontal);
 }
 
-
-.mrv tbody tr.active{
-    background-color: var(--color__card__selected);
+.mrv tbody tr.active {
+  background-color: var(--color__card__selected);
 }
 
-.mrv tbody tr:hover{
-    background-color: var(--color__card__hover);
+.mrv tbody tr:hover {
+  background-color: var(--color__card__hover);
 }
 
-.mrv tbody tr.active:hover{
-    background-color: var(--color__card__selected__hover);
+.mrv tbody tr.active:hover {
+  background-color: var(--color__card__selected__hover);
 }
-
 
 /* ---- MRV RADIO INPUT STYLES ---- */
 
@@ -437,13 +404,13 @@
   width: 100%;
 }
 
-.mrv .radio input{
+.mrv .radio input {
   flex: 0 0 1rem;
   height: 1rem;
   margin: 0rem;
 }
 
-.mrv .radio p{
+.mrv .radio p {
   color: var(--color__primary);
 }
 
@@ -454,10 +421,10 @@ input[type="radio" i]:focus-visible {
 
 /* ---- Universal Modifiers ----*/
 
-.mrv .nohover{
+.mrv .nohover {
   pointer-events: none;
 }
 
-.mrv .nohover_bg:hover{
+.mrv .nohover_bg:hover {
   background-color: initial;
 }

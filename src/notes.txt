@@ -6202,9 +6202,9 @@ Now with coffee.
 I still need: 
     -Get the visuals right on the cards.
         X-Create shared column width 
-        -Populate the columns
-            -Delete icon
-            -Vertical Divider
+        X-Populate the columns
+            X-Delete icon
+            X-Vertical Divider
         -Create the 'header', also with table widths.
 
     -A moneyObj for each Swap, SwapGroup, and the whole exchange.
@@ -6214,3 +6214,9 @@ I still need:
         -A way to choose one
         -Populating the swap with needed accessories
         -Price handling (in Like for Like cases)
+
+2:30.  Got some problems with my CSS.  I THINK they are related to how I do nesting.  I need to figure out wtf is going  on here because the way I want to use CSS kind of requires nesting.  
+
+I'm going to start with the H3 because it is super visible.  
+
+2:50.  Ok, looks like I have a solve.  For Chrome, for now, child elements need to be prefaced with &, otherwise they don't get parsed correctly.  That does seem to match what I observed: my .mrv styles appeared to have no styles applied at all, and defaulted to the document.   OK.  So let's try this, then.  Just the text, first.  
