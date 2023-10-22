@@ -75,39 +75,45 @@
         width: .125rem;
       };
     };
+
+    .color__surface__subdued{
+      background-color: var(--color__surface__subdued);
+    };
+    
+    .color__primary__text{
+      color: var(--color__primary);
+    };
+    .color__primary{
+      background-color: var(--color__primary);
+    };
+    .color__secondary__text{
+      color: var(--color__secondary);
+    };
+    .color__secondary{
+      background-color: var(--color__secondary);
+    };
+    .color__tertiary__text{
+      color: var(--color__tertiary);
+    };
+    .color__tertiary{
+      background-color: var(--color__tertiary);
+    };
+    .color__green__text{
+      color: var(--color__green);
+    };
+    .color__green{
+      background-color: var(--color__green);
+    };
+    .color__transparent{
+      background-color: transparent;
+    };
+
+
+
+    
 }
 
-.mrv .color__surface__subdued{
-  background-color: var(--color__surface__subdued);
-}
 
-.mrv .color__primary__text{
-  color: var(--color__primary);
-}
-.mrv .color__primary{
-  background-color: var(--color__primary);
-}
-.mrv .color__secondary__text{
-  color: var(--color__secondary);
-}
-.mrv .color__secondary{
-  background-color: var(--color__secondary);
-}
-.mrv .color__tertiary__text{
-  color: var(--color__tertiary);
-}
-.mrv .color__tertiary{
-  background-color: var(--color__tertiary);
-}
-.mrv .color__green__text{
-  color: var(--color__green);
-}
-.mrv .color__green{
-  background-color: var(--color__green);
-}
-.mrv .color__transparent{
-  background-color: transparent;
-}
 
 
 

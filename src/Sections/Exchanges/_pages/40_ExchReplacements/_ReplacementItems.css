@@ -2,7 +2,6 @@
 .replacementTop{
 
 
-    
 
     .cardStyle{
         width: 100%;
@@ -21,7 +20,9 @@
         box-sizing: border-box;
 
         .divider{
+            box-sizing: border-box;
             margin: 1rem 0rem;
+
         }
 
         .prodinfo_col{
