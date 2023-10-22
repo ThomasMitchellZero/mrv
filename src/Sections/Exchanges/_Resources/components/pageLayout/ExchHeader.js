@@ -1,5 +1,4 @@
-import classes from "./ExchHeader.module.css";
-
+import "./_ExchHeader.css"
 import { defaultExchState } from "../../glossary/glossaryExch";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
@@ -42,17 +41,17 @@ function ExchHeader({
       onClick={() => {
         navBtnClick();
       }}
-      className={`mrvBtn ${classes.navBtn}`}
+      className={`mrvBtn navBtn`}
     >
       {iconsObj[hasIcon]}
     </button>
   ) : null;
 
   const orderCancelCluster = (
-    <section className={` ${classes.defaultHeight}`}>
+    <section className={`defaultHeight`}>
       <p className={`body`}>{`${srString}`}</p>
       <button
-        className={`mrvBtn ghost ${classes.defaultHeight}`}
+        className={`mrvBtn ghost defaultHeight`}
         onClick={() => handleClearSession()}
       >
         End Exchange
@@ -61,11 +60,11 @@ function ExchHeader({
   );
 
   return (
-    <section className={`main_col exchHeader ${classes.container}`}>
+    <section className={`main_col exchHeader exchHeader_Top`}>
       {navButton}
-      <section className={`${classes.mainTitle}`}>
+      <section className={`mainTitle`}>
         <p className={`tiny-text`}>{hasProductName ? "Exchanges" : " "}</p>
-        <section className={`${classes.defaultHeight}`}>
+        <section className={`defaultHeight`}>
           <h3 className={``}>{headerTitle}</h3>
         </section>
       </section>
