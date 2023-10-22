@@ -241,7 +241,7 @@
 
   /* ---- MRV BUTTON STYLES ---- */
 
-  & .mrvBtn {
+  & button {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -261,49 +261,52 @@
     font-weight: 500;
 
     cursor: pointer;
+
+    &:hover {
+      opacity: 80%;
+    }
+  
+    &.primary {
+      color: var(--color__primary__inverse);
+      border-color: transparent;
+      background-color: var(--color__interactive);
+    }
+  
+    &.secondary {
+      color: var(--color__interactive);
+      border-color: var(--color__interactive);
+      background-color: transparent;
+    }
+  
+    &.ghost {
+      color: var(--color__interactive);
+      border-color: transparent;
+      background-color: transparent;
+    }
+  
+    &.jumbo {
+      height: 6rem;
+      font-size: 1.75rem;
+    }
+  
+    &.fullWidth {
+      flex: 1 1 0rem;
+    }
+  
+    &.focused {
+      color: var(--color__primary__inverse);
+      background-color: var(--color__interactive__pressed);
+      border: calc(3rem / 16) solid white;
+      outline: calc(3rem / 16) solid var(--color__interactive__pressed);
+    }
+  
+    &.mainAction {
+      padding-left: var(--PrimaryPadding__horizontal);
+    }
+    
   }
 
-  & .mrvBtn:hover {
-    opacity: 80%;
-  }
 
-  & .mrvBtn.primary {
-    color: var(--color__primary__inverse);
-    border-color: transparent;
-    background-color: var(--color__interactive);
-  }
-
-  & .mrvBtn.secondary {
-    color: var(--color__interactive);
-    border-color: var(--color__interactive);
-    background-color: transparent;
-  }
-
-  & .mrvBtn.ghost {
-    color: var(--color__interactive);
-    border-color: transparent;
-    background-color: transparent;
-  }
-
-  & .mrvBtn.jumbo {
-    height: 6rem;
-    font-size: 1.75rem;
-  }
-
-  & .mrvBtn.fullWidth {
-    flex: 1 1 0rem;
-  }
-
-  & .mrvBtn.focused {
-    color: var(--color__primary__inverse);
-    background-color: var(--color__interactive__pressed);
-    border: calc(3rem / 16) solid white;
-    outline: calc(3rem / 16) solid var(--color__interactive__pressed);
-  }
-
-  & .mrvBtn.mainAction {
-    padding-left: var(--PrimaryPadding__horizontal);
-  }
 
   /* ---- MRV CARD STYLES ---- */
 
@@ -427,5 +430,5 @@
   & .nohover_bg:hover {
     background-color: initial;
   }
-  
+
 }

@@ -1,22 +1,22 @@
-import classes from "./ptStyle.module.css";
+import "./_ptStyle.css"
 import { MdDone, } from "react-icons/md";
 
 function PTnode({ dataObj, nodeIndex = 99, nodeStatus }) {
 
   const statusObj = {
-    notStarted: { css: classes.notStarted, text: nodeIndex },
-    active: { css: classes.active, text: nodeIndex },
-    complete: { css: classes.complete, text: <MdDone fontSize="1.5rem"/> },
+    notStarted: { css: 'notStarted', text: nodeIndex },
+    active: { css: 'active', text: nodeIndex },
+    complete: { css: 'complete', text: <MdDone fontSize="1.5rem"/> },
   };
 
   return (
-    <section className={`${classes.ptNode}`}>
+    <section className={`ptNode`}>
       <button
-        className={`body__small bold ${classes.ptBtn} ${statusObj[nodeStatus].css}`}
+        className={`body__small bold ptBtn ${statusObj[nodeStatus].css}`}
       >
         {statusObj[nodeStatus].text}
       </button>
-        <p className={`ody__small bold`}>{dataObj.title}</p>
+        <p className={`body__small bold`}>{dataObj.title}</p>
     </section>
   );
 }

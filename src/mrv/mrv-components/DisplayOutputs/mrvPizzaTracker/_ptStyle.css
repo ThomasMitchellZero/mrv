@@ -1,58 +1,52 @@
-.pt{
-    --ptSize: 2.5rem;
-    --borderSize: calc(2rem / 16);
-}
+.pt_Top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1 1 0rem;
+  height: 100%;
+  margin: 0rem;
+  padding: 0rem;
 
-section.pt{
+  --ptSize: 2.5rem;
+  --borderSize: calc(2rem / 16);
 
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    flex: 1 1 0rem;
-    height: 100%;
-    margin: 0rem;
-    padding: 0rem;
-
-}
-
-.spacer{
+  & .spacer {
     display: flex;
     flex-direction: row;
     flex: 1 1 0rem;
     height: var(--ptSize);
     align-items: center;
-    padding: .125rem;
-}
+    padding: 0.125rem;
+  }
 
-.spacer div{
+  & .spacer div {
     background-color: var(--color__border);
     height: var(--borderSize);
     width: 100%;
+  }
 
-}
-
-.end{
+  & .end {
     flex: 0 0 5%;
-}
+  }
 
-.ptNode{
+  & .ptNode {
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
     align-items: center;
     width: var(--ptSize);
-    gap: .25rem;
-}
+    gap: 0.25rem;
+  }
 
-.ptNode p{
+  & .ptNode p {
     text-align: center;
     color: var(--color__primary);
     overflow: visible;
     white-space: nowrap;
-}
+  }
 
-.ptBtn{
+  & .ptBtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,16 +57,17 @@ section.pt{
     border: var(--borderSize) solid var(--color__primary);
     border-radius: var(--ptSize);
     background-color: transparent;
-}
+  }
 
-.active{
+  & .active {
     background-color: var(--color__interactive);
     border: none;
     color: #fff;
-}
+  }
 
-.complete{
+  & .complete {
     background-color: var(--color__green);
     border: none;
     color: #fff;
+  }
 }
