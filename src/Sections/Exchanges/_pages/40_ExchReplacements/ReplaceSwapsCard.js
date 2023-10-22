@@ -21,7 +21,7 @@ function ReplaceSwapsCard({
 
   const handleCardClick = () => {};
   const handleRemoveMain = (target) => {};
-  const handeRemoveLPP = (target) => {};
+  const handleRemoveLPP = (target) => {};
 
   //---- UI Elements----
 
@@ -38,8 +38,21 @@ function ReplaceSwapsCard({
       ),
       arrowIcon: <MdArrowForward className={`exchArrowIcon`} />,
     },
-
+    lpp_3yr: {
+      trash: (
+        <button
+          type="button"
+          className={`mrvBtn ghost`}
+          onClick={handleRemoveLPP}
+        >
+          <MdDeleteOutline fontSize="1.5rem" />
+        </button>
+      ),
+    },
+    accessory: {},
   };
+  // 3 and 5 year display the same.
+  rowClassVariants.lpp_5yr = rowClassVariants.lpp_3yr;
 
   const itemArray = [];
 
@@ -52,11 +65,22 @@ function ReplaceSwapsCard({
       console.log(swapKey);
       itemArray.push(
         <section key={keyStr} className={`cardRow `}>
-          <ProductInfo itemObj={returnItem} />
+          <div className={`prodinfo_col`}>
+            <ProductInfo itemObj={returnItem} />
+          </div>
           <div className={`exchArrow_col `}>
             {rowClassVariants[swapKey]?.arrowIcon}
           </div>
-          <ProductInfo itemObj={replaceItem} />
+          <div className={`prodinfo_col`}>
+            <ProductInfo itemObj={replaceItem} />
+          </div>
+          <div className={`exchTrash_col `}>
+            {rowClassVariants[swapKey]?.trash}
+          </div>
+          <div className={`divider vertical `} />
+          <div className={`money_col`}>
+            <p className={`body__large `}>{`$0.00`}</p>
+          </div>
         </section>
       );
     }

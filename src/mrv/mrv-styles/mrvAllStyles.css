@@ -63,13 +63,18 @@
     --color__border__subdued: #cdb1dd;
 
     .divider{
-      height: .125rem;
+      display: flex;
       background-color: var(--color__border);
 
       &.horizontal{
+        height: .125rem;
         width: 100%;
-      }
-    }
+      };
+      &.vertical{
+        height: 100%;
+        width: .125rem;
+      };
+    };
 }
 
 .mrv .color__surface__subdued{

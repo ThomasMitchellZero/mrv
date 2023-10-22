@@ -6183,11 +6183,28 @@ So what I will do is set up the structure like normal, and have all the JSX elem
 2:55.
 OK, so Dave wants to try and stand up the BTP instance in 60 minutes.  I don't know what this is going to do to the rest of my day but I'm gonna try and squeeze as much into this time as I can.
 
-OK.  Got the ItemDetails clean enough.  I think I should drop that part and move on to what's next.  I still need: 
+OK.  Got the ItemDetails clean enough.  I think I should drop that part and move on to what's next.  (moved list)
 
+6:45.
+    OK.  Done with the call, predictably out of energy because I was predictably dumb and did not eat lunch.  Gonna knock off in an hour or so, so what can I get done?
+
+    I'm realizing I'm going to need some conditional handling for the swap rows.  I think the only conditions are item types, so I think that's good?
+        -Main item has trash can + arrow.
+        -LPP has only trash can.
+        -Accessory has neither arrow nor trash can.
+
+22 Oct 2023
+11:00.
+Met with Maddie today.  I actually haven't had the greatest luck with her lately, so let's see how today goes.  I feel like I'm off to a decent start.  Normally this time of day I'm trying to convince myself to get down to the gym and the gym is already done, so I can really make something of this.  Should probably do a full 69420 here, but first I want some coffee.  
+
+11:20. 
+Now with coffee.
+I still need: 
     -Get the visuals right on the cards.
-        -Create shared column width 
+        X-Create shared column width 
         -Populate the columns
+            -Delete icon
+            -Vertical Divider
         -Create the 'header', also with table widths.
 
     -A moneyObj for each Swap, SwapGroup, and the whole exchange.

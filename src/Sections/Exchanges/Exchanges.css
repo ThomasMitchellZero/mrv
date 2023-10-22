@@ -9,8 +9,6 @@
 /* Special Colors */
 
 /* Shared Dimensions */
-    --trashcan__col: 5rem;
-    --arrow__col: 5rem;
 
 /* Vertical Positions*/
 
@@ -75,9 +73,17 @@
 
     .exchArrow_col{
         display: flex;
-        flex: 0 0 var(--arrow__col);
+        flex: 0 0 5rem;
         height: auto;
         align-items: center;
+        justify-content: center;
+    }
+    .exchTrash_col{
+        display: flex;
+        flex: 0 0 5rem;
+        height: auto;
+        align-items: center;
+        justify-content: center;
     }
 
 }
