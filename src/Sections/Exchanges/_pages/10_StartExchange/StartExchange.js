@@ -3,6 +3,10 @@ import classes from "./StartExchange.module.css";
 import { ExchHeader } from "../../_Resources/components/pageLayout/ExchHeader";
 
 import { saleRecordTypes } from "../../../../globalFunctions/globalJS_classes";
+import {
+  InvoProduct,
+  ProdClass,
+} from "../../../../globalFunctions/globalJS_classes";
 
 import InvoiceContext from "../../../../store/invoice-context";
 import ProductContext from "../../../../store/product-context";
@@ -57,7 +61,6 @@ function ExchStartExchange() {
 
   //// Post-swap, delete from HERE ......
 
-
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
   const makeSwapGroup = ({ itemNum, itemObj, targetObj }) => {
@@ -67,10 +70,22 @@ function ExchStartExchange() {
       invoItemDataRt: itemObj,
     });
 
+    // for testing Unlike Exchanges.  Dummy data.
+    const unlikeTestReplacement = mergeItemData({
+      itemNum: 400,
+      invoItemDataRt: new InvoProduct({
+        prodClass: mergedProdInfo.prodClass,
+        quantity: 2,
+        price: 40700,
+        tax: 4066,
+      }),
+    });
+
     //Make a new swap, assign to target with key of prodClass
     targetObj[mergedProdInfo.prodClass] = makeSwap({
       // Only one argument b/c Like4Like is default
       returnItemInfo: mergedProdInfo,
+      replaceItemInfo: mergedProdInfo,
     });
 
     const thisProdChildRt = mergedProdInfo?.childItemsObj;
@@ -98,7 +113,6 @@ function ExchStartExchange() {
           : {};
 
       draft.activeSaleRecord = outSRTypeProperties;
-
 
       //// Swaps
 

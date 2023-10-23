@@ -70,8 +70,8 @@ const useMakeSwapMoneyObj = () => {
     const outMoneyObj = newMoneyObj({
       costDif: outCostDif,
       taxDif: outTaxDif,
-      charge: outCostDif > 0 ? Math.abs(outCostDif) : 0,
-      refund: outCostDif < 0 ? Math.abs(outCostDif) : 0,
+      charge: outCostDif > 0 ? outCostDif : 0,
+      refund: outCostDif < 0 ? outCostDif : 0,
       fullItemBalance: outCostDif,
     });
 

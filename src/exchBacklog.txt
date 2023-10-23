@@ -1,0 +1,6 @@
+Creating a separate backlog for Exch items I need to do at some point so I don't have to look through that ass-long NNotes file for it.
+
+-Since the warning text and my buttons need to use the same column space, it could be nice to integrate them into a single component.
+
+-Add in ability to specify Pickup Qty with ChooseExchangeItems.
+

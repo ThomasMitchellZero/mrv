@@ -44,7 +44,7 @@ export { weekdayArr, monthArr };
 const setDefaultValues = ({ fastMode = false }) => {
   const actualValues = {
     dvExchQty: "",
-    dvPickupQty: null,
+    dvPickupQty: "",
     dvReturnReason: null,
     dvScheduledTime: null,
   };
