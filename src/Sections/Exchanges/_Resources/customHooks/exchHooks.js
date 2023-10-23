@@ -24,32 +24,58 @@ const useDollarsToCents = () => {
 
 const newMoneyObj = ({
   costDif = 0,
+  taxDif = 0,
   charge = 0,
   refund = 0,
-  tax = 0,
   costAdj = 0,
   fullItemBalance = 0,
 }) => {
   return {
     costDif,
+    taxDif,
     charge,
     refund,
-    tax,
     costAdj,
     fullItemBalance,
   };
 };
 
 const useMakeSwapMoneyObj = () => {
+  // this will only be used when a swap is created.  After that, the moneyObj can be edited separately.
+
+  // or is that right?  Because when a discount is created, we still need to calculate the values.  Maybe value calculation is separate?
+
   const outFn = ({ targetSwap }) => {
-    const thisReturnQty = targetSwap.returningItem?.returnQty;
-    const thisReturnInfo = targetSwap.returningItem?.productDetails;
-    const thisReplaceQty = targetSwap.replacementItem?.replaceQty;
-    const thisReplaceInfo = targetSwap.replacementItem?.productDetails;
-    console.log(targetSwap);
-    console.log(
-      `cat ${thisReturnQty} ${thisReturnInfo.price} ${thisReplaceQty} ${thisReplaceInfo.price}`
-    );
+    // using ?? 0 because I can't count on any of these values being defined.
+    const thisReturnQty = targetSwap.returningItem?.returnQty ?? 0;
+    const thisReturnInfo = targetSwap.returningItem?.productDetails ?? 0;
+
+    const thisReplaceQty = targetSwap.replacementItem?.replaceQty ?? 0;
+    const thisReplaceInfo = targetSwap.replacementItem?.productDetails ?? 0;
+
+    // in L4L scenario, prices are always the same.
+    const likeForLike = thisReturnInfo.itemNum === thisReplaceInfo.itemNum;
+    let replaceTax = likeForLike ? thisReturnInfo.tax : thisReplaceInfo.tax;
+    let replacePrice = likeForLike
+      ? thisReturnInfo.price
+      : thisReplaceInfo.price;
+
+    // vals are $ * quantity returning / replacing.
+    // Customer charges show as positive, refunds show as negative.
+    const outCostDif =
+      replacePrice * thisReplaceQty - thisReturnInfo.price * thisReturnQty;
+    const outTaxDif =
+      replaceTax * thisReplaceQty - thisReturnInfo.tax * thisReturnQty;
+
+    const outMoneyObj = newMoneyObj({
+      costDif: outCostDif,
+      taxDif: outTaxDif,
+      charge: outCostDif > 0 ? Math.abs(outCostDif) : 0,
+      refund: outCostDif < 0 ? Math.abs(outCostDif) : 0,
+      fullItemBalance: outCostDif,
+    });
+
+    console.log(outMoneyObj);
   };
 
   return outFn;
