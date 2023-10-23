@@ -20,6 +20,7 @@ const defaultState = {
   needsMO: false,
 };
 
+
 function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
@@ -29,10 +30,13 @@ function ExchChooseExchItems() {
   const swapGroupArr = useSwapGroupsArr();
   const makeSwapMoneyObj = useMakeSwapMoneyObj();
 
+
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
+
+  console.log(swapGroupArr);
 
   const integerizer = (input) => {
     // Placeholder.  If we decide later to force integers, do it here.
@@ -65,8 +69,42 @@ function ExchChooseExchItems() {
 
   const handleContinue = () => {
     //Still Needs Validation
+    let isValid = false;
 
-    exchNav({ routeStr: "exchreason" });
+    /*
+      const ref = {
+        swapGroupKey,
+        swapGroupValue,
+        thisSwapkey,
+        thisSwapValue,
+      };
+    */
+
+    //Pre-continue, check for form validity and create moneyObj for each swap.
+    for (const i of swapGroupArr) {
+      // Valid if ANY item is being returned.
+      if (i.thisSwapValue.returningItem.returnQty) {
+        isValid = true;
+      }
+      console.log(i.thisSwapValue);
+
+      const outMoneyObj = makeSwapMoneyObj({ targetSwap: i.thisSwapValue });
+      console.log(outMoneyObj);
+      setExchState((draft) => {
+        draft.allSwapGroups[i.swapGroupKey].swaps[i.thisSwapkey].moneyObj =
+          outMoneyObj;
+      });
+    }
+
+    if (isValid){
+      exchNav({ routeStr: "exchreason" });
+    } else {
+      setLocSt_PickItems((draft)=>{
+        draft.formWarning = true;
+      })
+    }
+
+
   };
 
   // make headers with titles
@@ -132,9 +170,6 @@ function ExchChooseExchItems() {
   };
 
   for (const i of swapGroupArr) {
-    console.log(i.thisSwapValue);
-    makeSwapMoneyObj({ targetSwap: i.thisSwapValue });
-
     if (
       swapFilter({
         targetSwap: i.thisSwapValue,
@@ -179,7 +214,7 @@ function ExchChooseExchItems() {
         </section>
         <section className={`footer_text`}>
           {locSt_PickItems.formWarning ? (
-            <p className={`tinyText warning`}>
+            <p className={`buttonBox tinyText warning`}>
               Enter at least one item to exchange
             </p>
           ) : null}

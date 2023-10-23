@@ -41,11 +41,14 @@
 
   & .footer_text {
     flex: 0 0 auto;
-    padding: 0rem var(--PrimaryPadding__horizontal);
+    padding: 0rem;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    & p {
+      text-align: center;
+    }
   }
 
   & .footer_content {

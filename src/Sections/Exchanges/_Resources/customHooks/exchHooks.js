@@ -76,6 +76,7 @@ const useMakeSwapMoneyObj = () => {
     });
 
     console.log(outMoneyObj);
+    return outMoneyObj;
   };
 
   return outFn;

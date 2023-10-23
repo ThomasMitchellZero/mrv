@@ -74,7 +74,7 @@ const defaultExchState = {
     mainCSSclass: "",
   },
   allSwapGroups:[],
-  defaultValues: setDefaultValues({ fastMode: true }),
+  defaultValues: setDefaultValues({ fastMode: false }),
   activeSaleRecord: null,
   ptState: {
     activeNode: "",
