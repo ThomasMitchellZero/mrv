@@ -6205,18 +6205,136 @@ I still need:
         X-Populate the columns
             X-Delete icon
             X-Vertical Divider
-        -Create the 'header', also with table widths.
 
-    -A moneyObj for each Swap, SwapGroup, and the whole exchange.
-    -A shared component for the Total Price.
-        -Handle recursively?
-    -Replacement Items:
-        -A way to choose one
-        -Populating the swap with needed accessories
-        -Price handling (in Like for Like cases)
 
 2:30.  Got some problems with my CSS.  I THINK they are related to how I do nesting.  I need to figure out wtf is going  on here because the way I want to use CSS kind of requires nesting.  
 
 I'm going to start with the H3 because it is super visible.  
 
 2:50.  Ok, looks like I have a solve.  For Chrome, for now, child elements need to be prefaced with &, otherwise they don't get parsed correctly.  That does seem to match what I observed: my .mrv styles appeared to have no styles applied at all, and defaulted to the document.   OK.  So let's try this, then.  Just the text, first.  
+
+3:50.  
+The day is kind of getting away from me, but the main MRV and Exch CSS files are set and working.   Gonna take a little swalk and think about next steps.
+
+4:45. 
+'Quick' swalk.  Heh.  Ok.  I'm feeling like one more session and then calling it a day.  Let's go.
+
+23 Oct 2023
+4:40.
+OK.  Got some time and want to bang some more of this out.  So the approach I had in mind when I knocked off last night was:
+    -Have a hook that JUST creates the money object.  
+        -Most factors, like qty, price, and tax, do not change once the moneyObj has been created.
+    -Have a second hook that just applies a discount and then adjusts the final price.  Edits the swap's moneyObj but no creation required.  
+
+So let's just run through a few scenarios and make sure we're covered.
+    -User changes the replacement item:
+        -We just run the hook again on the edited swap.  Any discount they had before wouldn't be relevant anyways.
+    -User shitcans the replacement's LPP.
+        -Just run the hook again on the edited swap.
+    -Refund Scenario:
+        -User can't apply a discount anways, so no issues.  
+    OK, so I think we are good?  
+
+OK. I have it written, but everything is showing up 0 because currently everything is L4L.  Maybe I can try auto-assigning the same item to everything to see if it is working?
+
+6:20.  
+I'm going to need some kind of extra handling in the Swap-maker because there are special rules.
+    -Replacement with accessories always need 1/item, no matter how many were returned.
+    -A child can't have a greater return qty than its parent.
+    -A child can't be returned independent of its parent (I think?)
+
+    And where this gets tricky is that with my flat swap structure, a child can't necessarily see its parent?  
+
+7:00.
+I should probably stop but I am having a pretty good time so I'm thinking I'll just go until I'm not.  How about we see if there's a nice, bite-sized chunk to work?
+
+We still need:
+    -A moneyObj for each 
+        X-Swap, 
+        -SwapGroup, 
+        -the whole exchange.
+    -A shared component for the Total Price.
+        -Handle recursively?
+    -Replacement Items:
+        -A way to choose one
+        -Populating the swap with needed accessories
+        -Price handling (in Like for Like cases)
+    -Conditional handling for Choose Exch. Items.
+
+OK, so nothing is really blowing my skirt up.  However, I did have a cool idea for the hook that will handle replacements.
+    -Replacement handling hook will look at the SwapGroup, not the individual swap.  Then I can do all my conditional shit.  
+
+24 Oct 2023
+5:10.
+I would really like to get the hook to handle the replacements up and running.  Going to start by listing out when it's used and what it needs.
+    -When a new SwapGroup is being created.
+    -When a different replacement has been chosen.
+    -When adding accessories.
+
+So from this list, it's kind of looking like we need to see the Swap Group, and we need to be able to specify WHAT the replacement is.  
+    -And so what I'm thinking is, if we need to see the Swap Group and we need to edit the swap group... maybe this is just the thing that makes the swapGroup.
+
+What edits can the user make?
+    -Change replacement main item =>
+        -Accessories are auto-updated, as are their quantities.
+        -User can never edit an accessory directly.  
+
+OK, so if we set up the SwapGrouper to always expect a Merged return, I think this gets simpler.  If the user changes the Replacement, we just run the SwapGrouper again, passing the new replacement item.  For the Return item, we just pull it out of the existing SwapGroup, since it's already merged.  
+
+This really only works on the Main item, but I think I am OK just changing the LPP swap directly if they do.  Some other factors:
+    -Once the quantities are set, NONE of the Return Items ever change again.  
+    -We don't actually have to populate the replacement until ExchReplacements, if that makes it easier.  
+    -Semi-wondering if we just go back to making an InvoItems object?  Although my qty-changer handles sets the quantities for both, so I think I'm covered.
+
+So how to handle the replacement?
+    -All user-editable quantities are stored outside the Product Details.  
+    -After Merge, the relevant values in Product Details are:
+        -price
+        -tax
+        -child items
+    -Where I'm getting is that I want to be able to populate the Replacement JUST as a product.  And I'm pretty sure I can.  
+
+6:55.  Screw it.  I'm gonna go walk.  Part of what is flummoxing me is how the child items are handled when the product is sold.  
+
+    -ProdClass-based logic should live in the Swap-Grouper.  makeSwapObj should just dumbly return a Swap with whatever it's given.
+    -SwapGrouper should EXPECT both a Return and a Replacement.  Since there are some scenarios that have one but not the other, we can't just assume that the Replacement = Return if one isn't specified.
+    -Plan on using InvoProd being fed into mergeItemData to control quantities + price.  That way we always know what properties we can expect. 
+    
+25 Oct 2023
+2:30.
+Done enough with my real job and ready to get back after this.  Since I'm going to have at least 3 layers of nested functions for making the SwapGroups, it will be very important to have a clear idea of what is doing what.
+
+    -mergeItemData:
+        -Produces the productDetails section of a swap.  
+        -Relevant properties from InvoProd are: 
+            -price
+            -tax
+            -child items
+    
+    -makeSwapObj:
+        -Populates a full Swap from a Merged Return and Merged Replacement.
+        -Needs to be able to handle either side being empty / blank.
+
+    -SwapGrouper:
+        -Produces one single SwapGroup.  IMO this is where most of the conditional logic about Product Class will live.  
+        -Going to be triggered in at least 2 places, StartExchange and then in ChooseReplacements (once a replacement is chosen), so what inputs should it expect?  
+            -I could give it a collection of Swaps, which would allow it to be used in both places.  But I'm not sure how much it would be doing.
+            -I could also give it just a MainItem swap, or even just a Merged MainItem.
+                -If I do this, how do I choose a replacement?  
+
+            -What if we instead just give it a MainItem Swap?  
+                -We should be able to derive all the Child info from that.
+                -What about the editing?  We're creating a new swap then, right?  
+                -Whatever we do can't LOSE the user inputs, qty specifically.  
+        
+    -makeSwapGroups:
+        Probably not a hook, but gets some target and calls SwapGrouper on all of its elements to producte AllSwapGroups state,
+
+4:40.
+    Took a little walk.  Right now, I kind of feel like the way to handle it is to:
+        - have my MakeSwapObj function create a swapGroup with a nearly-empty Replacement Item
+        - Have a separate setReplacementItems() function that buzzes through a given swap-group and fills out the replacement items. (to be used when setting replacements)
+        - Call that in SwapGrouper.
+
+6:00.  Sort of struggling here.  How about this.  The new hook literally just copied the SwapGroupMaker from StartExchange.  That means the output SHOULD be the same, right?  Let's test that, and then we can fiddle-fuck around with the Replacements.  
+
