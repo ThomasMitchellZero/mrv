@@ -4,7 +4,10 @@ import ProductContext from "../../../../store/product-context";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
-import { ProdClass } from "../../../../globalFunctions/globalJS_classes";
+import {
+  ProdClass,
+  InvoProduct,
+} from "../../../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
 
@@ -41,9 +44,7 @@ const newMoneyObj = ({
 };
 
 const useMakeSwapMoneyObj = () => {
-  // this will only be used when a swap is created.  After that, the moneyObj can be edited separately.
-
-  // or is that right?  Because when a discount is created, we still need to calculate the values.  Maybe value calculation is separate?
+  // Takes a swap, returns the correct moneyObj.
 
   const outFn = ({ targetSwap }) => {
     // using ?? 0 because I can't count on any of these values being defined.
@@ -54,6 +55,7 @@ const useMakeSwapMoneyObj = () => {
     const thisReplaceInfo = targetSwap.replacementItem?.productDetails ?? 0;
 
     // in L4L scenario, prices are always the same.
+    // XXX This probably should be done when the replacement is assigned?
     const likeForLike = thisReturnInfo.itemNum === thisReplaceInfo.itemNum;
     let replaceTax = likeForLike ? thisReturnInfo.tax : thisReplaceInfo.tax;
     let replacePrice = likeForLike
@@ -110,6 +112,8 @@ const useMakeSwap = () => {
 
   const defaultVals = exchCtx.exchSession.defaultValues;
 
+  //PROBLEM - needs to be able to handle an empty returnItem.
+
   const makeSwapObj = ({
     returnItemInfo = {},
     replaceItemInfo = returnItemInfo,
@@ -135,6 +139,60 @@ const useMakeSwap = () => {
   };
 
   return makeSwapObj;
+};
+
+const useSetSGreplacements = () => {
+  const setSGreplacements = () => {};
+};
+
+const useSwapGrouper = () => {
+  //Purpose is to populate a SINGLE swap group.
+  const mergeItemData = useMergeItemData();
+  const makeSwap = useMakeSwap();
+
+  const makeBaseSG = ({ itemNum, itemObj, targetObj }) => {
+    //Combine the invoice and product data
+    const mergedProdInfo = mergeItemData({
+      itemNum: itemNum,
+      invoItemDataRt: itemObj,
+    });
+
+    console.log(targetObj);
+
+    //Make a new swap, assign to target with key of prodClass
+    targetObj[mergedProdInfo.prodClass] = makeSwap({
+      // Only one argument b/c Like4Like is default
+      returnItemInfo: mergedProdInfo,
+      replaceItemInfo: mergedProdInfo,
+    });
+
+    const thisProdChildRt = mergedProdInfo?.childItemsObj;
+
+    if (!isEmpty(thisProdChildRt)) {
+      for (const [childItemNum, childItemObj] of Object.entries(
+        thisProdChildRt
+      )) {
+        makeBaseSG({
+          itemNum: childItemNum,
+          itemObj: childItemObj,
+          targetObj: targetObj,
+        });
+      }
+    }
+  };
+
+  const swapGrouper = ({ itemNum, itemObj, mainReplItem }) => {
+    let outSwapGroup = {};
+    makeBaseSG({ itemNum: itemNum, itemObj: itemObj, targetObj: outSwapGroup });
+
+    return outSwapGroup;
+  };
+
+  // Make a swapObj from the MainItem
+
+  // If any children,
+
+  return swapGrouper;
 };
 
 const useSwapFilter = () => {
@@ -267,4 +325,5 @@ export {
   useMergeItemData,
   useSwapFilter,
   useSwapGroupsArr,
+  useSwapGrouper,
 };

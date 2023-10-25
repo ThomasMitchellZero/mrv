@@ -129,7 +129,7 @@ const ProductContext = React.createContext({
     modelNum: "STL301",
     description: "Samsung 7.1-cu ft Reversible Side Load Washer",
     specialCategories: { SOS: true },
-    reqAccessories: { "100001": true },
+    reqAccessories: { "100001": 1 },
     restockFee: 0.2,
     inStock: 99,
     dcLocations: ["AAA"],

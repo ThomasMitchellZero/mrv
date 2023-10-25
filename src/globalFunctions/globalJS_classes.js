@@ -20,7 +20,7 @@
 class Product {
   constructor({
     img = "",
-    price = 1,
+    price = 0,
     itemNum = "1",
     modelNum = "1",
     description = "",
@@ -30,10 +30,10 @@ class Product {
     restockFee = null,
     inStock = 99,
     dcLocations = {},
-    cat,
   }) {
     this.img = img;
     this.price = price;
+    this.tax = Math.round(price / 11);
     this.itemNum = itemNum;
     this.modelNum = modelNum;
     this.description = description;

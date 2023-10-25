@@ -17,6 +17,7 @@ import { useExchNav } from "../../_Resources/customHooks/useExchNav";
 import {
   useMergeItemData,
   useMakeSwap,
+  useSwapGrouper,
 } from "../../_Resources/customHooks/exchHooks";
 
 import { useContext } from "react";
@@ -33,6 +34,7 @@ function ExchStartExchange() {
   const exchNav = useExchNav();
   const mergeItemData = useMergeItemData();
   const makeSwap = useMakeSwap();
+  const swapGrouper = useSwapGrouper();
   const srt = saleRecordTypes;
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -59,49 +61,8 @@ function ExchStartExchange() {
     });
   };
 
-  //// Post-swap, delete from HERE ......
-
   //// Swap Stuff ///////////////// ////////////////// /////////////
 
-  const makeSwapGroup = ({ itemNum, itemObj, targetObj }) => {
-    //Combine the invoice and product data
-    const mergedProdInfo = mergeItemData({
-      itemNum: itemNum,
-      invoItemDataRt: itemObj,
-    });
-
-    // for testing Unlike Exchanges.  Dummy data.
-    const unlikeTestReplacement = mergeItemData({
-      itemNum: 400,
-      invoItemDataRt: new InvoProduct({
-        prodClass: mergedProdInfo.prodClass,
-        quantity: 2,
-        price: 40700,
-        tax: 4066,
-      }),
-    });
-
-    //Make a new swap, assign to target with key of prodClass
-    targetObj[mergedProdInfo.prodClass] = makeSwap({
-      // Only one argument b/c Like4Like is default
-      returnItemInfo: mergedProdInfo,
-      replaceItemInfo: mergedProdInfo,
-    });
-
-    const thisProdChildRt = mergedProdInfo?.childItemsObj;
-
-    if (!isEmpty(thisProdChildRt)) {
-      for (const [childItemNum, childItemObj] of Object.entries(
-        thisProdChildRt
-      )) {
-        makeSwapGroup({
-          itemNum: childItemNum,
-          itemObj: childItemObj,
-          targetObj: targetObj,
-        });
-      }
-    }
-  };
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
     setExchState((draft) => {
@@ -122,12 +83,12 @@ function ExchStartExchange() {
       let outAllSwaps = {};
 
       for (const [thisInvoKey, thisInvoObj] of Object.entries(invoiceItemsRt)) {
-        outAllSwaps[thisInvoKey] = { swaps: {} };
-        makeSwapGroup({
-          itemNum: thisInvoKey,
-          itemObj: thisInvoObj,
-          targetObj: outAllSwaps[thisInvoKey].swaps,
-        });
+        outAllSwaps[thisInvoKey] = {
+          swaps: swapGrouper({
+            itemNum: thisInvoKey,
+            itemObj: thisInvoObj,
+          }),
+        };
       }
 
       draft.allSwapGroups = outAllSwaps;
