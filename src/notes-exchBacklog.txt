@@ -4,3 +4,4 @@ Creating a separate backlog for Exch items I need to do at some point so I don't
 
 -Add in ability to specify Pickup Qty with ChooseExchangeItems.
 
+-productDetails needs to be able to accept an empty / mostly empty item.  

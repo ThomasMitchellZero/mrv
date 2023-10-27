@@ -77,7 +77,6 @@ const useMakeSwapMoneyObj = () => {
       fullItemBalance: outCostDif,
     });
 
-    console.log(outMoneyObj);
     return outMoneyObj;
   };
 
@@ -106,7 +105,6 @@ const useMergeItemData = () => {
 
 const useMakeSwap = () => {
   // purpose is to produce a fully-populated ExchItem obj.
-  // All qtys start at default values.
 
   const exchCtx = useOutletContext();
 
@@ -114,25 +112,22 @@ const useMakeSwap = () => {
 
   //PROBLEM - needs to be able to handle an empty returnItem.
 
-  const makeSwapObj = ({
-    returnItemInfo = {},
-    replaceItemInfo = returnItemInfo,
-  }) => {
+  const makeSwapObj = ({ returnItemInfo = null }) => {
     // populate the Swap object
     const outSwapObj = {
-      swapClass: replaceItemInfo.prodClass,
+      swapClass: returnItemInfo?.prodClass,
       moneyObj: {},
       returningItem: {
-        qtySold: returnItemInfo.quantity,
-        returnQty: defaultVals.dvPickupQty,
+        qtySold: returnItemInfo?.quantity ?? 0,
+        returnQty: defaultVals.dvExchQty,
         pickupQty: defaultVals.dvPickupQty,
-        productDetails: returnItemInfo,
+        productDetails: returnItemInfo ?? {},
         itemDispo: null,
       },
       replacementItem: {
         replaceQty: defaultVals.dvExchQty,
         deliveryQty: defaultVals.dvExchQty,
-        productDetails: replaceItemInfo,
+        productDetails: returnItemInfo,
       },
     };
     return outSwapObj;
@@ -142,13 +137,16 @@ const useMakeSwap = () => {
 };
 
 const useSetSGreplacements = () => {
-  const setSGreplacements = () => {};
+  const setSGreplacements = ({ targetSwap, replacementItem }) => {};
+
+  return setSGreplacements;
 };
 
 const useSwapGrouper = () => {
   //Purpose is to populate a SINGLE swap group.
   const mergeItemData = useMergeItemData();
   const makeSwap = useMakeSwap();
+  const setSGreplacements = useSetSGreplacements();
 
   const makeBaseSG = ({ itemNum, itemObj, targetObj }) => {
     //Combine the invoice and product data

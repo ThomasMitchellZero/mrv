@@ -89,7 +89,6 @@ function ExchChooseExchItems() {
       console.log(i.thisSwapValue);
 
       const outMoneyObj = makeSwapMoneyObj({ targetSwap: i.thisSwapValue });
-      console.log(outMoneyObj);
       setExchState((draft) => {
         draft.allSwapGroups[i.swapGroupKey].swaps[i.thisSwapkey].moneyObj =
           outMoneyObj;

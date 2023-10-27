@@ -82,6 +82,7 @@ function ExchStartExchange() {
 
       let outAllSwaps = {};
 
+      // Loop through all the products sold on this invoice and create a swapGroup for each.
       for (const [thisInvoKey, thisInvoObj] of Object.entries(invoiceItemsRt)) {
         outAllSwaps[thisInvoKey] = {
           swaps: swapGrouper({
