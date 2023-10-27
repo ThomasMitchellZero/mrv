@@ -47,6 +47,8 @@ function ExchStartExchange() {
     };
   };
 
+  console.log(new InvoProduct({ quantity: 3 }));
+
   // Sale Record-specific handlers
 
   const setInvoice = (invoNum) => {
@@ -62,7 +64,6 @@ function ExchStartExchange() {
   };
 
   //// Swap Stuff ///////////////// ////////////////// /////////////
-
 
   const handleSetSaleRecord = ({ srType, srKey }) => {
     setExchState((draft) => {

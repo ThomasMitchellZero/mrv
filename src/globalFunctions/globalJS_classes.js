@@ -17,6 +17,7 @@
 
 */
 
+
 class Product {
   constructor({
     img = "",
@@ -86,6 +87,7 @@ export { saleRecordTypes };
 //---- Orders ----
 
 class InvoProduct {
+
   constructor({
     quantity = 1,
     price = 100,
@@ -99,6 +101,7 @@ class InvoProduct {
     this.childItemsObj = childItemsObj;
     this.prodClass = prodClass;
   }
+  
 }
 
 /*
