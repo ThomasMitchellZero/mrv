@@ -95,6 +95,7 @@ const useMergeItemData = () => {
   const productCtx = useContext(ProductContext);
 
   const mergeItemData = ({ itemNum, invoItemDataRt, prodClass = null }) => {
+    const testCtx = productCtx[itemNum];
     const ctxProduct = cloneDeep(productCtx[itemNum]);
 
     // new Items (e.g. a different replacement) won't have an invoice.  To ensure property consistency, give it an 'invoice' from the item's data.
@@ -162,16 +163,15 @@ const useSetSGreplacements = () => {
   const setSGreplacements = ({ targetSwapGroup, replacementItemNum }) => {
     // Different behavior if Like 4 Like.
     const sameItem =
-      targetSwapGroup.swaps.mainItem.returningItem.itemNum ===
-      replacementItemNum;
-    const exchQty = targetSwapGroup.swaps.mainItem.returningItem.returnQty;
+      targetSwapGroup.mainItem.returningItem.itemNum == replacementItemNum;
+    const exchQty = targetSwapGroup.mainItem.returningItem.returnQty;
 
     // Handle Main Item ///////////////////////////////
     // make Merged item from Main replacement's item#
     let outMainItem = sameItem
-      ? targetSwapGroup.swaps.mainItem.returningItem
-      : mergeProdInfo({ itemNum: replacementItemNum });
-    const mainItemRt = targetSwapGroup.swaps.mainItem.replacementItem;
+      ? targetSwapGroup.mainItem.returningItem.productDetails
+      : mergeProdInfo({ itemNum: replacementItemNum, prodClass: "mainItem" });
+    const mainItemRt = targetSwapGroup.mainItem.replacementItem;
     mainItemRt.productDetails = outMainItem;
     mainItemRt.replaceQty = exchQty;
 
@@ -179,13 +179,12 @@ const useSetSGreplacements = () => {
     let outAccessory = outMainItem.reqAccessories;
 
     if (outAccessory) {
-      outAccessory = mergeProdInfo({ itemNum: replacementItemNum });
-      // gotta set Qty somewhere.
-      const accessoryRt = targetSwapGroup.swaps.accessory;
+      outAccessory = mergeProdInfo({ itemNum: outAccessory, prodClass: "accessory" });
+
       // Make the accessory row if it doesn't exist
-      targetSwapGroup.swaps.accessory ||= makeSwap({});
-      accessoryRt.replacementItem.productDetails = outAccessory;
-      accessoryRt.replacementItem.replaceQty = exchQty;
+      targetSwapGroup.accessory ||= makeSwap({});
+      targetSwapGroup.accessory.replacementItem.productDetails = outAccessory;
+      targetSwapGroup.accessory.replacementItem.replaceQty = exchQty;
     }
 
     // Handle Accessory ////////////////////////////////
@@ -193,7 +192,6 @@ const useSetSGreplacements = () => {
     const handleLPP = (lppStr) => {
       let lppRt = targetSwapGroup.swaps[lppStr];
       lppRt.replacementItem.productDetails = lppRt.returningItem.productDetails;
-      
     };
   };
   return setSGreplacements;
@@ -236,16 +234,17 @@ const useSwapGrouper = () => {
     }
   };
 
-  const swapGrouper = ({ itemNum, itemObj, mainReplItem }) => {
+  const swapGrouper = ({ itemNum, itemObj, mainReplItem = itemNum }) => {
     let outSwapGroup = {};
     makeBaseSG({ itemNum: itemNum, itemObj: itemObj, targetObj: outSwapGroup });
 
+    setSGreplacements({
+      targetSwapGroup: outSwapGroup,
+      replacementItemNum: 9900,
+    });
+
     return outSwapGroup;
   };
-
-  // Make a swapObj from the MainItem
-
-  // If any children,
 
   return swapGrouper;
 };
