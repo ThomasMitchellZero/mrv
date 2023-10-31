@@ -95,7 +95,11 @@ const useMergeItemData = () => {
   const productCtx = useContext(ProductContext);
 
   const mergeItemData = ({ itemNum, invoItemDataRt, prodClass = null }) => {
+    //OK, so I think this is fine, and the issue is that the itemNum isn't getting to here.
+
     const testCtx = productCtx[itemNum];
+    console.log(itemNum);
+    console.log(testCtx);
     const ctxProduct = cloneDeep(productCtx[itemNum]);
 
     // new Items (e.g. a different replacement) won't have an invoice.  To ensure property consistency, give it an 'invoice' from the item's data.
@@ -160,39 +164,65 @@ const useSetSGreplacements = () => {
   const makeSwap = useMakeSwap();
   const productCtx = useContext(ProductContext);
 
-  const setSGreplacements = ({ targetSwapGroup, replacementItemNum }) => {
-    // Different behavior if Like 4 Like.
-    const sameItem =
-      targetSwapGroup.mainItem.returningItem.itemNum == replacementItemNum;
-    const exchQty = targetSwapGroup.mainItem.returningItem.returnQty;
+  // Takes a SwapGroup and optional Replacement, returns SG with children fully populated via business rules.
+  const setSGreplacements = ({
+    targetSwapGroup,
+    replacementItemNum = targetSwapGroup.swaps.mainItem.returningItem.itemNum,
+  }) => {
+    const oldSG = targetSwapGroup.swaps;
 
-    // Handle Main Item ///////////////////////////////
-    // make Merged item from Main replacement's item#
-    let outMainItem = sameItem
-      ? targetSwapGroup.mainItem.returningItem.productDetails
-      : mergeProdInfo({ itemNum: replacementItemNum, prodClass: "mainItem" });
-    const mainItemRt = targetSwapGroup.mainItem.replacementItem;
-    mainItemRt.productDetails = outMainItem;
-    mainItemRt.replaceQty = exchQty;
+    let outSG = cloneDeep(oldSG);
+    const exchQty = outSG.mainItem.returningItem.returnQty;
 
-    // Handle Accessory ////////////////////////////////
+    // Determine if this is a Like 4 Like exchange.
+    const sameItem = outSG.mainItem.returningItem.itemNum == replacementItemNum;
+
+    // Handle Main Item ///////////////////////////////////////////////////
+
+    let outMainItem = sameItem // If Like for Like:
+      ? // Copy Prod Details from Return, since prices are the same.
+        outSG.mainItem.returningItem.productDetails
+      : // Else, make a new replacement by Merging this itemNum.
+        mergeProdInfo({ itemNum: replacementItemNum, prodClass: "mainItem" });
+    // Populate.
+
+    outSG.mainItem.replacementItem = {
+      productDetails: outMainItem,
+      replaceQty: exchQty,
+      deliveryQty: exchQty,
+    };
+
+    // Handle Accessory ///////////////////////////////////////////////////
     let outAccessory = outMainItem.reqAccessories;
 
     if (outAccessory) {
-      outAccessory = mergeProdInfo({ itemNum: outAccessory, prodClass: "accessory" });
+      // If the replacement has a required accessory:
+      outAccessory = mergeProdInfo({
+        itemNum: outAccessory,
+        prodClass: "accessory",
+      });
 
       // Make the accessory row if it doesn't exist
-      targetSwapGroup.accessory ||= makeSwap({});
-      targetSwapGroup.accessory.replacementItem.productDetails = outAccessory;
-      targetSwapGroup.accessory.replacementItem.replaceQty = exchQty;
+      outSG.accessory ||= makeSwap({});
+
+      // Populate the row
+      outSG.accessory.replacementItem = {
+        productDetails: outAccessory,
+        replaceQty: exchQty,
+        deliveryQty: exchQty,
+      };
+      outSG.accessory.swapClass = "accessory";
     }
 
-    // Handle Accessory ////////////////////////////////
+    // Handle LPP ////////////////////////////////
 
+    // NEEDS WORK.
     const handleLPP = (lppStr) => {
-      let lppRt = targetSwapGroup.swaps[lppStr];
+      let lppRt = outSG.swaps[lppStr];
       lppRt.replacementItem.productDetails = lppRt.returningItem.productDetails;
     };
+
+    return outSG;
   };
   return setSGreplacements;
 };
@@ -238,10 +268,14 @@ const useSwapGrouper = () => {
     let outSwapGroup = {};
     makeBaseSG({ itemNum: itemNum, itemObj: itemObj, targetObj: outSwapGroup });
 
-    setSGreplacements({
-      targetSwapGroup: outSwapGroup,
+    /*
+      outSwapGroup = setSGreplacements({
+      outSG: outSwapGroup,
       replacementItemNum: 9900,
     });
+    
+    
+    */
 
     return outSwapGroup;
   };
@@ -380,4 +414,5 @@ export {
   useSwapFilter,
   useSwapGroupsArr,
   useSwapGrouper,
+  useSetSGreplacements,
 };

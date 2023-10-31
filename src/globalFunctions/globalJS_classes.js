@@ -27,7 +27,7 @@ class Product {
     description = "",
     categories = {}, // I changed this
     specialCategories = {},
-    reqAccessories = {},
+    reqAccessories = null,
     restockFee = null,
     inStock = 99,
     dcLocations = {},
@@ -101,7 +101,6 @@ class InvoProduct {
     this.childItemsObj = childItemsObj;
     this.prodClass = prodClass;
   }
-  
 }
 
 /*

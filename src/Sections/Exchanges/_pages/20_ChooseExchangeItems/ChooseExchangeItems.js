@@ -9,6 +9,7 @@ import {
   useSwapFilter,
   useSwapGroupsArr,
   useMakeSwapMoneyObj,
+  useSetSGreplacements,
 } from "../../_Resources/customHooks/exchHooks";
 
 import { useOutletContext } from "react-router";
@@ -20,7 +21,6 @@ const defaultState = {
   needsMO: false,
 };
 
-
 function ExchChooseExchItems() {
   const exchCtx = useOutletContext();
   const setExchState = exchCtx.setExchSession;
@@ -29,14 +29,12 @@ function ExchChooseExchItems() {
   const swapFilter = useSwapFilter();
   const swapGroupArr = useSwapGroupsArr();
   const makeSwapMoneyObj = useMakeSwapMoneyObj();
-
+  const setSGreplacements = useSetSGreplacements();
 
   // LocalState
   const [locSt_PickItems, setLocSt_PickItems] = useImmer(defaultState);
 
   /* ---- Shared Functions ---- */
-
-  console.log(swapGroupArr);
 
   const integerizer = (input) => {
     // Placeholder.  If we decide later to force integers, do it here.
@@ -55,8 +53,6 @@ function ExchChooseExchItems() {
       thisReturnItem.returningItem.returnQty = input;
       // move pickupQty out when we add ability to edit this separately.
       thisReturnItem.returningItem.pickupQty = input;
-      thisReturnItem.replacementItem.deliveryQty = input;
-      thisReturnItem.replacementItem.replaceQty = input;
     });
   };
 
@@ -95,15 +91,21 @@ function ExchChooseExchItems() {
       });
     }
 
-    if (isValid){
+    if (isValid) {
+      for (const [key, value] of Object.entries(exchSwapGroups)) {
+        setExchState((draft) => {
+          draft.allSwapGroups[key].swaps = setSGreplacements({
+            targetSwapGroup: value,
+          });
+        });
+      }
+
       exchNav({ routeStr: "exchreason" });
     } else {
-      setLocSt_PickItems((draft)=>{
+      setLocSt_PickItems((draft) => {
         draft.formWarning = true;
-      })
+      });
     }
-
-
   };
 
   // make headers with titles
