@@ -1,0 +1,51 @@
+{
+    "meta": {
+        "phaseKey": "overview",
+        "phaseName": "Overview"
+    },
+    "phases": {
+        "temporaryMigration": {
+            "meta": {
+                "phaseKey": "temporaryMigration",
+                "phaseName": "Temporary Migration"
+            },
+            "phases": {
+                "abc": {
+                    "meta": {
+                        "phaseKey": "abc",
+                        "phaseName": "Temporary Migration"
+                    },
+                    "phases": {}
+                },
+                "defg": {
+                    "meta": {
+                        "phaseKey": "def",
+                        "phaseName": "Temporary Migration"
+                    },
+                    "phases": {}
+                },
+                "hijklm": {
+                    "meta": {
+                        "phaseKey": "abc",
+                        "phaseName": "Temporary Migration"
+                    },
+                    "phases": {}
+                }
+            }
+        },
+        "development": {
+            "meta": {
+                "phaseKey": "development",
+                "phaseName": "Development"
+            },
+            "phases": {}
+        },
+        "unittest": {
+            "meta": {
+                "phaseKey": "unittest",
+                "phaseName": "Unit Test With Client"
+            },
+            "phases": {}
+        }
+    }
+}

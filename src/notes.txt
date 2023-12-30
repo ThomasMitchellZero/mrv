@@ -6307,7 +6307,7 @@ Done enough with my real job and ready to get back after this.  Since I'm going 
     -mergeItemData:
         -Produces the productDetails section of a swap.  
         -Relevant properties from InvoProd are: 
-            -price
+            -price 
             -tax
             -child items
     
@@ -6337,4 +6337,46 @@ Done enough with my real job and ready to get back after this.  Since I'm going 
         - Call that in SwapGrouper.
 
 6:00.  Sort of struggling here.  How about this.  The new hook literally just copied the SwapGroupMaker from StartExchange.  That means the output SHOULD be the same, right?  Let's test that, and then we can fiddle-fuck around with the Replacements.  
+
+27 Oct 2023.
+11:25.
+Looks like I'm done with my real job, at least for now.  I feel like I'm on the verge of breaking Exchanges open, and I'm probably going to be working on Happy Integrations tomorrow.  Let's give this a full 69420.  
+
+From Wednesday, I THINK I was correctly populating everything from a hook.  Some open questions are:
+    -How to handle an Empty item?  I don't NEED it right now but I ought to have an answer. 
+    -MakeSwapMoneyObj is set up to handle undefined values, so that should be OK.  
+
+What about MakeSwap()?  Where is it used, and what cases should it handle?
+    -When a sales record is chosen and the inital AllSwapGroups session state is being built:
+        -Make the all the Swaps for each SwapGroup.
+        -None of the Returning items should be empty.
+        -The Replacement MainItems should be the same as the ReturnItems.
+
+    -When a new Replacment MainItem is chosen:
+        -The MainItem itself won't ever be a new Swap, since without a MainItem there is no Exchange.  
+        -The Replacement might have an accessory that the Return does not, and in that case the setSGreplacements fuction is going to need to build a new Swap to contain the Replacement's accessory.  
+
+I would really like to have a null value for the item, or at least for the ItemDetails.  Could make a lot of this easier.  
+
+Another small snag.  Right now, any values from the MainItem are overwritten by the InvoItem when Merging.  
+    -If I just provide an object with the values I want to assign (not a true InvoProduct) then I could potentially have issues if I ever change InvoProduct (Rule 1 violation?) but this feels sort of sloppy.
+    -If I do use InvoProdut, I'm having to re-provide a lot of values.  
+
+I feel like there is an easy answer here that my assumptions are just preventing me from finding.
+
+30 Oct 2023
+5:10.
+OK, working out the bugs I've found.  I got the group assignment working OK.  I am running into some issues, and I think it is because I'm running setSGreplacements before I need to.  Until Choose Replacements, the Replacements are not relevant.  So I think the thing to do is to wait until the user proceeds to set the Replacements.  
+
+31 Oct 2023
+12:30
+Plan for today is to try and sort the bugs in Exchanges, then start digging into UI5.  
+The issue I was running into yesterday was that after any live reload, my values were no longer showing up in the debugger.  Well, ok, I can live with that.  I'll just console.log like the noob I am.  
+
+OK.  I've got it working.  More or less.  I just feel like this whole darn thing is so complex and unwieldly that I'm struggling to work on it even when it is fresh in my memory.  OK.  I am going to take just a few minutes to fiddle with this and see if I can simplify it.
+
+    -I kind of dig the idea of adding in an "Association" property to all items.  That would allow me to get rid of the "Child" levels in both the invoice and population.  
+
+    -I COULD just have prices come from the Items catelog.  But the Quantity still has to be defined on the invoice.  
+
 
