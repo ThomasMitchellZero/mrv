@@ -14,8 +14,7 @@ import { useReducer, useRef, useState } from "react";
 const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const returnsCtx = useOutletContext();
   const dispatchRtrn = returnsCtx.dispatchSession;
-  const draftLocalCtx = cloneDeep(rtrnIndexContext);
-  const activeItemNum = draftLocalCtx.activeItem;
+  const activeItemNum = rtrnIndexContext.activeItem;
   const draftSessionItem = cloneDeep(returnsCtx.session.items[activeItemNum]);
 
   const defaultState = {
@@ -48,7 +47,11 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         className={`baseButton secondary ${
           locStMI.activeTab === reason ? "active" : ""
         }`}
-        onClick={() => {}}
+        onClick={() => {
+          const draftLocStMI = cloneDeep(locStMI);
+          draftLocStMI.activeTab = reason;
+          setLocStMI(draftLocStMI);
+        }}
       >
         {title}
       </button>
@@ -105,8 +108,8 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         <section className={classes.returnReason}>
           <p>Why is customer returning this item?</p>
           <section>
-            {tabButton("unwanted", "Didn't Want")}
-            {tabButton("defective", "Damaged/Defective")}
+            {tabButton("dwn", "Didn't Want / Need")}
+            {tabButton("dd", "Damaged / Defective")}
           </section>
           <div className="divider" />
         </section>
