@@ -41,7 +41,6 @@ const panelsReducer = (state, action) => {
 
 const ReturnsIndex = () => {
   const returnsContext = useOutletContext();
-  const setLocalPanels = useSetLocalPanels();
 
   //main state for holding active panels.
   const [activePanels, dispatchActivePanels] = useReducer(panelsReducer, {
@@ -79,7 +78,7 @@ const ReturnsIndex = () => {
         returnsContext={returnsContext}
       />
     ),
-    multi_reason_100: <MultiItemDetails30 />,
+    multi_reason_100: <MultiItemDetails30 rtrnIndexContext={activePanels} />,
   };
 
   const seventy_panels = {
@@ -87,6 +86,7 @@ const ReturnsIndex = () => {
     session_items: (
       <SessionItems70
         dispatchActivePanels={dispatchActivePanels}
+        sessionContext={activePanels}
         returnsContext={returnsContext}
         activeItem={activePanels.activeItem}
       />

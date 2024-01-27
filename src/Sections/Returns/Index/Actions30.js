@@ -5,7 +5,7 @@ import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import { useTest } from "../functions/useTest";
 import { useOutletContext } from "react-router-dom";
-import { useSetItem } from "../_CustomHooks/rtrnHooks";
+import { useAddRtrnItem } from "../_CustomHooks/rtrnHooks";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -22,14 +22,12 @@ import {
 } from "../../../assets/lowes-icons/Line-Icons/LineIcons";
 
 const Actions30 = ({ dispatchActive, returnState }) => {
-
-
   const returnsContext = useOutletContext(); // Can I just use Outlet Context for everything?
-  const dispSession = returnsContext.dispatchSession
+  const dispSession = returnsContext.dispatchSession;
 
   const navigate = useNavigate();
   const testFunc = useTest({ dispatcherFunction: dispSession });
-  const setItem = useSetItem();
+  const addRtrnItem = useAddRtrnItem();
 
   // panel dispatcher from ReturnsIndex
   const dispatchActivePanels = dispatchActive;
@@ -59,7 +57,11 @@ const Actions30 = ({ dispatchActive, returnState }) => {
           onClick={() =>
             dispatchActivePanels({
               type: "SET_PANELS",
-              payload: { set30: "item_entry", set70: "session_items" },
+              payload: {
+                set30: "item_entry",
+                set70: "session_items",
+                activeItem: "400",
+              },
             })
           }
           mainIcon={<AddCartLineIcon className={classes.mainicon} />}
@@ -81,10 +83,19 @@ const Actions30 = ({ dispatchActive, returnState }) => {
           //multiple-reasons
           label="Multiple Reasons Test"
           onClick={() => {
-            setItem({itemNum: "400", itemQty: 12})
-            
+            addRtrnItem({ itemNum: "400", itemQty: 12 });
+            dispatchActivePanels({
+              type: "SET_PANELS",
+              payload: {
+                set30: "multi_reason_100",
+                set70: "session_items",
+                activeItem: "400",
+              },
+            });
           }}
-          mainIcon={<MdOutlineScience fontSize="1.5rem" className={classes.mainicon} />}
+          mainIcon={
+            <MdOutlineScience fontSize="1.5rem" className={classes.mainicon} />
+          }
         />
       </section>
       <FooterContainer>

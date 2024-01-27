@@ -9,6 +9,7 @@ import RefundTotal from "../../../components/UI/DisplayOutputs/RefundTotal";
 
 const SessionItems70 = ({
   returnsContext,
+  sessionContext,
   dispatchActivePanels,
   activeItem,
 }) => {
@@ -27,18 +28,15 @@ const SessionItems70 = ({
     { id: "Decline Code", active: false, descending: true, width: "auto" },
   ];
 
-  /*
-      400: {
-        quantity: 1,
-        img: toilet_img,
-        price: 8.75,
-        itemNum: "400",
-        modelNum: "RT3301",
-        description: "American Standard Grand Duke II with Ultra-Flush",
-        categories: ["Stock", "Special Order"],
-        restockFee: 0.2,
-      },
-  */
+  const handleClick = (line) => {
+    // condition for user testing, de-activates item clicking for test.
+    if (sessionContext.state30 !== "multi_reason_100") {
+      dispatchActivePanels({
+        type: "SET_PANELS",
+        payload: { set30: "item_details", activeItem: line.itemNum },
+      });
+    }
+  };
 
   const tableBodyContents = ctxItems.map((line) => {
     const price = Number(line.price / 100).toFixed(2);
@@ -75,10 +73,7 @@ const SessionItems70 = ({
         className={`divider-bottom `}
         key={line.itemNum}
         onClick={() => {
-          dispatchActivePanels({
-            type: "SET_PANELS",
-            payload: { set30: "item_details", activeItem: line.itemNum },
-          });
+          handleClick(line);
         }}
       >
         <td className={`activeStatusBar ${isActive}`}></td>

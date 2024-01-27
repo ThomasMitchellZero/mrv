@@ -11,7 +11,7 @@ import cloneDeep from "lodash.clonedeep";
 
 */
 
-const useSetItem = () => {
+const useAddRtrnItem = () => {
   // add an item to the Returns state
 
   const returnsCtx = useOutletContext();
@@ -20,7 +20,7 @@ const useSetItem = () => {
 
   const clonedSessionItems = cloneDeep(returnsCtx.session.items);
 
-  const setTestItem = ({ itemNum, itemQty }) => {
+  const addRtrnItem = ({ itemNum, itemQty }) => {
     const outQty = parseInt(itemQty);
     const outItemNum = itemNum;
 
@@ -48,7 +48,7 @@ const useSetItem = () => {
     });
   };
 
-  return setTestItem;
+  return addRtrnItem;
 };
 
-export { useSetItem };
+export { useAddRtrnItem };
