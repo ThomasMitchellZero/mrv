@@ -5,8 +5,11 @@ import VerticalNavButton from "../../../components/UI/VerticalNavButton";
 import FooterContainer from "../../../components/UI/PageLayout/FooterContainer";
 import { useTest } from "../functions/useTest";
 import { useOutletContext } from "react-router-dom";
+import { useSetItem } from "../_CustomHooks/rtrnHooks";
 
 import { useNavigate, Link } from "react-router-dom";
+
+import { MdArrowForward, MdOutlineScience } from "react-icons/md";
 
 import {
   ReceiptLineIcon,
@@ -26,6 +29,7 @@ const Actions30 = ({ dispatchActive, returnState }) => {
 
   const navigate = useNavigate();
   const testFunc = useTest({ dispatcherFunction: dispSession });
+  const setItem = useSetItem();
 
   // panel dispatcher from ReturnsIndex
   const dispatchActivePanels = dispatchActive;
@@ -65,10 +69,6 @@ const Actions30 = ({ dispatchActive, returnState }) => {
           mainIcon={<LookupLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
-          label="No Sale"
-          mainIcon={<SlashCashLineIcon className={classes.mainicon} />}
-        />
-        <VerticalNavButton
           label="Cancel Return"
           mainIcon={<CloseLineIcon className={classes.mainicon} />}
         />
@@ -78,9 +78,13 @@ const Actions30 = ({ dispatchActive, returnState }) => {
           mainIcon={<ExchangeLineIcon className={classes.mainicon} />}
         />
         <VerticalNavButton
-          label="Empty Cart"
-          onClick={() => navigate("..")}
-          mainIcon={<SlashCartLineIcon className={classes.mainicon} />}
+          //multiple-reasons
+          label="Multiple Reasons Test"
+          onClick={() => {
+            setItem({itemNum: "400", itemQty: 12})
+            
+          }}
+          mainIcon={<MdOutlineScience fontSize="1.5rem" className={classes.mainicon} />}
         />
       </section>
       <FooterContainer>

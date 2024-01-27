@@ -5,6 +5,7 @@ import Actions30 from "./Actions30";
 import ItemEntry30 from "../Add_Items/ItemEntry30";
 import InvoiceEntry30 from "../Add_Invoices/InvoiceEntry30";
 import ItemDetails30 from "../Add_Items/ItemDetails30";
+import MultiItemDetails30 from "../_userTests/multiInput/MI_100/MultiItemDetails30";
 //70 Panel components
 import StartScanning from "./StartScanning70";
 import SessionItems70 from "../Add_Items/SessionItems70";
@@ -78,6 +79,7 @@ const ReturnsIndex = () => {
         returnsContext={returnsContext}
       />
     ),
+    multi_reason_100: <MultiItemDetails30 />,
   };
 
   const seventy_panels = {

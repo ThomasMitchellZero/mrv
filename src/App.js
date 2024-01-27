@@ -67,6 +67,8 @@ function App() {
             <Route path="total-review" element={<TotalReview />} />
             <Route path="finalize-refund" element={<FinalizeRefund />} />
             <Route path="receipt" element={<SelectReceiptType />} />
+            <Route path="multiple-reasons" element={<SelectReceiptType />} />
+
           </Route>
           <Route path="exchanges" element={<Exchanges />}>
             <Route index element={<ExchStartExchange />} />
