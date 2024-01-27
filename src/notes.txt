@@ -6379,4 +6379,28 @@ OK.  I've got it working.  More or less.  I just feel like this whole darn thing
 
     -I COULD just have prices come from the Items catelog.  But the Quantity still has to be defined on the invoice.  
 
+27 Jan 2024
 
+11:20.
+OK, not the best start but I did finally find that low-priced Takeru Haikyuu board I've been searching for.  And I'm glad to be back in React.
+
+What to do today?
+-For my real job, we want to test the Multiple Input Fields.  Since it really depends on logic that Figma doesn't support, it seems like the testing might be easier?  
+    + This is probably the most urgent need.
+    + I legitimately think this will be easier than doing it in Figma.
+    + HOPEFULLY this will be quick (famous last words)
+    - We try to do work on work time.
+        + Working on Carry With Exchanges is also for work.  IF we get this done now we could spend the 'work time' it would have taken on other stuff.
+    + I like the idea of being able to flex on my co-workers with a coded prototype.  We don't know if or when HI is going to take off, so assuming J1 isn't taking away from it, we should play as though we are going to be there forever.
+
+-I really WANT to work on CWE, and especially the matching logic.  That's the spicy problem that was fascinating me earlier.
+
+-Let's do the inputs.  I think that's the move. So what do we need?
+    -I think I should make the Input section in the MRV style.  There are things in there that we will eventually need, like the chips and tabs.
+
+    -Now, for the prototype.  How should I handle this?
+        -I think for the time being, I will do it within Returns.  Maybe each app has a Prototypes section?
+        -I think in the main action menu, I will have a button that navs to a special page.  
+        -A big question is the extent to which I want to build this all in.  I could, upon navigation, add an invoice + the correct qty to a Real Return.  
+            + If we do ever end up testing something more complex, we would do that anyways.
+            + It's been a while.  We put a LOT of work into making Returns work.  
