@@ -20,7 +20,12 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const defaultState = {
     activeTab: "dwn",
     isValid: true,
-    dwnDispos: {},
+    dwnDispos: {
+      tooHeavy: false,
+      wrongSize: false,
+      wrongColor: false,
+      betterPrice: false,
+    },
     ddDispos: {},
   };
 
@@ -35,9 +40,6 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     cosmetic: 0,
     warranty: 0,
   };
-
-  // function to set dispositions upon button click.
-  const handleDispoClick = (name) => {};
 
   // button for setting the tab state in ReturnsIndex
   const tabButton = (reason, title) => {
@@ -58,23 +60,41 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     );
   };
 
+  const dwnButtonValues = [
+    { dwnReasonKey: "tooHeavy", dwnBtnLabel: "Too Heavy" },
+    { dwnReasonKey: "wrongSize", dwnBtnLabel: "Wrong Size" },
+    { dwnReasonKey: "wrongColor", dwnBtnLabel: "Wrong Color" },
+    { dwnReasonKey: "betterPrice", dwnBtnLabel: "Found Better Price" },
+  ];
+
+  const handleDwnClick = (dwnKey) => {
+    const draftLocStMI = cloneDeep(locStMI);
+    //toggle the boolean value
+    draftLocStMI.dwnDispos[dwnKey] = !draftLocStMI.dwnDispos[dwnKey];
+    setLocStMI(draftLocStMI);
+  };
+
   // reusable button to set local Disposition to be edited.
-  const dwnButton = (label, reasonKey) => {
-    const isActive = locStMI.dwnDispos[reasonKey] ? "active" : "";
+  const dwnButton = (dwnBtnObj) => {
+    const isActive = locStMI.dwnDispos[dwnBtnObj.dwnReasonKey] ? "active" : "";
 
     return (
       <button
         type="button"
         onClick={() => {
-          handleDispoClick(reasonKey);
+          handleDwnClick(dwnBtnObj.dwnReasonKey);
         }}
-        id={reasonKey}
+        key={dwnBtnObj.dwnReasonKey}
         className={`baseButton secondary ${isActive}`}
       >
-        {`${label}`}
+        {`${dwnBtnObj.dwnBtnLabel}`}
       </button>
     );
   };
+
+  const dwnButtonsArr = dwnButtonValues.map((dwnObj) => {
+    return dwnButton(dwnObj);
+  });
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
@@ -117,7 +137,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         {/* Disposition Section */}
 
         {locStMI.activeTab === "dwn" ? (
-          <section></section>
+          <section>{dwnButtonsArr}</section>
         ) : (
           <section className={classes.defectiveDispo}>
             {/* Title, Input Field, and warning message */}
