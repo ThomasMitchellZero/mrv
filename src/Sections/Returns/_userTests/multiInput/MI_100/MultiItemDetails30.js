@@ -21,25 +21,16 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     activeTab: "dwn",
     isValid: true,
     dwnDispos: {
-      tooHeavy: false,
-      wrongSize: false,
-      wrongColor: false,
-      betterPrice: false,
+      tooHeavy: { selected: false, title: "Too Heavy" },
+      wrongSize: { selected: false, title: "Wrong Size" },
+      wrongColor: { selected: false, title: "Wrong Color" },
+      betterPrice: { selected: false, title: "Found Better Price" },
     },
     ddDispos: {},
   };
 
   const [locStMI, setLocStMI] = useState(defaultState);
 
-  const refDispoObj = {
-    doesntWork: 0,
-    broken: 0,
-    unpackaged: 0,
-    used: 0,
-    missingParts: 0,
-    cosmetic: 0,
-    warranty: 0,
-  };
 
   // button for setting the tab state in ReturnsIndex
   const tabButton = (reason, title) => {
@@ -60,41 +51,39 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     );
   };
 
-  const dwnButtonValues = [
-    { dwnReasonKey: "tooHeavy", dwnBtnLabel: "Too Heavy" },
-    { dwnReasonKey: "wrongSize", dwnBtnLabel: "Wrong Size" },
-    { dwnReasonKey: "wrongColor", dwnBtnLabel: "Wrong Color" },
-    { dwnReasonKey: "betterPrice", dwnBtnLabel: "Found Better Price" },
-  ];
+  //----Didn't Want / Need Buttons ////////////////////////
 
   const handleDwnClick = (dwnKey) => {
     const draftLocStMI = cloneDeep(locStMI);
     //toggle the boolean value
-    draftLocStMI.dwnDispos[dwnKey] = !draftLocStMI.dwnDispos[dwnKey];
+    draftLocStMI.dwnDispos[dwnKey].selected = !draftLocStMI.dwnDispos[dwnKey].selected;
     setLocStMI(draftLocStMI);
   };
 
   // reusable button to set local Disposition to be edited.
-  const dwnButton = (dwnBtnObj) => {
-    const isActive = locStMI.dwnDispos[dwnBtnObj.dwnReasonKey] ? "active" : "";
+  const dwnButton = (dwnKey) => {
+    const oThisDwn = locStMI.dwnDispos[dwnKey]
+    const isSelected = oThisDwn.selected ? "active" : "";
 
     return (
       <button
         type="button"
         onClick={() => {
-          handleDwnClick(dwnBtnObj.dwnReasonKey);
+          handleDwnClick(dwnKey);
         }}
-        key={dwnBtnObj.dwnReasonKey}
-        className={`baseButton secondary ${isActive}`}
+        key={dwnKey}
+        className={`baseButton secondary ${isSelected}`}
       >
-        {`${dwnBtnObj.dwnBtnLabel}`}
+        {`${oThisDwn.title}`}
       </button>
     );
   };
 
-  const dwnButtonsArr = dwnButtonValues.map((dwnObj) => {
+  const dwnButtonsArr = Object.keys(locStMI.dwnDispos).map((dwnObj) => {
     return dwnButton(dwnObj);
   });
+
+  //----Damaged / Defective Inputs ////////////////////////
 
   // deal with changes to the input field
   const handleInputQty = (event) => {
@@ -116,7 +105,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
               <h2>{draftSessionItem.quantity}</h2>
             </div>
           </section>
-          <div className={'itemCodes'}>
+          <div className={"itemCodes"}>
             <h5>{`Item # ${draftSessionItem.itemNum}`}</h5>
             <div style={{ width: "0.75rem" }} />
             <h5>{`Model # ${draftSessionItem.modelNum}`}</h5>
