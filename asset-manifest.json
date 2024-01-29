@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mrv/static/css/main.05f30213.css",
-    "main.js": "/mrv/static/js/main.fcba2877.js",
+    "main.css": "/mrv/static/css/main.c912aad0.css",
+    "main.js": "/mrv/static/js/main.e0a3c06b.js",
     "static/media/Fellix-Regular.otf": "/mrv/static/media/Fellix-Regular.af2bee556f001452e682.otf",
     "static/media/shower.png": "/mrv/static/media/shower.fde7773492bafa96c670.png",
     "static/media/plywood.png": "/mrv/static/media/plywood.fd26abe25835c116223f.png",
@@ -20,11 +20,11 @@
     "index.html": "/mrv/index.html",
     "static/media/universal-scan.svg": "/mrv/static/media/universal-scan.bbfde7688dd9aad80dad4b61704ca798.svg",
     "static/media/blank.svg": "/mrv/static/media/blank.b787e2f680a11cc96c218e5ec5bb0c85.svg",
-    "main.05f30213.css.map": "/mrv/static/css/main.05f30213.css.map",
-    "main.fcba2877.js.map": "/mrv/static/js/main.fcba2877.js.map"
+    "main.c912aad0.css.map": "/mrv/static/css/main.c912aad0.css.map",
+    "main.e0a3c06b.js.map": "/mrv/static/js/main.e0a3c06b.js.map"
   },
   "entrypoints": [
-    "static/css/main.05f30213.css",
-    "static/js/main.fcba2877.js"
+    "static/css/main.c912aad0.css",
+    "static/js/main.e0a3c06b.js"
   ]
 }
