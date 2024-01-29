@@ -1,4 +1,4 @@
-import classes from "./MultiItemDetails30.module.css";
+import classes from "./MultiItemDetails30.css";
 
 import TitleBar from "../../../../../components/UI/PageLayout/TitleBar";
 import FooterContainer from "../../../../../components/UI/PageLayout/FooterContainer";
@@ -104,19 +104,19 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   };
 
   return (
-    <section className={classes.container}>
+    <section className={`multiItem30 container`}>
       <TitleBar title="Item Details" />
-      <section className={classes.mainContent}>
+      <section className={`mainContent`}>
         {/* Item Description */}
-        <section className={classes.itemDescription}>
-          <section className={classes.picAndQty}>
+        <section className={`itemDescription`}>
+          <section className={`picAndQty`}>
             <img src={draftSessionItem.img} alt="Product"></img>
             <div>
               <h5>Total Qty.</h5>
               <h2>{draftSessionItem.quantity}</h2>
             </div>
           </section>
-          <div className={classes.itemCodes}>
+          <div className={'itemCodes'}>
             <h5>{`Item # ${draftSessionItem.itemNum}`}</h5>
             <div style={{ width: "0.75rem" }} />
             <h5>{`Model # ${draftSessionItem.modelNum}`}</h5>
@@ -125,7 +125,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         </section>
 
         {/* Return Reason Section */}
-        <section className={classes.returnReason}>
+        <section className={`returnReason`}>
           <p>Why is customer returning this item?</p>
           <section>
             {tabButton("dwn", "Didn't Want / Need")}
@@ -139,11 +139,11 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         {locStMI.activeTab === "dwn" ? (
           <section>{dwnButtonsArr}</section>
         ) : (
-          <section className={classes.defectiveDispo}>
+          <section className={`defectiveDispo`}>
             {/* Title, Input Field, and warning message */}
 
             {/* Disposition Buttons */}
-            <section className={classes.dispoColumns}>
+            <section className={`dispoColumns`}>
               <section></section>
               <section></section>
             </section>

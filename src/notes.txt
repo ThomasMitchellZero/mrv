@@ -1,16 +1,16 @@
-Rule 0: Hands On Keyboard, Butt In Chair.  If we know what to do, we should be coding.  If we don't know what to do, we should be writing our thoughts as we try to find the path forward.
+Rule 0: Hands On Keyboard, Butt In Chair.  If we know what to do, we should be coding.  If we don't know what to do, we should be writing our thoughts as we try to figure out what to do.  It seems silly or even wasteful, but having to write out the arguments for/against something has generally helped us arrive at consensus in the past.
 
 RULE 1:  At the end of the day, we are building testing tools.  Don't spend time and anguish on problems we don't actually expect to face.  
 
 RULE 2:  We are trying to grow our skills.  Every pattern that is now routine to us was once unfamiliar and frightening.  If there's an opportunity to try out a new pattern in something that doesn't have a lot of dependencies, strongly consider it.  Even our failures have yielded valuable knowledge.  
 
-RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  We literally have NEVER encoutered a situation where processing speed had any effect on the UI.  Processing speed and efficiency mean nothing to us.  Optimize for clarity and simplicity.  'Easy for the coder' is far more important than 'easy for the computer'
+RULE 3:  Our responsiblity is to get it working right and keep it working right as we add features.  This is not a commercial product.  We have NEVER encoutered a situation where processing speed had any effect on the UI.  For our use case, conceptual clarity is far more important that computational efficiency.
 
 RULE 4:
 IME, it's generally faster to go: 
 Pictograph => Rebus => Alphabet  than 
-Pictograph => Think REAALLLY HARD => Alphabet.  
-Without the Rebus phase it can be hard to identify the common elements that can be systematized.  Kludgy code is generally a waypoint on the route to good code, not a detour from it.  
+Pictograph => Think REAALLLY hard => Alphabet.  
+Without the Rebus phase it can be hard to identify the commonalities that can be systematized.  Kludgy code is generally a waypoint on the route to good code, not a detour from it.  
 
 RULE 5: 
 Be VERY careful with highly-abstract or non-obvious solutions.  Even if they result in very short code, you still have to understand what it does later.  There are a lot of regex expressions that are 1-liners, but we don't know regex and it looks hard AF to read. If it was hard to dream up the first time, there's a good chance it will be hard to comprehend in the future.  And if high abstraction is truly the best solution, comment the fuck out of the pattern and ALWAYS look for ways to refine the clarity of the comments.  
@@ -20,8 +20,7 @@ Root-Ripping check:
 We want to be clean and clear to make it easier on ourselves.  Enforced conscientiousness.  But some of the days we regret the most are the ones where we code for a couple of days and at the end we get pretty much the same output we had before.  
 
     Rip away:
-
-    -We have a specific reason to believe that the current model won't handle something we need to do.
+    -We have a specific reason to believe that the current model won't handle something we expect (with high confidence) that we will need it to do.
     -The current model is unintuitive AND we have a clear idea of how to simplify it.
     -We expect to have numerous future dependencies on the roots and doing it later only makes more work.
     -We have a clear understanding of the advantage we expect to get.
