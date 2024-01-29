@@ -20,9 +20,7 @@
 
     & img {
       height: 8rem;
-  }
-
-
+    }
   }
 
   & .picAndQty div {
@@ -51,68 +49,32 @@
 
   /*  Return Reason Tabs */
 
-  & .returnReason {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    gap: 1rem;
-  }
+  & .mrv {
+    & .returnReason {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      gap: 1rem;
 
-  & .returnReason button {
-    margin: 0rem;
-    height: 2.75rem;
-  }
+      & .tabCtnr {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        gap: 1rem;
+      }
+    }
 
-  & .returnReason section {
-    display: flex;
-    flex-direction: row;
-    flex: 0 0 auto;
-    gap: 1rem;
-  }
+    /* Disposition Selection Panel */
 
-  /* Disposition Selection Panel */
-
-  & .dispo_descriptor {
-    padding: 1rem 0rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  & .dispo_descriptor p {
-    flex: 1 1 0rem;
-    text-align: right;
-  }
-
-  & .dispo_descriptor div p {
-    flex: 1 1 0rem;
-    padding-right: 1rem;
-    text-align: left;
-  }
-
-  & .dispo_descriptor div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  & .dispoColumns {
-    display: flex;
-    flex-direction: row;
-    flex: 0 0 auto;
-    gap: 0.75rem;
-  }
-
-  & .dispoColumns section {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
-    gap: 0.75rem;
-  }
-
-  & .dispoColumns button {
-    flex: 0 0 2.75rem;
+    & .dwnDispoCtnr {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    
+    & .ddDispoCtnr {
+    }
   }
 }

@@ -12,6 +12,8 @@ function MRVinput({
   const widthStyle = width ? { width: width } : {};
   const flexStyle = flex ? { flex: flex } : {};
 
+  //PROBLEM: I need to reorganize how the "error" and "disabled" classes are handled in the CSS file.
+
   return (
     <section
       className={`mrvInputCtnr ${

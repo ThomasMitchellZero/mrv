@@ -59,7 +59,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     return (
       <button
         type="button"
-        className={`baseButton secondary ${
+        className={`secondary ${
           locStMI.activeTab === reason ? "active" : ""
         }`}
         onClick={() => {
@@ -175,18 +175,19 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         {/* Return Reason Section */}
         <section className={`mrv returnReason`}>
           <p>Why is customer returning this item?</p>
-          <section>
+          <section className={`tabCtnr`}>
             {tabButton("dwn", "Didn't Want / Need")}
             {tabButton("dd", "Damaged / Defective")}
           </section>
           <div className="divider" />
+
           {locStMI.activeTab === "dwn" ? (
-            <section>
+            <section className={`dwnDispoCtnr`}>
               {/* Didn't Want / Need */}
               {dwnButtonsArr}
             </section>
           ) : (
-            <section>
+            <section className={`ddDispoCtnr`}>
               {/* Damaged / Defective */}
               {aDDdispoFields}
             </section>
