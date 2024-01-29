@@ -1,4 +1,4 @@
-import "./MRVinput.css"
+import classes from "./MRVinput.module.css";
 
 function MRVinput({
   children,
@@ -14,8 +14,8 @@ function MRVinput({
 
   return (
     <section
-      className={`mrvInputCtnr ${
-        hasError ? "error" : ""
+      className={`${classes.container} ${
+        hasError ? classes.error : null
       } ${extClasses}`}
       style={{ ...widthStyle, ...flexStyle }}
     >
@@ -25,7 +25,7 @@ function MRVinput({
       {helperText ? (
         <p
           className={`body__small color__tertiary__text ${
-            disabled ? "disabled" : ""
+            disabled ? classes.disabled : null
           }`}
         >
           {helperText}

@@ -1,0 +1,52 @@
+.mrv .mrvInputCtnr {
+  --border__default: calc(1.5rem / 16) solid var(--color__border);
+  --border__focus: calc(1.5rem / 8) solid var(--color__interactive);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
+  color: var(--color__tertiary);
+
+  & input {
+    width: 100%;
+    flex: 0 0 4rem;
+
+    box-sizing: border-box;
+    padding: 0rem 0.5rem 0rem 1rem;
+
+    font-weight: 500;
+    font-size: 1.25rem;
+
+    border: var(--border__default);
+    border-radius: 0.5rem;
+
+    &:focus {
+      outline: transparent;
+      border: var(--border__focus);
+    }
+
+    &:disabled {
+      color: var(--color__disabled__text);
+    }
+
+    &.error {
+      border-color: var(--color__red);
+
+      & p {
+        color: var(--color__red);
+      }
+    }
+  }
+
+  & p {
+    flex: 1 1 0rem;
+    padding: 0rem 1rem;
+    color: var(--color__primary);
+    font-weight: 500;
+
+    &.disabled {
+      color: var(--color__disabled__text);
+    }
+  }
+}
