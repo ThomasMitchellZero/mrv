@@ -23,7 +23,7 @@
     var(--tablePadding__horizontal);
 
   --primaryBorder: 0.125rem solid var(--color__border);
-  --clearBorder: 0rem 0.125rem solid transparent;
+  --clearBorder: 0.125rem solid transparent;
 
   /* Colors */
 
@@ -44,6 +44,7 @@
   --color__red: #971b2f;
   --color__red__inverse: #f19caa;
   --color__disabled__text: #00000052;
+  --color__white: #ffffff;
 
   --color__card__selected: #e7f1fd;
   --color__card__hover: #f0f0f0;
@@ -52,6 +53,7 @@
   --color__border: #9ea4b2;
   --color__border__th: #d8d8d8;
   --color__border__subdued: #cdb1dd;
+
 
   .divider {
     display: flex;
@@ -95,6 +97,9 @@
   & .color__green {
     background-color: var(--color__green);
   }
+  & .color__white__text {
+    color: var(--color__white);
+  }
   & .color__transparent {
     background-color: transparent;
   }
@@ -128,6 +133,7 @@
     font-size: 1.5rem;
     line-height: 2rem;
   }
+
 
   & .body {
     font-weight: 500;
@@ -266,48 +272,80 @@
     &:hover {
       opacity: 80%;
     }
-  
+
     &.primary {
       color: var(--color__primary__inverse);
       border-color: transparent;
       background-color: var(--color__interactive);
     }
-  
+
     &.secondary {
       color: var(--color__interactive);
       border-color: var(--color__interactive);
       background-color: transparent;
     }
-  
+
     &.ghost {
       color: var(--color__interactive);
       border-color: transparent;
       background-color: transparent;
     }
-  
+
     &.jumbo {
       height: 6rem;
       font-size: 1.75rem;
     }
-  
+
     &.fullWidth {
       flex: 1 1 0rem;
     }
-  
+
     &.focused {
       color: var(--color__primary__inverse);
       background-color: var(--color__interactive__pressed);
       border: calc(3rem / 16) solid white;
       outline: calc(3rem / 16) solid var(--color__interactive__pressed);
     }
-  
+
     &.mainAction {
       padding-left: var(--PrimaryPadding__horizontal);
     }
-    
+
+    &.chip {
+      height: 2.5rem;
+      border-color: var(--color__border);
+      border-radius: 1.25rem;
+      color: var(--color__text__primary);
+      font-weight: 500;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      background-color: var(--color__surface__default);
+
+      &.selected {
+        border-color: var(--color__interactive);
+        background-color: var(--color__interactive);
+        color: var(--color__white);
+      }
+    }
+    &.tab{
+      height: 3.5rem;
+      background-color: transparent;
+      font-weight: 500;
+      font-size: 1.25rem;
+      line-height: 2rem;
+      color: var(--color__tertiary);
+      border: none;
+      border-radius: 0rem;
+
+      &.active{
+        color: var(--color__primary);
+        border-bottom: .125rem solid var(--color__interactive);
+
+
+      }
+
+    }
   }
-
-
 
   /* ---- MRV CARD STYLES ---- */
 
@@ -431,5 +469,4 @@
   & .nohover_bg:hover {
     background-color: initial;
   }
-
 }

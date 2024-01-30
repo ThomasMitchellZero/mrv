@@ -3,5 +3,6 @@
     flex-direction: row;
     gap: 1rem;
     flex: 1 1 0rem;
-    height: 100%;
+    width: 100%;
+
 }

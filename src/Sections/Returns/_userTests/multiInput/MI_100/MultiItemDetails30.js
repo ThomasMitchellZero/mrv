@@ -59,7 +59,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     return (
       <button
         type="button"
-        className={`secondary ${
+        className={`tab ${
           locStMI.activeTab === reason ? "active" : ""
         }`}
         onClick={() => {
@@ -86,7 +86,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   // reusable button to set local Disposition to be edited.
   const uiDWNbutton = (dwnKey) => {
     const oThisDwn = locStMI.dwnDispos[dwnKey];
-    const isSelected = oThisDwn.selected ? "active" : "";
+    const isSelected = oThisDwn.selected ? "selected" : "";
 
     return (
       <button
@@ -95,7 +95,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
           handleDwnClick(dwnKey);
         }}
         key={dwnKey}
-        className={`baseButton secondary ${isSelected}`}
+        className={`chip ${isSelected}`}
       >
         {`${oThisDwn.title}`}
       </button>
@@ -174,7 +174,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
         {/* Return Reason Section */}
         <section className={`mrv returnReason`}>
-          <p>Why is customer returning this item?</p>
+          <p className="body">Why is customer returning this item?</p>
           <section className={`tabCtnr`}>
             {tabButton("dwn", "Didn't Want / Need")}
             {tabButton("dd", "Damaged / Defective")}

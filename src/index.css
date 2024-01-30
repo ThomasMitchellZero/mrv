@@ -13,7 +13,7 @@ body {
 }
 
 #root{
-  height: inherit;
+  height: 100%;
 }
 
 code {
