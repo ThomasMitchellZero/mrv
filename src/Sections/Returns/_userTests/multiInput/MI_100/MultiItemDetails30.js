@@ -22,7 +22,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const defaultState = {
     activeTab: "dwn",
     isValid: true,
-    dwnQty: 0,
+    dwnQty: nItemQty,
     ddQty: 0,
     dwnDispos: {
       tooHeavy: { selected: false, title: "Too Heavy" },
@@ -56,18 +56,19 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
   // ---- Tab Buttons /////////////////////////
   const tabButton = (reason, title) => {
+    const qtyField = reason === "dwn" ? locStMI.dwnQty : locStMI.ddQty;
+
     return (
       <button
         type="button"
-        className={`tab ${
-          locStMI.activeTab === reason ? "active" : ""
-        }`}
+        className={`tab body__small ${locStMI.activeTab === reason ? "active" : ""}`}
         onClick={() => {
           const draftLocStMI = cloneDeep(locStMI);
           draftLocStMI.activeTab = reason;
           setLocStMI(draftLocStMI);
         }}
       >
+        <p className={`body__large`}>{qtyField}</p>
         {title}
       </button>
     );

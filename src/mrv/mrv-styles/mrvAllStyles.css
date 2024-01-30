@@ -54,7 +54,6 @@
   --color__border__th: #d8d8d8;
   --color__border__subdued: #cdb1dd;
 
-
   .divider {
     display: flex;
     background-color: var(--color__border);
@@ -133,7 +132,6 @@
     font-size: 1.5rem;
     line-height: 2rem;
   }
-
 
   & .body {
     font-weight: 500;
@@ -327,7 +325,7 @@
         color: var(--color__white);
       }
     }
-    &.tab{
+    &.tab {
       height: 3.5rem;
       background-color: transparent;
       font-weight: 500;
@@ -335,15 +333,19 @@
       line-height: 2rem;
       color: var(--color__tertiary);
       border: none;
+      border-bottom: var(--clearBorder);
       border-radius: 0rem;
+      text-overflow: ellipsis;
 
-      &.active{
+      &.active {
         color: var(--color__primary);
-        border-bottom: .125rem solid var(--color__interactive);
-
-
+        border-bottom: 0.125rem solid var(--color__interactive);
       }
 
+      &.body__small {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
     }
   }
 
