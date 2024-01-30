@@ -130,7 +130,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     const oThisDispo = locStMI.ddDispos[ddKey];
 
     return (
-      <section flex="0 0 50%" key={ddKey}>
+      <div className={`ddDispoBox`} key={ddKey}>
         <MRVinput width={"5rem"}>
           <input
             type="number"
@@ -141,7 +141,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
           />
         </MRVinput>
         <p className={`body__small color__primary__text`}>{oThisDispo.title}</p>
-      </section>
+      </div>
     );
   };
 
@@ -179,7 +179,6 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
             {tabButton("dwn", "Didn't Want / Need")}
             {tabButton("dd", "Damaged / Defective")}
           </section>
-          <div className="divider" />
 
           {locStMI.activeTab === "dwn" ? (
             <section className={`dwnDispoCtnr`}>
@@ -187,7 +186,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
               {dwnButtonsArr}
             </section>
           ) : (
-            <section className={`ddDispoCtnr`}>
+            <section className={`ddDisposCtnr`}>
               {/* Damaged / Defective */}
               {aDDdispoFields}
             </section>
