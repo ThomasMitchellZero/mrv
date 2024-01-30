@@ -31,13 +31,13 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
       betterPrice: { selected: false, title: "Found Better Price" },
     },
     ddDispos: {
-      noWorky: { qty: null, title: "Doesn't Work" },
-      missingParts: { qty: null, title: "Missing Parts" },
-      broken: { qty: null, title: "Broken" },
-      cosmetic: { qty: null, title: "Cosmetic" },
-      crackedBowl: { qty: null, title: "Cracked Bowl" },
-      crackedTank: { qty: null, title: "Cracked Tank" },
-      leaking: { qty: null, title: "Leaking" },
+      noWorky: { qty: "", title: "Doesn't Work" },
+      missingParts: { qty: "", title: "Missing Parts" },
+      broken: { qty: "", title: "Broken" },
+      cosmetic: { qty: "", title: "Cosmetic" },
+      crackedBowl: { qty: "", title: "Cracked Bowl" },
+      crackedTank: { qty: "", title: "Cracked Tank" },
+      leaking: { qty: "", title: "Leaking" },
     },
   };
 
@@ -47,11 +47,15 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
   const totalDDqtys = (draftLocSt) => {
     let outTotalQty = 0;
-    for (const thisDispo of Object.keys(draftLocSt.ddDispos)) {
-      if (thisDispo.qty && typeof thisDispo.qty === "number") {
-        outTotalQty += thisDispo.qty;
+    for (const thisDispo of Object.values(draftLocSt.ddDispos)) {
+      const thisQty = thisDispo.qty;
+      const thisType = typeof thisDispo.qty;
+      const isNum = thisType === "number"
+      if (thisQty && isNum) {
+        outTotalQty += thisQty;
       }
     }
+    return outTotalQty;
   };
 
   // ---- Tab Buttons /////////////////////////
@@ -61,7 +65,9 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     return (
       <button
         type="button"
-        className={`tab body__small ${locStMI.activeTab === reason ? "active" : ""}`}
+        className={`tab body__small ${
+          locStMI.activeTab === reason ? "active" : ""
+        }`}
         onClick={() => {
           const draftLocStMI = cloneDeep(locStMI);
           draftLocStMI.activeTab = reason;
@@ -114,11 +120,12 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const handleInputQty = ({ ddKey, event }) => {
     const rawIn = parseInt(event.target.value);
     // Input might be empty so if NaN, set it to 0.
-    const inputQty = isNaN(rawIn) ? "" : rawIn;
+
+    const inputQty = rawIn; //isNaN(rawIn) ? "" : rawIn;
 
     const draftLocStMI = cloneDeep(locStMI);
 
-    draftLocStMI.ddDispos[ddKey] = inputQty;
+    draftLocStMI.ddDispos[ddKey].qty = inputQty;
     // calculate new totals for DD items and DWN items
     const outDDqty = totalDDqtys(draftLocStMI);
     draftLocStMI.ddQty = outDDqty;
@@ -139,6 +146,9 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
             step="1"
             value={oThisDispo.qty}
             max={nItemQty}
+            onChange={(event) => {
+              handleInputQty({ ddKey: ddKey, event: event });
+            }}
           />
         </MRVinput>
         <p className={`body__small color__primary__text`}>{oThisDispo.title}</p>
