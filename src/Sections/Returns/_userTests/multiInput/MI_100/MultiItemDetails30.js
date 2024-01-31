@@ -10,6 +10,8 @@ import cloneDeep from "lodash.clonedeep";
 
 import { useReducer, useRef, useState } from "react";
 
+import { useNavigate } from "react-router";
+
 // Reducer to control which tab and which defective reason are active.
 
 const MultiItemDetails30 = ({ rtrnIndexContext }) => {
@@ -18,6 +20,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const sActiveItemNum = rtrnIndexContext.activeItem;
   const oActiveItem = returnsCtx.session.items[sActiveItemNum];
   const nItemQty = oActiveItem.quantity;
+  const navigate = useNavigate();
 
   const defaultState = {
     activeTab: "dwn",
@@ -30,7 +33,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
       wrongColor: { selected: false, title: "Wrong Color" },
       betterPrice: { selected: false, title: "Found Better Price" },
     },
-    
+
     ddDispos: {
       noWorky: { qty: "", title: "Doesn't Work" },
       missingParts: { qty: "", title: "Missing Parts" },
@@ -161,7 +164,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
   const uiWarningtext = locStMI.isValid
     ? ""
-    : `Total Damaged / Defective qty exceeds total qty being returned by ${Math.abs(
+    : `Total Damaged / Defective qty exceeds item qty by ${Math.abs(
         locStMI.dwnQty
       )}`;
 
@@ -216,23 +219,20 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         </section>
       </section>
 
-      <FooterContainer>
-        <section className={`mrv foota`}>
-          <section className={`footer_text`}>
-            <p className={`tinyText warning`}>{uiWarningtext}</p>
-          </section>
-          <section className={`footer_content`}>
-            <section className={`buttonBox`}>
-              <button
-                onClick={() => {}}
-                className={`mrvBtn primary fullWidth jumbo`}
-              >
-                Continue
-              </button>
-            </section>
-          </section>
+      <section className={`mrv foota`}>
+        <section className={`footer_text`}>
+          <p className={`tinyText warning`}>{uiWarningtext}</p>
         </section>
-      </FooterContainer>
+
+        <section className={`buttonBox`}>
+          <button
+            onClick={() => {navigate("/mrv/returns/test-complete")}}
+            className={`mrvBtn primary fullWidth `}
+          >
+            Continue
+          </button>
+        </section>
+      </section>
     </section>
   );
 };

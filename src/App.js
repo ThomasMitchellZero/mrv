@@ -28,8 +28,8 @@ import SelectReceiptType from "./Sections/Returns/Select_Receipt/SelectReceiptTy
 
 // Exchanges
 import Exchanges from "./Sections/Exchanges/Exchanges";
-import {ExchStartExchange} from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
-import {ExchChooseExchItems} from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
+import { ExchStartExchange } from "./Sections/Exchanges/_pages/10_StartExchange/StartExchange";
+import { ExchChooseExchItems } from "./Sections/Exchanges/_pages/20_ChooseExchangeItems/ChooseExchangeItems";
 import { ExchReason } from "./Sections/Exchanges/_pages/30_ExchReason/ExchReason";
 import { ReplacementItems } from "./Sections/Exchanges/_pages/40_ExchReplacements/ReplacementItems";
 import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/ScheduleTimes";
@@ -68,7 +68,15 @@ function App() {
             <Route path="finalize-refund" element={<FinalizeRefund />} />
             <Route path="receipt" element={<SelectReceiptType />} />
             <Route path="multiple-reasons" element={<SelectReceiptType />} />
-
+            <Route
+              path="test-complete"
+              element={
+                <Placeholder
+                  titleText="Input Test"
+                  pageText="Input Test Complete.  Just a few more questions!"
+                />
+              }
+            />
           </Route>
           <Route path="exchanges" element={<Exchanges />}>
             <Route index element={<ExchStartExchange />} />

@@ -67,7 +67,7 @@
 
           & button p {
             color: var(--color__tertiary);
-            padding-right: .25rem;
+            padding-right: 0.25rem;
           }
 
           & button.active p {
@@ -76,7 +76,7 @@
         }
       }
 
-      & .reasonExplainer{
+      & .reasonExplainer {
         width: 100%;
       }
 
@@ -111,14 +111,25 @@
           }
         }
       }
-      &.foota{
-        display: flex;
-        &section{
-          display: flex;
-        }
-      }
     }
   }
-
+  & .mrv.foota {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    flex: 0 0 8rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0rem 1rem;
+    gap: 0.25rem;
+    & .buttonBox{
+      display: flex;
+      flex: 1 1 0rem;
+      width: 100%;
+      align-items: center;
+    }
+  }
   /*  Return Reason Tabs */
 }
