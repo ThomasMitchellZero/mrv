@@ -107,6 +107,12 @@
           }
         }
       }
+      &.foota{
+        display: flex;
+        &section{
+          display: flex;
+        }
+      }
     }
   }
 

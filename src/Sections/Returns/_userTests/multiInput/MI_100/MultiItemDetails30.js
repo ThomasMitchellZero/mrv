@@ -45,19 +45,6 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
   const [locStMI, setLocStMI] = useState(defaultState);
 
-  const totalDDqtys = (draftLocSt) => {
-    let outTotalQty = 0;
-    for (const thisDispo of Object.values(draftLocSt.ddDispos)) {
-      const thisQty = thisDispo.qty;
-      const thisType = typeof thisDispo.qty;
-      const isNum = thisType === "number"
-      if (thisQty && isNum) {
-        outTotalQty += thisQty;
-      }
-    }
-    return outTotalQty;
-  };
-
   // ---- Tab Buttons /////////////////////////
   const tabButton = (reason, title) => {
     const qtyField = reason === "dwn" ? locStMI.dwnQty : locStMI.ddQty;
@@ -115,21 +102,32 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
   //----Damaged / Defective Inputs ////////////////////////
 
+  const totalDDqtys = (draftLocSt) => {
+    // produces sum of all Damaged dispos.
+    let outTotalQty = 0;
+    for (const thisDispo of Object.values(draftLocSt.ddDispos)) {
+      const thisQty = thisDispo.qty;
+      if (typeof thisDispo.qty === "number") {
+        outTotalQty += thisQty;
+      }
+    }
+    return outTotalQty;
+  };
+
   // deal with changes to the input field
-
   const handleInputQty = ({ ddKey, event }) => {
-    const rawIn = parseInt(event.target.value);
+    const inputQty = parseInt(event.target.value) || "";
     // Input might be empty so if NaN, set it to 0.
-
-    const inputQty = rawIn; //isNaN(rawIn) ? "" : rawIn;
 
     const draftLocStMI = cloneDeep(locStMI);
 
     draftLocStMI.ddDispos[ddKey].qty = inputQty;
     // calculate new totals for DD items and DWN items
     const outDDqty = totalDDqtys(draftLocStMI);
+    const outDWNqty = nItemQty - outDDqty;
     draftLocStMI.ddQty = outDDqty;
-    draftLocStMI.dwnQty = nItemQty - outDDqty;
+    draftLocStMI.dwnQty = outDWNqty;
+    draftLocStMI.isValid = (outDWNqty >=0)
 
     setLocStMI(draftLocStMI);
   };
@@ -159,6 +157,12 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
   const aDDdispoFields = Object.keys(locStMI.ddDispos).map((ddKey) => {
     return uiDDInputField(ddKey);
   });
+
+  const uiWarningtext = locStMI.isValid
+    ? ""
+    : `Total Damaged / Defective qty exceeds total qty being returned by ${Math.abs(
+        locStMI.dwnQty
+      )}`;
 
   //----Final Component ////////////////////////
 
@@ -205,7 +209,23 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
         </section>
       </section>
 
-      <FooterContainer></FooterContainer>
+      <FooterContainer>
+        <section className={`mrv foota`}>
+          <section className={`footer_text`}>
+            <p className={`tinyText warning`}>{uiWarningtext}</p>
+          </section>
+          <section className={`footer_content`}>
+            <section className={`buttonBox`}>
+              <button
+                onClick={() => {}}
+                className={`mrvBtn primary fullWidth jumbo`}
+              >
+                Continue
+              </button>
+            </section>
+          </section>
+        </section>
+      </FooterContainer>
     </section>
   );
 };
