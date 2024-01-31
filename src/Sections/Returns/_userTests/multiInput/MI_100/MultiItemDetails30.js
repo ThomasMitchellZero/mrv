@@ -30,6 +30,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
       wrongColor: { selected: false, title: "Wrong Color" },
       betterPrice: { selected: false, title: "Found Better Price" },
     },
+    
     ddDispos: {
       noWorky: { qty: "", title: "Doesn't Work" },
       missingParts: { qty: "", title: "Missing Parts" },
@@ -127,7 +128,7 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
     const outDWNqty = nItemQty - outDDqty;
     draftLocStMI.ddQty = outDDqty;
     draftLocStMI.dwnQty = outDWNqty;
-    draftLocStMI.isValid = (outDWNqty >=0)
+    draftLocStMI.isValid = outDWNqty >= 0;
 
     setLocStMI(draftLocStMI);
   };
@@ -197,11 +198,17 @@ const MultiItemDetails30 = ({ rtrnIndexContext }) => {
 
           {locStMI.activeTab === "dwn" ? (
             <section className={`dwnDispoCtnr`}>
+              <p className={`tinyText reasonExplainer`}>
+                Select all reasons customer doesn't want items
+              </p>
               {/* Didn't Want / Need */}
               {dwnButtonsArr}
             </section>
           ) : (
             <section className={`ddDisposCtnr`}>
+              <p className={`tinyText reasonExplainer`}>
+                Enter types and qtys of any damaged items
+              </p>
               {/* Damaged / Defective */}
               {aDDdispoFields}
             </section>

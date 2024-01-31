@@ -76,6 +76,10 @@
         }
       }
 
+      & .reasonExplainer{
+        width: 100%;
+      }
+
       /* Disposition Selection Panel */
 
       & .dwnDispoCtnr {
