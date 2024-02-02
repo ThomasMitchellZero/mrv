@@ -213,7 +213,7 @@
     }
 
     /* ---- Row Sizes ---- */
-    & .exchHeader {
+    & .header {
       flex: 0 0 5rem;
       display: flex;
       flex-direction: row;

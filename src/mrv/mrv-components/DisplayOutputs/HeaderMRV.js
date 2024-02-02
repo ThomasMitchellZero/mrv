@@ -1,9 +1,9 @@
-import "./mrvHeader.css";
+import "./HeaderMRV.css"
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 
 
-function ExchHeader({
+function HeaderMRV({
   hasIcon = null,
   productName = "",
   showProductName = true,
@@ -49,7 +49,7 @@ function ExchHeader({
   );
 
   return (
-    <section className={`mrvHeader`}>
+    <section className={`header mrvHeader`}>
       {navButton}
       <section className={`mainTitle`}>
         <p className={`tiny-text`}>{showProductName ? `${productName}` : " "}</p>
@@ -62,7 +62,7 @@ function ExchHeader({
   );
 }
 
-export { ExchHeader };
+export { HeaderMRV };
 
 /*
 
