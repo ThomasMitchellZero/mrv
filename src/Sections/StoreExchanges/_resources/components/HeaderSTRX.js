@@ -5,7 +5,6 @@ const HeaderSTRX = ({
   showProductName = true,
   headerTitle = "Title",
   hasCluster = true,
-  srString = "",
   navBtnClick = () => {
     console.log("nothing here");
   },
@@ -20,7 +19,7 @@ const HeaderSTRX = ({
       showProductName={showProductName}
       headerTitle={headerTitle}
       hasCluster={hasCluster}
-      srString={srString}
+      srString=""
       navBtnClick={navBtnClick}
       handleClearSession={handleClearSession}
     ></HeaderMRV>
