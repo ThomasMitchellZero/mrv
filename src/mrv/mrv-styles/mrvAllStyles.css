@@ -103,6 +103,8 @@
     background-color: transparent;
   }
 
+  /* ---- MRV POSITIONS STYLES ---- */
+
   /* ---- MRV TEXT STYLES ---- */
 
   & h1 {
@@ -194,6 +196,7 @@
     --standardBorder: calc(1.5rem / 16) solid var(--color__border);
     --primaryColumn: 25vw;
 
+    /* ---- Column Sizes ---- */
     & .mrvPanel__main {
       box-sizing: border-box;
       flex: 1 1 0rem;
@@ -209,13 +212,46 @@
       flex-direction: column;
     }
 
-    & .buttonBox {
-      box-sizing: border-box;
-      height: 100%;
+    /* ---- Row Sizes ---- */
+    & .exchHeader {
+      flex: 0 0 5rem;
+      display: flex;
+      flex-direction: row;
+      padding: var(--PrimaryPadding__both);
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    & .main_content {
       flex: 1 1 0rem;
       display: flex;
       flex-direction: column;
-      padding: 0rem var(--PrimaryPadding__horizontal);
+      padding: var(--PrimaryPadding__both);
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: auto;
+    }
+
+    & .main_content & .footer_text {
+      flex: 0 0 auto;
+      padding: 0rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      & p {
+        text-align: center;
+      }
+    }
+
+    /* ---- Utility ---- */
+
+    & .footer_content {
+      flex: 0 0 6rem;
+      padding: var(--PrimaryPadding__vertical) 0rem;
+      justify-content: flex-end;
+      display: flex;
+      flex-direction: row;
     }
 
     & .cardContainer {
@@ -225,6 +261,15 @@
       flex-direction: column;
       gap: 1rem;
       width: 100%;
+    }
+
+    & .buttonBox {
+      box-sizing: border-box;
+      height: 100%;
+      flex: 1 1 0rem;
+      display: flex;
+      flex-direction: column;
+      padding: 0rem var(--PrimaryPadding__horizontal);
     }
   }
 
@@ -463,6 +508,10 @@
   }
 
   /* ---- Universal Modifiers ----*/
+
+  & .alignLeft {
+    align-items: flex-start;
+  }
 
   & .nohover {
     pointer-events: none;

@@ -1,0 +1,47 @@
+
+.mrv .mrvHeader{
+    padding: var(--PrimaryPadding__both);
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-end;
+    color: var(--color__primary);
+    --standard-height: 3.5rem;
+
+    & .navBtn{
+        height: var(--standard-height);
+        width: 3rem;
+        padding: 0rem;
+        border-color: transparent;
+        background-color: transparent;
+    }
+    
+    & .mainTitle{
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0rem;
+        text-transform: capitalize;
+    
+    }
+    
+    & .defaultHeight{
+        height: var(--standard-height);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        
+    }
+
+    & .mainTitle h3{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    
+    & .defaultHeight p{
+        white-space: nowrap;
+        color: var(--color__tertiary);
+    }
+}
+

@@ -27,7 +27,7 @@ function StoreExchanges() {
   );
 }
 
-export default StoreExchanges;
+export {StoreExchanges};
 
 /*
 

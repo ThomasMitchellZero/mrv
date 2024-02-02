@@ -36,11 +36,10 @@ import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/
 import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/TotalReview";
 import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/ReceiptPage";
 
-import {StoreExchanges} from "./Sections/StoreExchanges/StoreExchanges"
-import {StartSTRX} from "./Sections/StoreExchanges/_pages/100_StartStrx/StartSTRX";
+import { StartSTRX } from "./Sections/StoreExchanges/_pages/100_StartSTRX/StartSTRX";
+import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 
 //Store Exchanges
-
 
 import { enableMapSet } from "immer";
 
@@ -94,7 +93,9 @@ function App() {
             <Route path="receipt" element={<ExchReceiptPage />} />
           </Route>
           <Route path="store-exchanges" element={<StoreExchanges />}>
-            <Route path="start-strx" element={<StartSTRX />} />
+            <Route index element={<StartSTRX />} />
+            <Route path="chooseitems" element={<ExchChooseExchItems />} />
+
           </Route>
         </Route>
       </Routes>
