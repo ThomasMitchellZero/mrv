@@ -91,14 +91,15 @@
       }
 
       & .ddDisposCtnr {
-        display: flex;
+        display: flex ;
         flex: 0 0 auto;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 1rem;
 
         & .ddDispoBox {
-          display: flex;
+          
+          display: flex !important;
           flex: 0 0 48%;
           align-items: center;
           flex-direction: row;

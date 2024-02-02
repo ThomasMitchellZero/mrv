@@ -16,17 +16,14 @@ const Main = () => {
         <NavLink to="home" className={linkStyle}>
           Homepage
         </NavLink>
-        <NavLink to="orders" className={linkStyle}>
-          Orders
-        </NavLink>
-        <NavLink to="showroom" className={linkStyle}>
-          Showroom
-        </NavLink>
         <NavLink to="returns" className={linkStyle}>
           Returns
         </NavLink>
         <NavLink to="exchanges" className={linkStyle}>
           Exchanges
+        </NavLink>
+        <NavLink to="store-exchanges" className={linkStyle}>
+          Store Exchanges
         </NavLink>
       </nav>
       <Outlet />
