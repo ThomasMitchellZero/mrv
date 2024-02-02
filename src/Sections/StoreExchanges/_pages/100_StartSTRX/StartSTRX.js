@@ -19,7 +19,7 @@ import { useOutletContext } from "react-router-dom";
 
 import { cloneDeep, isEmpty } from "lodash";
 
-function Start_STRX() {
+function StartSTRX() {
   const exchCtx = useOutletContext();
 
 
@@ -48,7 +48,7 @@ function Start_STRX() {
   );
 }
 
-export { Start_STRX };
+export default StartSTRX ;
 
 /*
 
