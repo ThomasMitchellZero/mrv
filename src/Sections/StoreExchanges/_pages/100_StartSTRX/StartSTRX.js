@@ -12,8 +12,6 @@ import InvoiceContext from "../../../../store/invoice-context";
 
 import OrdersContext from "../../../../store/orders-context";
 
-
-
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 
@@ -22,11 +20,7 @@ import { cloneDeep, isEmpty } from "lodash";
 function StartSTRX() {
   const exchCtx = useOutletContext();
 
-
   /* ---- SHARED FUNCTIONS ---- */
-
-
-
 
   /* ---- OUTPUT JSX ---- */
 
@@ -35,11 +29,7 @@ function StartSTRX() {
       <section className={`mrvPanel__main`}>
         <ExchHeader headerTitle="Start Exchange" hasCluster={false} />
         <div className={``}>
-          <button
-            type="button"
-            onClick={() => {}}
-            className={`mrvBtn primary`}
-          >
+          <button type="button" onClick={() => {}} className={`mrvBtn primary`}>
             Add Items From Invoice
           </button>
         </div>
@@ -48,7 +38,7 @@ function StartSTRX() {
   );
 }
 
-export default StartSTRX ;
+export { StartSTRX };
 
 /*
 
