@@ -38,6 +38,7 @@ import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/Rece
 
 import { StartSTRX } from "./Sections/StoreExchanges/_pages/100_StartSTRX/StartSTRX";
 import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
+import { AddItemsAndInvosSTRX } from "./Sections/StoreExchanges/_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
 
 //Store Exchanges
 
@@ -94,8 +95,7 @@ function App() {
           </Route>
           <Route path="store-exchanges" element={<StoreExchanges />}>
             <Route index element={<StartSTRX />} />
-            <Route path="chooseitems" element={<ExchChooseExchItems />} />
-
+            <Route path="choose-items-invos" element={<AddItemsAndInvosSTRX />} />
           </Route>
         </Route>
       </Routes>

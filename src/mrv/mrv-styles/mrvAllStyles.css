@@ -25,6 +25,7 @@
   --primaryBorder: 0.125rem solid var(--color__border);
   --clearBorder: 0.125rem solid transparent;
 
+
   /* Colors */
 
   --color__surface__default: #ffffff;
@@ -508,6 +509,10 @@
   }
 
   /* ---- Universal Modifiers ----*/
+
+  & .gap2rem{
+    gap: 2rem;
+  }
 
   & .alignLeft {
     align-items: flex-start;
