@@ -1,4 +1,5 @@
 import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
+import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
 import { useNavigate } from "react-router";
 
@@ -40,9 +41,6 @@ function AllEntry30({ parLocState, setParLocState }) {
       </button>
     );
   };
-
-  
-
 
 
   /* ########  OUTPUT JSX   ######## */

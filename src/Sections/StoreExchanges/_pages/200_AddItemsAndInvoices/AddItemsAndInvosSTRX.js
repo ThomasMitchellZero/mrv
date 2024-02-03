@@ -12,8 +12,9 @@ function AddItemsAndInvosSTRX() {
   const defaultState = {
     active30: "AllEntry30",
     active70: "NoneScanned",
-    lookupField: "",
-    activeMode: "receipt"
+    activeMode: "receipt",
+    itemNumField: "",
+    receiptNumField: "",
   };
 
   const [locStAddRtrns, setLocStAddRtrns] = useImmer({
