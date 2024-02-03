@@ -1,5 +1,5 @@
 import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import { ItemEntry, ReceiptEntry } from "./EntrySubsections";
 
 import { useNavigate } from "react-router";
 
@@ -14,11 +14,14 @@ function AllEntry30({ parLocState, setParLocState }) {
       sLabel: "receipt",
       sPanelTitle: "Scan / Enter Receipts",
       sInputLabel: "",
+      inputCluster: <ReceiptEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
+
     item: {
       sLabel: "item",
       sPanelTitle: "Scan / Enter Items",
       sInputLabel: "",
+      inputCluster: <ItemEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
   };
 
@@ -57,6 +60,8 @@ function AllEntry30({ parLocState, setParLocState }) {
           {uiTabBtn("receipt")}
           {uiTabBtn("item")}
         </div>
+        {/* Input cluster varies based on selected Mode */}
+        {oMode[s30Mode].inputCluster}
       </section>
       <section className={`footer_content`}>
         <div className={`buttonBox`}>

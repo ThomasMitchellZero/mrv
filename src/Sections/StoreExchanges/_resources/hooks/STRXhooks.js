@@ -13,6 +13,8 @@ import { cloneDeep, isEmpty } from "lodash";
 
 //// Money Handlers ////
 
+// This is currently ALLL junk.  Just to refer to later
+
 const useCentsToDollars = () => {
   return (priceInCents = 4200) => {
     return Number.parseFloat(priceInCents / 100).toFixed(2);

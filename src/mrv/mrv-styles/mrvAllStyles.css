@@ -25,7 +25,6 @@
   --primaryBorder: 0.125rem solid var(--color__border);
   --clearBorder: 0.125rem solid transparent;
 
-
   /* Colors */
 
   --color__surface__default: #ffffff;
@@ -512,10 +511,14 @@
     outline: none 0rem transparent;
   }
 
-  /* ---- Universal Modifiers ----*/
+  /* ---- Utility Classes ----*/
 
-  & .gap2rem{
+  & .gap2rem {
     gap: 2rem;
+  }
+
+  & .gap1rem {
+    gap: 1rem;
   }
 
   & .alignLeft {
