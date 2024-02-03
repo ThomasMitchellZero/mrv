@@ -193,7 +193,6 @@
     flex-direction: row;
     box-sizing: border-box;
     align-items: flex-start;
-    background-color: var(--color__surface__default);
     --standardBorder: calc(1.5rem / 16) solid var(--color__border);
     --primaryColumn: 25vw;
 
@@ -233,7 +232,7 @@
       overflow-x: auto;
     }
 
-    & .main_content & .footer_text {
+    & .footer_text {
       flex: 0 0 auto;
       padding: 0rem;
       display: flex;

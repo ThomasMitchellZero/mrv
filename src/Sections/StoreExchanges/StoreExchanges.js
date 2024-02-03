@@ -16,7 +16,7 @@ function StoreExchanges() {
   });
 
   return (
-    <section className={`mrv exch_Top`}>
+    <section className={`mrv STRX_top`}>
       <Outlet
         context={{
             sessionSTRX: sessionSTRX,
