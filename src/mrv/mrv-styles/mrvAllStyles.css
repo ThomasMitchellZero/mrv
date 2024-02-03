@@ -73,6 +73,10 @@
     background-color: var(--color__surface__subdued);
   }
 
+  & .color__surface__default {
+    background-color: var(--color__surface__default);
+  }
+
   & .color__primary__text {
     color: var(--color__primary);
   }

@@ -2,7 +2,7 @@ import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
 
 import { useNavigate } from "react-router";
 
-function AllEntry30() {
+function AllEntry30({parLocState, setParLocState}) {
   const navigate = useNavigate();
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -10,8 +10,12 @@ function AllEntry30() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <section className={`mrvPanel__side`}>
-      <HeaderSTRX headerTitle={"Scan Or Enter Invoices"} />
+    <section className={`mrvPanel__side color__surface__default`}>
+      <HeaderSTRX
+        hasCluster={false}
+        showProductName={false}
+        headerTitle={"Add Items / Receipts"}
+      />
       <div className={`main_content gap2rem alignLeft`}></div>
       <section className={`footer_content`}>
         <div className={`buttonBox`}>
@@ -24,7 +28,7 @@ function AllEntry30() {
   );
 }
 
-export { AllEntry30 }; 
+export { AllEntry30 };
 
 /*
 

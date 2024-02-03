@@ -1,7 +1,14 @@
+.STRX_top .addItemsAndInvos {
+  & .noneScanned {
+    display: flex;
+    flex: 1 1 0rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 
-.STRX_top .addItemsAndInvos{
-    & .noneScanned{
-
+    & img {
+      height: 8rem;
     }
-    
+  }
 }

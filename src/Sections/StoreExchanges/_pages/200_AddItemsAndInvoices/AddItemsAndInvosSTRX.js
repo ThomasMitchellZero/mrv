@@ -19,7 +19,7 @@ function AddItemsAndInvosSTRX() {
   });
 
   const o30panels = {
-    InvoEntry30: <AllEntry30 />,
+    AllEntry30: <AllEntry30 />,
   };
 
   const o70panels = {
@@ -31,17 +31,18 @@ function AddItemsAndInvosSTRX() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <section className={`mrvPage color__surface__subdued`}>
+    <main className={`mrvPage addItemsAndInvos color__surface__subdued`}>
       <section className={`mrvPanel__main`}>
         <HeaderSTRX
-          showProductName={false}
+          showProductName={true}
           headerTitle={"Invoices and Items Being Returned"}
         />
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.active70]}
         </div>
       </section>
-    </section>
+      {o30panels[locStAddRtrns.active30]}
+    </main>
   );
 }
 
