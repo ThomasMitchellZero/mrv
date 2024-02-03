@@ -12,6 +12,8 @@ function AddItemsAndInvosSTRX() {
   const defaultState = {
     active30: "AllEntry30",
     active70: "NoneScanned",
+    lookupField: "",
+    activeMode: "receipt"
   };
 
   const [locStAddRtrns, setLocStAddRtrns] = useImmer({
@@ -19,7 +21,7 @@ function AddItemsAndInvosSTRX() {
   });
 
   const o30panels = {
-    AllEntry30: <AllEntry30 />,
+    AllEntry30: <AllEntry30 parLocState={locStAddRtrns} setParLocState={setLocStAddRtrns} />,
   };
 
   const o70panels = {
@@ -35,7 +37,7 @@ function AddItemsAndInvosSTRX() {
       <section className={`mrvPanel__main`}>
         <HeaderSTRX
           showProductName={true}
-          headerTitle={"Invoices and Items Being Returned"}
+          headerTitle={"Receipts and return items"}
         />
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.active70]}

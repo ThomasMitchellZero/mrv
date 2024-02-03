@@ -233,7 +233,7 @@
       padding: var(--PrimaryPadding__both);
       align-items: center;
       justify-content: flex-start;
-      overflow-x: auto;
+      overflow-y: auto;
     }
 
     & .footer_text {
@@ -381,6 +381,7 @@
       font-size: 1.25rem;
       line-height: 2rem;
       color: var(--color__tertiary);
+      text-transform: capitalize;
       border: none;
       border-bottom: var(--clearBorder);
       border-radius: 0rem;

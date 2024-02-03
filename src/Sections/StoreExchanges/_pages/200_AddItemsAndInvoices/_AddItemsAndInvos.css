@@ -11,4 +11,14 @@
       height: 8rem;
     }
   }
+
+  & .allEntry30{
+    & .tabBox{
+      display: flex;
+      flex-direction: row;
+      flex: 0 0 auto;
+      width: 100%;
+
+    }
+  }
 }
