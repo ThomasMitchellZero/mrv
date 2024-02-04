@@ -6403,3 +6403,17 @@ What to do today?
         -A big question is the extent to which I want to build this all in.  I could, upon navigation, add an invoice + the correct qty to a Real Return.  
             + If we do ever end up testing something more complex, we would do that anyways.
             + It's been a while.  We put a LOT of work into making Returns work.  
+
+3 Feb 2024
+3:00.
+    I was doing an HI training and some chores, so no ragrets about this start time.  I'm excited.  Yesterday was still some infrastructure, universalizing things that I needed from Returns or Exchanges to get them in to STRX.  I'm HOPING that today will be some more real progress.  
+
+
+4 Feb 
+1:40.
+    OK, going in dry.  Let's see how this goes.  I had a legit good time yesterday and this is mostly just for my own curiosity.  I'm committing to 60, hoping for 90, and after that we'll see. 
+
+    I do need the error states, but it's not really critical for what I'm trying to do.  I'd LIKE to get item- and invoice-adding, and maybe some progress on the graphics as well?
+
+    
+

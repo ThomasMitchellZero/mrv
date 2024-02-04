@@ -48,12 +48,13 @@ const useMRVAddItem = () => {
   const mrvAddItem = ({
     targetAllItemsObj = {},
     itemNum = "",
-    newTotalItemQty = 42,
+    qtyToAdd = 42,
   }) => {
     // Takes a target object of items in a transaction and returns updated version with this itemNum + details added to it.
 
     const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNum].itemQty=newTotalItemQty
+    draftAllItemsObj[itemNum] ??= {itemQty: 0}
+    draftAllItemsObj[itemNum].itemQty += qtyToAdd
 
     return draftAllItemsObj;
   };
@@ -64,4 +65,5 @@ export {
   //Money
   useCentsToDollars,
   useDollarsToCents,
+  useMRVAddItem,
 };
