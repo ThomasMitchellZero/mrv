@@ -2,16 +2,23 @@ import "./_AddItemsAndInvos.css";
 
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 
+/* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
+
 const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
 
+  const oErrorStates = {
+    invalidItem:{},
+    invalidQty:{}
+  }
+
   return (
-    <form>
-      <div className={`inputSection`}>
+    <form className={`inputSection`}>
+      <div className={``}>
         <MRVinput flex={"1 1 0rem"}>
           <input
-            type="string"
+            type="text"
             value={parLocState.itemNumField}
             onChange={(event) => {
               const fieldInput = event.target.value;
@@ -22,13 +29,13 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
           />
         </MRVinput>
       </div>
-      <div className={`inputSection`}>
+      <div className={`inputRow`}>
         <MRVinput width={"5rem"}>
           <input
             type="number"
             min="0"
             step="1"
-            value={parLocState.itemNumField}
+            value={parLocState.itemQtyField}
             onChange={(event) => {
               const fieldInput = event.target.value;
               setParLocState((draft) => {
@@ -37,10 +44,14 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
             }}
           />
         </MRVinput>
+        <button className={`secondary`}>Add Item</button>
       </div>
+      <p className={`warning`}>fart</p>
     </form>
   );
 };
+
+/* &&&&&&&&&&&&&&   Receipt Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
 const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
@@ -49,11 +60,8 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   return (
     <>
       <div className={`inputSection`}>
-        <MRVinput width={"5rem"}>
+        <MRVinput flex={"1 1 0rem"}>
           <input
-            type="number"
-            min="0"
-            step="1"
             value={parLocState.itemNumField}
             onChange={(event) => {
               const fieldInput = event.target.value;
@@ -64,6 +72,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
           />
         </MRVinput>
       </div>
+
     </>
   );
 };

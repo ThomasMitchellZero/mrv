@@ -14,6 +14,7 @@ function AddItemsAndInvosSTRX() {
     active70: "NoneScanned",
     activeMode: "receipt",
     itemNumField: "",
+    itemQtyField: "",
     receiptNumField: "",
   };
 

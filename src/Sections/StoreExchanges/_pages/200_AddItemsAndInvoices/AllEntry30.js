@@ -12,14 +12,14 @@ function AllEntry30({ parLocState, setParLocState }) {
   const oMode = {
     receipt: {
       sLabel: "receipt",
-      sPanelTitle: "Scan / Enter Receipts",
+      sPanelTitle: "Add Receipts",
       sInputLabel: "",
       inputCluster: <ReceiptEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
 
     item: {
       sLabel: "item",
-      sPanelTitle: "Scan / Enter Items",
+      sPanelTitle: "Add Items",
       sInputLabel: "",
       inputCluster: <ItemEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
@@ -55,7 +55,7 @@ function AllEntry30({ parLocState, setParLocState }) {
         showProductName={false}
         headerTitle={oMode[s30Mode].sPanelTitle}
       />
-      <section className={`main_content gap2rem`}>
+      <section className={`main_content`}>
         <div className={`tabBox`}>
           {uiTabBtn("receipt")}
           {uiTabBtn("item")}
