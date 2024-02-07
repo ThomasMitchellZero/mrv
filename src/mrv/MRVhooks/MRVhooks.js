@@ -4,7 +4,12 @@ import ProductContext from "../../store/product-context";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
-import { ProdClass, InvoProduct } from "../../globalFunctions/globalJS_classes";
+import {
+  ProdClass,
+  Invoice_SR,
+  sessionItem,
+  InvoProduct,
+} from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
 
@@ -53,12 +58,43 @@ const useMRVAddItem = () => {
     // Takes a target object of items in a transaction and returns updated version with this itemNum + details added to it.
 
     const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNum] ??= {itemQty: 0}
-    draftAllItemsObj[itemNum].itemQty += qtyToAdd
+    draftAllItemsObj[itemNum] ??= { itemQty: 0 };
+    draftAllItemsObj[itemNum].itemQty += qtyToAdd;
 
     return draftAllItemsObj;
   };
   return mrvAddItem;
+};
+
+const useMRVmatchmaker = () => {
+  const invoiceContext = useContext(InvoiceContext);
+  const productContext = useContext(ProductContext);
+
+  const mrvMatchmaker = ({ sessionItemsObj = {}, sessionInvosArr = [] }) => {
+    // accepts an object of Session Items and an array of Session Invos
+
+    // Outputs to be modified during Matchmaking.
+    const oUnmatchedItems = cloneDeep(sessionItemsObj);
+    const oPostMatchInvos = {};
+    const matchedItems = {};
+
+    UMitemsLoop: for (const UMitemKey in Object.keys(oUnmatchedItems)) {
+
+      postMatchInvoLoop: for (const invoKey in sessionInvosArr) {
+        
+        const refInvoItem = new Invoice_SR();
+        const refInvoProd = new InvoProduct();
+
+        // if this invoice isn't already in oPMI, add it.
+        oPostMatchInvos ??= invoiceContext[invoKey];
+
+        // 88888888-- End of postMatchInvoLoop --88888888
+      }
+
+      // 88888888-- End of UMitemsLoop --88888888
+    }
+  };
+  return mrvMatchmaker;
 };
 
 export {

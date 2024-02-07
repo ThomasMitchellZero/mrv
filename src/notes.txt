@@ -6415,5 +6415,59 @@ What to do today?
 
     I do need the error states, but it's not really critical for what I'm trying to do.  I'd LIKE to get item- and invoice-adding, and maybe some progress on the graphics as well?
 
-    
+5 Feb 2024
+4:30.
+    I think I am at a decent stopping point for Store Exchanges, and I just feel like programming.  I am not quite sure where to start, which is strange because basically everything still needs to be built.  Options:
 
+    +Do the validation.  I guess I COULD do the adding without it, but that's kind of iffy.  
+        -Only reason not to is that this is a nice, straightforward chunk of work I could do to get started if I'm struggling.
+            +Like now?
+    +Display of Invoices.  Not a lot of upstream decisions need to be made on Invoices, and this is fun.
+        -Same cons as the validation, but without any dependencies.  This is probably not it.
+    +Data Model.
+        -Not fun, requires a lot of decision-making.  Could cause re-work if anything changes.
+            +This is probably the answer.  Ok.  Let's do this for 30 minutes.  If we can't get traction we'll do the input validation instead.
+
+    So let's list out where all we need to consume data and see if there's a neat way to do this.
+
+    -Items In Exchange.  [Permanent]
+        -We need to have ItemNum and qty.  Realistically, this is probably also the best place to store dispos, since they are also permanent and associated with the items as a group.
+
+    -Dispositions. 
+        -I think we store this in Items In Exchange.  
+
+    -Invoice List. [Permanent]
+        -I think just a list of invoices?  Thinking about having really skinny data models and just pulling all details from the Store contexts when consumed.  Should at least make it easy to comprehend.
+
+    -Unmatched Items. [Derived]
+        -I do need this for lookups.  Also, I'm pretty sure that I'm going to be producing one of these out of the Matchmaker process no matter what I do, so I might as well keep it.
+        -Should be the same structure as Items, but with all the matched items removed.
+
+    -Revised Invoices? [Derived]
+        -Not sure about this one.  Beyond the Matchmaker I'm not sure I'll be using it, but like UM Items, I'm gonna be making it anways so maybe just store it in data?  
+
+    ----Not Sure---
+
+    -Money [Derived]
+        -Invo Items:
+            -Price per unit
+            -Matched Qty
+            -Total Price (Gotta calculate it somewhere, might as well be during creation.)
+
+    -Matched Items
+        -This one is tricky.  I'm still going to show UM in the item cards, so what makes that easiest?
+        -We are going to need some version of the MatchBites.  These are going to contain info out of both the Invoice and Items lists.  
+            -Wondering if MatchBites should be grouped into the Items?  I think it makes the money-looping a little harder, but it makes the view of the Items a little easier?
+
+
+
+
+    There is going to be a LOT I could recycle from the OG Matchmaker.  I still think I'm going to re-code it, partially because I want to try and make it MRV-universal, partially because I want to see how much I've grown as a coder, and partially (mainly?) because I fear re-creating less than re-comprehending something so complex.'
+
+    I think what I need to do is make as many of the inputs into the matchmaker as hooks as I can.  That *should* give me confidence that I can re-use the process on other, future projects.  
+
+7 Feb 2023
+    12:45.
+    Sort of struggling to focus here.  The Store Manager meeting is going on in the background and that's not exactly conducive to deep work.  But I'm gonna try here.
+
+    The very first thing I need to do is change the prototype so that the DWN dispos are single-selection.  I've got what I need for dispos (I think?) so I should go ahead and do that.

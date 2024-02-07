@@ -17,7 +17,6 @@
 
 */
 
-
 class Product {
   constructor({
     img = "",
@@ -87,7 +86,6 @@ export { saleRecordTypes };
 //---- Orders ----
 
 class InvoProduct {
-
   constructor({
     quantity = 1,
     price = 100,
@@ -145,3 +143,20 @@ class Order_SR {
 }
 
 export { Order_SR };
+
+class sessionItem {
+  constructor({ itemNum = "", itemQty = "", disposObj = {} }) {
+    this.itemQty = itemQty;
+    this.disposObj = disposObj;
+  }
+}
+
+class singleDispo {
+  constructor({ isDamaged = false, dispoQty = 0, strLabel = "NO LABEL" }) {
+    this.strLabel = strLabel;
+    this.isDamaged = isDamaged;
+    this.value = dispoQty;
+  }
+}
+
+export { sessionItem, singleDispo };
