@@ -25,16 +25,15 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   };
 
   const handleAddItem = (event) => {
-
     event.preventDefault();
-    
+
     const bFormValid = true;
 
     if (bFormValid) {
       // create a new session returnItems obj with item + qty added to it.
       const outItemsObj = mrvAddItem({
         targetAllItemsObj: sessionState.returnItems,
-        itemNum: parLocState.itemNumField,
+        itemNumToAdd: parLocState.itemNumField,
         qtyToAdd: parLocState.itemQtyField,
       });
 

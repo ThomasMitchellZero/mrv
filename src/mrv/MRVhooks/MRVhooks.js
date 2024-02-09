@@ -9,6 +9,8 @@ import {
   Invoice_SR,
   sessionItem,
   InvoProduct,
+  returnAtom,
+  singleDispo,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -52,14 +54,16 @@ const newMoneyObj = ({
 const useMRVAddItem = () => {
   const mrvAddItem = ({
     targetAllItemsObj = {},
-    itemNum = "",
+    itemNumToAdd = "",
     qtyToAdd = 42,
   }) => {
     // Takes a target object of items in a transaction and returns updated version with this itemNum + details added to it.
 
     const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNum] ??= { itemQty: 0 };
-    draftAllItemsObj[itemNum].itemQty += qtyToAdd;
+    draftAllItemsObj[itemNumToAdd] ??= new sessionItem({
+      itemNum: itemNumToAdd,
+    });
+    draftAllItemsObj[itemNumToAdd].itemQty += qtyToAdd;
 
     return draftAllItemsObj;
   };
@@ -70,7 +74,7 @@ const useMRVmatchmaker = () => {
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
 
-  const mrvMatchmaker = ({ sessionItemsObj = {}, sessionInvosArr = [] }) => {
+  const mrvMatchmaker = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
     // accepts an object of Session Items and an array of Session Invos
 
     // Outputs to be modified during Matchmaking.
@@ -79,14 +83,27 @@ const useMRVmatchmaker = () => {
     const matchedItems = {};
 
     UMitemsLoop: for (const UMitemKey in Object.keys(oUnmatchedItems)) {
+      const thisUMitem = oUnmatchedItems[UMitemKey];
 
-      postMatchInvoLoop: for (const invoKey in sessionInvosArr) {
-        
+      let invosArr = Object.keys(sessionInvosObj);
+      // then sort it all.
+
+      postMatchInvoLoop: for (const invoKey in Object.keys(sessionInvosObj)) {
+        // Class references so I can get correct property names.  No dependencies.
         const refInvoItem = new Invoice_SR();
         const refInvoProd = new InvoProduct();
+        const refSessionItem = new sessionItem();
 
-        // if this invoice isn't already in oPMI, add it.
-        oPostMatchInvos ??= invoiceContext[invoKey];
+        //Check that the item is present in the invoice, otherwise go to the next.
+        const thisInvoItemRt = oPostMatchInvos[invoKey].products[UMitemKey];
+        if (!thisInvoItemRt) continue;
+
+        const UMitemQty = thisUMitem.itemQty;
+        const invoItemQty = thisInvoItemRt.quantity;
+
+        const deductQty = Math.min(UMitemQty, invoItemQty);
+
+        thisUMitem.itemQty -= deductQty;
 
         // 88888888-- End of postMatchInvoLoop --88888888
       }
@@ -95,6 +112,47 @@ const useMRVmatchmaker = () => {
     }
   };
   return mrvMatchmaker;
+};
+
+const useReturnAtomizer = () => {
+  const invoiceContext = useContext(InvoiceContext);
+  const productContext = useContext(ProductContext);
+
+  const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
+    // accepts an object of Session Items and an array of Session Invos
+
+    const refInvoItem = new Invoice_SR();
+    const refInvoProd = new InvoProduct();
+    const refSessionItem = new sessionItem();
+    const refSingleDispo = new singleDispo();
+
+    // Outputs to be modified during Matchmaking.
+    const oUnmatchedItems = cloneDeep(sessionItemsObj);
+    const oPostMatchInvos = {};
+
+    // aaaa Atomize the 
+    const aSplitByDispo = Object.values(oUnmatchedItems).map((oSessnItem) => {
+      let nThisSessnItemQty = oSessnItem.qty;
+
+      const aSessnItemDispos = Object.values(oSessnItem.disposObj);
+
+      const outSplitSessnItems = aSessnItemDispos.map((oSingleDispo) => {
+        const nQtyInDispo = oSingleDispo.dispoQty;
+        const outSplitItem = new returnAtom({
+          atomItemNum: oSessnItem.itemNum,
+          atomItemQty: nQtyInDispo,
+          atomSingleDispo: oSingleDispo,
+        });
+        return outSplitItem;
+      });
+
+      // Needs to deal with empty dispos obj.  
+
+
+      return outSplitSessnItems;
+    });
+  };
+  return returnAtomizer;
 };
 
 export {

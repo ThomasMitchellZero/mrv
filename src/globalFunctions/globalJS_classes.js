@@ -108,7 +108,6 @@ class InvoProduct {
 class Invoice_SR {
   constructor({ store = "1234", date = Date, payment = {}, products = {} }) {
     this.invoiceDetails = { store: store, date: date, payment: payment };
-
     this.products = products;
   }
 }
@@ -145,18 +144,41 @@ class Order_SR {
 export { Order_SR };
 
 class sessionItem {
-  constructor({ itemNum = "", itemQty = "", disposObj = {} }) {
+  constructor({ itemNum = "", itemQty = 0, disposObj = {} }) {
+    this.itemNum = itemNum;
     this.itemQty = itemQty;
     this.disposObj = disposObj;
   }
 }
 
 class singleDispo {
-  constructor({ isDamaged = false, dispoQty = 0, strLabel = "NO LABEL" }) {
+  constructor({ isResellable = false, dispoQty = 0, strLabel = "NO LABEL" }) {
     this.strLabel = strLabel;
-    this.isDamaged = isDamaged;
-    this.value = dispoQty;
+    this.isDamaged = isResellable;
+    this.dispoQty = dispoQty;
   }
 }
 
 export { sessionItem, singleDispo };
+
+//// Return Classes ///////////////////////////////////////////////
+
+class returnAtom {
+
+  // Returns object of an item + qty that are identical in EVERY property we use.
+  constructor({
+    atomInvoNum = "",
+    atomMoneyObj = {},
+    atomSingleDispo = {},
+    atomItemNum = "",
+    atomItemQty = 0,
+  }) {
+    this.atomInvoNum = atomInvoNum;
+    this.atomMoneyObj = atomMoneyObj;
+    this.atomSingleDispo = atomSingleDispo;
+    this.atomItemNum = atomItemNum;
+    this.atomItemQty = atomItemQty;
+  }
+}
+
+export { returnAtom };
