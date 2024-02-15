@@ -7,6 +7,8 @@ import {
 
 import InvoiceContext from "../../store/invoice-context";
 
+import { useReturnAtomizer } from "../../mrv/MRVhooks/MRVhooks";
+
 import { useImmer } from "use-immer";
 
 import { Outlet } from "react-router";
@@ -14,28 +16,34 @@ import { useContext } from "react";
 
 function StoreExchanges() {
   const invoiceContext = useContext(InvoiceContext);
+  const returnAtomizer = useReturnAtomizer();
 
   const debugTestCase = {
     returnItems: {
       100: new sessionItem({
         itemNum: 100,
         itemQty: 12,
-        disposObj: new singleDispo({}),
+        disposObj: {
+          broken: new singleDispo({ isResellable: false, dispoQty: 3 }),
+          cracked: new singleDispo({ isResellable: false, dispoQty: 7 }),
+        },
       }),
       200: new sessionItem({
         itemNum: 200,
         itemQty: 5,
-        disposObj: new singleDispo({}),
+        disposObj: {},
       }),
       300: new sessionItem({
         itemNum: 300,
         itemQty: 9,
-        disposObj: new singleDispo({}),
+        disposObj: {
+          broken: new singleDispo({ isResellable: false, dispoQty: 4 }),
+        },
       }),
       900: new sessionItem({
         itemNum: 900,
         itemQty: 4,
-        disposObj: new singleDispo({}),
+        disposObj: {},
       }),
     },
     sessionInvoices: {
@@ -44,6 +52,11 @@ function StoreExchanges() {
       CCC: invoiceContext.CCC,
     },
   };
+
+  debugTestCase.atomizedItems = returnAtomizer({
+    sessionInvosObj: debugTestCase.sessionInvoices,
+    sessionItemsObj: debugTestCase.returnItems,
+  });
 
   const defaultState = {
     returnItems: {},

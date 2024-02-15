@@ -6466,8 +6466,149 @@ What to do today?
 
     I think what I need to do is make as many of the inputs into the matchmaker as hooks as I can.  That *should* give me confidence that I can re-use the process on other, future projects.  
 
-7 Feb 2023
+7 Feb 2024
     12:45.
     Sort of struggling to focus here.  The Store Manager meeting is going on in the background and that's not exactly conducive to deep work.  But I'm gonna try here.
 
     The very first thing I need to do is change the prototype so that the DWN dispos are single-selection.  I've got what I need for dispos (I think?) so I should go ahead and do that.
+
+8 Feb 2024
+    12.25
+    Getting the Matchmaker right is going to be critical.  I need: 
+    -Adding whole invoices
+    -I think where I gut hung up yesterday was parent-child relationships.  I'm not sure it's correct to show children nested within parents.  
+        -I think the correct approach is to show items as siblings...
+            -But the item description should include required accessories.
+                -Thinking reqAccessories: {
+                    accessoryNum1: qtyPerParent1,
+                    accessoryNum1: qtyPerParent2,
+                    ...
+                }
+            -And the invo item should include some reference to the parent.  
+            -Not sure exactly how to represent the children.  An accessory is independent of a mainItem in a way that a service isn't.  Might not need to solve this now, though.
+    -Dispositions:
+        This one is tricky.  OG Matchmaker parsed everything by item=>invoice=>disposition.  
+        I THINK that this is overkill.  The only element of Dispositions that the Matchmaker SHOULD care about is that a Damaged item sets the restock fee of SOS items from 20% to zero.
+            -I would LIKE to universalize this approach to cover future cases.  I also don't know what those future cases would be, which means that any effort here is likely to be wasted.  Without a second case, I'm not even at the rebus phase, so I can't very well do an alphabet.
+
+            -I think the smarter approach would be to make a money-fiddling function, even if it doesn't do much, run every item through it, and design the rest of the Matchmaker with the assumption that items coming through have been adjusted.  
+
+            -So the problem is that the sessionItem class treats all members as being identical, and that isn't necessarily the case.
+                -My first thought is: since we need to convert sessionItems into an array to loop through anyways, what if we 
+                    -have our money-fiddler accept a session item
+                    -do whatever logic
+                    -return an array (not an object) containing objects with the same structure as sessionItems, but each member contains groups of elements that are TRULY identical.  
+
+                    So the object of sessionItems should contain all the information that gets represented.  The array exists at the sub-representation level.  
+
+                    OK, so then the ACTUAL full decomposition is to produce an array of sub-sessionItems that are identical in itemNum, matched invo, disposition, refund value, 
+
+    -Man, what an interesting perspective shift.  That third layer in OGMM, the loop through the dispos, was just a crude way of addressing the ACTUAL underlying problem, which is that I was looping through items that weren't ACTUALLY identical.
+
+    -I think I'm finally getting the value, or at least A value, of Arrays.  They're valuable in scenarios like the Atomizer where you can't depend on a unique primary key (like ItemNum) and it's instead the combination of property values that makes the collection unique.  Think of a return.  Two identical items aren't truly 'identical' if  they came from different receipts, so you don't have:
+
+        {itemNum: abc, qty:2}.  
+        
+    You actually have: 
+        [
+            {itemNum: abc, invoice: 123, qty:1},
+            {itemNum: abc, invoice: 456, qty:1},
+        ]
+
+    A quantity value can only apply to a single object if EVERY member is identical in EVERY factor you're evaluating.  If they aren't completely identical... they don't belong in the same object!  
+
+    So what I am doing in the Atomizer is recursively taking a list of currently-identical objects and then progressively splitting each object by the next potential condition of non-identicality.  
+
+    6:45.  OK, feeling pretty good.  What an exciting pattern!  I think I am going to stop for the day.  My last thought is that the two phases, splitting by dispos and splitting by invoice, should each work independently of the other.  
+
+    WAAAIIIIIT... EVERY step in the split should happen independently of each other.  I think every step in the split should be returning atoms.  Gets a little weird with the dispos Obj, since the Atom is expecting single dispos, but there's no real reason WHY it needs to be so.  The real criterion for an Atom is that each member is identical.  
+
+    Or, actually, I think we're OK because if no dispos have been added to a SessionItem, there's nothing to split.  
+    
+    Well, I guess it's a little weird because I do need the in-progress atoms passed to the next step to have all current dispos.  OK, so first model applies.  Well, no.  Because that's not an atom.  Multiple dispos mean it's not identical.  Ok, so how much do I care about an atom being definitionally perfect at each step?  Screw it, I'm taking a walk.  
+
+    Atoms do not need to be perfectly formed at all stages within the returnAtomizer, but the atomizer shouldn't allow an imperfect atom to leave it.
+
+    -Atomize the items, even if there are no dispos or invoices.  The UI will expect atoms so even a bunch of NRR items should render correctly.
+
+    -Dispositions needs to come last.  I think the pattern is: atomize in the order of decreasing criticality.  
+
+    -If a value is directly specified (properties included) it's OK to read and write it directly.  Thinking dispo qtys, item nums, sale date, etc.  If it is derived, it needs to come from the atoms, even if the atoms need to be sorted/filtered/reconstituted first.  
+
+9 Feb 2024
+    3:00.
+    It's Friday, I'm done with work for the week, and I am still excited about coding up the Atomizer, so let's get to it!
+
+    Before I can get to the fun stuff, some boring stuff first.  I should add some invoices and items to the transaction before starting because othewise I'll need to do a bunch of tedious hand-work every time I test.  So let's do that.  
+
+    First-first, I need to make a decision about whether to store the whole invoice or just the number.  Having had some time to rage and ruminate, I think it ought to be the full invoice.  I can't think of a reason not to, and the only thing I'm going to do with the invo numbers is use them as a reference to pull the full invoice later, so why not just store the full invoice?  Ok, I convinced myself.
+
+10 Feb 2024
+    1:00.
+    OK.  Got HI training out of the way, and ready to dig into this.  
+
+    Writing this down so I remember.  Some information for the moneyObj will come from the Invoice, but the moneyObj will be COMPLETED in the dispoObj.
+
+    2:10.
+    Aaaaand - the Atomizer is returning 'undefined'.  Well, no worries.  Let's debug and see where this is breaking down.
+
+    Never mind.  I'm retarded.  I didn't set anything to return -_-
+
+    3:45.  Struggling a little bit with the Price Sorter.  While it is eventually necessary, i won't need it for quite some time so I think I just bypass it.
+
+    5:15.
+    Another thought.  I can't necessarily count on the dispos being present before the invoices.  It won't be that way in OG Returns.  So maybe the way to do it is have a 4th cycle where I produce the money objects.  
+
+    But first let's check this beast and see if we are successfully parsing it by invoices.
+
+11 Feb 2024
+    2:00 p.m.
+    It's Sunday, but I'm gonna try and rawdog it for 90 minutes or so.  I THINK I have an idea for how to handle the dispositions, but we will see.  
+
+        
+13 Feb 2024
+    7:00 p.m.
+    I'm having trouble understanding when to end the Dispos Loop.  That means I don't really understand the problem, and that means I'm writing code I will have trouble understanding.
+
+    -The decrementing values in the inner loop should be stored outside the inner loop.
+        -They also need to be stored outside the outer loop, 
+    -
+
+        <Condition>
+            -how will I know it has occurred?
+            -sequentially, when will I know it has occurred?
+        
+        <All items in this atom have been assigned>
+            -How known?
+                -AtomItemQty hits zero.
+            -When known?
+                -All qty adjustment happens in the inner loop, so the soonest I will know is after the Decrement step in the inner loop.
+            -What should happen in the associated loop?
+                -Assuming all values are stored outside and decrementing has been done, there's no reason to continue.  
+
+    -I think the pattern is: 
+
+        Within inner loop: 
+            IF outer loop qty is spent, BREAK inner loop, but give no instructions to the outer loop.  Each outer loop cycle ends with this cycle's cleanup/resolution.  
+            
+            And nothing else needs to happen with the inner loop.  If it has values remaining, they're stored outside the outer loop so the termination of this outer loop cycle doesn't bother them.  They're still available to be matched in upcoming cycles of the outer loop, if any.
+
+            If it doesn't have values remaining, that's already been handled in the cleanup prior to this check, so they won't get hit again in the next cycle of the outer loop.  
+
+            --
+
+            ASSUMING outer loop isn't spent, then check the inner loop qty.  We know logically the outer loop is still valid because otherwise the inner loop would have broken before we reached this check.  If inner loop is spent, we want to CONTINUE the inner loop to try and match any other values.  
+
+            // Store inner loop values OUTSIDE of outer loop.  Otherwise they won't reflect inner loop qtys remaining.
+
+            // QoL routing + vars.
+            // Matched Qty = smaller of inner- / outer-loop cycle qtys.
+            // Decrement both by matched qty
+            // Increment newly-atomized output by matched qty.
+            // Clear out any empty values.
+            // If inner qty spent, delete it.  No need to redirect inner loop because spent or not, this cycle is over.
+            // If outer qty spent, break inner loop.
+            // Once inner loop ends, outer loop performs its cleanup and then ends outer loop cycle.
+
+
+

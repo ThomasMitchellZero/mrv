@@ -164,20 +164,29 @@ export { sessionItem, singleDispo };
 //// Return Classes ///////////////////////////////////////////////
 
 class returnAtom {
-
-  // Returns object of an item + qty that are identical in EVERY property we use.
+  // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
   constructor({
     atomInvoNum = "",
     atomMoneyObj = {},
-    atomSingleDispo = {},
+    atomDispoKey = "",
     atomItemNum = "",
     atomItemQty = 0,
   }) {
     this.atomInvoNum = atomInvoNum;
     this.atomMoneyObj = atomMoneyObj;
-    this.atomSingleDispo = atomSingleDispo;
+    this.atomDispoKey = atomDispoKey;
     this.atomItemNum = atomItemNum;
     this.atomItemQty = atomItemQty;
+
+    this.vals = () => {
+      return {
+        atomInvoNum,
+        atomMoneyObj,
+        atomDispoKey,
+        atomItemNum,
+        atomItemQty,
+      };
+    };
   }
 }
 

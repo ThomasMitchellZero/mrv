@@ -70,50 +70,6 @@ const useMRVAddItem = () => {
   return mrvAddItem;
 };
 
-const useMRVmatchmaker = () => {
-  const invoiceContext = useContext(InvoiceContext);
-  const productContext = useContext(ProductContext);
-
-  const mrvMatchmaker = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
-    // accepts an object of Session Items and an array of Session Invos
-
-    // Outputs to be modified during Matchmaking.
-    const oUnmatchedItems = cloneDeep(sessionItemsObj);
-    const oPostMatchInvos = {};
-    const matchedItems = {};
-
-    UMitemsLoop: for (const UMitemKey in Object.keys(oUnmatchedItems)) {
-      const thisUMitem = oUnmatchedItems[UMitemKey];
-
-      let invosArr = Object.keys(sessionInvosObj);
-      // then sort it all.
-
-      postMatchInvoLoop: for (const invoKey in Object.keys(sessionInvosObj)) {
-        // Class references so I can get correct property names.  No dependencies.
-        const refInvoItem = new Invoice_SR();
-        const refInvoProd = new InvoProduct();
-        const refSessionItem = new sessionItem();
-
-        //Check that the item is present in the invoice, otherwise go to the next.
-        const thisInvoItemRt = oPostMatchInvos[invoKey].products[UMitemKey];
-        if (!thisInvoItemRt) continue;
-
-        const UMitemQty = thisUMitem.itemQty;
-        const invoItemQty = thisInvoItemRt.quantity;
-
-        const deductQty = Math.min(UMitemQty, invoItemQty);
-
-        thisUMitem.itemQty -= deductQty;
-
-        // 88888888-- End of postMatchInvoLoop --88888888
-      }
-
-      // 88888888-- End of UMitemsLoop --88888888
-    }
-  };
-  return mrvMatchmaker;
-};
-
 const useReturnAtomizer = () => {
   const invoiceContext = useContext(InvoiceContext);
   const productContext = useContext(ProductContext);
@@ -121,39 +77,145 @@ const useReturnAtomizer = () => {
   const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
     // accepts an object of Session Items and an array of Session Invos
 
-    const refInvoItem = new Invoice_SR();
-    const refInvoProd = new InvoProduct();
-    const refSessionItem = new sessionItem();
-    const refSingleDispo = new singleDispo();
+    const refInvoItem = new Invoice_SR({});
+    const refInvoProd = new InvoProduct({});
+    const refSessionItem = new sessionItem({});
+    const refSingleDispo = new singleDispo({});
 
     // Outputs to be modified during Matchmaking.
-    const oUnmatchedItems = cloneDeep(sessionItemsObj);
-    const oPostMatchInvos = {};
+    const oCloneSessnItems = cloneDeep(sessionItemsObj);
+    const oCloneSessnInvos = cloneDeep(sessionInvosObj);
 
-    // aaaa Atomize the 
-    const aSplitByDispo = Object.values(oUnmatchedItems).map((oSessnItem) => {
-      let nThisSessnItemQty = oSessnItem.qty;
+    let outFullyAtomizedArr = [];
 
-      const aSessnItemDispos = Object.values(oSessnItem.disposObj);
+    // Turns the UMitems into atoms. //////////////////////////////////////////
+    const aAtomizedByItem = [];
 
-      const outSplitSessnItems = aSessnItemDispos.map((oSingleDispo) => {
-        const nQtyInDispo = oSingleDispo.dispoQty;
-        const outSplitItem = new returnAtom({
-          atomItemNum: oSessnItem.itemNum,
-          atomItemQty: nQtyInDispo,
-          atomSingleDispo: oSingleDispo,
-        });
-        return outSplitItem;
+    for (const oSessnItem of Object.values(oCloneSessnItems)) {
+      const outSplitXitem = new returnAtom({
+        atomItemNum: oSessnItem.itemNum,
+        atomItemQty: oSessnItem.itemQty,
       });
+      aAtomizedByItem.push(outSplitXitem);
+    }
 
-      // Needs to deal with empty dispos obj.  
+    outFullyAtomizedArr = aAtomizedByItem;
 
+    // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
+    const aAtomizedByInvoice = [];
 
-      return outSplitSessnItems;
-    });
+    LoopThruInvos: for (const itemAtom of outFullyAtomizedArr) {
+      const refInvoItem = new Invoice_SR({});
+      const refInvoProd = new InvoProduct({});
+
+      let nItemQtyLeftInAtom = itemAtom.atomItemQty;
+
+      // make array of invoItems, sorts them by price of current item.
+      let aPMinvos = Object.keys(oCloneSessnInvos);
+      const aInvosByItemCost = aPMinvos; // actual price sorter TBD
+
+      for (const thisInvoKey of aInvosByItemCost) {
+        const thisInvoItemRt =
+          oCloneSessnInvos[thisInvoKey].products?.[itemAtom.atomItemNum];
+
+        if (thisInvoItemRt) {
+          //check if this invoice HAS the item
+
+          const nInvoItemQty = thisInvoItemRt.quantity;
+          const nMatchedQty = Math.min(nItemQtyLeftInAtom, nInvoItemQty);
+
+          // decrement the atomItem and invoItem qtys
+          nItemQtyLeftInAtom -= nMatchedQty;
+          thisInvoItemRt.quantity -= nMatchedQty;
+
+          // Increment Output
+          const outAtomXinvo = new returnAtom({
+            atomItemNum: itemAtom.atomItemNum,
+            atomItemQty: nMatchedQty,
+            atomInvoNum: thisInvoKey,
+            atomMoneyObj: {},
+          });
+
+          aAtomizedByInvoice.push(outAtomXinvo);
+
+          //Cleanup
+
+          if (!nInvoItemQty)
+            delete oCloneSessnInvos[thisInvoKey].products?.[
+              itemAtom.atomItemNum
+            ];
+          if (!nItemQtyLeftInAtom) break;
+        }
+      } // ------------- End Of Inner Loop --------------------
+
+      if (nItemQtyLeftInAtom) {
+        // these items have no match, so add them w/o invoice
+        aAtomizedByInvoice.push(
+          new returnAtom({
+            atomItemNum: itemAtom.atomItemNum,
+            atomItemQty: nItemQtyLeftInAtom,
+          })
+        );
+      }
+    }
+
+    outFullyAtomizedArr = aAtomizedByInvoice;
+
+    const aAtomizedByDispo = [];
+
+    LoopThruAtomsXdispos: for (const itemAtom of outFullyAtomizedArr) {
+      const thisItemNum = itemAtom.atomItemNum;
+
+      // convenience rt, actual vals stored outside loop.
+      const oThisItemDispos = oCloneSessnItems[thisItemNum].disposObj;
+
+      for (const thisDispoKey of Object.keys(oThisItemDispos)) {
+        const nMatchedQty = Math.min(
+          itemAtom.atomItemQty,
+          oThisItemDispos[thisDispoKey].dispoQty
+        );
+
+        //Decrement values
+        itemAtom.atomItemQty -= nMatchedQty;
+        oThisItemDispos[thisDispoKey].dispoQty -= nMatchedQty;
+
+        // Create Output
+        const outAtomXdispo = new returnAtom({
+          ...itemAtom.vals(),
+          atomItemQty: nMatchedQty,
+          atomDispoKey: thisDispoKey,
+        });
+        aAtomizedByDispo.push(outAtomXdispo);
+
+        // Working up to this point, but for some reason it didn't delete the empty dispo?
+
+        // Cleanup
+        if (oThisItemDispos[thisDispoKey].dispoQty === 0) {
+          delete oThisItemDispos[thisDispoKey];
+        }
+        if (!itemAtom.atomItemQty) break;
+      }
+      // ---------------------------------------
+
+      // Outer Loop Cleanup:  if any qty remains, assign default status and push.
+      if (itemAtom.atomItemQty) {
+        itemAtom.atomDispoKey = "unwanted"
+        // these items have no match, so add them as Unwanted
+        aAtomizedByDispo.push(itemAtom);
+      }
+    }
+
+    return {
+      aAtomizedByItem,
+      aAtomizedByInvoice,
+      aAtomizedByDispo,
+      fullyAtomizeArr: outFullyAtomizedArr,
+    };
   };
   return returnAtomizer;
 };
+
+export { useReturnAtomizer };
 
 export {
   //Money
