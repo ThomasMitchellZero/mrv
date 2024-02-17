@@ -2,20 +2,28 @@
 
 /*
 
-  900: {
-    img: topload_washer_img,
-    price: 88000,
-    itemNum: "900",
-    modelNum: "STL301",
-    description: "Samsung 7.1-cu ft Reversible Side Load Washer",
-    categories: ["Stock","Delivery"],
-    specialCategories: {SOS:true},
-    restockFee: 0.2,
-    inStock: 99,
-    dcLocations:["AAA"],
-  },
-
 */
+
+class moneyObj {
+  // Represents the cost or value of ONE unit.
+
+  constructor({
+    unitBaseValue = 4200,
+    taxRate = 0.9,
+    valIncrease = 0,
+    valDecrease = 0,
+  }) {
+    this.unitBaseValue = unitBaseValue;
+    this.taxRate = taxRate;
+    this.valIncrease = valIncrease;
+    this.valDecrease = valDecrease;
+    this.subTotal = unitBaseValue + valIncrease - valDecrease;
+    this.salesTax = Math.round(this.subTotal * taxRate);
+    this.unitTotal = this.subTotal + this.salesTax;
+  }
+}
+
+export {moneyObj}
 
 class Product {
   constructor({
@@ -92,12 +100,14 @@ class InvoProduct {
     tax = 10,
     childItemsObj = {},
     prodClass = "",
+    moneyObj = {},
   }) {
     this.quantity = quantity;
     this.price = price;
     this.tax = tax;
     this.childItemsObj = childItemsObj;
     this.prodClass = prodClass;
+    this.moneyObj = moneyObj;
   }
 }
 
@@ -106,9 +116,16 @@ class InvoProduct {
 */
 
 class Invoice_SR {
-  constructor({ store = "1234", date = Date, payment = {}, products = {} }) {
+  constructor({
+    store = "1234",
+    date = Date,
+    payment = {},
+    products = {},
+    itemAtomsArr = [],
+  }) {
     this.invoiceDetails = { store: store, date: date, payment: payment };
     this.products = products;
+    this.itemAtomsArr = itemAtomsArr;
   }
 }
 
@@ -165,18 +182,22 @@ export { sessionItem, singleDispo };
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
+
   constructor({
-    atomInvoNum = "",
+    atomInvoNum = "NO_INVO",
     atomMoneyObj = {},
     atomDispoKey = "",
     atomItemNum = "",
     atomItemQty = 0,
+    parentKey = "",
   }) {
     this.atomInvoNum = atomInvoNum;
     this.atomMoneyObj = atomMoneyObj;
     this.atomDispoKey = atomDispoKey;
     this.atomItemNum = atomItemNum;
     this.atomItemQty = atomItemQty;
+    this.unitTotal = atomMoneyObj.unitTotal ?? "NO_TOTAL";
+    this.parentKey = parentKey;
 
     this.vals = () => {
       return {
@@ -187,6 +208,10 @@ class returnAtom {
         atomItemQty,
       };
     };
+  }
+
+  get primaryKey() {
+    return `${this.atomItemNum}&${this.atomInvoNum}&${this.unitTotal}`;
   }
 }
 

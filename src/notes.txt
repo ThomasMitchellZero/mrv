@@ -6601,7 +6601,6 @@ What to do today?
 
             // Store inner loop values OUTSIDE of outer loop.  Otherwise they won't reflect inner loop qtys remaining.
 
-            // QoL routing + vars.
             // Matched Qty = smaller of inner- / outer-loop cycle qtys.
             // Decrement both by matched qty
             // Increment newly-atomized output by matched qty.
@@ -6609,6 +6608,103 @@ What to do today?
             // If inner qty spent, delete it.  No need to redirect inner loop because spent or not, this cycle is over.
             // If outer qty spent, break inner loop.
             // Once inner loop ends, outer loop performs its cleanup and then ends outer loop cycle.
+
+            /**/ TL;DR:  Clone the atoms I have, loop through them and reduce each one by the next differentiator.  If anything is left of the atom.
+
+16 Feb 2024
+    12:05.
+    Hoping to really make some progress today.  I've finally got the Return Atomizer working, so hopefully the rest of this work should be straighforward?  So what's next?
+
+    -I do need to do the validation for the inputs.  Might as well get it out of the way.
+    -Should I be storing Items and Invoices in an array?  
+    -At some point in here I need to be calulating the moneyObj.
+
+    I am spinning a bit because I feel like decisions are coming up with very far-reaching implications.
+
+    So.  First domino to fall has got to be the MoneyObj.  
+
+    2:05.
+    I've got a moneyObj that I think will work.  So for the next step, I need to incorporate that into the InvoItem class.
+
+    I think what I'm going to do is create a completely separate new context for new invoices.  That way I can make all the changes I want without cocking up the work I've done for Exchanges and Returns.  For classes used in both, like Invoice_SR, I am going to try to ADD to the classes but not remove for the same reason.  
+
+    So what should I incorporate into the new world?
+        -InvoItems are going to have $ info from a moneyObj, not specific properties.
+        -InvoItems will use Associations, rather than the Child Item system.
+        -InvoItems should inherently contain the itemNum.
+    
+    The hard part is how to store the items.  Using an Object is clean and easy, but it can't handle a case where units of an item were sold for different prices in the same transaction.  Is that something we want to deal with?
+        
+        Yes, bite the bullet:
+            +It will never be easier than now.  We've got a fresh new library with no dependencies.  If we do ever need this feature in the future, we're going to have to rebuild the very hardest part of 3 applications.
+                -In 3 years at Lowe's we've never encountered this.  What are the odds that 1. we encounter this situation and 2. we NEED to test for it app-wide?  We're not even sure this is something that can happen.  Clear Rule 1 violation.
+            
+            +Is it even that much more work?  From what I can tell, the .filter() method produces a shallow copy of the original, so modifying the element should also modify it at the source.
+                - AFAICT there's no clear way to get the element OUT of the array.
+                    + We could just include a step in the cleanup where we loop through the array and remove any elements with a qty of 0.
+
+                - The other thing that scares me is that this is now a third layer we need to loop through - the atoms, the invoices, and then the items in the invoices.  We're already struggling to hold all the working parts of the Atomizer in our minds. 
+
+    Summary I have in my mind:
+        If we can pre-atomize the products within the invoice, this all gets quite a bit easier.  We'll always have to do some additional atomization because certain information just can't be known in advance - qty of items returning, disposition of those items, etc.  
+        
+    I think we just say fuck it.  This is the whole reason we have the Rules - as a quick way to avoid past mistakes.  
+
+    Association might be a problem.  If nothing else, that is yet another layer of atomization we need to account for.  Just saying, if we WERE to use an array, we could pre-atomize the Invo items - by price and by association.  
+
+    Just be careful that we are optimizing pretty hard for a pattern we haven't really proven out yet.  
+    
+    OK. Here's a thought.  What if we store the invoice number in the InvoItems?  Does that get us anything?  
+
+    OK.  Maybe this is nuts, but I sort-of-kind-of feel like Maps could be a good fit for this?  Update: it seems this is not the case, because 
+        let x = {a:1, b:2} 
+        let Y = {a:1, b:2} 
+
+    x === Y // false
+
+    Even the weak equality operator apparently fails.  So the biggest factor I was looking for, to use a unique object as a key while still being able to access via that key, does not work.  Update: apparently Lodash has a method that does what I want?  
+
+    What exactly is the problem I am trying to solve? (and why didn't we ask this question like 2 hours ago?)  
+
+    OK - I would LIKE to pre-atomize the contents of the Invoice.  
+    OK - I would like child elements to be atomized as well.
+    OK - I would like the child elements to be free-standing so I don't have to parse recursively, and to facilitate atomization.
+
+    Xx - I can't guarantee that the parents and the children are unique.  Well, I guess *I* could.  I could just avoid creating any invoice with overlapping children, although that might get difficult with LPPs or other service items.
+
+    I either need the parent to store a reference to its child, or vice versa.  
+
+    So what are the primary keys within the invoice?  It should be itemNum and price, right?  There is zero reason (I think) for anything that shares those values to be separate.  
+
+    I can imagine different parents sharing identical children (like LPPs) but can I imagine different children sharing identical parents?  I guess?  Like a 3-year LPP for the first washer and a 5-year LPP for the second?  
+
+    So I'm back to Square 1, raging that I can't use a fucking object as a key.  I can compare with Lodash, but I can't use a whole object as the way to reference a specific key... because identical objects aren't equal.
+
+    OK, here's another wild-ass idea.  Does anything change if I make the children an array?  Because physically(digitally) grouping elements together is a very good clear way of saying "These are all together"  More specifically, I'm thinking that each 'cluster' of a sale is an array containing 1+ elements.  
+
+17 Feb 2024
+    3:00.
+    OK.  Back to it.  I'm going to try to do what I failed to do yesterday, which is to lay out the problem I am trying to solve as clearly as possible.
+
+    I need some way of associating child items with their parents.  By this I mean true child items, like LPPs and services.  Items do need to have Accessories because they're mandatory for replacements, but that's a different relationship.  You can return the accessories without the main item and vice-versa.  In fact, I think the info on Accessories ONLY needs to be stored on the item in the catalog, because once the accessories are added to the sale they're just any other item as far as the system is concerned.
+
+    So why do I even need to know child items?  Because they have special behavior that regular items do not.  What are these special behaviors?
+        -I want to physically group them with their parent items.  
+        -If the parent item is added to the transaction, the child items should be added, too.
+        -Possible action-relationships?
+            -If parent is removed from cart, remove child too?
+
+    So in terms of atomizing, matching to Invoices, etc. the child items really behave just like any other item.  I really just need some way of knowing what parent to associate them with.  
+
+    And where I guess I am heading with this is I could just set up the returnAtom class to have a unique keystring that contains its distinguishers (thinking itemNum, final price, and invoice) and then a Parent property that references the parent's keystring.  
+
+    Because I think if I do that, I can use ReturnAtoms in the invoices.  I think?  And if THAT is the case, then they are really MRV atoms.
+        
+
+
+
+
+
 
 
 
