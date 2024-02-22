@@ -6699,11 +6699,29 @@ What to do today?
     And where I guess I am heading with this is I could just set up the returnAtom class to have a unique keystring that contains its distinguishers (thinking itemNum, final price, and invoice) and then a Parent property that references the parent's keystring.  
 
     Because I think if I do that, I can use ReturnAtoms in the invoices.  I think?  And if THAT is the case, then they are really MRV atoms.
+
+18 Feb, 2024
+    4:30.
+    OK, for today I'm going to try to get the new Atomizer working.  I've made so many changes it's certainly going to bomb, but until I get something that compiles I can't find where that is.  
         
+21 Feb 2024
+    2:40.
+    It's time for the Atomizer!  For the time being, the Atomizer will work just fine without dispositions.  I think I can just handle the Item/Invoice matching and move on.  I need to:
+        X -Get the item/dispo loop working as-is.
+        X -Store the cleanup in a separate function.  
+        -Make a decision about how to store dispos.  Might be complicated.  We need:
+            -Actual breakdown of dispositions.  For dispositioning, there's no atomization needed.  The dispos only relate to the item and do not care about invoices, so an Object is probably fine for this.
+            -How many are damaged.  In the Atomizer, we *shouldn't* care about individual dispos.  All we care about is the effect on the price modifier. 
+            -So probably a method or a getter that loops through all values and sums up how many are damaged?   
+        -Look at using Symbols instead of custom keys?
+
+    5:30.
+    OK, the atomizer is working, at least for Invoices.  
 
 
-
-
+HI  
+    Pull in the JSON file to the Project Tracker.
+    Use a content modifier.
 
 
 

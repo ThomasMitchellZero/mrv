@@ -5,25 +5,41 @@
 */
 
 class moneyObj {
+  
   // Represents the cost or value of ONE unit.
+  #salesTaxSum;
+  #taxRate;
 
   constructor({
-    unitBaseValue = 4200,
-    taxRate = 0.9,
+    unitBaseValue = 0,
+    taxRate = 0.09,
+    salesTaxSum = 0,
     valIncrease = 0,
     valDecrease = 0,
   }) {
     this.unitBaseValue = unitBaseValue;
-    this.taxRate = taxRate;
+    this.#taxRate = taxRate;
+    this.#salesTaxSum = salesTaxSum;
     this.valIncrease = valIncrease;
     this.valDecrease = valDecrease;
-    this.subTotal = unitBaseValue + valIncrease - valDecrease;
-    this.salesTax = Math.round(this.subTotal * taxRate);
-    this.unitTotal = this.subTotal + this.salesTax;
+  }
+  // derived values are provided by getters.  moneyObj is sometimes used for cumulative totals, so these values could potentially be stale otherwise.
+
+  get subTotal() {
+    return this.unitBaseValue + this.valIncrease - this.valDecrease;
+  }
+  get salesTax() {
+    // salesTax is automatically calculated unless the figure is explicitly provided.
+    const outSalesTax =
+      this.#salesTaxSum || Math.round(this.subTotal * this.#taxRate);
+    return outSalesTax;
+  }
+  get unitTotal() {
+    return this.subTotal + this.salesTax;
   }
 }
 
-export {moneyObj}
+export { moneyObj };
 
 class Product {
   constructor({
@@ -117,15 +133,22 @@ class InvoProduct {
 
 class Invoice_SR {
   constructor({
+    invoNum = "FART",
     store = "1234",
     date = Date,
     payment = {},
     products = {},
     itemAtomsArr = [],
   }) {
+    this.invoNum = invoNum;
     this.invoiceDetails = { store: store, date: date, payment: payment };
     this.products = products;
-    this.itemAtomsArr = itemAtomsArr;
+    if (itemAtomsArr.length) {
+      this.itemAtomsArr = itemAtomsArr.map((thisAtom) => {
+        thisAtom.atomInvoNum = invoNum;
+        return thisAtom;
+      });
+    }
   }
 }
 
@@ -215,4 +238,39 @@ class returnAtom {
   }
 }
 
-export { returnAtom };
+class mrvItemAtom {
+  // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
+
+  constructor({
+    atomInvoNum = "NO_INVO",
+    atomMoneyObj = {},
+    atomDispoKey = "",
+    atomItemNum = "",
+    atomItemQty = 0,
+    parentKey = "",
+  }) {
+    this.atomInvoNum = atomInvoNum;
+    this.atomMoneyObj = atomMoneyObj;
+    this.atomDispoKey = atomDispoKey;
+    this.atomItemNum = atomItemNum;
+    this.atomItemQty = atomItemQty;
+    this.unitTotal = atomMoneyObj.unitTotal ?? "NO_TOTAL";
+    this.parentKey = parentKey;
+
+    this.vals = () => {
+      return {
+        atomInvoNum,
+        atomMoneyObj,
+        atomDispoKey,
+        atomItemNum,
+        atomItemQty,
+      };
+    };
+  }
+
+  get primaryKey() {
+    return `${this.atomItemNum}&${this.atomInvoNum}&${this.unitTotal}`;
+  }
+}
+
+export { returnAtom, mrvItemAtom };

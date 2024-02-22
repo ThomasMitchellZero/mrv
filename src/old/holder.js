@@ -1,7 +1,7 @@
 import InvoiceContext from "../../store/invoice-context";
 import ProductContext from "../../store/product-context";
-import InvoContext from "../../store/invo-context";
 
+import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
 import {
@@ -11,8 +11,6 @@ import {
   InvoProduct,
   returnAtom,
   singleDispo,
-  moneyObj,
-  mrvItemAtom,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -31,24 +29,26 @@ const useDollarsToCents = () => {
   };
 };
 
+const makeTax = (itemPrice) => {
+  return Math.round(itemPrice * 0.09);
+};
 
-const useMonetizer = () => {
-  const monetizer = (arrayOfAtoms) => {
-    // returns a new moneyObj populated from all atoms in the array
-
-    const outArrTotalMoneyObj = new moneyObj({});
-
-    for (const thisAtom of arrayOfAtoms) {
-      const thisAtomMoneyObj = thisAtom.atomMoneyObj;
-      const atomQty = thisAtom.atomUnitQty;
-
-      thisAtomMoneyObj.unitBaseValue += thisAtom.unitBaseValue * atomQty;
-      thisAtomMoneyObj.valIncrease += thisAtom.valIncrease * atomQty;
-      thisAtomMoneyObj.valDecrease += thisAtom.valDecrease * atomQty;
-    }
-    return outArrTotalMoneyObj;
+const newMoneyObj = ({
+  costDif = 0,
+  taxDif = 0,
+  charge = 0,
+  refund = 0,
+  costAdj = 0,
+  fullItemBalance = 0,
+}) => {
+  return {
+    costDif,
+    taxDif,
+    charge,
+    refund,
+    costAdj,
+    fullItemBalance,
   };
-  return monetizer;
 };
 
 const useMRVAddItem = () => {
@@ -70,7 +70,12 @@ const useMRVAddItem = () => {
   return mrvAddItem;
 };
 
+
+
 const useReturnAtomizer = () => {
+  const invoiceContext = useContext(InvoiceContext);
+  const productContext = useContext(ProductContext);
+
   const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
     // accepts an object of Session Items and an array of Session Invos
 
@@ -83,109 +88,98 @@ const useReturnAtomizer = () => {
     const oCloneSessnItems = cloneDeep(sessionItemsObj);
     const oCloneSessnInvos = cloneDeep(sessionInvosObj);
 
-    // Arrays of results for each layer of atomization.
-    let aAtomizedByInvoice = [];
-
-    // Gets progressively modified to the results of each completed atomization layer.
     let outFullyAtomizedArr = [];
 
-    // Standing records of UM values.  Should be cleared/decremented but never reset.
-    let aUM_InvoicedItemAtoms = Object.values(oCloneSessnInvos).flatMap(
-      (thisInvo) => {
-        return thisInvo.itemAtomsArr;
-      }
-    );
-
-    let aUM_ReturnItemAtoms = Object.values(oCloneSessnItems).map(
-      (thisItem) => {
-        // In future, eliminate this function if item entry happens as atoms.
-        const outSplitXitem = new returnAtom({
-          atomItemNum: thisItem.itemNum,
-          atomItemQty: thisItem.itemQty,
-        });
-
-        return outSplitXitem;
-      }
-    );
-
-    // SHARED FUNCTIONS //////////////////////////////////////////////////
-    const atomHasQty = (thisAtom) => {
-      return thisAtom.atomItemQty;
-    };
-
-    const clearEmptyAtoms = () => {
-      //Should only need to filter the UM arrays.  Base values never change and post-atomization arrays should always be clean.
-      aUM_InvoicedItemAtoms = aUM_InvoicedItemAtoms.filter(atomHasQty);
-      aUM_ReturnItemAtoms = aUM_ReturnItemAtoms.filter(atomHasQty);
-      outFullyAtomizedArr = outFullyAtomizedArr.filter(atomHasQty);
-    };
-
     // Turns the UMitems into atoms. //////////////////////////////////////////
+    const aAtomizedByItem = [];
+
+    for (const oSessnItem of Object.values(oCloneSessnItems)) {
+      const outSplitXitem = new returnAtom({
+        atomItemNum: oSessnItem.itemNum,
+        atomItemQty: oSessnItem.itemQty,
+      });
+      aAtomizedByItem.push(outSplitXitem);
+    }
+
+    outFullyAtomizedArr = cloneDeep(aAtomizedByItem);
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////      Filter Layers    /////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     /*
-      Outer loop always modifies cloned outFullyAtomizedArr.
-      Inner loop always modifies next UM array in sequence.
+    TL;DR:  
+      -Clone the atoms filtered in the previous cycle.  
+
+      -Store a clone of the values for the next layer of filtration outside both loops.  
+        -These are the master count of matchable units of the filtration layer, so their value should NEVER reset during this call of the Atomizer.  Otherwise their values could be repeat-counted.
+
+      -Loop thru each of those atoms
+      -This atom's AtomQty is the master count for the outer loop, so we decrement the iterator atom's Qty directly.
+        -Loop thru the item-associated instances of the current filtration layer
+          -Deduct matched qty from both the current atom and the current filter condition.
+          -Add matched qty to a new Atom and push it.
+          -If the current filter condition is spent, delete it.
+          -If the outer atom is spent, Continue to the next atom.
+        
+        -If we got through the inner loop without triggering a Continue, some qty of this atom has failed to match any filter conditions.  
+        -That means it doesn't match any of the newly-filtered atoms, so push it.  The Outer Loop rolls on.  
     */
 
-    outFullyAtomizedArr = cloneDeep(aUM_ReturnItemAtoms);
-
-    ////////////////////////////////////////////////////////////////////////////////
-    /////////////////           Atomizaton Layers         //////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////
-
     // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
+    const aAtomizedByInvoice = [];
 
-    LoopAtoms_Items_X_Invos: for (const thisItemAtom of outFullyAtomizedArr) {
+    LoopThruAtomsXInvos: for (const itemAtom of outFullyAtomizedArr) {
       const refInvoItem = new Invoice_SR({});
       const refInvoProd = new InvoProduct({});
 
-      // TODO - call sorting function here.
+      // make array of invoItems, sorts them by price of current item.
+      let aPMinvos = Object.keys(oCloneSessnInvos);
+      const aInvosByItemCost = aPMinvos; // actual price sorter TBD
 
-      for (const thisInvoItemAtom of aUM_InvoicedItemAtoms) {
-        // Only operate on items with this itemNum
-        if (thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum) {
-          const nMatchedQty = Math.min(
-            thisItemAtom.atomItemQty,
-            thisInvoItemAtom.atomItemQty
-          );
+      for (const thisInvoKey of aInvosByItemCost) {
+        const thisInvoItemRt =
+          oCloneSessnInvos[thisInvoKey].products?.[itemAtom.atomItemNum];
+
+        if (thisInvoItemRt) {
+          //check if this invoice HAS the item
+
+          const nInvoItemQty = thisInvoItemRt.quantity;
+          const nMatchedQty = Math.min(itemAtom.atomItemQty, nInvoItemQty);
 
           // decrement the atomItem and invoItem qtys
-          thisItemAtom.atomItemQty -= nMatchedQty;
-          thisInvoItemAtom.atomItemQty -= nMatchedQty;
+          itemAtom.atomItemQty -= nMatchedQty;
+          thisInvoItemRt.quantity -= nMatchedQty;
 
           // Increment Output
-          const outAtomXinvo = cloneDeep(thisInvoItemAtom);
-          outAtomXinvo.atomItemQty = nMatchedQty;
+          const outAtomXinvo = new returnAtom({
+            ...itemAtom.vals(),
+            atomItemQty: nMatchedQty,
+            atomInvoNum: thisInvoKey,
+            atomMoneyObj: {},
+          });
 
           aAtomizedByInvoice.push(outAtomXinvo);
 
           //Cleanup
-          clearEmptyAtoms();
-          if (!thisItemAtom.atomItemQty) continue LoopAtoms_Items_X_Invos;
+
+          if (!nInvoItemQty)
+            delete oCloneSessnInvos[thisInvoKey].products?.[
+              itemAtom.atomItemNum
+            ];
+          if (!itemAtom.atomItemQty) continue LoopThruAtomsXInvos;
         }
       } // ------------- End Of Inner Loop --------------------
 
-      // Continue never triggered, so this atom has some unmatched qty.  Push it.
-      aAtomizedByInvoice.push(thisItemAtom);
+      // Continue wasn't triggerd, so this atom has some unmatched qty.  Push it.
+      aAtomizedByInvoice.push(itemAtom);
     }
 
     outFullyAtomizedArr = cloneDeep(aAtomizedByInvoice);
 
-    return outFullyAtomizedArr;
-  };
-  return returnAtomizer;
-};
-
-export { useReturnAtomizer };
-
-export {
-  //Money
-  useCentsToDollars,
-  useDollarsToCents,
-  useMRVAddItem,
-};
-
-/*
+    const aAtomizedByDispo = [];
 
     LoopThruAtomsXdispos: for (const itemAtom of outFullyAtomizedArr) {
       const thisItemNum = itemAtom.atomItemNum;
@@ -221,6 +215,7 @@ export {
       }
       // ---------------------------------------
 
+
       // Continue wasn't triggerd, so this atom has some unmatched qty.  Push it.
       itemAtom.atomDispoKey = "unwanted";
       // these items have no match, so add them as Unwanted
@@ -233,7 +228,19 @@ export {
       aAtomizedByDispo,
       fullyAtomizeArr: outFullyAtomizedArr,
     };
+  };
+  return returnAtomizer;
+};
 
-    outFullyAtomizedArr = cloneDeep(aAtomizedByInvoice);
-    
-    */
+
+
+
+
+export { useReturnAtomizer };
+
+export {
+  //Money
+  useCentsToDollars,
+  useDollarsToCents,
+  useMRVAddItem,
+};
