@@ -8,7 +8,7 @@ import {
 import InvoiceContext from "../../store/invoice-context";
 import InvoContext from "../../store/invo-context";
 
-import { useReturnAtomizer } from "../../mrv/MRVhooks/MRVhooks";
+import { useReturnAtomizer, atomsMonetizer } from "../../mrv/MRVhooks/MRVhooks";
 
 import { useImmer } from "use-immer";
 
@@ -20,9 +20,10 @@ function StoreExchanges() {
   const invoContext = useContext(InvoContext);
   const returnAtomizer = useReturnAtomizer();
 
-  const debugTestCase = {
+  /*
+    const debugTestCase = {
     returnItems: {
-      "100": new sessionItem({
+      100: new sessionItem({
         itemNum: "100",
         itemQty: 12,
         disposObj: {
@@ -30,19 +31,19 @@ function StoreExchanges() {
           cracked: new singleDispo({ isResellable: false, dispoQty: 7 }),
         },
       }),
-      "200": new sessionItem({
+      200: new sessionItem({
         itemNum: "200",
         itemQty: 5,
         disposObj: {},
       }),
-      "300": new sessionItem({
+      300: new sessionItem({
         itemNum: "300",
         itemQty: 9,
         disposObj: {
           broken: new singleDispo({ isResellable: false, dispoQty: 4 }),
         },
       }),
-      "900": new sessionItem({
+      900: new sessionItem({
         itemNum: "900",
         itemQty: 4,
         disposObj: {},
@@ -60,33 +61,34 @@ function StoreExchanges() {
     },
   };
 
+
+    debugTestCase.atomizedItems = returnAtomizer({
+    sessionInvosObj: debugTestCase.sessionInvos,
+    sessionItemsObj: debugTestCase.returnItems,
+  });
+
   /*
   
   
   
   */
 
-  debugTestCase.atomizedItems = returnAtomizer({
-    sessionInvosObj: debugTestCase.sessionInvos,
-    sessionItemsObj: debugTestCase.returnItems,
-  });
-
   const defaultState = {
     returnItems: {},
-    sessionInvoices: {},
-    ...debugTestCase,
+    sessionInvos: {},
+    atomizedReturnItems: [],
   };
 
-  const [sessionSTRX, setSessionStrx] = useImmer({
-    ...defaultState,
-  });
+  const [sessionSTRX, setSessionStrx] = useImmer(
+    defaultState,
+  );
 
   return (
     <section className={`mrv STRX_top`}>
       <Outlet
         context={{
-          sessionSTRX: sessionSTRX,
-          setSessionStrx: setSessionStrx,
+          sessionSTRX,
+          setSessionStrx,
         }}
       />
     </section>

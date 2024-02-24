@@ -6719,6 +6719,120 @@ What to do today?
     OK, the atomizer is working, at least for Invoices.  
 
 
+22 Feb 2024
+    3:50.
+    I'm hoping we're getting near the end of the code slog and can start cranking out some UI.  The very next thing I need to do is get the money working.  Since everything should be using the shared moneyObj class I am HOPING that I don't have to do any fiddlefucking with the money in the Atomizer.  That SHOULD be taken directly from the invoice, right?  
+
+    I've got (I think) the useMonetizer hook up and running.  Let's test it on the atomized array, and then again on a smaller piece of it.  
+
+    5:10
+    OK, got a tough one here.
+    Right now, my sales tax is coming out squiffy, and I'm pretty sure I know what is happening.  The sales tax itself is calculated by taking the total price paid and multiplying it by 0.09.  The problem is that this frequently produced a floating-point number, not an integer, and 
+
+        Math.round(4567 * .09) * 8  !==
+        Math.round(4567 * 8 * .09)
+
+    when the rounding is factored in.  I can consider this my regular reminder that with floating points, factional values are dangerous.  
+
+    My guess is that if I just change the sales tax rate to .1, that solves the problem but it kind of feels like cheating.  And it doesn't actually solve the problem.  
+
+    OK.  So.  Solutions.
+
+        Explicitly provide EVERY tax value.
+            -A pain in the dick and I'm not doing it.
+
+        Provide a scale factor, defaulted to 1.    Multiply all derived values by the scale factor.
+            -Pretty clean, pretty easy.  Actually kind of nice on the outputs?  Something feels wrong with the atoms, though.  
+                + I need to remember that the ATOMS represent 'all alike'.  the moneyObj does not.  In fact, the moneyObj is very explicitly designed to represent composites.  
+    
+23 Feb 2024
+    2:00.  I don't really feel like Figma today and I feel like I am VERY close to cracking this thing, and the thing I think is holding me back is that I don't have a great conceptual handle on what I'm actually trying to get the moneyObj to do.  
+
+        -Within an atom I want it to represent the price of a SINGLE unit, although TBF that doesn't actually have to be the case.
+
+    Actually, let's just jump ahead.  I think the true issue I'm having is with the tax.  All of the other values can be reset manually, so populating a moneyObj from other moneyObjs is fine.  
+        -I was about to say I need the ability to set the tax manually, but why is that?  The reason I'm stuck here is I am making some invalid assumption.  So why can't the tax ALWAYS be automatically calculated?
+            -I guess the first reason is that the tax rate isn't necessarily the same.  And at the end of the day, every field needs to return an integer.
+
+        -So maybe I'm looking at this backwards.  Maybe by default the tax should expect an integer, and then I provide a method that gets the tax if it doesn't exist?  
+        -I don't truly NEED automatic sales tax.  But I do need it every time the price changes.  Right.  Because if I am applying discounts and such.
+
+    OK, how about this.  We do everything like we're doing now, but then we just provide a method that scales everything?  
+
+    -What if we ONLY do the auto-stuff on creation?  Does that get any better?  Like, I always have the option of creating a new moneyObj.  
+
+24 Feb 2024
+    Another day, another attempt to understand WTF I'm actually trying to do with the moneyObj.  From the top!  
+
+    The moneyObj is intended to be a universal format for storing cash values in MRV apps.  We want to do as little derivation as possible, so it should store all values that we either want to represent or interact with.  These would be things like base prices, taxes, and final prices.  They should also store things like fees or coupons, since these can be modified.  
+
+    Something else to keep in mind: the first use case, representing the price of a single unit in an atom, isn't exactly typical.  Most moneyObjs we'll see are going to be sums of aggregations, and they will represent totals rather than singletons.  
+
+    -We should plan to keep values that take work to re-derive.  My gut feeling is that at the point of consumption, it's easier to add/multiply values rather than subtract or derive them.  I'm not sure why but it feels a lot easier to combine data than to separate it.  
+
+    Ideally it represents the value for a single thing, either a unit or some specific collection of units.  
+
+        -The moneyObj represents ONE collection of identical values that apply equally to all members it represents.  If the values aren't identical... put them in a separate moneyObj!
+        -ALL input values should be directly editable.  We can include convenience features, but for any input I should just be able to put a number in there.  
+        -Also, input values should be DIRECTLY editable.  
+        -Any derived values should be derivable by the same formula every time, without any additional inputs from the user.
+    
+    -I also feel like I'm going pretty far out of my way to avoid just writing a value for the tax.  I've spent like 2 days trying to avoid 10 minutes of boring work.
+        -I do need some way of easily calculating the tax of something, since we need to be able to edit a moneyObj in place and the tax does depend on the discounts / charges.  
+
+    -OK, so then the next thing to consider is how to handle multiplication.  I feel like it should probably be a method, since we want to be able to adjust quantities in place.  
+
+    -The other question is how to handle the adjustments.  My first question was where they should live, but I think they pretty clearly ought to live in the moneyObj.  That's directly where they are going to get processed, and the atomization principle still applies.  If any attribute in the moneyObj differs for its consitutents in a way you care about at the current level, make another moneyObj.  I kind of think these ought to be arrays or objects, since there could be multiples of each (like a coupon + a discretionary discount)
+
+    At this current moment, I feel like an Object would be appropriate.  A primary key should work.  Like, there's no reason for 2 discretionary discounts - just make one bigger discretionary discount.
+
+    I also don't think I need to deal with that for a while.  Discounts/fees should be further down the road and as long as I handle them in a way that leaves the totals OK, I should be fine.
+
+    I'm really liking this atomization principle.  Instead of complicated logical filtering of categories, we just keep them pre-filtered and reconstitute based on attributes as needed.  It's much easier to have a different jar for each type of coin than to go back through and sort them.  More generally, it's easier to prevent entropy than to reverse it.  Ideally, we should only ever have to atomize in response to new, relevant information.  Any input we control should be pre-atomized.  
+
+    OK, so for the time being:
+        -I'm going to take out the Increase and Decrease properties entirely.  Once I have a clearer idea of what I need I will mix them back in.  
+        -Include Sales Tax in the multiplier.  We never discard the consitituent atoms, or more specifically we can always re-derive them from the fundamental inputs.
+        -Hmm.  I actually think I could use a setter for the multiplication.  What I REALLY want is to just change the value and have the whole shebang update.
+        -Although... I don't actually want that.  In fact, I think I want to return a different moneyObj, since I DO NOT want to modify the original's value.  
+        -And scaling should be a one-time operation.  I actually don't think it should be a property at all.  It's conceptually wrong.  Quantity is a property of the atom.  The moneyObj can represent the value of any number (including 1) of anything.
+        -So where this is leading me is I think there should be some collection of functions or hooks for modifying a moneyObj, but they shouldn't be methods.  
+
+    3:55 WOOOOT!  It's working!  It looks like the error I made was that in the constructor, I assigned the salesTax before I assigned the salesTaxRate, and the salesTaxRate is required in the calcSalesTax method.  Since that field was still undefined at the time of the call, the Math.round method returned NaN, which is why I was getting NaN in all my SalesTax fields.  
+
+    OK, sweet!  It looks like this is working pretty well!  OK, so next I need to make sure that item addition is adding itemAtoms.  
+    Actually, before that, I should try and set this up so that the Atomizer runs automatically every time the state is set.  That would be much more convenient.  
+
+    OK, looks like I can't do that but I'm so early in that I doubt it's going to be trouble.
+
+    4:55
+    So no major crashes, but something isn't working when I try to add items.  To be expected, I've changed a lot.  Let's see if we can't find where it's going wrong.  
+
+    Also, not 100% sure I need to auto-run the atomizer.  I don't really want to be doing that when I get to adding items and such, so maybe I just use the plain old state-setter how it was.  Oh god, are we back to a place where useReducer makes sense?
+
+    OK.  So for adding the items, what do we want to do?  I at least want to TRY adding them as atoms.  The nice thing about the sessionItem class is it holds the items in once place and it might save me a lookup when it comes to dispositions, but I really would like to try universalizing classes and I don't think that's hard.  I DO think that we can use an object, because in terms of return items, itemNum should be fine as a key... right?  I'm thinking of 89991 or Shared, but those SHOULD only matter when paired with an invoice, right?  Which means this SHOULD be fine?  Aww jeez Rick, I don't know.  
+
+    If I KNEW the primary key was working, I think I would do it as an array.  Screw it, I'll just do it as an object for now.
+
+
+
+    
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+    
+
 HI  
     Pull in the JSON file to the Project Tracker.
     Use a content modifier.

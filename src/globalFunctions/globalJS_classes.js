@@ -5,34 +5,21 @@
 */
 
 class moneyObj {
-  
-  // Represents the cost or value of ONE unit.
-  #salesTaxSum;
-  #taxRate;
-
-  constructor({
-    unitBaseValue = 0,
-    taxRate = 0.09,
-    salesTaxSum = 0,
-    valIncrease = 0,
-    valDecrease = 0,
-  }) {
+  constructor({ unitBaseValue = 0, salesTax = 0, salesTaxRate = 0.09 }) {
     this.unitBaseValue = unitBaseValue;
-    this.#taxRate = taxRate;
-    this.#salesTaxSum = salesTaxSum;
-    this.valIncrease = valIncrease;
-    this.valDecrease = valDecrease;
+    this.salesTaxRate = salesTaxRate;
+    this.salesTax = salesTax || this.calcSalesTax();
   }
-  // derived values are provided by getters.  moneyObj is sometimes used for cumulative totals, so these values could potentially be stale otherwise.
 
-  get subTotal() {
-    return this.unitBaseValue + this.valIncrease - this.valDecrease;
-  }
-  get salesTax() {
-    // salesTax is automatically calculated unless the figure is explicitly provided.
-    const outSalesTax =
-      this.#salesTaxSum || Math.round(this.subTotal * this.#taxRate);
+  // If I want to auto-calculate sales tax, I can set this.salesTax to 0.
+  calcSalesTax() {
+    const outSalesTax = Math.round(this.subTotal * this.salesTaxRate);
     return outSalesTax;
+  }
+
+  // derived values are never modified directly so they are provided as getters.
+  get subTotal() {
+    return this.unitBaseValue;
   }
   get unitTotal() {
     return this.subTotal + this.salesTax;
@@ -208,29 +195,19 @@ class returnAtom {
 
   constructor({
     atomInvoNum = "NO_INVO",
-    atomMoneyObj = {},
+    atomMoneyObj = null,
     atomDispoKey = "",
     atomItemNum = "",
     atomItemQty = 0,
     parentKey = "",
   }) {
     this.atomInvoNum = atomInvoNum;
-    this.atomMoneyObj = atomMoneyObj;
+    this.atomMoneyObj = atomMoneyObj || new moneyObj({});
     this.atomDispoKey = atomDispoKey;
     this.atomItemNum = atomItemNum;
     this.atomItemQty = atomItemQty;
-    this.unitTotal = atomMoneyObj.unitTotal ?? "NO_TOTAL";
+    this.unitTotal = atomMoneyObj?.unitTotal
     this.parentKey = parentKey;
-
-    this.vals = () => {
-      return {
-        atomInvoNum,
-        atomMoneyObj,
-        atomDispoKey,
-        atomItemNum,
-        atomItemQty,
-      };
-    };
   }
 
   get primaryKey() {

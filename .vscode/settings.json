@@ -1,2 +1,5 @@
 {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 96,
+    "editor.minimap.maxColumn": 96
 }

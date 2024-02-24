@@ -4,6 +4,8 @@ import InvoContext from "../../store/invo-context";
 
 import { useContext } from "react";
 
+import produce from "immer";
+
 import {
   ProdClass,
   Invoice_SR,
@@ -31,43 +33,60 @@ const useDollarsToCents = () => {
   };
 };
 
-
-const useMonetizer = () => {
-  const monetizer = (arrayOfAtoms) => {
-    // returns a new moneyObj populated from all atoms in the array
-
-    const outArrTotalMoneyObj = new moneyObj({});
-
-    for (const thisAtom of arrayOfAtoms) {
-      const thisAtomMoneyObj = thisAtom.atomMoneyObj;
-      const atomQty = thisAtom.atomUnitQty;
-
-      thisAtomMoneyObj.unitBaseValue += thisAtom.unitBaseValue * atomQty;
-      thisAtomMoneyObj.valIncrease += thisAtom.valIncrease * atomQty;
-      thisAtomMoneyObj.valDecrease += thisAtom.valDecrease * atomQty;
-    }
-    return outArrTotalMoneyObj;
-  };
-  return monetizer;
+const mo_multiply = ({ targetMO, factor = 1 }) => {
+  if (targetMO instanceof moneyObj) {
+    const outMoneyObj = cloneDeep(targetMO);
+    outMoneyObj.unitBaseValue *= factor;
+    outMoneyObj.salesTax *= factor;
+    return outMoneyObj;
+  }
 };
 
-const useMRVAddItem = () => {
-  const mrvAddItem = ({
+const atomsMonetizer = (arrayOfAtoms) => {
+  // returns a new moneyObj populated from all atoms in the array
+  // salesTaxRate set to undefined because there is no guarantee that all atoms will have the same salesTaxRate.
+  const outTotalMoneyObj = new moneyObj({ salesTaxRate: undefined });
+
+  for (const thisAtom of arrayOfAtoms) {
+    const atomQty = thisAtom.atomItemQty;
+
+    const scaledMoneyObj = mo_multiply({
+      targetMO: thisAtom.atomMoneyObj,
+      factor: atomQty,
+    });
+
+    outTotalMoneyObj.unitBaseValue += scaledMoneyObj.unitBaseValue;
+    outTotalMoneyObj.salesTax += scaledMoneyObj.salesTax;
+  }
+  return outTotalMoneyObj;
+};
+
+export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
+
+const useAddItemAtom = () => {
+  const itemCtx = useContext(ProductContext);
+
+  const addItemAtom = ({
     targetAllItemsObj = {},
     itemNumToAdd = "",
-    qtyToAdd = 42,
+    qtyToAdd = 1,
   }) => {
-    // Takes a target object of items in a transaction and returns updated version with this itemNum + details added to it.
+    // Takes a target object of items in a transaction and returns updated version with this itemNum + qty added to it.
+
+    if (!itemCtx[itemNumToAdd]) {
+      return false;
+    }
 
     const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNumToAdd] ??= new sessionItem({
-      itemNum: itemNumToAdd,
+    draftAllItemsObj[itemNumToAdd] ??= new mrvItemAtom({
+      atomItemNum: itemNumToAdd,
+      atomItemQty: 0,
     });
-    draftAllItemsObj[itemNumToAdd].itemQty += qtyToAdd;
+    draftAllItemsObj[itemNumToAdd].atomItemQty += Number(qtyToAdd);
 
     return draftAllItemsObj;
   };
-  return mrvAddItem;
+  return addItemAtom;
 };
 
 const useReturnAtomizer = () => {
@@ -96,17 +115,7 @@ const useReturnAtomizer = () => {
       }
     );
 
-    let aUM_ReturnItemAtoms = Object.values(oCloneSessnItems).map(
-      (thisItem) => {
-        // In future, eliminate this function if item entry happens as atoms.
-        const outSplitXitem = new returnAtom({
-          atomItemNum: thisItem.itemNum,
-          atomItemQty: thisItem.itemQty,
-        });
-
-        return outSplitXitem;
-      }
-    );
+    let aUM_ReturnItemAtoms = Object.values(oCloneSessnItems);
 
     // SHARED FUNCTIONS //////////////////////////////////////////////////
     const atomHasQty = (thisAtom) => {
@@ -176,14 +185,7 @@ const useReturnAtomizer = () => {
   return returnAtomizer;
 };
 
-export { useReturnAtomizer };
-
-export {
-  //Money
-  useCentsToDollars,
-  useDollarsToCents,
-  useMRVAddItem,
-};
+export { useReturnAtomizer, useAddItemAtom };
 
 /*
 

@@ -3,7 +3,10 @@ import "./_AddItemsAndInvos.css";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useOutletContext } from "react-router";
 
-import { useMRVAddItem } from "../../../../mrv/MRVhooks/MRVhooks";
+import {
+  useAddItemAtom,
+  useReturnAtomizer,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
@@ -13,7 +16,8 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const setSession = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const mrvAddItem = useMRVAddItem();
+  const addItemAtom = useAddItemAtom();
+  const returnAtomizer = useReturnAtomizer();
 
   const oErrorStates = {
     invalidItem: {},
@@ -31,19 +35,30 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
 
     if (bFormValid) {
       // create a new session returnItems obj with item + qty added to it.
-      const outItemsObj = mrvAddItem({
+      const outItemsObj = addItemAtom({
         targetAllItemsObj: sessionState.returnItems,
         itemNumToAdd: parLocState.itemNumField,
         qtyToAdd: parLocState.itemQtyField,
       });
 
-      setSession((draft) => {
-        draft.returnItems = outItemsObj;
-      });
-      setParLocState((draft) => {
-        draft.itemNumField = "";
-        draft.itemQtyField = "";
-      });
+      if (outItemsObj) {
+        setSession((draft) => {
+          draft.returnItems = outItemsObj;
+          draft.atomizedReturnItems = returnAtomizer({
+            sessionItemsObj: outItemsObj,
+            sessionInvosObj: draft.sessionInvos,
+          });
+        });
+        setParLocState((draft) => {
+          draft.itemNumField = "";
+          draft.itemQtyField = "";
+          draft.oActiveErrorState = null;
+        });
+      } else {
+        setParLocState((draft) => {
+          draft.oActiveErrorState = oErrorStates.invalidItem;
+        });
+      }
     }
   };
 
@@ -61,6 +76,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
             const itemNumField = event.target.value;
             setParLocState((draft) => {
               draft.itemNumField = itemNumField;
+              draft.oActiveErrorState = null;
             });
           }}
         />
@@ -77,6 +93,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
               const inputQty = parseInt(event.target.value) || "";
               setParLocState((draft) => {
                 draft.itemQtyField = inputQty;
+                draft.oActiveErrorState = null;
               });
             }}
           />

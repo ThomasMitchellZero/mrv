@@ -16,6 +16,7 @@ function AddItemsAndInvosSTRX() {
     itemNumField: "",
     itemQtyField: "",
     receiptNumField: "",
+    oActiveErrorState: null,
   };
 
   const [locStAddRtrns, setLocStAddRtrns] = useImmer({
