@@ -215,39 +215,5 @@ class returnAtom {
   }
 }
 
-class mrvItemAtom {
-  // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
 
-  constructor({
-    atomInvoNum = "NO_INVO",
-    atomMoneyObj = {},
-    atomDispoKey = "",
-    atomItemNum = "",
-    atomItemQty = 0,
-    parentKey = "",
-  }) {
-    this.atomInvoNum = atomInvoNum;
-    this.atomMoneyObj = atomMoneyObj;
-    this.atomDispoKey = atomDispoKey;
-    this.atomItemNum = atomItemNum;
-    this.atomItemQty = atomItemQty;
-    this.unitTotal = atomMoneyObj.unitTotal ?? "NO_TOTAL";
-    this.parentKey = parentKey;
-
-    this.vals = () => {
-      return {
-        atomInvoNum,
-        atomMoneyObj,
-        atomDispoKey,
-        atomItemNum,
-        atomItemQty,
-      };
-    };
-  }
-
-  get primaryKey() {
-    return `${this.atomItemNum}&${this.atomInvoNum}&${this.unitTotal}`;
-  }
-}
-
-export { returnAtom, mrvItemAtom };
+export { returnAtom };

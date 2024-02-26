@@ -14,7 +14,6 @@ import {
   returnAtom,
   singleDispo,
   moneyObj,
-  mrvItemAtom,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -78,7 +77,7 @@ const useAddItemAtom = () => {
     }
 
     const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNumToAdd] ??= new mrvItemAtom({
+    draftAllItemsObj[itemNumToAdd] ??= new returnAtom({
       atomItemNum: itemNumToAdd,
       atomItemQty: 0,
     });
