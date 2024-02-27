@@ -22,7 +22,7 @@ class moneyObj {
     return this.unitBaseValue;
   }
   get unitTotal() {
-    return this.subTotal + this.salesTax;
+    return this.subTotal + this.salesTax || 0;
   }
 }
 
