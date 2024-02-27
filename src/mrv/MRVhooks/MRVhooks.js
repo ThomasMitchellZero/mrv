@@ -81,6 +81,8 @@ const useAddItemAtom = () => {
       atomItemNum: itemNumToAdd,
       atomItemQty: 0,
     });
+
+    const test = draftAllItemsObj[itemNumToAdd];
     draftAllItemsObj[itemNumToAdd].atomItemQty += Number(qtyToAdd);
 
     return draftAllItemsObj;

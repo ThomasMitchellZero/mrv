@@ -28,6 +28,8 @@ class moneyObj {
 
 export { moneyObj };
 
+
+
 class Product {
   constructor({
     img = "",
@@ -206,7 +208,7 @@ class returnAtom {
     this.atomDispoKey = atomDispoKey;
     this.atomItemNum = atomItemNum;
     this.atomItemQty = atomItemQty;
-    this.unitTotal = atomMoneyObj?.unitTotal
+    this.unitTotal = this.atomMoneyObj.unitTotal;
     this.parentKey = parentKey;
   }
 
@@ -214,6 +216,5 @@ class returnAtom {
     return `${this.atomItemNum}&${this.atomInvoNum}&${this.unitTotal}`;
   }
 }
-
 
 export { returnAtom };
