@@ -6814,17 +6814,63 @@ What to do today?
 
     If I KNEW the primary key was working, I think I would do it as an array.  Screw it, I'll just do it as an object for now.
 
+27 Feb 2024
+    OK.  I finally got the itemAtom and the moneyObj working in sync.  The issue was that within the get() function for the returnAtom, I was getting trying to pull the value of the atomMoneyObj ARGUMENT, which never gets reassigned after creation.  
 
+    Next problem - how to handle parent and child items?  I feel uneasy about depending on strings - one of the factors, the final unitPrice, is potentially variable, and whether or not that actually happens, it's not exactly ideal.
+
+    I like the idea of using Symbols, since they are always unique and can be referenced directly.  However, I can't say I have a great idea of how to create it somewhere and refer to it somewhere else.  
+
+    OK, so it looks it can be assigned like a variable.  I can do many things with symbols that I can do with keys.  
+        
+    So then the problem becomes how to get a symbol from one class instance into another.  That's where I'm getting stuck because if it were a string I could just copy the value, but the string doesn't rely on scope to evaluate equality. 
+    
+    My spidey sense is telling me that somewhere in the invoice definition is the appropriate place.   I wonder if I could pass in an object of symbols.
+
+    OK.  So this actually looks like a solve?  I just add an InvoItemKey and a ParentKey prop to the Atom class, some kind of Keys field to the Invoice_SR class, and then within the atoms I can assign the appropriate field to this.Keys.somePropName and that *should* connect the two?  
+
+    This could get funky AF if I have to connect multiple child items, though.  
+
+    8:05.
+    Just had some shower insight.  For the time being, the Symbol key is overkill.  All a child atom needs to know is the item number of the product it was sold with.  In fact, the Symbol is bad because if items with children are matched to different invoices, I don't really have a clear way of knowing where to direct the children.  
+
+    Things could get a little weird with the Atomizer, though.  The way I'm looking at it, zero-qty items can be allowed, so I can't rely on zero-qty to clear empties.  
+
+28 Feb 2024
+    4:15.
+    OK.  Decision time.  Do I attempt to handle the 0-value session items now?  I feel like the answer is yes, because I'll just have more dependencies later.
+
+    So let's try and describe the issue.  I need to be able to have 0-value session items.  This could be because a child item is added, or it could be because the user has reduced the total qty of an item to zero (in which case I don't want to delete it)
+
+    OK.  Here's a thought.  What if I populate the Return Items (i.e. the cards) from the session items, and the quantities within from the invoices?  Or, actually, the Return Items AND their quantities, since even items with positive quantities might not be matched?  
+
+    IDK, I feel like that's too simple and I must be missing something but it's not clear what that would be.  I can have different collections of atoms that represent different things.  The only unbreakable rule of the atom philosophy is that within a given atom, all attributes must apply equally to the entire quantity.  That's it.  
+
+    So the meaning of a session Atom is simply "Include X item in Y specified quantity in this transaction"  It doesn't matter if the zeros get cleared in the ReturnAtomizer.  That result is an output.  ReturnAtomizer can never change the sessionItems.  That's the whole idea of the derivation principle.  Inputs persist, and can only be altered by direct user action. SessionItems is an input.  We're covered.  
+
+    I'm wondering if I should alter the AddItems hook to be more of a ChangeItemQty hook.  I think that covers all cases.  I would have to change the Item Entry field to check the SessionItems object for matches of the item number and show that quantity instead of an empty field, but that shouldn't be hard, right?  
+
+    OK, I was able to figure out how - basically on every update of the input qty, I check and see if that item number exists, but semantically 'Add Item' feels correct and I don't know a way to describe it otherwise.  It's fine.  These are simple functions.  I don't mind having a function that adds to the qty and another that updates the qty directly.
+
+    So for the child items.  Wondering how to do this.  I would LIKE to not have it in the Atomizer, since those are derived values and they shouldn't affect main values.  But I might have to.  
+        So what am I looking for?  It has to involve the invoice, because parentItem information is only stored on the invoice.  It's like:
+
+            1. If an invoice contains an atom with a parent &&
+            2. An atom with the parent ItemNum is in the session
+            3. An atom matching this itemNum and this parentItemNum isn't,
+            add an atom with this itemNum+parentItemNum combo to sessionItems with a qty of zero.  
+
+    When should this happen?  It can't (exclusively) be a part of Add Item or Add Invoice, since the conditions check both and the sequence is unknown.  It's not a great fit for the Atomizer, since parent items have no record of their children, nor should they since a parent relationship is 1:1 and a child relationship is potentially 1 : many.
+
+    So my best guess is a hook that loops through all the invoice items, checks 1, 2, and 3, and then does an AddItem.  
+
+    All of this shit needs to happen every time an item or an invoice is added. I mean, I guess it wouldn't hurt to run all derivations any time any session input is changed.  That would at least make things simpler.  There's no reason for that not to happen, right?  Derivations SHOULD be perfectly deterministic.  
 
     
 
 
 
 
-
-
-
-        
 
 
 

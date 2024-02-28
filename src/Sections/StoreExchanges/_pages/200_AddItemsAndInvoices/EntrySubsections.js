@@ -41,6 +41,8 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
         qtyToAdd: parLocState.itemQtyField,
       });
 
+      // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
+
       if (outItemsObj) {
         setSession((draft) => {
           draft.returnItems = outItemsObj;

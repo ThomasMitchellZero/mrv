@@ -128,10 +128,13 @@ class Invoice_SR {
     payment = {},
     products = {},
     itemAtomsArr = [],
+    symbolsArr = [],
   }) {
     this.invoNum = invoNum;
     this.invoiceDetails = { store: store, date: date, payment: payment };
     this.products = products;
+    this.symbolsArr = symbolsArr;
+
     if (itemAtomsArr.length) {
       this.itemAtomsArr = itemAtomsArr.map((thisAtom) => {
         thisAtom.atomInvoNum = invoNum;
