@@ -29,13 +29,13 @@
     gap: 1rem;
     padding: 2rem 0rem;
 
-
     & .inputRow{
       display: flex;
       flex-direction: row;
       flex: 0 0 auto;
       width: 100%;
       gap: 1rem;
+      justify-content: right;
     }
   }
 }

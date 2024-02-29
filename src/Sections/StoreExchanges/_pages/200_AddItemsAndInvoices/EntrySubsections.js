@@ -74,10 +74,11 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       onSubmit={handleAddItem}
       className={`inputSection`}
     >
-      <MRVinput flex={"1 1 0rem"}>
+      <MRVinput flex={"1 1 0rem"} width={`100%`}>
         <input
           type="text"
           value={parLocState.itemNumField}
+          placeholder="Item Number"
           onChange={(event) => {
             const itemNumField = event.target.value;
             setParLocState((draft) => {
@@ -89,11 +90,12 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       </MRVinput>
 
       <div className={`inputRow`}>
-        <MRVinput width={"5rem"}>
+        <MRVinput width={"8rem"}>
           <input
             type="number"
             min="0"
             step="1"
+            placeholder="Qty"
             value={parLocState.itemQtyField}
             onChange={(event) => {
               const inputQty = parseInt(event.target.value) || "";
@@ -104,6 +106,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
             }}
           />
         </MRVinput>
+        <div className={`hBox maxFlex`} />
         <button form="addItemForm" type="submit" className={`secondary`}>
           Add Item
         </button>
@@ -128,9 +131,11 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   };
 
   return (
-    <form className={`inputSection`}>
-      <MRVinput flex={"1 1 0rem"}>
+    <form className={`inputSection`} onSubmit={handleAddInvo}>
+      <MRVinput flex={"1 1 0rem"} width={`100%`}>
         <input
+          type="text"
+          placeholder="Receipt Number"
           value={parLocState.itemNumField}
           onChange={(event) => {
             const fieldInput = event.target.value;
@@ -140,10 +145,43 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
           }}
         />
       </MRVinput>
-      <div className={`inputRow`}></div>
-      <button form="addItemForm" type="submit" className={`secondary`}>
-        Add Item
-      </button>
+      <div className={`inputRow`}>
+        <MRVinput flex={"2 2 0rem"}>
+          <input
+            placeholder="Store"
+            type="text"
+            value={parLocState.storeNumField}
+            onChange={(event) => {
+              const fieldInput = event.target.value;
+              setParLocState((draft) => {
+                draft.storeNumField = fieldInput;
+              });
+            }}
+          />
+        </MRVinput>
+        <MRVinput flex={"3 3 0rem"}>
+          <input
+            type="date"
+            placeholder="Sale Date"
+            value={parLocState.dateField}
+            onChange={(event) => {
+              const fieldInput = event.target.value;
+              setParLocState((draft) => {
+                draft.dateField = fieldInput;
+              });
+            }}
+          />
+        </MRVinput>
+      </div>
+      <div className={`inputRow`}>
+        <button
+          form="addItemForm"
+          type="submit"
+          className={`secondary minWidth`}
+        >
+          Add Receipt
+        </button>
+      </div>
     </form>
   );
 };

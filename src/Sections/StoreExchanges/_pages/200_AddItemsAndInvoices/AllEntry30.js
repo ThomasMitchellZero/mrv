@@ -12,14 +12,12 @@ function AllEntry30({ parLocState, setParLocState }) {
   const oMode = {
     receipt: {
       sLabel: "receipt",
-      sPanelTitle: "Add Receipts",
       sInputLabel: "",
       inputCluster: <ReceiptEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
 
     item: {
       sLabel: "item",
-      sPanelTitle: "Add Items",
       sInputLabel: "",
       inputCluster: <ItemEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
     },
@@ -53,7 +51,7 @@ function AllEntry30({ parLocState, setParLocState }) {
       <HeaderSTRX
         hasCluster={false}
         showProductName={false}
-        headerTitle={oMode[s30Mode].sPanelTitle}
+        headerTitle={"Add To Exchange"}
       />
       <section className={`main_content`}>
         <div className={`tabBox`}>

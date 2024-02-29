@@ -107,7 +107,12 @@
     background-color: transparent;
   }
 
-  /* ---- MRV POSITIONS STYLES ---- */
+  /* ---- MRV STANDARD HTML STYLES ---- */
+
+  & input {
+    font-family: "Fellix";
+    
+  }
 
   /* ---- MRV TEXT STYLES ---- */
 
@@ -189,8 +194,20 @@
 
   /* ---- MRV Containers ---- */
 
-  & .shrink {
+  & .minFlex {
     flex: 0 0 auto;
+  }
+
+  & .maxFlex {
+    flex: 1 1 0rem;
+  }
+
+  & .minWidth {
+    width: fit-content;
+  }
+
+  & .maxWidth {
+    width: 100%;
   }
 
   & .hBox {
@@ -325,6 +342,7 @@
     justify-content: center;
     box-sizing: border-box;
 
+
     height: 4rem;
     padding: 0rem 1rem;
     margin: 0rem;
@@ -334,6 +352,8 @@
     border-radius: 0.5rem;
     background-color: fuchsia;
     text-decoration: none;
+
+    font-family: "Fellix";
     font-size: 1.25rem;
     font-weight: 500;
 
@@ -413,6 +433,7 @@
       &.active {
         color: var(--color__primary);
         border-bottom: 0.125rem solid var(--color__interactive);
+        background-color: var(--color__card__selected);
       }
 
       &.body__small {
@@ -530,7 +551,7 @@
     color: var(--color__primary);
   }
 
-  input[type="radio" i]:focus-visible {
+  & input[type="radio" i]:focus-visible {
     outline-offset: 0rem;
     outline: none 0rem transparent;
   }

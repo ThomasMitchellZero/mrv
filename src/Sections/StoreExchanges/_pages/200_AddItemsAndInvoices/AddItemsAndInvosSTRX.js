@@ -9,22 +9,32 @@ import { useImmer } from "use-immer";
 function AddItemsAndInvosSTRX() {
   const navigate = useNavigate();
 
+  const clearableFields = {
+    itemNumField: "",
+    itemQtyField: "",
+    receiptNumField: "",
+    storeNumField: "",
+    dateField: "",
+    oActiveErrorState: null,
+  };
+
   const defaultState = {
     active30: "AllEntry30",
     active70: "NoneScanned",
     activeMode: "receipt",
-    itemNumField: "",
-    itemQtyField: "",
-    receiptNumField: "",
-    oActiveErrorState: null,
+    clearableFields: clearableFields,
+    ...clearableFields,
   };
 
-  const [locStAddRtrns, setLocStAddRtrns] = useImmer({
-    ...defaultState,
-  });
+  const [locStAddRtrns, setLocStAddRtrns] = useImmer(defaultState);
 
   const o30panels = {
-    AllEntry30: <AllEntry30 parLocState={locStAddRtrns} setParLocState={setLocStAddRtrns} />,
+    AllEntry30: (
+      <AllEntry30
+        parLocState={locStAddRtrns}
+        setParLocState={setLocStAddRtrns}
+      />
+    ),
   };
 
   const o70panels = {
