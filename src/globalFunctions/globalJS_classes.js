@@ -28,8 +28,6 @@ class moneyObj {
 
 export { moneyObj };
 
-
-
 class Product {
   constructor({
     img = "",
@@ -195,6 +193,24 @@ export { sessionItem, singleDispo };
 
 //// Return Classes ///////////////////////////////////////////////
 
+// factory function that produces the default Retun state object
+
+const baseReturnState = ({
+  returnItems = {},
+  sessionInvos = {},
+  atomizedReturnItems = [],
+}) => {
+  return {
+    returnItems,
+    sessionInvos,
+    atomizedReturnItems,
+  };
+};
+
+// refactor baseReturnState to use a constructor for me.  I want to be able to use the same object in multiple places.
+
+
+
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
 
@@ -220,4 +236,4 @@ class returnAtom {
   }
 }
 
-export { returnAtom };
+export { baseReturnState, returnAtom };

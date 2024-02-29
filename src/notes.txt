@@ -6880,12 +6880,16 @@ What to do today?
         X -Get the returnAutoDeriver into the STRXautoDeriver
         X -Get the STRXautoDeriver into the function to add items.
         X -Make sure it's working as intended.
-        -Get Add Invoices running and make sure the Atomizer is still working.
+        X -Get Add Invoices running and make sure the Atomizer is still working.
         -In returnAutoDeriver, add in:
             -autoAddChildren.
             -sum up total moneyObj.
     
     Honestly, if I can get that whole list done this has been a pretty good day.  The size of my mental kitten-basket is pretty small today D:
+
+    2:30.  Holy moly, it seems to be working.  Invoices are being added and the Atomizer is working correctly as far as I can tell.
+
+    
 
 
 

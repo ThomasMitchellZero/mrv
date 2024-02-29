@@ -3,6 +3,7 @@ import "../Exchanges/Exchanges.css";
 import {
   sessionItem,
   singleDispo,
+  baseReturnState,
 } from "../../globalFunctions/globalJS_classes";
 
 import InvoiceContext from "../../store/invoice-context";
@@ -73,15 +74,8 @@ function StoreExchanges() {
   
   */
 
-  const defaultState = {
-    returnItems: {},
-    sessionInvos: {},
-    atomizedReturnItems: [],
-  };
 
-  const [sessionSTRX, setSessionStrx] = useImmer(
-    defaultState,
-  );
+  const [sessionSTRX, setSessionStrx] = useImmer(baseReturnState({}));
 
   return (
     <section className={`mrv STRX_top`}>
