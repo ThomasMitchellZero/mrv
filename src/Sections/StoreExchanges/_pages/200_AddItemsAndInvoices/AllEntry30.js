@@ -63,13 +63,6 @@ function AllEntry30({ parLocState, setParLocState }) {
         {/* Input cluster varies based on selected Mode */}
         {oMode[s30Mode].inputCluster}
       </section>
-      <section className={`footer_content`}>
-        <div className={`buttonBox`}>
-          <button type="submit" className={`mrvBtn primary fullWidth jumbo`}>
-            Apply
-          </button>
-        </div>
-      </section>
     </main>
   );
 }

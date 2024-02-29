@@ -8,6 +8,9 @@ import {
   useReturnAtomizer,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
+import { useAutoDeriverSTRX } from "../../_resources/hooks/STRXhooks";
+import cloneDeep from "lodash.clonedeep";
+
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
 const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
@@ -18,6 +21,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const setParLocState = setParentLocSt;
   const addItemAtom = useAddItemAtom();
   const returnAtomizer = useReturnAtomizer();
+  const autoDeriverSTRX = useAutoDeriverSTRX();
 
   const oErrorStates = {
     invalidItem: {},
@@ -44,12 +48,12 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
 
       if (outItemsObj) {
-        setSession((draft) => {
-          draft.returnItems = outItemsObj;
-          draft.atomizedReturnItems = returnAtomizer({
-            sessionItemsObj: outItemsObj,
-            sessionInvosObj: draft.sessionInvos,
-          });
+        let outSessionState = cloneDeep(sessionState);
+        outSessionState.returnItems = outItemsObj;
+        outSessionState = autoDeriverSTRX(outSessionState);
+
+        setSession(() => {
+          return outSessionState;
         });
         setParLocState((draft) => {
           draft.itemNumField = "";
@@ -115,22 +119,32 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
 
+  let invoFormValidation = () => {
+    return true;
+  };
+
+  const handleAddInvo = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <>
-      <div className={`inputSection`}>
-        <MRVinput flex={"1 1 0rem"}>
-          <input
-            value={parLocState.itemNumField}
-            onChange={(event) => {
-              const fieldInput = event.target.value;
-              setParLocState((draft) => {
-                draft.itemNumField = fieldInput;
-              });
-            }}
-          />
-        </MRVinput>
-      </div>
-    </>
+    <form className={`inputSection`}>
+      <MRVinput flex={"1 1 0rem"}>
+        <input
+          value={parLocState.itemNumField}
+          onChange={(event) => {
+            const fieldInput = event.target.value;
+            setParLocState((draft) => {
+              draft.itemNumField = fieldInput;
+            });
+          }}
+        />
+      </MRVinput>
+      <div className={`inputRow`}></div>
+      <button form="addItemForm" type="submit" className={`secondary`}>
+        Add Item
+      </button>
+    </form>
   );
 };
 

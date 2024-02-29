@@ -6866,6 +6866,30 @@ What to do today?
 
     All of this shit needs to happen every time an item or an invoice is added. I mean, I guess it wouldn't hurt to run all derivations any time any session input is changed.  That would at least make things simpler.  There's no reason for that not to happen, right?  Derivations SHOULD be perfectly deterministic.  
 
+29 Feb 2024
+    9:40.
+    Happy Leap Day!  It's Thursday.  I slept like shit last night and so I took a sick day.  No matter what, let's be gentle with ourselves today.  To be honest, my mind feels pretty weak and sluggish right now.  
+
+    OK.  Having had the night to think about it, I think the correct way to handle this is:
+        -Just take the draft state.  We'll call this thing after every function that changes the inputs to re-derive our outputs.  
+        -We'll just return a draft state.  If we do in fact intend to use this in other(?) applications, we don't necessarily know the sessionState / sessionStateSetter ahead of time.
+        -I think I will then make a STRX-specific hook that calls this hook, modifies the draft, and then does whatever other app-specific derivations we need, and THAT is what I will use throughout the app.  
+    
+    So let's do this for the initial run:
+        X -Get the returnAtomizer into the returnAutoDeriver
+        X -Get the returnAutoDeriver into the STRXautoDeriver
+        X -Get the STRXautoDeriver into the function to add items.
+        X -Make sure it's working as intended.
+        -Get Add Invoices running and make sure the Atomizer is still working.
+        -In returnAutoDeriver, add in:
+            -autoAddChildren.
+            -sum up total moneyObj.
+    
+    Honestly, if I can get that whole list done this has been a pretty good day.  The size of my mental kitten-basket is pretty small today D:
+
+
+
+
     
 
 

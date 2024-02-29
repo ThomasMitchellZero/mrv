@@ -189,6 +189,30 @@
 
   /* ---- MRV Containers ---- */
 
+  & .shrink {
+    flex: 0 0 auto;
+  }
+
+  & .hBox {
+    display: flex;
+    flex: 1 1 0rem;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+
+
+  }
+
+  & .vBox {
+    display: flex;
+    flex: 1 1 0rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+  }
+
   & .mrvPage {
     height: 100%;
     display: flex;
