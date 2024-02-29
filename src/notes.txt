@@ -6881,15 +6881,20 @@ What to do today?
         X -Get the STRXautoDeriver into the function to add items.
         X -Make sure it's working as intended.
         X -Get Add Invoices running and make sure the Atomizer is still working.
-        -In returnAutoDeriver, add in:
-            -autoAddChildren.
-            -sum up total moneyObj.
+        X -In returnAutoDeriver, add in:
+            X -autoAddChildren.
+            X -sum up total moneyObj.
     
     Honestly, if I can get that whole list done this has been a pretty good day.  The size of my mental kitten-basket is pretty small today D:
 
-    2:30.  Holy moly, it seems to be working.  Invoices are being added and the Atomizer is working correctly as far as I can tell.
+    2:30.  
+    Holy moly, it seems to be working.  Invoices are being added and the Atomizer is working correctly as far as I can tell.
 
-    
+    4:30.
+    Despite wasting some time on the Christian Horner drama, it's all working.  Everything I need for the auto-derivation is happening and it's working as far as I can tell.  
+
+    Man.  I am REALLY digging this atomization model, and also the standardization of Money and ItemAtoms throughout the app.  
+
 
 
 

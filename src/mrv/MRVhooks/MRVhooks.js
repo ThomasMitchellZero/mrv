@@ -14,6 +14,7 @@ import {
   returnAtom,
   singleDispo,
   moneyObj,
+  baseReturnState,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -44,9 +45,13 @@ const mo_multiply = ({ targetMO, factor = 1 }) => {
 const atomsMonetizer = (arrayOfAtoms) => {
   // returns a new moneyObj populated from all atoms in the array
   // salesTaxRate set to undefined because there is no guarantee that all atoms will have the same salesTaxRate.
+
+  let arrayToSum =
+    arrayOfAtoms instanceof Object ? Object.values(arrayOfAtoms) : arrayOfAtoms;
+
   const outTotalMoneyObj = new moneyObj({ salesTaxRate: undefined });
 
-  for (const thisAtom of arrayOfAtoms) {
+  for (const thisAtom of arrayToSum) {
     const atomQty = thisAtom.atomItemQty;
 
     const scaledMoneyObj = mo_multiply({
@@ -186,20 +191,55 @@ const useReturnAtomizer = () => {
   return returnAtomizer;
 };
 
+const autoAddChildAtoms = (clonedDraft) => {
+  // Papa?  Is that you?
 
-const autoAddChildAtoms = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
+  const refSessionState = baseReturnState({});
+  const refItemAtom = new returnAtom({});
 
-  const outChildrenToAdd = []
+  const returnedItems = clonedDraft.returnItems;
+  const sessionInvos = clonedDraft.sessionInvos;
+  // array of all atoms in all invoices in the session.
+  const itemsSold = Object.values(sessionInvos).flatMap((thisInvo) => {
+    return thisInvo.itemAtomsArr;
+  });
 
+  for (const thisAtom of itemsSold) {
+    // if this atom has a parent and the parent is in the returnedItems but this atom is not, add it.
+    const parentItem = thisAtom.parentKey;
+    const parentReturned = returnedItems[parentItem];
+    const childReturned = returnedItems[thisAtom.atomItemNum];
+
+    if (parentItem && parentReturned && !childReturned) {
+      clonedDraft.returnItems[thisAtom.atomItemNum] = new returnAtom({
+        atomItemNum: thisAtom.atomItemNum,
+        atomItemQty: 0,
+        parentKey: parentItem,
+      });
+    }
+  }
+
+  return clonedDraft;
+};
+
+const returnEncarder = (clonedDraft) => {
+
+  
 };
 
 
 
 const useReturnAutoDeriver = () => {
-  const addItemAtom = useAddItemAtom();
+
 
   const returnAutoDeriver = (draftState) => {
+    // purpose is to perform all derivations needed when performing a return.
+    // returns a new draft, which must be assigned to the state.
+
     let outSessionState = cloneDeep(draftState);
+
+    // auto-add child atoms if their parent is in the returnItems
+    outSessionState = autoAddChildAtoms(outSessionState);
 
     // atomize the returnItems
     outSessionState.atomizedReturnItems = returnAtomizer({
@@ -207,9 +247,14 @@ const useReturnAutoDeriver = () => {
       sessionInvosObj: outSessionState.sessionInvos,
     });
 
+    // calculate the sum of all atoms matched to invoices.
+    outSessionState.totalReturnValue = atomsMonetizer(
+      outSessionState.atomizedReturnItems
+    );
+
+    outSessionState.wholeBigNumber = outSessionState.totalReturnValue.unitTotal;
+
     return outSessionState;
-
-
   };
   return returnAutoDeriver;
 };

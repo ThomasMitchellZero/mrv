@@ -1,8 +1,5 @@
 //---- Product ----
 
-/*
-
-*/
 
 class moneyObj {
   constructor({ unitBaseValue = 0, salesTax = 0, salesTaxRate = 0.09 }) {
@@ -199,11 +196,14 @@ const baseReturnState = ({
   returnItems = {},
   sessionInvos = {},
   atomizedReturnItems = [],
+  totalReturnValue = new moneyObj({}),
 }) => {
   return {
     returnItems,
     sessionInvos,
     atomizedReturnItems,
+    totalReturnValue,
+    
   };
 };
 
@@ -236,4 +236,29 @@ class returnAtom {
   }
 }
 
-export { baseReturnState, returnAtom };
+class returnItemRow {
+  constructor({
+    itemNum = "",
+    cartItemAtom = new returnAtom({}),
+    itemXinvoMatches = [],
+  }) {
+    this.itemNum = itemNum;
+    this.cartItemAtom = cartItemAtom;
+    this.itemXinvoMatches = itemXinvoMatches;
+  }
+}
+
+class returnItemCard {
+  constructor({
+    mainItemNum = "",
+    mainItemCard = new returnItemRow({}),
+    childItemRows = [],
+  }) {
+    this.mainItemNum = mainItemNum;
+    this.mainItemCard = mainItemCard;
+    this.childItemRows = childItemRows;
+  }
+}
+
+export { baseReturnState, returnAtom, returnItemRow, returnItemCard };
+

@@ -44,6 +44,14 @@ const invoiceObj = {
           unitBaseValue: 1315,
         }),
       }),
+      new returnAtom({
+        atomItemNum: "3333",
+        parentKey: "100",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 514,
+        }),
+      }),
     ],
   }),
 
