@@ -21,9 +21,9 @@ const invoiceObj = {
     payment: {
       [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
     },
+
     itemAtomsArr: [
       new returnAtom({
-        atomInvoNum: "CAAA",
         atomItemNum: "100",
         atomItemQty: 8,
         atomMoneyObj: new moneyObj({
@@ -31,7 +31,6 @@ const invoiceObj = {
         }),
       }),
       new returnAtom({
-        atomInvoNum: "CAAA",
         atomItemNum: "300",
         atomItemQty: 2,
         atomMoneyObj: new moneyObj({
@@ -39,7 +38,6 @@ const invoiceObj = {
         }),
       }),
       new returnAtom({
-        atomInvoNum: "CAAA",
         atomItemNum: "400",
         atomItemQty: 10,
         atomMoneyObj: new moneyObj({
