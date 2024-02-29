@@ -2,6 +2,7 @@ import "./_AddItemsAndInvos.css";
 
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useOutletContext } from "react-router";
+import { useContext } from "react";
 
 import {
   useAddItemAtom,
@@ -10,6 +11,7 @@ import {
 
 import { useAutoDeriverSTRX } from "../../_resources/hooks/STRXhooks";
 import cloneDeep from "lodash.clonedeep";
+import InvoContext from "../../../../store/invo-context";
 
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
@@ -20,7 +22,6 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
   const addItemAtom = useAddItemAtom();
-  const returnAtomizer = useReturnAtomizer();
   const autoDeriverSTRX = useAutoDeriverSTRX();
 
   const oErrorStates = {
@@ -48,6 +49,8 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
 
       if (outItemsObj) {
+
+        // Set the session state to include this item.
         let outSessionState = cloneDeep(sessionState);
         outSessionState.returnItems = outItemsObj;
         outSessionState = autoDeriverSTRX(outSessionState);
@@ -55,11 +58,11 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
         setSession(() => {
           return outSessionState;
         });
-        setParLocState((draft) => {
-          draft.itemNumField = "";
-          draft.itemQtyField = "";
-          draft.oActiveErrorState = null;
-        });
+
+        // clear the input fields in the local state.
+        let outLocState = cloneDeep(parLocState);
+        outLocState = { ...outLocState, ...parLocState.clearableFields };
+        setParLocState(() => outLocState);
       } else {
         setParLocState((draft) => {
           draft.oActiveErrorState = oErrorStates.invalidItem;
@@ -119,28 +122,52 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
 /* &&&&&&&&&&&&&&   Receipt Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
 const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
+  const strxCtx = useOutletContext();
+  const invoCtx = useContext(InvoContext);
+  const sessionState = strxCtx.sessionSTRX;
+  const setSession = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
+  const autoDeriverSTRX = useAutoDeriverSTRX();
 
-  let invoFormValidation = () => {
-    return true;
-  };
+  let invoFormValid = true;
 
   const handleAddInvo = (event) => {
     event.preventDefault();
+
+    if (invoFormValid) {
+      const thisCtxInvo = invoCtx[parLocState.receiptNumField];
+      if (thisCtxInvo) {
+        // Set the session state to include this receipt.
+        let outSessionState = cloneDeep(sessionState);
+        outSessionState.sessionInvos[parLocState.receiptNumField] = thisCtxInvo;
+        outSessionState = autoDeriverSTRX(outSessionState);
+        setSession(() => {
+          return outSessionState;
+        });
+        // clear the input fields in the local state.
+        let outLocState = cloneDeep(parLocState);
+        outLocState = { ...outLocState, ...parLocState.clearableFields };
+        setParLocState(() => outLocState);
+      }
+    }
   };
 
   return (
-    <form className={`inputSection`} onSubmit={handleAddInvo}>
+    <form
+      id={"addInvoForm"}
+      className={`inputSection`}
+      onSubmit={handleAddInvo}
+    >
       <MRVinput flex={"1 1 0rem"} width={`100%`}>
         <input
           type="text"
           placeholder="Receipt Number"
-          value={parLocState.itemNumField}
+          value={parLocState.receiptNumField}
           onChange={(event) => {
-            const fieldInput = event.target.value;
+            const fieldInput = event.target.value.toUpperCase();
             setParLocState((draft) => {
-              draft.itemNumField = fieldInput;
+              draft.receiptNumField = fieldInput;
             });
           }}
         />
@@ -175,7 +202,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
       </div>
       <div className={`inputRow`}>
         <button
-          form="addItemForm"
+          form="addInvoForm"
           type="submit"
           className={`secondary minWidth`}
         >
