@@ -236,14 +236,12 @@ class returnAtom {
   }
 }
 
-class returnItemRow {
+class returnItemXinvosGroup {
   constructor({
     itemNum = "",
-    cartItemAtom = new returnAtom({}),
     itemXinvoMatches = [],
   }) {
     this.itemNum = itemNum;
-    this.cartItemAtom = cartItemAtom;
     this.itemXinvoMatches = itemXinvoMatches;
   }
 }
@@ -251,7 +249,7 @@ class returnItemRow {
 class returnItemCard {
   constructor({
     mainItemNum = "",
-    mainItemCard = new returnItemRow({}),
+    mainItemCard = new returnItemXinvosGroup({}),
     childItemRows = [],
   }) {
     this.mainItemNum = mainItemNum;
@@ -260,5 +258,5 @@ class returnItemCard {
   }
 }
 
-export { baseReturnState, returnAtom, returnItemRow, returnItemCard };
+export { baseReturnState, returnAtom, returnItemXinvosGroup, returnItemCard };
 

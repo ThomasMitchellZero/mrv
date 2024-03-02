@@ -45,7 +45,7 @@ const invoiceObj = {
         }),
       }),
       new returnAtom({
-        atomItemNum: "3333",
+        atomItemNum: "3333@100",
         parentKey: "100",
         atomItemQty: 2,
         atomMoneyObj: new moneyObj({

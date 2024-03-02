@@ -15,6 +15,8 @@ import {
   singleDispo,
   moneyObj,
   baseReturnState,
+  returnItemXinvosGroup,
+  returnItemCard,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -192,12 +194,12 @@ const useReturnAtomizer = () => {
 };
 
 const autoAddChildAtoms = (clonedDraft) => {
-  // Papa?  Is that you?
+  // Papa?  Is it you?
 
   const refSessionState = baseReturnState({});
   const refItemAtom = new returnAtom({});
 
-  const returnedItems = clonedDraft.returnItems;
+  const itemsFromInvos = clonedDraft.returnItems;
   const sessionInvos = clonedDraft.sessionInvos;
   // array of all atoms in all invoices in the session.
   const itemsSold = Object.values(sessionInvos).flatMap((thisInvo) => {
@@ -205,10 +207,10 @@ const autoAddChildAtoms = (clonedDraft) => {
   });
 
   for (const thisAtom of itemsSold) {
-    // if this atom has a parent and the parent is in the returnedItems but this atom is not, add it.
+    // if this atom has a parent and the parent is in the itemsFromInvos but this atom is not, add it.
     const parentItem = thisAtom.parentKey;
-    const parentReturned = returnedItems[parentItem];
-    const childReturned = returnedItems[thisAtom.atomItemNum];
+    const parentReturned = itemsFromInvos[parentItem];
+    const childReturned = itemsFromInvos[thisAtom.atomItemNum];
 
     if (parentItem && parentReturned && !childReturned) {
       clonedDraft.returnItems[thisAtom.atomItemNum] = new returnAtom({
@@ -218,20 +220,12 @@ const autoAddChildAtoms = (clonedDraft) => {
       });
     }
   }
-
   return clonedDraft;
-};
-
-const returnEncarder = (clonedDraft) => {
-
-  
 };
 
 
 
 const useReturnAutoDeriver = () => {
-
-
   const returnAutoDeriver = (draftState) => {
     // purpose is to perform all derivations needed when performing a return.
     // returns a new draft, which must be assigned to the state.

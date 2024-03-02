@@ -6895,13 +6895,112 @@ What to do today?
 
     Man.  I am REALLY digging this atomization model, and also the standardization of Money and ItemAtoms throughout the app.  
 
+    6:50.
+    I ravaged ass today and I have definitely earned Emmy^2.  I do need to re-think how I handle the childAtoms, both in the ReturnItems list and when rolling them back together.  Specifically, we need to maintain memory of the parent they were attached to, somewhere.  I'm pretty sure I'm OK with the atomized arr, since everything in the invoice should be pre-atomized.  
 
+    Hmm.  When I'm re-rolling the rows, I wonder if it's as simple as just checking itemNum AND parentNum.  Well. hold on.  Parents aren't known pre-atomization.  
 
+1 Mar 2024
+    4:30 p.m.
+    OK, done enough for J1.  Let's see if we can't crack this problem now that we aren't all tired and such. 
 
+    Things that make the child items tricky:
+        -Could one potentially exist outside of its parent?  Do I want it to?
+            -IF a child item has an item number, it could potentially be added solo.  Until it is paired with an invoice, we don't have a clean way of knowing it doesn't stand alone.
+                -This might not be such a huge issue.  The total qty in the return is stored in ReturnItems.  
+                -But if different parents have the same child I can't truly know which one they go to.  
 
+        -Child info must come from the invoice.  
+        -The same child itemNum could potentially be paired with different parents.  
+        -A single parent could have multiple child items.
+            -These could be from separate invoices.  
+
+        -It's almost like a child has two item numbers - itself + the parent.  
+        -I think that's part of the issue.  Everything I'm doing assumes (same ItemNum === completely fungible) and that really isn't the case with the children.  
+            -OK.  This is hacky and wouldn't work for real but I could totally GIVE each child item a unique ItemNum in my invoices.
+            -Not saying we do this, but this solves basically all of my problems.
+            -My one problem is that this kinda fucks with the Product catalog.  I would need to have a few different versions of identical LPPs.  
+
+        -So is there an arrangement that doesn't NEED unique numbers but works similar?  
+            -I could make ReturnItems an array.  When adding, I could filter for itemNum AND parentNum.  
+                -But that doesn't solve the problem of Add child => set child qty => add invoice => Distribute that qty how?
+
+    -And the thought that should always be in the back of my mind is: does any of this get easier if I put children WITHIN their parents?
+        -I don't think so.  All the worst problems are on the Return Items side - identical itemNum for non-identical items, distributing a qty, etc.  All that information has to come from the invoice.
+
+    -I have at least one way to distinguish children from parents - wait, no I don't... because that info comes from the Invoice.
+
+    -OK, so if all the critical info comes from the invoice, does anything important change if we just don't allow child items to be added without an invoice?  For the time being let's just forget how that would be accomplished.  
+        -The qty-splitting problem goes away, I think?  Well, we would still need to re-shape Return Items around having itemNum + parent as the actual primary key.
+        -Eh.  IDK, this could work.  
+
+    -Well then, fuck it.  I think we've correctly identified the problem - a primary key is only useful if the items it represents are truly interchangeable.  We've got a solution.  Why not use it until we can think of something better?
+
+    -OK.  LAST last attempt.  What if we don't allow child items in the Return Items section?  We would have to store them separately, since qty is an input and we must preserve inputs.
+
+    -LAST last attempt.  What happens if we don't group child items with parents at all?  We just match them all to an invoice?  But then we have no way of controlling WHICH item's LPP is being refunded.  
+        -If they are shared by the same itemNum, that's fine.  The only problem becomes if they aren't shared.
+
+    -And now there's another problem.  If a qty of parentNum has some ChildA from one invoice and some ChildB from another invoice... now those children don't match and we have two rows for what is conceptually an identical item.  
+
+    -FUCK.  Fuck these fucking fuckers.
+
+    -Hold up.  That's solvable.  IF I use a standard format for child item names, like "LPPnum^parentNum", then they would be identical in the way they need to, even across invoices.  
+        As long as I'm really good about not re-using the separator in product names, I could even parse it automatically when it comes to gathering product details.  
+
+    -OK.  There's got to be an angle here we aren't seeing.  
+        -Ideally, child items of the same type should all reference the same source.  A 3-year LPP is a 3-year LPP in terms of category, productImage, etc.
+        -We've already got a lot of info coming from the invoice.  
     
+    I say we roll with it.  Pictogram-Rebus-Alphabet >> Pictogram-Think Real Hard-Alphabet.  If there's a pattern maybe some familiarity will help us see it.
+
+    -Let's stop for tonight.  The sorter needs some work and I am just kind of cooked right now.  
+
+2 Mar 2024.
+    10:30.
+    Just getting all the status into memory here.  
+        Table: all items in the exchange.
+            Card: main item and all child items associated with it.
+                ItemInvoGroup: an item, and then every invoAtom associated with it.  
+
+    When a parent is added to the table, I already auto-add any associated child items (qty:0) to the Items group.  
+
+    I guess I need to think about how to identify everything.  
+        -Main item = exists in Return Items, doesn't have a ParentKey
+        -Item invoices = Filter atomized array by itemNum (or itemNum && ParentKey if I go that way)
+        -Child Items is where it gets weird.  
+            -If I use unique keys, I technically COULD filter by just looking through the names in ReturnItems for the @ character (or whatever separator I use)
+            -If I don't use unique keys, I need to be filtering by the combo of itemnum && parent.
+
+    My gut feeling as of right now is that maybe I SHOULD be using ItemNum&Parent atoms as my ReturnItems?  What would that take?
+        -ReturnItems would need to be an array instead of an object.
+            -I actually kind of like this because it preserves insertion order?
+        -When adding a new item, I would need to check for that combo instead of just itemNum.  
+        -In whatever Atomizer loop first touches the ReturnItems, I would need to make sure both are a match.
+            -After that, I don't think I need to do it again?
+        -Automatic child-adding: 
+            -Should be pretty similar?
+            -Add a check that clears out this itemNum if it has no parent.
+
+    How do I feel about this?  Not terrible, actually?  It doesn't look like a terrible lift, and it represents reality more accurately.  
+
+    I still don't hate the solve I have.  The ONLY time it would get weird is if I'm displaying the item name, but as long as I don't ask a user to input it I should be fine.  
+
+    Dude, just fuck it.  We're fine.  Let's go.  We'll hang onto this solve if any of this becomes a problem, but let's just go.  
+
+    Hold up, I don't think we actually have to do quite so much.  It's really just three filter operations.
+        Create a card for each item in the return that doesn't have a parent.
+        Create a row in its parent card for each item in the return that DOES have a parent.
+        matched invos - Filter the ItemXInvos array for all atoms that match this itemNum.  
+
+    That is MUCH more simple.  
 
 
+
+
+
+
+        
 
 
 

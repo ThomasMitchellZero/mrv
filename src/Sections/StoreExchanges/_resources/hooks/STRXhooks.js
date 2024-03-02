@@ -61,7 +61,7 @@ const useAutoDeriverSTRX = () => {
 
   const autoDeriverSTRX = (draftState) => {
     let outStrxState = cloneDeep(draftState);
-    
+
     outStrxState = returnAutoDeriver(outStrxState);
 
     return outStrxState;
@@ -69,8 +69,7 @@ const useAutoDeriverSTRX = () => {
   return autoDeriverSTRX;
 };
 
+
 export { useAutoDeriverSTRX };
 
-// I want to define a set of values that are acceptable to use in a specific function.  what should I do?
-// I could define a type for the function.  I could define a type for the function's return value.
-// what is a type in javascript?
+
