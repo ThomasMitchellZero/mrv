@@ -217,7 +217,7 @@ const autoAddChildAtoms = (clonedDraft) => {
   const refSessionState = baseReturnState({});
   const refItemAtom = new returnAtom({});
 
-  const itemsFromInvos = clonedDraft.returnItems;
+  const returnedItemsArr = clonedDraft.returnItems;
   const sessionInvos = clonedDraft.sessionInvos;
   // array of all atoms in all invoices in the session.
   const itemsSold = Object.values(sessionInvos).flatMap((thisInvo) => {
@@ -226,16 +226,32 @@ const autoAddChildAtoms = (clonedDraft) => {
 
   for (const thisAtom of itemsSold) {
     // if this atom has a parent and the parent is in the itemsFromInvos but this atom is not, add it.
-    const parentItem = thisAtom.parentKey;
-    const parentReturned = itemsFromInvos[parentItem];
-    const childReturned = itemsFromInvos[thisAtom.atomItemNum];
+    const parentItemNum = thisAtom.parentKey;
 
-    if (parentItem && parentReturned && !childReturned) {
-      clonedDraft.returnItems[thisAtom.atomItemNum] = new returnAtom({
-        atomItemNum: thisAtom.atomItemNum,
-        atomItemQty: 0,
-        parentKey: parentItem,
-      });
+    // see if the parent is in the returnItems
+    const parentReturned =
+      returnedItemsArr.filter((thisItem) => {
+        return thisItem.atomItemNum === parentItemNum;
+      }).length > 0;
+
+    // If this child/parent pair is already in the returnItems, we don't want to overwrite its value.
+    const childReturned =
+      returnedItemsArr.filter((thisItem) => {
+        return (
+          thisItem.atomItemNum === thisAtom.atomItemNum &&
+          thisItem.parentKey === parentItemNum
+        );
+      }).length > 0;
+
+    // if this is a child item and it is not already in the returnItems but its parent is, add it.
+    if (parentItemNum && parentReturned && !childReturned) {
+      clonedDraft.returnItems.push(
+        new returnAtom({
+          atomItemNum: thisAtom.atomItemNum,
+          atomItemQty: 0,
+          parentKey: parentItemNum,
+        })
+      );
     }
   }
   return clonedDraft;
@@ -249,7 +265,7 @@ const useReturnAutoDeriver = () => {
     let outSessionState = cloneDeep(draftState);
 
     // auto-add child atoms if their parent is in the returnItems
-    //outSessionState = autoAddChildAtoms(outSessionState);
+    outSessionState = autoAddChildAtoms(outSessionState);
 
     // atomize the returnItems
     outSessionState.atomizedReturnItems = returnAtomizer({
