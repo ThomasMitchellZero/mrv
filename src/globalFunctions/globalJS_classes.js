@@ -193,7 +193,7 @@ export { sessionItem, singleDispo };
 // factory function that produces the default Retun state object
 
 const baseReturnState = ({
-  returnItems = {},
+  returnItems = [],
   sessionInvos = {},
   atomizedReturnItems = [],
   totalReturnValue = new moneyObj({}),

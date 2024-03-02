@@ -73,7 +73,7 @@ const useAddItemAtom = () => {
   const itemCtx = useContext(ProductContext);
 
   const addItemAtom = ({
-    targetAllItemsObj = {},
+    targetItemsArr = [],
     itemNumToAdd = "",
     qtyToAdd = 1,
   }) => {
@@ -83,30 +83,40 @@ const useAddItemAtom = () => {
       return false;
     }
 
-    const draftAllItemsObj = cloneDeep(targetAllItemsObj);
-    draftAllItemsObj[itemNumToAdd] ??= new returnAtom({
-      atomItemNum: itemNumToAdd,
-      atomItemQty: 0,
+    const clonedItemsArr = cloneDeep(targetItemsArr);
+
+    // get the index of itemNumToAdd in the array.
+
+    let targetIndex = clonedItemsArr.findIndex((thisItem) => {
+      return thisItem.atomItemNum === itemNumToAdd;
     });
 
-    draftAllItemsObj[itemNumToAdd].atomItemQty += Number(qtyToAdd);
+    // if the items is not in the array, add it and set the index to the new item.
+    if (targetIndex === -1) {
+      clonedItemsArr.push(
+        new returnAtom({
+          atomItemNum: itemNumToAdd,
+          atomItemQty: 0,
+        })
+      );
+      targetIndex = clonedItemsArr.length - 1;
+    }
 
-    return draftAllItemsObj;
+    // add the qtyToAdd to the atomItemQty of the item at the targetIndex.
+    clonedItemsArr[targetIndex].atomItemQty += Number(qtyToAdd);
+
+    return clonedItemsArr;
   };
   return addItemAtom;
 };
 
-const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
+const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   // accepts an object of Session Items and an array of Session Invos
 
   const refInvoItem = new Invoice_SR({});
   const refInvoProd = new InvoProduct({});
   const refSessionItem = new sessionItem({});
   const refSingleDispo = new singleDispo({});
-
-  // Outputs to be modified during Matchmaking.
-  const oCloneSessnItems = cloneDeep(sessionItemsObj);
-  const oCloneSessnInvos = cloneDeep(sessionInvosObj);
 
   // Arrays of results for each layer of atomization.
   let aAtomizedByInvoice = [];
@@ -115,13 +125,13 @@ const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
   let outFullyAtomizedArr = [];
 
   // Standing records of UM values.  Should be cleared/decremented but never reset.
-  let aUM_InvoicedItemAtoms = Object.values(oCloneSessnInvos).flatMap(
+  let aUM_InvoicedItemAtoms = Object.values(cloneDeep(sessionInvosObj)).flatMap(
     (thisInvo) => {
       return thisInvo.itemAtomsArr;
     }
   );
 
-  let aUM_ReturnItemAtoms = Object.values(oCloneSessnItems);
+  let aUM_ReturnItemAtoms = cloneDeep(sessionItemsArr);
 
   // SHARED FUNCTIONS //////////////////////////////////////////////////
   const atomHasQty = (thisAtom) => {
@@ -157,8 +167,16 @@ const returnAtomizer = ({ sessionItemsObj = {}, sessionInvosObj = {} }) => {
     // TODO - call sorting function here.
 
     for (const thisInvoItemAtom of aUM_InvoicedItemAtoms) {
-      // Only operate on items with this itemNum
-      if (thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum) {
+      // Only operate on items with this itemNum AND parent key.
+
+      const itemMatches =
+        thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum &&
+        thisInvoItemAtom.parentKey === thisItemAtom.parentKey;
+
+      if (
+        thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum &&
+        thisInvoItemAtom.parentKey === thisItemAtom.parentKey
+      ) {
         const nMatchedQty = Math.min(
           thisItemAtom.atomItemQty,
           thisInvoItemAtom.atomItemQty
@@ -223,8 +241,6 @@ const autoAddChildAtoms = (clonedDraft) => {
   return clonedDraft;
 };
 
-
-
 const useReturnAutoDeriver = () => {
   const returnAutoDeriver = (draftState) => {
     // purpose is to perform all derivations needed when performing a return.
@@ -233,11 +249,11 @@ const useReturnAutoDeriver = () => {
     let outSessionState = cloneDeep(draftState);
 
     // auto-add child atoms if their parent is in the returnItems
-    outSessionState = autoAddChildAtoms(outSessionState);
+    //outSessionState = autoAddChildAtoms(outSessionState);
 
     // atomize the returnItems
     outSessionState.atomizedReturnItems = returnAtomizer({
-      sessionItemsObj: outSessionState.returnItems,
+      sessionItemsArr: outSessionState.returnItems,
       sessionInvosObj: outSessionState.sessionInvos,
     });
 

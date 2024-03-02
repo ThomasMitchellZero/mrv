@@ -40,19 +40,19 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
 
     if (bFormValid) {
       // create a new session returnItems obj with item + qty added to it.
-      const outItemsObj = addItemAtom({
-        targetAllItemsObj: sessionState.returnItems,
+      const outItemsArr = addItemAtom({
+        targetItemsArr: sessionState.returnItems,
         itemNumToAdd: parLocState.itemNumField,
         qtyToAdd: parLocState.itemQtyField,
       });
 
       // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
 
-      if (outItemsObj) {
+      if (outItemsArr) {
 
         // Set the session state to include this item.
         let outSessionState = cloneDeep(sessionState);
-        outSessionState.returnItems = outItemsObj;
+        outSessionState.returnItems = outItemsArr;
         outSessionState = autoDeriverSTRX(outSessionState);
 
         setSession(() => {

@@ -19,7 +19,6 @@ import { useContext } from "react";
 function StoreExchanges() {
   const invoiceContext = useContext(InvoiceContext);
   const invoContext = useContext(InvoContext);
-  const returnAtomizer = useReturnAtomizer();
 
   /*
     const debugTestCase = {
