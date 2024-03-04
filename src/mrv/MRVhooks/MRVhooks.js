@@ -214,6 +214,10 @@ const useReturnAtomizer = () => {
 const autoAddChildAtoms = (clonedDraft) => {
   // Papa?  Is it you?
 
+  // We need this because the only way we can tell if an item has a parent is from the invoice.  
+
+  
+
   const refSessionState = baseReturnState({});
   const refItemAtom = new returnAtom({});
 

@@ -1,17 +1,7 @@
 .STRX_top .addItemsAndInvos {
-  & .noneScanned {
-    display: flex;
-    flex: 1 1 0rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
 
-    & img {
-      height: 8rem;
-    }
-  }
 
+  /* ---- Entry Panels ---- */
   & .allEntry30{
     & .tabBox{
       display: flex;
@@ -36,6 +26,45 @@
       width: 100%;
       gap: 1rem;
       justify-content: right;
+    }
+  }
+
+  & .noneScanned {
+    display: flex;
+    flex: 1 1 0rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    & img {
+      height: 8rem;
+    }
+  }
+
+  & .itemsList {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0rem;
+    width: 100%;
+    gap: 1rem;
+    padding: 1rem 0rem;
+
+    & .itemCard{
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 0rem;
+      width: 100%;
+      gap: 1rem;
+      padding: 1rem 0rem;
+
+        & .detailCol{
+          display: flex;
+          flex-direction: column;
+          flex: 8 8 0rem;
+        }
+
+
     }
   }
 }

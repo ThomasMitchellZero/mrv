@@ -5,6 +5,7 @@ import { NoneScanned } from "./NoneScanned";
 
 import { useNavigate } from "react-router";
 import { useImmer } from "use-immer";
+import { RtrnItemsList } from "./RtrnItemsList";
 
 function AddItemsAndInvosSTRX() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ function AddItemsAndInvosSTRX() {
 
   const o70panels = {
     NoneScanned: <NoneScanned />,
+    RtrnItemsList: <RtrnItemsList />,
   };
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -53,7 +55,7 @@ function AddItemsAndInvosSTRX() {
           headerTitle={"Receipts and return items"}
         />
         <div className={`main_content`}>
-          {o70panels[locStAddRtrns.active70]}
+          {o70panels.RtrnItemsList}
         </div>
       </section>
       {o30panels[locStAddRtrns.active30]}

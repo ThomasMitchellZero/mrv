@@ -446,7 +446,7 @@
   /* ---- MRV CARD STYLES ---- */
 
   & .cardStyle {
-    --dropShadow__01: 0px 4px 4px 0px #00000020;
+    --dropShadow__01: 0px 2px 2px 0px #00000012;
     background-color: var(--color__surface__default);
     box-shadow: var(--dropShadow__01);
     border-radius: 0.5rem;
