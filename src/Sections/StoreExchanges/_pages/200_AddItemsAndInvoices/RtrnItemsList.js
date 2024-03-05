@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router";
-
+import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
@@ -8,11 +8,9 @@ const RtrnItemsList = () => {
   const aReturnItems = sessionState.returnItems;
 
   const uiItemCard = (returnItem) => {
-    
     return (
       <div key={returnItem.atomItemNum} className={`cardStyle`}>
-        <p>{returnItem.atomItemNum}</p>
-        <p>fart</p>
+        <MRVitemDetails showPrice={true} thisItemAtom={returnItem} />
       </div>
     );
   };

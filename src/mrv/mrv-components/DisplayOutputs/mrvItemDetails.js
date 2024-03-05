@@ -1,68 +1,64 @@
-import "./ProductInfo.css";
+import "./mrvItemDetails.css";
 
 import { MdSubdirectoryArrowRight } from "react-icons/md";
-import { useCentsToDollars } from "../../../globalFunctions/globalFunctions";
+import { useCentsToDollars } from "../../MRVhooks/MRVhooks";
 import ProductContext from "../../../store/product-context";
 import { useContext } from "react";
-import { itemAtom } from "../../../globalFunctions/globalJS_classes";
+import { returnAtom } from "../../../globalFunctions/globalJS_classes";
 
 // this should work from a completely standard product details object, since the actual product can be changed.
 
-function ProductInfo({
-  thisItemAtom = new itemAtom({}),
-  hasPrice = false,
-  qty = null,
+function MRVitemDetails({
+  thisItemAtom = new returnAtom({ atomItemNum: "noProduct" }),
+  showPrice = true,
+  priceInCents = undefined,
+  showQty = true,
+  qty = undefined,
 }) {
-
   const productContext = useContext(ProductContext);
-
-  const ctxItemInfo = productContext.productDetails[itemAtom.atomItemNum];
-
-  // Need to be able to handle an empty item Obj.
   const centsToDollars = useCentsToDollars();
 
+  const ctxItemInfo = productContext[thisItemAtom.atomItemNum];
 
+  // price is normally the unitTotal, but if priceInCents is passed, it will use that instead
+  const priceStr =
+    showPrice && priceInCents
+      ? `$ ${centsToDollars(priceInCents)}`
+      : showPrice
+      ? `$ ${centsToDollars(thisItemAtom.atomMoneyObj.unitTotal)}`
+      : null;
 
-  let mainProd = (
-    <img src={ctxItemInfo.img} alt="test" className={`productImage`} />
-  );
+  // qty is normally the atomItemQty, but if qty is passed, it will use that instead
+  const qtyStr =
+    showQty && qty
+      ? `Qty: ${qty}`
+      : showQty
+      ? `Qty: ${thisItemAtom.atomItemQty}`
+      : null;
 
-  let childItem = (
-    <MdSubdirectoryArrowRight
-      fontSize="2.5rem"
-      className={`color__tertiary__text`}
-    />
-  );
-
+    const itemAndModelStr = `Item# ${thisItemAtom.atomItemNum}    Model# ${ctxItemInfo.modelNum}`;
 
   ////CONFIGURABLE DEFAULT VALUES ////
 
-  let configs = {
-    activeImg: ctxItemInfo.img,
-    itemAndModelStr: `Item# ${thisItemAtom.itemNum}0123    Model# ${ctxItemInfo.modelNum}`,
-    descriptionStr: `${ctxItemInfo.description}`,
-    priceStr: hasPrice || 80085,
-    qtyStr: qty,
-  };
-
-
   return (
-    <section className={`exchProdInfoCmpnt`}>
-      <div className={`prodImgBox`}>{configs.activeImg}</div>
+    <section className={`mrvProdInfo`}>
+      <div className={`prodImgBox`}>
+        <img src={ctxItemInfo.img} alt="test" className={`productImage`} />
+      </div>
 
       <section className={`textColumn`}>
         <div className={`textRow`}>
-          <p className={`body prodDescription`}>{configs.priceStr}</p>
-          <p className={`body prodDescription`}>{configs.qtyStr}</p>
+          <p className={`body prodDescription`}>{priceStr}</p>
+          <p className={`body prodDescription`}>{qtyStr}</p>
         </div>
-        <p className={`tiny-text itemModel`}>{configs.itemAndModelStr}</p>
-        <p className={`body__small description`}>{configs.descriptionStr}</p>
+        <p className={`tinyText itemModel`}>{itemAndModelStr}</p>
+        <p className={`body__small description`}>{ctxItemInfo.description}</p>
       </section>
     </section>
   );
 }
 
-export { ProductInfo };
+export { MRVitemDetails };
 
 /*
 

@@ -1,37 +1,22 @@
-.exchProdInfoCmpnt{
+.mrv .mrvProdInfo{
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     padding: 0rem;
-    align-items: center;
     width: 100%;
-    gap: .75rem;
+    gap: 1rem;
+
+    & .tinyText{
+        line-height: 2rem;
+    }
 
     & .productImage{
+        display: flex;
         height: 5.5rem;
         width: 5.5rem;
         border-radius: .5rem;
     };
 
-    & .childImage{
-        display: flex;
-        flex-direction: row;
-        box-sizing: border-box;
-        width: 5rem;
-        height: 3rem;
-        align-items: center;
-        justify-content: center;
-    };
-
-    & .prodImgBox{
-        display: flex;
-        flex-direction: row;
-        box-sizing: border-box;
-        width: 5rem;
-        height: auto;
-        align-items: center;
-        justify-content: center;
-    }
 
     & .textColumn{
         display: flex;
@@ -39,8 +24,6 @@
         white-space: pre-wrap;
         width: 100%;
         flex: 1 1 0rem;
-        padding-right: 0.5rem;
-        gap: 0.25rem;
     };
 
     & .textRow{

@@ -15,7 +15,7 @@ import toilet_img from "../assets/product-images/toilet.png";
 import topload_washer_img from "../assets/product-images/samsung-top-load.png";
 import wallwart_img from "../assets/product-images/wall-wart.png";
 import washer_img from "../assets/product-images/washer.png";
-
+import { MdSubdirectoryArrowRight } from "react-icons/md";
 import { Product } from "../globalFunctions/globalJS_classes";
 
 const ProductContext = React.createContext({
@@ -116,7 +116,12 @@ const ProductContext = React.createContext({
   // For use in Exchanges
 
   3333: new Product({
-    image: "",
+    image: (
+      <MdSubdirectoryArrowRight
+        fontSize="2.5rem"
+        className={`color__tertiary__text`}
+      />
+    ),
     itemNum: "3333",
     modelNum: "3YY",
     description: "3 Year LPP",
@@ -156,6 +161,14 @@ const ProductContext = React.createContext({
     description: "Replacement Water Hose",
     inStock: 99,
     dcLocations: ["BBB"],
+  }),
+
+  noProduct: new Product({
+    img: no_img,
+    price: 0,
+    itemNum: "- -",
+    modelNum: "- -",
+    description: "No Product",
   }),
 });
 
