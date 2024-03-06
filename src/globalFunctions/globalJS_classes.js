@@ -215,7 +215,7 @@ class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
 
   constructor({
-    atomInvoNum = "NO_INVO",
+    atomInvoNum = "",
     atomMoneyObj = null,
     atomDispoKey = "",
     atomItemNum = "",

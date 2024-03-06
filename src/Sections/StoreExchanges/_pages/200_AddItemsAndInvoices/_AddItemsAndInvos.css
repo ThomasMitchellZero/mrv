@@ -1,9 +1,7 @@
 .STRX_top .addItemsAndInvos {
-
-
   /* ---- Entry Panels ---- */
-  & .allEntry30{
-    & .tabBox{
+  & .allEntry30 {
+    & .tabBox {
       display: flex;
       flex-direction: row;
       flex: 0 0 auto;
@@ -11,7 +9,7 @@
     }
   }
 
-  & .inputSection{
+  & .inputSection {
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
@@ -19,7 +17,7 @@
     gap: 1rem;
     padding: 2rem 0rem;
 
-    & .inputRow{
+    & .inputRow {
       display: flex;
       flex-direction: row;
       flex: 0 0 auto;
@@ -50,21 +48,75 @@
     gap: 1rem;
     padding: 1rem 0rem;
 
-    & .itemCard{
+    & .itemCard {
       display: flex;
       flex-direction: column;
-      flex: 1 1 0rem;
+      flex: 0 0 auto;
       width: 100%;
       gap: 1rem;
       padding: 1rem 0rem;
+    }
 
-        & .detailCol{
-          display: flex;
-          flex-direction: column;
-          flex: 8 8 0rem;
+    /* 1 per individual item in the card.  Main and child are the same. */
+    & .itemRow {
+      display: flex;
+      flex-direction: row;
+      flex: 0 0 auto;
+      width: 100%;
+      gap: 1rem;
+
+      & .rowCol {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      & .detailCol {
+        flex: 1 1 0rem;
+      }
+
+      & .totalQtyCol {
+        flex: 0 0 8rem;
+      }
+
+      & .infoGrid {
+        display: grid;
+        grid-template-columns: 10rem 2.5rem 8rem 10rem;
+        gap: 1rem;
+        flex: 1 1 0rem;
+        align-items: center;
+        color: var(--color__primary);
+
+        & .receiptCol {
+          grid-column: 1 / span 1;
         }
 
+        & .unitQtyCol {
+          grid-column: 2 / span 1;
+        }
 
+        & .unitPriceCol {
+          grid-column: 3 / span 1;
+        }
+
+        & .totalPriceCol {
+          grid-column: 4 / span 1;
+        }
+
+        & .fullInfoCol {
+          grid-column: 1 / -1;
+        }
+      }
+
+      & .deleteCol {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0rem;
+      }
     }
   }
 }
+
+/* // .totalPriceCol deleteCol */

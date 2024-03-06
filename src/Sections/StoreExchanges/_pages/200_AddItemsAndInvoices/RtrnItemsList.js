@@ -1,25 +1,81 @@
+import "./_AddItemsAndInvos.css";
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
+import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
+  const centsToDollars = useCentsToDollars();
   const sessionState = strxCtx.sessionSTRX;
   const setSession = strxCtx.setSessionStrx;
   const aReturnItems = sessionState.returnItems;
+  const aAtomizedItems = sessionState.atomizedReturnItems;
 
-  const uiItemCard = (returnItem) => {
+  const aMainItems = aReturnItems.filter((returnItem) => {
+    return !returnItem.parentKey;
+  });
+
+  const uiInfoRow = (atomizedItem) => {
+    const hasInvo = atomizedItem.atomInvoNum;
+    const oVals = {
+      invo: hasInvo ? atomizedItem.atomInvoNum : "Needs Receipt",
+      red: hasInvo ? "" : "color__red__text",
+      unitVal: hasInvo ? centsToDollars(atomizedItem.unitTotal) : "- -",
+      totalVal: hasInvo
+        ? centsToDollars(atomizedItem.unitTotal * atomizedItem.atomItemQty)
+        : "- -",
+    };
+
     return (
-      <div key={returnItem.atomItemNum} className={`cardStyle`}>
-        <MRVitemDetails showPrice={true} thisItemAtom={returnItem} />
+      <div key={atomizedItem.atomItemNum} className={`infoGrid`}>
+        <div className={`body__small receiptCol ${oVals.red}`}>{oVals.invo}</div>
+        <div className={`unitQtyCol body`}>{atomizedItem.atomItemQty}</div>
+        <div className={`unitPriceCol body`}>{oVals.unitVal}</div>
+        <div className={`totalPriceCol body__large bold `}>
+          {oVals.totalVal}
+        </div>
       </div>
     );
   };
 
-  const uiCardArr = aReturnItems.map((returnItem) => {
+  const itemRow = (rowItem) => {
+    const aInvoicedItems = aAtomizedItems.filter((atom) => {
+      return atom.atomItemNum === rowItem.atomItemNum;
+    });
+
+    const aInfoRows = aInvoicedItems.map((thisAtom) => {
+      return uiInfoRow(thisAtom);
+    });
+
+    return (
+      <div key={rowItem.atomItemNum} className={`itemRow cardStyle`}>
+        <div className={"rowCol detailCol"}>
+          <MRVitemDetails showPrice={true} thisItemAtom={rowItem} />
+        </div>
+        <div className={"rowCol totalQtyCol"}>
+          <MRVinput>
+            <input type="text" value={rowItem.totalQty} />
+          </MRVinput>
+        </div>
+        <div className={"infoCol"}>{aInfoRows}</div>
+      </div>
+    );
+  };
+
+  const uiItemCard = (returnItem) => {
+    return (
+      <div key={returnItem.atomItemNum} className={`cardStyle`}>
+        {itemRow(returnItem)}
+      </div>
+    );
+  };
+
+  const uiCardArr = aMainItems.map((returnItem) => {
     return uiItemCard(returnItem);
   });
 
-  return <section className={`cardContainer`}>{uiCardArr}</section>;
+  return <section className={`cardContainer itemsList`}>{uiCardArr}</section>;
 };
 
 export { RtrnItemsList };

@@ -103,6 +103,9 @@
   & .color__white__text {
     color: var(--color__white);
   }
+  & .color__red__text {
+    color: var(--color__red);
+  }
   & .color__transparent {
     background-color: transparent;
   }
