@@ -456,20 +456,21 @@
     box-sizing: border-box;
     border: calc(0.125rem) solid transparent;
     padding: 0.5rem 1rem;
+
+    &.hasHover:hover {
+      background-color: var(--color__card__hover);
+    }
+
+    &.selected {
+      background-color: var(--color__card__selected);
+      border-color: var(--color__interactive);
+  
+      &:hover {
+        background-color: var(--color__card__selected__hover);
+      }
+    }
   }
 
-  & .cardStyle:hover {
-    background-color: var(--color__card__hover);
-  }
-
-  & .cardStyle.selected {
-    background-color: var(--color__card__selected);
-    border-color: var(--color__interactive);
-  }
-
-  & .cardStyle.selected:hover {
-    background-color: var(--color__card__selected__hover);
-  }
 
   /* ---- MRV TABLE STYLES ---- */
 

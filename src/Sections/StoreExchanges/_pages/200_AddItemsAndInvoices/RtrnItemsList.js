@@ -51,7 +51,7 @@ const RtrnItemsList = () => {
     });
 
     return (
-      <div key={rowItem.atomItemNum} className={`itemRow cardStyle`}>
+      <div key={rowItem.atomItemNum} className={`itemRow cardStyle hasHover`}>
         <div className={"rowCol detailCol"}>
           <MRVitemDetails
             showPrice={false}
@@ -71,7 +71,10 @@ const RtrnItemsList = () => {
 
   const uiItemCard = (returnItem) => {
     return (
-      <div key={returnItem.atomItemNum} className={`cardStyle itemCard`}>
+      <div
+        key={returnItem.atomItemNum}
+        className={`cardStyle aiai_grid itemCard`}
+      >
         {itemRow(returnItem)}
       </div>
     );
