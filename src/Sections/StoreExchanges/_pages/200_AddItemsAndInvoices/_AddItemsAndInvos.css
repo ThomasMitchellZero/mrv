@@ -49,16 +49,6 @@
     padding: 1rem 0rem;
 
     & .itemCard {
-      display: flex;
-      flex-direction: column;
-      flex: 0 0 auto;
-      width: 100%;
-      gap: 1rem;
-      padding: 1rem 0rem;
-    }
-
-    /* 1 per individual item in the card.  Main and child are the same. */
-    & .itemRow {
       display: grid;
       grid-template-columns:
         [detail] 1fr
@@ -72,7 +62,18 @@
       flex: 0 0 auto;
       width: 100%;
       gap: 1rem;
+      padding: 1rem 0rem;
+    }
+
+    /* 1 per individual item in the card.  Main and child are the same. */
+    & .itemRow {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: detail / spacer;
+      width: 100%;
+      gap: 1rem;
       color: var(--color__primary);
+      align-items: flex-start;
 
       & .invoInfo {
         display: grid;
@@ -88,6 +89,7 @@
           display: grid;
           grid-column: receipt / span 4;
           grid-template-columns: subgrid;
+          align-items: center;
         }
       }
 

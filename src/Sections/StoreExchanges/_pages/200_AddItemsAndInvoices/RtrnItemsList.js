@@ -71,7 +71,7 @@ const RtrnItemsList = () => {
 
   const uiItemCard = (returnItem) => {
     return (
-      <div key={returnItem.atomItemNum} className={`cardStyle`}>
+      <div key={returnItem.atomItemNum} className={`cardStyle itemCard`}>
         {itemRow(returnItem)}
       </div>
     );
