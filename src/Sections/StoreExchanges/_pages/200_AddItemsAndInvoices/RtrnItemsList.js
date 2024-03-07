@@ -28,11 +28,13 @@ const RtrnItemsList = () => {
     };
 
     return (
-      <div key={atomizedItem.atomItemNum} className={`infoGrid`}>
-        <div className={`body__small receiptCol ${oVals.red}`}>{oVals.invo}</div>
+      <div key={atomizedItem.atomItemNum} className={`invoInfoRow`}>
+        <div className={`body__small receiptCol ${oVals.red}`}>
+          {oVals.invo}
+        </div>
         <div className={`unitQtyCol body`}>{atomizedItem.atomItemQty}</div>
-        <div className={`unitPriceCol body`}>{oVals.unitVal}</div>
-        <div className={`totalPriceCol body__large bold `}>
+        <div className={`unitPriceCol body alignRight`}>{oVals.unitVal}</div>
+        <div className={`totalPriceCol alignRight body__large bold `}>
           {oVals.totalVal}
         </div>
       </div>
@@ -51,14 +53,18 @@ const RtrnItemsList = () => {
     return (
       <div key={rowItem.atomItemNum} className={`itemRow cardStyle`}>
         <div className={"rowCol detailCol"}>
-          <MRVitemDetails showPrice={true} thisItemAtom={rowItem} />
+          <MRVitemDetails
+            showPrice={false}
+            showQty={false}
+            thisItemAtom={rowItem}
+          />
         </div>
         <div className={"rowCol totalQtyCol"}>
           <MRVinput>
             <input type="text" value={rowItem.totalQty} />
           </MRVinput>
         </div>
-        <div className={"infoCol"}>{aInfoRows}</div>
+        <div className={`invoInfo`}>{aInfoRows}</div>
       </div>
     );
   };

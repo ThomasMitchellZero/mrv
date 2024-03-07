@@ -29,7 +29,7 @@
     & .textRow{
         display: flex;
         flex-direction: row;
-        flex: 1 1 0rem;
+        flex: 0 0 auto;
         gap: 2rem;
     };
     

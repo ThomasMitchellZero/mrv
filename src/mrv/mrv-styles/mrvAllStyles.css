@@ -573,6 +573,10 @@
     align-items: flex-start;
   }
 
+  & .alignRight {
+    align-items: flex-end;
+  }
+
   & .nohover {
     pointer-events: none;
   }
