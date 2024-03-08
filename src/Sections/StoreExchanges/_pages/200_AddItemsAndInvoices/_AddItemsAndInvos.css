@@ -60,14 +60,21 @@
         [spacer] 1px
         [trash] 5.5rem;
       flex: 0 0 auto;
-      width: 100%;
       gap: 1rem;
     }
 
     & .itemCard {
       flex: 0 0 auto;
       padding: 1rem;
+    }
 
+    & .columnTitleRow{
+      flex: 0 0 auto;
+      padding: 0rem 1rem;
+    }
+
+    & .itemColumn{
+      
     }
 
     /* 1 per individual item in the card.  Main and child are the same. */
@@ -81,60 +88,63 @@
       align-items: flex-start;
       box-shadow: none;
 
-      & .invoInfo {
+    }
+    & .invoInfo {
+      display: grid;
+      grid-column: receipt / span 4;
+      grid-template-columns: subgrid;
+      gap: 1rem;
+
+      & div {
+        display: flex;
+        flex-direction: row;
+      }
+
+      & .invoInfoRow {
         display: grid;
         grid-column: receipt / span 4;
         grid-template-columns: subgrid;
-
-        & div {
-          display: flex;
-          flex-direction: row;
-        }
-
-        & .invoInfoRow {
-          display: grid;
-          grid-column: receipt / span 4;
-          grid-template-columns: subgrid;
-          align-items: center;
-        }
+        align-items: center;
       }
+    }
 
-      & .detailCol {
-        grid-column: detail / span 1;
-      }
+    & .detailCol {
+      grid-column: detail / span 1;
+    }
 
-      & .totalQtyCol {
-        grid-column: totalQty / span 1;
-      }
+    & .totalQtyCol {
+      grid-column: totalQty / span 1;
+    }
 
-      & .receiptCol {
-        grid-column: receipt / span 1;
-      }
+    & .receiptCol {
+      grid-column: receipt / span 1;
+    }
 
-      & .unitQtyCol {
-        grid-column: unitQty / span 1;
-      }
+    & .unitQtyCol {
+      grid-column: unitQty / span 1;
+    }
 
-      & .unitPriceCol {
-        grid-column: unitPrice / span 1;
-        justify-content: flex-end;
-      }
+    & .unitPriceCol {
+      grid-column: unitPrice / span 1;
+      justify-content: flex-end;
+    }
 
-      & .totalPriceCol {
-        grid-column: totalPrice / span 1;
-        justify-content: flex-end;
-      }
+    & .totalPriceCol {
+      grid-column: totalPrice / span 1;
+      justify-content: flex-end;
+    }
 
-      & .fullInfoCol {
-        grid-column: receipt / span 4;
-      }
+    & .fullInfoCol {
+      grid-column: receipt / span 4;
+    }
 
-      & .spacerCol {
-        grid-column: spacer / span 1;
-      }
-      & .deleteCol {
-        grid-column: trash / span 1;
-      }
+    & .spacerCol {
+      grid-column: spacer / span 1;
+      height: 100%;
+      background-color: var(--primary__border);
+    }
+    & .deleteCol {
+      grid-column: trash / span 1;
     }
   }
 }

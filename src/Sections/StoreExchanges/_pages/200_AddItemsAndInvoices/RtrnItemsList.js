@@ -76,15 +76,32 @@ const RtrnItemsList = () => {
         className={`cardStyle aiai_grid itemCard`}
       >
         {itemRow(returnItem)}
+        <div className={'spacerCol'}></div>
       </div>
     );
   };
+
+  const uiItemCardTitle = (
+    <div className={`columnTitleRow aiai_grid`}>
+      <div className={`columnTitle detailCol`}>Item</div>
+      <div className={`columnTitle totalQtyCol`}>Total Qty</div>
+      <div className={`columnTitle receiptCol`}>Receipt</div>
+      <div className={`columnTitle unitQtyCol`}>Qty</div>
+      <div className={`columnTitle unitPriceCol`}>Unit Price</div>
+      
+    </div>
+  );
 
   const uiCardArr = aMainItems.map((returnItem) => {
     return uiItemCard(returnItem);
   });
 
-  return <section className={`cardContainer itemsList`}>{uiCardArr}</section>;
+  return (
+    <section className={`cardContainer itemsList`}>
+      {uiItemCardTitle}
+      {uiCardArr}
+    </section>
+  );
 };
 
 export { RtrnItemsList };

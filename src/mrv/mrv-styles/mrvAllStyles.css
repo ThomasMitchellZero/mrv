@@ -534,6 +534,26 @@
     background-color: var(--color__card__selected__hover);
   }
 
+  /* ----Not literally tables, but table-like ---- */
+
+  & .columnTitle {
+    display: flex;
+    height: 2.5rem;
+    flex-direction: row;
+    color: var(--color__primary);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    align-items: center;
+  }
+
+  & .columnTitleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: var(--primaryBorder);
+  }
+
   /* ---- MRV RADIO INPUT STYLES ---- */
 
   & label.radio {
