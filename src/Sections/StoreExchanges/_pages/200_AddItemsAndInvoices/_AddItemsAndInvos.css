@@ -172,8 +172,8 @@
     & .invos_grid {
       display: grid;
       grid-template-columns:
-        [receiptDetails] 1fr
-        [invoItemDetails] 8rem
+        [receiptDetails] 18rem
+        [invoItemDetails] 1fr
         [unitQty] 2.5rem
         [unitPrice] 8rem
         [unitIcon] 5rem
@@ -181,6 +181,13 @@
         [trash] 5.5rem;
       flex: 0 0 auto;
       gap: 1rem;
+
+      & .field {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+      }
     }
 
     & .invoItemsColumn {
@@ -194,9 +201,11 @@
       display: grid;
       grid-template-columns: subgrid;
       grid-column: invoItemDetails / spacer;
+
+
     }
 
-    & .invoItemRow {
+    & .invoItemSubcard {
       display: grid;
       grid-template-columns: subgrid;
       grid-column: invoItemDetails / spacer;
@@ -206,16 +215,38 @@
 
     & .receiptDetailsCol {
       grid-column: receiptDetails / span 1;
+      color: var(--color__primary);
     }
     & .invoItemDetailsCol {
       grid-column: invoItemDetails / span 1;
+      &.columnTitle {
+        padding-left: 2rem;
+      }
     }
     & .unitQtyCol {
+      display: flex;
+      height: 100%;
       grid-column: unitQty / span 1;
+      align-items: center;
+      justify-content: center;
     }
     & .unitPriceCol {
       grid-column: unitPrice / span 1;
       justify-content: flex-end;
+    }
+    & .unitIconCol {
+      grid-column: unitIcon / span 1;
+      justify-content: flex-end;
+    }
+    & .spacerCol {
+      grid-column: spacer / span 1;
+      height: 100%;
+      background-color: var(--color__border);
+    }
+
+    & .deleteCol {
+      grid-column: trash / span 1;
+      justify-content: center;
     }
   }
 }

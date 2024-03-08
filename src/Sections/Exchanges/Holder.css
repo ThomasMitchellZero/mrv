@@ -1,94 +1,83 @@
-
-
-.exch{
-    --EXCHBLANK: true;
+.exch {
+  --EXCHBLANK: true;
 }
 
 /* I guess I just don't see any reason for this to be a grid? */
-.exch-rows{
-    --exch-template-rows: 
-        [header] 7rem 
-        [pTracker] 8rem 
-        [main]1fr 
-        [fText]auto
-        [footer]auto;
-    grid-template-rows: var(--exch-template-rows);
+.exch-rows {
+  --exch-template-rows: [header] 7rem [pTracker] 8rem [main]1fr [fText]auto
+    [footer]auto;
+  grid-template-rows: var(--exch-template-rows);
 }
 
 /* ---- CONTAINER STYLES ---- */
 
 /* Vertical Positions*/
 
-.exch-rows .exchHeader{
-    grid-row: header / span 1;
-    grid-column: 1 / -1;
-    display: flex;
-    flex-direction: row;
-    padding: var(--PrimaryPadding__both);
-    align-items: flex-end;
-    justify-content: center;
+.exch-rows .exchHeader {
+  grid-row: header / span 1;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  padding: var(--PrimaryPadding__both);
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.exch-rows .pizzaTracker{
-    grid-row: pTracker / span 1;
-    grid-column: 1 / -1;
-    display: flex;
-    flex-direction: row;
-    padding: var(--PrimaryPadding__both);
-    align-items: center;
-    justify-content: center;
-
+.exch-rows .pizzaTracker {
+  grid-row: pTracker / span 1;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  padding: var(--PrimaryPadding__both);
+  align-items: center;
+  justify-content: center;
 }
 
-.exch-rows .main_content{
-    grid-row: main / span 1;
-    display: flex;
-    flex-direction: column;
-    padding: var(--PrimaryPadding__both);
-    align-items: center;
-    justify-content: flex-start;
-    overflow-x: auto;
+.exch-rows .main_content {
+  grid-row: main / span 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--PrimaryPadding__both);
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
 }
 
-.exch-rows .main_content.alignLeft{
-
-    align-items: flex-start;
+.exch-rows .main_content.alignLeft {
+  align-items: flex-start;
 }
 
-.exch-rows.mrvPanel__side .main_content{
-    grid-row: pTracker / span 2;
+.exch-rows.mrvPanel__side .main_content {
+  grid-row: pTracker / span 2;
 }
 
-.exch-rows .footer_text{
-    grid-row: fText / span 1;
-    padding: 0rem var(--PrimaryPadding__horizontal);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.exch-rows .footer_text {
+  grid-row: fText / span 1;
+  padding: 0rem var(--PrimaryPadding__horizontal);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
-
-.exch-rows .footer_content{
-    grid-row: footer / span 1;
-    padding: var(--PrimaryPadding__both);
-    align-items: center;
-    display: flex;
-    flex-direction: row;
+.exch-rows .footer_content {
+  grid-row: footer / span 1;
+  padding: var(--PrimaryPadding__both);
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }
 
-.exch-rows.mrvPanel__side .fullColumn{
-    display: flex;
-    flex-direction: column;
-    grid-row: pTracker / -1;
-    padding: var(--PrimaryPadding__both);
-    gap: 1rem;
+.exch-rows.mrvPanel__side .fullColumn {
+  display: flex;
+  flex-direction: column;
+  grid-row: pTracker / -1;
+  padding: var(--PrimaryPadding__both);
+  gap: 1rem;
 }
 
 /* ---- Exch. Shared Component Styles  ---- */
 
-
 /*--
 
 --*/
-

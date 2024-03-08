@@ -94,6 +94,14 @@
   & .color__tertiary {
     background-color: var(--color__tertiary);
   }
+
+  & .color__interactive__text {
+    color: var(--color__interactive);
+  }
+
+  & .color__interactive {
+    background-color: var(--color__interactive);
+  }
   & .color__green__text {
     color: var(--color__green);
   }
@@ -114,7 +122,6 @@
 
   & input {
     font-family: "Fellix";
-    
   }
 
   /* ---- MRV TEXT STYLES ---- */
@@ -220,8 +227,6 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-
-
   }
 
   & .vBox {
@@ -345,7 +350,6 @@
     justify-content: center;
     box-sizing: border-box;
 
-
     height: 4rem;
     padding: 0rem 1rem;
     margin: 0rem;
@@ -464,13 +468,12 @@
     &.selected {
       background-color: var(--color__card__selected);
       border-color: var(--color__interactive);
-  
+
       &:hover {
         background-color: var(--color__card__selected__hover);
       }
     }
   }
-
 
   /* ---- MRV TABLE STYLES ---- */
 
@@ -553,7 +556,7 @@
     align-items: center;
     border-bottom: var(--primaryBorder);
 
-    & div{
+    & div {
       display: flex;
       height: 2.5rem;
       flex-direction: row;
