@@ -78,19 +78,21 @@ const RtrnInvosList = () => {
   const uiItemCard = (invoice) => {
     const refInvo = new Invoice_SR(invoice);
     return (
-      <div key={invoice.invoNum} className={`cardStyle items_grid itemCard`}>
-        <div className={`receiptDetails`}>
-          <div className={`body__large bold`}># {invoice.invoNum}</div>
-          <div className={`body__small`}>Date: {invoice.dateStr}</div>
-          <div className={`body__small`}>Store: {invoice.store}</div>
-        </div>
-      </div>
+      <div
+        key={invoice.invoNum}
+        className={`cardStyle items_grid itemCard`}
+      ></div>
     );
   };
 
   const uiInvoCard = (invoObj) => {
     return (
-      <div key={invoObj.invoNum} className={`cardStyle items_grid itemCard`}>
+      <div key={invoObj.invoNum} className={`cardStyle invos_grid itemCard`}>
+        <div className={`receiptDetailsCol`}>
+          <div className={`body__large bold`}># {invoObj.invoNum}</div>
+          <div className={`body__small`}>Date: {invoObj.dateStr}</div>
+          <div className={`body__small`}>Store: {invoObj.store}</div>
+        </div>
         <div className={`columnTitleRow items_grid`}> </div>
         <div className={"spacerCol"}></div>
       </div>
@@ -110,7 +112,7 @@ const RtrnInvosList = () => {
   );
 
   const aInvoCards = Object.values(aSessionInvos).map((returnItem) => {
-    return uiItemCard(returnItem);
+    return uiInvoCard(returnItem);
   });
 
   return (
