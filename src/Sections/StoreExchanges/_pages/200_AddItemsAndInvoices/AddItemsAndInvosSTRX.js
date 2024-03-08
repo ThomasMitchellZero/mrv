@@ -6,6 +6,7 @@ import { NoneScanned } from "./NoneScanned";
 import { useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
+import { RtrnInvosList } from "./RtrnInvosList";
 
 function AddItemsAndInvosSTRX() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function AddItemsAndInvosSTRX() {
     active30: "AllEntry30",
     active70: "NoneScanned",
     activeMode: "receipt",
-    clearableFields: clearableFields,
+    clearableFields: clearableFields, // lets me see field names in the other components
     ...clearableFields,
   };
 
@@ -41,6 +42,7 @@ function AddItemsAndInvosSTRX() {
   const o70panels = {
     NoneScanned: <NoneScanned />,
     RtrnItemsList: <RtrnItemsList />,
+    RtrnInvosList: <RtrnInvosList />,
   };
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -55,7 +57,7 @@ function AddItemsAndInvosSTRX() {
           headerTitle={"Receipts and return items"}
         />
         <div className={`main_content`}>
-          {o70panels.RtrnItemsList}
+          {o70panels.RtrnInvosList}
         </div>
       </section>
       {o30panels[locStAddRtrns.active30]}

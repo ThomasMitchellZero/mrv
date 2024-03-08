@@ -57,7 +57,7 @@ const invoiceObj = {
 
   CBBB: new Invoice_SR({
     invoNum: "CBBB",
-    store: 1234,
+    store: "2211",
     date: new Date(2022, 1, 22),
     payment: {
       1111222211112222: {
@@ -87,7 +87,6 @@ const invoiceObj = {
 
   CCCC: new Invoice_SR({
     invoNum: "CCCC",
-    store: 1234,
     date: new Date(2022, 2, 24),
     payment: {
       3333444433334444: {

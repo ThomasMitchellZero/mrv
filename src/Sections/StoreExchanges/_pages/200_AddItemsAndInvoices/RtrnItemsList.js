@@ -73,7 +73,7 @@ const RtrnItemsList = () => {
     return (
       <div
         key={returnItem.atomItemNum}
-        className={`cardStyle aiai_grid itemCard`}
+        className={`cardStyle items_grid itemCard`}
       >
         {itemRow(returnItem)}
         <div className={'spacerCol'}></div>
@@ -82,7 +82,7 @@ const RtrnItemsList = () => {
   };
 
   const uiItemCardTitle = (
-    <div className={`columnTitleRow aiai_grid`}>
+    <div className={`columnTitleRow items_grid`}>
       <div className={`columnTitle detailCol`}>Item</div>
       <div className={`columnTitle totalQtyCol`}>Total Qty</div>
       <div className={`columnTitle receiptCol`}>Receipt</div>

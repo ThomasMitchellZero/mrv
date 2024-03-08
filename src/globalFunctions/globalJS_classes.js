@@ -1,6 +1,5 @@
 //---- Product ----
 
-
 class moneyObj {
   constructor({ unitBaseValue = 0, salesTax = 0, salesTaxRate = 0.09 }) {
     this.unitBaseValue = unitBaseValue;
@@ -119,14 +118,26 @@ class Invoice_SR {
   constructor({
     invoNum = "FART",
     store = "1234",
-    date = Date,
+    date = new Date(2022, 1, 22),
     payment = {},
     products = {},
     itemAtomsArr = [],
     symbolsArr = [],
   }) {
     this.invoNum = invoNum;
-    this.invoiceDetails = { store: store, date: date, payment: payment };
+    this.invoiceDetails = {
+      store: store,
+      date: date,
+      payment: payment,
+    };
+    this.store = store;
+    this.date = date;
+    this.payment = payment;
+    this.dateStr = date.toLocaleDateString("us-EN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
     this.products = products;
     this.symbolsArr = symbolsArr;
 
@@ -203,13 +214,10 @@ const baseReturnState = ({
     sessionInvos,
     atomizedReturnItems,
     totalReturnValue,
-    
   };
 };
 
 // refactor baseReturnState to use a constructor for me.  I want to be able to use the same object in multiple places.
-
-
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
@@ -237,10 +245,7 @@ class returnAtom {
 }
 
 class returnItemXinvosGroup {
-  constructor({
-    itemNum = "",
-    itemXinvoMatches = [],
-  }) {
+  constructor({ itemNum = "", itemXinvoMatches = [] }) {
     this.itemNum = itemNum;
     this.itemXinvoMatches = itemXinvoMatches;
   }
@@ -259,4 +264,3 @@ class returnItemCard {
 }
 
 export { baseReturnState, returnAtom, returnItemXinvosGroup, returnItemCard };
-
