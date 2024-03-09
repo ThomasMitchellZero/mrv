@@ -4,7 +4,7 @@ import Cart from "../../../../assets/lowes-icons/Picture-Icons/cart.svg"
 import Receipt from "../../../../assets/lowes-icons/Picture-Icons/receipt.svg"
 import blank from "../../../../assets/lowes-icons/Picture-Icons/blank.svg"
 
-const NoneScanned = ({mainTitle = "Main Title", subtitle = "Subtitle", imgStr = ""}) => {
+const ScanScreenMRV = ({mainTitle = "Main Title", subtitle = "Subtitle", imgStr = ""}) => {
   return (
     <div className={`noneScanned`}>
       <img src={Universal} alt={"Scanning Graphic"} />
@@ -16,7 +16,7 @@ const NoneScanned = ({mainTitle = "Main Title", subtitle = "Subtitle", imgStr = 
   );
 };
 
-export { NoneScanned };
+export { ScanScreenMRV };
 
 /*
 
