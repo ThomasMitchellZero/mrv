@@ -22,13 +22,17 @@ function AddItemsAndInvosSTRX() {
 
   const defaultState = {
     active30: "AllEntry30",
-    active70: "NoneScanned",
     activeMode: "receipt",
     clearableFields: clearableFields, // lets me see field names in the other components
     ...clearableFields,
   };
 
   const [locStAddRtrns, setLocStAddRtrns] = useImmer(defaultState);
+
+  const s70label = {
+    item: "Return Items",
+    receipt: "Receipts",
+  };
 
   const o30panels = {
     AllEntry30: (
@@ -40,9 +44,8 @@ function AddItemsAndInvosSTRX() {
   };
 
   const o70panels = {
-    NoneScanned: <NoneScanned />,
-    RtrnItemsList: <RtrnItemsList />,
-    RtrnInvosList: <RtrnInvosList />,
+    item: <RtrnItemsList />,
+    receipt: <RtrnInvosList />,
   };
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -54,10 +57,10 @@ function AddItemsAndInvosSTRX() {
       <section className={`mrvPanel__main`}>
         <HeaderSTRX
           showProductName={true}
-          headerTitle={"Receipts and return items"}
+          headerTitle={s70label[locStAddRtrns.activeMode]}
         />
         <div className={`main_content`}>
-          {o70panels.RtrnInvosList}
+          {o70panels[locStAddRtrns.activeMode]}
         </div>
       </section>
       {o30panels[locStAddRtrns.active30]}

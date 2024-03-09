@@ -4,6 +4,7 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
+import { NoneScanned } from "./NoneScanned";
 import {
   Invoice_SR,
   returnAtom,
@@ -17,10 +18,8 @@ const RtrnInvosList = () => {
   const aSessionInvos = sessionState.sessionInvos;
   const aAtomizedItems = sessionState.atomizedReturnItems;
 
-  /*
 
-  */
-
+  // a selectable subcard for an invo item.
   const uiItemSubcard = (invoAtom) => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
@@ -65,7 +64,6 @@ const RtrnInvosList = () => {
     );
   };
 
-
   // a card containing the invoice details, clusters of the items it contains, and their children, if any.
   const uiInvoCard = (invoObj) => {
     const aInvoProducts = invoObj.itemAtomsArr;
@@ -103,7 +101,7 @@ const RtrnInvosList = () => {
   const uiInvoCardTitle = (
     <div className={`columnTitleRow invos_grid`}>
       <div className={`columnTitle receiptDetailsCol`}>Receipt #</div>
-      <div className={`columnTitle invoItemDetailsCol`}>Item</div>
+      <div className={`columnTitle invoItemDetailsCol`}>Items In Receipt</div>
       <div className={`columnTitle unitQtyCol`}>Qty</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
       <div className={`columnTitle unitIconCol`}></div>
