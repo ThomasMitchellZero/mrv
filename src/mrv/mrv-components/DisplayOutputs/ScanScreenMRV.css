@@ -1,4 +1,4 @@
-.mrv .scanSceen {
+.mrv .scanScreen {
   display: flex;
   flex: 1 1 0rem;
   flex-direction: column;
@@ -8,6 +8,10 @@
 
   & img {
     height: 8rem;
+  }
+
+  & h4 {
+    text-transform: capitalize;
   }
 }
 

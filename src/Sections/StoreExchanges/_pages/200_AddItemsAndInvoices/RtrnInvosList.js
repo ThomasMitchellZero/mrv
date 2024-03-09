@@ -4,7 +4,7 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
-import isEmpty from "lodash.isempty";
+
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import {
   Invoice_SR,
@@ -18,10 +18,16 @@ const RtrnInvosList = () => {
   const setSession = strxCtx.setSessionStrx;
   const aSessionInvos = sessionState.sessionInvos;
   const aAtomizedItems = sessionState.atomizedReturnItems;
-  const isObjEmpty = isEmpty();
-  const noInvos = isObjEmpty(aSessionInvos);
 
-  const uiScanInvos = <ScanScreenMRV mainTitle="Scan Or Enter Receipts" />;
+  const noInvos = Object.entries(aSessionInvos).length === 0;
+
+  const uiScanInvos = (
+    <ScanScreenMRV
+      mainTitle="scan Or Enter Receipts"
+      subtitle="Or press 'Items' tab to add items to the cart"
+      imgStr="Receipt"
+    />
+  );
 
   // a selectable subcard for an invo item.
   const uiItemSubcard = (invoAtom) => {

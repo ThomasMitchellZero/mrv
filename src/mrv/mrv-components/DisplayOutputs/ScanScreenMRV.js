@@ -1,17 +1,28 @@
-import "./ScanScreenMRV.css"
-import Universal from "../../../../assets/lowes-icons/Picture-Icons/universal-scan.svg"
-import Cart from "../../../../assets/lowes-icons/Picture-Icons/cart.svg"
-import Receipt from "../../../../assets/lowes-icons/Picture-Icons/receipt.svg"
-import blank from "../../../../assets/lowes-icons/Picture-Icons/blank.svg"
+import "./ScanScreenMRV.css";
+import Universal from "../../../assets/lowes-icons/Picture-Icons/universal-scan.svg";
+import Cart from "../../../assets/lowes-icons/Picture-Icons/Cart.svg";
+import Receipt from "../../../assets/lowes-icons/Picture-Icons/Receipt.svg";
 
-const ScanScreenMRV = ({mainTitle = "Main Title", subtitle = "Subtitle", imgStr = ""}) => {
+const ScanScreenMRV = ({
+  mainTitle = "Main Title",
+  subtitle = "Subtitle",
+  subtitleJSX = null,
+  imgStr = "",
+}) => {
+  const imgSrc = {
+    Universal,
+    Cart,
+    Receipt,
+  };
+
+  const activeImg = imgSrc[imgStr] || imgSrc.Universal;
+
   return (
-    <div className={`noneScanned`}>
-      <img src={Universal} alt={"Scanning Graphic"} />
-      <h4 className={`color__primary__text`}>Start Scanning</h4>
-      <p className={`color__tertiary__text body__large`}>
-        You may scan or enter multiple receipts or items
-      </p>
+    <div className={`scanScreen`}>
+      <img src={activeImg} alt={"Scanning Graphic"} />
+      <h4 className={`color__primary__text`}>{mainTitle}</h4>
+      <p className={`color__tertiary__text body__large`}>{subtitle}</p>
+      {subtitleJSX}
     </div>
   );
 };
