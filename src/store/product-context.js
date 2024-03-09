@@ -15,6 +15,7 @@ import toilet_img from "../assets/product-images/toilet.png";
 import topload_washer_img from "../assets/product-images/samsung-top-load.png";
 import wallwart_img from "../assets/product-images/wall-wart.png";
 import washer_img from "../assets/product-images/washer.png";
+import child_arrow from "../assets/product-images/child-arrow.png";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 import { Product } from "../globalFunctions/globalJS_classes";
 
@@ -116,12 +117,7 @@ const ProductContext = React.createContext({
   // For use in Exchanges
 
   3333: new Product({
-    image: (
-      <MdSubdirectoryArrowRight
-        fontSize="2.5rem"
-        className={`color__tertiary__text`}
-      />
-    ),
+    img: child_arrow,
     itemNum: "3333",
     modelNum: "3YY",
     description: "3 Year LPP",

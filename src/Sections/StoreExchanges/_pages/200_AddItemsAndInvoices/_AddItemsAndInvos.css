@@ -172,7 +172,7 @@
     & .invos_grid {
       display: grid;
       grid-template-columns:
-        [receiptDetails] 18rem
+        [receiptDetails] 12rem
         [invoItemDetails] 1fr
         [unitQty] 2.5rem
         [unitPrice] 8rem
@@ -204,7 +204,7 @@
       gap: 1rem;
       padding-bottom: 1rem;
       border-bottom: var(--primaryBorder);
-      
+
       &:last-child {
         border-bottom: none;
       }
