@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
+import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
@@ -12,10 +13,23 @@ const RtrnItemsList = () => {
   const aReturnItems = sessionState.returnItems;
   const aAtomizedItems = sessionState.atomizedReturnItems;
 
+  const noItems = aReturnItems.length === 0;
+
   const aMainItems = aReturnItems.filter((returnItem) => {
     return !returnItem.parentKey;
   });
 
+
+ // blank screen for no items.
+  const uiScanItems = (
+    <ScanScreenMRV
+      mainTitle="scan Or Enter Items"
+      subtitle="Or press 'Receipts' tab to enter receipts"
+      imgStr="Cart"
+    />
+  );
+
+  // a row for invoice-specific details of this item.
   const uiInfoRow = (atomizedItem) => {
     const hasInvo = atomizedItem.atomInvoNum;
     const oVals = {
@@ -76,7 +90,7 @@ const RtrnItemsList = () => {
         className={`cardStyle items_grid itemCard`}
       >
         {itemRow(returnItem)}
-        <div className={'spacerCol'}></div>
+        <div className={"spacerCol"}></div>
       </div>
     );
   };
@@ -88,7 +102,6 @@ const RtrnItemsList = () => {
       <div className={`columnTitle receiptCol`}>Receipt</div>
       <div className={`columnTitle unitQtyCol`}>Qty</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
-      
     </div>
   );
 
@@ -96,7 +109,9 @@ const RtrnItemsList = () => {
     return uiItemCard(returnItem);
   });
 
-  return (
+  return noItems ? (
+    uiScanItems
+  ) : (
     <section className={`cardContainer itemsList`}>
       {uiItemCardTitle}
       {uiCardArr}
