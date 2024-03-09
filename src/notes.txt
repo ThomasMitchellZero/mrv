@@ -6995,6 +6995,38 @@ What to do today?
 
     That is MUCH more simple.  
 
+4 Mar 2024
+    5:40
+    OK, J1 took a little longer than I expected but I feel like I'm in pretty good shape now.  I have designs I'm pretty happy with for Return Items and Receipts, so I figure I can just blaze on ahead and bang this bitch out.
+
+    First order of business is to get the Product Details card up and running, so let's do that first.  The main thing on my mind is that for the Qty and Price, there are three potential values.
+        -Has price and/or qty via the standard values of the itemAtom
+        -Has custom values to be specified by me.
+        -Empty.
+
+    So I think what I will do is for $ and qty, I will have a prop to show it or not, and then if it is shown there will be a second prop that is the itemAtom values by default.
+
+9 Mar 2024
+    10:40
+    As is tradition, I spend the last hour reading about WW2 airplanes.  However!  I am now ready to go and it's still early enough that I've got plenty of time to get everything going well.  I actually feel like I am pretty close to being able to share this on Monday.  So we will need:
+        -Finish fixing up the CSS for Invoices
+            X-Spacing / dividers between the invo item clusters.
+            -Figure out why icon isn't displaying in ItemDetails
+            X-Align trash can to center.
+        -Set logic to show Items / Invos list depending on tab.
+        -Separate "Scan" screens for Items / Invos.
+        -Logic to show "Scan" screen if Items or Invos are empty, probably to live in the respective parent component.
+        -Going to need some kind of Nav header, along with a state.  Make universalizable?
+        -Fix up Items.
+            -IIRC I am going to need a separate column for the items, since they can be shared.
+            -See if there is any way to simplify/share the CSS?
+        -State management, although that's probably its own bit.
+        
+
+
+
+
+
 
 
 

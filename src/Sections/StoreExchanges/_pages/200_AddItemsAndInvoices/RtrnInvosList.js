@@ -47,7 +47,7 @@ const RtrnInvosList = () => {
     );
   };
 
-  // create a cluster of a parent item and its children, if any.
+  // a cluster of an invo item and its children, if any.
 
   const uiItemCluster = (invoAtom = new returnAtom({}), childrenArr = []) => {
     // in the card creation, we will pre-filter the children array to only include items that have the same parent key as the invoAtom.
@@ -65,6 +65,8 @@ const RtrnInvosList = () => {
     );
   };
 
+
+  // a card containing the invoice details, clusters of the items it contains, and their children, if any.
   const uiInvoCard = (invoObj) => {
     const aInvoProducts = invoObj.itemAtomsArr;
     // filter out any child items, since they will be displayed adjacent to their parent item.

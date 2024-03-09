@@ -177,7 +177,7 @@
         [unitQty] 2.5rem
         [unitPrice] 8rem
         [unitIcon] 5rem
-        [spacer] 1px
+        [spacer] .125rem
         [trash] 5.5rem;
       flex: 0 0 auto;
       gap: 1rem;
@@ -201,6 +201,13 @@
       display: grid;
       grid-template-columns: subgrid;
       grid-column: invoItemDetails / spacer;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: var(--primaryBorder);
+      
+      &:last-child {
+        border-bottom: none;
+      }
 
 
     }
