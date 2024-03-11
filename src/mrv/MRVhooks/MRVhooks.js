@@ -68,11 +68,12 @@ export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
 
 // change qty of an existing itemAtom.
 
-const editItemQty = (clonedItemsArr, itemNumToEdit, newQty) => {  
-  const refdefaultState = baseReturnState({});
+function editItemQty (clonedSessionState, itemNumToEdit, newQty) {  
+  // Takes a cloned session state and returns a new session state with the itemNumToEdit's qty set to newQty.
+  const refDefaultState = baseReturnState({});
   // Takes an array of items and returns a new array with the itemNumToEdit's qty set to newQty.
 
-  const outItemsArr = cloneDeep(clonedItemsArr);
+  const outItemsArr = clonedSessionState.returnItems;
 
   const targetIndex = outItemsArr.findIndex((thisItem) => {
     return thisItem.atomItemNum === itemNumToEdit;
@@ -83,8 +84,9 @@ const editItemQty = (clonedItemsArr, itemNumToEdit, newQty) => {
   }
 
   outItemsArr[targetIndex].atomItemQty = Number(newQty);
+  const outSessionState = returnAutoDeriver(clonedSessionState);
 
-  return outItemsArr;
+  return outSessionState;
 }
 
 const useEditItemQty = () => { 
@@ -280,31 +282,32 @@ const autoAddChildAtoms = (clonedDraft) => {
   return clonedDraft;
 };
 
+function returnAutoDeriver(clonedDraft) {
+  // purpose is to perform all derivations needed when performing a return.
+  // returns a new draft, which must be assigned to the state.
+
+  let outSessionState = cloneDeep(clonedDraft);
+
+  // auto-add child atoms if their parent is in the returnItems
+  outSessionState = autoAddChildAtoms(outSessionState);
+
+  // atomize the returnItems
+  outSessionState.atomizedReturnItems = returnAtomizer({
+    sessionItemsArr: outSessionState.returnItems,
+    sessionInvosObj: outSessionState.sessionInvos,
+  });
+
+  // calculate the sum of all atoms matched to invoices.
+  outSessionState.totalReturnValue = atomsMonetizer(
+    outSessionState.atomizedReturnItems
+  );
+
+  outSessionState.wholeBigNumber = outSessionState.totalReturnValue.unitTotal;
+
+  return outSessionState; }
+
+
 const useReturnAutoDeriver = () => {
-  const returnAutoDeriver = (draftState) => {
-    // purpose is to perform all derivations needed when performing a return.
-    // returns a new draft, which must be assigned to the state.
-
-    let outSessionState = cloneDeep(draftState);
-
-    // auto-add child atoms if their parent is in the returnItems
-    outSessionState = autoAddChildAtoms(outSessionState);
-
-    // atomize the returnItems
-    outSessionState.atomizedReturnItems = returnAtomizer({
-      sessionItemsArr: outSessionState.returnItems,
-      sessionInvosObj: outSessionState.sessionInvos,
-    });
-
-    // calculate the sum of all atoms matched to invoices.
-    outSessionState.totalReturnValue = atomsMonetizer(
-      outSessionState.atomizedReturnItems
-    );
-
-    outSessionState.wholeBigNumber = outSessionState.totalReturnValue.unitTotal;
-
-    return outSessionState;
-  };
   return returnAutoDeriver;
 };
 

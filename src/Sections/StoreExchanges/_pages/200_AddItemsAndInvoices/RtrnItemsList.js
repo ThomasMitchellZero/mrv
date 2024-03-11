@@ -31,12 +31,13 @@ const RtrnItemsList = () => {
   const handleQtyChange = (e, atomizedItem) => {
     const newQty = e.target.value;
     let outSessionState = cloneDeep(sessionState);
-    outSessionState.returnItems = editItemQty(
-      outSessionState.returnItems,
+
+    outSessionState = editItemQty(
+      outSessionState,
       atomizedItem.atomItemNum,
       newQty
     );
-    outSessionState = autoDeriver(outSessionState);
+
     setSession(() => {
       return outSessionState;
     });
