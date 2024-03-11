@@ -234,7 +234,6 @@ class returnAtom {
   }) {
     this.atomItemNum = atomItemNum;
     this.parentKey = parentKey;
-    this.atomItemKey = parentKey ? `${atomItemNum}WW${parentKey}` : atomItemNum;
     this.atomInvoNum = atomInvoNum;
     this.atomMoneyObj = atomMoneyObj || new moneyObj({});
     this.atomDispoKey = atomDispoKey;
