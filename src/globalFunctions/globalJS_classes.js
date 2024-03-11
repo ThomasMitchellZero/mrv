@@ -223,26 +223,33 @@ class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
 
   constructor({
+    parentKey = "",
     atomInvoNum = "",
     atomMoneyObj = null,
     atomDispoKey = "",
     atomItemNum = "",
     atomItemQty = 0,
-    parentKey = "",
+    bifrostKey = "",
+
   }) {
+    this.atomItemNum = atomItemNum;
+    this.parentKey = parentKey;
+    this.atomItemKey = parentKey ? `${atomItemNum}WW${parentKey}` : atomItemNum;
     this.atomInvoNum = atomInvoNum;
     this.atomMoneyObj = atomMoneyObj || new moneyObj({});
     this.atomDispoKey = atomDispoKey;
-    this.atomItemNum = atomItemNum;
     this.atomItemQty = atomItemQty;
     this.unitTotal = this.atomMoneyObj.unitTotal;
-    this.parentKey = parentKey;
+    this.bifrostKey = bifrostKey || this.atomItemNum;
+
   }
 
   get primaryKey() {
     return `${this.atomItemNum}&${this.atomInvoNum}&${this.unitTotal}`;
   }
 }
+
+/*
 
 class returnItemXinvosGroup {
   constructor({ itemNum = "", itemXinvoMatches = [] }) {
@@ -254,13 +261,17 @@ class returnItemXinvosGroup {
 class returnItemCard {
   constructor({
     mainItemNum = "",
-    mainItemCard = new returnItemXinvosGroup({}),
+    //mainItemCard = new returnItemXinvosGroup({}),
     childItemRows = [],
   }) {
     this.mainItemNum = mainItemNum;
-    this.mainItemCard = mainItemCard;
     this.childItemRows = childItemRows;
   }
 }
+*/
 
-export { baseReturnState, returnAtom, returnItemXinvosGroup, returnItemCard };
+
+
+
+
+export { baseReturnState, returnAtom };

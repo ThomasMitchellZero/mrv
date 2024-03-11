@@ -4,10 +4,7 @@ import InvoContext from "../../store/invo-context";
 
 import { useContext } from "react";
 
-import produce from "immer";
-
 import {
-  ProdClass,
   Invoice_SR,
   sessionItem,
   InvoProduct,
@@ -15,8 +12,6 @@ import {
   singleDispo,
   moneyObj,
   baseReturnState,
-  returnItemXinvosGroup,
-  returnItemCard,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -214,9 +209,7 @@ const useReturnAtomizer = () => {
 const autoAddChildAtoms = (clonedDraft) => {
   // Papa?  Is it you?
 
-  // We need this because the only way we can tell if an item has a parent is from the invoice.  
-
-  
+  // We need this because the only way we can tell if an item has a parent is from the invoice.
 
   const refSessionState = baseReturnState({});
   const refItemAtom = new returnAtom({});
@@ -229,7 +222,7 @@ const autoAddChildAtoms = (clonedDraft) => {
   });
 
   for (const thisAtom of itemsSold) {
-    // if this atom has a parent and the parent is in the itemsFromInvos but this atom is not, add it.
+    // check if atom has a parent
     const parentItemNum = thisAtom.parentKey;
 
     // see if the parent is in the returnItems
@@ -249,13 +242,9 @@ const autoAddChildAtoms = (clonedDraft) => {
 
     // if this is a child item and it is not already in the returnItems but its parent is, add it.
     if (parentItemNum && parentReturned && !childReturned) {
-      clonedDraft.returnItems.push(
-        new returnAtom({
-          atomItemNum: thisAtom.atomItemNum,
-          atomItemQty: 0,
-          parentKey: parentItemNum,
-        })
-      );
+      const outAtom = cloneDeep(thisAtom);
+      outAtom.atomItemQty = 0;
+      clonedDraft.returnItems.push(outAtom);
     }
   }
   return clonedDraft;

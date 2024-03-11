@@ -7055,6 +7055,12 @@ What to do today?
         -Something, either a method or conditional assignment in the Class that creates an item primary key.
         -I would have to go back through and make sure everything is referencing the itemKey, whatever that ends up being.  
 
+    And so I think the way I want to handle this is "On creation, use the itemNum (because we have to).  For anything else, reference the atomItemKey."
+
+    Man.  This feels like it could get complicated.  And I am feeling very slow and weak and loggy right now.  
+
+    Does this get any better if I just manually create unique the unique item nums?  I feel like it does?  I would need to add in an extra Bifrost field, but that's really about all.  
+
 
 
 

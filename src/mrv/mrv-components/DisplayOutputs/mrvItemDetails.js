@@ -18,7 +18,7 @@ function MRVitemDetails({
   const productContext = useContext(ProductContext);
   const centsToDollars = useCentsToDollars();
 
-  const ctxItemInfo = productContext[thisItemAtom.atomItemNum];
+  const ctxItemInfo = productContext[thisItemAtom.bifrostKey];
 
   // price is normally the unitTotal, but if priceInCents is passed, it will use that instead
   const priceStr =
