@@ -44,7 +44,7 @@ const RtrnItemsList = () => {
     };
 
     return (
-      <div key={atomizedItem.atomItemNum} className={`invoInfoRow`}>
+      <div key={atomizedItem.primaryKey} className={`invoInfoRow`}>
         <div className={`body__small field receiptCol ${oVals.red}`}>
           {oVals.invo}
         </div>
@@ -103,7 +103,7 @@ const RtrnItemsList = () => {
 
     return (
       <div
-        key={returnItem.atomItemNum}
+        key={returnItem.primaryKey}
         className={`cardStyle entryCard items_grid`}
       >
         <div className={"itemColumn field"}>{outSubcardArr}</div>

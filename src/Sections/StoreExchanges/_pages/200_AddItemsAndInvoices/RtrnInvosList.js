@@ -34,7 +34,7 @@ const RtrnInvosList = () => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
     return (
-      <div key={invoAtom} className={`cardStyle hasHover invoItemSubcard`}>
+      <div key={invoAtom.primaryKey} className={`cardStyle hasHover invoItemSubcard`}>
         <div className={`invoItemDetailsCol`}>
           <MRVitemDetails
             showPrice={false}
