@@ -90,7 +90,7 @@ const RtrnInvosList = () => {
     });
 
     return (
-      <div key={invoObj.invoNum} className={`cardStyle invos_grid`}>
+      <div key={invoObj.invoNum} className={`cardStyle entryCard invos_grid`}>
         <div className={`receiptDetailsCol`}>
           <div className={`body__large bold`}>{invoObj.invoNum}</div>
           <div className={`body__small`}>Date: {invoObj.dateStr}</div>
@@ -99,10 +99,12 @@ const RtrnInvosList = () => {
         <div className={`invoItemsColumn`}>{uiItemClusterArr}</div>
         <div className={`spacerCol`}></div>
         <div className={`deleteCol field`}>
-          <MdDeleteOutline
-            fontSize="2.5rem"
-            className={`color__interactive__text`}
-          />
+          <button className={`ghost fullWidth`}>
+            <MdDeleteOutline
+              fontSize="2.5rem"
+              className={`color__interactive__text`}
+            />
+          </button>
         </div>
       </div>
     );

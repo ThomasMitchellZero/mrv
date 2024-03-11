@@ -57,23 +57,23 @@
     padding: 1rem;
   }
 
+  & .field {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+  }
+
   /* --------------------------------------------- */
   /* --------------   Items List   --------------- */
   /* --------------------------------------------- */
 
   & .itemsList {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0rem;
-    width: 100%;
-    gap: 1rem;
-    padding: 1rem 0rem;
-
     & .items_grid {
       display: grid;
       grid-template-columns:
         [detail] 1fr
-        [totalQty] 8rem
+        [totalQty] 5rem
         [receipt] 9rem
         [unitQty] 2.5rem
         [unitPrice] 8rem
@@ -84,12 +84,13 @@
       gap: 1rem;
     }
 
-    & .itemCard {
-      flex: 0 0 auto;
-      padding: 1rem;
-    }
-
     & .itemColumn {
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: detail / spacer;
+      gap: 1rem;
+
+
     }
 
     /* 1 per individual item in the card.  Main and child are the same. */
@@ -103,16 +104,12 @@
       align-items: flex-start;
       box-shadow: none;
     }
+
     & .invoInfo {
       display: grid;
       grid-column: receipt / span 4;
       grid-template-columns: subgrid;
       gap: 1rem;
-
-      & div {
-        display: flex;
-        flex-direction: row;
-      }
 
       & .invoInfoRow {
         display: grid;
@@ -124,6 +121,10 @@
 
     & .detailCol {
       grid-column: detail / span 1;
+
+      &.columnTitle {
+        padding-left: 2rem;
+      }
     }
 
     & .totalQtyCol {
@@ -132,10 +133,12 @@
 
     & .receiptCol {
       grid-column: receipt / span 1;
+      justify-content: flex-end;
     }
 
     & .unitQtyCol {
       grid-column: unitQty / span 1;
+      justify-content: flex-end;
     }
 
     & .unitPriceCol {
@@ -155,10 +158,11 @@
     & .spacerCol {
       grid-column: spacer / span 1;
       height: 100%;
-      background-color: var(--primary__border);
+      background-color: var(--color__border);
     }
     & .deleteCol {
       grid-column: trash / span 1;
+      justify-content: center;
     }
   }
 
@@ -177,17 +181,10 @@
         [unitQty] 2.5rem
         [unitPrice] 8rem
         [unitIcon] 5rem
-        [spacer] .125rem
+        [spacer] 1px
         [trash] 5.5rem;
       flex: 0 0 auto;
       gap: 1rem;
-
-      & .field {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 100%;
-      }
     }
 
     & .invoItemsColumn {
@@ -202,15 +199,11 @@
       grid-template-columns: subgrid;
       grid-column: invoItemDetails / spacer;
       gap: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: var(--primaryBorder);
 
       &:last-child {
         border-bottom: none;
         padding-bottom: 0rem;
       }
-
-
     }
 
     & .invoItemSubcard {

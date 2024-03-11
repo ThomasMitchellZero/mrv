@@ -4,6 +4,7 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
+import { MdDeleteOutline } from "react-icons/md";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
@@ -19,8 +20,7 @@ const RtrnItemsList = () => {
     return !returnItem.parentKey;
   });
 
-
- // blank screen for no items.
+  // blank screen for no items.
   const uiScanItems = (
     <ScanScreenMRV
       mainTitle="scan Or Enter Items"
@@ -35,27 +35,33 @@ const RtrnItemsList = () => {
     const oVals = {
       invo: hasInvo ? atomizedItem.atomInvoNum : "Needs Receipt",
       red: hasInvo ? "" : "color__red__text",
-      unitVal: hasInvo ? centsToDollars(atomizedItem.unitTotal) : "- -",
+      unitVal: hasInvo ? `$${centsToDollars(atomizedItem.unitTotal)}` : "- -",
       totalVal: hasInvo
-        ? centsToDollars(atomizedItem.unitTotal * atomizedItem.atomItemQty)
+        ? `$${centsToDollars(
+            atomizedItem.unitTotal * atomizedItem.atomItemQty
+          )}`
         : "- -",
     };
 
     return (
       <div key={atomizedItem.atomItemNum} className={`invoInfoRow`}>
-        <div className={`body__small receiptCol ${oVals.red}`}>
+        <div className={`body__small field receiptCol ${oVals.red}`}>
           {oVals.invo}
         </div>
-        <div className={`unitQtyCol body`}>{atomizedItem.atomItemQty}</div>
-        <div className={`unitPriceCol body alignRight`}>{oVals.unitVal}</div>
-        <div className={`totalPriceCol alignRight body__large bold `}>
+        <div className={`unitQtyCol field body`}>
+          {atomizedItem.atomItemQty}
+        </div>
+        <div className={`unitPriceCol field body alignRight`}>
+          {oVals.unitVal}
+        </div>
+        <div className={`totalPriceCol field alignRight body__large bold`}>
           {oVals.totalVal}
         </div>
       </div>
     );
   };
 
-  const itemRow = (rowItem) => {
+  const uiItemSubcard = (rowItem) => {
     const aInvoicedItems = aAtomizedItems.filter((atom) => {
       return atom.atomItemNum === rowItem.atomItemNum;
     });
@@ -84,13 +90,32 @@ const RtrnItemsList = () => {
   };
 
   const uiItemCard = (returnItem) => {
+    // look for associated child items.
+    const aItemAndChildren = aReturnItems.filter((thisAtom) => {
+      return thisAtom.parentKey === returnItem.atomItemNum;
+    });
+    // add the parent item to the beginning of the array.
+    aItemAndChildren.unshift(returnItem);
+
+    const outSubcardArr = aItemAndChildren.map((thisAtom) => {
+      return uiItemSubcard(thisAtom);
+    });
+
     return (
       <div
         key={returnItem.atomItemNum}
-        className={`cardStyle items_grid itemCard`}
+        className={`cardStyle entryCard items_grid`}
       >
-        {itemRow(returnItem)}
-        <div className={"spacerCol"}></div>
+        <div className={"itemColumn field"}>{outSubcardArr}</div>
+        <div className={"spacerCol field"}></div>
+        <div className={`deleteCol field`}>
+          <button className={`ghost fullWidth`}>
+            <MdDeleteOutline
+              fontSize="2.5rem"
+              className={`color__interactive__text`}
+            />
+          </button>
+        </div>
       </div>
     );
   };
