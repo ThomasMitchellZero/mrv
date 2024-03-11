@@ -116,7 +116,7 @@ const invoiceObj = {
   }),
 
   CDDD: new Invoice_SR({
-    invoNum: "CCCC",
+    invoNum: "CDDD",
     store: 1234,
     date: new Date(2022, 4, 4),
     payment: {

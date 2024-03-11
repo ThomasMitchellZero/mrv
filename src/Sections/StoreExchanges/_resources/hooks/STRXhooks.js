@@ -9,7 +9,7 @@ import {
   InvoProduct,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import { useReturnAutoDeriver } from "../../../../mrv/MRVhooks/MRVhooks";
+import { useReturnAutoDeriver, useDeleteItemAtom } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { cloneDeep, isEmpty } from "lodash";
 
@@ -56,6 +56,28 @@ export {
   useCentsToDollars,
 };
 
+
+const useSTRXdeleteItem = () => { 
+  const strxCtx = useOutletContext();
+  const sessionState = strxCtx.sessionSTRX;
+  const setSession = strxCtx.setSessionStrx;
+  const deleteItemAtom = useDeleteItemAtom();
+
+  const STRXdeleteItem = (itemNum) => {
+    let outSessionState = cloneDeep(sessionState);
+
+    outSessionState = deleteItemAtom(outSessionState, itemNum);
+
+    setSession(() => {
+      return outSessionState;
+    });
+  };
+  return STRXdeleteItem;
+}
+
+export { useSTRXdeleteItem };
+
+
 const useAutoDeriverSTRX = () => {
   const returnAutoDeriver = useReturnAutoDeriver();
 
@@ -68,6 +90,9 @@ const useAutoDeriverSTRX = () => {
   };
   return autoDeriverSTRX;
 };
+
+
+
 
 
 export { useAutoDeriverSTRX };

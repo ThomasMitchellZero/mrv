@@ -7059,7 +7059,14 @@ What to do today?
 
     Man.  This feels like it could get complicated.  And I am feeling very slow and weak and loggy right now.  
 
-    Does this get any better if I just manually create unique the unique item nums?  I feel like it does?  I would need to add in an extra Bifrost field, but that's really about all.  
+    Does this get any better if I just manually create unique the unique item nums?  I feel like it does?  I would need to add in an extra Bifrost field, but that's really about all.
+
+    5:40.
+    Got the qty updates working, and now I am having a different issue.  The auto-child items are not adding correctly.  
+
+    OK.  Looks like the issue was that I was still pre-adding an invoice to the child item.  Since the invoice is one of the things the Matchmaker looks for, this meant I was failing to split out the unmatched items.  
+
+    OK.  I am going to try to get the deletions up and running and then I will call it a day.  Active Items is going to require some state-level thinking and that's not what I am looking to do right now.
 
 
 

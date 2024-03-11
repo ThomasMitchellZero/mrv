@@ -7,16 +7,18 @@ import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/Sca
 import { MdDeleteOutline } from "react-icons/md";
 import {
   useEditItemQty,
-  useReturnAutoDeriver,
+  useDeleteItemAtom,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import cloneDeep from "lodash.clonedeep";
+import { useSTRXdeleteItem } from "../../_resources/hooks/STRXhooks";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
   const editItemQty = useEditItemQty();
-  const autoDeriver = useReturnAutoDeriver();
+  const strxDeleteItem = useSTRXdeleteItem();
+
   const sessionState = strxCtx.sessionSTRX;
   const setSession = strxCtx.setSessionStrx;
   const aReturnItems = sessionState.returnItems;
@@ -139,7 +141,12 @@ const RtrnItemsList = () => {
         <div className={"itemColumn field"}>{outSubcardArr}</div>
         <div className={"spacerCol field"}></div>
         <div className={`deleteCol field`}>
-          <button className={`ghost fullWidth`}>
+          <button
+            className={`ghost fullWidth`}
+            onClick={() => {
+              strxDeleteItem(returnItem);
+            }}
+          >
             <MdDeleteOutline
               fontSize="2.5rem"
               className={`color__interactive__text`}

@@ -62,13 +62,11 @@ const atomsMonetizer = (arrayOfAtoms) => {
   return outTotalMoneyObj;
 };
 
-
 export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
-
 
 // change qty of an existing itemAtom.
 
-function editItemQty (clonedSessionState, itemNumToEdit, newQty) {  
+function editItemQty(clonedSessionState, itemNumToEdit, newQty) {
   // Takes a cloned session state and returns a new session state with the itemNumToEdit's qty set to newQty.
   const refDefaultState = baseReturnState({});
   // Takes an array of items and returns a new array with the itemNumToEdit's qty set to newQty.
@@ -89,12 +87,9 @@ function editItemQty (clonedSessionState, itemNumToEdit, newQty) {
   return outSessionState;
 }
 
-const useEditItemQty = () => { 
+const useEditItemQty = () => {
   return editItemQty;
-}
-
-
-
+};
 
 const useAddItemAtom = () => {
   const itemCtx = useContext(ProductContext);
@@ -136,6 +131,34 @@ const useAddItemAtom = () => {
   };
   return addItemAtom;
 };
+
+function deleteItemAtom(clonedSessionState, atomToDelete) { 
+
+  const refDefaultState = baseReturnState({});
+  const refAtom = new returnAtom({});
+
+  const itemNumToDelete = atomToDelete.atomItemNum;
+  let outSessionState = clonedSessionState;
+  let outItemsArr = outSessionState.returnItems;
+
+  // clear this item.
+  outItemsArr = outItemsArr.filter((thisItem) => {
+    return thisItem.atomItemNum !== itemNumToDelete;
+  });
+  // clear any children of this item.
+  outItemsArr = outItemsArr.filter((thisItem) => { 
+    return thisItem.parentKey !== itemNumToDelete;
+  });
+
+  outSessionState.returnItems = outItemsArr;
+  outSessionState = returnAutoDeriver(outSessionState);
+
+  return outSessionState;
+}
+
+const useDeleteItemAtom = () => {
+  return deleteItemAtom;
+}
 
 const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   // accepts an object of Session Items and an array of Session Invos
@@ -194,16 +217,9 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
     // TODO - call sorting function here.
 
     for (const thisInvoItemAtom of aUM_InvoicedItemAtoms) {
-      // Only operate on items with this itemNum AND parent key.
+      // Only operate on items with this itemNum.
 
-      const itemMatches =
-        thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum &&
-        thisInvoItemAtom.parentKey === thisItemAtom.parentKey;
-
-      if (
-        thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum &&
-        thisInvoItemAtom.parentKey === thisItemAtom.parentKey
-      ) {
+      if (thisInvoItemAtom.atomItemNum === thisItemAtom.atomItemNum) {
         const nMatchedQty = Math.min(
           thisItemAtom.atomItemQty,
           thisInvoItemAtom.atomItemQty
@@ -276,6 +292,7 @@ const autoAddChildAtoms = (clonedDraft) => {
     if (parentItemNum && parentReturned && !childReturned) {
       const outAtom = cloneDeep(thisAtom);
       outAtom.atomItemQty = 0;
+      outAtom.atomInvoNum = "";
       clonedDraft.returnItems.push(outAtom);
     }
   }
@@ -304,11 +321,17 @@ function returnAutoDeriver(clonedDraft) {
 
   outSessionState.wholeBigNumber = outSessionState.totalReturnValue.unitTotal;
 
-  return outSessionState; }
-
+  return outSessionState;
+}
 
 const useReturnAutoDeriver = () => {
   return returnAutoDeriver;
 };
 
-export { useReturnAtomizer, useAddItemAtom, useEditItemQty, useReturnAutoDeriver };
+export {
+  useReturnAtomizer,
+  useAddItemAtom,
+  useEditItemQty,
+  useDeleteItemAtom,
+  useReturnAutoDeriver,
+};

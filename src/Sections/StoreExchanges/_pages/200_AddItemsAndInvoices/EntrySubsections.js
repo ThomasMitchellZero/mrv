@@ -47,7 +47,6 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       });
 
       // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
-
       if (outItemsArr) {
 
         // Set the session state to include this item.
