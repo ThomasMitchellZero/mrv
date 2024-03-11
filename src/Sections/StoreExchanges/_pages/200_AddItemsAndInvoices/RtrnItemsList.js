@@ -5,10 +5,18 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { MdDeleteOutline } from "react-icons/md";
+import {
+  useEditItemQty,
+  useReturnAutoDeriver,
+} from "../../../../mrv/MRVhooks/MRVhooks";
+import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
+import cloneDeep from "lodash.clonedeep";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
+  const editItemQty = useEditItemQty();
+  const autoDeriver = useReturnAutoDeriver();
   const sessionState = strxCtx.sessionSTRX;
   const setSession = strxCtx.setSessionStrx;
   const aReturnItems = sessionState.returnItems;
@@ -19,6 +27,20 @@ const RtrnItemsList = () => {
   const aMainItems = aReturnItems.filter((returnItem) => {
     return !returnItem.parentKey;
   });
+
+  const handleQtyChange = (e, atomizedItem) => {
+    const newQty = e.target.value;
+    let outSessionState = cloneDeep(sessionState);
+    outSessionState.returnItems = editItemQty(
+      outSessionState.returnItems,
+      atomizedItem.atomItemNum,
+      newQty
+    );
+    outSessionState = autoDeriver(outSessionState);
+    setSession(() => {
+      return outSessionState;
+    });
+  };
 
   // blank screen for no items.
   const uiScanItems = (
@@ -62,6 +84,7 @@ const RtrnItemsList = () => {
   };
 
   const uiItemSubcard = (rowItem) => {
+    const refAtom = new returnAtom({});
     const aInvoicedItems = aAtomizedItems.filter((atom) => {
       return atom.atomItemNum === rowItem.atomItemNum;
     });
@@ -81,7 +104,13 @@ const RtrnItemsList = () => {
         </div>
         <div className={"rowCol totalQtyCol"}>
           <MRVinput>
-            <input type="text" value={rowItem.totalQty} />
+            <input
+              type="number"
+              value={rowItem.atomItemQty}
+              onChange={(event) => {
+                handleQtyChange(event, rowItem);
+              }}
+            />
           </MRVinput>
         </div>
         <div className={`invoInfo`}>{aInfoRows}</div>

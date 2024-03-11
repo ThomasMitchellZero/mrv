@@ -62,7 +62,37 @@ const atomsMonetizer = (arrayOfAtoms) => {
   return outTotalMoneyObj;
 };
 
+
 export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
+
+
+// change qty of an existing itemAtom.
+
+const editItemQty = (clonedItemsArr, itemNumToEdit, newQty) => {  
+  const refdefaultState = baseReturnState({});
+  // Takes an array of items and returns a new array with the itemNumToEdit's qty set to newQty.
+
+  const outItemsArr = cloneDeep(clonedItemsArr);
+
+  const targetIndex = outItemsArr.findIndex((thisItem) => {
+    return thisItem.atomItemNum === itemNumToEdit;
+  });
+
+  if (targetIndex === -1) {
+    return false;
+  }
+
+  outItemsArr[targetIndex].atomItemQty = Number(newQty);
+
+  return outItemsArr;
+}
+
+const useEditItemQty = () => { 
+  return editItemQty;
+}
+
+
+
 
 const useAddItemAtom = () => {
   const itemCtx = useContext(ProductContext);
@@ -278,4 +308,4 @@ const useReturnAutoDeriver = () => {
   return returnAutoDeriver;
 };
 
-export { useReturnAtomizer, useAddItemAtom, useReturnAutoDeriver };
+export { useReturnAtomizer, useAddItemAtom, useEditItemQty, useReturnAutoDeriver };
