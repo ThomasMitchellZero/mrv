@@ -14,7 +14,7 @@ import {
   useDeleteItemAtom,
   useAddItemAtom,
   useEditItemQty,
-  useItemQtyChanger,
+  useSetSessionItems,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -64,16 +64,16 @@ export {
 
 //// Item Handlers ////
 
-const useSTRXitemQtyChanger = () => {
+const useSetSessionItemsSTRX = () => {
   // mrv qty changer, but configured for STRX.
   const strxCtx = useOutletContext();
-  return useItemQtyChanger({
+  return useSetSessionItems({
     sessionState: strxCtx.sessionSTRX,
     setSessionState: strxCtx.setSessionStrx,
   });
 };
 
-export { useSTRXitemQtyChanger };
+export { useSetSessionItemsSTRX };
 
 const useAutoDeriverSTRX = () => {
   const returnAutoDeriver = useReturnAutoDeriver();

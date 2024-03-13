@@ -66,10 +66,10 @@ export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
 
 // change qty of an existing itemAtom.
 
-function useItemQtyChanger({sessionState, setSessionState}) {
+function useSetSessionItems({sessionState, setSessionState}) {
   const itemsCtx = useContext(ProductContext);
 
-  function itemQtyChanger({
+  function setSessionItems({
     itemsArrRouteStr = "returnItems",
     itemAtom = new returnAtom({}),
     newQty = 0,
@@ -131,14 +131,58 @@ function useItemQtyChanger({sessionState, setSessionState}) {
       return outSessionState;
     });
     
-
-
-
-  
-  
   }
-  return itemQtyChanger;
+  return setSessionItems;
 }
+
+
+
+/*
+
+// Set Session Invos
+
+function useSetSessionInvos({
+  sessionState,
+  setSessionState,
+}) {
+
+  const setSessionInvos = (newInvos) => {
+    const clonedSessionState = cloneDeep(sessionState);
+    const refDefaultState = baseReturnState({});
+
+    const outSessionState = cloneDeep(clonedSessionState);
+    outSessionState.sessionInvos = newInvos;
+    outSessionState.atomizedReturnItems = returnAtomizer({
+      sessionItemsArr: outSessionState.returnItems,
+      sessionInvosObj: newInvos,
+    });
+    outSessionState.totalReturnValue = atomsMonetizer(
+      outSessionState.atomizedReturnItems
+    );
+
+    setSessionState(() => {
+      return outSessionState;
+    });
+  }
+  const refDefaultState = baseReturnState({});
+
+  const outSessionState = cloneDeep(clonedSessionState);
+  outSessionState.sessionInvos = newInvos;
+  outSessionState.atomizedReturnItems = returnAtomizer({
+    sessionItemsArr: outSessionState.returnItems,
+    sessionInvosObj: newInvos,
+  });
+  outSessionState.totalReturnValue = atomsMonetizer(
+    outSessionState.atomizedReturnItems
+  );
+
+  setSessionState(() => {
+    return outSessionState;
+  });
+
+}
+
+*/
 
 
 
@@ -425,7 +469,7 @@ export {
   useReturnAtomizer,
   useAddItemAtom,
   useEditItemQty,
-  useItemQtyChanger,
+  useSetSessionItems,
   useDeleteItemAtom,
   useReturnAutoDeriver,
 };

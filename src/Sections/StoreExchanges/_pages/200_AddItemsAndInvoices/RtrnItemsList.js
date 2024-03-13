@@ -8,17 +8,17 @@ import { MdDeleteOutline } from "react-icons/md";
 import {
   useEditItemQty,
   useDeleteItemAtom,
-  useItemQtyChanger,
+
 } from "../../../../mrv/MRVhooks/MRVhooks";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import cloneDeep from "lodash.clonedeep";
-import { useSTRXitemQtyChanger } from "../../_resources/hooks/STRXhooks";
+import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
-  const editItemQty = useEditItemQty();
-  const strxItemQtyChanger = useSTRXitemQtyChanger();
+
+  const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
   const sessionState = strxCtx.sessionSTRX;
   const setSession = strxCtx.setSessionStrx;
@@ -26,10 +26,7 @@ const RtrnItemsList = () => {
   const aAtomizedItems = sessionState.atomizedReturnItems;
 
   
-  const itemQtyChanger = useItemQtyChanger({
-    sessionState: sessionState,
-    setSessionState: setSession,
-  });
+
 
   const noItems = aReturnItems.length === 0;
 
@@ -40,7 +37,7 @@ const RtrnItemsList = () => {
   const handleQtyChange = (e, atomizedItem) => {
 
     const newQty = e.target.value;
-    strxItemQtyChanger({
+    setSessionItemsSTRX({
       itemsArrRouteStr: "returnItems",
       itemAtom: atomizedItem,
       newQty: newQty,
@@ -147,7 +144,7 @@ const RtrnItemsList = () => {
           <button
             className={`ghost fullWidth`}
             onClick={() => {
-              strxItemQtyChanger({itemAtom: returnItem, actionType: "remove"});
+              setSessionItemsSTRX({itemAtom: returnItem, actionType: "remove"});
             }}
           >
             <MdDeleteOutline

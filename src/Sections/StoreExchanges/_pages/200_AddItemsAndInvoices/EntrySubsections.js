@@ -10,7 +10,7 @@ import {} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import {
   useAutoDeriverSTRX,
-  useSTRXitemQtyChanger,
+  useSetSessionItemsSTRX,
 } from "../../_resources/hooks/STRXhooks";
 import cloneDeep from "lodash.clonedeep";
 import InvoContext from "../../../../store/invo-context";
@@ -23,7 +23,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const setStrx = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const strxItemQtyChanger = useSTRXitemQtyChanger();
+  const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
   const oErrorStates = {
     invalidItem: {},
@@ -45,7 +45,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
         atomItemQty: parLocState.itemQtyField,
       });
 
-      strxItemQtyChanger({
+      setSessionItemsSTRX({
         itemAtom: outAtom,
         newQty: parLocState.itemQtyField,
         actionType: "add",
