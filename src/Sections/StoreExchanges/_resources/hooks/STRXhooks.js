@@ -10,10 +10,6 @@ import {
 } from "../../../../globalFunctions/globalJS_classes";
 
 import {
-  useReturnAutoDeriver,
-  useDeleteItemAtom,
-  useAddItemAtom,
-  useEditItemQty,
   useSetSessionItems,
   useSetSessionInvos,
 } from "../../../../mrv/MRVhooks/MRVhooks";

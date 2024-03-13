@@ -7091,15 +7091,15 @@ What to do today?
     I didn't record it, but against all odds my code-wankery from last night is working without issues.  Revised/copied to-do list from yesterday:
     
 
-    -Make a MRV receipt addition/deletion hook similar to Items.
-    -Get it into a configured STRX hook.
-    -Add "Add" to the Receipt Entry component.
-    -Add "remove" to the Receipt cards.
-    -Clear out all the extra unused hooks.
-    -Create a shared subcard class in the MRV library.
+    X -Make a MRV receipt addition/deletion hook similar to Items.
+    X -Get it into a configured STRX hook.
+    X -Add "Add" to the Receipt Entry component.
+    X -Add "remove" to the Receipt cards.
+    X -Clear out all the extra unused hooks.
+    X -Create a shared subcard class in the MRV library.
     -Look at the new Delete button approach, since I really like the most recent version of the delete button from STRX.  
     -Figure out ActiveItems, might want to make it a STRX function?  Not sure how much of it can be re-used, since it's going to happen for both Return items and Replacement items.  
-    
+
 
 
 

@@ -87,7 +87,7 @@ const RtrnItemsList = () => {
     });
 
     return (
-      <div key={rowItem.atomItemNum} className={`itemRow cardStyle hasHover`}>
+      <div key={rowItem.atomItemNum} className={`itemRow subCardStyle`}>
         <div className={"rowCol detailCol"}>
           <MRVitemDetails
             showPrice={false}
@@ -130,7 +130,7 @@ const RtrnItemsList = () => {
         className={`cardStyle entryCard items_grid`}
       >
         <div className={"itemColumn field"}>{outSubcardArr}</div>
-        <div className={"spacerCol field"}></div>
+
         <div className={`deleteCol field`}>
           <button
             className={`ghost fullWidth`}

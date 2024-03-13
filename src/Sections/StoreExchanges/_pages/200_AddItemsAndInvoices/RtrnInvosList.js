@@ -37,7 +37,7 @@ const RtrnInvosList = () => {
     return (
       <div
         key={invoAtom.primaryKey}
-        className={`cardStyle hasHover invoItemSubcard`}
+        className={`subCardStyle invoItemSubcard`}
       >
         <div className={`invoItemDetailsCol`}>
           <MRVitemDetails
@@ -101,7 +101,7 @@ const RtrnInvosList = () => {
           <div className={`body__small`}>Store: {invoObj.store}</div>
         </div>
         <div className={`invoItemsColumn`}>{uiItemClusterArr}</div>
-        <div className={`spacerCol`}></div>
+
         <div className={`deleteCol field`}>
           <button className={`ghost fullWidth`}>
             <MdDeleteOutline

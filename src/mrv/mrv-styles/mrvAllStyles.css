@@ -52,7 +52,7 @@
 
   --color__border: #9ea4b2;
   --color__border__th: #d8d8d8;
-  --color__border__subdued: #cdb1dd;
+  --color__border__subdued: #dddddd;
 
   .divider {
     display: flex;
@@ -462,6 +462,28 @@
     padding: 0.5rem 1rem;
 
     &.hasHover:hover {
+      background-color: var(--color__card__hover);
+    }
+
+    &.selected {
+      background-color: var(--color__card__selected);
+      border-color: var(--color__interactive);
+
+      &:hover {
+        background-color: var(--color__card__selected__hover);
+      }
+    }
+  }
+  
+
+  & .subCardStyle {
+    background-color: var(--color__surface__default);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    border: calc(3rem / 32) solid var(--color__border__subdued);
+    padding: 0.5rem 1rem;
+
+    &:hover {
       background-color: var(--color__card__hover);
     }
 
