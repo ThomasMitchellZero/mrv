@@ -7068,6 +7068,26 @@ What to do today?
 
     OK.  I am going to try to get the deletions up and running and then I will call it a day.  Active Items is going to require some state-level thinking and that's not what I am looking to do right now.
 
+12 Mar 2023.
+    4:40 Slightly stressful day, but I am ready to code!  I feel like a lot of this is going to be some cleanup and harmonization.  
+        -Create STRX configs of my primary MRV functions just to simplify the code a little bit.
+            -Make sure all MRV state-setters are configured to expect a whole cloned session state, just for consistency.
+            -As a byproduct, my event-handlers should be pretty skinny in the actual app.
+        -Create a shared subcard class in the MRV library.
+        -Get receipt deletion working
+        -Look at the new Delete button approach, since I really like the most recent version of the delete button from STRX.  
+        -Figure out ActiveItems, might want to make it a STRX function?  Not sure how much of it can be re-used, since it's going to happen for both Return items and Replacement items.  
+
+    6:50.  
+        OK, I have no idea if what I am doing is retardation or brilliance.  Honestly this whole afternoon has been programmer wankery, and if any outsider were to ask me 'So what capability did you add today?' my honest answer would be 'None whatsoever, but it's BETTER!'  I feel like Future Me will look back on this the way I look at Anthony's return library and say 'Your selfentists were so preoccupied with whether or not they could that they didn't stop to think if they should.'
+        
+        But what I COULD do is clear out even one step further, and use an itemAtom for EV.RY.THING, even the local states.  It holds an item number.  It holds a quantity.  
+
+        OK.  Let's be smart in our poor judgement.  Let's try what we have, let's see if any of this shit even works, and THEN we can code-wank deeper once that's clear.  
+
+
+
+
 
 
 

@@ -8,21 +8,28 @@ import { MdDeleteOutline } from "react-icons/md";
 import {
   useEditItemQty,
   useDeleteItemAtom,
+  useItemQtyChanger,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import cloneDeep from "lodash.clonedeep";
-import { useSTRXdeleteItem } from "../../_resources/hooks/STRXhooks";
+import { useSTRXitemQtyChanger } from "../../_resources/hooks/STRXhooks";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
   const editItemQty = useEditItemQty();
-  const strxDeleteItem = useSTRXdeleteItem();
+  const strxItemQtyChanger = useSTRXitemQtyChanger();
 
   const sessionState = strxCtx.sessionSTRX;
   const setSession = strxCtx.setSessionStrx;
   const aReturnItems = sessionState.returnItems;
   const aAtomizedItems = sessionState.atomizedReturnItems;
+
+  
+  const itemQtyChanger = useItemQtyChanger({
+    sessionState: sessionState,
+    setSessionState: setSession,
+  });
 
   const noItems = aReturnItems.length === 0;
 
@@ -31,17 +38,13 @@ const RtrnItemsList = () => {
   });
 
   const handleQtyChange = (e, atomizedItem) => {
+
     const newQty = e.target.value;
-    let outSessionState = cloneDeep(sessionState);
-
-    outSessionState = editItemQty(
-      outSessionState,
-      atomizedItem.atomItemNum,
-      newQty
-    );
-
-    setSession(() => {
-      return outSessionState;
+    strxItemQtyChanger({
+      itemsArrRouteStr: "returnItems",
+      itemAtom: atomizedItem,
+      newQty: newQty,
+      actionType: "edit",
     });
   };
 
@@ -144,7 +147,7 @@ const RtrnItemsList = () => {
           <button
             className={`ghost fullWidth`}
             onClick={() => {
-              strxDeleteItem(returnItem);
+              strxItemQtyChanger({itemAtom: returnItem, actionType: "remove"});
             }}
           >
             <MdDeleteOutline

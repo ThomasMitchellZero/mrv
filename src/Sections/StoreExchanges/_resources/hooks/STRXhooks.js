@@ -9,7 +9,13 @@ import {
   InvoProduct,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import { useReturnAutoDeriver, useDeleteItemAtom } from "../../../../mrv/MRVhooks/MRVhooks";
+import {
+  useReturnAutoDeriver,
+  useDeleteItemAtom,
+  useAddItemAtom,
+  useEditItemQty,
+  useItemQtyChanger,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { cloneDeep, isEmpty } from "lodash";
 
@@ -56,27 +62,18 @@ export {
   useCentsToDollars,
 };
 
+//// Item Handlers ////
 
-const useSTRXdeleteItem = () => { 
+const useSTRXitemQtyChanger = () => {
+  // mrv qty changer, but configured for STRX.
   const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
-  const setSession = strxCtx.setSessionStrx;
-  const deleteItemAtom = useDeleteItemAtom();
+  return useItemQtyChanger({
+    sessionState: strxCtx.sessionSTRX,
+    setSessionState: strxCtx.setSessionStrx,
+  });
+};
 
-  const STRXdeleteItem = (itemNum) => {
-    let outSessionState = cloneDeep(sessionState);
-
-    outSessionState = deleteItemAtom(outSessionState, itemNum);
-
-    setSession(() => {
-      return outSessionState;
-    });
-  };
-  return STRXdeleteItem;
-}
-
-export { useSTRXdeleteItem };
-
+export { useSTRXitemQtyChanger };
 
 const useAutoDeriverSTRX = () => {
   const returnAutoDeriver = useReturnAutoDeriver();
@@ -91,10 +88,4 @@ const useAutoDeriverSTRX = () => {
   return autoDeriverSTRX;
 };
 
-
-
-
-
 export { useAutoDeriverSTRX };
-
-

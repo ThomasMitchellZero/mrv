@@ -4,12 +4,14 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
-import {
-  useAddItemAtom,
-  useReturnAtomizer,
-} from "../../../../mrv/MRVhooks/MRVhooks";
+import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
-import { useAutoDeriverSTRX } from "../../_resources/hooks/STRXhooks";
+import {} from "../../../../mrv/MRVhooks/MRVhooks";
+
+import {
+  useAutoDeriverSTRX,
+  useSTRXitemQtyChanger,
+} from "../../_resources/hooks/STRXhooks";
 import cloneDeep from "lodash.clonedeep";
 import InvoContext from "../../../../store/invo-context";
 
@@ -17,12 +19,11 @@ import InvoContext from "../../../../store/invo-context";
 
 const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
-  const setSession = strxCtx.setSessionStrx;
+  const strxState = strxCtx.sessionSTRX;
+  const setStrx = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const addItemAtom = useAddItemAtom();
-  const autoDeriverSTRX = useAutoDeriverSTRX();
+  const strxItemQtyChanger = useSTRXitemQtyChanger();
 
   const oErrorStates = {
     invalidItem: {},
@@ -39,34 +40,21 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
     const bFormValid = true;
 
     if (bFormValid) {
-      // create a new session returnItems obj with item + qty added to it.
-      const outItemsArr = addItemAtom({
-        targetItemsArr: sessionState.returnItems,
-        itemNumToAdd: parLocState.itemNumField,
-        qtyToAdd: parLocState.itemQtyField,
+      const outAtom = new returnAtom({
+        atomItemNum: parLocState.itemNumField,
+        atomItemQty: parLocState.itemQtyField,
       });
 
-      // addItemAtom returns false if itemNumToAdd is isn't in itemCtx, hence this check.
-      if (outItemsArr) {
+      strxItemQtyChanger({
+        itemAtom: outAtom,
+        newQty: parLocState.itemQtyField,
+        actionType: "add",
+        itemsArrRouteStr: "returnItems",
+      });
 
-        // Set the session state to include this item.
-        let outSessionState = cloneDeep(sessionState);
-        outSessionState.returnItems = outItemsArr;
-        outSessionState = autoDeriverSTRX(outSessionState);
-
-        setSession(() => {
-          return outSessionState;
-        });
-
-        // clear the input fields in the local state.
-        let outLocState = cloneDeep(parLocState);
-        outLocState = { ...outLocState, ...parLocState.clearableFields };
-        setParLocState(() => outLocState);
-      } else {
-        setParLocState((draft) => {
-          draft.oActiveErrorState = oErrorStates.invalidItem;
-        });
-      }
+      let outLocState = cloneDeep(parLocState);
+      outLocState = { ...outLocState, ...parLocState.clearableFields };
+      setParLocState(() => outLocState);
     }
   };
 
