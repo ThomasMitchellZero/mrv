@@ -208,6 +208,7 @@ const baseReturnState = ({
   sessionInvos = {},
   atomizedReturnItems = [],
   totalReturnValue = new moneyObj({}),
+  oNavNodes = {},
 }) => {
   return {
     returnItems,
@@ -230,7 +231,6 @@ class returnAtom {
     atomItemNum = "",
     atomItemQty = 0,
     bifrostKey = "",
-
   }) {
     this.atomItemNum = atomItemNum;
     this.parentKey = parentKey;
@@ -240,7 +240,6 @@ class returnAtom {
     this.atomItemQty = atomItemQty;
     this.unitTotal = this.atomMoneyObj.unitTotal;
     this.bifrostKey = bifrostKey || this.atomItemNum;
-
   }
 
   get primaryKey() {
@@ -248,29 +247,13 @@ class returnAtom {
   }
 }
 
-/*
+const navNode = ({
+  routeStr = "",
+  titleStr = "No Title",
+  isAvailable = false,
+  isActive = false,
+}) => {
+  return { routeStr, titleStr, isAvailable, isActive };
+};
 
-class returnItemXinvosGroup {
-  constructor({ itemNum = "", itemXinvoMatches = [] }) {
-    this.itemNum = itemNum;
-    this.itemXinvoMatches = itemXinvoMatches;
-  }
-}
-
-class returnItemCard {
-  constructor({
-    mainItemNum = "",
-    //mainItemCard = new returnItemXinvosGroup({}),
-    childItemRows = [],
-  }) {
-    this.mainItemNum = mainItemNum;
-    this.childItemRows = childItemRows;
-  }
-}
-*/
-
-
-
-
-
-export { baseReturnState, returnAtom };
+export { baseReturnState, returnAtom, navNode };

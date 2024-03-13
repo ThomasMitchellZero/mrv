@@ -1,6 +1,7 @@
 import InvoiceContext from "../../store/invoice-context";
 import ProductContext from "../../store/product-context";
 import InvoContext from "../../store/invo-context";
+import { useOutletContext, useNavigate } from "react-router";
 
 import { useContext } from "react";
 
@@ -12,6 +13,7 @@ import {
   singleDispo,
   moneyObj,
   baseReturnState,
+  navNode,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -63,6 +65,42 @@ const atomsMonetizer = (arrayOfAtoms) => {
 };
 
 export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
+
+
+
+
+
+
+function useNodeNav({sessionState, setSessionState}) {
+  const navigate = useNavigate();
+
+  const exchCtx = useOutletContext();
+
+  const nodeNav = (targetNodeKey = "") => {
+    const refBreadcrumbNode = new navNode({});
+    const refDefaultState = baseReturnState({});
+
+    if (sessionState.oNavNodes[targetNodeKey]) {
+
+      const outNavNodesObj = cloneDeep(sessionState.oNavNodes);
+
+      for (const thisNode of Object.values(outNavNodesObj)) {
+        thisNode.isActive = false; // deactivate all nodes
+      }
+      // activate the target node and make it available.
+      outNavNodesObj[targetNodeKey].isActive = true;
+      outNavNodesObj[targetNodeKey].isAvailable = true;
+
+      setSessionState((draft) => { draft.oNavNodes = outNavNodesObj; } );
+      navigate(outNavNodesObj[targetNodeKey].routeStr);
+    }
+   }
+
+  return nodeNav;
+}
+
+export { useNodeNav };
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
