@@ -15,6 +15,7 @@ import {
   useAddItemAtom,
   useEditItemQty,
   useSetSessionItems,
+  useSetSessionInvos,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -73,7 +74,15 @@ const useSetSessionItemsSTRX = () => {
   });
 };
 
-export { useSetSessionItemsSTRX };
+const useSetSessionInvosSTRX = () => {
+  const strxCtx = useOutletContext();
+  return useSetSessionInvos({
+    sessionState: strxCtx.sessionSTRX,
+    setSessionState: strxCtx.setSessionStrx,
+  });
+};
+
+export { useSetSessionItemsSTRX, useSetSessionInvosSTRX };
 
 const useAutoDeriverSTRX = () => {
   const returnAutoDeriver = useReturnAutoDeriver();

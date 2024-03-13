@@ -66,7 +66,7 @@ export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
 
 // change qty of an existing itemAtom.
 
-function useSetSessionItems({sessionState, setSessionState}) {
+function useSetSessionItems({ sessionState, setSessionState }) {
   const itemsCtx = useContext(ProductContext);
 
   function setSessionItems({
@@ -82,14 +82,15 @@ function useSetSessionItems({sessionState, setSessionState}) {
     const outSessionState2 = cloneDeep(sessionState);
 
     let outSessionState = cloneDeep(sessionState);
-    let outItemsArr = outSessionState["returnItems"];
+    let outItemsArr = outSessionState[itemsArrRouteStr];
     const thisItemNum = itemAtom.atomItemNum;
 
-
-
     // universal validity checks
-    if (itemsCtx[itemAtom.bifrostKey] === undefined || !Array.isArray(outItemsArr)) {
-      console.log("You FAIL!")
+    if (
+      itemsCtx[itemAtom.bifrostKey] === undefined ||
+      !Array.isArray(outItemsArr)
+    ) {
+      console.log("You FAIL!");
       return false;
     }
 
@@ -100,7 +101,9 @@ function useSetSessionItems({sessionState, setSessionState}) {
 
     // this is OK for 'remove' because this itemNum will get filtered no matter what.
     if (itemIndex === -1) {
-      outItemsArr.push(new returnAtom({ atomItemNum: thisItemNum, atomItemQty: 0 }));
+      outItemsArr.push(
+        new returnAtom({ atomItemNum: thisItemNum, atomItemQty: 0 })
+      );
       itemIndex = outItemsArr.length - 1;
     }
 
@@ -115,12 +118,12 @@ function useSetSessionItems({sessionState, setSessionState}) {
         // Remove this item and any items with this item as a parent.
         outItemsArr = outItemsArr.filter((thisItem) => {
           return thisItem.atomItemNum !== thisItemNum;
-        }); 
+        });
         outItemsArr = outItemsArr.filter((thisItem) => {
           return thisItem.parentKey !== thisItemNum;
         });
       },
-    }
+    };
 
     // run the specified action.
     actionMethods[actionType]();
@@ -130,61 +133,47 @@ function useSetSessionItems({sessionState, setSessionState}) {
     setSessionState(() => {
       return outSessionState;
     });
-    
   }
   return setSessionItems;
 }
 
-
-
-/*
-
 // Set Session Invos
 
-function useSetSessionInvos({
-  sessionState,
-  setSessionState,
-}) {
+function useSetSessionInvos({ sessionState, setSessionState }) {
+  const invosCtx = useContext(InvoContext);
 
-  const setSessionInvos = (newInvos) => {
-    const clonedSessionState = cloneDeep(sessionState);
+  const setSessionInvos = ({
+    invosRtStr = "sessionInvos",
+    invoNum = 0,
+    actionType = "add",
+    add_remove = "add remove",
+  }) => {
     const refDefaultState = baseReturnState({});
 
-    const outSessionState = cloneDeep(clonedSessionState);
-    outSessionState.sessionInvos = newInvos;
-    outSessionState.atomizedReturnItems = returnAtomizer({
-      sessionItemsArr: outSessionState.returnItems,
-      sessionInvosObj: newInvos,
-    });
-    outSessionState.totalReturnValue = atomsMonetizer(
-      outSessionState.atomizedReturnItems
-    );
+    let outSessionState = cloneDeep(sessionState);
 
+    if (!invosCtx[invoNum]) {
+      return false;
+    }
+
+    const actionMethods = {
+      add: () => {
+        outSessionState[invosRtStr][invoNum] = cloneDeep(invosCtx[invoNum]);
+      },
+      remove: () => {
+        delete outSessionState[invosRtStr][invoNum];
+      },
+    };
+
+    actionMethods[actionType]();
+    outSessionState = returnAutoDeriver(outSessionState);
     setSessionState(() => {
       return outSessionState;
     });
-  }
-  const refDefaultState = baseReturnState({});
+  };
 
-  const outSessionState = cloneDeep(clonedSessionState);
-  outSessionState.sessionInvos = newInvos;
-  outSessionState.atomizedReturnItems = returnAtomizer({
-    sessionItemsArr: outSessionState.returnItems,
-    sessionInvosObj: newInvos,
-  });
-  outSessionState.totalReturnValue = atomsMonetizer(
-    outSessionState.atomizedReturnItems
-  );
-
-  setSessionState(() => {
-    return outSessionState;
-  });
-
+  return setSessionInvos;
 }
-
-*/
-
-
 
 function editItemQty({
   clonedSessionState,
@@ -470,6 +459,7 @@ export {
   useAddItemAtom,
   useEditItemQty,
   useSetSessionItems,
+  useSetSessionInvos,
   useDeleteItemAtom,
   useReturnAutoDeriver,
 };

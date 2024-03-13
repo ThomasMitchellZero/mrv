@@ -4,20 +4,23 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
 import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
-
+import { useItemQtyChanger } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import {
   Invoice_SR,
   returnAtom,
 } from "../../../../globalFunctions/globalJS_classes";
 
+import {
+  useSTRXdeleteItem,
+  useSetSessionInvosSTRX,
+} from "../../_resources/hooks/STRXhooks";
+
 const RtrnInvosList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
-  const sessionState = strxCtx.sessionSTRX;
-  const setSession = strxCtx.setSessionStrx;
-  const aSessionInvos = sessionState.sessionInvos;
-  const aAtomizedItems = sessionState.atomizedReturnItems;
+  const aSessionInvos = strxCtx.sessionSTRX.sessionInvos;
+  const setSessionInvosSTRX = useSetSessionInvosSTRX();
 
   const noInvos = Object.entries(aSessionInvos).length === 0;
 
@@ -34,7 +37,10 @@ const RtrnInvosList = () => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
     return (
-      <div key={invoAtom.primaryKey} className={`cardStyle hasHover invoItemSubcard`}>
+      <div
+        key={invoAtom.primaryKey}
+        className={`cardStyle hasHover invoItemSubcard`}
+      >
         <div className={`invoItemDetailsCol`}>
           <MRVitemDetails
             showPrice={false}
@@ -102,6 +108,13 @@ const RtrnInvosList = () => {
           <button className={`ghost fullWidth`}>
             <MdDeleteOutline
               fontSize="2.5rem"
+              onClick={() => {
+                setSessionInvosSTRX({
+                  invosRtStr: "sessionInvos",
+                  invoNum: invoObj.invoNum,
+                  actionType: "remove",
+                });
+              }}
               className={`color__interactive__text`}
             />
           </button>
