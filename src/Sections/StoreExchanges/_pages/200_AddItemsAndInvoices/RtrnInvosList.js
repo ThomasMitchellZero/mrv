@@ -3,8 +3,7 @@ import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
-import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
-import { useItemQtyChanger } from "../../../../mrv/MRVhooks/MRVhooks";
+import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import {
   Invoice_SR,
@@ -12,7 +11,6 @@ import {
 } from "../../../../globalFunctions/globalJS_classes";
 
 import {
-  useSTRXdeleteItem,
   useSetSessionInvosSTRX,
 } from "../../_resources/hooks/STRXhooks";
 

@@ -2,31 +2,19 @@ import "./_AddItemsAndInvos.css";
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
-import { useCentsToDollars } from "../../_resources/hooks/STRXhooks";
+import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { MdDeleteOutline } from "react-icons/md";
-import {
-  useEditItemQty,
-  useDeleteItemAtom,
-
-} from "../../../../mrv/MRVhooks/MRVhooks";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
-import cloneDeep from "lodash.clonedeep";
 import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
 
 const RtrnItemsList = () => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
-
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
-
   const sessionState = strxCtx.sessionSTRX;
-  const setSession = strxCtx.setSessionStrx;
   const aReturnItems = sessionState.returnItems;
   const aAtomizedItems = sessionState.atomizedReturnItems;
-
-  
-
 
   const noItems = aReturnItems.length === 0;
 
@@ -34,6 +22,7 @@ const RtrnItemsList = () => {
     return !returnItem.parentKey;
   });
 
+  // local function for handling qty changes.
   const handleQtyChange = (e, atomizedItem) => {
 
     const newQty = e.target.value;
@@ -86,6 +75,7 @@ const RtrnItemsList = () => {
     );
   };
 
+  // a subcard for an item.
   const uiItemSubcard = (rowItem) => {
     const refAtom = new returnAtom({});
     const aInvoicedItems = aAtomizedItems.filter((atom) => {
@@ -121,6 +111,7 @@ const RtrnItemsList = () => {
     );
   };
 
+  // a card for an item and its children.
   const uiItemCard = (returnItem) => {
     // look for associated child items.
     const aItemAndChildren = aReturnItems.filter((thisAtom) => {
@@ -157,6 +148,7 @@ const RtrnItemsList = () => {
     );
   };
 
+  // the title row for the item cards.
   const uiItemCardTitle = (
     <div className={`columnTitleRow items_grid`}>
       <div className={`columnTitle detailCol`}>Item</div>
@@ -170,6 +162,8 @@ const RtrnItemsList = () => {
   const uiCardArr = aMainItems.map((returnItem) => {
     return uiItemCard(returnItem);
   });
+
+  // final UI output
 
   return noItems ? (
     uiScanItems

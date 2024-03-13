@@ -9,7 +9,6 @@ import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import {} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import {
-  useAutoDeriverSTRX,
   useSetSessionItemsSTRX,
   useSetSessionInvosSTRX,
 } from "../../_resources/hooks/STRXhooks";
@@ -19,9 +18,6 @@ import InvoContext from "../../../../store/invo-context";
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
 const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
-  const strxCtx = useOutletContext();
-  const strxState = strxCtx.sessionSTRX;
-  const setStrx = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
@@ -110,11 +106,9 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
 /* &&&&&&&&&&&&&&   Receipt Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
 const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
-  const strxCtx = useOutletContext();
   const invoCtx = useContext(InvoContext);
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const autoDeriverSTRX = useAutoDeriverSTRX();
   const setSessionInvosSTRX = useSetSessionInvosSTRX();
 
   let invoFormValid = true;

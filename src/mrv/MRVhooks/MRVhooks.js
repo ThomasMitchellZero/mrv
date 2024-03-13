@@ -64,7 +64,12 @@ const atomsMonetizer = (arrayOfAtoms) => {
 
 export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
 
-// change qty of an existing itemAtom.
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////         Session Input Handlers       /////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Make a change to the items in the current session state.
 
 function useSetSessionItems({ sessionState, setSessionState }) {
   const itemsCtx = useContext(ProductContext);
@@ -137,8 +142,8 @@ function useSetSessionItems({ sessionState, setSessionState }) {
   return setSessionItems;
 }
 
-// Set Session Invos
 
+// Make a change to the invos in the Session state
 function useSetSessionInvos({ sessionState, setSessionState }) {
   const invosCtx = useContext(InvoContext);
 
@@ -175,116 +180,10 @@ function useSetSessionInvos({ sessionState, setSessionState }) {
   return setSessionInvos;
 }
 
-function editItemQty({
-  clonedSessionState,
-  itemsArrRouteStr = "returnItems",
-  itemNumToEdit,
-  newQty,
-}) {
-  // Takes a cloned session state and returns a new session state with the itemNumToEdit's qty set to newQty.
-  const refDefaultState = baseReturnState({});
-  // Takes an array of items and returns a new array with the itemNumToEdit's qty set to newQty.
+////////////////////////////////////////////////////////////////////////////////
+/////////////////         Session Value Derivers       /////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-  const outItemsArr = clonedSessionState[itemsArrRouteStr];
-
-  const targetIndex = outItemsArr.findIndex((thisItem) => {
-    return thisItem.atomItemNum === itemNumToEdit;
-  });
-
-  if (targetIndex === -1) {
-    return false;
-  }
-
-  outItemsArr[targetIndex].atomItemQty = Number(newQty);
-  const outSessionState = returnAutoDeriver(clonedSessionState);
-
-  return outSessionState;
-}
-
-const useEditItemQty = () => {
-  return editItemQty;
-};
-
-const useAddItemAtom = () => {
-  // adds or increments an itemAtom qty in the specified array, runs the autoDeriver, and returns the new session state.
-
-  const itemCtx = useContext(ProductContext);
-  const refDefaultState = baseReturnState({});
-
-  const addItemAtom = ({
-    clonedSessionState = {},
-    itemsArrRouteStr = "returnItems", //Can also add to Replacement items
-    itemNumToAdd = "",
-    qtyToAdd = 1,
-  }) => {
-    // Takes a target object of items in a transaction and returns updated version with this itemNum + qty added to it.
-
-    const clonedItemsArr = clonedSessionState?.[itemsArrRouteStr];
-
-    // if not a valid item, or if the array route is not valid, return false.
-    if (!itemCtx[itemNumToAdd] || !Array.isArray(clonedItemsArr)) {
-      return false;
-    }
-
-    // get the index of itemNumToAdd in the array.
-    let targetIndex = clonedItemsArr.findIndex((thisItem) => {
-      return thisItem.atomItemNum === itemNumToAdd;
-    });
-
-    // if the items is not in the array, add it and set the index to the new item.
-    if (targetIndex === -1) {
-      clonedItemsArr.push(
-        new returnAtom({
-          atomItemNum: itemNumToAdd,
-          atomItemQty: 0,
-        })
-      );
-      targetIndex = clonedItemsArr.length - 1;
-    }
-
-    // add the qtyToAdd to the atomItemQty of the item at the targetIndex.
-    clonedItemsArr[targetIndex].atomItemQty += Number(qtyToAdd);
-
-    const outSessionState = returnAutoDeriver(clonedSessionState);
-    return outSessionState;
-  };
-  return addItemAtom;
-};
-
-function deleteItemAtom({
-  clonedSessionState,
-  atomToDelete = new returnAtom({}),
-  itemsArrRouteStr = "returnItems",
-}) {
-  const refDefaultState = baseReturnState({});
-  const refAtom = new returnAtom({});
-
-  const itemNumToDelete = atomToDelete.atomItemNum;
-  let outSessionState = clonedSessionState;
-  let outItemsArr = outSessionState[itemsArrRouteStr];
-
-  if (!Array.isArray(outItemsArr)) {
-    return false;
-  }
-
-  // clear this item.
-  outItemsArr = outItemsArr.filter((thisItem) => {
-    return thisItem.atomItemNum !== itemNumToDelete;
-  });
-  // clear any children of this item.
-  outItemsArr = outItemsArr.filter((thisItem) => {
-    return thisItem.parentKey !== itemNumToDelete;
-  });
-
-  outSessionState.returnItems = outItemsArr;
-  outSessionState = returnAutoDeriver(outSessionState);
-
-  return outSessionState;
-}
-
-const useDeleteItemAtom = () => {
-  return deleteItemAtom;
-};
 
 const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   // accepts an object of Session Items and an array of Session Invos
@@ -330,9 +229,7 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
 
   outFullyAtomizedArr = cloneDeep(aUM_ReturnItemAtoms);
 
-  ////////////////////////////////////////////////////////////////////////////////
   /////////////////           Atomizaton Layers         //////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////
 
   // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
 
@@ -456,10 +353,7 @@ const useReturnAutoDeriver = () => {
 
 export {
   useReturnAtomizer,
-  useAddItemAtom,
-  useEditItemQty,
   useSetSessionItems,
   useSetSessionInvos,
-  useDeleteItemAtom,
   useReturnAutoDeriver,
 };
