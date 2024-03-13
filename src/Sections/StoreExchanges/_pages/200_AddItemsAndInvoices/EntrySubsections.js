@@ -11,6 +11,7 @@ import {} from "../../../../mrv/MRVhooks/MRVhooks";
 import {
   useAutoDeriverSTRX,
   useSetSessionItemsSTRX,
+  useSetSessionInvosSTRX,
 } from "../../_resources/hooks/STRXhooks";
 import cloneDeep from "lodash.clonedeep";
 import InvoContext from "../../../../store/invo-context";
@@ -111,11 +112,10 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
 const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const strxCtx = useOutletContext();
   const invoCtx = useContext(InvoContext);
-  const sessionState = strxCtx.sessionSTRX;
-  const setSession = strxCtx.setSessionStrx;
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
   const autoDeriverSTRX = useAutoDeriverSTRX();
+  const setSessionInvosSTRX = useSetSessionInvosSTRX();
 
   let invoFormValid = true;
 
@@ -124,14 +124,14 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
 
     if (invoFormValid) {
       const thisCtxInvo = invoCtx[parLocState.receiptNumField];
+
       if (thisCtxInvo) {
-        // Set the session state to include this receipt.
-        let outSessionState = cloneDeep(sessionState);
-        outSessionState.sessionInvos[parLocState.receiptNumField] = thisCtxInvo;
-        outSessionState = autoDeriverSTRX(outSessionState);
-        setSession(() => {
-          return outSessionState;
+        setSessionInvosSTRX({
+          invosRtStr: "sessionInvos",
+          invoNum: parLocState.receiptNumField,
+          actionType: "add",
         });
+
         // clear the input fields in the local state.
         let outLocState = cloneDeep(parLocState);
         outLocState = { ...outLocState, ...parLocState.clearableFields };
