@@ -149,9 +149,21 @@
     color: var(--color__text__primary);
   }
 
-  & h4.heading__small {
+  & .heading__small {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  & .heading__medium {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+  }
+
+  & .heading__large {
+    font-size: 2.5rem;
+    line-height: 3rem;
+    font-weight: 600;
   }
 
   & .body {
@@ -190,6 +202,14 @@
 
   & .warning {
     color: var(--color__red);
+  }
+
+  & .truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
+    
   }
 
   & .panel30__section__label {
@@ -262,6 +282,7 @@
       flex: 0 0 var(--primaryColumn);
       display: flex;
       flex-direction: column;
+      min-width: 0rem;
     }
 
     /* ---- Row Sizes ---- */

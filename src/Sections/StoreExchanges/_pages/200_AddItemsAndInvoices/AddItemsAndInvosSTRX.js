@@ -57,6 +57,7 @@ function AddItemsAndInvosSTRX() {
     <main className={`mrvPage addItemsAndInvos color__surface__subdued`}>
       <section className={`mrvPanel__main`}>
         <HeaderSTRX
+          hasIcon={"back"}
           showProductName={true}
           headerTitle={s70label[locStAddRtrns.activeMode]}
         />

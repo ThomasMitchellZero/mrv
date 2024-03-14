@@ -1,7 +1,6 @@
-import "./TitleBarMRV"
+import "./TitleBarMRV.css";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
-
 
 function TitleBarMRV({
   hasIcon = null,
@@ -10,6 +9,7 @@ function TitleBarMRV({
   headerTitle = "Title",
   hasCluster = true,
   srString = "",
+  navNode = null,
   navBtnClick = () => {
     console.log("nothing here");
   },
@@ -17,8 +17,6 @@ function TitleBarMRV({
     console.log("No Clear Session Fn");
   },
 }) {
-
-
   const iconsObj = {
     close: <MdOutlineClose fontSize="1.5rem" />,
     back: <MdArrowBack fontSize="1.5rem" />,
@@ -37,10 +35,10 @@ function TitleBarMRV({
   ) : null;
 
   const cancelCluster = (
-    <section className={`defaultHeight`}>
+    <section className={``}>
       <p className={`body`}>{`${srString}`}</p>
       <button
-        className={`mrvBtn ghost defaultHeight`}
+        className={`mrvBtn cancelBtn ghost `}
         onClick={() => handleClearSession()}
       >
         {`End ${productName}`}
@@ -49,15 +47,19 @@ function TitleBarMRV({
   );
 
   return (
-    <section className={`header titleBarMRV`}>
-      {navButton}
-      <section className={`mainTitle`}>
-        <p className={`tiny-text`}>{showProductName ? `${productName}` : " "}</p>
-        <section className={`defaultHeight`}>
-          <h3 className={``}>{headerTitle}</h3>
-        </section>
-      </section>
-      {hasCluster ? cancelCluster : null}
+    <section className={`titleBarMRV`}>
+      <div className={`primaryRow`}>
+        {navButton}
+        <div className={`heading__medium title`}>{headerTitle}</div>
+        <div className={`spacer`} />
+        {hasCluster ? cancelCluster : null}
+      </div>
+      <div className={`secondaryRow`}>
+        <p className={`tiny-text`}>
+          {showProductName ? `${productName}` : " "}
+        </p>
+        {navNode }
+      </div>
     </section>
   );
 }
