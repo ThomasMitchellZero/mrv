@@ -1,4 +1,5 @@
-import { HeaderMRV } from "../../../../mrv/mrv-components/DisplayOutputs/HeaderMRV";
+
+import { TitleBarMRV } from "../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
 
 const HeaderSTRX = ({
   hasIcon = null,
@@ -13,7 +14,7 @@ const HeaderSTRX = ({
   },
 }) => {
   return (
-    <HeaderMRV
+    <TitleBarMRV
       hasIcon={hasIcon}
       productName="Store Exchanges"
       showProductName={showProductName}
@@ -22,7 +23,7 @@ const HeaderSTRX = ({
       srString=""
       navBtnClick={navBtnClick}
       handleClearSession={handleClearSession}
-    ></HeaderMRV>
+    ></TitleBarMRV>
   );
 };
 

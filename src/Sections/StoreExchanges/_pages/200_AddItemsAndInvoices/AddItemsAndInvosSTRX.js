@@ -1,4 +1,5 @@
 import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
+import { TitleBarMRV } from "../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
 
 import { AllEntry30 } from "./AllEntry30";
 import { NoneScanned } from "./NoneScanned";
