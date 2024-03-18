@@ -1,4 +1,4 @@
-import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
+import { TitleBarSTRX } from "../../_resources/components/TitleBarSTRX";
 
 import { useNavigate } from "react-router";
 
@@ -12,7 +12,7 @@ function StartSTRX() {
   return (
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main`}>
-        <HeaderSTRX headerTitle={"Choose Scenario"}></HeaderSTRX>
+        <TitleBarSTRX headerTitle={"Choose Scenario"}></TitleBarSTRX>
         <div className={`main_content gap2rem alignLeft`}>
           <button
             type="button"

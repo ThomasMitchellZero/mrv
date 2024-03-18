@@ -35,7 +35,7 @@
   --color__primary: #001544;
   --color__primary__inverse: #ebf1ff;
   --color__secondary: #001544d6;
-  --color__tertiary: #001544ad;
+  --color__tertiary: #565e5a;
   --color__interactive: #0072ce;
   --color__interactive__pressed: #0e52a4;
   --color__green: #007a33;
@@ -209,7 +209,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     min-width: 0;
-    
   }
 
   & .panel30__section__label {
@@ -407,11 +406,25 @@
       color: var(--color__interactive);
       border-color: transparent;
       background-color: transparent;
+
+      &.inactive {
+        color: var(--color__disabled__text);
+      }
+      &.active {
+        border-bottom: 0.125rem solid var(--color__interactive);
+        background-color: var(--color__card__selected);
+      }
     }
 
     &.jumbo {
       height: 6rem;
       font-size: 1.75rem;
+    }
+
+    &.miniBtn {
+      height: 2.5rem;
+      font-size: 1rem;
+      padding: 0rem 0.5rem;
     }
 
     &.fullWidth {
@@ -495,7 +508,6 @@
       }
     }
   }
-  
 
   & .subCardStyle {
     background-color: var(--color__surface__default);

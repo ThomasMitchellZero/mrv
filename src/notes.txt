@@ -7101,7 +7101,10 @@ What to do today?
     -Figure out ActiveItems, might want to make it a STRX function?  Not sure how much of it can be re-used, since it's going to happen for both Return items and Replacement items.  
 
 
+14 Mar 2024
+    7:00.  Been coding for a while.  I feel like the nav nodes are being passed around so much that there's got to be a way to simplify this shit, but I'm not able to figure it out right now.  
 
+    8:45.  Caught a second-second wind but I think I'm getting tired.  
 
 
 

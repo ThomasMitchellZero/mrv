@@ -6,6 +6,8 @@ import {
   baseReturnState,
 } from "../../globalFunctions/globalJS_classes";
 
+import { defaultNavNodesSTRX } from "../../Sections/StoreExchanges/_resources/hooks/STRXhooks";
+
 import InvoiceContext from "../../store/invoice-context";
 import InvoContext from "../../store/invo-context";
 
@@ -73,8 +75,9 @@ function StoreExchanges() {
   
   */
 
-
-  const [sessionSTRX, setSessionStrx] = useImmer(baseReturnState({}));
+  const [sessionSTRX, setSessionStrx] = useImmer(
+    baseReturnState({ oNavNodes: defaultNavNodesSTRX })
+  );
 
   return (
     <section className={`mrv STRX_top`}>

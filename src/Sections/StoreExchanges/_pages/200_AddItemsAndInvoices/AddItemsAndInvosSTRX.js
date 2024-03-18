@@ -1,8 +1,8 @@
-import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
-import { TitleBarMRV } from "../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
+import { TitleBarSTRX } from "../../_resources/components/TitleBarSTRX";
 
 import { AllEntry30 } from "./AllEntry30";
 import { NoneScanned } from "./NoneScanned";
+
 
 import { useNavigate } from "react-router";
 import { useImmer } from "use-immer";
@@ -56,10 +56,11 @@ function AddItemsAndInvosSTRX() {
   return (
     <main className={`mrvPage addItemsAndInvos color__surface__subdued`}>
       <section className={`mrvPanel__main`}>
-        <HeaderSTRX
+        <TitleBarSTRX
           hasIcon={"back"}
           showProductName={true}
           headerTitle={s70label[locStAddRtrns.activeMode]}
+          showNavNodeBar={true}
         />
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.activeMode]}

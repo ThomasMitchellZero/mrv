@@ -1,6 +1,7 @@
 import "./TitleBarMRV.css";
 
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
+import { NavNodeBarMRV } from "../inputs/NavNodeBarMRV";
 
 function TitleBarMRV({
   hasIcon = null,
@@ -9,7 +10,8 @@ function TitleBarMRV({
   headerTitle = "Title",
   hasCluster = true,
   srString = "",
-  navNode = null,
+  showNavNodeBar = false,
+  navNodeBar = null,
   navBtnClick = () => {
     console.log("nothing here");
   },
@@ -58,7 +60,7 @@ function TitleBarMRV({
         <p className={`tiny-text`}>
           {showProductName ? `${productName}` : " "}
         </p>
-        {navNode }
+        {showNavNodeBar ? navNodeBar : null}
       </div>
     </section>
   );

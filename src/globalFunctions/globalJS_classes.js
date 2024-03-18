@@ -1,3 +1,5 @@
+
+
 //---- Product ----
 
 class moneyObj {
@@ -215,6 +217,7 @@ const baseReturnState = ({
     sessionInvos,
     atomizedReturnItems,
     totalReturnValue,
+    oNavNodes,
   };
 };
 
@@ -248,12 +251,14 @@ class returnAtom {
 }
 
 const navNode = ({
+  keyStr = "",
   routeStr = "",
   titleStr = "No Title",
   isAvailable = false,
   isActive = false,
+  breadcrumb = false,  //may need to conditionally add a breadcrumb to the nav bar
 }) => {
-  return { routeStr, titleStr, isAvailable, isActive };
+  return { routeStr, titleStr, isAvailable, isActive, breadcrumb };
 };
 
 export { baseReturnState, returnAtom, navNode };

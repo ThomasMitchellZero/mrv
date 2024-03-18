@@ -1,4 +1,4 @@
-import { HeaderSTRX } from "../../_resources/components/HeaderSTRX";
+import { TitleBarSTRX } from "../../_resources/components/TitleBarSTRX";
 import { ItemEntry, ReceiptEntry } from "./EntrySubsections";
 
 import { useNavigate } from "react-router";
@@ -48,7 +48,7 @@ function AllEntry30({ parLocState, setParLocState }) {
 
   return (
     <main className={`allEntry30 mrvPanel__side color__surface__default`}>
-      <HeaderSTRX
+      <TitleBarSTRX
         hasCluster={false}
         showProductName={false}
         headerTitle={"Add To Exchange"}
