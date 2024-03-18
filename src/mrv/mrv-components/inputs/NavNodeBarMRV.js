@@ -6,7 +6,6 @@ import {
   baseReturnState,
 } from "../../../globalFunctions/globalJS_classes";
 import { useNodeNav } from "../../MRVhooks/MRVhooks";
-import { useOutletContext } from "react-router";
 
 const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
   const nodeNav = useNodeNav({
@@ -29,6 +28,7 @@ const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
 
     return (
       <button
+        key={crumbNavNodes.keyStr}
         disabled={crumbNavNodes.disabled}
         onClick={() => console.log(
           "fart"

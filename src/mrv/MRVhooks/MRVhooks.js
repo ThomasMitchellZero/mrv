@@ -66,42 +66,36 @@ const atomsMonetizer = (arrayOfAtoms) => {
 
 export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
 
-
-
-
-
-
-function useNodeNav({sessionState, setSessionState}) {
+function useNodeNav({ sessionState, setSessionState }) {
   const navigate = useNavigate();
 
-  const exchCtx = useOutletContext();
-
   const nodeNav = (targetNodeKey = "") => {
-    const refBreadcrumbNode = new navNode({});
-    const refDefaultState = baseReturnState({});
+    /*
+      const refBreadcrumbNode = new navNode({});
+      const refDefaultState = baseReturnState({});
+    */
 
     if (sessionState.oNavNodes[targetNodeKey]) {
-
       const outNavNodesObj = cloneDeep(sessionState.oNavNodes);
 
       for (const thisNode of Object.values(outNavNodesObj)) {
-        thisNode.isActive = false; // deactivate all nodes
+        thisNode.selected = false; // deactivate all nodes
       }
       // activate the target node and make it available.
-      outNavNodesObj[targetNodeKey].isActive = true;
-      outNavNodesObj[targetNodeKey].isAvailable = true;
+      outNavNodesObj[targetNodeKey].disabled = false;
+      outNavNodesObj[targetNodeKey].selected = true;
 
-      setSessionState((draft) => { draft.oNavNodes = outNavNodesObj; } );
+      setSessionState((draft) => {
+        draft.oNavNodes = outNavNodesObj;
+      });
       navigate(outNavNodesObj[targetNodeKey].routeStr);
     }
-   }
+  };
 
   return nodeNav;
 }
 
 export { useNodeNav };
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////         Session Input Handlers       /////////////////////////
@@ -180,7 +174,6 @@ function useSetSessionItems({ sessionState, setSessionState }) {
   return setSessionItems;
 }
 
-
 // Make a change to the invos in the Session state
 function useSetSessionInvos({ sessionState, setSessionState }) {
   const invosCtx = useContext(InvoContext);
@@ -221,7 +214,6 @@ function useSetSessionInvos({ sessionState, setSessionState }) {
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////         Session Value Derivers       /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 
 const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   // accepts an object of Session Items and an array of Session Invos

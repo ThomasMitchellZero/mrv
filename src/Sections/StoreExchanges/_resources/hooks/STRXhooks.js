@@ -49,38 +49,38 @@ const defaultNavNodesSTRX = {
   testScenarios: navNode({
     keyStr: "testScenarios",
     titleStr: "Start",
-    routeStr: "mrv/store-exchanges",
+    routeStr: "/mrv/store-exchanges",
   }),
   replacementCheck: navNode({
     keyStr: "replacementCheck",
     titleStr: "Replacement Check",
 
-    routeStr: "mrv/store-exchanges/replacement-check",
+    routeStr: "/mrv/store-exchanges/replacement-check",
   }),
   returns: navNode({
     keyStr: "returns",
     titleStr: "Returns",
     breadcrumb: true,
 
-    routeStr: "mrv/store-exchanges/choose-items-invos",
+    routeStr: "/mrv/store-exchanges/choose-items-invos",
   }),
   reason: navNode({
     keyStr: "reason",
     titleStr: "Reason",
     breadcrumb: true,
-    routeStr: "mrv/store-exchanges/reason",
+    routeStr: "/mrv/store-exchanges/reason",
   }),
   replacements: navNode({
     keyStr: "replacements",
     titleStr: "Replacements",
     breadcrumb: true,
-    routeStr: "mrv/store-exchanges/replacements",
+    routeStr: "/mrv/store-exchanges/replacements",
   }),
   review: navNode({
     keyStr: "review",
     titleStr: "Review",
     breadcrumb: true,
-    routeStr: "mrv/store-exchanges/review",
+    routeStr: "/mrv/store-exchanges/review",
   }),
 };
 
