@@ -254,11 +254,11 @@ const navNode = ({
   keyStr = "",
   routeStr = "",
   titleStr = "No Title",
-  isAvailable = false,
-  isActive = false,
+  selected = false,
+  disabled = true,
   breadcrumb = false,  //may need to conditionally add a breadcrumb to the nav bar
 }) => {
-  return { routeStr, titleStr, isAvailable, isActive, breadcrumb };
+  return { keyStr, routeStr, titleStr, selected, disabled, breadcrumb };
 };
 
 export { baseReturnState, returnAtom, navNode };

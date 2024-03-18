@@ -407,10 +407,10 @@
       border-color: transparent;
       background-color: transparent;
 
-      &.inactive {
+      &.disabled {
         color: var(--color__disabled__text);
       }
-      &.active {
+      &.selected {
         border-bottom: 0.125rem solid var(--color__interactive);
         background-color: var(--color__card__selected);
       }
@@ -425,6 +425,7 @@
       height: 2.5rem;
       font-size: 1rem;
       padding: 0rem 0.5rem;
+      gap: 0.125rem;
     }
 
     &.fullWidth {

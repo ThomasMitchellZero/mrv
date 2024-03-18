@@ -57,9 +57,9 @@ function TitleBarMRV({
         {hasCluster ? cancelCluster : null}
       </div>
       <div className={`secondaryRow`}>
-        <p className={`tiny-text`}>
-          {showProductName ? `${productName}` : " "}
-        </p>
+        <div className={`tiny-text appTitle`}>
+          {showProductName ? `${productName}` : ""}
+        </div>
         {showNavNodeBar ? navNodeBar : null}
       </div>
     </section>

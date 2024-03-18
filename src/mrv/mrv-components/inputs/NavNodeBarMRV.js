@@ -1,4 +1,6 @@
 import "./NavNodeBarMRV.css";
+import { MdChevronRight } from "react-icons/md";
+
 import {
   navNode,
   baseReturnState,
@@ -12,13 +14,8 @@ const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
     setSessionState: setSessionState,
   });
 
-  const ssState = sessionState;
-
   const sessionNavNodes = sessionState.oNavNodes;
-
   const refDefaultState = baseReturnState({});
-
-  const test = Object.values(sessionNavNodes);
 
   // only use the nodes with a breadcrumb property.
   const aBreadCrumbNodes = Object.values(sessionNavNodes).filter(
@@ -27,21 +24,22 @@ const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
 
   const uiBreadcrumb = (crumbNavNodes) => {
     const refNavNode = navNode({});
+    const selected = crumbNavNodes.selected ? "selected" : "";
+    const disabled = crumbNavNodes.disabled ? "disabled nohover" : "";
+
     return (
       <button
-        //onClick={() => nodeNav({targetNodeKey: crumbNavNodes.keyStr})}
-        className={`ghost miniButton`}
+        disabled={crumbNavNodes.disabled}
+        onClick={() => console.log(
+          "fart"
+        )}
+        className={`ghost miniBtn ${selected} ${disabled}`}
       >
         {crumbNavNodes.titleStr}
+        <MdChevronRight />
       </button>
     );
   };
-
-  const uiBreadcrumArr = aBreadCrumbNodes.map((node) => {
-    return uiBreadcrumb(node);
-  });
-
-
 
   return (
     <section className={`navNodeBar`}>

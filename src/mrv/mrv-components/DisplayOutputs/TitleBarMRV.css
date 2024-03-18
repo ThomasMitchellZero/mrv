@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: row;
     flex: 0 0 3rem;
-    width: 100%;    
+    width: 100%;
     gap: 0.25rem;
     align-items: center;
     min-width: 0rem;
@@ -32,9 +32,16 @@
   & .secondaryRow {
     display: flex;
     flex-direction: row;
+    width: 100%;
     flex: 0 0 2rem;
     gap: 1rem;
     align-items: center;
+
+    & .appTitle {
+      display: flex;
+      flex: 0 0 auto;
+      min-width: 0rem;
+    }
   }
 
   & .navBtn {
