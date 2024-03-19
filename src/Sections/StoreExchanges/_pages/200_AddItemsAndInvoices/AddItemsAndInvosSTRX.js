@@ -1,16 +1,13 @@
-import { TitleBarSTRX } from "../../_resources/components/TitleBarSTRX";
+import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
+
 
 import { AllEntry30 } from "./AllEntry30";
-import { NoneScanned } from "./NoneScanned";
 
-
-import { useNavigate } from "react-router";
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
 import { RtrnInvosList } from "./RtrnInvosList";
 
 function AddItemsAndInvosSTRX() {
-  const navigate = useNavigate();
 
   const clearableFields = {
     itemNumField: "",

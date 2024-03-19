@@ -1,4 +1,4 @@
-import { TitleBarSTRX } from "../../_resources/components/TitleBarSTRX";
+import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { ItemEntry, ReceiptEntry } from "./EntrySubsections";
 
 import { useNavigate } from "react-router";

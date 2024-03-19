@@ -411,7 +411,6 @@
         color: var(--color__disabled__text);
       }
       &.selected {
-
         border-bottom: 0.125rem solid var(--color__interactive);
         background-color: var(--color__card__selected);
       }
