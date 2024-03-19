@@ -1,6 +1,6 @@
 import "./CashTotalMRV.css";
 
-import { useCentsToDollars } from "../../customHooks/exchHooks";
+import { useCentsToDollars } from "../../MRVhooks/MRVhooks";
 
 import { useOutletContext } from "react-router";
 
@@ -26,8 +26,10 @@ const CashTotalMRV = ({
   // Tomorrow, populate with dummy numbers and get the CSS right, then start hooking shit up.
   return (
     <section className={`cashTotal`}>
-      <div className={`subdiv__title`}></div>
-      <div className={`subdiv__value`}></div>
+      <div className={`subdiv__titles`}>
+        <div>Difference Subtotal</div>
+      </div>
+      <div className={`subdiv__values`}></div>
       <div className={`totalCol `}>
         <div className={`heading__large`}>$123.45</div>
       </div>

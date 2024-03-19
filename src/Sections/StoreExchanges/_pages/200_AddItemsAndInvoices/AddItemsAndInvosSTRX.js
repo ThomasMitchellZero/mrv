@@ -1,13 +1,18 @@
-import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
-
+import {
+  TitleBarSTRX,
+  CashTotalSTRX,
+} from "../../_resources/components/CompConfigsSTRX";
 
 import { AllEntry30 } from "./AllEntry30";
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
 import { RtrnInvosList } from "./RtrnInvosList";
+import { useOutletContext } from "react-router";
 
 function AddItemsAndInvosSTRX() {
+  const strxCtx = useOutletContext();
+  const sessionState = strxCtx.sessionSTRX;
 
   const clearableFields = {
     itemNumField: "",
@@ -51,20 +56,22 @@ function AddItemsAndInvosSTRX() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <main className={`mrvPage addItemsAndInvos color__surface__subdued`}>
-      <section className={`mrvPanel__main`}>
+    <page className={`mrvPage addItemsAndInvos color__surface__subdued`}>
+      <main className={`mrvPanel__main`}>
         <TitleBarSTRX
-          hasIcon={"back"}
+          //hasIcon={"back"}
           showProductName={true}
           headerTitle={s70label[locStAddRtrns.activeMode]}
           showNavNodeBar={true}
         />
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.activeMode]}
+          <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
         </div>
-      </section>
+      </main>
       {o30panels[locStAddRtrns.active30]}
-    </main>
+
+    </page>
   );
 }
 

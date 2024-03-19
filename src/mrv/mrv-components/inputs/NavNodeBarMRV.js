@@ -7,6 +7,7 @@ import {
 } from "../../../globalFunctions/globalJS_classes";
 import { useNodeNav } from "../../MRVhooks/MRVhooks";
 
+
 const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
   const nodeNav = useNodeNav({
     sessionState: sessionState,

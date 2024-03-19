@@ -1,6 +1,7 @@
 // For STRX-specific configurations of stock MRV components
 
 import { TitleBarMRV } from "../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
+import { CashTotalMRV } from "../../../../mrv/mrv-components/DisplayOutputs/CashTotalMRV";
 import { NavNodeBarMRV } from "../../../../mrv/mrv-components/inputs/NavNodeBarMRV";
 import { useOutletContext } from "react-router";
 
@@ -43,3 +44,9 @@ const TitleBarSTRX = ({
 };
 
 export { TitleBarSTRX };
+
+const CashTotalSTRX = ({ mode = "exchDelta", sessionState = {} }) => {
+  return <CashTotalMRV mode={mode} sessionState={sessionState} />;
+}
+
+export { CashTotalSTRX };

@@ -14,7 +14,7 @@ function StartSTRX() {
   return (
     <section className={`mrvPage`}>
       <section className={`mrvPanel__main`}>
-        <TitleBarSTRX headerTitle={"Choose Scenario"}></TitleBarSTRX>
+        <TitleBarSTRX showNavNodeBar={true} headerTitle={"Choose Scenario"}></TitleBarSTRX>
         <div className={`main_content gap2rem alignLeft`}>
           <button
             type="button"

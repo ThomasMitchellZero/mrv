@@ -24,7 +24,6 @@ const RtrnItemsList = () => {
 
   // local function for handling qty changes.
   const handleQtyChange = (e, atomizedItem) => {
-
     const newQty = e.target.value;
     setSessionItemsSTRX({
       itemsArrRouteStr: "returnItems",
@@ -49,10 +48,12 @@ const RtrnItemsList = () => {
     const oVals = {
       invo: hasInvo ? atomizedItem.atomInvoNum : "Needs Receipt",
       red: hasInvo ? "" : "color__red__text",
-      unitVal: hasInvo ? `$${centsToDollars(atomizedItem.unitTotal)}` : "- -",
+      unitVal: hasInvo
+        ? `$${centsToDollars(atomizedItem.atomMoneyObj.unitBaseValue)}`
+        : "- -",
       totalVal: hasInvo
         ? `$${centsToDollars(
-            atomizedItem.unitTotal * atomizedItem.atomItemQty
+            atomizedItem.atomMoneyObj.unitBaseValue * atomizedItem.atomItemQty
           )}`
         : "- -",
     };
@@ -135,7 +136,10 @@ const RtrnItemsList = () => {
           <button
             className={`ghost fullWidth`}
             onClick={() => {
-              setSessionItemsSTRX({itemAtom: returnItem, actionType: "remove"});
+              setSessionItemsSTRX({
+                itemAtom: returnItem,
+                actionType: "remove",
+              });
             }}
           >
             <MdDeleteOutline
