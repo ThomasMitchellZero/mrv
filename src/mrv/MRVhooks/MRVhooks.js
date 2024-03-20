@@ -41,6 +41,18 @@ const mo_multiply = ({ targetMO, factor = 1 }) => {
   }
 };
 
+const moneyObjDelta = ({
+  refundMo = new moneyObj({}),
+  chargeMo = new moneyObj({}),
+}) => {
+  const outMoneyObj = new moneyObj({});
+
+  outMoneyObj.unitBaseValue = chargeMo.unitBaseValue - refundMo.unitBaseValue;
+  outMoneyObj.salesTax = chargeMo.salesTax - refundMo.salesTax;
+
+  return outMoneyObj;
+};
+
 const atomsMonetizer = (arrayOfAtoms) => {
   // returns a new moneyObj populated from all atoms in the array
   // salesTaxRate set to undefined because there is no guarantee that all atoms will have the same salesTaxRate.
@@ -70,10 +82,8 @@ function useNodeNav({ sessionState, setSessionState }) {
   const navigate = useNavigate();
 
   const nodeNav = (targetNodeKey = "") => {
-    /*
-      const refBreadcrumbNode = new navNode({});
-      const refDefaultState = baseReturnState({});
-    */
+    const refBreadcrumbNode = navNode({});
+    const refDefaultState = baseReturnState({});
 
     if (sessionState.oNavNodes[targetNodeKey]) {
       const outNavNodesObj = cloneDeep(sessionState.oNavNodes);
@@ -115,8 +125,6 @@ function useSetSessionItems({ sessionState, setSessionState }) {
   }) {
     const refDefaultState = baseReturnState({});
     const refAtom = new returnAtom({});
-
-    const outSessionState2 = cloneDeep(sessionState);
 
     let outSessionState = cloneDeep(sessionState);
     let outItemsArr = outSessionState[itemsArrRouteStr];
@@ -356,6 +364,7 @@ function returnAutoDeriver(clonedDraft) {
   // purpose is to perform all derivations needed when performing a return.
   // returns a new draft, which must be assigned to the state.
 
+  const refDefaultState = baseReturnState({});
   let outSessionState = cloneDeep(clonedDraft);
 
   // auto-add child atoms if their parent is in the returnItems
@@ -371,6 +380,15 @@ function returnAutoDeriver(clonedDraft) {
   outSessionState.totalReturnValue = atomsMonetizer(
     outSessionState.atomizedReturnItems
   );
+
+  outSessionState.totalReplacementValue = atomsMonetizer(
+    outSessionState.replacementItems
+  );
+
+  outSessionState.cashDeltaMO = moneyObjDelta({
+    refundMo: outSessionState.totalReturnValue,
+    chargeMo: outSessionState.totalReplacementValue,
+  });
 
   outSessionState.wholeBigNumber = outSessionState.totalReturnValue.unitTotal;
 

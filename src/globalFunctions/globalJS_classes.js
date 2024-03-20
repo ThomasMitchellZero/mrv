@@ -207,16 +207,23 @@ export { sessionItem, singleDispo };
 
 const baseReturnState = ({
   returnItems = [],
-  sessionInvos = {},
-  atomizedReturnItems = [],
   totalReturnValue = new moneyObj({}),
+  atomizedReturnItems = [],
+  replacementItems = [],
+  totalReplacementValue = new moneyObj({}),
+  cashDeltaMO = new moneyObj({}),
+  sessionInvos = {},
   oNavNodes = {},
 }) => {
   return {
     returnItems,
-    sessionInvos,
     atomizedReturnItems,
     totalReturnValue,
+    replacementItems,
+    totalReplacementValue,
+    cashDeltaMO,
+
+    sessionInvos,
     oNavNodes,
   };
 };

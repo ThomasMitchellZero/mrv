@@ -9,6 +9,7 @@ const CashTotalMRV = ({
   sessionState = {},
   setSessionState,
 }) => {
+
   const appCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
 
@@ -23,13 +24,16 @@ const CashTotalMRV = ({
     },
   };
 
-  // Tomorrow, populate with dummy numbers and get the CSS right, then start hooking shit up.
   return (
-    <section className={`cashTotal`}>
-      <div className={`subdiv__titles`}>
-        <div>Difference Subtotal</div>
+    <section className={`footer_content cashTotal`}>
+      <div className={`cashLine sdTitles`}>
+        <div className={`body`}>Difference Subtotal</div>
+        <div className={`body`}>Tax</div>
       </div>
-      <div className={`subdiv__values`}></div>
+      <div className={`cashLine`}>
+        <div className={`body bold`}>-$98982.34</div>
+        <div className={`body bold`}>-$1123.34</div>
+      </div>
       <div className={`totalCol `}>
         <div className={`heading__large`}>$123.45</div>
       </div>

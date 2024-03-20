@@ -1,27 +1,36 @@
-.mrv .STRX_top .cashTotal{
+.mrv.STRX_top .cashTotal {
+  justify-content: flex-start;
+  background-color: aquamarine;
+  padding-left: 2rem;
+  align-items: center;
+  gap: 1rem;
 
+  & .cashLine {
     display: flex;
-    flex-direction: row;
-    flex: 1 1 0rem;
-    align-items: center;
-    width: 100%;
-
-    & .subdiv__value{
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 0rem;
-        align-items: flex-start;
+    flex-direction: column;
+    flex: 0 0 8rem;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    
+    & div {
+      height: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
+  }
 
-    & .subdiv__title{
-        display: flex;
-        flex-direction: column;
-    }
+  & .sdTitles {
+    flex: 0 0 auto;
+    align-items: flex-end;
+  }
 
-    & .totalCol{
-        display: flex;
-        flex-direction: column;
-        flex: 0 0 auto;
-        align-items: flex-end;
-    }
+  & .totalCol {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    align-items: flex-end;
+  }
 }

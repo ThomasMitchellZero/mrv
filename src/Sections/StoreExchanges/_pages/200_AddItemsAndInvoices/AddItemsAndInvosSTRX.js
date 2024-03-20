@@ -56,7 +56,7 @@ function AddItemsAndInvosSTRX() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <page className={`mrvPage addItemsAndInvos color__surface__subdued`}>
+    <section className={`mrvPage addItemsAndInvos color__surface__subdued`}>
       <main className={`mrvPanel__main`}>
         <TitleBarSTRX
           //hasIcon={"back"}
@@ -66,12 +66,11 @@ function AddItemsAndInvosSTRX() {
         />
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.activeMode]}
-          <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
         </div>
+        <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
       </main>
       {o30panels[locStAddRtrns.active30]}
-
-    </page>
+    </section>
   );
 }
 
