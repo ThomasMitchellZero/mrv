@@ -4,6 +4,7 @@
   padding-left: 2rem;
   align-items: center;
   gap: 1rem;
+  color: var(--color__primary);
 
   & .cashLine {
     display: flex;
@@ -13,7 +14,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 0.5rem;
-    
+
     & div {
       height: 1.5rem;
       display: flex;
