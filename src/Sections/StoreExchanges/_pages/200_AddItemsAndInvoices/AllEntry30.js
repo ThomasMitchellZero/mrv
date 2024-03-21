@@ -1,10 +1,9 @@
 import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { ItemEntry, ReceiptEntry } from "./EntrySubsections";
 
-import { useNavigate } from "react-router";
 
 function AllEntry30({ parLocState, setParLocState }) {
-  const navigate = useNavigate();
+
 
   const s30Mode = parLocState.activeMode;
 
