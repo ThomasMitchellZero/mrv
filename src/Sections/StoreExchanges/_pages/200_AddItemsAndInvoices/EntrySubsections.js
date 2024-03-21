@@ -98,7 +98,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
           Add Item
         </button>
       </div>
-      <p className={`warning`}>fart</p>
+      <p className={`warning`}></p>
     </form>
   );
 };
