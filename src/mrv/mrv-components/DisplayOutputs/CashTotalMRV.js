@@ -30,11 +30,13 @@ const CashTotalMRV = ({
     },
   };
 
+  const thisConfig = configsObj[mode];
+
   const isNegative = (value) => {
     return value < 0 ? "color__green__text" : "";
   };
 
-  const uiCashLineLabels = configsObj[mode].aCashLines.map((line) => {
+  const uiCashLineLabels = thisConfig.aCashLines.map((line) => {
     return (
       <div key={line.label} className={`body`}>
         {line.label}
@@ -42,21 +44,32 @@ const CashTotalMRV = ({
     );
   });
 
-  const uiCashLineValues = configsObj[mode].aCashLines.map((line) => {
+  const uiCashLineValues = thisConfig.aCashLines.map((line) => {
     return (
       <div key={line.label} className={`body ${isNegative(line.value)} bold `}>
-        {centsToDollars(line.value)}
+        {`$${centsToDollars(line.value)}`}
       </div>
     );
   });
+
+  const negTotal = isNegative(thisConfig.finalTotal);
+
+  const uiFinalTotal = (
+    <div className={`totalCol `}>
+      <div className={`body__small ${negTotal}`}>
+        {negTotal ? "Total Refund:" : "Total Due:"}
+      </div>
+      <div className={`heading__large ${negTotal}`}>
+        {`$${centsToDollars(thisConfig.finalTotal)}`}
+      </div>
+    </div>
+  );
 
   return (
     <section className={`footer_content cashTotal`}>
       <div className={`cashLine sdTitles`}>{uiCashLineLabels}</div>
       <div className={`cashLine`}>{uiCashLineValues}</div>
-      <div className={`totalCol `}>
-        <div className={`heading__large`}>$123.45</div>
-      </div>
+      {uiFinalTotal}
     </section>
   );
 };
