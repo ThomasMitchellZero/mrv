@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/mrv/static/css/main.015acdc9.css",
-    "main.js": "/mrv/static/js/main.fa27e208.js",
+    "main.css": "/mrv/static/css/main.560248fb.css",
+    "main.js": "/mrv/static/js/main.1cc76edb.js",
     "static/media/Fellix-Regular.otf": "/mrv/static/media/Fellix-Regular.af2bee556f001452e682.otf",
     "static/media/shower.png": "/mrv/static/media/shower.fde7773492bafa96c670.png",
     "static/media/plywood.png": "/mrv/static/media/plywood.fd26abe25835c116223f.png",
@@ -16,15 +16,17 @@
     "static/media/washer.png": "/mrv/static/media/washer.348561af1731e8528d23.png",
     "static/media/wall-wart.png": "/mrv/static/media/wall-wart.75ac5903746025dc45df.png",
     "static/media/toilet.png": "/mrv/static/media/toilet.ea76ab9fba335b0c4e51.png",
+    "static/media/Receipt.svg": "/mrv/static/media/Receipt.841545f082d5d0838a3221201afbb737.svg",
     "static/media/lowes-logo.svg": "/mrv/static/media/lowes-logo.646de48c9eb8b38c16c1a86e9aa7bce4.svg",
+    "static/media/Cart.svg": "/mrv/static/media/Cart.08f96af07cc0a1c2da75dce4290021f4.svg",
     "index.html": "/mrv/index.html",
     "static/media/universal-scan.svg": "/mrv/static/media/universal-scan.bbfde7688dd9aad80dad4b61704ca798.svg",
     "static/media/blank.svg": "/mrv/static/media/blank.b787e2f680a11cc96c218e5ec5bb0c85.svg",
-    "main.015acdc9.css.map": "/mrv/static/css/main.015acdc9.css.map",
-    "main.fa27e208.js.map": "/mrv/static/js/main.fa27e208.js.map"
+    "main.560248fb.css.map": "/mrv/static/css/main.560248fb.css.map",
+    "main.1cc76edb.js.map": "/mrv/static/js/main.1cc76edb.js.map"
   },
   "entrypoints": [
-    "static/css/main.015acdc9.css",
-    "static/js/main.fa27e208.js"
+    "static/css/main.560248fb.css",
+    "static/js/main.1cc76edb.js"
   ]
 }
