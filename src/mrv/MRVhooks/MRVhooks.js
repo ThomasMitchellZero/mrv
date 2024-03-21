@@ -56,6 +56,7 @@ const moneyObjDelta = ({
 const atomsMonetizer = (arrayOfAtoms) => {
   // returns a new moneyObj populated from all atoms in the array
   // salesTaxRate set to undefined because there is no guarantee that all atoms will have the same salesTaxRate.
+  const refAtom = new returnAtom({});
 
   let arrayToSum =
     arrayOfAtoms instanceof Object ? Object.values(arrayOfAtoms) : arrayOfAtoms;
@@ -344,16 +345,20 @@ const autoAddChildAtoms = (clonedDraft) => {
     const childReturned =
       returnedItemsArr.filter((thisItem) => {
         return (
-          thisItem.atomItemNum === thisAtom.atomItemNum &&
-          thisItem.parentKey === parentItemNum
+          thisItem.atomItemNum === thisAtom.atomItemNum 
+          //&& thisItem.parentKey === parentItemNum
         );
       }).length > 0;
 
     // if this is a child item and it is not already in the returnItems but its parent is, add it.
     if (parentItemNum && parentReturned && !childReturned) {
+
+      /* */
       const outAtom = cloneDeep(thisAtom);
       outAtom.atomItemQty = 0;
       outAtom.atomInvoNum = "";
+      outAtom.atomMoneyObj = new moneyObj({});
+
       clonedDraft.returnItems.push(outAtom);
     }
   }

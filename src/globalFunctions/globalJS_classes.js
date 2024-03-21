@@ -248,7 +248,6 @@ class returnAtom {
     this.atomMoneyObj = atomMoneyObj || new moneyObj({});
     this.atomDispoKey = atomDispoKey;
     this.atomItemQty = atomItemQty;
-    this.unitTotal = this.atomMoneyObj.unitTotal;
     this.bifrostKey = bifrostKey || this.atomItemNum;
   }
 

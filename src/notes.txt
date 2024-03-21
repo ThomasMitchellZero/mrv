@@ -7103,9 +7103,49 @@ What to do today?
 
 14 Mar 2024
     7:00.  Been coding for a while.  I feel like the nav nodes are being passed around so much that there's got to be a way to simplify this shit, but I'm not able to figure it out right now.  
-
     8:45.  Caught a second-second wind but I think I'm getting tired.  
 
+18 Mar 2024.
+    7:40.
+    I have actually been programming for ~90 minutes, but I didn't record it.  Tabs and Tab Nav are done, but I haven't hit a wall yet.  I actually want to do some thinking about the cash display, because I am pretty sure things should be smooth sailing after that.
+
+    What do I need to incorporate?
+    I'm pretty sure I should be pulling from the Default State.  Fields I can recall seeing: 
+        -Return value
+        -Replacement cost
+        -Tax
+        -$ Delta
+        -Discounts(?)
+    
+    I don't have to make a decision (yet) on what specific parts to put in there.  I just need a conceptual framework for how they are to be produced.
+
+    So one idea is to make it as an MRV component, then make configurations as I go along.  I can add/calculate new variables as needed by new configs, and then let the config itself determine what shows up.
+
+    I kind of like the object model I've used for configs in the past.  It's pretty neat.
+
+    I also think I should make a per-app config, since if I do need to change anything it would be nice to have it all inheriting from the same place.  
+
+    That seems to make sense, certainly more than free-balling it.
+
+    OK, I think that sounds like a plan?
+
+    20 Mar 2024
+    5:55.
+    I *hope* I can get the price total knocked out tonight.  We need:
+
+        X -An array of Replacement items with the same structure as Return.
+        X -A single way of generating the aggregated moneyObj of both.  Derived, but stored in state.
+        X -Store Returns moneyObj, Replacements moneyObj, and  Δ-moneyObj in state?  If I had that it should be easy enough to pull the values.
+
+        -Some way of programmatically populating the data based on a combination of config for titles and state for values.  I think they actually both have to live in the config, since it's not like they can be separated.
+        -For the time being, I am just doing to do Δ-Subtotal and Δ-Tax.  I'll deal with Discounts once I need them.
+
+    6:40.
+        50 minutes and got all the state-handling set up.  That was REALLY fast :D  OK, so now I just need to worry about pulling in the state and populating based on the config.
+
+    
+
+    Completely unrelated: could flex: 0 0 0rem be the key to making text wrap work in a flexbox?
 
 
 
