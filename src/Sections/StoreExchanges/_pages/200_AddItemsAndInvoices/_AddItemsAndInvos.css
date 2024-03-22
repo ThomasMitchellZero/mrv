@@ -81,7 +81,6 @@
         [spacer] 1px
         [trash] 5.5rem;
       flex: 0 0 auto;
-      width: 100%;
       gap: 1rem;
     }
 
@@ -90,8 +89,6 @@
       grid-template-columns: subgrid;
       grid-column: detail / spacer;
       gap: 1rem;
-
-
     }
 
     /* 1 per individual item in the card.  Main and child are the same. */
