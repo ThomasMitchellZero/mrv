@@ -13,48 +13,60 @@ function ReplacementCheck() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
-  const uiStates = {
-    askCustomer: (
-      <>
-        <div className={``}></div>
-        <div className={`hBox minFlex gap2rem`}>
-          <button
-            type="button"
-            onClick={() => {
-              nodeNavSTRX("returns");
-            }}
-            className={`mrvBtn maxFlex primary`}
-          >
-            Add Items From Invoice
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              nodeNavSTRX("returns");
-            }}
-            className={`mrvBtn maxFlex primary`}
-          >
-            Add Items From Invoice
-          </button>
-        </div>
-      </>
-    ),
-    banishCustomer: (
-      <>
-        <div className={`hBox minFlex gap2rem`}>
-          <button
-            type="button"
-            onClick={() => {
-              nodeNavSTRX("returns");
-            }}
-            className={`mrvBtn maxFlex primary`}
-          >
-            Add Items From Invoice
-          </button>
-        </div>
-      </>
-    ),
-  };
+  const askCustomer = (
+    <>
+      <div className={`heading__large color__primary__text`}>
+        Does the customer have the replacement items they want to get?
+      </div>
+      <div className={`hBox minFlex gap2rem`}>
+        <button
+          type="button"
+          onClick={() => {
+            setLocStReplCheck((draft) => {
+              draft.activePanel = "banishCustomer";
+            });
+          }}
+          className={`mrvBtn maxFlex secondary`}
+        >
+          No
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            nodeNavSTRX("returns");
+          }}
+          className={`mrvBtn maxFlex primary`}
+        >
+          Yes
+        </button>
+      </div>
+    </>
+  );
+
+  const banishCustomer = (
+    <>
+      <div className={`heading__large color__primary__text`}>
+        1. Ask customer to get their replacement items.
+      </div>
+      <div className={`heading__large color__primary__text`}>
+        2. Offer to hold the items being brought back.
+      </div>
+      <div className={`heading__large color__primary__text`}>
+        3. (Optional) They can skip the line when they get back.
+      </div>
+      <div className={`hBox minFlex gap2rem`}>
+        <button
+          type="button"
+          onClick={() => {
+            nodeNavSTRX("testScenarios");
+          }}
+          className={`mrvBtn maxFlex primary`}
+        >
+          OK
+        </button>
+      </div>
+    </>
+  );
 
   /* ---- OUTPUT JSX ---- */
 
@@ -66,7 +78,9 @@ function ReplacementCheck() {
           headerTitle={"Replacement Items With Customer"}
         ></TitleBarSTRX>
         <div className={`main_content gap2rem`}>
-          {uiStates[locStReplCheck.activePanel]}
+          {locStReplCheck.activePanel === "banishCustomer"
+            ? banishCustomer
+            : askCustomer}
         </div>
       </section>
     </section>

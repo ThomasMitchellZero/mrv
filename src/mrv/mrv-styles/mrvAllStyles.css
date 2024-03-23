@@ -126,28 +126,6 @@
 
   /* ---- MRV TEXT STYLES ---- */
 
-  & h1 {
-    font-weight: 500;
-  }
-
-  & h3 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--color__text__primary);
-    line-height: 3.5rem;
-  }
-
-  & h3.heading__large {
-    font-size: 2.5rem;
-    line-height: 4rem;
-  }
-
-  & h4 {
-    font-size: 2rem;
-    line-height: 2.5rem;
-    font-weight: 600;
-    color: var(--color__text__primary);
-  }
 
   & .heading__small {
     font-size: 1.5rem;
@@ -223,21 +201,7 @@
 
   /* ---- MRV Containers ---- */
 
-  & .minFlex {
-    flex: 0 0 auto;
-  }
 
-  & .maxFlex {
-    flex: 1 1 0rem;
-  }
-
-  & .minWidth {
-    width: fit-content;
-  }
-
-  & .maxWidth {
-    width: 100%;
-  }
 
   & .hBox {
     display: flex;
@@ -668,6 +632,22 @@
 
   & .alignRight {
     align-items: flex-end;
+  }
+
+  & .minFlex {
+    flex: 0 0 auto;
+  }
+
+  & .maxFlex {
+    flex: 1 1 0rem;
+  }
+
+  & .minWidth {
+    width: fit-content;
+  }
+
+  & .maxWidth {
+    width: 100%;
   }
 
   & .nohover {

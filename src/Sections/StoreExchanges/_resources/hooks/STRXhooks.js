@@ -54,7 +54,6 @@ const defaultNavNodesSTRX = {
   replacementCheck: navNode({
     keyStr: "replacementCheck",
     titleStr: "Replacement Check",
-
     routeStr: "/mrv/store-exchanges/replacement-check",
   }),
   returns: navNode({
