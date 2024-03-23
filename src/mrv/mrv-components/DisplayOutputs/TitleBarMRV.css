@@ -45,6 +45,7 @@
   }
 
   & .navBtn {
+    
     height: var(--standard-height);
     flex: 0 0 auto;
     padding: 0rem;

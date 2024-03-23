@@ -61,7 +61,7 @@ const RtrnItemsList = () => {
     return (
       <div key={atomizedItem.primaryKey} className={`invoInfoRow`}>
         <div className={`body__small field receiptCol ${oVals.red}`}>
-          {oVals.invo}
+          {`#${oVals.invo}`}
         </div>
         <div className={`unitQtyCol field body`}>
           {atomizedItem.atomItemQty}
@@ -157,7 +157,7 @@ const RtrnItemsList = () => {
     <div className={`columnTitleRow items_grid`}>
       <div className={`columnTitle detailCol`}>Item</div>
       <div className={`columnTitle totalQtyCol`}>Total Qty</div>
-      <div className={`columnTitle receiptCol`}>Receipt</div>
+      <div className={`columnTitle receiptCol`}>Receipt #</div>
       <div className={`columnTitle unitQtyCol`}>Qty</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
     </div>

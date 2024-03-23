@@ -7159,8 +7159,8 @@ What to do today?
     By Monday, I need to be ready to go with:
     -Item Details + qty edits from both invoices and items.
     -Add in #s to anything related to Invoice #s.
-    -Add the preceeding screens.
-    -Enable the Cancel button to go back to the start.
+    X -Add the preceeding screens.
+    X -Enable the Cancel button to go back to the start.
     -Create 2 invoices x 3 items SPECIFICALLY for the test.
 
 

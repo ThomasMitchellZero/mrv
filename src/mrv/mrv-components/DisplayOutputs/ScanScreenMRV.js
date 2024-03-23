@@ -20,7 +20,7 @@ const ScanScreenMRV = ({
   return (
     <div className={`scanScreen`}>
       <img src={activeImg} alt={"Scanning Graphic"} />
-      <h4 className={`color__primary__text`}>{mainTitle}</h4>
+      <h4 className={`heading__medium color__primary__text`}>{mainTitle}</h4>
       <p className={`color__tertiary__text body__large`}>{subtitle}</p>
       {subtitleJSX}
     </div>

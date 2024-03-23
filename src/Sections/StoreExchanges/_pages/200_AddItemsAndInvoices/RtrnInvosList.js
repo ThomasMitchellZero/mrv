@@ -96,7 +96,7 @@ const RtrnInvosList = () => {
     return (
       <div key={invoObj.invoNum} className={`cardStyle entryCard invos_grid`}>
         <div className={`receiptDetailsCol`}>
-          <div className={`body__large bold`}>{invoObj.invoNum}</div>
+          <div className={`body__large bold`}>{`# ${invoObj.invoNum}`}</div>
           <div className={`body__small`}>Date: {invoObj.dateStr}</div>
           <div className={`body__small`}>Store: {invoObj.store}</div>
         </div>
