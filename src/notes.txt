@@ -7147,6 +7147,23 @@ What to do today?
 
     Completely unrelated: could flex: 0 0 0rem be the key to making text wrap work in a flexbox?
 
+23 Mar 2024
+
+    12:45.
+    I think at some point I need to do some CSS Normalization, but since it's just a cosmetic annoyance I won't deal with it now.
+
+    https://create-react-app.dev/docs/adding-css-reset
+
+    For the real work:
+
+    By Monday, I need to be ready to go with:
+    -Item Details + qty edits from both invoices and items.
+    -Add in #s to anything related to Invoice #s.
+    -Add the preceeding screens.
+    -Enable the Cancel button to go back to the start.
+    -Create 2 invoices x 3 items SPECIFICALLY for the test.
+
+
 
 
 

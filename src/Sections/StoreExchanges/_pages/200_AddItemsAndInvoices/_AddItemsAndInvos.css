@@ -59,6 +59,7 @@
 
   & .field {
     display: flex;
+    flex: 1 1 0rem;
     flex-direction: row;
     align-items: center;
     height: 100%;
@@ -69,6 +70,7 @@
   /* --------------------------------------------- */
 
   & .itemsList {
+    width: 100%;
     & .items_grid {
       display: grid;
       grid-template-columns:
@@ -119,6 +121,7 @@
 
     & .detailCol {
       grid-column: detail / span 1;
+      
 
       &.columnTitle {
         padding-left: 2rem;

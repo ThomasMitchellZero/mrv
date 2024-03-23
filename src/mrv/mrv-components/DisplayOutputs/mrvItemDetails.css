@@ -1,9 +1,9 @@
 .mrv .mrvProdInfo{
     display: flex;
+    flex: 1 1 0rem;
     flex-direction: row;
     box-sizing: border-box;
     padding: 0rem;
-    width: 100%;
     gap: 1rem;
 
     & .tinyText{

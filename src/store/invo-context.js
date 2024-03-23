@@ -15,8 +15,8 @@ import tenderTypes from "../components/global_functions/tenderTypes";
 const tType = tenderTypes;
 
 const invoiceObj = {
-  CAAA: new Invoice_SR({
-    invoNum: "CAAA",
+  "7771": new Invoice_SR({
+    invoNum: "7771",
     date: new Date(2022, 3, 8),
     payment: {
       [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
@@ -56,8 +56,8 @@ const invoiceObj = {
     ],
   }),
 
-  CBBB: new Invoice_SR({
-    invoNum: "CBBB",
+  "7772": new Invoice_SR({
+    invoNum: "7772",
     store: "2211",
     date: new Date(2022, 1, 22),
     payment: {
@@ -86,8 +86,8 @@ const invoiceObj = {
     ],
   }),
 
-  CCCC: new Invoice_SR({
-    invoNum: "CCCC",
+  "7773": new Invoice_SR({
+    invoNum: "7773",
     date: new Date(2022, 2, 24),
     payment: {
       3333444433334444: {
@@ -115,8 +115,8 @@ const invoiceObj = {
     ],
   }),
 
-  CDDD: new Invoice_SR({
-    invoNum: "CDDD",
+  "7774": new Invoice_SR({
+    invoNum: "7774",
     store: 1234,
     date: new Date(2022, 4, 4),
     payment: {
