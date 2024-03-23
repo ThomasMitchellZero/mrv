@@ -5,6 +5,8 @@ import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { MdDeleteOutline } from "react-icons/md";
+import { DeleteCardBtnMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardBtnMRV";
+import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
 
@@ -69,7 +71,7 @@ const RtrnItemsList = () => {
         <div className={`unitPriceCol field body alignRight`}>
           {oVals.unitVal}
         </div>
-        <div className={`totalPriceCol field alignRight body__large bold`}>
+        <div className={`totalPriceCol field alignRight body bold`}>
           {oVals.totalVal}
         </div>
       </div>
@@ -133,20 +135,14 @@ const RtrnItemsList = () => {
         <div className={"itemColumn field"}>{outSubcardArr}</div>
 
         <div className={`deleteCol field`}>
-          <button
-            className={`ghost fullWidth`}
+          <DeleteCardColMRV
             onClick={() => {
               setSessionItemsSTRX({
                 itemAtom: returnItem,
                 actionType: "remove",
               });
             }}
-          >
-            <MdDeleteOutline
-              fontSize="2.5rem"
-              className={`color__interactive__text`}
-            />
-          </button>
+          />
         </div>
       </div>
     );

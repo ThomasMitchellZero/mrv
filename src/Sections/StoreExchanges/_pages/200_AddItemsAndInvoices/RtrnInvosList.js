@@ -2,6 +2,7 @@ import "./_AddItemsAndInvos.css";
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
 import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
@@ -10,9 +11,7 @@ import {
   returnAtom,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import {
-  useSetSessionInvosSTRX,
-} from "../../_resources/hooks/STRXhooks";
+import { useSetSessionInvosSTRX } from "../../_resources/hooks/STRXhooks";
 
 const RtrnInvosList = () => {
   const strxCtx = useOutletContext();
@@ -35,10 +34,7 @@ const RtrnInvosList = () => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
     return (
-      <div
-        key={invoAtom.primaryKey}
-        className={`subCardStyle invoItemSubcard`}
-      >
+      <div key={invoAtom.primaryKey} className={`subCardStyle invoItemSubcard`}>
         <div className={`invoItemDetailsCol`}>
           <MRVitemDetails
             showPrice={false}
@@ -103,19 +99,15 @@ const RtrnInvosList = () => {
         <div className={`invoItemsColumn`}>{uiItemClusterArr}</div>
 
         <div className={`deleteCol field`}>
-          <button className={`ghost fullWidth`}>
-            <MdDeleteOutline
-              fontSize="2.5rem"
-              onClick={() => {
-                setSessionInvosSTRX({
-                  invosRtStr: "sessionInvos",
-                  invoNum: invoObj.invoNum,
-                  actionType: "remove",
-                });
-              }}
-              className={`color__interactive__text`}
-            />
-          </button>
+          <DeleteCardColMRV
+            onClick={() => {
+              setSessionInvosSTRX({
+                invosRtStr: "sessionInvos",
+                invoNum: invoObj.invoNum,
+                actionType: "remove",
+              });
+            }}
+          />
         </div>
       </div>
     );

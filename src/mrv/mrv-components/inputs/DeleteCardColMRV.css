@@ -1,0 +1,13 @@
+.mrv .deleteCardCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 1 1 0rem;
+  gap: 0.5rem;
+  height: 100%;
+
+  & .spacer {
+    flex: 1 1 0rem;
+    background-color: transparent;
+  }
+}
