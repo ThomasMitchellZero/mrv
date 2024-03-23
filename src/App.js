@@ -37,6 +37,7 @@ import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/Tota
 import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/ReceiptPage";
 
 import { StartSTRX } from "./Sections/StoreExchanges/_pages/100_StartSTRX/StartSTRX";
+import { ReplacementCheck } from "./Sections/StoreExchanges/_pages/150_ItemCheck/ReplacementCheck";
 import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 import { AddItemsAndInvosSTRX } from "./Sections/StoreExchanges/_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
 
@@ -95,7 +96,12 @@ function App() {
           </Route>
           <Route path="store-exchanges" element={<StoreExchanges />}>
             <Route index element={<StartSTRX />} />
-            <Route path="choose-items-invos" element={<AddItemsAndInvosSTRX />} />
+            <Route path="mrv-menu" element={<AddItemsAndInvosSTRX />} />
+            <Route path="replacement-check" element={<ReplacementCheck />} />
+            <Route
+              path="choose-items-invos"
+              element={<AddItemsAndInvosSTRX />}
+            />
           </Route>
         </Route>
       </Routes>

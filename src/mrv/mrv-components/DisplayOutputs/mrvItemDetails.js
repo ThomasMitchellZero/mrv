@@ -36,7 +36,7 @@ function MRVitemDetails({
       ? `Qty: ${thisItemAtom.atomItemQty}`
       : null;
 
-    const itemAndModelStr = `Item# ${thisItemAtom.atomItemNum}    Model# ${ctxItemInfo.modelNum}`;
+  const itemAndModelStr = `Item# ${thisItemAtom.atomItemNum}    Model# ${ctxItemInfo.modelNum}`;
 
   ////CONFIGURABLE DEFAULT VALUES ////
 
@@ -48,11 +48,13 @@ function MRVitemDetails({
 
       <section className={`textColumn`}>
         <div className={`textRow`}>
-          <p className={`body prodDescription`}>{priceStr}</p>
-          <p className={`body prodDescription`}>{qtyStr}</p>
+          <div className={`body prodDescription`}>{priceStr}</div>
+          <div className={`body prodDescription`}>{qtyStr}</div>
         </div>
-        <p className={`tinyText itemModel`}>{itemAndModelStr}</p>
-        <p className={`body__small description`}>{ctxItemInfo.description}</p>
+        <div className={`tinyText itemModel`}>{itemAndModelStr}</div>
+        <div className={`body__small description`}>
+          {ctxItemInfo.description}
+        </div>
       </section>
     </section>
   );

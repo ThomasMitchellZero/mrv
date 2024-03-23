@@ -3,8 +3,8 @@ import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { useNavigate } from "react-router";
 import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
 
+
 function StartSTRX() {
-  const navigate = useNavigate();
   const nodeNavSTRX = useNodeNavSTRX();
 
   /* ---- SHARED FUNCTIONS ---- */
@@ -19,11 +19,11 @@ function StartSTRX() {
           <button
             type="button"
             onClick={() => {
-              nodeNavSTRX("returns");
+              nodeNavSTRX("replacementCheck");
             }}
             className={`mrvBtn primary`}
           >
-            Add Items From Invoice
+            Test Scenario 1
           </button>
         </div>
       </section>
