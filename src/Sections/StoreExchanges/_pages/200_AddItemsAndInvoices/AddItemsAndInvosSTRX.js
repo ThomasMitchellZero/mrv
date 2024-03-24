@@ -4,6 +4,7 @@ import {
 } from "../../_resources/components/CompConfigsSTRX";
 
 import { AllEntry30 } from "./AllEntry30";
+import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
@@ -18,9 +19,11 @@ function AddItemsAndInvosSTRX() {
     itemNumField: "",
     itemQtyField: "",
     receiptNumField: "",
+    activeItemAtom: null,
     storeNumField: "",
     dateField: "",
     oActiveErrorState: null,
+    active30: "AllEntry30",
   };
 
   const defaultState = {
@@ -44,10 +47,23 @@ function AddItemsAndInvosSTRX() {
         setParLocState={setLocStAddRtrns}
       />
     ),
+    
+    ItemDetails30: (
+      <ItemDetails30STRX
+        stateItemArr="returnItems"
+        parLocState={locStAddRtrns}
+        setParLocState={setLocStAddRtrns}
+      />
+    ),
   };
 
   const o70panels = {
-    item: <RtrnItemsList />,
+    item: (
+      <RtrnItemsList
+        parLocState={locStAddRtrns}
+        setParLocState={setLocStAddRtrns}
+      />
+    ),
     receipt: <RtrnInvosList />,
   };
 

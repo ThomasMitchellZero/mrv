@@ -1,4 +1,5 @@
 .mrv .deleteCardBtn {
-  padding: 0rem 0.75rem;
+  padding: 0rem;
+  width: 3rem;
   height: 3rem;
 }

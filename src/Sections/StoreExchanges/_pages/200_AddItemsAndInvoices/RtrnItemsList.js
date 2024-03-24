@@ -4,13 +4,13 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
-import { MdDeleteOutline } from "react-icons/md";
-import { DeleteCardBtnMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardBtnMRV";
+
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
+import { cloneDeep } from "lodash";
 
-const RtrnItemsList = () => {
+const RtrnItemsList = ({ parLocState, setParLocState }) => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
@@ -89,8 +89,24 @@ const RtrnItemsList = () => {
       return uiInfoRow(thisAtom);
     });
 
+    const handleClick = () => {
+      setParLocState((draft) => {
+        draft.activeItemAtom = rowItem;
+        draft.active30 = "ItemDetails30";
+      });
+    };
+
+    const activeClass =
+      rowItem.atomItemNum === parLocState?.activeItemAtom?.atomItemNum
+        ? "selected"
+        : "";
+
     return (
-      <div key={rowItem.atomItemNum} className={`itemRow subCardStyle`}>
+      <div
+        key={rowItem.atomItemNum}
+        className={`itemRow subCardStyle ${activeClass}`}
+        onClick={handleClick}
+      >
         <div className={"rowCol detailCol"}>
           <MRVitemDetails
             showPrice={false}

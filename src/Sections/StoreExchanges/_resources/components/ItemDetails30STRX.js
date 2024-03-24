@@ -2,53 +2,77 @@ import { TitleBarSTRX } from "./CompConfigsSTRX";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useSetSessionItemsSTRX } from "../hooks/STRXhooks";
+import { cloneDeep } from "lodash";
+import { useOutletContext } from "react-router";
 
 const ItemDetails30STRX = ({
-  typeConfig = "return",
-  activeItemNum,
-  handleQtyChange = () => {},
-  itemStateQty,
+  stateItemArr,
+  parLocState,
+  setParLocState,
   setItemState,
-  handleClose,
 }) => {
-  const configObj = { stateItemArr: "Return" };
+  const activeAtom = parLocState.activeItemAtom;
+  const activeItemNum = activeAtom?.atomItemNum;
+  const clearFields = parLocState.clearableFields;
+  const strxCtx = useOutletContext();
+  const sessionState = strxCtx.sessionSTRX;
+  const thisStateAtom = sessionState[stateItemArr].find((item) => item.atomItemNum === activeItemNum);
 
-  const setSTRXItem = useSetSessionItemsSTRX({
-    itemArrRouteStr: configObj.stateItemArr,
-    actionType: "edit",
-  });
+  const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
-  <main className={`mrvPanel__side color__surface__default`}>
-    <TitleBarSTRX
-      hasCluster={false}
-      showProductName={false}
-      hasIcon={"close"}
-      headerTitle={"Item Details"}
-    />
-    <section className={`main_content`}>
-      <div className={``}>
+  const handleClose = () => {
+    setParLocState(() => {
+      return { ...cloneDeep(stateItemArr), ...clearFields };
+    });
+  };
+
+  const handleInput = (e) => {
+    const outQty = parseInt(e.target.value) || "";
+    setSessionItemsSTRX({
+      itemsArrRouteStr: "returnItems",
+      itemAtom: activeAtom,
+
+      newQty: outQty,
+      actionType: "edit",
+    });
+  };
+
+  return (
+    <main className={`mrvPanel__side color__surface__default`}>
+      <TitleBarSTRX
+        hasCluster={false}
+        showProductName={false}
+        hasIcon={"close"}
+        navBtnClick={handleClose}
+        headerTitle={"Item Details"}
+      />
+      <section className={`main_content`}>
         <div className={``}>
-          <MRVitemDetails
-            showPrice={false}
-            showQty={false}
-            thisItemAtom={activeItemNum}
-          />
-        </div>
-        <div className={``}>
-          <MRVinput width={"8rem"}>
-            <input
-              type="number"
-              min="0"
-              step="1"
-              placeholder="Qty"
-              value={2}
-              onChange={handleQtyChange}
+          <div className={``}>
+            <MRVitemDetails
+              showPrice={false}
+              showQty={false}
+              thisItemAtom={activeAtom}
             />
-          </MRVinput>
+          </div>
+          <div className={``}>
+            <MRVinput width={"8rem"}>
+              <input
+                type="number"
+                min="0"
+                step="1"
+                placeholder="Qty"
+                value={thisStateAtom.atomItemQty}
+                onChange={(event) => {
+                  handleInput(event);
+                }}
+              />
+            </MRVinput>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>;
+      </section>
+    </main>
+  );
 };
 
 export { ItemDetails30STRX };
