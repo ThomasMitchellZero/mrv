@@ -90,6 +90,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     });
 
     const handleClick = () => {
+      // make this item the active item, and show the details panel.
       setParLocState((draft) => {
         draft.activeItemAtom = rowItem;
         draft.active30 = "ItemDetails30";
