@@ -157,6 +157,9 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
                 itemAtom: returnItem,
                 actionType: "remove",
               });
+              setParLocState(() => {
+                return { ...cloneDeep(parLocState), ...parLocState.clearableFields };
+              });
             }}
           />
         </div>

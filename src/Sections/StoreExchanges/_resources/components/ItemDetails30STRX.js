@@ -16,13 +16,15 @@ const ItemDetails30STRX = ({
   const clearFields = parLocState.clearableFields;
   const strxCtx = useOutletContext();
   const sessionState = strxCtx.sessionSTRX;
-  const thisStateAtom = sessionState[stateItemArr].find((item) => item.atomItemNum === activeItemNum);
+  const thisStateAtom = sessionState[stateItemArr].find(
+    (item) => item.atomItemNum === activeItemNum
+  );
 
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
   const handleClose = () => {
     setParLocState(() => {
-      return { ...cloneDeep(stateItemArr), ...clearFields };
+      return { ...cloneDeep(parLocState), ...parLocState.clearableFields };
     });
   };
 
