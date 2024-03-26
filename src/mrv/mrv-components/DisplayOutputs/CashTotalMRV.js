@@ -1,6 +1,6 @@
 import "./CashTotalMRV.css";
 
-import { useCentsToDollars } from "../../MRVhooks/MRVhooks";
+import { useCentsToDollars, greenify } from "../../MRVhooks/MRVhooks";
 import {
   baseReturnState,
   moneyObj,
@@ -32,9 +32,6 @@ const CashTotalMRV = ({
 
   const thisConfig = configsObj[mode];
 
-  const isNegative = (value) => {
-    return value < 0 ? "color__green__text" : "";
-  };
 
   const uiCashLineLabels = thisConfig.aCashLines.map((line) => {
     return (
@@ -46,13 +43,13 @@ const CashTotalMRV = ({
 
   const uiCashLineValues = thisConfig.aCashLines.map((line) => {
     return (
-      <div key={line.label} className={`body ${isNegative(line.value)} bold `}>
+      <div key={line.label} className={`body ${greenify(line.value)} bold `}>
         {`$${centsToDollars(line.value)}`}
       </div>
     );
   });
 
-  const negTotal = isNegative(thisConfig.finalTotal);
+  const negTotal = greenify(thisConfig.finalTotal);
 
   const uiFinalTotal = (
     <div className={`totalCol `}>

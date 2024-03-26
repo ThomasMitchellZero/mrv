@@ -3,7 +3,7 @@ import ProductContext from "../../store/product-context";
 import InvoContext from "../../store/invo-context";
 import { useOutletContext, useNavigate } from "react-router";
 
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 
 import {
   Invoice_SR,
@@ -33,7 +33,7 @@ const useDollarsToCents = () => {
 };
 
 const greenify = (numberVal) => {
-  return numberVal > 0 ? "color__green__text" : "";
+  return numberVal < 0 ? "color__green__text" : "";
 };
 
 const mo_multiply = ({ targetMO, factor = 1 }) => {
@@ -117,6 +117,7 @@ function useNodeNav({ sessionState, setSessionState }) {
 }
 
 export { useNodeNav };
+
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////         Session Input Handlers       /////////////////////////

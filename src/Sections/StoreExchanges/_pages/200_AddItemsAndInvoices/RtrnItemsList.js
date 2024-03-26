@@ -54,10 +54,11 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     const oVals = {
       invo: hasInvo ? `#${atomizedItem.atomInvoNum}` : "Needs Receipt",
       red: hasInvo ? "" : "color__red__text",
-      unitVal: hasInvo ? `-$${centsToDollars(unitBaseValue)}` : "- -",
-      totalVal: hasInvo ? `-$${centsToDollars(totalValue)}` : "- -",
+      unitVal: hasInvo ? `$-${centsToDollars(unitBaseValue)}` : "- -",
+      totalVal: hasInvo ? `$-${centsToDollars(totalValue)}` : "- -",
     };
 
+    // greenify neg. values because they are stored as positive in the invoices.
     return (
       <div key={atomizedItem.primaryKey} className={`invoInfoRow`}>
         <div className={`body__small field receiptCol ${oVals.red}`}>
@@ -68,14 +69,14 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
         </div>
         <div
           className={`unitPriceCol field body alignRight ${greenify(
-            unitBaseValue
+            -unitBaseValue
           )}`}
         >
           {oVals.unitVal}
         </div>
         <div
           className={`totalPriceCol field alignRight body bold ${greenify(
-            totalValue
+            -totalValue
           )}`}
         >
           {oVals.totalVal}
