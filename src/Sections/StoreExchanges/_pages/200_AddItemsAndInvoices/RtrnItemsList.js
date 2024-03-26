@@ -4,7 +4,7 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
-
+import { greenify } from "../../../../mrv/MRVhooks/MRVhooks";
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
@@ -47,31 +47,37 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
   // a row for invoice-specific details of this item.
   const uiInfoRow = (atomizedItem) => {
     const hasInvo = atomizedItem.atomInvoNum;
+    const moneyObj = atomizedItem.atomMoneyObj;
+
+    const unitBaseValue = moneyObj.unitBaseValue;
+    const totalValue = unitBaseValue * atomizedItem.atomItemQty;
     const oVals = {
-      invo: hasInvo ? atomizedItem.atomInvoNum : "Needs Receipt",
+      invo: hasInvo ? `#${atomizedItem.atomInvoNum}` : "Needs Receipt",
       red: hasInvo ? "" : "color__red__text",
-      unitVal: hasInvo
-        ? `$${centsToDollars(atomizedItem.atomMoneyObj.unitBaseValue)}`
-        : "- -",
-      totalVal: hasInvo
-        ? `$${centsToDollars(
-            atomizedItem.atomMoneyObj.unitBaseValue * atomizedItem.atomItemQty
-          )}`
-        : "- -",
+      unitVal: hasInvo ? `-$${centsToDollars(unitBaseValue)}` : "- -",
+      totalVal: hasInvo ? `-$${centsToDollars(totalValue)}` : "- -",
     };
 
     return (
       <div key={atomizedItem.primaryKey} className={`invoInfoRow`}>
         <div className={`body__small field receiptCol ${oVals.red}`}>
-          {`#${oVals.invo}`}
+          {`${oVals.invo}`}
         </div>
-        <div className={`unitQtyCol field body`}>
+        <div className={`unitQtyCol field body ${oVals.red}`}>
           {atomizedItem.atomItemQty}
         </div>
-        <div className={`unitPriceCol field body alignRight`}>
+        <div
+          className={`unitPriceCol field body alignRight ${greenify(
+            unitBaseValue
+          )}`}
+        >
           {oVals.unitVal}
         </div>
-        <div className={`totalPriceCol field alignRight body bold`}>
+        <div
+          className={`totalPriceCol field alignRight body bold ${greenify(
+            totalValue
+          )}`}
+        >
           {oVals.totalVal}
         </div>
       </div>
@@ -158,8 +164,12 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
                 itemAtom: returnItem,
                 actionType: "remove",
               });
+
               setParLocState(() => {
-                return { ...cloneDeep(parLocState), ...parLocState.clearableFields };
+                return {
+                  ...cloneDeep(parLocState),
+                  ...parLocState.clearableFields,
+                };
               });
             }}
           />

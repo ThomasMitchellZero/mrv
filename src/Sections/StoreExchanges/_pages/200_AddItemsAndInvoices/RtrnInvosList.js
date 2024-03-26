@@ -21,6 +21,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
 
   const noInvos = Object.entries(aSessionInvos).length === 0;
 
+
   const uiScanInvos = (
     <ScanScreenMRV
       mainTitle="scan Or Enter Receipts"

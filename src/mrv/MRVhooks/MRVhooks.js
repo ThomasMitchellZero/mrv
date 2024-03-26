@@ -32,6 +32,10 @@ const useDollarsToCents = () => {
   };
 };
 
+const greenify = (numberVal) => {
+  return numberVal > 0 ? "color__green__text" : "";
+};
+
 const mo_multiply = ({ targetMO, factor = 1 }) => {
   if (targetMO instanceof moneyObj) {
     const outMoneyObj = cloneDeep(targetMO);
@@ -77,7 +81,13 @@ const atomsMonetizer = (arrayOfAtoms) => {
   return outTotalMoneyObj;
 };
 
-export { useCentsToDollars, useDollarsToCents, mo_multiply, atomsMonetizer };
+export {
+  useCentsToDollars,
+  useDollarsToCents,
+  greenify,
+  mo_multiply,
+  atomsMonetizer,
+};
 
 function useNodeNav({ sessionState, setSessionState }) {
   const navigate = useNavigate();
@@ -345,14 +355,13 @@ const autoAddChildAtoms = (clonedDraft) => {
     const childReturned =
       returnedItemsArr.filter((thisItem) => {
         return (
-          thisItem.atomItemNum === thisAtom.atomItemNum 
+          thisItem.atomItemNum === thisAtom.atomItemNum
           //&& thisItem.parentKey === parentItemNum
         );
       }).length > 0;
 
     // if this is a child item and it is not already in the returnItems but its parent is, add it.
     if (parentItemNum && parentReturned && !childReturned) {
-
       /* */
       const outAtom = cloneDeep(thisAtom);
       outAtom.atomItemQty = 0;
