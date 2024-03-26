@@ -47,7 +47,7 @@ function AddItemsAndInvosSTRX() {
         setParLocState={setLocStAddRtrns}
       />
     ),
-    
+
     ItemDetails30: (
       <ItemDetails30STRX
         stateItemArr="returnItems"
@@ -64,7 +64,12 @@ function AddItemsAndInvosSTRX() {
         setParLocState={setLocStAddRtrns}
       />
     ),
-    receipt: <RtrnInvosList />,
+    receipt: (
+      <RtrnInvosList
+        parLocState={locStAddRtrns}
+        setParLocState={setLocStAddRtrns}
+      />
+    ),
   };
 
   /* ---- SHARED FUNCTIONS ---- */

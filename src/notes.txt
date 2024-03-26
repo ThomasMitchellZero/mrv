@@ -7158,11 +7158,38 @@ What to do today?
 
     By Monday, I need to be ready to go with:
     -Item Details + qty edits from both invoices and items.
-    -Add in #s to anything related to Invoice #s.
+    X -Add in #s to anything related to Invoice #s.
     X -Add the preceeding screens.
     X -Enable the Cancel button to go back to the start.
     -Create 2 invoices x 3 items SPECIFICALLY for the test.
 
+25 Mar 2024
+    5:20
+    We're looking pretty good.  The only thing a little on my mind is if I should try and get a single function to handle item selection, but honestly it's just two places.  We're fine.  We need:
+    -If a deleted item is active, clear the Active Item and set local state back to Entry Panel.
+    -Make sure item selection is also working for Invoices.  Since all selections should Edit and not Add, I think I can just copy-paste.
+
+    OK, I know what the issue is.  In the ItemDetails30STRX panel, there is a thisStateAtom const that looks for the item in the ReturnItems or ReplacementItems.
+
+    Since we are triggering this from Invoices, that item doesn't necessarily exist yet.  
+
+26 Mar 2024
+    12:15.
+    Having had some time to think on the issue, here's where I'm at.
+    -We will need a configObj, since I can think of at least 2 parameters that will change based on the scenario.
+        -Whether the Session Item Editor mode is 'Add' or 'Edit'
+        -Whether the field value is empty or the existing Qty.
+        -Gotta make sure that Add only happens when first adding the item.  After that, it's always an Edit.  
+    -I think the Item Details should NOT show price (which can vary based on Invo) or Qty (which is an input field)
+    -I think there's another layer to this.  Either I need an 'Add' button for when the item doesn't exist, or else I need to conditionally perform 'Add' or 'Edit' based on the item's status.  
+
+    -I also THINK we can determine which on the basis of whether a search for the item in the specified Array is Undefined.
+
+    -Not related to current work, but I've now encountered a few scenarios where a Reducer would have been a better choice.  I should be on the lookout for:
+        -The same series of steps, taken in multiple files.
+        -Remember the lesson from the last time I used Reducers: The Reducer should be organized around ACTIONS, not elements to be modified.  Otherwise it's just a clunkier remake of regular state-setting.
+
+    
 
 
 

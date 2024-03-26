@@ -13,7 +13,7 @@ import {
 
 import { useSetSessionInvosSTRX } from "../../_resources/hooks/STRXhooks";
 
-const RtrnInvosList = () => {
+const RtrnInvosList = ({ parLocState, setParLocState }) => {
   const strxCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
   const aSessionInvos = strxCtx.sessionSTRX.sessionInvos;
@@ -33,8 +33,21 @@ const RtrnInvosList = () => {
   const uiItemSubcard = (invoAtom) => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
+
+    const handleClick = () => {
+      // when clicked, set the active item to this item and show item details.
+      setParLocState((draft) => {
+        draft.activeItemAtom = invoAtom;
+        draft.active30 = "ItemDetails30";
+      });
+    };
+
     return (
-      <div key={invoAtom.primaryKey} className={`subCardStyle invoItemSubcard`}>
+      <div
+        key={invoAtom.primaryKey}
+        className={`subCardStyle invoItemSubcard`}
+        onClick={handleClick}
+      >
         <div className={`invoItemDetailsCol`}>
           <MRVitemDetails
             showPrice={false}
