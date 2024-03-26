@@ -1,4 +1,4 @@
-import "./ItemDetails30STRX.css"
+import "./ItemDetails30STRX.css";
 
 import { TitleBarSTRX } from "./CompConfigsSTRX";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
@@ -39,7 +39,7 @@ const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
   const handleInput = (e) => {
     const outQty = parseInt(e.target.value) || "";
 
-    // This can be used from either Items or Invoices.  
+    // This can be used from either Items or Invoices.
     // Item might not yet exist in the session items, so we handle the input conditionally.
     if (outQty && inputMode === "add") {
       setSessionItemsSTRX({
@@ -48,7 +48,6 @@ const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
         newQty: outQty,
         actionType: "add",
       });
-    
     } else if (inputMode === "edit") {
       setSessionItemsSTRX({
         itemsArrRouteStr: "returnItems",
@@ -64,34 +63,31 @@ const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
       <TitleBarSTRX
         hasCluster={false}
         showProductName={false}
-        hasIcon={"close"}
+        hasIcon={"back"}
         navBtnClick={handleClose}
         headerTitle={"Item Details"}
       />
       <section className={`main_content`}>
         <div className={``}>
-          <div className={``}>
-            <MRVitemDetails
-              showPrice={false}
-              showQty={false}
-              thisItemAtom={activeAtom}
-            />
-          </div>
-          <div className={``}>
-            <MRVinput width={"8rem"}>
-              <input
-                type="number"
-                min="0"
-                step="1"
-                placeholder="Qty"
-                value={activeConfig.inputVal}
-                onChange={(event) => {
-                  handleInput(event);
-                }}
-              />
-            </MRVinput>
-          </div>
+          <MRVitemDetails
+            showPrice={false}
+            showQty={false}
+            thisItemAtom={activeAtom}
+          />
         </div>
+
+        <MRVinput width={"8rem"}>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            placeholder="Qty"
+            value={activeConfig.inputVal}
+            onChange={(event) => {
+              handleInput(event);
+            }}
+          />
+        </MRVinput>
       </section>
     </main>
   );

@@ -1,5 +1,6 @@
 .mrv .itemDetails30{
     & .main_content{
         align-items: flex-start;
+        gap: 2rem;
     }
 }

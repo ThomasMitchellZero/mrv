@@ -30,8 +30,8 @@ function TitleBarMRV({
   );
 
   const iconsObj = {
-    close: <MdOutlineClose fontSize="1.5rem" />,
-    back: <MdArrowBack fontSize="1.5rem" />,
+    close: <MdOutlineClose fontSize="2.5rem" />,
+    back: <MdArrowBack fontSize="2.5rem" />,
   };
 
   // Sets nav button with user-specified icon and function.  Null if no icon
