@@ -116,6 +116,33 @@ const ProductContext = React.createContext({
 
   // For use in Exchanges
 
+  330: new Product({
+    img: hoses_img,
+    price: 2250,
+    itemNum: "320",
+    modelNum: "CBC221",
+    description: "Polyethylene Water Hose",
+    inStock: 99,
+    dcLocations: ["AAA"],
+  }),
+  440: new Product({
+    img: faucet_img,
+    price: 15599,
+    itemNum: "440",
+    modelNum: "RT3301",
+    description: "Two handle classic faucet in wrought iron",
+    inStock: 1,
+    dcLocations: ["AAA"],
+  }),
+  550: new Product({
+    img: tapemeasure_img,
+    price: 999,
+    itemNum: "550",
+    modelNum: "TAP001",
+    description: "Craftsman 25' Tape Measure",
+    inStock: 99,
+  }),
+
   3333: new Product({
     img: child_arrow,
     itemNum: "3333",

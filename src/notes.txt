@@ -7176,18 +7176,46 @@ What to do today?
 26 Mar 2024
     12:15.
     Having had some time to think on the issue, here's where I'm at.
-    -We will need a configObj, since I can think of at least 2 parameters that will change based on the scenario.
-        -Whether the Session Item Editor mode is 'Add' or 'Edit'
-        -Whether the field value is empty or the existing Qty.
-        -Gotta make sure that Add only happens when first adding the item.  After that, it's always an Edit.  
-    -I think the Item Details should NOT show price (which can vary based on Invo) or Qty (which is an input field)
-    -I think there's another layer to this.  Either I need an 'Add' button for when the item doesn't exist, or else I need to conditionally perform 'Add' or 'Edit' based on the item's status.  
+    X -We will need a configObj, since I can think of at least 2 parameters that will change based on the scenario.
+        X -Whether the Session Item Editor mode is 'Add' or 'Edit'
+        X -Whether the field value is empty or the existing Qty.
+        X -Gotta make sure that Add only happens when first adding the item.  After that, it's always an Edit.  
+    X -I think the Item Details should NOT show price (which can vary based on Invo) or Qty (which is an input field)
+    X -I think there's another layer to this.  Either I need an 'Add' button for when the item doesn't exist, or else I need to conditionally perform 'Add' or 'Edit' based on the item's status.  
 
     -I also THINK we can determine which on the basis of whether a search for the item in the specified Array is Undefined.
 
     -Not related to current work, but I've now encountered a few scenarios where a Reducer would have been a better choice.  I should be on the lookout for:
-        -The same series of steps, taken in multiple files.
-        -Remember the lesson from the last time I used Reducers: The Reducer should be organized around ACTIONS, not elements to be modified.  Otherwise it's just a clunkier remake of regular state-setting.
+        -The same series of steps performed in different modules.
+        -Remember the lesson from the last time I used Reducers: The Reducer should be organized around ACTIONS, not elements to be modified.  In other words, I want to have an action for "Item Card Selected" and not an action for "Modify Active Item," "Modify Active 30", etc. To do otherwise is just a clunkier remake of regular state-setting.
+
+    -For outside clicking, this looks promising: https://medium.com/@shkim04/react-how-to-detect-click-outside-a-component-984fe2e003e8
+
+
+6 Apr 2024
+    11:30.
+    Let's do a few more little quick things first, then get into the work.
+    X -Ask about a gift for Piper
+    X -Take my shots
+    X -Order groceries
+    X -Text about tonight
+
+    12:30
+    Back at it.  Let's make sure we've got our priorities straight for next week.  If nothing else, we NEED to be able to test.
+    
+    -Create the assets needed for the test scenario.
+        -ITEMS
+            -Item A x 3 (to test comprehension of the Item x Invoice UI)
+            -An Item B that can ONLY be added from the invoice (don't give ItemNum to tester).  Should be distinctive and easy to describe.
+            -An Item C that doesn't have an invoice (to test if they can find the Items List)
+        -Invoices   
+            An Invoice Y with 1 x A and 1 x B
+            An Invoice Y with 1 x A
+
+    -Clarify / Cleanup text, UI, etc. to avoid any own-goals with the interface test.
+    -Implement a solution for clearing a selection.  OK to not cover all scenarios if it works when you click empty space.
+    -Try and solve the 'User Stylesheet' issue that appears to be cocking up our CSS.
+    
 
     
 
