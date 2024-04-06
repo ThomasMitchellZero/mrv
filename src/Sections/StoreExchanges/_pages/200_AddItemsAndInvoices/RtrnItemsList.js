@@ -96,7 +96,8 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
       return uiInfoRow(thisAtom);
     });
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+      event.stopPropagation();
       // make this item the active item, and show the details panel.
       setParLocState((draft) => {
         draft.activeItemAtom = rowItem;
@@ -113,7 +114,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
       <div
         key={rowItem.atomItemNum}
         className={`itemRow subCardStyle ${activeClass}`}
-        onClick={handleClick}
+        onClick={(e) => handleClick(e)}
       >
         <div className={"rowCol detailCol"}>
           <MRVitemDetails
@@ -160,7 +161,8 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
-            onClick={() => {
+            onClick={(event) => {
+              event.stopPropagation();
               setSessionItemsSTRX({
                 itemAtom: returnItem,
                 actionType: "remove",

@@ -7210,11 +7210,11 @@ What to do today?
             X-An Item C that doesn't have an invoice (to test if they can find the Items List)
         X-Invoices   
             X-An Invoice Y with 1 x A and 1 x B
-X-An Invoice Y with 1 x A
+            X-An Invoice Y with 1 x A
 
-    -Clarify / Cleanup text, UI, etc. to avoid any own-goals with the interface test.
-        -Change invoices to show pre-tax price, not post-tax price
-        -Get selection working in Invoices.  Currently not showing active item.
+    X -Clarify / Cleanup text, UI, etc. to avoid any own-goals with the interface test.
+        X -Change invoices to show pre-tax price, not post-tax price
+        X -Get selection working in Invoices.  Currently not showing active item.
         
     -Implement a solution for clearing a selection.  OK to not cover all scenarios if it works when you click empty space.
     -Try and solve the 'User Stylesheet' issue that appears to be cocking up our CSS.

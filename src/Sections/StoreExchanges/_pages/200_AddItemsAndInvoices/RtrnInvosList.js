@@ -34,9 +34,11 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
     const refInvo = new Invoice_SR({});
     const refAtom = new returnAtom({});
 
-    const handleClick = () => {
+    const handleClick = (event) => {
+      console.log("String Of Succcess");
+      event.stopPropagation();
       // when clicked, set the active item to this item and show item details.
-      console.log("fart");
+
       setParLocState((draft) => {
         draft.activeItemAtom = invoAtom;
         draft.active30 = "ItemDetails30";
@@ -52,7 +54,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
       <div
         key={invoAtom.primaryKey}
         className={`subCardStyle invoItemSubcard ${activeClass}`}
-        onClick={handleClick}
+        onClick={(e) => handleClick(e)}
       >
         <div className={`invoItemDetailsCol `}>
           <MRVitemDetails
@@ -61,7 +63,9 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
             thisItemAtom={invoAtom}
           />
         </div>
-        <div className={`unitQtyCol field body`}>{invoAtom.atomItemQty}</div>
+        <div
+          className={`unitQtyCol field body keepSpace`}
+        >{`${invoAtom.atomItemQty}   x`}</div>
         <div className={`unitPriceCol field body`}>
           ${centsToDollars(invoAtom.atomMoneyObj.unitBaseValue)}
         </div>
@@ -119,7 +123,8 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
-            onClick={() => {
+            onClick={(event) => {
+              event.stopPropagation();
               setSessionInvosSTRX({
                 invosRtStr: "sessionInvos",
                 invoNum: invoObj.invoNum,

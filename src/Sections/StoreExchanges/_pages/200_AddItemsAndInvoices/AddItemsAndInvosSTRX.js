@@ -74,10 +74,18 @@ function AddItemsAndInvosSTRX() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
+  const bgClick = () => {
+    console.log("fart of failure")
+    setLocStAddRtrns((draft) => {
+      draft.active30 = "AllEntry30";
+      draft.activeItemAtom = null;
+      draft.oActiveErrorState = null;
+    });
+  };
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <section className={`mrvPage addItemsAndInvos color__surface__subdued`}>
+    <section onClick={bgClick} className={`mrvPage addItemsAndInvos color__surface__subdued`}>
       <main className={`mrvPanel__main`}>
         <TitleBarSTRX
           //hasIcon={"back"}
