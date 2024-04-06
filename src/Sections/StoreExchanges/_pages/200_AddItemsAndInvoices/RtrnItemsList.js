@@ -64,8 +64,8 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
         <div className={`body__small field receiptCol ${oVals.red}`}>
           {`${oVals.invo}`}
         </div>
-        <div className={`unitQtyCol field body ${oVals.red}`}>
-          {atomizedItem.atomItemQty}
+        <div className={`unitQtyCol field body keepSpace ${oVals.red}`}>
+          {`${atomizedItem.atomItemQty}   x`}
         </div>
         <div
           className={`unitPriceCol field body alignRight ${greenify(
@@ -183,10 +183,11 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
   const uiItemCardTitle = (
     <div className={`columnTitleRow items_grid`}>
       <div className={`columnTitle detailCol`}>Item</div>
-      <div className={`columnTitle totalQtyCol`}>Total Qty</div>
+      <div className={`columnTitle totalQtyCol`}>Qty Returned</div>
       <div className={`columnTitle receiptCol`}>Receipt #</div>
-      <div className={`columnTitle unitQtyCol`}>Qty</div>
+      <div className={`columnTitle unitQtyCol`}>Rec. Qty</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
+      <div className={`columnTitle totalPriceCol`}>Value</div>
     </div>
   );
 

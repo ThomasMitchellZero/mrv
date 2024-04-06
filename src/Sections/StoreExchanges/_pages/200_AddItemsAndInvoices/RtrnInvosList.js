@@ -21,7 +21,6 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
 
   const noInvos = Object.entries(aSessionInvos).length === 0;
 
-
   const uiScanInvos = (
     <ScanScreenMRV
       mainTitle="scan Or Enter Receipts"
@@ -37,19 +36,25 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
 
     const handleClick = () => {
       // when clicked, set the active item to this item and show item details.
+      console.log("fart");
       setParLocState((draft) => {
         draft.activeItemAtom = invoAtom;
         draft.active30 = "ItemDetails30";
       });
     };
 
+    const activeClass =
+      invoAtom.atomItemNum === parLocState?.activeItemAtom?.atomItemNum
+        ? "selected"
+        : "";
+
     return (
       <div
         key={invoAtom.primaryKey}
-        className={`subCardStyle invoItemSubcard`}
+        className={`subCardStyle invoItemSubcard ${activeClass}`}
         onClick={handleClick}
       >
-        <div className={`invoItemDetailsCol`}>
+        <div className={`invoItemDetailsCol `}>
           <MRVitemDetails
             showPrice={false}
             showQty={false}
@@ -58,7 +63,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
         </div>
         <div className={`unitQtyCol field body`}>{invoAtom.atomItemQty}</div>
         <div className={`unitPriceCol field body`}>
-          ${centsToDollars(invoAtom.atomMoneyObj.unitTotal)}
+          ${centsToDollars(invoAtom.atomMoneyObj.unitBaseValue)}
         </div>
         <div className={`iconCol field`}>
           <MdChevronRight
@@ -131,7 +136,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
     <div className={`columnTitleRow invos_grid`}>
       <div className={`columnTitle receiptDetailsCol`}>Receipt #</div>
       <div className={`columnTitle invoItemDetailsCol`}>Items In Receipt</div>
-      <div className={`columnTitle unitQtyCol`}>Qty</div>
+      <div className={`columnTitle unitQtyCol`}>Qty Sold</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
       <div className={`columnTitle unitIconCol`}></div>
       <div className={`columnTitle `}></div>

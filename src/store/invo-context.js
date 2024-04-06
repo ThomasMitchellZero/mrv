@@ -173,7 +173,7 @@ const invoiceObj = {
       }),
       new returnAtom({
         atomItemNum: "550",
-        atomItemQty: 1,
+        atomItemQty: 2,
         atomMoneyObj: new moneyObj({
           unitBaseValue: 1000,
         }),

@@ -7,7 +7,12 @@ import { useSetSessionItemsSTRX } from "../hooks/STRXhooks";
 import { cloneDeep } from "lodash";
 import { useOutletContext } from "react-router";
 
-const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
+const ItemDetails30STRX = ({
+  stateItemArr,
+  parLocState,
+  setParLocState,
+  panelConfigStr = "return",
+}) => {
   const strxCtx = useOutletContext();
   const sessionState = strxCtx.sessionSTRX;
 
@@ -25,7 +30,12 @@ const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
     add: { actionType: "add", inputVal: "" },
   };
 
+  const oPanelConfigs = {
+    return: { fieldLabel: "Qty Returned" },
+  };
+
   const activeConfig = oConfigs[inputMode];
+  const panelConfig = oPanelConfigs[panelConfigStr];
 
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
@@ -76,18 +86,22 @@ const ItemDetails30STRX = ({ stateItemArr, parLocState, setParLocState }) => {
           />
         </div>
 
-        <MRVinput width={"8rem"}>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            placeholder="Qty"
-            value={activeConfig.inputVal}
-            onChange={(event) => {
-              handleInput(event);
-            }}
-          />
-        </MRVinput>
+        <div className={`hBox minFlex gap1rem`}>
+          <MRVinput width={"9rem"} helperText={panelConfig.fieldLabel}>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              placeholder="Qty"
+              
+              value={activeConfig.inputVal}
+              onChange={(event) => {
+                handleInput(event);
+              }}
+            />
+          </MRVinput>
+          <div className={`body`}></div>
+        </div>
       </section>
     </main>
   );

@@ -75,12 +75,12 @@
       display: grid;
       grid-template-columns:
         [detail] 1fr
-        [totalQty] 5rem
+        [totalQty] 7rem
         [receipt] 9rem
-        [unitQty] 2.5rem
-        [unitPrice] 8rem
+        [unitQty] 4rem
+        [unitPrice] 7rem
         [totalPrice] 10rem
-        [spacer] 1px
+
         [trash] 5.5rem;
       flex: 0 0 auto;
       gap: 1rem;
@@ -89,7 +89,7 @@
     & .itemColumn {
       display: grid;
       grid-template-columns: subgrid;
-      grid-column: detail / spacer;
+      grid-column: detail / trash;
       gap: 1rem;
     }
 
@@ -121,11 +121,6 @@
 
     & .detailCol {
       grid-column: detail / span 1;
-      
-
-      &.columnTitle {
-        padding-left: 2rem;
-      }
     }
 
     & .totalQtyCol {
@@ -150,17 +145,17 @@
     & .totalPriceCol {
       grid-column: totalPrice / span 1;
       justify-content: flex-end;
+
+      &.columnTitle{
+        padding-right: 1rem;
+      }
     }
 
     & .fullInfoCol {
       grid-column: receipt / span 4;
     }
 
-    & .spacerCol {
-      grid-column: spacer / span 1;
-      height: 100%;
-      background-color: var(--color__border);
-    }
+
     & .deleteCol {
       grid-column: trash / span 1;
       justify-content: center;
@@ -179,7 +174,7 @@
       grid-template-columns:
         [receiptDetails] 12rem
         [invoItemDetails] 1fr
-        [unitQty] 2.5rem
+        [unitQty] 4rem
         [unitPrice] 8rem
         [unitIcon] 5rem
         [spacer] 1px
