@@ -151,6 +151,59 @@ const invoiceObj = {
       }),
     ],
   }),
+  "8881" : new Invoice_SR({ 
+    invoNum: "8881",
+    store: 1234,
+    date: new Date(2024, 4, 4),
+    payment: {
+      1111222211112222: {
+        tenderType: tType.credit,
+        tenderLabel: "MasterCard ****2222",
+        paid: 0,
+        ccNum: "1111222211112222",
+      },
+    },
+    itemAtomsArr: [
+      new returnAtom({
+        atomItemNum: "330",
+        atomItemQty: 1,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2500,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "550",
+        atomItemQty: 1,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 1000,
+        }),
+      }),
+    ],
+
+  }),
+
+  "8882" : new Invoice_SR({ 
+    invoNum: "8882",
+    store: 1234,
+    date: new Date(2024, 3, 1),
+    payment: {
+      1111222211112222: {
+        tenderType: tType.credit,
+        tenderLabel: "MasterCard ****2222",
+        paid: 0,
+        ccNum: "1111222211112222",
+      },
+    },
+    itemAtomsArr: [
+      new returnAtom({
+        atomItemNum: "330",
+        atomItemQty: 1,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2500,
+        }),
+      }),
+    ],
+  }),
 
 
   ///////////////  Uses MoneyObj + Association     ////////////////////////////////
