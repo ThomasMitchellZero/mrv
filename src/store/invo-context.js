@@ -154,7 +154,7 @@ const invoiceObj = {
   "8881" : new Invoice_SR({ 
     invoNum: "8881",
     store: 1234,
-    date: new Date(2024, 4, 4),
+    date: new Date(2024, 3, 4),
     payment: {
       1111222211112222: {
         tenderType: tType.credit,
@@ -168,7 +168,7 @@ const invoiceObj = {
         atomItemNum: "330",
         atomItemQty: 1,
         atomMoneyObj: new moneyObj({
-          unitBaseValue: 2500,
+          unitBaseValue: 2000,
         }),
       }),
       new returnAtom({
@@ -185,7 +185,7 @@ const invoiceObj = {
   "8882" : new Invoice_SR({ 
     invoNum: "8882",
     store: 1234,
-    date: new Date(2024, 3, 1),
+    date: new Date(2024, 2, 1),
     payment: {
       1111222211112222: {
         tenderType: tType.credit,

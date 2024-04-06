@@ -7203,19 +7203,22 @@ What to do today?
     12:30
     Back at it.  Let's make sure we've got our priorities straight for next week.  If nothing else, we NEED to be able to test.
     
-    -Create the assets needed for the test scenario.
-        -ITEMS
-            -Item A x 3 (to test comprehension of the Item x Invoice UI)
-            -An Item B that can ONLY be added from the invoice (don't give ItemNum to tester).  Should be distinctive and easy to describe.
-            -An Item C that doesn't have an invoice (to test if they can find the Items List)
-        -Invoices   
-            An Invoice Y with 1 x A and 1 x B
-            An Invoice Y with 1 x A
+    X-Create the assets needed for the test scenario.
+        X-ITEMS
+            X-Item A x 3 (to test comprehension of the Item x Invoice UI)
+            X-An Item B that can ONLY be added from the invoice (don't give ItemNum to tester).  Should be distinctive and easy to describe.
+            X-An Item C that doesn't have an invoice (to test if they can find the Items List)
+        X-Invoices   
+            X-An Invoice Y with 1 x A and 1 x B
+X-An Invoice Y with 1 x A
 
     -Clarify / Cleanup text, UI, etc. to avoid any own-goals with the interface test.
+        -Change invoices to show pre-tax price, not post-tax price
+        -Get selection working in Invoices.  Currently not showing active item.
+        
     -Implement a solution for clearing a selection.  OK to not cover all scenarios if it works when you click empty space.
     -Try and solve the 'User Stylesheet' issue that appears to be cocking up our CSS.
-    
+
 
     
 
