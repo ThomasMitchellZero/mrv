@@ -1,249 +1,251 @@
-.STRX_top .addItemsAndInvos {
-  /* --------------------------------------------- */
-  /* --------------   Shared 30   ---------------- */
-  /* --------------------------------------------- */
+.STRX_top {
+  & .addItemsAndInvos {
+    /* --------------------------------------------- */
+    /* --------------   Shared 30   ---------------- */
+    /* --------------------------------------------- */
 
-  & .allEntry30 {
-    & .tabBox {
+    & .allEntry30 {
+      & .tabBox {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        width: 100%;
+      }
+    }
+
+    & .inputSection {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       flex: 0 0 auto;
       width: 100%;
+      gap: 1rem;
+      padding: 2rem 0rem;
+
+      & .inputRow {
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 auto;
+        width: 100%;
+        gap: 1rem;
+        justify-content: right;
+      }
     }
-  }
 
-  & .inputSection {
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 auto;
-    width: 100%;
-    gap: 1rem;
-    padding: 2rem 0rem;
-
-    & .inputRow {
+    & .noneScanned {
       display: flex;
+      flex: 1 1 0rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      & img {
+        height: 8rem;
+      }
+    }
+
+    /* --------------------------------------------- */
+    /* --------------   Shared 70   ---------------- */
+    /* --------------------------------------------- */
+
+    & .columnTitleRow {
+      flex: 0 0 auto;
+      padding: 0rem 1rem;
+    }
+
+    & .entryCard {
+      flex: 0 0 auto;
+      padding: 1rem;
+    }
+
+    & .field {
+      display: flex;
+      flex: 1 1 0rem;
       flex-direction: row;
-      flex: 0 0 auto;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* --------------------------------------------- */
+    /* --------------   Items List   --------------- */
+    /* --------------------------------------------- */
+
+    & .itemsList {
       width: 100%;
-      gap: 1rem;
-      justify-content: right;
-    }
-  }
 
-  & .noneScanned {
-    display: flex;
-    flex: 1 1 0rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+      & .items_grid {
+        display: grid;
+        grid-template-columns:
+          [detail] 1fr
+          [totalQty] 7rem
+          [receipt] 9rem
+          [unitQty] 4rem
+          [unitPrice] 7rem
+          [totalPrice] 10rem
+          [trash] 5.5rem;
+        flex: 0 0 auto;
+        gap: 1rem;
+      }
 
-    & img {
-      height: 8rem;
-    }
-  }
+      & .itemColumn {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: detail / trash;
+        gap: 1rem;
+      }
 
-  /* --------------------------------------------- */
-  /* --------------   Shared 70   ---------------- */
-  /* --------------------------------------------- */
+      /* 1 per individual item in the card.  Main and child are the same. */
+      & .itemRow {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: detail / spacer;
+        width: 100%;
+        gap: 1rem;
+        color: var(--color__primary);
+        align-items: flex-start;
+        box-shadow: none;
+      }
 
-  & .columnTitleRow {
-    flex: 0 0 auto;
-    padding: 0rem 1rem;
-  }
-
-  & .entryCard {
-    flex: 0 0 auto;
-    padding: 1rem;
-  }
-
-  & .field {
-    display: flex;
-    flex: 1 1 0rem;
-    flex-direction: row;
-    align-items: center;
-    height: 100%;
-  }
-
-  /* --------------------------------------------- */
-  /* --------------   Items List   --------------- */
-  /* --------------------------------------------- */
-
-  & .itemsList {
-    width: 100%;
-
-    & .items_grid {
-      display: grid;
-      grid-template-columns:
-        [detail] 1fr
-        [totalQty] 7rem
-        [receipt] 9rem
-        [unitQty] 4rem
-        [unitPrice] 7rem
-        [totalPrice] 10rem
-        [trash] 5.5rem;
-      flex: 0 0 auto;
-      gap: 1rem;
-    }
-
-    & .itemColumn {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: detail / trash;
-      gap: 1rem;
-      background-color: aquamarine;
-    }
-
-    /* 1 per individual item in the card.  Main and child are the same. */
-    & .itemRow {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: detail / spacer;
-      width: 100%;
-      gap: 1rem;
-      color: var(--color__primary);
-      align-items: flex-start;
-      box-shadow: none;
-    }
-
-    & .invoInfo {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: receipt / span 4;
-      gap: 1rem;
-
-      & .invoInfoRow {
+      & .invoInfo {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: receipt / span 4;
+        gap: 1rem;
+
+        & .invoInfoRow {
+          display: grid;
+          grid-template-columns: subgrid;
+          grid-column: receipt / span 4;
+          align-items: center;
+          background-color: aquamarine;
+        }
+      }
+
+      & .detailCol {
+        grid-column: detail / span 1;
+      }
+
+      & .totalQtyCol {
+        grid-column: totalQty / span 1;
+      }
+
+      & .receiptCol {
+        grid-column: receipt / span 1;
+        justify-content: flex-end;
+      }
+
+      & .unitQtyCol {
+        grid-column: unitQty / span 1;
+        justify-content: flex-end;
+      }
+
+      & .unitPriceCol {
+        grid-column: unitPrice / span 1;
+        justify-content: flex-end;
+      }
+
+      & .totalPriceCol {
+        grid-column: totalPrice / span 1;
+        justify-content: flex-end;
+
+        &.columnTitle {
+          padding-right: 1rem;
+        }
+      }
+
+      & .fullInfoCol {
+        grid-column: receipt / span 4;
+      }
+
+      & .deleteCol {
+        grid-column: trash / span 1;
+        justify-content: center;
+      }
+    }
+
+    /* --------------------------------------------- */
+    /* --------------   Invos List   --------------- */
+    /* --------------------------------------------- */
+
+    & .invosList {
+      /*-- empty but prevents namespace collision --*/
+
+      & .invos_grid {
+        display: grid;
+        grid-template-columns:
+          [receiptDetails] 12rem
+          [invoItemDetails] 1fr
+          [unitQty] 4rem
+          [unitPrice] 8rem
+          [unitIcon] 5rem
+          [spacer] 1px
+          [trash] 5.5rem;
+        flex: 0 0 auto;
+        gap: 1rem;
+      }
+
+      & .invoItemsColumn {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: invoItemDetails / spacer;
+        gap: 1rem;
+      }
+
+      & .invoItemCluster {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: invoItemDetails / spacer;
+        gap: 1rem;
+
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0rem;
+        }
+      }
+
+      & .invoItemSubcard {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: invoItemDetails / spacer;
+        align-items: flex-start;
+        box-shadow: none;
+      }
+
+      & .receiptDetailsCol {
+        grid-column: receiptDetails / span 1;
+        color: var(--color__primary);
+      }
+      & .invoItemDetailsCol {
+        grid-column: invoItemDetails / span 1;
+        &.columnTitle {
+          padding-left: 2rem;
+        }
+      }
+      & .unitQtyCol {
+        display: flex;
+        height: 100%;
+        grid-column: unitQty / span 1;
         align-items: center;
+        justify-content: center;
       }
-    }
-
-    & .detailCol {
-      grid-column: detail / span 1;
-    }
-
-    & .totalQtyCol {
-      grid-column: totalQty / span 1;
-    }
-
-    & .receiptCol {
-      grid-column: receipt / span 1;
-      justify-content: flex-end;
-    }
-
-    & .unitQtyCol {
-      grid-column: unitQty / span 1;
-      justify-content: flex-end;
-    }
-
-    & .unitPriceCol {
-      grid-column: unitPrice / span 1;
-      justify-content: flex-end;
-    }
-
-    & .totalPriceCol {
-      grid-column: totalPrice / span 1;
-      justify-content: flex-end;
-
-      &.columnTitle {
-        padding-right: 1rem;
+      & .unitPriceCol {
+        grid-column: unitPrice / span 1;
+        justify-content: flex-end;
       }
-    }
-
-    & .fullInfoCol {
-      grid-column: receipt / span 4;
-    }
-
-    & .deleteCol {
-      grid-column: trash / span 1;
-      justify-content: center;
-    }
-  }
-
-  /* --------------------------------------------- */
-  /* --------------   Invos List   --------------- */
-  /* --------------------------------------------- */
-
-  & .invosList {
-    /*-- empty but prevents namespace collision --*/
-
-    & .invos_grid {
-      display: grid;
-      grid-template-columns:
-        [receiptDetails] 12rem
-        [invoItemDetails] 1fr
-        [unitQty] 4rem
-        [unitPrice] 8rem
-        [unitIcon] 5rem
-        [spacer] 1px
-        [trash] 5.5rem;
-      flex: 0 0 auto;
-      gap: 1rem;
-    }
-
-    & .invoItemsColumn {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: invoItemDetails / spacer;
-      gap: 1rem;
-    }
-
-    & .invoItemCluster {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: invoItemDetails / spacer;
-      gap: 1rem;
-
-      &:last-child {
-        border-bottom: none;
-        padding-bottom: 0rem;
+      & .unitIconCol {
+        grid-column: unitIcon / span 1;
+        justify-content: flex-end;
       }
-    }
-
-    & .invoItemSubcard {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: invoItemDetails / spacer;
-      align-items: flex-start;
-      box-shadow: none;
-    }
-
-    & .receiptDetailsCol {
-      grid-column: receiptDetails / span 1;
-      color: var(--color__primary);
-    }
-    & .invoItemDetailsCol {
-      grid-column: invoItemDetails / span 1;
-      &.columnTitle {
-        padding-left: 2rem;
+      & .spacerCol {
+        grid-column: spacer / span 1;
+        height: 100%;
+        background-color: var(--color__border);
       }
-    }
-    & .unitQtyCol {
-      display: flex;
-      height: 100%;
-      grid-column: unitQty / span 1;
-      align-items: center;
-      justify-content: center;
-    }
-    & .unitPriceCol {
-      grid-column: unitPrice / span 1;
-      justify-content: flex-end;
-    }
-    & .unitIconCol {
-      grid-column: unitIcon / span 1;
-      justify-content: flex-end;
-    }
-    & .spacerCol {
-      grid-column: spacer / span 1;
-      height: 100%;
-      background-color: var(--color__border);
-    }
 
-    & .deleteCol {
-      grid-column: trash / span 1;
-      justify-content: center;
+      & .deleteCol {
+        grid-column: trash / span 1;
+        justify-content: center;
+      }
     }
   }
 }

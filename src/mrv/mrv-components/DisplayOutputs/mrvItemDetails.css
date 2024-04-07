@@ -1,49 +1,52 @@
-.mrv .mrvProdInfo{
-    display: flex;
-    flex: 1 1 0rem;
-    flex-direction: row;
-    box-sizing: border-box;
-    padding: 0rem;
-    gap: 1rem;
-
-    & .tinyText{
-        line-height: 2rem;
-    }
-
-    & .productImage{
+.mrv {
+    & .mrvProdInfo{
         display: flex;
-        height: 5.5rem;
-        width: 5.5rem;
-        border-radius: .5rem;
-    };
-
-
-    & .textColumn{
-        display: flex;
-        flex-direction: column;
-        white-space: pre-wrap;
-        width: 100%;
         flex: 1 1 0rem;
-    };
-
-    & .textRow{
-        display: flex;
         flex-direction: row;
-        flex: 0 0 auto;
-        gap: 2rem;
-    };
+        box-sizing: border-box;
+        padding: 0rem;
+        gap: 1rem;
     
-    & .itemModel{
-        color: var(--color__tertiary)
-    };
+        & .tinyText{
+            line-height: 2rem;
+        }
     
-    & .prodDescription{
-        color: var(--color__primary)
-    };
-
-}
-
-
-
-
-
+        & .productImage{
+            display: flex;
+            height: 5.5rem;
+            width: 5.5rem;
+            border-radius: .5rem;
+        };
+    
+    
+        & .textColumn{
+            display: flex;
+            flex-direction: column;
+            white-space: pre-wrap;
+            width: 100%;
+            flex: 1 1 0rem;
+        };
+    
+        & .textRow{
+            display: flex;
+            flex-direction: row;
+            flex: 0 0 auto;
+            gap: 2rem;
+        };
+        
+        & .itemModel{
+            color: var(--color__tertiary)
+        };
+        
+        & .prodDescription{
+            color: var(--color__primary)
+        };
+    
+    }
+    
+    
+    
+    
+    
+    
+} 

@@ -88,7 +88,7 @@ function AddItemsAndInvosSTRX() {
   /* ---- OUTPUT JSX ---- */
 
   return (
-    <section onClick={bgClick} className={`mrvPage addItemsAndInvos color__surface__subdued`}>
+    <section onClick={bgClick} className={`addItemsAndInvos mrvPage color__surface__subdued`}>
       <main className={`mrvPanel__main`}>
         <TitleBarSTRX
           //hasIcon={"back"}
