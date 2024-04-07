@@ -87,7 +87,7 @@
         gap: 1rem;
       }
 
-      & .itemColumn {
+      & .itemSubcardColumn {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: detail / trash;
@@ -98,8 +98,7 @@
       & .itemRow {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: detail / spacer;
-        width: 100%;
+        grid-column: detail / trash;
         gap: 1rem;
         color: var(--color__primary);
         align-items: flex-start;
@@ -168,6 +167,7 @@
     /* --------------------------------------------- */
 
     & .invosList {
+      width: 100%;
       /*-- empty but prevents namespace collision --*/
 
       & .invos_grid {

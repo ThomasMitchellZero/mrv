@@ -7223,3 +7223,6 @@ What to do today?
     -Implement a solution for clearing a selection.  OK to not cover all scenarios if it works when you click empty space.
     -Try and solve the 'User Stylesheet' issue that appears to be cocking up our CSS.
 
+7 Apr 2024
+    5:40.
+    I'm glad I stuck with it.  After some frustration and screwing around, I've identified at least two causes.  First, I need to make sure I am using brackets for ALL nested classes.  The CSS can get weird and muddled otherwise.  The other was much more embarrassing.  I deleted the Spacer column in one of my grids but at least one of my subgrids was still referring to it.  Whoops.  Once I cleared that out, the CSS *appears* to be working correctly.

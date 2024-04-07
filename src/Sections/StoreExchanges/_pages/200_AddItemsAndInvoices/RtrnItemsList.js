@@ -88,6 +88,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
   // a subcard for an item.
   const uiItemSubcard = (rowItem) => {
     const refAtom = new returnAtom({});
+
     const aInvoicedItems = aAtomizedItems.filter((atom) => {
       return atom.atomItemNum === rowItem.atomItemNum;
     });
@@ -157,7 +158,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
         key={returnItem.primaryKey}
         className={`cardStyle entryCard items_grid`}
       >
-        <div className={"itemColumn field"}>{outSubcardArr}</div>
+        <div className={"itemSubcardColumn field"}>{outSubcardArr}</div>
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
