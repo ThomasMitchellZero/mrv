@@ -135,7 +135,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
             />
           </MRVinput>
         </div>
-        <div className={`invoInfo`}>{aInfoRows}</div>
+        <div className={`invoInfoColumn`}>{aInfoRows}</div>
       </div>
     );
   };

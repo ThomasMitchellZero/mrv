@@ -105,7 +105,7 @@
         box-shadow: none;
       }
 
-      & .invoInfo {
+      & .invoInfoColumn {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: receipt / span 4;
@@ -116,7 +116,6 @@
           grid-template-columns: subgrid;
           grid-column: receipt / span 4;
           align-items: center;
-          background-color: aquamarine;
         }
       }
 
