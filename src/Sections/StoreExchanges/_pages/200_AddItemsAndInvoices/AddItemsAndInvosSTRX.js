@@ -1,7 +1,10 @@
+import "./_AddItemsAndInvosSTRX.css";
+
 import {
   TitleBarSTRX,
   CashTotalSTRX,
 } from "../../_resources/components/CompConfigsSTRX";
+
 
 import { AllEntry30 } from "./AllEntry30";
 import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";

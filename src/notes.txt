@@ -7191,6 +7191,10 @@ What to do today?
 
     -For outside clicking, this looks promising: https://medium.com/@shkim04/react-how-to-detect-click-outside-a-component-984fe2e003e8
 
+    -Update: I solved the problem by adding an event to the AddItemsAndInvosSTRX page that clears the active item on click.  I then added in event.stopPropagation() to the card-click handlers.  If I hadn't the click on the card would set them active and then the event would bubble up to the container component which would have de-selected it again.
+
+    
+
 
 6 Apr 2024
     11:30.
@@ -7218,30 +7222,4 @@ What to do today?
         
     -Implement a solution for clearing a selection.  OK to not cover all scenarios if it works when you click empty space.
     -Try and solve the 'User Stylesheet' issue that appears to be cocking up our CSS.
-
-
-    
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-    
-
-HI  
-    Pull in the JSON file to the Project Tracker.
-    Use a content modifier.
-
-
-
 
