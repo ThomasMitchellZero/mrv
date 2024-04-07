@@ -71,6 +71,7 @@
 
   & .itemsList {
     width: 100%;
+
     & .items_grid {
       display: grid;
       grid-template-columns:
@@ -90,6 +91,7 @@
       grid-template-columns: subgrid;
       grid-column: detail / trash;
       gap: 1rem;
+      background-color: aquamarine;
     }
 
     /* 1 per individual item in the card.  Main and child are the same. */
