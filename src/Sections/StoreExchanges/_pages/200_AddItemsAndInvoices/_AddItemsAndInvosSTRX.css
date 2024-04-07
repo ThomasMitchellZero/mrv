@@ -80,7 +80,6 @@
         [unitQty] 4rem
         [unitPrice] 7rem
         [totalPrice] 10rem
-
         [trash] 5.5rem;
       flex: 0 0 auto;
       gap: 1rem;
@@ -107,14 +106,14 @@
 
     & .invoInfo {
       display: grid;
-      grid-column: receipt / span 4;
       grid-template-columns: subgrid;
+      grid-column: receipt / span 4;
       gap: 1rem;
 
       & .invoInfoRow {
         display: grid;
-        grid-column: receipt / span 4;
         grid-template-columns: subgrid;
+        grid-column: receipt / span 4;
         align-items: center;
       }
     }
@@ -146,7 +145,7 @@
       grid-column: totalPrice / span 1;
       justify-content: flex-end;
 
-      &.columnTitle{
+      &.columnTitle {
         padding-right: 1rem;
       }
     }
@@ -154,7 +153,6 @@
     & .fullInfoCol {
       grid-column: receipt / span 4;
     }
-
 
     & .deleteCol {
       grid-column: trash / span 1;
