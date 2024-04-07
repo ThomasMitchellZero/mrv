@@ -1,25 +1,21 @@
-.STRX_top .replacementCheck {
+.STRX_top {
+  & .replacementCheck {
+    & .main_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0rem 25%;
 
-  & .main_content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding : 0rem 25%;
-
-    & .hBox{
-      padding: 2rem 0rem;
+      & .hBox {
+        padding: 2rem 0rem;
+      }
     }
-  
-  }
 
     /* --------------------------------------------- */
     /* --------------   Shared 30   ---------------- */
     /* --------------------------------------------- */
-  
-    
-
   }
-  
-  /* // .totalPriceCol deleteCol */
-  
+}
+
+/* // .totalPriceCol deleteCol */

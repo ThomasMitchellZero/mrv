@@ -46,13 +46,13 @@ function ReplacementCheck() {
   const banishCustomer = (
     <>
       <div className={`heading__large color__primary__text`}>
-        1. Ask customer to get their replacement items.
+        {`1. Ask customer to get their replacement items.`}
       </div>
       <div className={`heading__large color__primary__text`}>
-        2. Offer to hold the items being brought back.
+        {`2. Offer to hold the items being brought back.`}
       </div>
       <div className={`heading__large color__primary__text`}>
-        3. (Optional) They can skip the line when they get back.
+        {`3. (Optional) They can skip the line when they get back.`}
       </div>
       <div className={`hBox minFlex gap2rem`}>
         <button
