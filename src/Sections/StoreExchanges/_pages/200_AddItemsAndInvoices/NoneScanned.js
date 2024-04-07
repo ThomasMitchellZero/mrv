@@ -1,4 +1,4 @@
-import "./_AddItemsAndInvos.css";
+
 
 import Universal from "../../../../assets/lowes-icons/Picture-Icons/universal-scan.svg";
 
