@@ -1,5 +1,5 @@
 import "../../mrv/mrv-styles/mrvAllStyles.css";
-import "../Exchanges/Exchanges.css";
+import "./StoreExchanges.css";
 import {
   sessionItem,
   singleDispo,
