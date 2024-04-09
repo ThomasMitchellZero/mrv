@@ -40,6 +40,7 @@ import { StartSTRX } from "./Sections/StoreExchanges/_pages/100_StartSTRX/StartS
 import { ReplacementCheck } from "./Sections/StoreExchanges/_pages/150_ItemCheck/ReplacementCheck";
 import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 import { AddItemsAndInvosSTRX } from "./Sections/StoreExchanges/_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
+import { DispoMainPageSTRX } from "./Sections/StoreExchanges/_pages/250_Dispositions/DispoMainPageSTRX";
 
 //Store Exchanges
 
@@ -102,6 +103,7 @@ function App() {
               path="choose-items-invos"
               element={<AddItemsAndInvosSTRX />}
             />
+            <Route path="reason" element={<DispoMainPageSTRX />} />
           </Route>
         </Route>
       </Routes>
