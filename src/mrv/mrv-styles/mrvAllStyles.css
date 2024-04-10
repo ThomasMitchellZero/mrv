@@ -313,6 +313,7 @@
       flex-direction: row;
       align-items: center;
       padding: 0rem 0rem 0rem var(--PrimaryPadding__horizontal);
+      justify-content: center;
     }
 
   }

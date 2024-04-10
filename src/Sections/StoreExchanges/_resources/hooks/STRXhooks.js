@@ -8,6 +8,7 @@ import {
   ProdClass,
   InvoProduct,
   navNode,
+  baseReturnState,
 } from "../../../../globalFunctions/globalJS_classes";
 
 import {
@@ -82,24 +83,19 @@ const defaultNavNodesSTRX = {
   }),
 };
 
-function useInitializeNavSTRX() {
-  // haven't implemented this yet, but it will be used to reset the nav nodes to their default state.
 
-  // set STRX nav nodes to default state
-  const strxCtx = useOutletContext();
-  const initializeNavStrx = () => {
-    strxCtx.setSessionStrx((draft) => {
-      draft.oNavNodes = defaultNavNodesSTRX;
-    });
-  };
-
-  return initializeNavStrx;
+const baseStateSTRX = ()=>{
+  // the basic state for Exchanges app.  Will need whenever we full-reset the app.
+  return baseReturnState({oNavNodes: defaultNavNodesSTRX});
 }
+
+
+
 
 export {
   useSetSessionItemsSTRX,
   useSetSessionInvosSTRX,
   defaultNavNodesSTRX,
   useNodeNavSTRX,
-  useInitializeNavSTRX,
+  baseStateSTRX,
 };
