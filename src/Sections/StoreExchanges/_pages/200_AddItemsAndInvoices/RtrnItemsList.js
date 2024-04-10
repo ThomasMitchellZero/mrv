@@ -1,4 +1,3 @@
-
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
@@ -157,13 +156,15 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
       <div
         key={returnItem.primaryKey}
         className={`cardStyle entryCard items_grid`}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div className={"itemSubcardColumn field"}>{outSubcardArr}</div>
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
-            onClick={(event) => {
-              event.stopPropagation();
+            onClick={() => {
               setSessionItemsSTRX({
                 itemAtom: returnItem,
                 actionType: "remove",

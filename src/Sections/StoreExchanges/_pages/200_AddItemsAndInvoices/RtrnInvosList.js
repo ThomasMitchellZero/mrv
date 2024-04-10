@@ -1,5 +1,3 @@
-
-
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
@@ -114,7 +112,13 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
     });
 
     return (
-      <div key={invoObj.invoNum} className={`cardStyle entryCard invos_grid`}>
+      <div
+        key={invoObj.invoNum}
+        className={`cardStyle entryCard invos_grid`}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <div className={`receiptDetailsCol`}>
           <div className={`body__large bold`}>{`# ${invoObj.invoNum}`}</div>
           <div className={`body__small`}>Date: {invoObj.dateStr}</div>
