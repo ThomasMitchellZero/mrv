@@ -128,8 +128,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
-            onClick={(event) => {
-              event.stopPropagation();
+            onClick={(e) => {
               setSessionInvosSTRX({
                 invosRtStr: "sessionInvos",
                 invoNum: invoObj.invoNum,

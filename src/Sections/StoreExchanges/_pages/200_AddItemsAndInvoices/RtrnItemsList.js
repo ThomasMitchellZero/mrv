@@ -189,7 +189,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
       <div className={`columnTitle detailCol`}>Item</div>
       <div className={`columnTitle totalQtyCol`}>Qty Returned</div>
       <div className={`columnTitle receiptCol`}>Receipt #</div>
-      <div className={`columnTitle unitQtyCol`}>Rec. Qty</div>
+      <div className={`columnTitle unitQtyCol`}>Rcpt. Qty</div>
       <div className={`columnTitle unitPriceCol`}>Unit Price</div>
       <div className={`columnTitle totalPriceCol`}>Value</div>
     </div>

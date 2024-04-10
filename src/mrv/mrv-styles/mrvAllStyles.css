@@ -310,7 +310,7 @@
       height: 100%;
       flex: 0 0 var(--primaryColumn);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       padding: 0rem 0rem 0rem var(--PrimaryPadding__horizontal);
     }
