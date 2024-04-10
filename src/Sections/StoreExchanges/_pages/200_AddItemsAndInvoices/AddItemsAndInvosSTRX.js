@@ -5,7 +5,6 @@ import {
   CashTotalSTRX,
 } from "../../_resources/components/CompConfigsSTRX";
 
-
 import { AllEntry30 } from "./AllEntry30";
 import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";
 
@@ -78,7 +77,7 @@ function AddItemsAndInvosSTRX() {
   /* ---- SHARED FUNCTIONS ---- */
 
   const bgClick = () => {
-    console.log("fart of failure")
+    console.log("fart of failure");
     setLocStAddRtrns((draft) => {
       draft.active30 = "AllEntry30";
       draft.activeItemAtom = null;
@@ -99,7 +98,9 @@ function AddItemsAndInvosSTRX() {
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.activeMode]}
         </div>
-        <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
+        <div className={`footer_content`}>
+          <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
+        </div>
       </main>
       {o30panels[locStAddRtrns.active30]}
     </section>

@@ -1,5 +1,3 @@
-
-
 @font-face {
   font-family: "Fellix";
   src: url("../../assets/fonts/fellix/Fellix-Regular.otf") format("otf");
@@ -128,7 +126,6 @@
 
   /* ---- MRV TEXT STYLES ---- */
 
-
   & .heading__small {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -203,8 +200,6 @@
 
   /* ---- MRV Containers ---- */
 
-
-
   & .hBox {
     display: flex;
     flex: 1 1 0rem;
@@ -219,7 +214,7 @@
     flex: 1 1 0rem;
     width: 100%;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     gap: 1rem;
   }
 
@@ -268,7 +263,6 @@
       align-items: center;
       justify-content: flex-start;
       overflow-y: auto;
-
     }
 
     & .footer_text {
@@ -283,15 +277,15 @@
       }
     }
 
-    /* ---- Utility ---- */
-
     & .footer_content {
-      flex: 0 0 6rem;
-      padding: var(--PrimaryPadding__vertical) 0rem;
+      flex: 0 0 8rem;
+      padding: var(--PrimaryPadding__both);
       justify-content: flex-end;
       display: flex;
       flex-direction: row;
     }
+
+    /* ---- Utility ---- */
 
     & .cardContainer {
       box-sizing: border-box;
@@ -308,7 +302,8 @@
       flex: 1 1 0rem;
       display: flex;
       flex-direction: column;
-      padding: 0rem var(--PrimaryPadding__horizontal);
+      padding: 0rem;
+      width: var(--primaryColumn);
     }
   }
 
@@ -626,6 +621,10 @@
 
   & .gap1rem {
     gap: 1rem;
+  }
+
+  & .vw25 {
+    width: var(--primaryColumn);
   }
 
   & .alignLeft {

@@ -7226,3 +7226,23 @@ What to do today?
 7 Apr 2024
     5:40.
     I'm glad I stuck with it.  After some frustration and screwing around, I've identified at least two causes.  First, I need to make sure I am using brackets for ALL nested classes.  The CSS can get weird and muddled otherwise.  The other was much more embarrassing.  I deleted the Spacer column in one of my grids but at least one of my subgrids was still referring to it.  Whoops.  Once I cleared that out, the CSS *appears* to be working correctly.
+
+    The clue for me was that that the parent specificity chains of the various CSS classes appeared to be pretty weird.  They appeared to be chaining down from multiple classes, which given my tree structure should not have been the case.  It also made sense because I was having weirdness ALL OVER the app.  My actual question is not why the deployed app didn't work, it's why the localhost app did.  
+
+9 Apr 2024
+
+    OK.  Got a bit of time and I don't super feel like diving into Figma, so I'm gonna try for the error states instead.  And also the Continue button on to another page.
+
+    Actually, let's get that up first.  Should be an easy, get-into-the-flow type assignment.
+
+    4:50.
+    Trying to think how to handle the nether regions of the 70 panel.   Since there's no guarantee that either the money or the action button is going to be present in any given MRV page, I think the model should be:
+        - .footer_content basically just sets standard padding and a vertical dimension.
+        - .buttonBox, <CashTotalMRV> and anything else intended to be used as a child of some other element should be as space-agnostic as possible and let their containers do the space-work.
+        -Maybe a 25vw utility class?  I can imagine quite a few things that might benefit from having this available.
+    
+    6:45.
+    Man, I am just struggling HARD with the CashTotalMRV component.  For some reason, I can't get my flexbox to account for the flex bases I've established for my columns.  I did the math and the total size of the flex container is adding up to the total of JUST the text content plus the gap, regardless of the column size I set.
+        
+    
+

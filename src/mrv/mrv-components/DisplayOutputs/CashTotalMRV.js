@@ -32,7 +32,6 @@ const CashTotalMRV = ({
 
   const thisConfig = configsObj[mode];
 
-
   const uiCashLineLabels = thisConfig.aCashLines.map((line) => {
     return (
       <div key={line.label} className={`body`}>
@@ -51,22 +50,18 @@ const CashTotalMRV = ({
 
   const negTotal = greenify(thisConfig.finalTotal);
 
-  const uiFinalTotal = (
-    <div className={`totalCol `}>
-      <div className={`body__small ${negTotal}`}>
-        {negTotal ? "Total Refund:" : "Total Due:"}
-      </div>
-      <div className={`heading__large ${negTotal}`}>
-        {`$${centsToDollars(thisConfig.finalTotal)}`}
-      </div>
-    </div>
-  );
-
   return (
-    <section className={`footer_content cashTotal`}>
-      <div className={`cashLine sdTitles`}>{uiCashLineLabels}</div>
-      <div className={`cashLine`}>{uiCashLineValues}</div>
-      {uiFinalTotal}
+    <section className={`cashTotal`}>
+      <div className={`breakdownLabelsCol`}>{uiCashLineLabels}</div>
+      <div className={`breakdownValsCol`}>{uiCashLineValues}</div>
+      <div className={`totalCol `}>
+        <div className={`body__small ${negTotal}`}>
+          {negTotal ? "Total Refund:" : "Total Due:"}
+        </div>
+        <div className={`heading__large ${negTotal}`}>
+          {`$${centsToDollars(thisConfig.finalTotal)}`}
+        </div>
+      </div>
     </section>
   );
 };
