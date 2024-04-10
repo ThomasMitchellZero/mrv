@@ -267,7 +267,7 @@
 
     & .footer_text {
       flex: 0 0 auto;
-      padding: 0rem;
+      padding: 0rem var(--PrimaryPadding__horizontal);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -296,19 +296,25 @@
       width: 100%;
     }
 
+    /* this should ONLY be used to mimic the 25% column in the main/70 panel.*/
     & .buttonBox {
-      box-sizing: border-box;
       height: 100%;
-      flex: 1 1 0rem;
+      flex: 0 0 var(--primaryColumn);
       display: flex;
       flex-direction: column;
-      padding: 0rem;
-      width: var(--primaryColumn);
+      padding: 0rem 0rem 0rem var(--PrimaryPadding__horizontal);
     }
-  }
 
-  & .mrvPage .mrvPanel__main .buttonBox {
-    flex: 0 0 var(--primaryColumn);
+    /* same but more descriptive b/c I don't want to hunt for the other one..*/
+    & .buttonBox25 {
+      height: 100%;
+      flex: 0 0 var(--primaryColumn);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0rem 0rem 0rem var(--PrimaryPadding__horizontal);
+    }
+
   }
 
   & .mrvPage .border__left {
@@ -400,10 +406,6 @@
       background-color: var(--color__interactive__pressed);
       border: calc(3rem / 16) solid white;
       outline: calc(3rem / 16) solid var(--color__interactive__pressed);
-    }
-
-    &.mainAction {
-      padding-left: var(--PrimaryPadding__horizontal);
     }
 
     &.chip {

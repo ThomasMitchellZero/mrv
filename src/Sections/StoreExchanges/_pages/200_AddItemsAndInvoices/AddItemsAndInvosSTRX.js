@@ -7,6 +7,7 @@ import {
 
 import { AllEntry30 } from "./AllEntry30";
 import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";
+import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
@@ -16,6 +17,7 @@ import { useOutletContext } from "react-router";
 function AddItemsAndInvosSTRX() {
   const strxCtx = useOutletContext();
   const sessionState = strxCtx.sessionSTRX;
+  const nodeNavSTRX = useNodeNavSTRX();
 
   const clearableFields = {
     itemNumField: "",
@@ -25,12 +27,16 @@ function AddItemsAndInvosSTRX() {
     storeNumField: "",
     dateField: "",
     oActiveErrorState: null,
+    activeErrorKey: "",
     active30: "AllEntry30",
   };
 
   const defaultState = {
     active30: "AllEntry30",
     activeMode: "receipt",
+    oErrorStates: {
+      noItem: "No items have been added",
+    },
     clearableFields: clearableFields, // lets me see field names in the other components
     ...clearableFields,
   };
@@ -74,15 +80,32 @@ function AddItemsAndInvosSTRX() {
     ),
   };
 
+  const uiContinueWarning = (
+    <div className={`footer_text`}>
+      <div className={"buttonBox25 warning"}>{locStAddRtrns.oErrorStates.noItem}</div>
+    </div>
+  );
+
   /* ---- SHARED FUNCTIONS ---- */
 
   const bgClick = () => {
-    console.log("fart of failure");
+    console.log("bgClick");
     setLocStAddRtrns((draft) => {
       draft.active30 = "AllEntry30";
       draft.activeItemAtom = null;
-      draft.oActiveErrorState = null;
+      draft.activeErrorKey = "";
     });
+  };
+
+  const handleContinue = () => {
+    console.log(sessionState.returnItems.length);
+    if (sessionState.returnItems.length === 0) {
+      setLocStAddRtrns((draft) => {
+        draft.activeErrorKey = "noItem";
+      });
+    } else {
+      nodeNavSTRX("reason");
+    }
   };
   /* ---- OUTPUT JSX ---- */
 
@@ -98,8 +121,20 @@ function AddItemsAndInvosSTRX() {
         <div className={`main_content`}>
           {o70panels[locStAddRtrns.activeMode]}
         </div>
+        {locStAddRtrns.activeErrorKey === "noItem" ? uiContinueWarning : null}
         <div className={`footer_content`}>
-          <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
+          <CashTotalSTRX mode={"exchDelta"} />
+          <div
+            onClick={(e) => {
+              console.log("button BG register");
+              e.stopPropagation();
+            }}
+            className={`buttonBox25`}
+          >
+            <button className={`primary jumbo maxWidth`} onClick={handleContinue}>
+              Continue
+            </button>
+          </div>
         </div>
       </main>
       {o30panels[locStAddRtrns.active30]}

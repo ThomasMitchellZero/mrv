@@ -18,7 +18,6 @@
       align-items: flex-start;
       height: 100%;
       justify-content: center;
-      background-color: bisque;
     }
 
     & .breakdownValsCol {
@@ -27,7 +26,6 @@
       height: 100%;
       align-items: flex-start;
       justify-content: center;
-      background-color: aqua;
     }
 
 
@@ -44,6 +42,7 @@
         flex: 0 0 auto;
         flex-direction: row;
         align-items: center;
+        width: 100%;
         gap: 1rem;
       }
 

@@ -1,12 +1,7 @@
-
-
 import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { ItemEntry, ReceiptEntry } from "./EntrySubsections";
 
-
 function AllEntry30({ parLocState, setParLocState }) {
-
-
   const s30Mode = parLocState.activeMode;
 
   // mode-specific properties
@@ -14,13 +9,20 @@ function AllEntry30({ parLocState, setParLocState }) {
     receipt: {
       sLabel: "receipt",
       sInputLabel: "",
-      inputCluster: <ReceiptEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
+      inputCluster: (
+        <ReceiptEntry
+          parentLocSt={parLocState}
+          setParentLocSt={setParLocState}
+        />
+      ),
     },
 
     item: {
       sLabel: "item",
       sInputLabel: "",
-      inputCluster: <ItemEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
+      inputCluster: (
+        <ItemEntry parentLocSt={parLocState} setParentLocSt={setParLocState} />
+      ),
     },
   };
 
@@ -44,11 +46,17 @@ function AllEntry30({ parLocState, setParLocState }) {
     );
   };
 
-
   /* ########  OUTPUT JSX   ######## */
 
   return (
-    <main className={`allEntry30 mrvPanel__side color__surface__default`}>
+    <main
+      onClick={() =>
+        setParLocState((draft) => {
+          draft.activeErrorKey = "";
+        })
+      }
+      className={`allEntry30 mrvPanel__side color__surface__default`}
+    >
       <TitleBarSTRX
         hasCluster={false}
         showProductName={false}

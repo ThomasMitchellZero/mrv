@@ -35,7 +35,7 @@ const CashTotalMRV = ({
   const uiCashLineLabels = thisConfig.aCashLines.map((line) => {
     return (
       <div key={line.label} className={`body`}>
-        {line.label}
+        {`${line.label}:`}
       </div>
     );
   });
