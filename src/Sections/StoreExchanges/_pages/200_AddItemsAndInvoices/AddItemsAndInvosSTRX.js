@@ -131,7 +131,7 @@ function AddItemsAndInvosSTRX() {
             }}
             className={`buttonBox25`}
           >
-            <button className={`primary jumbo maxWidth`} onClick={handleContinue}>
+            <button className={`primary jumbo maxWidth maxFlex`} onClick={handleContinue}>
               Continue
             </button>
           </div>
