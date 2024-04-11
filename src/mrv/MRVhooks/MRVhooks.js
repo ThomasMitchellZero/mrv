@@ -99,11 +99,20 @@ function useNodeNav({ sessionState, setSessionState }) {
     if (sessionState.oNavNodes[targetNodeKey]) {
       const outNavNodesObj = cloneDeep(sessionState.oNavNodes);
 
+      // all nodes prior to the target remain enabled.
+      let nodeAfterTarget = false;
+
       for (const thisNode of Object.values(outNavNodesObj)) {
-        thisNode.selected = false; // deactivate all nodes
+        thisNode.selected = false; // deselect all nodes
+        thisNode.disabled = nodeAfterTarget;// deactivate all nodes
+
+        // once target node is reached, flip bool so all subequent nodes are disabled.
+        if (thisNode.keyStr === targetNodeKey) {
+          nodeAfterTarget = true;
+        }
       }
+
       // activate the target node and make it available.
-      outNavNodesObj[targetNodeKey].disabled = false;
       outNavNodesObj[targetNodeKey].selected = true;
 
       setSessionState((draft) => {

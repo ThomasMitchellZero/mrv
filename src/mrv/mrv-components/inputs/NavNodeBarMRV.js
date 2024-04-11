@@ -31,9 +31,9 @@ const NavNodeBarMRV = ({ sessionState, setSessionState }) => {
       <button
         key={crumbNavNodes.keyStr}
         disabled={crumbNavNodes.disabled}
-        onClick={() => console.log(
-          "fart"
-        )}
+        onClick={() => {
+          nodeNav(crumbNavNodes.keyStr);
+        }}
         className={`ghost miniBtn ${selected} ${disabled}`}
       >
         {crumbNavNodes.titleStr}
