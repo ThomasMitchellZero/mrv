@@ -36,6 +36,9 @@ function AddItemsAndInvosSTRX() {
     activeMode: "receipt",
     oErrorStates: {
       noItem: "No items have been added",
+      invalidItem: "Invalid item number",
+      invalidQty: "Invalid quantity",
+      invalidReceipt: "Invalid receipt number",
     },
     clearableFields: clearableFields, // lets me see field names in the other components
     ...clearableFields,

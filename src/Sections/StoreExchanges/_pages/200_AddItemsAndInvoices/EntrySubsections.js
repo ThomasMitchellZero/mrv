@@ -1,5 +1,3 @@
-
-
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
@@ -14,6 +12,7 @@ import {
 } from "../../_resources/hooks/STRXhooks";
 import cloneDeep from "lodash.clonedeep";
 import InvoContext from "../../../../store/invo-context";
+import ProductContext from "../../../../store/product-context";
 
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
@@ -21,22 +20,54 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
+  const productCtx = useContext(ProductContext);
+  const invoCtx = useContext(InvoContext);
+
+  const clearableFields = {
+    itemNumField: "",
+    itemQtyField: "",
+    receiptNumField: "",
+    activeItemAtom: null,
+    storeNumField: "",
+    dateField: "",
+    oActiveErrorState: null,
+    activeErrorKey: "",
+    active30: "AllEntry30",
+  };
 
   const oErrorStates = {
     invalidItem: {},
     invalidQty: {},
   };
 
-  const itemFormValidation = () => {
-    return true;
+  const errorInItemForm = () => {
+    const thisItemNum = parLocState.itemNumField;
+    const thisQty = parLocState.itemQtyField;
+    const itemNumValid = thisItemNum in productCtx;
+    console.log(itemNumValid);
+    console.log(thisQty);
+
+    let outFormError = !itemNumValid
+      ? "invalidItem"
+      : !thisQty
+      ? "invalidQty"
+      : false;
+
+    return outFormError;
   };
+
+  const itemErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
 
   const handleAddItem = (event) => {
     event.preventDefault();
 
-    const bFormValid = true;
+    const formError = errorInItemForm();
 
-    if (bFormValid) {
+    if (formError) {
+      setParLocState((draft) => {
+        draft.activeErrorKey = formError;
+      });
+    } else {
       const outAtom = new returnAtom({
         atomItemNum: parLocState.itemNumField,
         atomItemQty: parLocState.itemQtyField,
@@ -98,7 +129,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
           Add Item
         </button>
       </div>
-      <p className={`warning`}></p>
+      <p className={`warning`}>{itemErrorStr}</p>
     </form>
   );
 };
