@@ -203,7 +203,7 @@ export { sessionItem, singleDispo };
 
 //// Return Classes ///////////////////////////////////////////////
 
-// factory function that produces the default Retun state object
+// factory function that produces the default Return state object
 
 const baseReturnState = ({
   returnItems = [],
