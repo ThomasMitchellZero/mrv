@@ -33,7 +33,10 @@ const useDollarsToCents = () => {
 };
 
 const greenify = (numberVal) => {
-  return numberVal < 0 ? "color__green__text" : "";
+
+  const isNeg = numberVal < 0 && typeof numberVal === "number";
+
+  return isNeg ? "color__green__text" : "";
 };
 
 const mo_multiply = ({ targetMO, factor = 1 }) => {

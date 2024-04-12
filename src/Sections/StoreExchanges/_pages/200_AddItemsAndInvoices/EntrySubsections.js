@@ -80,6 +80,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
         itemsArrRouteStr: "returnItems",
       });
 
+      // reset the clearable fields in the local state.
       let outLocState = cloneDeep(parLocState);
       outLocState = { ...outLocState, ...parLocState.clearableFields };
       setParLocState(() => outLocState);
@@ -92,7 +93,11 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       onSubmit={handleAddItem}
       className={`inputSection`}
     >
-      <MRVinput flex={"1 1 0rem"} width={`100%`}>
+      <MRVinput
+        flex={"1 1 0rem"}
+        width={`100%`}
+        hasError={parLocState.activeErrorKey === "invalidItem"}
+      >
         <input
           type="text"
           value={parLocState.itemNumField}
@@ -108,7 +113,10 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       </MRVinput>
 
       <div className={`inputRow`}>
-        <MRVinput width={"8rem"}>
+        <MRVinput
+          width={"8rem"}
+          hasError={parLocState.activeErrorKey === "invalidQty"}
+        >
           <input
             type="number"
             min="0"
@@ -142,26 +150,36 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const setParLocState = setParentLocSt;
   const setSessionInvosSTRX = useSetSessionInvosSTRX();
 
-  let invoFormValid = true;
+  const errorInInvoForm = () => {
+    const thisInvoNum = parLocState.receiptNumField;
+    const invoNumValid = thisInvoNum in invoCtx;
+
+    let outFormError = !invoNumValid ? "invalidReceipt" : false;
+
+    return outFormError;
+  };
+
+  const invoErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
 
   const handleAddInvo = (event) => {
     event.preventDefault();
+    const invoFormError = errorInInvoForm();
 
-    if (invoFormValid) {
-      const thisCtxInvo = invoCtx[parLocState.receiptNumField];
+    if (invoFormError) {
+      setParLocState((draft) => {
+        draft.activeErrorKey = invoFormError;
+      });
+    } else {
+      setSessionInvosSTRX({
+        invosRtStr: "sessionInvos",
+        invoNum: parLocState.receiptNumField,
+        actionType: "add",
+      });
 
-      if (thisCtxInvo) {
-        setSessionInvosSTRX({
-          invosRtStr: "sessionInvos",
-          invoNum: parLocState.receiptNumField,
-          actionType: "add",
-        });
-
-        // clear the input fields in the local state.
-        let outLocState = cloneDeep(parLocState);
-        outLocState = { ...outLocState, ...parLocState.clearableFields };
-        setParLocState(() => outLocState);
-      }
+      // clear the input fields in the local state.
+      let outLocState = cloneDeep(parLocState);
+      outLocState = { ...outLocState, ...parLocState.clearableFields };
+      setParLocState(() => outLocState);
     }
   };
 
@@ -171,7 +189,11 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
       className={`inputSection`}
       onSubmit={handleAddInvo}
     >
-      <MRVinput flex={"1 1 0rem"} width={`100%`}>
+      <MRVinput
+        flex={"1 1 0rem"}
+        width={`100%`}
+        hasError={parLocState.activeErrorKey === "invalidReceipt"}
+      >
         <input
           type="text"
           placeholder="Receipt Number"
@@ -221,6 +243,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
           Add Receipt
         </button>
       </div>
+      <p className={`warning`}>{invoErrorStr}</p>
     </form>
   );
 };
