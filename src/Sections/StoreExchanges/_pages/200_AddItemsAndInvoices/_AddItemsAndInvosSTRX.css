@@ -82,7 +82,7 @@
           [unitQty] 5rem
           [unitPrice] 7rem
           [totalPrice] 10rem
-          [trash] 5.5rem;
+          [trash] var(--DeleteColWidth);
         flex: 0 0 auto;
         gap: 1rem;
       }
@@ -178,7 +178,7 @@
           [unitPrice] 8rem
           [unitIcon] 5rem
           [spacer] 1px
-          [trash] 5.5rem;
+          [trash] var(--DeleteColWidth);
         flex: 0 0 auto;
         gap: 1rem;
       }

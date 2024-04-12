@@ -16,6 +16,7 @@
   --PrimaryPadding__horizontal: 2rem;
   --PrimaryPadding__both: var(--PrimaryPadding__vertical)
     var(--PrimaryPadding__horizontal);
+  --DeleteColWidth: 8rem;
 
   --tablePadding__vertical: 0rem;
   --tablePadding__horizontal: 1rem;
@@ -129,6 +130,7 @@
   & .heading__small {
     font-size: 1.5rem;
     line-height: 2rem;
+    font-weight: 600;
   }
 
   & .heading__medium {

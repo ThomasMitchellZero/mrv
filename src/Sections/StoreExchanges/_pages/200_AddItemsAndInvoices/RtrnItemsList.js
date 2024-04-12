@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
-import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
+import { useCentsToDollars, atomsMonetizer } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { greenify } from "../../../../mrv/MRVhooks/MRVhooks";
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
@@ -152,6 +152,8 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
       return uiItemSubcard(thisAtom);
     });
 
+    const cardTotalVal = atomsMonetizer(aItemAndChildren);
+
     return (
       <div
         key={returnItem.primaryKey}
@@ -164,6 +166,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
+            bigValue={"fart"}
             onClick={() => {
               setSessionItemsSTRX({
                 itemAtom: returnItem,
