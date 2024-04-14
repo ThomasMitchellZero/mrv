@@ -1,7 +1,11 @@
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
-import { useCentsToDollars, atomsMonetizer } from "../../../../mrv/MRVhooks/MRVhooks";
+import {
+  useCentsToDollars,
+  atomsMonetizer,
+  centStringifier,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { greenify } from "../../../../mrv/MRVhooks/MRVhooks";
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
@@ -43,7 +47,10 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     />
   );
 
-  // a row for invoice-specific details of this item.
+  ///////////////////////////////////////////////////////////////////
+  //                     Row for each invoiced Item.
+  ///////////////////////////////////////////////////////////////////
+
   const uiInfoRow = (atomizedItem) => {
     const hasInvo = atomizedItem.atomInvoNum;
     const moneyObj = atomizedItem.atomMoneyObj;
@@ -84,7 +91,10 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     );
   };
 
-  // a subcard for an item.
+  ///////////////////////////////////////////////////////////////////
+  //                     Subcard for an item.
+  ///////////////////////////////////////////////////////////////////
+
   const uiItemSubcard = (rowItem) => {
     const refAtom = new returnAtom({});
 
@@ -139,7 +149,10 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     );
   };
 
-  // a card for an item and its children.
+  ///////////////////////////////////////////////////////////////////
+  //                 Card for the item and its children
+  ///////////////////////////////////////////////////////////////////
+
   const uiItemCard = (returnItem) => {
     // look for associated child items.
     const aItemAndChildren = aReturnItems.filter((thisAtom) => {
@@ -148,11 +161,26 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     // add the parent item to the beginning of the array.
     aItemAndChildren.unshift(returnItem);
 
+    // get the atoms for this card.
+    const aAtomsOfCard = aAtomizedItems.filter((atom) => {
+      return (
+        atom.atomItemNum === returnItem.atomItemNum ||
+        atom.parentKey === returnItem.atomItemNum
+      );
+    });
+
+    // get the total $ value of the card.
+    const cardTotalVal = atomsMonetizer(aAtomsOfCard);
+    const cardBaseValue = cardTotalVal.unitBaseValue;
+
+    const cardString = centStringifier({
+      valueInCents: cardBaseValue,
+      invertVal: true,
+    });
+
     const outSubcardArr = aItemAndChildren.map((thisAtom) => {
       return uiItemSubcard(thisAtom);
     });
-
-    const cardTotalVal = atomsMonetizer(aItemAndChildren);
 
     return (
       <div
@@ -166,7 +194,9 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
 
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
-            bigValue={"fart"}
+            bigValue={cardString}
+            description={"Refund Value"}
+            greenifyVal={-cardBaseValue}
             onClick={() => {
               setSessionItemsSTRX({
                 itemAtom: returnItem,

@@ -20,20 +20,23 @@ import { cloneDeep, isEmpty } from "lodash";
 
 //// Money Handlers ////
 
+const centsToDollars = (priceInCents = 4200) => {
+  return Number.parseFloat(priceInCents / 100).toFixed(2);
+};
+
 const useCentsToDollars = () => {
-  return (priceInCents = 4200) => {
-    return Number.parseFloat(priceInCents / 100).toFixed(2);
-  };
+  return centsToDollars;
+};
+
+const dollarsToCents = (priceInDollars) => {
+  return Number.parseFloat(priceInDollars.toFixed(2)) * 100;
 };
 
 const useDollarsToCents = () => {
-  return (priceInDollars) => {
-    return Number.parseFloat(priceInDollars.toFixed(2)) * 100;
-  };
+  return dollarsToCents;
 };
 
 const greenify = (numberVal) => {
-
   const isNeg = numberVal < 0 && typeof numberVal === "number";
 
   return isNeg ? "color__green__text" : "";
@@ -84,12 +87,28 @@ const atomsMonetizer = (arrayOfAtoms) => {
   return outTotalMoneyObj;
 };
 
+const centStringifier = ({
+  valueInCents,
+  zeroAs0 = false,
+  invertVal = false,
+}) => {
+  // returns a dollar string from a cent value.  We should ONLY be using $ values in the display. All calculations should be done in cents.
+  const outValInCents = invertVal ? -valueInCents : valueInCents;
+  let outMoneyStr =
+    outValInCents || zeroAs0 ? `$${centsToDollars(outValInCents)}` : "- -";
+  return outMoneyStr;
+};
+
 export {
+  centsToDollars,
+  dollarsToCents,
   useCentsToDollars,
   useDollarsToCents,
   greenify,
   mo_multiply,
   atomsMonetizer,
+  moneyObjDelta,
+  centStringifier,
 };
 
 function useNodeNav({ sessionState, setSessionState }) {
@@ -107,7 +126,7 @@ function useNodeNav({ sessionState, setSessionState }) {
 
       for (const thisNode of Object.values(outNavNodesObj)) {
         thisNode.selected = false; // deselect all nodes
-        thisNode.disabled = nodeAfterTarget;// deactivate all nodes
+        thisNode.disabled = nodeAfterTarget; // deactivate all nodes
 
         // once target node is reached, flip bool so all subequent nodes are disabled.
         if (thisNode.keyStr === targetNodeKey) {
@@ -129,7 +148,6 @@ function useNodeNav({ sessionState, setSessionState }) {
 }
 
 export { useNodeNav };
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////         Session Input Handlers       /////////////////////////
