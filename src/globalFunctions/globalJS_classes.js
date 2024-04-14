@@ -1,5 +1,3 @@
-
-
 //---- Product ----
 
 class moneyObj {
@@ -25,6 +23,39 @@ class moneyObj {
 }
 
 export { moneyObj };
+
+class SingleDispo {
+  constructor({
+    keyStr,
+    isResellable = true,
+    dispoQty = 0,
+    strLabel = "NO LABEL",
+  }) {
+    this.keyStr = keyStr;
+    this.strLabel = strLabel;
+    this.isDamaged = isResellable;
+    this.dispoQty = dispoQty;
+  }
+}
+
+class ItemDisposObj {
+  constructor({ dispoItemNum, itemQty, allDisposObj = {} }) {
+    this.dispoItemNum = dispoItemNum;
+    this.dispoQty = itemQty;
+    this.allDisposObj = allDisposObj;
+  }
+  get qtyNoDispo() {
+    const refSingleDispo = new SingleDispo({});
+    const aAllDispos = Object.values(this.allDisposObj);
+    let outQtyNoDispo = 0;
+    aAllDispos.forEach((iDispo) => {
+      outQtyNoDispo += iDispo.dispoQty;
+    });
+    return outQtyNoDispo;
+  }
+}
+
+export { SingleDispo, ItemDisposObj };
 
 class Product {
   constructor({
@@ -213,6 +244,7 @@ const baseReturnState = ({
   totalReplacementValue = new moneyObj({}),
   cashDeltaMO = new moneyObj({}),
   sessionInvos = {},
+  returnItemDispos = [],
   oNavNodes = {},
 }) => {
   return {
@@ -222,6 +254,7 @@ const baseReturnState = ({
     replacementItems,
     totalReplacementValue,
     cashDeltaMO,
+    returnItemDispos,
 
     sessionInvos,
     oNavNodes,
@@ -262,7 +295,7 @@ const navNode = ({
   titleStr = "No Title",
   selected = false,
   disabled = true,
-  breadcrumb = false,  //may need to conditionally add a breadcrumb to the nav bar
+  breadcrumb = false, //may need to conditionally add a breadcrumb to the nav bar
 }) => {
   return { keyStr, routeStr, titleStr, selected, disabled, breadcrumb };
 };

@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import {
-  useCentsToDollars,
+  centsToDollars,
   atomsMonetizer,
   centStringifier,
 } from "../../../../mrv/MRVhooks/MRVhooks";
@@ -15,7 +15,6 @@ import { cloneDeep } from "lodash";
 
 const RtrnItemsList = ({ parLocState, setParLocState }) => {
   const strxCtx = useOutletContext();
-  const centsToDollars = useCentsToDollars();
   const setSessionItemsSTRX = useSetSessionItemsSTRX();
   const sessionState = strxCtx.sessionSTRX;
   const aReturnItems = sessionState.returnItems;
@@ -216,7 +215,10 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     );
   };
 
-  // the title row for the item cards.
+  ///////////////////////////////////////////////////////////////////
+  //                 Title Row for Card Cols.
+  ///////////////////////////////////////////////////////////////////
+
   const uiItemCardTitle = (
     <div className={`columnTitleRow items_grid`}>
       <div className={`columnTitle detailCol`}>Item</div>

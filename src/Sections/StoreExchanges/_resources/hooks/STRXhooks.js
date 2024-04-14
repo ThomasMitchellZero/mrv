@@ -83,14 +83,10 @@ const defaultNavNodesSTRX = {
   }),
 };
 
-
-const baseStateSTRX = ()=>{
+const baseStateSTRX = () => {
   // the basic state for Exchanges app.  Will need whenever we full-reset the app.
-  return baseReturnState({oNavNodes: defaultNavNodesSTRX});
-}
-
-
-
+  return baseReturnState({ oNavNodes: defaultNavNodesSTRX });
+};
 
 export {
   useSetSessionItemsSTRX,

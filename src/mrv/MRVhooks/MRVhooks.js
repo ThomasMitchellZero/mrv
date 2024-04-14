@@ -14,6 +14,8 @@ import {
   moneyObj,
   baseReturnState,
   navNode,
+  SingleDispo,
+  ItemDisposObj,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -92,6 +94,8 @@ const centStringifier = ({
   zeroAs0 = false,
   invertVal = false,
 }) => {
+  // this hook might be bullshit.
+
   // returns a dollar string from a cent value.  We should ONLY be using $ values in the display. All calculations should be done in cents.
   const outValInCents = invertVal ? -valueInCents : valueInCents;
   let outMoneyStr =
@@ -110,6 +114,26 @@ export {
   moneyObjDelta,
   centStringifier,
 };
+
+const populateDisposArr = (RtrnItemsList) => {
+  // returns an array of SingleDispo objects from an array of return items.
+  const refItemDisposObj = new ItemDisposObj({});
+  const refSingleDispo = new SingleDispo({});
+  const refItemAtom = new returnAtom({});
+
+  const aDisposArr = RtrnItemsList.map((iAtom) => {
+    const outDispoObj = new ItemDisposObj({
+      dispoItemNum: iAtom.atomItemNum,
+      itemQty: iAtom.atomItemQty,
+    });
+    return outDispoObj;
+  });
+
+  return aDisposArr;
+};
+
+
+export { populateDisposArr };
 
 function useNodeNav({ sessionState, setSessionState }) {
   const navigate = useNavigate();
