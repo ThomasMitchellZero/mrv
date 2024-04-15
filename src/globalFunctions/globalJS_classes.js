@@ -1,5 +1,7 @@
 //---- Product ----
 
+import cloneDeep from "lodash.clonedeep";
+
 class moneyObj {
   constructor({ unitBaseValue = 0, salesTax = 0, salesTaxRate = 0.09 }) {
     this.unitBaseValue = unitBaseValue;
@@ -41,17 +43,19 @@ class SingleDispo {
 class ItemDisposObj {
   constructor({ dispoItemNum, itemQty, allDisposObj = {} }) {
     this.dispoItemNum = dispoItemNum;
-    this.dispoQty = itemQty;
+    this.itemQty = itemQty;
     this.allDisposObj = allDisposObj;
   }
-  get qtyNoDispo() {
+  get qtySansDispo() {
     const refSingleDispo = new SingleDispo({});
-    const aAllDispos = Object.values(this.allDisposObj);
-    let outQtyNoDispo = 0;
+    const aAllDispos = Object.values(cloneDeep(this.allDisposObj));
+    console.log("aAllDispos");
+    let outQtySansDispo = this.itemQty;
     aAllDispos.forEach((iDispo) => {
-      outQtyNoDispo += iDispo.dispoQty;
+      const minusQty = iDispo?.dispoQty || 0;
+      outQtySansDispo -= minusQty;
     });
-    return outQtyNoDispo;
+    return outQtySansDispo;
   }
 }
 
