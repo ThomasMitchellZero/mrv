@@ -16,6 +16,7 @@ function DispoMainPageSTRX() {
   const strxCtx = useOutletContext();
   const sessionStateSTRX = strxCtx.sessionSTRX;
   const setSessionStateSTRX = strxCtx.setSessionSTRX;
+  const nodeNavSTRX = useNodeNavSTRX();
 
   return (
     <DispoMainPageMRV
@@ -25,6 +26,8 @@ function DispoMainPageSTRX() {
         <TitleBarSTRX
           headerTitle={`Provide reason for return`}
           showNavNodeBar={true}
+          hasIcon={"back"}
+          navBtnClick={() => nodeNavSTRX("returns")}
         />
       }
       cashTotal={

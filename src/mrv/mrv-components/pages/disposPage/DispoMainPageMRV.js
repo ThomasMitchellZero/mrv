@@ -13,6 +13,7 @@ import { useOutletContext } from "react-router";
 function DispoMainPageMRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
+  handleContinue = () => console.log("No Continue Handler Provided"),
   titleBar = (
     <TitleBarMRV
       hasIcon={"back"}
@@ -84,8 +85,26 @@ function DispoMainPageMRV({
     <section className={` mrvPage color__surface__subdued`}>
       <main className={`mrvPanel__main`}>
         {titleBar}
-        <div className={`main_content`}>test</div>
-        {cashTotal}
+        <div className={`main_content`}>
+          <div className={`heading__medium`}>Test Complete</div>
+        </div>
+        <div className={`footer_content`}>
+          {cashTotal}
+          <div
+            onClick={(e) => {
+              console.log("button BG register");
+              e.stopPropagation();
+            }}
+            className={`buttonBox25`}
+          >
+            <button
+              className={`primary jumbo maxFlex`}
+              onClick={handleContinue}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
       </main>
     </section>
   );
