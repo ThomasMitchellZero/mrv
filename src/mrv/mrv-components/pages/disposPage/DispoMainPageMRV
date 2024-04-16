@@ -1,39 +1,44 @@
-import {
-  singleDispo,
-  ItemDisposObj,
-} from "../../../../globalFunctions/globalJS_classes";
-import { DispoMainPageMRV } from "../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
+import "./_Dispositions.css";
 
 import {
-  TitleBarSTRX,
-  CashTotalSTRX,
-} from "../../_resources/components/CompConfigsSTRX";
+  SingleDispo,
+  ItemDisposObj,
+  baseReturnState,
+} from "../../../../globalFunctions/globalJS_classes";
+import { TitleBarMRV } from "../../DisplayOutputs/TitleBarMRV";
+import { CashTotalMRV } from "../../DisplayOutputs/CashTotalMRV";
 import { useImmer, useImmerReducer } from "use-immer";
-import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
 import { useOutletContext } from "react-router";
 
-function DispoMainPageSTRX() {
-  const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
-
-  return <DispoMainPageMRV />;
-}
-
-export { DispoMainPageSTRX };
-
-/*
-
-    const clearableFields = {
-    activeSingleDispo: "",  
+function DispoMainPageMRV({
+  sessionState = baseReturnState(),
+  setSessionState = () => console.log("No Session State Setter Provided"),
+  titleBar = null,
+  cashTotal = null,
+}) {
+  const clearableFields = {
+    activeSingleDispo: "",
     activeDisposObj: {},
     activeErrorState: "",
-  }
+  };
 
   const initLocStDispoMain = {
     activeRowKey: missingDispos(),
     ...clearableFields,
-    
   };
+
+  /*
+  
+    titleBar = (
+    <TitleBarMRV
+      hasIcon={"back"}
+      showProductName={true}
+      headerTitle={`Provide reason for return`}
+    />
+  ),
+  cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
+  
+  */
 
   const [locStDispoMain, setLocStDispoMain] = useImmerReducer(
     (draft, action) => {
@@ -56,12 +61,13 @@ export { DispoMainPageSTRX };
   );
 
   function missingDispos() {
+    const refBaseReturnState = baseReturnState({});
     const refItemDisposObj = new ItemDisposObj({});
     let outKeyStr = "";
     for (const iItem of sessionState.returnItemDispos) {
-      console.log(iItem, iItem.itemQty, iItem.qtySansDispo)
+      console.log(iItem, iItem.itemQty, iItem.qtySansDispo);
       if (iItem.qtySansDispo > 0) {
-        outKeyStr = iItem.dispoItemNum;                                               
+        outKeyStr = iItem.dispoItemNum;
         break;
       }
     }
@@ -71,16 +77,12 @@ export { DispoMainPageSTRX };
   return (
     <section className={` mrvPage color__surface__subdued`}>
       <main className={`mrvPanel__main`}>
-        <TitleBarSTRX
-          //hasIcon={"back"}
-          showProductName={true}
-          headerTitle={`Provide reason for return`}
-          showNavNodeBar={true}
-        />
+        {titleBar}
         <div className={`main_content`}>test</div>
-        <CashTotalSTRX mode={"exchDelta"} sessionState={sessionState} />
+        {cashTotal}
       </main>
     </section>
   );
-  
-  */
+}
+
+export { DispoMainPageMRV };
