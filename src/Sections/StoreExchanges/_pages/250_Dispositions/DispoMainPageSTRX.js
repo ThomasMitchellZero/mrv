@@ -14,9 +14,24 @@ import { useOutletContext } from "react-router";
 
 function DispoMainPageSTRX() {
   const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
+  const sessionStateSTRX = strxCtx.sessionSTRX;
+  const setSessionStateSTRX = strxCtx.setSessionSTRX;
 
-  return <DispoMainPageMRV />;
+  return (
+    <DispoMainPageMRV
+      sessionState={sessionStateSTRX}
+      setSessionState={setSessionStateSTRX}
+      titleBar={
+        <TitleBarSTRX
+          headerTitle={`Provide reason for return`}
+          showNavNodeBar={true}
+        />
+      }
+      cashTotal={
+        <CashTotalSTRX mode={"exchDelta"} sessionState={sessionStateSTRX} />
+      }
+    />
+  );
 }
 
 export { DispoMainPageSTRX };

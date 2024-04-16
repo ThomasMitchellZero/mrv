@@ -11,10 +11,16 @@ import { useImmer, useImmerReducer } from "use-immer";
 import { useOutletContext } from "react-router";
 
 function DispoMainPageMRV({
-  sessionState = baseReturnState(),
+  sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
-  titleBar = null,
-  cashTotal = null,
+  titleBar = (
+    <TitleBarMRV
+      hasIcon={"back"}
+      showProductName={true}
+      headerTitle={`Provide reason for return`}
+    />
+  ),
+  cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
 }) {
   const clearableFields = {
     activeSingleDispo: "",
