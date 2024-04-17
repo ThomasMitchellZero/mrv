@@ -55,6 +55,11 @@
   --color__border__th: #d8d8d8;
   --color__border__subdued: #dddddd;
 
+  --color__ribbon__warning: #fff4db;
+  --color__ribbon__critical: #fbdee3;
+  --color__ribbon__info: #d4ebfe;
+  --color__ribbon__success: #ebfce3;
+
   .divider {
     display: flex;
     background-color: var(--color__border);
@@ -115,6 +120,23 @@
   & .color__red__text {
     color: var(--color__red);
   }
+  & .color__red {
+    background-color: var(--color__red);
+  }
+
+  & .color__ribbon__warning {
+    background-color: var(--color__ribbon__warning);
+  }
+  & .color__ribbon__critical {
+    background-color: var(--color__ribbon__critical);
+  }
+  & .color__ribbon__info {
+    background-color: var(--color__ribbon__info);
+  }
+  & .color__ribbon__success {
+    background-color: var(--color__ribbon__success);
+  }
+
   & .color__transparent {
     background-color: transparent;
   }
@@ -317,7 +339,6 @@
       padding: 0rem 0rem 0rem var(--PrimaryPadding__horizontal);
       justify-content: center;
     }
-
   }
 
   & .mrvPage .border__left {
