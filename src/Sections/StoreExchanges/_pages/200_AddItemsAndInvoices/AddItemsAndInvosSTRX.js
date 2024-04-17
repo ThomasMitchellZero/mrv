@@ -44,6 +44,7 @@ function AddItemsAndInvosSTRX() {
       invalidItem: "Invalid item number",
       invalidQty: "Invalid quantity",
       invalidReceipt: "Invalid receipt number",
+      duplicateInvo: "Receipt has already been added",
     },
     clearableFields: clearableFields, // lets me see field names in the other components
     ...clearableFields,

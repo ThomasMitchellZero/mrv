@@ -158,8 +158,15 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const errorInInvoForm = () => {
     const thisInvoNum = parLocState.receiptNumField;
     const invoNumValid = thisInvoNum in invoCtx;
+    const invoAlreadyAdded = thisInvoNum in sessionState.sessionInvos;
 
-    let outFormError = !invoNumValid ? "invalidReceipt" : false;
+    let outFormError = !invoNumValid
+      ? "invalidReceipt"
+      : invoAlreadyAdded
+      ? "duplicateInvo"
+      : false;
+
+    console.log("outFormError function result was was", outFormError );
 
     return outFormError;
   };
@@ -169,12 +176,14 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   );
 
   const invoErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
+  console.log("invoErrorStr was:", invoErrorStr );
 
   const handleAddInvo = (event) => {
     event.preventDefault();
     const invoFormError = errorInInvoForm();
 
     if (invoFormError) {
+      console.log(invoFormError);
       setParLocState((draft) => {
         draft.activeErrorKey = invoFormError;
       });
@@ -201,7 +210,10 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
       <MRVinput
         flex={"1 1 0rem"}
         width={`100%`}
-        hasError={parLocState.activeErrorKey === "invalidReceipt"}
+        hasError={
+          parLocState.activeErrorKey === "invalidReceipt" ||
+          parLocState.activeErrorKey === "duplicateInvo"
+        }
       >
         <input
           type="text"
