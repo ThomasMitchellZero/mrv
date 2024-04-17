@@ -7243,6 +7243,118 @@ What to do today?
     
     6:45.
     Man, I am just struggling HARD with the CashTotalMRV component.  For some reason, I can't get my flexbox to account for the flex bases I've established for my columns.  I did the math and the total size of the flex container is adding up to the total of JUST the text content plus the gap, regardless of the column size I set.
+
+10 Apr 2024
+    I'm pretty sure I accidentally took 2x dose, so I want to try and kick some ass today.  I also can't work on this the whole time, as I've got the meetings tomorrow and J1 needs some work.
+
+    A couple issues in flight for today.  
+        -Figure out a good model for the error states.
+            -I think I need text strings.  There could be different kinds of errors, but shown in the same place.
+            -I would kind of like to have some sort of reference object in the state just to ensure consistency.
+            -I don't THINK the error states need to be an object?  I think any error logic can be delegated to whatever context it's being consumed in.
+
+        -Figure out why my other clicks aren't working.
+            -One idea for this: look at putting the .stopPropagation() function in the card rather than the individual items?  Thinking/hoping that would catch and stop any event propagation happening deeper in the tree?
+
+            -Looks like the button click might be a separate issue.  I can see from the console log that it's firing, but I think the error state is just getting cleared.
+
+    -Looks like my interception technique is working pretty well.  
+
+    -End Store Exchanges is NOT working well.  It's not resetting to the default state.  Whatever.  Time for J1.
+
+    4:35
+    -Got the spacing issues fixed, although I still have literally zero idea why the maxWidth class wasn't showing up.  Not overridden, mind you - not showing up at all.  It's in the same file as everything else, the className is correct, and it's just not present at all.  I can actually go to the CSS file loaded into the app and find the class, but it's still just not being picked up.
+
+    OK.  Spacing is (hackily) fixed, and I fixed the issue with deleting items.  Now what?
+        Try to fix the issues with Navigation?  Or add additional error states?  
+
+        My intuition is to fix the nav.  
+
+        OK.  So nav is fixed.  I think for the time being I'm going to allow back nav.  The user is generating new information, and AFAICT the whole thing should work fine if the user backtracks and introduces new info at any point.  Like, for the dispositions, well, we already know how we're going to handle them.
+
+        Although... maybe I don't want them forward-navigating.  I don't want them to get to Replacements, go back and add more Return items, and then jump ahead without providing dispos to the new ones.  OK.  So how about we don't allow forward nav, but we completely preserve the state?  So they still have to click back through and all normal rules apply, but they don't lose any info they've already provided?  I *think* we're OK then?  
+
+11 Apr 2024
+    3:05
+    OK, tab node nav working correctly.  I was a little bit thrown by my inability to incorporate the nodeNavSTRX hook into the STRX Nav Bar, but I need to remember that it's just a configuration.  Both feed right into the same source and both are plugged into the same state.  They just get there via two different config layers.
+
+    So let's add in a bit more error handling, then get the Close column values sorted, and then I think we're on to dispositions!  
+
+    OK, so for error handling, state setting and clearing is already set up.  I just need to add the cases, add in the condition checks to the respective UI elements, and then I should be good to go.  
+    
+    I will need:
+        -Items:
+            -Invalid Qty
+            -Invalid Item Num
+        -Invoices:
+            -Invalid Invoice #
+
+13 Apr 2024
+    10:30.
+    I'm visiting Caroline for ramen and I need to leave at 1:30 so I am raw-dogging it today.  I want to get this to the point where it's good enough to test Tuesday, so I will need to:
+
+        -Get the card totals working
+        -Add in a check on the Continue button.  If it's on Invoices, continue to Items.
+        -See if I can't use my new centStringify function to clear out some of the other code.
+
+    First issue is with the card totals.  The reason the moneyObj is coming up blank is because I'm reading from the Items list, and those have no cash values.  The values are only present in the Atomized list because those have been matched to invoices.
+
+    OK, so what I need to do is filter the Atomized items and get the sum from that.  Just gotta make sure I'm not double-counting the child atoms.  
+
+14 Apr 2024.
+    Got the card totals and locState check working correctly.  
+
+    4:30.
+    Not sure I want to commit to this, but it would be pretty cool to just whip out a whole 'nother segment of the app in an evening.  And I know Arnold would say that was pretty cool.  And I would feel pretty cool...
+
+    OK, so for that to happen, I would need to have a model in mind for how the logic would work.  That logic would have to work for single button and input field when we implement that later.
+
+    There's not necessarily a reason I can think of for the dispositioning to use the Atoms format.  The dispositions have a completely different set of properties from the ItemAtoms.  My only reservation is that whenever I have proliferated formats in the past, I've generally regretted it.
+
+    Although the MoneyObj is also a different format, and I don't regret that. 
+
+17 Apr 2024
+    2:00.
+    Just got back from our first round of testing.  We are testing again tomorrow and I would like to get some better results, so I am wondering what improvements I can make TODAY that might clear things up a bit.  
+        X-Change the text to make it more explicit.
+        X-Add in a descriptor saying you can add an item from the invoice.
+        -Move descriptors closer to source whenever possible.
+        -Refactor prices to show Return Value and Replacement Cost
+
+    I'm stalling a little bit here.  What am I afraid of?
+        -Fighting the CSS can be frustrating.
+        -I'm going to have to make some decisions about headers vs. just putting content in the boxes and that scares me too.
+        -I WANT to show total Return Value vs. Replacement Price for the money, but then I have to make a bunch of other decisions about how to represent the money + taxes.
+
+    OK, so what would make the biggest difference tomorrow?
         
+        Enter Replacement Items
+            + This would make the two phases MOST clear, and get us the most useful info.
+                -This is a gigantic lift. It's basically the tax/display restructure PLUS an entirely new page.
+                -I'm not actually sure we have that display nailed down in terms of what it should look like.
+                -This has just got to be a 'No'
+
+        Tax + Return x Replacements:
+            What is the absolute minimum I would need to spin this up?
+                -Create a Total + Tax microcomponent that takes... what?  Probably an array of atoms, since this is often an aggregated value?
+                -Stick that into Items, maybe Invoices as well?
+                -Change the Total Refund component to show taxed value
+                -Create a new configuration of the Price Display that shows Return Value 
+
+                This actually looks like a winner.  I think I could probably spin that up.  OK, let's try it.  
+
+    
+
+
+        
+
+
+
+
+
+
+
+
+    
     
 

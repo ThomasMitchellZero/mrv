@@ -166,17 +166,23 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
       ? "duplicateInvo"
       : false;
 
-    console.log("outFormError function result was was", outFormError );
+    console.log("outFormError function result was was", outFormError);
 
     return outFormError;
   };
 
   const uiInfoMsg = noInvos ? null : (
-    <MessageRibbonMRV message="Tip: Select an item to add it to this exchange." />
+    <MessageRibbonMRV
+      message={
+        <>
+          Tip: select an <b>item</b> to add it to this exchange.{" "}
+        </>
+      }
+    />
   );
 
   const invoErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
-  console.log("invoErrorStr was:", invoErrorStr );
+  console.log("invoErrorStr was:", invoErrorStr);
 
   const handleAddInvo = (event) => {
     event.preventDefault();
