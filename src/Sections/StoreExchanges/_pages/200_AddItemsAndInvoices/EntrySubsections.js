@@ -1,6 +1,9 @@
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
+import { MessageRibbonMRV } from "../../../../mrv/mrv-components/DisplayOutputs/MessageRibbonMRV";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
+
+import { cloneDeep, isEmpty } from "lodash";
 
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
@@ -10,7 +13,6 @@ import {
   useSetSessionItemsSTRX,
   useSetSessionInvosSTRX,
 } from "../../_resources/hooks/STRXhooks";
-import cloneDeep from "lodash.clonedeep";
 import InvoContext from "../../../../store/invo-context";
 import ProductContext from "../../../../store/product-context";
 
@@ -149,6 +151,9 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
   const setSessionInvosSTRX = useSetSessionInvosSTRX();
+  const strxCtx = useOutletContext();
+  const sessionState = strxCtx.sessionSTRX;
+  const noInvos = isEmpty(sessionState.sessionInvos);
 
   const errorInInvoForm = () => {
     const thisInvoNum = parLocState.receiptNumField;
@@ -158,6 +163,10 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
 
     return outFormError;
   };
+
+  const uiInfoMsg = noInvos ? null : (
+    <MessageRibbonMRV message="Tip: Select an item to add it to this exchange." />
+  );
 
   const invoErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
 
@@ -244,6 +253,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
         </button>
       </div>
       <p className={`warning`}>{invoErrorStr}</p>
+      {uiInfoMsg}
     </form>
   );
 };

@@ -1,0 +1,24 @@
+.mrv {
+  & .msgRibbon {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 1rem;
+    padding: 0.5rem;
+    padding-left: 0.25rem;
+    border-radius: 0.5rem;
+    gap: 0.25rem;
+
+    & .colorBar {
+      flex: 0 0 0.25rem;
+      border-radius: 0.25rem;
+    }
+
+    & .iconBox {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex: 0 0 1.5rem;
+      height: 2rem;
+    }
+  }
+}
