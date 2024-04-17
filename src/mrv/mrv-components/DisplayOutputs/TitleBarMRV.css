@@ -20,6 +20,7 @@
       display: flex;
       flex: 1 1 0rem;
       min-width: 0rem;
+      text-transform: capitalize;
     }
 
     & .cancelBtn {

@@ -53,8 +53,8 @@ function AddItemsAndInvosSTRX() {
   const [locStAddRtrns, setLocStAddRtrns] = useImmer(defaultState);
 
   const s70label = {
-    item: "Return Items",
-    receipt: "Receipts",
+    item: "Items Being Returned",
+    receipt: "Receipts for items being returned",
   };
 
   const o30panels = {
