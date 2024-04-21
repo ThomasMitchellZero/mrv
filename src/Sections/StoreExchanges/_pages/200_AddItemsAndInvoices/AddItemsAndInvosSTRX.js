@@ -121,7 +121,7 @@ function AddItemsAndInvosSTRX() {
       });
     } else {
       setSessionState((draft) => {
-        draft.returnItemDispos = populateDisposArr(sessionState.returnItems);
+        draft.returnItemDispos = populateDisposArr({sessionSt: sessionState});
       });
       nodeNavSTRX("reason");
     }
@@ -142,7 +142,7 @@ function AddItemsAndInvosSTRX() {
         </div>
         {locStAddRtrns.activeErrorKey === "noItem" ? uiContinueWarning : null}
         <div className={`footer_content`}>
-          <CashTotalSTRX mode={"exchDelta"} />
+          <CashTotalSTRX />
           <div
             onClick={(e) => {
               console.log("button BG register");

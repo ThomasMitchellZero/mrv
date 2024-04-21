@@ -10,6 +10,8 @@ import { CashTotalMRV } from "../../DisplayOutputs/CashTotalMRV";
 import { useImmer, useImmerReducer } from "use-immer";
 import { useOutletContext } from "react-router";
 
+import { SetDispos30MRV } from "./SetDispos30MRV";
+
 function DispoMainPageMRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
@@ -23,9 +25,39 @@ function DispoMainPageMRV({
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
 }) {
+
+
+  const baseDispoFields = {
+    noWorky: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "noWorky",
+      isResellable: false,
+    }),
+    missingParts: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "missingParts",
+      isResellable: false,
+    }),
+    broken: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "broken",
+      isResellable: false,
+    }),
+    cosmetic: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "cosmetic",
+      isResellable: false,
+    }),
+    scratchDent: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "scratchDent",
+      isResellable: false,
+    }),
+  };
+
   const clearableFields = {
     activeSingleDispo: "",
-    activeDisposObj: {},
+    activeItemNum: "",
     activeErrorState: "",
   };
 
@@ -33,19 +65,6 @@ function DispoMainPageMRV({
     activeRowKey: missingDispos(),
     ...clearableFields,
   };
-
-  /*
-  
-    titleBar = (
-    <TitleBarMRV
-      hasIcon={"back"}
-      showProductName={true}
-      headerTitle={`Provide reason for return`}
-    />
-  ),
-  cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
-  
-  */
 
   const [locStDispoMain, setLocStDispoMain] = useImmerReducer(
     (draft, action) => {
@@ -86,7 +105,7 @@ function DispoMainPageMRV({
       <main className={`mrvPanel__main`}>
         {titleBar}
         <div className={`main_content`}>
-          <div className={`heading__medium`}>Test Complete</div>
+          <div className={` cardContainer`}>Test Complete</div>
         </div>
         <div className={`footer_content`}>
           {cashTotal}
@@ -106,6 +125,10 @@ function DispoMainPageMRV({
           </div>
         </div>
       </main>
+      <SetDispos30MRV
+        parLocSt={locStDispoMain}
+        setParLocSt={setLocStDispoMain}
+      />
     </section>
   );
 }

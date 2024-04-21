@@ -115,23 +115,56 @@ export {
   centStringifier,
 };
 
-const populateDisposArr = (RtrnItemsList) => {
+const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
   // returns an array of SingleDispo objects from an array of return items.
   const refItemDisposObj = new ItemDisposObj({});
   const refSingleDispo = new SingleDispo({});
   const refItemAtom = new returnAtom({});
+  const refDefaultState = baseReturnState({});
+
+  const RtrnItemsList = cloneDeep(sessionSt.returnItems);
+
+  console.log("RtrnItemsList", RtrnItemsList);
+
+  const defaultDispos = {
+    noWorky: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "noWorky",
+      strLabel: "Doesn't Work",
+    }),
+    missingParts: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "missingParts",
+      strLabel: "Missing Parts",
+    }),
+    broken: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "broken",
+      strLabel: "Broken",
+    }),
+    cosmetic: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "cosmetic",
+      strLabel: "Cosmetic",
+    }),
+    scratchDent: new SingleDispo({
+      dispoQty: 0,
+      keyStr: "scratchDent",
+      strLabel: "Scratched / Dented",
+    }),
+  };
 
   const aDisposArr = RtrnItemsList.map((iAtom) => {
     const outDispoObj = new ItemDisposObj({
       dispoItemNum: iAtom.atomItemNum,
       itemQty: iAtom.atomItemQty,
+      allDisposObj: defaultDispos,
     });
     return outDispoObj;
   });
 
   return aDisposArr;
 };
-
 
 export { populateDisposArr };
 

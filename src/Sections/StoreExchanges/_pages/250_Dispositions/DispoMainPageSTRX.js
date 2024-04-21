@@ -31,7 +31,7 @@ function DispoMainPageSTRX() {
         />
       }
       cashTotal={
-        <CashTotalSTRX mode={"exchDelta"} sessionState={sessionStateSTRX} />
+        <CashTotalSTRX />
       }
     />
   );
