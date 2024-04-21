@@ -25,45 +25,26 @@ function DispoMainPageMRV({
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
 }) {
+  const strxCtx = useOutletContext();
+  const sessionSTRX = strxCtx.sessionSTRX;
+  const setSessionStrx = strxCtx.setSessionStrx;
 
-
-  const baseDispoFields = {
-    noWorky: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "noWorky",
-      isResellable: false,
-    }),
-    missingParts: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "missingParts",
-      isResellable: false,
-    }),
-    broken: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "broken",
-      isResellable: false,
-    }),
-    cosmetic: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "cosmetic",
-      isResellable: false,
-    }),
-    scratchDent: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "scratchDent",
-      isResellable: false,
-    }),
-  };
+  const refBaseReturnState = baseReturnState({});
+  const refItemDisposObj = new ItemDisposObj({});
 
   const clearableFields = {
-    activeSingleDispo: "",
-    activeItemNum: "",
     activeErrorState: "",
   };
 
   const initLocStDispoMain = {
-    activeRowKey: missingDispos(),
+    activeItemNum: missingDispos(),
     ...clearableFields,
+    get activeDisposObj() {
+      let outActiveDispo = sessionSTRX.returnItemDispos.filter((iItem) => {
+        return iItem.dispoItemNum === this.activeItemNum;
+      });
+      return outActiveDispo;
+    },
   };
 
   const [locStDispoMain, setLocStDispoMain] = useImmerReducer(
