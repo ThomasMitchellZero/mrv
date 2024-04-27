@@ -40,7 +40,7 @@ function DispoMainPageMRV({
     activeItemNum: missingDispos(),
     ...clearableFields,
     get activeDisposObj() {
-      let outActiveDispo = sessionSTRX.returnItemDispos.filter((iItem) => {
+      let outActiveDispo = sessionSTRX.returnItemDispos.find((iItem) => {
         return iItem.dispoItemNum === this.activeItemNum;
       });
       return outActiveDispo;
@@ -82,7 +82,7 @@ function DispoMainPageMRV({
   }
 
   return (
-    <section className={` mrvPage color__surface__subdued`}>
+    <section className={` mrvPage color__surface__subdued disposMain`}>
       <main className={`mrvPanel__main`}>
         {titleBar}
         <div className={`main_content`}>
@@ -107,8 +107,8 @@ function DispoMainPageMRV({
         </div>
       </main>
       <SetDispos30MRV
-        parLocSt={locStDispoMain}
-        setParLocSt={setLocStDispoMain}
+        parLocStDispos={locStDispoMain}
+        setParLocStDispos={setLocStDispoMain}
       />
     </section>
   );

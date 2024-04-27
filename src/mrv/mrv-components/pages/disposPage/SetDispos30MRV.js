@@ -34,14 +34,6 @@ function SetDispos30MRV({
 
   const refSingleDispo = new SingleDispo({});
 
-  const ddDispos = {
-    noWorky: new SingleDispo({dispoQty: 0, keyStr: "noWorky", isResellable: false}), //{ qty: "", title: "Doesn't Work" },
-    missingParts: { qty: "", title: "Missing Parts" },
-    broken: { qty: "", title: "Broken" },
-    cosmetic: { qty: "", title: "Cosmetic" },
-    scratchDent: { qty: "", title: "Scratched / Dented" },
-  };
-
   // deal with changes to the input field
   const handleInputQty = ({ ddKey, event }) => {
     const inputQty = parseInt(event.target.value) || "";
@@ -50,37 +42,42 @@ function SetDispos30MRV({
     const draftLocStMI = cloneDeep(parLocStDispos);
   };
 
-  const uiDDInputField = (ddKey) => {
-    const oThisDispo = parLocStDispos.ddDispos[ddKey];
+  const uiDispoInput = (oDispo) => {
+    const refSingleDispo = new SingleDispo({});
 
     return (
-      <div className={`ddDispoBox`} key={ddKey}>
+      <div className={`singleDispoCtnr`} key={oDispo.keyStr}>
         <MRVinput width={"5rem"}>
           <input
             type="number"
             min="0"
             step="1"
-            value={oThisDispo.qty}
-            onChange={(event) => {
-              handleInputQty({ ddKey: ddKey, event: event });
-            }}
+            value={oDispo.dispoQty}
+            onChange={(event) => {}}
           />
         </MRVinput>
-        <p className={`body__small color__primary__text`}>{oThisDispo.title}</p>
+        <p className={`body color__primary__text`}>{oDispo.strLabel}</p>
       </div>
     );
   };
 
-  const aDDdispoFields = Object.keys([]).map((ddKey) => {
-    return uiDDInputField(ddKey);
+  const refItemDisposObj = new ItemDisposObj({});
+
+  const aDDdispoFields = Object.values(
+    parLocStDispos.activeDisposObj.allDisposObj
+  ).map((iDispo) => {
+    return uiDispoInput(iDispo);
   });
 
   return (
-    <section className={`mrvPanel__side color__surface__default`}>
+    <section className={`mrvPanel__side color__surface__default SetDispos30`}>
       <TitleBarMRV headerTitle={`Return Reason`} hasCluster={false} />
       <div className={`main_content`}>
-        <div className={`heading__medium`}>30 Panel</div>
+        <div className={` inputDisposCtnr`}>{aDDdispoFields}</div>
+        <button className={`secondary maxWidth`}>Confirm</button>
+        <div className={`warningCtnr`}>Error</div>
       </div>
+
       <div className={`footer_content`}></div>
     </section>
   );
