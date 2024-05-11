@@ -41,15 +41,21 @@ class SingleDispo {
 }
 
 class ItemDisposObj {
-  constructor({ dispoItemNum, itemQty, allDisposObj = {} }) {
+  constructor({
+    dispoItemNum,
+    itemQty,
+    dispoItemAtom = new returnAtom({}),
+    allDisposObj = {},
+  }) {
     this.dispoItemNum = dispoItemNum;
     this.itemQty = itemQty;
+    this.dispoItemAtom = dispoItemAtom;
     this.allDisposObj = allDisposObj;
   }
   get qtySansDispo() {
     const refSingleDispo = new SingleDispo({});
     const aAllDispos = Object.values(cloneDeep(this.allDisposObj));
-    console.log("aAllDispos");
+
     let outQtySansDispo = this.itemQty;
     aAllDispos.forEach((iDispo) => {
       const minusQty = iDispo?.dispoQty || 0;

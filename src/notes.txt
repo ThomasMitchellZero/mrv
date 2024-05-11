@@ -7343,7 +7343,88 @@ What to do today?
 
                 This actually looks like a winner.  I think I could probably spin that up.  OK, let's try it.  
 
+20 Apr 2024
+    2:45.
+    I didn't accomplish the SAP mission, but I did get enough started that I don't think I'll be facing the ick field next time I sit down.  I want to program the STRX app, and it's weird because I think I just kind of like programming.  I'm up out of the canyon.  It's not quite fun, but it's rewarding.  And that's what I'm going to do.
+
+    OK.  I think the next thing to do is create the dispositioning.  I still have some decisions to make with showing taxes, how to represent Replacement Items, etc, but I know what I need for dispositions and it has no implications anywhere else.  
+
+    5:15
+    Sort of struggling to proceed.  Here's the plan.  I am going to write about Dispos for as long as I feel like it.  If I am into it, I'll write some more code.  If not, I'll hang it up for the day.
+
+    What needs to happen in Dispos?
+
+        -Whenever a dispo becomes active, its values need to be shown in the Values chart.  Users can select a dispo so I don't want this changing.  
+
+        -I think I need an Apply button.  That means I need a clone of the item dispo that I push to the main.
+
+            -Or.  The real reason value of hitting 'Apply' from a UX perspective is just moving onto the next one.  If I were to just edit the parent state directly and instead have a 'Next' button, I think the logic gets simpler.  
+
+            -But 'Next' is just looking for first invalid item, which would always be... this item.  
+                -I'm also a little leery of this because I just KNOW that the devs are going to say we can't do it.  
+                -If I do maintain a local state separate from the item, the contents of the local state are lost whenever a new item is selected.  Is that good?  
+
+            
+
+        -The SetActive function should be pretty simple.  It just loops through all the dispos and checks for Item Qty === Dispo Qty Sum.  Anything else becomes the next active?
+
+        -I do kind of like the idea of pre-populating each item's fields when the Dispos obj is created.  In fact, I REALLY like that because in some future world where the dispo options are tailored to the item, that has to happen anyways.  
+
+            -Then, whether I choose to directly edit or clone, it's really easy.  For any ActiveItem, I just populate the panel with its fields and values.  
+
+            -Ok, so how to handle this?  Well, the EASIEST way is just to re-create the whole magilla from empty DispoItemObjs whenever the user enters the Return Reason page.  Not so user-friendly, but it will reliably work every time.  
+
+                -Maybe the correct move is to do that, get the rest of the page running, and then fiddle with preserving the values.  
+
+        -For the fields: I plan to have two columns, so I think if I just use flex: 1 1 40%, and then have (n-1) dummies, where [n] is my intended number of columns, I think that works?  
+        
+21 Apr 2024
+    3:25.  Did some studying for HI, now working on this because it's fun.  OK, so the big open question is if I clone the global Dispositions or edit it directly.
+
+        CLONE + PUSH
+            + Off the top of my head, I can think of a LOT of examples of 'Edit + Apply' and I'm struggling to think of one example of 'Edit Directly'.  That's evidence that there's a good reason for it, or at least that it's what the devs will want.  So regardless of what I prefer, that's probably what we end up with, and I'm just asking for re-work if I do it any other way.
+
+            + That's how XDTX works.  If I change it, I'll have to explain why.  
+
+            + This lets me really do error handling.
+
+        OK, I think I just talked myself into it.  I can't think of anything I'd write to the contrary that would be a stronger case.
+
+    So we've got the overall pattern settled.  We will need:
+        -Populate each ItemDisposObj with one of:
+            -Existing info // do later?
+            -Empty default Obj.
+        -For the active item, loop through the dispos and populate the 30 panel with input fields.
+
+27 Apr 2024
+    3:30.
+    Did not do great on the SAP learning, but I'll get after that stuff tomorrow.  
+
+    So VERY first thing I will need to do is try and get the input fields fielding correctly.  IIRC it was to have a container that was something like 1 1 40% or 1 0 40%
+
+    OK, first real choice of the day.  I think I am going to populate this card from the returnItemDispos array.  I could see a situation where a return item didn't require a dispo, but anything that makes it into the returnItemDispos array DEFINITELY needs one.
+
+6 May 2024
+    5:20.
+    It's been a while since I worked on this, but I'm feeling good and in the groove and I don't feel like knocking off for the moment.
+
+    There are some changes I would like to make based on the research findings, but since I don't know that I'll have the go-ahead for those, I think it makes more sense to work on the Dispositioning.
+
+11 May 2024
+    5:15.
+    I have done basically fuck-all today.  I'm going to try to jam for 90 minutes and leave today with something to show for it.
+
+    OK, let's do this.  I need the dispo item cards no matter what, and it will make it easier to see what is happening.  That SHOULD be a visible and fairly satisying piece to build, so let's do that.
+
+    First we shall make a card.  
+
     
+
+
+
+
+
+
 
 
         

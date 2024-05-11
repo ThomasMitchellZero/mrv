@@ -158,6 +158,7 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
     const outDispoObj = new ItemDisposObj({
       dispoItemNum: iAtom.atomItemNum,
       itemQty: iAtom.atomItemQty,
+      dispoItemAtom: iAtom,
       allDisposObj: defaultDispos,
     });
     return outDispoObj;

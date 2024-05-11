@@ -5,6 +5,7 @@ import {
   ItemDisposObj,
   baseReturnState,
 } from "../../../../globalFunctions/globalJS_classes";
+import { DispoItemCard } from "./DispoItemCard";
 import { TitleBarMRV } from "../../DisplayOutputs/TitleBarMRV";
 import { CashTotalMRV } from "../../DisplayOutputs/CashTotalMRV";
 import { useImmer, useImmerReducer } from "use-immer";
@@ -25,6 +26,9 @@ function DispoMainPageMRV({
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
 }) {
+
+  // I've included the TitleBar and CashTotal components mostly as placeholders.  They should normally be replaced in the app-specific config of this component with their respective configured counterparts.
+
   const strxCtx = useOutletContext();
   const sessionSTRX = strxCtx.sessionSTRX;
   const setSessionStrx = strxCtx.setSessionStrx;
@@ -81,12 +85,26 @@ function DispoMainPageMRV({
     return outKeyStr;
   }
 
+  const uiCardArray = sessionState.returnItemDispos.map((iItemDispoObj) => {
+    const refItemDisposObj = new ItemDisposObj({});
+
+    return (
+      <DispoItemCard
+        key={iItemDispoObj.dispoItemNum}
+        thisItemDisposObj={iItemDispoObj}
+        parLocState={locStDispoMain}
+        setParLocState={setLocStDispoMain}
+        sessionState={sessionState}
+      />
+    );
+  });
+
   return (
     <section className={` mrvPage color__surface__subdued disposMain`}>
       <main className={`mrvPanel__main`}>
         {titleBar}
         <div className={`main_content`}>
-          <div className={` cardContainer`}>Test Complete</div>
+          <div className={` cardContainer`}>{uiCardArray}</div>
         </div>
         <div className={`footer_content`}>
           {cashTotal}
