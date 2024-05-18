@@ -1,6 +1,45 @@
 .mrv {
   & .disposMain {
-    & .itemCard {
+    & .disposGrid {
+      display: grid;
+      grid-template-columns:
+        [itemDetailsCtnrCol] 16fr
+        [itemQtyCol] 4fr
+        [dispoQtyCol] 4fr
+        [disposBadgesCol] 6fr;
+      flex: 0 0 auto;
+      grid-column-gap: 0;
+    }
+
+    & .cardStyle {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: itemDetailsCtnrCol / -1;
+
+      & .gCol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      & .itemDetailsCtnr {
+        grid-column: itemDetailsCtnrCol / span 1;
+        background-color: bisque;
+      }
+      & .itemQty {
+        grid-column: itemQtyCol / span 1;
+        background-color: cyan;
+      }
+      & .dispoQty {
+        grid-column: dispoQtyCol / span 1;
+        background-color: mediumaquamarine;
+      }
+      & .disposBadges {
+        grid-column: disposBadgesCol / span 1;
+        background-color: lightcoral;
+      }
     }
 
     & .SetDispos30 {

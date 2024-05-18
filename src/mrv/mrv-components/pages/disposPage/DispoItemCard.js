@@ -21,19 +21,48 @@ const DispoItemCard = ({
 
   const thisAtom = thisItemDisposObj.dispoItemAtom || new returnAtom({});
 
+  const isActive =
+    thisItemDisposObj.dispoItemNum === parLocState.activeItemNum
+      ? "selected"
+      : "";
+
+  const allProvided =
+    thisItemDisposObj.qtySansDispo === thisItemDisposObj.dispoItemAtom.itemQty;
+
+  const sProvidedColor = allProvided
+    ? "color__green__text"
+    : "color__red__text";
+
   return (
     <div
       key={`123`}
-      className={`cardStyle`}
+      className={`cardStyle hasHover disposGrid ${isActive}`}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <MRVitemDetails
-        showPrice={false}
-        showQty={false}
-        thisItemAtom={thisAtom}
-      />
+      <div className="itemDetailsCtnr">
+        <MRVitemDetails
+          showPrice={false}
+          showQty={false}
+          thisItemAtom={thisAtom}
+        />
+      </div>
+      <div className={`gCol itemQty`}>
+        <div
+          className={`heading__medium color__primary__text hBox minFlex minWidth`}
+        >
+          {thisItemDisposObj.itemQty}
+        </div>
+      </div>
+      <div className={`gCol dispoQty`}>
+        <div
+          className={`heading__medium ${sProvidedColor} hBox minFlex minWidth`}
+        >
+          {thisItemDisposObj.itemQty - thisItemDisposObj.qtySansDispo}
+        </div>
+      </div>
+      <div className={`gCol disposBadges`}></div>
     </div>
   );
 };
