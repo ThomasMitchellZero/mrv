@@ -265,13 +265,12 @@ const baseReturnState = ({
     totalReplacementValue,
     cashDeltaMO,
     returnItemDispos,
-
     sessionInvos,
     oNavNodes,
   };
 };
 
-// refactor baseReturnState to use a constructor for me.  I want to be able to use the same object in multiple places.
+
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.

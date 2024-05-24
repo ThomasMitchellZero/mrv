@@ -7418,6 +7418,38 @@ What to do today?
 
     First we shall make a card.  
 
+23 May 2024
+    4:25.
+    Not sure I will be able to resist the siren song of volleyball but I am going to try.
+        -I was not successful.
+
+    I would LIKE to code this shit once and not have to do it again.  
+    -For the test I have in mind, the underlying logic should work the same way.  In both cases, we will:
+        -Create empty Dispos containers for all the items in the cart.
+        -Clone those dispos in the 30 panel.
+        -Users modify the clones
+        -Compare values to item qty
+        -On 'Apply', store those values in the Session state.
+    -Since we are handling selection and such, I personally feel like I will have an easier time devolving all the latest shit to LOOK like Old Returns than retrofitting this into Old Returns.  That could involve digging into old, complicated logic and I have no interest in doing that.
+
+24 May 2024
+    12:15.
+
+    I am legitimately, genuinely excited.  I feel good about this challenge.  It SHOULD test me without frustrating me.
+
+    So to start, let's sketch out what we need to do.
+        -Figure out where to put this.
+            -Kind of leaning towards a new tab/URL/state.  This helps me guarantee that this content is in fact universal.  Also ensures I have no hidden dependencies on anything STRX-specific, since I do intend to port this to different places.  Ok, let's do that first.
+        -This is a universal component, so let's be sure there's nothing Exchange-specific about it.  
+        -Wouldn't mind having an ExTurns MRV component that's just a placeholder for all the logic so I don't have to keep re-spinnning this shit every time.  
+            -Maybe each test lives within it and that's how I start everything?  
+        -2 different components for the versions of the inputs.  These should be stand-alone components since I can't say for sure where they are getting used.  
+        -Probably need a condition in the logic that determines if we auto-cycle to the next unassigned item.
+        -Get the entry/apply/global state input working as needed.
+        -Make some Return-ish TRs for this.
+        -All the Returns cosmetic shit.
+        -Time allowing, I wouldn't mind creating a 30 panel that looks more like BYD, but 
+
     
 
 
