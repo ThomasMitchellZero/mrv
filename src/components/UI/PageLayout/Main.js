@@ -25,6 +25,9 @@ const Main = () => {
         <NavLink to="store-exchanges" className={linkStyle}>
           Store Exchanges
         </NavLink>
+        <NavLink to="test" className={linkStyle}>
+          Tests
+        </NavLink>
       </nav>
       <Outlet />
     </main>

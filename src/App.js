@@ -42,6 +42,9 @@ import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 import { AddItemsAndInvosSTRX } from "./Sections/StoreExchanges/_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
 import { DispoMainPageSTRX } from "./Sections/StoreExchanges/_pages/250_Dispositions/DispoMainPageSTRX";
 
+import { TestIndex } from "./Sections/Testing/TestIndex";
+import { MultiReasonMain } from "./Sections/Testing/T_Sections/MultiReason/_pages/MultiReasonMain";
+
 //Store Exchanges
 
 import { enableMapSet } from "immer";
@@ -104,6 +107,17 @@ function App() {
               element={<AddItemsAndInvosSTRX />}
             />
             <Route path="reason" element={<DispoMainPageSTRX />} />
+          </Route>
+          <Route path="test" >
+            <Route index element={<TestIndex />} />
+            <Route
+              path="multi-reason-t1"
+              element={<MultiReasonMain tMode="T1" />}
+            />
+            <Route
+              path="multi-reason-t2"
+              element={<MultiReasonMain tMode="T2" />}
+            />
           </Route>
         </Route>
       </Routes>
