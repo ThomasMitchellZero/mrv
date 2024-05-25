@@ -12,6 +12,7 @@ import { useImmer, useImmerReducer } from "use-immer";
 import { useOutletContext } from "react-router";
 
 import { SetDispos30MRV } from "./SetDispos30MRV";
+import { DispoItems70 } from "./DispoItems70";
 
 function DispoMainPageMRV({
   sessionState = baseReturnState({}),
@@ -25,7 +26,8 @@ function DispoMainPageMRV({
     />
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
-  autoActiveNext = true,
+  panel70,
+  panel30,
 }) {
   // I've included the TitleBar and CashTotal components mostly as placeholders.  They should normally be replaced in the app-specific config of this component with their respective configured counterparts.
 
@@ -51,7 +53,6 @@ function DispoMainPageMRV({
     (draft, action) => {
       switch (action.type) {
         case "SELECT_ROW": {
-          console.log(action)
           draft.activeItemNum = action.payload;
           break;
         }
@@ -73,7 +74,6 @@ function DispoMainPageMRV({
     let outKeyStr = "";
 
     for (const iItem of sessionState.returnItemDispos) {
-      console.log(iItem, iItem.itemQty, iItem.qtySansDispo);
       if (iItem.qtySansDispo > 0) {
         outKeyStr = iItem.dispoItemNum;
         break;
@@ -82,11 +82,28 @@ function DispoMainPageMRV({
     return outKeyStr;
   }
 
+  const ui70Panel = panel70 || (
+    <DispoItems70
+      sessionState={sessionState}
+      setSessionState={setSessionState}
+      parLocState={locStDispoMain}
+      setParLocState={setLocStDispoMain}
+    />
+  );
+
+  const ui30Panel = panel30 || (
+    <SetDispos30MRV
+      sessionState={sessionState}
+      setSessionState={setSessionState}
+      parLocStDispos={locStDispoMain}
+      setParLocStDispos={setLocStDispoMain}
+    />
+  );
+
   const uiCardArray = sessionState.returnItemDispos.map((iItemDispoObj) => {
     const refItemDisposObj = new ItemDisposObj({});
 
     return (
-
       <DispoItemCard
         key={iItemDispoObj.dispoItemNum}
         thisItemDisposObj={iItemDispoObj}
@@ -99,35 +116,8 @@ function DispoMainPageMRV({
 
   return (
     <section className={` mrvPage color__surface__subdued disposMain`}>
-      <main className={`mrvPanel__main`}>
-        {titleBar}
-        <div className={`main_content`}>
-          <div className={`cardContainer disposGrid`}>{uiCardArray}</div>
-        </div>
-        <div className={`footer_content`}>
-          {cashTotal}
-          <div
-            onClick={(e) => {
-              console.log("button BG register");
-              e.stopPropagation();
-            }}
-            className={`buttonBox25`}
-          >
-            <button
-              className={`primary jumbo maxFlex`}
-              onClick={handleContinue}
-            >
-              Continue
-            </button>
-          </div>
-        </div>
-      </main>
-      <SetDispos30MRV
-        sessionState={sessionState}
-        setSessionState={setSessionState}
-        parLocStDispos={locStDispoMain}
-        setParLocStDispos={setLocStDispoMain}
-      />
+      {ui70Panel}
+      {ui30Panel}
     </section>
   );
 }
