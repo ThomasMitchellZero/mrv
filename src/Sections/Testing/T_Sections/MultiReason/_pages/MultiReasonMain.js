@@ -8,6 +8,7 @@ import {
 import { useImmer } from "use-immer";
 
 import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
+import { DispoItemCard } from "../../../../../mrv/mrv-components/pages/disposPage/DispoItemCard";
 
 import { StartTest } from "./StartTest";
 
@@ -62,6 +63,8 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
       sessionState={sessionTestMR}
       setSessionState={setsessionTestMR}
       titleBar={uiTitleBar}
+      cashTotal={null}
+      itemRow={<DispoItemCard />}
     />
   );
 

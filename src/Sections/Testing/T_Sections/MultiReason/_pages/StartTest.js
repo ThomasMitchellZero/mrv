@@ -3,6 +3,7 @@ import { DispoMainPageMRV } from "../../../../../mrv/mrv-components/pages/dispos
 import {
   useSetSessionInvos,
   useSetSessionItems,
+  populateDisposArr
 } from "../../../../../mrv/MRVhooks/MRVhooks";
 
 import {
@@ -18,39 +19,12 @@ const StartTest = ({
   const setSessionItems = useSetSessionItems({ sessionState, setSessionState });
   const setSessionInvos = useSetSessionInvos({ sessionState, setSessionState });
 
-  const testItemAtomsArr = [
-    new returnAtom({
-      atomItemNum: "330",
-      atomItemQty: 2,
-      atomMoneyObj: new moneyObj({
-        unitBaseValue: 2250,
-      }),
-    }),
-    new returnAtom({
-      atomItemNum: "440",
-      atomItemQty: 2,
-      atomMoneyObj: new moneyObj({
-        unitBaseValue: 15599,
-      }),
-    }),
-    new returnAtom({
-      atomItemNum: "550",
-      atomItemQty: 4,
-      atomMoneyObj: new moneyObj({
-        unitBaseValue: 1299,
-      }),
-    }),
-    new returnAtom({
-      atomItemNum: "660",
-      atomItemQty: 7,
-      atomMoneyObj: new moneyObj({
-        unitBaseValue: 2250,
-      }),
-    }),
-  ];
 
   const handleClick = () => {
     setSessionInvos({ invoNum: "88883333", actionType: "add" });
+    setSessionState((draft) => {
+        draft.returnItemDispos = populateDisposArr({sessionSt: sessionState});
+      });
   };
 
   return (

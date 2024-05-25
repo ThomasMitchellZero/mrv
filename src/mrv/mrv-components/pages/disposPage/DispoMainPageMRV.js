@@ -25,9 +25,9 @@ function DispoMainPageMRV({
     />
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
+  itemRow = <DispoItemCard />,
 }) {
   // I've included the TitleBar and CashTotal components mostly as placeholders.  They should normally be replaced in the app-specific config of this component with their respective configured counterparts.
-
 
   const refBaseReturnState = baseReturnState({});
   const refItemDisposObj = new ItemDisposObj({});
@@ -72,7 +72,7 @@ function DispoMainPageMRV({
     const refItemDisposObj = new ItemDisposObj({});
 
     let outKeyStr = "";
-    
+
     for (const iItem of sessionState.returnItemDispos) {
       console.log(iItem, iItem.itemQty, iItem.qtySansDispo);
       if (iItem.qtySansDispo > 0) {
@@ -87,6 +87,20 @@ function DispoMainPageMRV({
     const refItemDisposObj = new ItemDisposObj({});
 
     return (
+      /*
+
+
+
+      itemRow({
+        key: iItemDispoObj.dispoItemNum,
+        thisItemDisposObj: iItemDispoObj,
+        parLocState: locStDispoMain,
+        setParLocState: setLocStDispoMain,
+        sessionState: sessionState,
+      })
+
+      */
+
       <DispoItemCard
         key={iItemDispoObj.dispoItemNum}
         thisItemDisposObj={iItemDispoObj}
