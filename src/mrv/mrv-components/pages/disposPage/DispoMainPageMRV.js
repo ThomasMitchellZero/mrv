@@ -25,7 +25,7 @@ function DispoMainPageMRV({
     />
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
-  itemRow = <DispoItemCard />,
+  autoActiveNext = true,
 }) {
   // I've included the TitleBar and CashTotal components mostly as placeholders.  They should normally be replaced in the app-specific config of this component with their respective configured counterparts.
 
@@ -51,15 +51,14 @@ function DispoMainPageMRV({
     (draft, action) => {
       switch (action.type) {
         case "SELECT_ROW": {
-          draft.activeRowKey = action.payload;
-          return draft;
+          console.log(action)
+          draft.activeItemNum = action.payload;
+          break;
         }
-        case "DISPO_APPLIED": {
-          const outLocSt = initLocStDispoMain;
-          outLocSt.activeRowKey = missingDispos();
-          return outLocSt;
+        case "AUTO_NEXT_ACTIVE": {
+          draft.activeItemNum = missingDispos();
+          break;
         }
-
         default:
           break;
       }
@@ -87,19 +86,6 @@ function DispoMainPageMRV({
     const refItemDisposObj = new ItemDisposObj({});
 
     return (
-      /*
-
-
-
-      itemRow({
-        key: iItemDispoObj.dispoItemNum,
-        thisItemDisposObj: iItemDispoObj,
-        parLocState: locStDispoMain,
-        setParLocState: setLocStDispoMain,
-        sessionState: sessionState,
-      })
-
-      */
 
       <DispoItemCard
         key={iItemDispoObj.dispoItemNum}

@@ -20,9 +20,10 @@ const DispoItemCard = ({
   const refSingleDispo = new SingleDispo({});
 
   const thisAtom = thisItemDisposObj.dispoItemAtom || new returnAtom({});
+  const thisItemNum = thisAtom.atomItemNum;
 
   const isActive =
-    thisItemDisposObj.dispoItemNum === parLocState.activeItemNum
+    thisItemNum === parLocState.activeItemNum
       ? "selected"
       : "";
 
@@ -35,10 +36,15 @@ const DispoItemCard = ({
 
   return (
     <div
-      key={`123`}
+      key={thisItemNum}
       className={`cardStyle hasHover disposGrid ${isActive}`}
       onClick={(e) => {
         e.stopPropagation();
+        console.log(thisItemNum)
+        setParLocState({
+          type: "SELECT_ROW", 
+          payload: thisItemNum,
+        });
       }}
     >
       <div className="itemDetailsCtnr">
@@ -46,6 +52,7 @@ const DispoItemCard = ({
           showPrice={false}
           showQty={false}
           thisItemAtom={thisAtom}
+
         />
       </div>
       <div className={`gCol itemQty`}>
