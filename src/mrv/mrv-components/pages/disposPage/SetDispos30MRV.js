@@ -14,13 +14,11 @@ import { TitleBarMRV } from "../../DisplayOutputs/TitleBarMRV";
 import { MRVinput } from "../../inputs/MRVinput";
 
 function SetDispos30MRV({
+  sessionState = baseReturnState({}),
+  setSessionState = () => console.log("No Session State Setter Provided"),
   parLocStDispos = {},
   setParLocStDispos = () => console.log("No Local State Setter Provided"),
 }) {
-  const strxCtx = useOutletContext();
-  const sessionSTRX = strxCtx.sessionSTRX;
-  const setSessionStrx = strxCtx.setSessionStrx;
-
   const clearableFields = {
     activeSingleDispo: "",
     activeDisposObj: {},
@@ -33,6 +31,8 @@ function SetDispos30MRV({
   };
 
   const refSingleDispo = new SingleDispo({});
+
+  const activeDisposObj = parLocStDispos.activeDisposObj;
 
   // deal with changes to the input field
   const handleInputQty = ({ ddKey, event }) => {
@@ -63,11 +63,13 @@ function SetDispos30MRV({
 
   const refItemDisposObj = new ItemDisposObj({});
 
-  const aDDdispoFields = Object.values(
-    parLocStDispos.activeDisposObj.allDisposObj
-  ).map((iDispo) => {
-    return uiDispoInput(iDispo);
-  });
+  const aDDdispoFields = activeDisposObj
+    ? Object.values(parLocStDispos.activeDisposObj.allDisposObj).map(
+        (iDispo) => {
+          return uiDispoInput(iDispo);
+        }
+      )
+    : null;
 
   return (
     <section className={`mrvPanel__side color__surface__default SetDispos30`}>

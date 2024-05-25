@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import "./TestIndex.css";
 
 function TestIndex() {
   /* ---- SHARED FUNCTIONS ---- */
@@ -9,7 +10,7 @@ function TestIndex() {
 
   return (
     <section className={`mrv`}>
-      <section className={`mrvPage`}>
+      <section className={`mrvPage testIndex`}>
         <section className={`mrvPanel__main`}>
           <div className={`main_content gap2rem `}>
             <div className={`vBox alignLeft`}>

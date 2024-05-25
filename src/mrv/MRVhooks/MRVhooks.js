@@ -213,8 +213,83 @@ export { useNodeNav };
 
 // Make a change to the items in the current session state.
 
+/*
+
+// I want to make separate this from the hook but not sure that is a great use of my time.
+
+function setSessionItems({
+  itemsArrRouteStr = "returnItems",
+  itemAtom = new returnAtom({}),
+  newQty = 0,
+  actionType = "add",
+  itemsCtx = {},
+  sessionSt = baseReturnState({}),
+  setSessionSt = () => {},
+  add_edit_remove = "add edit remove",
+}) {
+  const refDefaultState = baseReturnState({});
+  const refAtom = new returnAtom({});
+
+  let outSessionState = cloneDeep(sessionSt);
+  let outItemsArr = outSessionState[itemsArrRouteStr];
+  const thisItemNum = itemAtom.atomItemNum;
+
+  // universal validity checks
+  if (
+    itemsCtx[itemAtom.bifrostKey] === undefined ||
+    !Array.isArray(outItemsArr)
+  ) {
+    console.log("You FAIL!");
+    return false;
+  }
+
+  // get index of the itemAtom to be operated on.
+  let itemIndex = outItemsArr.findIndex((thisItem) => {
+    return thisItem.atomItemNum === thisItemNum;
+  });
+
+  // this is OK for 'remove' because this itemNum will get filtered no matter what.
+  if (itemIndex === -1) {
+    outItemsArr.push(
+      new returnAtom({ atomItemNum: thisItemNum, atomItemQty: 0 })
+    );
+    itemIndex = outItemsArr.length - 1;
+  }
+
+  const actionMethods = {
+    add: () => {
+      outItemsArr[itemIndex].atomItemQty += Number(newQty);
+    },
+    edit: () => {
+      outItemsArr[itemIndex].atomItemQty = Number(newQty);
+    },
+    remove: () => {
+      // Remove this item and any items with this item as a parent.
+      outItemsArr = outItemsArr.filter((thisItem) => {
+        return thisItem.atomItemNum !== thisItemNum;
+      });
+      outItemsArr = outItemsArr.filter((thisItem) => {
+        return thisItem.parentKey !== thisItemNum;
+      });
+    },
+  };
+
+  // run the specified action.
+  actionMethods[actionType]();
+  outSessionState[itemsArrRouteStr] = outItemsArr;
+  outSessionState = returnAutoDeriver(outSessionState);
+
+  setSessionSt(() => {
+    return outSessionState;
+  });
+}
+
+*/
+
+
 function useSetSessionItems({ sessionState, setSessionState }) {
   const itemsCtx = useContext(ProductContext);
+  
 
   function setSessionItems({
     itemsArrRouteStr = "returnItems",

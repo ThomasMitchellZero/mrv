@@ -7450,24 +7450,26 @@ What to do today?
         -All the Returns cosmetic shit.
         -Time allowing, I wouldn't mind creating a 30 panel that looks more like BYD, but 
 
+    4:15.  I am really hitting a wall here.  I cleared out some leftover references to STRX in the MRV components.  I will start tomorrow by going through the STRX component configs and making sure they have prop references via sessionState and setSessionState.
+
+25 Apr 2024
+    12:00.
+    OK.  Kind of a slow start but still PLENTY of time to have a good day!
+
+    Points of emphasis are: 
+        -Try to make anything we plan to reuse in a universal way.
+        -With that in mind, focus on MVP.  No matter what, the test MUST be working Wednesday morning.  Get it working, then add improvements as time allows.
+        -Regularly check universals within STRX to make sure we aren't fucking up what we've got.
+
+    First real judgement calls of the day.  Do I change my components to pull sessionState and setSessionState directly from the Outlet context?
+        + It feels like damn near eveything I make starts with parameters "sessionState" and "setSessionState".  Would be kind of nice to not constantly have to keep retyping that shit.  
+            - This is exactly the kind of thing that we get sucked into and then fail to complete the mission by showtime.  Besides, while it has 'dependencies' they're not really logical dependencies so this should be easy to fix.
+
+    Next question.  Do I try to refactor the 'Add Items' and 'Add Invoices' functions to stand alone outside their hooks?
+        -I would LIKE to be able to add all items in the usual way.  Partially, this is to prevent errors if I goof the inputs.  It is also because I know that other operations count on having the regular state-adjustments done to them.  Specifically, the matching.-OK, this is sort of a hack, but how about I have some kind of 'Start' button within the operation?
+        -Or, alternatively, move the overall state into the Test container?  I guess I would have to clear it every time I came back.  IDK, I think local is fine.  If I do decide I want it in the container, any tests with local state would be referring to that state anyways so it wouldn't cock up any previous work.  OK, let's go.
+
     
 
 
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-    
-    
 

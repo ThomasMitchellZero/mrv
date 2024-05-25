@@ -3,8 +3,12 @@ import "./TitleBarMRV.css";
 import { MdOutlineClose, MdArrowBack } from "react-icons/md";
 import { NavNodeBarMRV } from "../inputs/NavNodeBarMRV";
 import { useOutletContext } from "react-router";
+import { baseReturnState } from "../../../globalFunctions/globalJS_classes";
+
 
 function TitleBarMRV({
+  sessionState = baseReturnState({}),
+  setSessionState = () => console.log("No Session State Setter Provided"),
   hasIcon = null,
   productName = "",
   showProductName = true,
@@ -12,6 +16,7 @@ function TitleBarMRV({
   hasCluster = true,
   srString = "",
   showNavNodeBar = false,
+
   navBtnClick = () => {
     console.log("nothing here");
   },
@@ -19,13 +24,10 @@ function TitleBarMRV({
     console.log("No Clear Session Fn");
   },
 }) {
-  const strxCtx = useOutletContext();
-  const sessionSTRX = strxCtx.sessionSTRX;
-  const setSessionStrx = strxCtx.setSessionStrx;
-  const navNodeBarSTRX = (
+  const uiNavNodeBar = (
     <NavNodeBarMRV
-      sessionState={sessionSTRX}
-      setSessionState={setSessionStrx}
+      sessionState={sessionState}
+      setSessionState={setSessionState}
     />
   );
 
@@ -70,7 +72,7 @@ function TitleBarMRV({
         <div className={`tiny-text appTitle`}>
           {showProductName ? `${productName}` : " "}
         </div>
-        {showNavNodeBar ? navNodeBarSTRX : null}
+        {showNavNodeBar ? uiNavNodeBar : null}
       </div>
     </section>
   );

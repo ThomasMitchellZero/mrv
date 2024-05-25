@@ -28,9 +28,6 @@ function DispoMainPageMRV({
 }) {
   // I've included the TitleBar and CashTotal components mostly as placeholders.  They should normally be replaced in the app-specific config of this component with their respective configured counterparts.
 
-  const strxCtx = useOutletContext();
-  const sessionSTRX = strxCtx.sessionSTRX;
-  const setSessionStrx = strxCtx.setSessionStrx;
 
   const refBaseReturnState = baseReturnState({});
   const refItemDisposObj = new ItemDisposObj({});
@@ -43,7 +40,7 @@ function DispoMainPageMRV({
     activeItemNum: missingDispos(),
     ...clearableFields,
     get activeDisposObj() {
-      let outActiveDispo = sessionSTRX.returnItemDispos.find((iItem) => {
+      let outActiveDispo = sessionState.returnItemDispos.find((iItem) => {
         return iItem.dispoItemNum === this.activeItemNum;
       });
       return outActiveDispo;
@@ -73,7 +70,9 @@ function DispoMainPageMRV({
   function missingDispos() {
     const refBaseReturnState = baseReturnState({});
     const refItemDisposObj = new ItemDisposObj({});
+
     let outKeyStr = "";
+    
     for (const iItem of sessionState.returnItemDispos) {
       console.log(iItem, iItem.itemQty, iItem.qtySansDispo);
       if (iItem.qtySansDispo > 0) {
@@ -124,6 +123,8 @@ function DispoMainPageMRV({
         </div>
       </main>
       <SetDispos30MRV
+        sessionState={sessionState}
+        setSessionState={setSessionState}
         parLocStDispos={locStDispoMain}
         setParLocStDispos={setLocStDispoMain}
       />
