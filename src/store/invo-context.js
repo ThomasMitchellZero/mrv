@@ -205,6 +205,50 @@ const invoiceObj = {
     ],
   }),
 
+  "88883333" : new Invoice_SR({
+    invoNum: "88883333",
+    store: 1234,
+    date: new Date(2024, 2, 1),
+    payment: {
+      1111222211112222: {
+        tenderType: tType.credit,
+        tenderLabel: "MasterCard ****2222",
+        paid: 0,
+        ccNum: "1111222211112222",
+      },
+    },
+    itemAtomsArr: [
+      new returnAtom({
+        atomItemNum: "330",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2250,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "440",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 15599,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "550",
+        atomItemQty: 4,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 1299,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "660",
+        atomItemQty: 7,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2250,
+        }),
+      }),
+    ],
+  }),
+
 
   ///////////////  Uses MoneyObj + Association     ////////////////////////////////
 };

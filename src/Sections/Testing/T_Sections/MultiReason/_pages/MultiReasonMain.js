@@ -1,6 +1,10 @@
 import { DispoMainPageMRV } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
-import { baseReturnState } from "../../../../../globalFunctions/globalJS_classes";
+import {
+  baseReturnState,
+  returnAtom,
+  moneyObj,
+} from "../../../../../globalFunctions/globalJS_classes";
 import { useImmer } from "use-immer";
 
 import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
@@ -8,13 +12,43 @@ import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/Ti
 import { StartTest } from "./StartTest";
 
 const MultiReasonMain = ({ tMode = "T1" }) => {
-  const defaultTestMRState = baseReturnState({});
+  const testItemAtomsArr = [
+    new returnAtom({
+      atomItemNum: "330",
+      atomItemQty: 2,
+      atomMoneyObj: new moneyObj({
+        unitBaseValue: 2250,
+      }),
+    }),
+    new returnAtom({
+      atomItemNum: "440",
+      atomItemQty: 2,
+      atomMoneyObj: new moneyObj({
+        unitBaseValue: 15599,
+      }),
+    }),
+    new returnAtom({
+      atomItemNum: "550",
+      atomItemQty: 4,
+      atomMoneyObj: new moneyObj({
+        unitBaseValue: 1299,
+      }),
+    }),
+    new returnAtom({
+      atomItemNum: "660",
+      atomItemQty: 7,
+      atomMoneyObj: new moneyObj({
+        unitBaseValue: 2250,
+      }),
+    }),
+  ];
+
+  const defaultTestMRState = baseReturnState({ returnItems: testItemAtomsArr });
 
   const [sessionTestMR, setsessionTestMR] = useImmer(defaultTestMRState);
 
   const uiTitleBar = (
     <TitleBarMRV
-      hasIcon={false}
       showProductName={false}
       headerTitle={`MultiReason Testing: ${tMode}`}
       sessionState={sessionTestMR}
@@ -27,10 +61,11 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
     <DispoMainPageMRV
       sessionState={sessionTestMR}
       setSessionState={setsessionTestMR}
+      titleBar={uiTitleBar}
     />
   );
 
-  const uiDisplay = sessionTestMR.returnItems.length ? (
+  const uiDisplay = Object.keys(sessionTestMR.sessionInvos).length ? (
     uiMainDispoPage
   ) : (
     <StartTest

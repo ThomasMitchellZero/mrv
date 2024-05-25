@@ -123,7 +123,7 @@ const ProductContext = React.createContext({
     modelNum: "CBC221",
     description: "Polyethylene Water Hose",
     inStock: 99,
-    dcLocations: ["AAA"],
+    dcLocations: ["2345"],
   }),
   440: new Product({
     img: faucet_img,
@@ -131,8 +131,8 @@ const ProductContext = React.createContext({
     itemNum: "440",
     modelNum: "RT3301",
     description: "Two handle classic faucet in wrought iron",
-    inStock: 1,
-    dcLocations: ["AAA"],
+    inStock: 99,
+    dcLocations: ["2345"],
   }),
   550: new Product({
     img: tapemeasure_img,
@@ -141,6 +141,16 @@ const ProductContext = React.createContext({
     modelNum: "TAP001",
     description: "Craftsman 25' Tape Measure",
     inStock: 99,
+    dcLocations: ["2345"],
+  }),
+  660: new Product({
+    img: powerstrip_img,
+    price: 1950,
+    itemNum: "660",
+    modelNum: "PST001",
+    description: "8-Port Power Strip with 2 USB-A, 2 USB-C, and Surge Protection",
+    inStock: 99,
+    dcLocations: ["2345"],
   }),
 
   3333: new Product({
