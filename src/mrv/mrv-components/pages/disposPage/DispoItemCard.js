@@ -14,6 +14,7 @@ const DispoItemCard = ({
   parLocState,
   setParLocState,
   sessionState = baseReturnState({}),
+  setSessionState = () => console.log("No Session State Setter Provided"),
 }) => {
   const refBaseReturnState = baseReturnState({});
   const refItemDisposObj = new ItemDisposObj({});
@@ -34,16 +35,17 @@ const DispoItemCard = ({
     ? "color__green__text"
     : "color__red__text";
 
+  const handleCardClick = () => { };
+
+
   return (
     <div
       key={thisItemNum}
       className={`cardStyle hasHover disposGrid ${isActive}`}
       onClick={(e) => {
         e.stopPropagation();
-        console.log(thisItemNum)
-        setParLocState({
-          type: "SELECT_ROW", 
-          payload: thisItemNum,
+        setParLocState( (draft) => {
+          draft.activeItemNum = thisItemNum;
         });
       }}
     >
@@ -52,7 +54,6 @@ const DispoItemCard = ({
           showPrice={false}
           showQty={false}
           thisItemAtom={thisAtom}
-
         />
       </div>
       <div className={`gCol itemQty`}>

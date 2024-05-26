@@ -39,6 +39,7 @@ function DispoMainPageMRV({
   };
 
   const initLocStDispoMain = {
+    missingDisposFn: missingDispos,
     activeItemNum: missingDispos(),
     ...clearableFields,
     get activeDisposObj() {
@@ -49,23 +50,9 @@ function DispoMainPageMRV({
     },
   };
 
-  const [locStDispoMain, setLocStDispoMain] = useImmerReducer(
-    (draft, action) => {
-      switch (action.type) {
-        case "SELECT_ROW": {
-          draft.activeItemNum = action.payload;
-          break;
-        }
-        case "AUTO_NEXT_ACTIVE": {
-          draft.activeItemNum = missingDispos();
-          break;
-        }
-        default:
-          break;
-      }
-    },
-    initLocStDispoMain
-  );
+  // "SELECT_ROW"  "AUTO_NEXT_ACTIVE"
+
+  const [locStDispoMain, setLocStDispoMain] = useImmer(initLocStDispoMain);
 
   function missingDispos() {
     const refBaseReturnState = baseReturnState({});
@@ -100,19 +87,6 @@ function DispoMainPageMRV({
     />
   );
 
-  const uiCardArray = sessionState.returnItemDispos.map((iItemDispoObj) => {
-    const refItemDisposObj = new ItemDisposObj({});
-
-    return (
-      <DispoItemCard
-        key={iItemDispoObj.dispoItemNum}
-        thisItemDisposObj={iItemDispoObj}
-        parLocState={locStDispoMain}
-        setParLocState={setLocStDispoMain}
-        sessionState={sessionState}
-      />
-    );
-  });
 
   return (
     <section className={` mrvPage color__surface__subdued disposMain`}>
