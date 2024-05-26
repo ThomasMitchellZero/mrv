@@ -1,0 +1,10 @@
+.mrv {
+  & .multiReason {
+    & .itemTable{
+
+    }
+    & .BYDtableRow{
+
+    }
+  }
+}

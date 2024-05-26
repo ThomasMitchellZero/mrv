@@ -5,7 +5,6 @@ import {
   ItemDisposObj,
   baseReturnState,
 } from "../../../../globalFunctions/globalJS_classes";
-import { DispoItemCard } from "./DispoItemCard";
 import { TitleBarMRV } from "../../DisplayOutputs/TitleBarMRV";
 import { CashTotalMRV } from "../../DisplayOutputs/CashTotalMRV";
 import { useImmer, useImmerReducer } from "use-immer";
@@ -18,14 +17,6 @@ function DispoMainPageMRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
   handleContinue = () => console.log("No Continue Handler Provided"),
-  titleBar = (
-    <TitleBarMRV
-      hasIcon={"back"}
-      showProductName={true}
-      headerTitle={`Provide reason for return`}
-    />
-  ),
-  cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
   panel70,
   panel30,
 }) {

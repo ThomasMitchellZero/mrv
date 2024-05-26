@@ -246,6 +246,28 @@ export { sessionItem, singleDispo };
 
 // factory function that produces the default Return state object
 
+function baseLocState({
+  sContextName = "",
+  activeKey1 = "",
+  activeKey2 = "",
+  activeData1 = {},
+  activeData2 = {},
+  errorSt = "",
+  oClearSt = {},
+  oLSfns = {},
+}) {
+  return {
+    sContextName,
+    activeKey1,
+    activeKey2,
+    activeData1,
+    activeData2,
+    errorSt,
+    oClearSt,
+    oLSfns,
+  };
+}
+
 const baseReturnState = ({
   returnItems = [],
   totalReturnValue = new moneyObj({}),
@@ -256,6 +278,8 @@ const baseReturnState = ({
   sessionInvos = {},
   returnItemDispos = [],
   oNavNodes = {},
+  locSt = baseLocState({}),
+
 }) => {
   return {
     returnItems,
@@ -267,6 +291,7 @@ const baseReturnState = ({
     returnItemDispos,
     sessionInvos,
     oNavNodes,
+    locSt,
   };
 };
 
@@ -309,4 +334,4 @@ const navNode = ({
   return { keyStr, routeStr, titleStr, selected, disabled, breadcrumb };
 };
 
-export { baseReturnState, returnAtom, navNode };
+export { baseLocState, baseReturnState, returnAtom, navNode };

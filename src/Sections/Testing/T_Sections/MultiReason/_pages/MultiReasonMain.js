@@ -1,3 +1,5 @@
+import "./_MultiReason.css";
+
 import { DispoMainPageMRV } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
 import {
@@ -8,9 +10,9 @@ import {
 import { useImmer } from "use-immer";
 
 import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
-import { DispoItemCard } from "../../../../../mrv/mrv-components/pages/disposPage/DispoItemCard";
 
 import { StartTest } from "./StartTest";
+import { DispoItems70 } from "./DispoItems70_BYD";
 
 const MultiReasonMain = ({ tMode = "T1" }) => {
   const testItemAtomsArr = [
@@ -64,7 +66,7 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
       setSessionState={setsessionTestMR}
       titleBar={uiTitleBar}
       cashTotal={null}
-      itemRow={<DispoItemCard />}
+      panel70={<DispoItems70 parLocState={sessionTestMR} />}
     />
   );
 
