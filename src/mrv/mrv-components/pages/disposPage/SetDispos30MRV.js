@@ -4,6 +4,7 @@ import {
   SingleDispo,
   ItemDisposObj,
   baseReturnState,
+  baseLocState,
 } from "../../../../globalFunctions/globalJS_classes";
 
 import { useImmer, useImmerReducer } from "use-immer";
@@ -16,30 +17,21 @@ import { MRVinput } from "../../inputs/MRVinput";
 function SetDispos30MRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
-  parLocStDispos = {},
-  setParLocStDispos = () => console.log("No Local State Setter Provided"),
 }) {
-  const clearableFields = {
-    activeSingleDispo: "",
-    activeDisposObj: {},
-    activeErrorState: "",
-  };
 
-  const initLocStDispoMain = {
-    activeRowKey: {},
-    ...clearableFields,
-  };
+  const refLocState = baseLocState({});
+  const locSt = sessionState.locSt;
 
   const refSingleDispo = new SingleDispo({});
 
-  const activeDisposObj = parLocStDispos.activeDisposObj;
+  const activeDisposObj = locSt.pageActiveData1;
 
   // deal with changes to the input field
   const handleInputQty = ({ ddKey, event }) => {
     const inputQty = parseInt(event.target.value) || "";
     // Input might be empty so if NaN, set it to 0.
 
-    const draftLocStMI = cloneDeep(parLocStDispos);
+    // FILL OUT, NOT EVEN STARTED.
   };
 
   const uiDispoInput = (oDispo) => {
@@ -64,7 +56,7 @@ function SetDispos30MRV({
   const refItemDisposObj = new ItemDisposObj({});
 
   const aDDdispoFields = activeDisposObj
-    ? Object.values(parLocStDispos.activeDisposObj.allDisposObj).map(
+    ? Object.values(activeDisposObj.allDisposObj).map(
         (iDispo) => {
           return uiDispoInput(iDispo);
         }

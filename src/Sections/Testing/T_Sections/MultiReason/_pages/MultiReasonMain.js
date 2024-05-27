@@ -1,4 +1,5 @@
 import "./_MultiReason.css";
+import { Outlet } from "react-router";
 
 import {
   DispoMainPageMRV,
@@ -49,39 +50,45 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
     }),
   ];
 
-  const defaultTestMRState = baseReturnState({
-    returnItems: testItemAtomsArr,
-    locSt: DispoMainMRVLocSt({}),
-  });
+  const [sessionMRV, setSessionMRV] = useImmer(() => {
+    const defaultTestMRState = baseReturnState({
+      returnItems: testItemAtomsArr,
+    });
 
-  const [sessionTestMR, setsessionTestMR] = useImmer(defaultTestMRState);
+    return defaultTestMRState;
+  });
 
   const uiTitleBar = (
     <TitleBarMRV
       showProductName={false}
       headerTitle={`MultiReason Testing: ${tMode}`}
-      sessionState={sessionTestMR}
-      setSessionState={setsessionTestMR}
+      sessionState={sessionMRV}
+      setSessionState={setSessionMRV}
       hasCluster={false}
     />
   );
 
   const uiMainDispoPage = (
     <DispoMainPageMRV
-      sessionState={sessionTestMR}
-      setSessionState={setsessionTestMR}
+      sessionState={sessionMRV}
+      setSessionState={setSessionMRV}
       titleBar={uiTitleBar}
       cashTotal={null}
-      panel70={<DispoItems70 parLocState={sessionTestMR} />}
+      panel70={
+        <DispoItems70
+          sessionState={sessionMRV}
+          setSessionState={setSessionMRV}
+        />
+      }
     />
   );
 
-  const uiDisplay = Object.keys(sessionTestMR.sessionInvos).length ? (
+  const uiDisplay = Object.keys(sessionMRV.sessionInvos).length ? (
     uiMainDispoPage
   ) : (
     <StartTest
-      sessionState={sessionTestMR}
-      setSessionState={setsessionTestMR}
+      sessionState={sessionMRV}
+      setSessionState={setSessionMRV}
     />
   );
 

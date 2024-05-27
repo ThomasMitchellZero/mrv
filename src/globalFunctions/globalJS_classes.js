@@ -247,19 +247,27 @@ export { sessionItem, singleDispo };
 // factory function that produces the default Return state object
 
 function baseLocState({
+  pageActiveKey1 = "",
+  pageActiveKey2 = "",
+  pageActiveUI1 = "",
+  pageActiveUI2 = "",
+  pageActiveData1 = null,
+  pageActiveData2 = null, // NEVER CLEAR THESE
+  pageErrorSt1 = "",
+
   rPanActiveKey1 = "",
   rPanActiveKey2 = "",
   rPanActiveUI1 = "",
   rPanActiveUI2 = "",
-  rPanActiveData1 = {},
-  rPanActiveData2 = {},
+  rPanActiveData1 = null,
+  rPanActiveData2 = null,
 
   mainActiveKey1 = "",
   mainActiveKey2 = "",
   mainActiveUI1 = "",
   mainActiveUI2 = "",
-  mainActiveData1 = {},
-  mainActiveData2 = {},
+  mainActiveData1 = null,
+  mainActiveData2 = null,
 
   locStError1 = "",
   // NEVER CLEAR THESE
@@ -273,6 +281,14 @@ function baseLocState({
 
     // Clean up later, we're just trying to get this to work.
     const outClearSt = {
+      pageActiveKey1,
+      pageActiveKey2,
+      pageActiveUI1,
+      pageActiveUI2,
+      pageActiveData1,
+      pageActiveData2,
+      pageErrorSt1,
+
       rPanActiveKey1,
       rPanActiveKey2,
       rPanActiveUI1,
@@ -303,6 +319,15 @@ function baseLocState({
   oClearSts.baseClear = makeBaseClearSt();
 
   return {
+
+    pageActiveKey1,
+    pageActiveKey2,
+    pageActiveUI1,
+    pageActiveUI2,
+    pageActiveData1,
+    pageActiveData2,
+    pageErrorSt1,
+
     rPanActiveKey1,
     rPanActiveKey2,
     rPanActiveUI1,

@@ -14,8 +14,6 @@ import { TableRowBYD } from "./TableRowBYD";
 
 
 const DispoItems70 = ({
-  parLocState,
-  setParLocState,
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
   handleContinue = () => console.log("No Continue Handler Provided"),
@@ -27,6 +25,7 @@ const DispoItems70 = ({
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,
 }) => {
+
   const uiCardArray = sessionState.returnItemDispos.map((iItemDispoObj) => {
     const refItemDisposObj = new ItemDisposObj({});
 
@@ -34,9 +33,8 @@ const DispoItems70 = ({
       <TableRowBYD
         key={iItemDispoObj.dispoItemNum}
         thisItemDisposObj={iItemDispoObj}
-        parLocState={parLocState}
-        setParLocState={setParLocState}
         sessionState={sessionState}
+        setSessionState={setSessionState}
       />
     );
   });

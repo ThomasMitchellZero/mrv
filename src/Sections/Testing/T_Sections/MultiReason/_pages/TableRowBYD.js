@@ -1,30 +1,36 @@
 //itemCard
 
+import { useOutletContext } from "react-router";
+import { DispoMainMRVLocSt } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 import {
   returnAtom,
   baseReturnState,
+  baseLocState,
   ItemDisposObj,
   SingleDispo,
 } from "../../../../../globalFunctions/globalJS_classes";
-
 
 import { MRVitemDetails } from "../../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 
 const TableRowBYD = ({
   thisItemDisposObj = new ItemDisposObj({}),
-  parLocState,
-  setParLocState,
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) => {
-  const refBaseReturnState = baseReturnState({});
-  const refItemDisposObj = new ItemDisposObj({});
-  const refSingleDispo = new SingleDispo({});
+  const ctx = useOutletContext();
+
+  // refit these to use context, but later.
+  const sessionSt = sessionState;
+  const setSessionSt = setSessionState;
+  const locSt = sessionSt.locSt;
+  const locMethods = locSt.methods;
+
+  const refLocState = baseLocState({});
 
   const thisAtom = thisItemDisposObj.dispoItemAtom || new returnAtom({});
   const thisItemNum = thisAtom.atomItemNum;
 
-  const isActive = thisItemNum === parLocState.activeItemNum ? "selected" : "";
+  const isActive = thisItemNum === locSt.pageActiveKey1 ? "selected" : "";
 
   const allProvided =
     thisItemDisposObj.qtySansDispo === thisItemDisposObj.dispoItemAtom.itemQty;
@@ -33,27 +39,19 @@ const TableRowBYD = ({
     ? "color__green__text"
     : "color__red__text";
 
-  const handleCardClick = () => {};
-
-  /* 
-  
-          <MRVitemDetails
-          showPrice={false}
-          showQty={false}
-          thisItemAtom={thisAtom}
-        />
-  
-  */
+  const handleCardClick = (e) => {
+    e.stopPropagation();
+    locMethods.fart();
+    console.log(thisItemNum);
+    locMethods.setActiveItem({ keyStr: thisItemNum });
+  };
 
   return (
     <div
       key={thisItemNum}
       className={`cardStyle hasHover disposGrid BYDtableRow ${isActive}`}
       onClick={(e) => {
-        e.stopPropagation();
-        setParLocState((draft) => {
-          draft.activeItemNum = thisItemNum;
-        });
+        handleCardClick(e);
       }}
     >
       <div className="itemDetailsCtnr">
@@ -64,6 +62,7 @@ const TableRowBYD = ({
         />
       </div>
       <div className={`gCol itemQty`}>
+        <p>fart</p>
         <div
           className={`heading__medium color__primary__text hBox minFlex minWidth`}
         >
