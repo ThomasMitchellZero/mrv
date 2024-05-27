@@ -1,6 +1,14 @@
 import "./_MultiReason.css";
 import { Outlet } from "react-router";
 
+import { useEffect } from "react";
+
+import {
+  useSetSessionInvos,
+  useSetSessionItems,
+  populateDisposArr
+} from "../../../../../mrv/MRVhooks/MRVhooks";
+
 import {
   DispoMainPageMRV,
   DispoMainMRVLocSt,
@@ -55,8 +63,29 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
       returnItems: testItemAtomsArr,
     });
 
+    defaultTestMRState.farttt = "farttt"
+
     return defaultTestMRState;
   });
+  const setSessionItems = useSetSessionItems({ sessionMRV, setSessionMRV });
+  const setSessionInvos = useSetSessionInvos({ sessionMRV, setSessionMRV });
+
+
+    useEffect(() => {
+      
+      setSessionInvos({ invoNum: "88883333", actionType: "add" });
+      setSessionMRV((draft) => {
+        draft.returnItemDispos = populateDisposArr({sessionSt: sessionMRV});
+      });
+      setSessionMRV((draft) => {
+        draft.trell ="trell"
+        draft.locSt = DispoMainMRVLocSt({ sessionState: sessionMRV, sessionMRV });
+       });
+
+    }, []); 
+  
+
+
 
   const uiTitleBar = (
     <TitleBarMRV

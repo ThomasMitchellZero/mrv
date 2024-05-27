@@ -24,6 +24,7 @@ function DispoMainMRVLocSt({
 
   const findActiveItem = ({ keyStr = "", clone = true }) => {
     console.log("keyStr: ", keyStr);
+    console.log(sessionState);
     // loops through the ReturnItemDispos array and returns the object that matches the keyStr
     const refItemDisposObj = new ItemDisposObj({});
     const outActiveDispo = sessionState.returnItemDispos.find((iItem) => {

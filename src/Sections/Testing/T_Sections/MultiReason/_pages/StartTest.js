@@ -21,12 +21,17 @@ const StartTest = ({
   const setSessionInvos = useSetSessionInvos({ sessionState, setSessionState });
 
 
+  /*
+  
+  
+  */
   const handleClick = () => {
     setSessionInvos({ invoNum: "88883333", actionType: "add" });
     setSessionState((draft) => {
       draft.returnItemDispos = populateDisposArr({sessionSt: sessionState});
     });
     setSessionState((draft) => {
+      draft.trell ="trell"
       draft.locSt = DispoMainMRVLocSt({ sessionState: sessionState, setSessionState });
      });
   };
