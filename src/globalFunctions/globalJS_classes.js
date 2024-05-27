@@ -247,13 +247,21 @@ export { sessionItem, singleDispo };
 // factory function that produces the default Return state object
 
 function baseLocState({
-  activeKey1 = "",
-  activeKey2 = "",
-  activeData1 = {},
-  activeData2 = {},
-  errorSt = "",
-  uiState1 = "",
-  uiState2 = "",
+  rPanActiveKey1 = "",
+  rPanActiveKey2 = "",
+  rPanActiveUI1 = "",
+  rPanActiveUI2 = "",
+  rPanActiveData1 = {},
+  rPanActiveData2 = {},
+
+  mainActiveKey1 = "",
+  mainActiveKey2 = "",
+  mainActiveUI1 = "",
+  mainActiveUI2 = "",
+  mainActiveData1 = {},
+  mainActiveData2 = {},
+
+  locStError1 = "",
   // NEVER CLEAR THESE
   sContextName = "",
   oClearSts = {},
@@ -262,20 +270,29 @@ function baseLocState({
   const makeBaseClearSt = () => {
     // Returns a base locSt, minus the fields that must NEVER be cleared.
     // Other clear states can be added by deleting further properties in local contexts.
-    
+
     // Clean up later, we're just trying to get this to work.
     const outClearSt = {
+      rPanActiveKey1,
+      rPanActiveKey2,
+      rPanActiveUI1,
+      rPanActiveUI2,
+      rPanActiveData1,
+      rPanActiveData2,
+
+      mainActiveKey1,
+      mainActiveKey2,
+      mainActiveUI1,
+      mainActiveUI2,
+      mainActiveData1,
+      mainActiveData2,
+
+      locStError1,
+
       sContextName,
-      activeKey1,
-      activeKey2,
-      activeData1,
-      activeData2,
-      uiState1,
-      uiState2,
-      errorSt,
       oClearSts,
       methods,
-    }
+    };
     delete outClearSt.sContextName;
     delete outClearSt.oClearSts;
     delete outClearSt.methods;
@@ -286,14 +303,23 @@ function baseLocState({
   oClearSts.baseClear = makeBaseClearSt();
 
   return {
+    rPanActiveKey1,
+    rPanActiveKey2,
+    rPanActiveUI1,
+    rPanActiveUI2,
+    rPanActiveData1,
+    rPanActiveData2,
+
+    mainActiveKey1,
+    mainActiveKey2,
+    mainActiveUI1,
+    mainActiveUI2,
+    mainActiveData1,
+    mainActiveData2,
+
+    locStError1,
+
     sContextName,
-    activeKey1,
-    activeKey2,
-    activeData1,
-    activeData2,
-    uiState1,
-    uiState2,
-    errorSt,
     oClearSts,
     methods,
   };

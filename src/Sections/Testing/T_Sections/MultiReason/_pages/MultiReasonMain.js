@@ -1,6 +1,9 @@
 import "./_MultiReason.css";
 
-import { DispoMainPageMRV } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
+import {
+  DispoMainPageMRV,
+  DispoMainMRVLocSt,
+} from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
 import {
   baseReturnState,
@@ -46,7 +49,10 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
     }),
   ];
 
-  const defaultTestMRState = baseReturnState({ returnItems: testItemAtomsArr });
+  const defaultTestMRState = baseReturnState({
+    returnItems: testItemAtomsArr,
+    locSt: DispoMainMRVLocSt({}),
+  });
 
   const [sessionTestMR, setsessionTestMR] = useImmer(defaultTestMRState);
 

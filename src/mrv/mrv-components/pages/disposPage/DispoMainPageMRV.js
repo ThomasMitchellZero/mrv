@@ -4,6 +4,7 @@ import {
   SingleDispo,
   ItemDisposObj,
   baseReturnState,
+  baseLocState,
 } from "../../../../globalFunctions/globalJS_classes";
 import { TitleBarMRV } from "../../DisplayOutputs/TitleBarMRV";
 import { CashTotalMRV } from "../../DisplayOutputs/CashTotalMRV";
@@ -12,6 +13,14 @@ import { useOutletContext } from "react-router";
 
 import { SetDispos30MRV } from "./SetDispos30MRV";
 import { DispoItems70 } from "./DispoItems70";
+
+function DispoMainMRVLocSt({ sessionState = baseReturnState({}) }) {
+  const outLocSt = baseLocState({});
+  outLocSt.fart = "Fartrell Cluggins";
+  return outLocSt;
+}
+
+
 
 function DispoMainPageMRV({
   sessionState = baseReturnState({}),
@@ -78,7 +87,6 @@ function DispoMainPageMRV({
     />
   );
 
-
   return (
     <section className={` mrvPage color__surface__subdued disposMain`}>
       {ui70Panel}
@@ -87,4 +95,4 @@ function DispoMainPageMRV({
   );
 }
 
-export { DispoMainPageMRV };
+export { DispoMainPageMRV, DispoMainMRVLocSt };
