@@ -247,24 +247,55 @@ export { sessionItem, singleDispo };
 // factory function that produces the default Return state object
 
 function baseLocState({
-  sContextName = "",
   activeKey1 = "",
   activeKey2 = "",
   activeData1 = {},
   activeData2 = {},
   errorSt = "",
-  oClearSt = {},
-  oLSfns = {},
+  uiState1 = "",
+  uiState2 = "",
+  // NEVER CLEAR THESE
+  sContextName = "",
+  oClearSts = {},
+  methods = {},
 }) {
+  const makeBaseClearSt = () => {
+    // Returns a base locSt, minus the fields that must NEVER be cleared.
+    // Other clear states can be added by deleting further properties in local contexts.
+    
+    // Clean up later, we're just trying to get this to work.
+    const outClearSt = {
+      sContextName,
+      activeKey1,
+      activeKey2,
+      activeData1,
+      activeData2,
+      uiState1,
+      uiState2,
+      errorSt,
+      oClearSts,
+      methods,
+    }
+    delete outClearSt.sContextName;
+    delete outClearSt.oClearSts;
+    delete outClearSt.methods;
+
+    return outClearSt;
+  };
+
+  oClearSts.baseClear = makeBaseClearSt();
+
   return {
     sContextName,
     activeKey1,
     activeKey2,
     activeData1,
     activeData2,
+    uiState1,
+    uiState2,
     errorSt,
-    oClearSt,
-    oLSfns,
+    oClearSts,
+    methods,
   };
 }
 
@@ -279,7 +310,6 @@ const baseReturnState = ({
   returnItemDispos = [],
   oNavNodes = {},
   locSt = baseLocState({}),
-
 }) => {
   return {
     returnItems,
@@ -294,8 +324,6 @@ const baseReturnState = ({
     locSt,
   };
 };
-
-
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.
