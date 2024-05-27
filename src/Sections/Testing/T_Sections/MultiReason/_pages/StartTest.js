@@ -17,15 +17,14 @@ const StartTest = ({
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) => {
 
-  const setSessionItems = useSetSessionItems({ sessionState, setSessionState });
-  const setSessionInvos = useSetSessionInvos({ sessionState, setSessionState });
+
 
 
   /*
-  
-  
-  */
-  const handleClick = () => {
+  const setSessionItems = useSetSessionItems({ sessionState, setSessionState });
+  const setSessionInvos = useSetSessionInvos({ sessionState, setSessionState });
+
+    const handleClick = () => {
     setSessionInvos({ invoNum: "88883333", actionType: "add" });
     setSessionState((draft) => {
       draft.returnItemDispos = populateDisposArr({sessionSt: sessionState});
@@ -35,10 +34,13 @@ const StartTest = ({
       draft.locSt = DispoMainMRVLocSt({ sessionState: sessionState, setSessionState });
      });
   };
+  
+  */
+
 
   return (
     <div className={`startBtnBox main_content gap2rem`}>
-      <button type="button" className={`mrvBtn primary`} onClick={handleClick}>
+      <button type="button" className={`mrvBtn primary`} onClick={()=>{}}>
         Start Scenario
       </button>
     </div>

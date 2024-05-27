@@ -511,6 +511,7 @@ const useReturnAutoDeriver = () => {
 };
 
 export {
+  returnAutoDeriver,
   useReturnAtomizer,
   useSetSessionItems,
   useSetSessionInvos,

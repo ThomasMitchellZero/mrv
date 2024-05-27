@@ -1,23 +1,28 @@
 import "./_MultiReason.css";
 import { Outlet } from "react-router";
+import { useContext } from "react";
+
+import InvoContext from "../../../../../store/invo-context";
 
 import { useEffect } from "react";
 
 import {
   useSetSessionInvos,
   useSetSessionItems,
-  populateDisposArr
+  populateDisposArr,
+  returnAutoDeriver,
 } from "../../../../../mrv/MRVhooks/MRVhooks";
 
 import {
   DispoMainPageMRV,
-  DispoMainMRVLocSt,
+  useDispoMainMethods,
 } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
 import {
   baseReturnState,
   returnAtom,
   moneyObj,
+  baseLocState,
 } from "../../../../../globalFunctions/globalJS_classes";
 import { useImmer } from "use-immer";
 
@@ -26,7 +31,8 @@ import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/Ti
 import { StartTest } from "./StartTest";
 import { DispoItems70 } from "./DispoItems70_BYD";
 
-const MultiReasonMain = ({ tMode = "T1" }) => {
+
+function MultiReasonMain({ tMode = "T1" }) {
   const testItemAtomsArr = [
     new returnAtom({
       atomItemNum: "330",
@@ -58,33 +64,20 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
     }),
   ];
 
-  const [sessionMRV, setSessionMRV] = useImmer(() => {
-    const defaultTestMRState = baseReturnState({
-      returnItems: testItemAtomsArr,
-    });
+  const invosCtx = useContext(InvoContext);
 
-    defaultTestMRState.farttt = "farttt"
-
-    return defaultTestMRState;
+  let startReturnState = baseReturnState({
+    returnItems: testItemAtomsArr,
+    sessionInvos: { 88883333: invosCtx[88883333] },
   });
-  const setSessionItems = useSetSessionItems({ sessionMRV, setSessionMRV });
-  const setSessionInvos = useSetSessionInvos({ sessionMRV, setSessionMRV });
 
+  startReturnState = returnAutoDeriver(startReturnState);
+  startReturnState.returnItemDispos = populateDisposArr({
+    sessionSt: startReturnState,
+  });
+  startReturnState.locSt = baseLocState({});
 
-    useEffect(() => {
-      
-      setSessionInvos({ invoNum: "88883333", actionType: "add" });
-      setSessionMRV((draft) => {
-        draft.returnItemDispos = populateDisposArr({sessionSt: sessionMRV});
-      });
-      setSessionMRV((draft) => {
-        draft.trell ="trell"
-        draft.locSt = DispoMainMRVLocSt({ sessionState: sessionMRV, sessionMRV });
-       });
-
-    }, []); 
-  
-
+  const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
 
 
   const uiTitleBar = (
@@ -112,22 +105,13 @@ const MultiReasonMain = ({ tMode = "T1" }) => {
     />
   );
 
-  const uiDisplay = Object.keys(sessionMRV.sessionInvos).length ? (
-    uiMainDispoPage
-  ) : (
-    <StartTest
-      sessionState={sessionMRV}
-      setSessionState={setSessionMRV}
-    />
-  );
-
   return (
     <section className={`mrv`}>
       <section className={`mrvPage testStyle`}>
-        <section className={`mrvPanel__main `}>{uiDisplay}</section>
+        <section className={`mrvPanel__main `}>{uiMainDispoPage}</section>
       </section>
     </section>
   );
-};
+}
 
 export { MultiReasonMain };

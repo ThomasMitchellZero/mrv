@@ -1,7 +1,7 @@
 //itemCard
 
 import { useOutletContext } from "react-router";
-import { DispoMainMRVLocSt } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
+import { useDispoMainMethods } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 import {
   returnAtom,
   baseReturnState,
@@ -17,13 +17,17 @@ const TableRowBYD = ({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) => {
-  const ctx = useOutletContext();
+
+  const locMethods = useDispoMainMethods({
+    sessionState,
+    setSessionState,
+  });
 
   // refit these to use context, but later.
   const sessionSt = sessionState;
   const setSessionSt = setSessionState;
   const locSt = sessionSt.locSt;
-  const locMethods = locSt.methods;
+
 
   const refLocState = baseLocState({});
 

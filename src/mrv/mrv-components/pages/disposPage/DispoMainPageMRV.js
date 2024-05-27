@@ -16,11 +16,12 @@ import { DispoItems70 } from "./DispoItems70";
 import cloneDeep from "lodash.clonedeep";
 
 // local state setter to run prior to this component's render.
-function DispoMainMRVLocSt({
+function dispoMainMethods({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) {
-  const outLocSt = baseLocState({});
+  
+  const locSt = sessionState.locSt;
 
   const findActiveItem = ({ keyStr = "", clone = true }) => {
     console.log("keyStr: ", keyStr);
@@ -60,10 +61,17 @@ function DispoMainMRVLocSt({
     setActiveItem({ keyStr: outKeyStr, clone });
   };
 
-  outLocSt.methods = { ...outLocSt.methods, missingDispos, setActiveItem };
+  const outMethods = { missingDispos, setActiveItem };
 
-  return outLocSt;
+  return outMethods;
 }
+
+const useDispoMainMethods = ({ sessionState, setSessionState }) => {
+
+  return dispoMainMethods({ sessionState, setSessionState });
+  
+};
+
 
 //////////////////////////////////////////////////////////////////////////
 // UI COMPONENT
@@ -107,4 +115,4 @@ function DispoMainPageMRV({
   );
 }
 
-export { DispoMainPageMRV, DispoMainMRVLocSt };
+export { DispoMainPageMRV, useDispoMainMethods };
