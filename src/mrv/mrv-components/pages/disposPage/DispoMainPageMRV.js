@@ -23,7 +23,9 @@ function DispoMainMRVLocSt({
   const outLocSt = baseLocState({});
 
   const findActiveItem = ({ keyStr = "", clone = true }) => {
+    console.log("keyStr: ", keyStr);
     // loops through the ReturnItemDispos array and returns the object that matches the keyStr
+    const refItemDisposObj = new ItemDisposObj({});
     const outActiveDispo = sessionState.returnItemDispos.find((iItem) => {
       return iItem.dispoItemNum === keyStr;
     });
@@ -36,7 +38,6 @@ function DispoMainMRVLocSt({
   const setActiveItem = ({ keyStr = "", clone = true }) => {
     // sets the active item in the local state
 
-    console.log("local method activated");
     setSessionState((draft) => {
       draft.locSt.pageActiveKey1 = keyStr;
       draft.locSt.pageActiveData1 = findActiveItem({ keyStr, clone });

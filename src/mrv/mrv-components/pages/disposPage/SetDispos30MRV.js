@@ -1,5 +1,3 @@
-import "./_Dispositions.css";
-
 import {
   SingleDispo,
   ItemDisposObj,
@@ -17,8 +15,8 @@ import { MRVinput } from "../../inputs/MRVinput";
 function SetDispos30MRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
+  inputComponent = null,
 }) {
-
   const refLocState = baseLocState({});
   const locSt = sessionState.locSt;
 
@@ -55,12 +53,12 @@ function SetDispos30MRV({
 
   const refItemDisposObj = new ItemDisposObj({});
 
+  console.log(activeDisposObj);
+
   const aDDdispoFields = activeDisposObj
-    ? Object.values(activeDisposObj.allDisposObj).map(
-        (iDispo) => {
-          return uiDispoInput(iDispo);
-        }
-      )
+    ? Object.values(activeDisposObj.allDisposObj).map((iDispo) => {
+        return uiDispoInput(iDispo);
+      })
     : null;
 
   return (

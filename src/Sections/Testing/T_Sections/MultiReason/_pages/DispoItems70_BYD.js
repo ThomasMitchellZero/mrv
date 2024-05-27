@@ -20,7 +20,7 @@ const DispoItems70 = ({
   titleBar = (
     <TitleBarMRV
       showProductName={true}
-      headerTitle={`Provide reason for return`}
+      headerTitle={`Return Items List`}
     />
   ),
   cashTotal = <CashTotalMRV mode={"exchDelta"} sessionState={sessionState} />,

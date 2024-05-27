@@ -27,9 +27,12 @@ class moneyObj {
 export { moneyObj };
 
 class SingleDispo {
+
+  // keys don't match values, refactor this.
   constructor({
     keyStr,
     isResellable = true,
+    isChosen = false,
     dispoQty = 0,
     strLabel = "NO LABEL",
   }) {
@@ -37,6 +40,7 @@ class SingleDispo {
     this.strLabel = strLabel;
     this.isDamaged = isResellable;
     this.dispoQty = dispoQty;
+    this.isChosen = isChosen;
   }
 }
 

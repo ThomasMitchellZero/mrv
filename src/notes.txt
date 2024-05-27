@@ -7469,7 +7469,160 @@ What to do today?
         -I would LIKE to be able to add all items in the usual way.  Partially, this is to prevent errors if I goof the inputs.  It is also because I know that other operations count on having the regular state-adjustments done to them.  Specifically, the matching.-OK, this is sort of a hack, but how about I have some kind of 'Start' button within the operation?
         -Or, alternatively, move the overall state into the Test container?  I guess I would have to clear it every time I came back.  IDK, I think local is fine.  If I do decide I want it in the container, any tests with local state would be referring to that state anyways so it wouldn't cock up any previous work.  OK, let's go.
 
+    4:10.
+    OK.  I have not been doing especially well today.  But I am going to commit now, that if I can jam hard for at least 2:30, I will ensalidate and treat myself to a special topic :D  Let's do this.  
+
+    First thing that needs to happen is when that button is clicked, I need to add ALL items to the state.  
+
+    5:10.
+    Ok, doing well enough here!  If I can jam for another 90 I'd say I've done good enough.  Got a few choices to make, first, all relating to the fact that different apps are going to display cards in different ways.
+
+    First, I'm pretty sure that I can't just stick with a single 30 or 70 panel.  I think they can all plug into the same app state under the hood, but to some degree they're gonna need to be different components.  I think. 
     
+    Universal 30 Panel Container
+        -I would like this container to hold most / all of the logic for all possible versions of Dispositions.
+        -No matter what, an ItemDisposObj is getting populated.  I EXPECT that will be local, but I guess I can't guarantee that?  So the options are:
+            -Always populate local but allow the 'Submit' function to be provided as a prop.        
+                -If no 'Apply' then I figure out some way to auto-submit it.
+            -Have the state-setting function as a prop.  That way I have the choice of pointing it either at the local state or the global state.  
+                -Actually not sure that works since the logic would live in the child?  At which point the 'parent' is basically moot.
+                -Then, if I want an 'Apply' button, I just include that in my specific
+                -First impression is I kind of like this one.
+
+            -I am always cloning the item's main disposition in the active state.  So it's really just a question of whether I target the adjustments at the local state or the global state.
+
+    70 Panel.
+        -To some degree this makes sense to have as just a stand-alone container, although it might mostly be UI.  The main action within the 70 panel is to set the Active element via manual entry.  That I can do.  
+            -In all cases, the local state is being set.  I guess it's just a question of if I run the 
+    
+    7:30.
+    I could knock off now, but I'm actually excited about what comes next and I think I'm gonna keep rocking.
+
+    I also had a cool idea that I want to sketch. I feel like I am passing around an absolute dongload of boilerplate every time I make a new component.  And why?  I've got useOutletContext.  sessionState and setSessionSate are actually called by those names in most apps.  It's also hurting my goal of recycleability because in every case I have to prepare for the setter and state not having the same name.  
+
+    So... why not just give them the same name?  In component context I'm calling the damn things by those universal names anyways.
+
+    So I'm thinking I just set every new component everywhere to expect the same values.  
+        -There's no reason for the names to be unique because I'm not sharing state across apps.  In fact, I CAN'T share state across apps because Lowe's doesn't do that.  Worst-case scenario, I could store a ctx property somewhere else, probably in Main.js, store the whole state, and pass that elsewhere.  
+
+        -OK, so same name and setter.  I could also have a boilerplate 1-liner that just unpacks all the properties in 1 app.  Or, actually, could I do it in a function?  Actually... I'm just defining variables, right?  If I can DEFINE variables within a closure that are accessible outside it (I think 'var' does this?), then I just run a single, standard function in every application.  
+
+    -A shared 'local state' object, but actually stored in the global state.  Again, I'm seeing so many commonalities and writing so much boilerplate.  Why not save some labor and also improve interoperability?  I already started sharing local state across the local state's child components.  This is just one step higher.  Maybe there's some unique shit in there, but I can always just extend if necessary.  
+
+    -Oooh, another cool idea.  For any particular component, I can just define an object of the 'clearables'.  Or actually several if there are different things to clear.  Oooh, they could be nested with destucturing.  And I was today years old when I made the orthographic connection between 'desctucturing' and 'Destruction'.  Welp.
+
+    But anway, any state-setting functions I use can just de-structure the approprate {...clearable} into the draft LocSt object before I call the stateSetter.
+
+    The last thing I would LOVE is if I could just have a single, universal, shared function that would unpack the WHOLE DAMN thing every time.  And it looks like there's something called Destructuring Assignment that does that.  
+
+    Maybe this isn't such a good idea.  If I am changing state property keys, anything in the code that references those keys is going to break, and it's much easier for me to see those breaks in the editor than have to wade through the debugger.  Also, if I am NOT using a property key, there's no reason for me to define it in that component to begin with.  OK, so sounds like copy-paste a big old line of detructuring assignment like I was going to.  
+
+    I feel good.  I killed a darling, and I knew enough about DRY to identify a case where it doesn't apply.  Even if I later figure out a better solution, I'm proud of how I got to this one.  
+
+26 May 2024
+    3:05.
+    Again, not the best start time but it is a Sunday and I worked out and I'm gonna get some stuff done here.  
+
+    It's probably not a great idea to go balls out on implementing my new app-wide data structure, and I KNOW the temptation is there so I am just going to Not Do That and get into MVP.
+
+    AFAICT, the Multi-Reason component is now plugged into everything I care about.  Well, almost.  I guess I shouldn't be using immerReducer because if I DO want to go to an all-global model then I'm gonna have to tear a lot of shit up.  OK, so that is the ONE root-rip I will allow myself today.  
+
+    5:00.
+    OK, obstacle.  The local state and logic both live in the DispoMainPageMRV component.  That logic needs to be accessible to its children, which are not necessarily defined within its local context.  What are my solves?
+
+    Here's what I'm going to do.  I am going to set myself an hour timer. If at the end of that time I do not feel like I have a solution, I'm just going to cram the BYD components into the MRV container and unfuck it all later.  
+
+    -Do now what I intend to do eventually and move the 'local state' up to the Session State.  
+        -Since this is what I want to do, how ACTUALLY hard is it?
+            -I don't have to worry about passing a state-setter.  That's just the normal, global state-setter.
+        -I don't want to be fiddle-fucking with useEffect, so the correct plan is to do whatever setup I need for the localState PRIOR to actually loading/rendering the component.
+        -For the sake of sanity, I think the correct move would be to define two components at the top of a particular shared scope: one for the UI component (same as normal), and then another that, when run, produces the local state that component will use.  I import and run that function in the last step prior to navigating to the new component.  
+
+        Whether the global state gets to a component via context or prop shouldn't make a whole lot of difference in re-work.  As long as everything is referencing shared field keys from the base local state, the source won't matter much.  
+
+    -Copy-paste the DMP-MRV component into the current state.
+
+    -Just figure out how to get the parent's logic to an undetermined child.
+        -Am I making this harder than it needs to be?
+            -Apparently not.  Apparently it isn't easy for a child to just see all of its parent's props.  
+
+        -OK, but I COULD use props.children.  That's easy enough, right?
+            -Kind of?  
+            -Slow down.  An hour is a fucking LONG time.  Let's be methodical and think this through.
+        -Also, if I actually do plan to eventually blow all this out, figuring out this pattern seems to be of limited value.  
+
+    -Incorporate the test components into the main page and sort out the mess later.
+        + This is pretty easy to do.  Let's consider this our safety valve.  Saving rework is good, but actual Bad Things only happen if I'm not ready to play at EOB tomorrow.
+
+    Is this dumb?  I kind of feel like this is dumb.  Or, more specifically, if I hit a snag I don't anticipate I could really regret it.  Gonna walk and think, but I feel like given the time constraint, the smart thing to do is just do what I KNOW will work, which is either copy-pasting or else bringing all my components into the main MRV component and adjusting accordingly.  
+        
+27 May 2024
+    9:00.
+    Good morrrrrning Program Tom!  Got a good, early start.  I'm feeling excited about the challenge today.  Nothing I'm about to do is out of my capacity.  I've got time pressure, yes, but it feels more like "OK, let's fly!"
+
+    POE for today:
+    -Let's be smart and make decisons we are going to feel good about this evening.
+    -Good enough is good enough.  Let's get 'good enough' for all requirements and then add in extras as time allows.
+    -Focus on Getting It Done.  Coded protos are still viewed with suspicion, and if we start missing deadlines because we're too slow, we might slime this approach.
+    -HOKBIC should be an evergreen policy, but especially for today.
+
+    OK, let's fly.
+
+    P1: Data Sources
+        X -Shared function to produce a default LocSt.  
+            X -Add to this as new requirements appear.
+        X -A separate function, housed in the top level, that produces our specific local state plus default conditions.
+        X -Import it into prior screen and set it as the new local state prior to nav.
+        X -Check and make sure it's working, then move onto P2.
+
+    P2:  Rewiring
+        X -For the Items container, set the logic.  
+            x -We might want to push as much as possible into the shared local state, since for something like Returns we don't know that this will be a stand-alone step.  Not a huge priority, since the proto will be using our container, but still something to keep in mind.  
+            x - Function to set the active item in Main Panel
+            x - May need to set up auto-cycle, but I think that can wait.
+
+    2:00.
+    OK, got the item selection + activation working.  I'm HOPING the hardest part is behind us :/  Fuck, this is a lot.  This might spill over to tomorrow.
+
+    Now for the 30 panel:
+        For both:
+            -a BYD container
+            -Display a blank state (fill in later)
+            -Display the active item details.
+            -A 'submit' button that applies pushes the local object to session.
+            -A function that makes changes to the target AllDisposObj.  
+                -Target should be variable since we might eventually set it globally.
+                -Accepts a target key.
+            -Confirm no special handling needed for changing between items w/o submit.
+            -Tabbed Navigation
+            -Different logical handling for the DW/N.  Just need to check if present or not.  
+            -Make valid dispo names.  
+            -No going over the limit.
+        
+        For Multi-Inputs:
+            -A handleInput function that configures the singleDispoQty function based on the the specific singleDispo target.
+            -Show that value in the input field.
+
+        For Shared Field Inputs
+            -Input reads its target state from the active chip.
+            -Clicking a chip sets the active.  
+            -Will this need a special 'clear' case?
+        
+        OPTIONAL:
+            -Repeated clicking.
+
+    70 Panel
+        - Style cards to look like returns 
+        - Optional - Return-like headers, graphics.
+
+        
+    
+
+
+
+
+
+
 
 
 

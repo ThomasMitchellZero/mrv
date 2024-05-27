@@ -41,8 +41,6 @@ const TableRowBYD = ({
 
   const handleCardClick = (e) => {
     e.stopPropagation();
-    locMethods.fart();
-    console.log(thisItemNum);
     locMethods.setActiveItem({ keyStr: thisItemNum });
   };
 
