@@ -77,7 +77,13 @@ function dispoMainMethods({
     });
   };
 
-  const outMethods = { missingDispos, setActiveItem, editDispoQty };
+  const tabClick = ({ category }) => { 
+    setSessionState((draft) => {
+      draft.locSt.rPanActiveUI1 = category;
+    });
+  };
+
+  const outMethods = { missingDispos, setActiveItem, editDispoQty, tabClick };
 
   return outMethods;
 }

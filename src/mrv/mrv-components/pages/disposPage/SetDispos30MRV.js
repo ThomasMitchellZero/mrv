@@ -31,16 +31,35 @@ function SetDispos30MRV({
   // this will change if we ever set global state directly.
   const activeDisposObj = locState.pageActiveData1;
 
+  /////////////////// LOCAL FUNCTIONS //////////////////////
+
   // deal with changes to the input field
   const handleInputQty = ({ ddKey, event }) => {
     const inputQty = parseInt(event.target.value) || "";
     // Input might be empty so if NaN, set it to 0.
-
-    console.log("inputQty", inputQty);
     locMethods.editDispoQty({
       dispoKeyStr: ddKey,
       qty: inputQty,
     });
+  };
+
+  /////////////////// UI COMPONENTS //////////////////////
+
+  const tabButton = ({ category, title }) => {
+    // didntWant , damaged
+    return (
+      <button
+        type="button"
+        className={`tab body__small ${
+          locState.rPanActiveUI1 === category ? "active" : ""
+        }`}
+        onClick={() => {
+          locMethods.tabClick({ category });
+        }}
+      >
+        {title}
+      </button>
+    );
   };
 
   const uiDispoInput = (oDispo) => {
@@ -71,15 +90,14 @@ function SetDispos30MRV({
 
   const refItemDisposObj = new ItemDisposObj({});
 
-  console.log(activeDisposObj);
 
   const activeAllDispos = activeDisposObj?.allDisposObj || {};
 
-  console.log(activeAllDispos);
-  const didntWantCodes = Object.values(activeAllDispos).filter((singleDispo) => {
-    return singleDispo.isDamaged === false;
-  });
-
+  const didntWantCodes = Object.values(activeAllDispos).filter(
+    (singleDispo) => {
+      return singleDispo.isDamaged === false;
+    }
+  );
 
   const damagedCodes = Object.values(activeAllDispos).filter((singleDispo) => {
     return singleDispo.isDamaged === true;
@@ -96,7 +114,7 @@ function SetDispos30MRV({
     */
 
   const uiItemActive = activeDisposObj ? (
-    <div className={`main_content`}>
+    <div className={`main_content gap1rem`}>
       <div className={`hBox minFlex`}>
         <MRVitemDetails
           thisItemAtom={activeDisposObj.dispoItemAtom}
@@ -104,9 +122,39 @@ function SetDispos30MRV({
         />
       </div>
 
+      {/* Return Reason Section */}
+
+        <div className="hBox body">Why is customer returning item?</div>
+        <section className={`tabCtnr `}>
+          {tabButton({ category: "didntWant", title: "Didn't Want/Need" })}
+          {tabButton({ category: "damaged", title: "Damaged/Defective" })}
+        </section>
+
+        {/*  this was copied over, not sure how relevant.
+            
+                      {locStMI.activeTab === "dwn" ? (
+            <section className={`dwnDispoCtnr`}>
+              <p className={`tinyText reasonExplainer`}>
+                Select all reasons customer doesn't want items
+              </p>
+              {dwnButtonsArr}
+            </section>
+          ) : (
+            <section className={`ddDisposCtnr`}>
+              <p className={`tinyText reasonExplainer`}>
+                Enter types and qtys of any damaged items
+              </p>
+
+              {aDDdispoFields}
+            </section>
+          )}
+            
+             */}
+
+
       <div className={` inputDisposCtnr`}>{aDDdispoFields}</div>
       <button className={`secondary maxWidth`}>Confirm</button>
-      <div className={`warningCtnr`}>Error</div>
+      <div className={`warningCtnr`}></div>
     </div>
   ) : null;
 

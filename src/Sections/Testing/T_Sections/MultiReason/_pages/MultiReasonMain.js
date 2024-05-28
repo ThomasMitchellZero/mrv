@@ -75,7 +75,9 @@ function MultiReasonMain({ tMode = "T1" }) {
   startReturnState.returnItemDispos = populateDisposArr({
     sessionSt: startReturnState,
   });
-  startReturnState.locSt = baseLocState({});
+  startReturnState.locSt = baseLocState({
+    rPanActiveUI1: "didntWant",
+  });
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
 
