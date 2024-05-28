@@ -32,13 +32,14 @@ class SingleDispo {
   constructor({
     keyStr,
     isResellable = true,
+    isDamaged = false,
     isChosen = false,
     dispoQty = 0,
     strLabel = "NO LABEL",
   }) {
     this.keyStr = keyStr;
     this.strLabel = strLabel;
-    this.isDamaged = isResellable;
+    this.isDamaged = isDamaged;
     this.dispoQty = dispoQty;
     this.isChosen = isChosen;
   }

@@ -53,7 +53,10 @@ function SetDispos30MRV({
             type="number"
             min="0"
             step="1"
-            value={sessionState.locSt.pageActiveData1.allDisposObj[oDispo.keyStr].dispoQty}
+            value={
+              sessionState.locSt.pageActiveData1.allDisposObj[oDispo.keyStr]
+                .dispoQty
+            }
             onChange={(e) => {
               handleInputQty({ ddKey: oDispo.keyStr, event: e });
             }}
@@ -70,11 +73,21 @@ function SetDispos30MRV({
 
   console.log(activeDisposObj);
 
-  const aDDdispoFields = activeDisposObj
-    ? Object.values(activeDisposObj.allDisposObj).map((iDispo) => {
-        return uiDispoInput(iDispo);
-      })
-    : null;
+  const activeAllDispos = activeDisposObj?.allDisposObj || {};
+
+  console.log(activeAllDispos);
+  const didntWantCodes = Object.values(activeAllDispos).filter((singleDispo) => {
+    return singleDispo.isDamaged === false;
+  });
+
+
+  const damagedCodes = Object.values(activeAllDispos).filter((singleDispo) => {
+    return singleDispo.isDamaged === true;
+  });
+
+  const aDDdispoFields = damagedCodes.map((iDispo) => {
+    return uiDispoInput(iDispo);
+  });
 
   /*
       aDDdispoFields.push(

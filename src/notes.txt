@@ -7634,6 +7634,20 @@ What to do today?
     6:30.
     OK, I ate.  I think the highest priority for me tonight is to get the quantity interaction working.  That's the last piece that actually scares me.  If I don't have error handling, oh well.  I would also like to split damaged / defective dispositions.
 
+28 May 2024
+    10:35.
+    Probably should taken another work-sick day, but here we are.  OK, so highest priorities for the test tomorrow are:
+
+        X -Need to create some DWN reason codes
+        X -Make sure all the codes I have are plausibe and believable.
+        -For the qty input section, filter for only DD
+        -For the clickables, filter for only DWN
+        -Need tabs
+        -Need a state to show tabs, and tabs / conditions to reflect the active state.  
+    
+    OK. Let's start with the reason codes and then the tabs.  We know it's something we need, so let's just do that. 
+
+
 
 
 

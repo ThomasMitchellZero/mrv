@@ -126,29 +126,47 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
 
   const defaultDispos = {
     noWorky: new SingleDispo({
-      dispoQty: 0,
+      isDamaged: true,
       keyStr: "noWorky",
       strLabel: "Doesn't Work",
     }),
     missingParts: new SingleDispo({
-      dispoQty: 0,
+      isDamaged: true,
       keyStr: "missingParts",
       strLabel: "Missing Parts",
     }),
     broken: new SingleDispo({
-      dispoQty: 0,
+      isDamaged: true,
       keyStr: "broken",
       strLabel: "Broken",
     }),
     cosmetic: new SingleDispo({
-      dispoQty: 0,
+      isDamaged: true,
       keyStr: "cosmetic",
       strLabel: "Cosmetic",
     }),
-    scratchDent: new SingleDispo({
-      dispoQty: 0,
-      keyStr: "scratchDent",
-      strLabel: "Scratched / Dented",
+
+    // Didn't Want / Need Reasons
+
+    boughtWrong: new SingleDispo({
+      isDamaged: false,
+      keyStr: "boughtWrong",
+      strLabel: "Bought Wrong Item",
+    }),
+    foundCheaper: new SingleDispo({
+      isDamaged: false,
+      keyStr: "foundCheaper",
+      strLabel: "Found Better Price",
+    }),
+    notNeeded: new SingleDispo({
+      isDamaged: false,
+      keyStr: "notNeeded",
+      strLabel: "Item Not Needed",
+    }),
+    tooMany: new SingleDispo({
+      isDamaged: false,
+      keyStr: "tooMany",
+      strLabel: "Bought Too Many",
     }),
   };
 
@@ -216,10 +234,8 @@ export { useNodeNav };
 
 */
 
-
 function useSetSessionItems({ sessionState, setSessionState }) {
   const itemsCtx = useContext(ProductContext);
-  
 
   function setSessionItems({
     itemsArrRouteStr = "returnItems",
@@ -337,7 +353,7 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   const refSingleDispo = new singleDispo({});
 
   // Arrays of results for each layer of atomization.  Add to as needed.  Destructuring assignment?
-  
+
   let aAtomizedByInvoice = [];
 
   // Gets progressively modified to the results of each completed atomization layer.
