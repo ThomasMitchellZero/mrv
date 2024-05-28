@@ -124,8 +124,6 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
 
   const RtrnItemsList = cloneDeep(sessionSt.returnItems);
 
-  console.log("RtrnItemsList", RtrnItemsList);
-
   const defaultDispos = {
     noWorky: new SingleDispo({
       dispoQty: 0,

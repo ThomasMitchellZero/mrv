@@ -7615,8 +7615,24 @@ What to do today?
         - Style cards to look like returns 
         - Optional - Return-like headers, graphics.
 
-        
+    3:00.
+    I notice I am confused.  My function to search DispoItems, when printed, shows that it is completely empty.  It also shows none of the methods printed are in there.  
+        So either that state is somehow failing to get passed in, or else it's just reading the default base state.
+
+        OK, so it looks like it is registering a field I define in MultiReasonMain, but not a field I define in StartTest.  Why is that?  
     
+    OK.  Tried using useEffect and got a big old mega-fail.  Before I dip out completely, I'm going to try one last thing.  This OUGHT to work.  useEffect should kind of let me simulate a button click in which I do a bunch of state changes.  
+
+    OK.  I've got the item state being produced as normal.  I would BET my locSt functions aren't going to work, and that's because [something something hook render cycle] I don't understand and don't have the time to figure out.  I'm just going to do them all as dumb functions that each return a whole new locSt and update manually.  That's gotta be the fastest way through because I am not making progress fast enough.  
+
+    I really need to not be fucking around with data handling at this point.  If I create rework, so be it.  
+
+    The localSt methods won't be changing.  I just need to make sure they are pointed at the right thing.
+
+    REAL dumb way would be to just have them ALL take an argument for the sessionSt.  How about I make the methods a regular function, make React re-render with them in there, and pass them all the session state?  Sloppy AF but I think that does it?
+
+    6:30.
+    OK, I ate.  I think the highest priority for me tonight is to get the quantity interaction working.  That's the last piece that actually scares me.  If I don't have error handling, oh well.  I would also like to split damaged / defective dispositions.
 
 
 

@@ -20,19 +20,15 @@ function dispoMainMethods({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) {
-  
-  const locSt = sessionState.locSt;
+  const locState = sessionState.locSt;
 
-  const findActiveItem = ({ keyStr = "", clone = true }) => {
-    console.log("keyStr: ", keyStr);
-    console.log(sessionState);
+  const findActiveItem = ({ keyStr = "" }) => {
     // loops through the ReturnItemDispos array and returns the object that matches the keyStr
     const refItemDisposObj = new ItemDisposObj({});
-    const outActiveDispo = sessionState.returnItemDispos.find((iItem) => {
+    const outActiveDispo = sessionState.returnItemDispos.findIndex((iItem) => {
       return iItem.dispoItemNum === keyStr;
     });
-
-    return clone ? cloneDeep(outActiveDispo) : outActiveDispo;
+    return outActiveDispo;
   };
 
   // Methods to be added to the local state object.
@@ -41,8 +37,12 @@ function dispoMainMethods({
     // sets the active item in the local state
 
     setSessionState((draft) => {
+      const itemIndex = findActiveItem({ keyStr });
+
       draft.locSt.pageActiveKey1 = keyStr;
-      draft.locSt.pageActiveData1 = findActiveItem({ keyStr, clone });
+      draft.locSt.pageActiveData1 = clone
+        ? cloneDeep(sessionState.returnItemDispos[itemIndex])
+        : sessionState.returnItemDispos[itemIndex];
     });
   };
 
@@ -61,17 +61,32 @@ function dispoMainMethods({
     setActiveItem({ keyStr: outKeyStr, clone });
   };
 
-  const outMethods = { missingDispos, setActiveItem };
+  const editDispoQty = ({ itemKeyStr, dispoKeyStr, qty = 0 }) => {
+    const refSingleDispo = new SingleDispo({});
+    const refItemDisposObj = new ItemDisposObj({});
+
+    //if (!Number.isInteger(qty)) {qty = "";}
+
+    console.log(itemKeyStr, dispoKeyStr);
+
+    const refLocState = baseLocState({});
+
+    setSessionState((draft) => {
+
+      console.log(dispoKeyStr, locState.pageActiveData1);
+      console.log("---", draft.locSt.pageActiveData1.allDisposObj[dispoKeyStr]);
+      draft.locSt.pageActiveData1.allDisposObj[dispoKeyStr].dispoQty = qty;
+    });
+  };
+
+  const outMethods = { missingDispos, setActiveItem, editDispoQty };
 
   return outMethods;
 }
 
 const useDispoMainMethods = ({ sessionState, setSessionState }) => {
-
   return dispoMainMethods({ sessionState, setSessionState });
-  
 };
-
 
 //////////////////////////////////////////////////////////////////////////
 // UI COMPONENT

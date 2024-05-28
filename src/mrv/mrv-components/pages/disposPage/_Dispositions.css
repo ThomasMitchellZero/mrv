@@ -60,9 +60,13 @@
           min-width: 12rem;
           gap: 1rem;
 
-          & p {
+          & div {
             display: flex;
             flex: 0 0 auto;
+
+            & .spacer {
+              height: 1px;
+            }
           }
         }
       }
