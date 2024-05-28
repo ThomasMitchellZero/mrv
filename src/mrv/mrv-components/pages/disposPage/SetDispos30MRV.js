@@ -90,7 +90,6 @@ function SetDispos30MRV({
 
   const refItemDisposObj = new ItemDisposObj({});
 
-
   const activeAllDispos = activeDisposObj?.allDisposObj || {};
 
   const didntWantCodes = Object.values(activeAllDispos).filter(
@@ -107,11 +106,9 @@ function SetDispos30MRV({
     return uiDispoInput(iDispo);
   });
 
-  /*
-      aDDdispoFields.push(
+  aDDdispoFields.push(
     <div className={`singleDispoCtnr spacer`} key={"spacer"}></div>
   );
-    */
 
   const uiItemActive = activeDisposObj ? (
     <div className={`main_content gap1rem`}>
@@ -124,13 +121,13 @@ function SetDispos30MRV({
 
       {/* Return Reason Section */}
 
-        <div className="hBox body">Why is customer returning item?</div>
-        <section className={`tabCtnr `}>
-          {tabButton({ category: "didntWant", title: "Didn't Want/Need" })}
-          {tabButton({ category: "damaged", title: "Damaged/Defective" })}
-        </section>
+      <div className="hBox minFlex body">Why is customer returning item?</div>
+      <section className={`tabCtnr `}>
+        {tabButton({ category: "didntWant", title: "Didn't Want/Need" })}
+        {tabButton({ category: "damaged", title: "Damaged/Defective" })}
+      </section>
 
-        {/*  this was copied over, not sure how relevant.
+      {/*  this was copied over, not sure how relevant.
             
                       {locStMI.activeTab === "dwn" ? (
             <section className={`dwnDispoCtnr`}>
@@ -151,7 +148,6 @@ function SetDispos30MRV({
             
              */}
 
-
       <div className={` inputDisposCtnr`}>{aDDdispoFields}</div>
       <button className={`secondary maxWidth`}>Confirm</button>
       <div className={`warningCtnr`}></div>
@@ -160,9 +156,9 @@ function SetDispos30MRV({
 
   return (
     <section className={`mrvPanel__side color__surface__default SetDispos30`}>
-      <TitleBarMRV headerTitle={`Item Details`} hasCluster={false} />
+      <div className={`hBox minFlex padding__both heading__medium`}>Item Details</div>
       {uiItemActive}
-      <div className={`footer_content`}></div>
+      {/*<div className={`footer_content`}></div> */}
     </section>
   );
 }

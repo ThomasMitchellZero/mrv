@@ -648,6 +648,19 @@
 
   /* ---- Utility Classes ----*/
 
+  & .padding__vertical{
+    padding-top: var(--PrimaryPadding__vertical);
+    padding-bottom: var(--PrimaryPadding__vertical);
+  }
+  & .padding__horizontal{
+    padding-left: var(--PrimaryPadding__horizontal);
+    padding-right: var(--PrimaryPadding__horizontal);
+  }
+
+  & .padding__both{
+    padding: var(--PrimaryPadding__both);
+  }
+
   & .gap2rem {
     gap: 2rem;
   }
