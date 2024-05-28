@@ -83,7 +83,7 @@ function SetDispos30MRV({
         className={`chip ${oSingleDispo.isChosen ? "selected" : ""}`}
         key={oSingleDispo.keyStr}
         onClick={() => {
-          console.log('ui', oSingleDispo)
+          console.log("ui", oSingleDispo);
           locMethods.chipSelect({ dispoKeyStr: oSingleDispo.keyStr });
         }}
       >
@@ -188,7 +188,12 @@ function SetDispos30MRV({
       </section>
 
       {activeReasonInput}
-      <button className={`secondary maxWidth`}>Confirm</button>
+      <button
+        onClick={() => locMethods.handleApply()}
+        className={`secondary maxWidth`}
+      >
+        Confirm
+      </button>
       <div className={`warningCtnr`}></div>
     </div>
   ) : null;

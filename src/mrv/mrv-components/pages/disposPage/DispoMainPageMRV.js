@@ -86,7 +86,7 @@ function dispoMainMethods({
 
     const outActiveItem = cloneDeep(locState.pageActiveData1);
 
-    console.log(outActiveItem.allDisposObj, '---', dispoKeyStr);
+    console.log(outActiveItem.allDisposObj, "---", dispoKeyStr);
     outActiveItem.allDisposObj[dispoKeyStr].isChosen =
       !outActiveItem.allDisposObj[dispoKeyStr].isChosen;
 
@@ -95,7 +95,27 @@ function dispoMainMethods({
     });
   };
 
-  const outMethods = { missingDispos, tabClick, setActiveItem, editDispoQty, chipSelect  };
+  const handleApply = () => {
+    const refItemDisposObj = new ItemDisposObj({});
+    const refSingleDispo = new SingleDispo({});
+
+    const outActiveDispoItem = cloneDeep(locState.pageActiveData1);
+    setSessionState((draft) => {
+      draft.returnItemDispos[
+        findActiveItem({ keyStr: outActiveDispoItem.dispoItemNum })
+      ] = outActiveDispoItem;
+      console.log("Apply Successful")
+     });
+  };
+
+  const outMethods = {
+    missingDispos,
+    tabClick,
+    setActiveItem,
+    editDispoQty,
+    chipSelect,
+    handleApply,
+  };
 
   return outMethods;
 }

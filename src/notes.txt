@@ -7640,12 +7640,21 @@ What to do today?
 
         X -Need to create some DWN reason codes
         X -Make sure all the codes I have are plausibe and believable.
-        -For the qty input section, filter for only DD
-        -For the clickables, filter for only DWN
-        -Need tabs
-        -Need a state to show tabs, and tabs / conditions to reflect the active state.  
+        X -For the qty input section, filter for only DD
+        X -For the clickables, filter for only DWN
+        X -Need tabs
+        X -Need a state to show tabs, and tabs / conditions to reflect the active state.  
     
     OK. Let's start with the reason codes and then the tabs.  We know it's something we need, so let's just do that. 
+
+    2:30.
+    Doing well.  This was the day I expected to have yesterday before I got mired in state-setting bullshit.  I just deployed, so in a few minutes I will check and confirm that it worked because if I'm having live version issues, I need to know ASAP.
+
+    I guess the next thing I ought to do is confirm that I can push to global state.  Shouldn't be an issue, but who the fuck knows.
+
+    Assuming that is OK, next thing is the multi-chip selection.  
+
+
 
 
 
