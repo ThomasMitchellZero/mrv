@@ -7651,6 +7651,7 @@ What to do today?
     Doing well.  This was the day I expected to have yesterday before I got mired in state-setting bullshit.  I just deployed, so in a few minutes I will check and confirm that it worked because if I'm having live version issues, I need to know ASAP.
 
     I guess the next thing I ought to do is confirm that I can push to global state.  Shouldn't be an issue, but who the fuck knows.
+        -Update: Aside from the usual retardation of Chrome not reading the fucking CSS, this seems to be going OK.
 
     Assuming that is OK, next thing is the multi-chip selection.  
 

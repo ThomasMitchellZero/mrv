@@ -135,13 +135,20 @@ function SetDispos30MRV({
 
   const uiDamagedBtn = (ddSingleDispo) => {
     const refSingleDispo = new SingleDispo({});
+    const style =
+      locState.rPanActiveKey1 === ddSingleDispo.keyStr
+        ? "active"
+        : ddSingleDispo.dispoQty > 0
+        ? "selected"
+        : "";
 
     return (
       <button
-        className={`chip ${ddSingleDispo.selected ? "selected" : ""}`}
+        className={`chip ${style}`}
         key={ddSingleDispo.keyStr}
         onClick={() => {
-          locMethods.chipSelect({ dispoKeyStr: ddSingleDispo.keyStr });
+          console.log("ui", ddSingleDispo.keyStr);
+          locMethods.damageTypeSelect({ dispoKeyStr: ddSingleDispo.keyStr });
         }}
       >
         {ddSingleDispo.strLabel}
@@ -150,16 +157,39 @@ function SetDispos30MRV({
   };
 
   const uiDamagedInputFieldGroup = (
-    <div className={` inputDisposCtnr`}>
+    <div className={`damagedInputFieldsCtnr`}>
       {damagedCodes.map((singleDispo) => {
         return uiDamagedInputField(singleDispo);
       })}
     </div>
   );
 
-  const uiDamagedBtnArr = damagedCodes.map((ddSingleDispo) => {
-    return uiDamagedBtn(ddSingleDispo);
-  });
+  const uiDamagedBtnGroup = (
+    <div className={`damagedChipsCtnr`}>
+      <div className={`singeFieldCtnr`}>
+        <div className={`inputLabel body color__primary__text `}>
+          Select reason & enter qty:
+        </div>
+        <MRVinput width={"5rem"}>
+          <input
+            type="number"
+            min="0"
+            disabled={!locState.rPanActiveKey1}
+            step="1"
+            value={locState?.pageActiveData1?.allDisposObj[locState.rPanActiveKey1]?.dispoQty}
+            onChange={(e) => {
+              handleInputQty({ ddKey: locState.rPanActiveKey1, event: e });
+            }}
+          />
+        </MRVinput>
+      </div>
+      <div className={`chipCtnr`}>
+        {damagedCodes.map((ddSingleDispo) => {
+          return uiDamagedBtn(ddSingleDispo);
+        })}
+      </div>
+    </div>
+  );
 
   const activeReasonInput =
     locState.rPanActiveUI1 === "didntWant"
@@ -167,12 +197,12 @@ function SetDispos30MRV({
       : tMode === "T1" && locState.rPanActiveUI1 === "damaged"
       ? uiDamagedInputFieldGroup
       : tMode === "T2" && locState.rPanActiveUI1 === "damaged"
-      ? uiDamagedBtnArr
+      ? uiDamagedBtnGroup
       : null;
 
   const uiItemActive = activeDisposObj ? (
     <div className={`main_content gap1rem`}>
-      <div className={`hBox minFlex`}>
+      <div className={`hBox minFlex goWide`}>
         <MRVitemDetails
           thisItemAtom={activeDisposObj.dispoItemAtom}
           showQty={false}
@@ -181,7 +211,9 @@ function SetDispos30MRV({
 
       {/* Return Reason Section */}
 
-      <div className="hBox minFlex body goWide">Why is customer returning item?</div>
+      <div className="hBox minFlex body goWide">
+        Why is customer returning item?
+      </div>
       <section className={`tabCtnr goWide`}>
         {tabButton({ category: "didntWant", title: "Didn't Want/Need" })}
         {tabButton({ category: "damaged", title: "Damaged/Defective" })}
@@ -190,7 +222,7 @@ function SetDispos30MRV({
       {activeReasonInput}
       <button
         onClick={() => locMethods.handleApply()}
-        className={`secondary maxWidth goWide`}
+        className={`secondary submitBtn maxWidth goWide`}
       >
         Confirm
       </button>

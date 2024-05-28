@@ -43,6 +43,7 @@ function dispoMainMethods({
       draft.locSt.pageActiveData1 = clone
         ? cloneDeep(sessionState.returnItemDispos[itemIndex])
         : sessionState.returnItemDispos[itemIndex];
+      draft.locSt.rPanActiveKey1 = "";
     });
   };
 
@@ -95,6 +96,16 @@ function dispoMainMethods({
     });
   };
 
+  const damageTypeSelect = ({ dispoKeyStr = "" }) => {
+    const refSingleDispo = new SingleDispo({});
+    const refBaseLocState = baseLocState({});
+
+    console.log("--method--", dispoKeyStr);
+    setSessionState((draft) => {
+      draft.locSt.rPanActiveKey1 = dispoKeyStr;
+    });
+  };
+
   const handleApply = () => {
     const refItemDisposObj = new ItemDisposObj({});
     const refSingleDispo = new SingleDispo({});
@@ -104,8 +115,8 @@ function dispoMainMethods({
       draft.returnItemDispos[
         findActiveItem({ keyStr: outActiveDispoItem.dispoItemNum })
       ] = outActiveDispoItem;
-      console.log("Apply Successful")
-     });
+      draft.locSt.rPanActiveKey1 = "";
+    });
   };
 
   const outMethods = {
@@ -114,6 +125,7 @@ function dispoMainMethods({
     setActiveItem,
     editDispoQty,
     chipSelect,
+    damageTypeSelect,
     handleApply,
   };
 

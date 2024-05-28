@@ -1,11 +1,7 @@
 .mrv {
-  & .testStyle {
-    & .startBtnBox {
-      display: flex;
-      flex: 1 1 0rem;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
+  & .testIndex {
+    & .vBox {
+      width: 100%;
     }
   }
 }

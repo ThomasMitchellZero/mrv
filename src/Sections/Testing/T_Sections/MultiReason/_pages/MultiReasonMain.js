@@ -44,21 +44,21 @@ function MultiReasonMain({ tMode = "T1" }) {
     }),
     new returnAtom({
       atomItemNum: "440",
-      atomItemQty: 2,
+      atomItemQty: 1,
       atomMoneyObj: new moneyObj({
         unitBaseValue: 15599,
       }),
     }),
     new returnAtom({
       atomItemNum: "550",
-      atomItemQty: 4,
+      atomItemQty: 8,
       atomMoneyObj: new moneyObj({
         unitBaseValue: 1299,
       }),
     }),
     new returnAtom({
       atomItemNum: "660",
-      atomItemQty: 7,
+      atomItemQty: 10,
       atomMoneyObj: new moneyObj({
         unitBaseValue: 2250,
       }),
