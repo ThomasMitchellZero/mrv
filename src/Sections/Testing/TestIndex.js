@@ -15,7 +15,7 @@ function TestIndex() {
       <section className={`mrvPage testIndex`}>
         <section className={`mrvPanel__main`}>
           <div className={`main_content gap2rem `}>
-            <div className={`vBox alignLeft`}>
+            <div className={`vBox alignLeft maxWidth`}>
               <p className={`heading__small`}>Multi Reason Input</p>
               <div className={`hBox alignLeft`}>
 

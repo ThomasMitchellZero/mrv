@@ -181,8 +181,8 @@ function SetDispos30MRV({
 
       {/* Return Reason Section */}
 
-      <div className="hBox minFlex body">Why is customer returning item?</div>
-      <section className={`tabCtnr `}>
+      <div className="hBox minFlex body goWide">Why is customer returning item?</div>
+      <section className={`tabCtnr goWide`}>
         {tabButton({ category: "didntWant", title: "Didn't Want/Need" })}
         {tabButton({ category: "damaged", title: "Damaged/Defective" })}
       </section>
@@ -190,7 +190,7 @@ function SetDispos30MRV({
       {activeReasonInput}
       <button
         onClick={() => locMethods.handleApply()}
-        className={`secondary maxWidth`}
+        className={`secondary maxWidth goWide`}
       >
         Confirm
       </button>

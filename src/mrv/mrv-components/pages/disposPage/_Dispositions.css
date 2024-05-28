@@ -1,5 +1,9 @@
 .mrv {
   & .disposMain {
+
+    & .goWide {
+      width: 100%;
+    }
     & .disposGrid {
       display: grid;
       grid-template-columns:
@@ -9,7 +13,9 @@
         [disposBadgesCol] 6fr;
       flex: 0 0 auto;
       grid-column-gap: 0;
+      width: 100%;
     }
+    
 
     & .cardStyle {
       flex: 0 0 auto;
@@ -70,6 +76,10 @@
           }
         }
       }
+      
+
+
+
       & .warningCtnr {
         display: flex;
         flex: 0 0 auto;

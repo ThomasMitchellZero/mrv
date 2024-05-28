@@ -18,6 +18,8 @@ import {
   useDispoMainMethods,
 } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
+import { SetDispos30MRV } from "../../../../../mrv/mrv-components/pages/disposPage/SetDispos30MRV";
+
 import {
   baseReturnState,
   returnAtom,
@@ -30,7 +32,6 @@ import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/Ti
 
 import { StartTest } from "./StartTest";
 import { DispoItems70 } from "./DispoItems70_BYD";
-
 
 function MultiReasonMain({ tMode = "T1" }) {
   const testItemAtomsArr = [
@@ -81,7 +82,6 @@ function MultiReasonMain({ tMode = "T1" }) {
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
 
-
   const uiTitleBar = (
     <TitleBarMRV
       showProductName={false}
@@ -98,6 +98,13 @@ function MultiReasonMain({ tMode = "T1" }) {
       setSessionState={setSessionMRV}
       titleBar={uiTitleBar}
       cashTotal={null}
+      panel30={
+        <SetDispos30MRV
+          sessionState={sessionMRV}
+          setSessionState={setSessionMRV}
+          tMode={tMode}
+        />
+      }
       panel70={
         <DispoItems70
           sessionState={sessionMRV}
