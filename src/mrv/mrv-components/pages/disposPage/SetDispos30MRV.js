@@ -24,12 +24,12 @@ function SetDispos30MRV({
   const locMethods = useDispoMainMethods({ sessionState, setSessionState });
 
   const refLocState = baseLocState({});
-  const locSt = sessionState.locSt;
+  const locState = sessionState.locSt;
 
   const refSingleDispo = new SingleDispo({});
 
   // this will change if we ever set global state directly.
-  const activeDisposObj = locSt.pageActiveData1;
+  const activeDisposObj = locState.pageActiveData1;
 
   // deal with changes to the input field
   const handleInputQty = ({ ddKey, event }) => {
@@ -38,7 +38,6 @@ function SetDispos30MRV({
 
     console.log("inputQty", inputQty);
     locMethods.editDispoQty({
-      itemKeyStr: locSt.pageActiveKey1,
       dispoKeyStr: ddKey,
       qty: inputQty,
     });
@@ -54,7 +53,7 @@ function SetDispos30MRV({
             type="number"
             min="0"
             step="1"
-            value={locSt.pageActiveData1.allDisposObj[oDispo.keyStr].qty}
+            value={sessionState.locSt.pageActiveData1.allDisposObj[oDispo.keyStr].dispoQty}
             onChange={(e) => {
               handleInputQty({ ddKey: oDispo.keyStr, event: e });
             }}

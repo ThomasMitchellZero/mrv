@@ -61,21 +61,19 @@ function dispoMainMethods({
     setActiveItem({ keyStr: outKeyStr, clone });
   };
 
-  const editDispoQty = ({ itemKeyStr, dispoKeyStr, qty = 0 }) => {
+  const editDispoQty = ({ dispoKeyStr, qty = 0 }) => {
     const refSingleDispo = new SingleDispo({});
     const refItemDisposObj = new ItemDisposObj({});
 
     //if (!Number.isInteger(qty)) {qty = "";}
 
-    console.log(itemKeyStr, dispoKeyStr);
-
     const refLocState = baseLocState({});
 
-    setSessionState((draft) => {
+    const outActiveItem = cloneDeep(locState.pageActiveData1);
+    outActiveItem.allDisposObj[dispoKeyStr].dispoQty = qty;
 
-      console.log(dispoKeyStr, locState.pageActiveData1);
-      console.log("---", draft.locSt.pageActiveData1.allDisposObj[dispoKeyStr]);
-      draft.locSt.pageActiveData1.allDisposObj[dispoKeyStr].dispoQty = qty;
+    setSessionState((draft) => {
+      draft.locSt.pageActiveData1 = outActiveItem;
     });
   };
 
