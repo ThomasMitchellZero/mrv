@@ -146,12 +146,6 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
       strLabel: "Cosmetic",
     }),
 
-    fiver: new SingleDispo({
-      isDamaged: true,
-      keyStr: "cosmetic",
-      strLabel: "Cosmetic",
-    }),
-
     // Didn't Want / Need Reasons
 
     boughtWrong: new SingleDispo({

@@ -20,6 +20,7 @@ function SetDispos30MRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
   inputComponent = null,
+  tMode = "T1",
 }) {
   const locMethods = useDispoMainMethods({ sessionState, setSessionState });
 
@@ -62,33 +63,9 @@ function SetDispos30MRV({
     );
   };
 
-  const uiDispoInput = (oDispo) => {
-    const refSingleDispo = new SingleDispo({});
-
-    return (
-      <div className={`singleDispoCtnr`} key={oDispo.keyStr}>
-        <MRVinput width={"5rem"}>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={
-              sessionState.locSt.pageActiveData1.allDisposObj[oDispo.keyStr]
-                .dispoQty
-            }
-            onChange={(e) => {
-              handleInputQty({ ddKey: oDispo.keyStr, event: e });
-            }}
-          />
-        </MRVinput>
-        <div className={`body__small color__primary__text`}>
-          {oDispo.strLabel}
-        </div>
-      </div>
-    );
-  };
-
   const refItemDisposObj = new ItemDisposObj({});
+
+  //// Didn't Want / Need Inputs ////////////////////////
 
   const activeAllDispos = activeDisposObj?.allDisposObj || {};
 
@@ -98,17 +75,100 @@ function SetDispos30MRV({
     }
   );
 
+  const uiDidntWantBtn = (oSingleDispo) => {
+    const refSingleDispo = new SingleDispo({});
+
+    return (
+      <button
+        className={`chip ${oSingleDispo.isChosen ? "selected" : ""}`}
+        key={oSingleDispo.keyStr}
+        onClick={() => {
+          console.log('ui', oSingleDispo)
+          locMethods.chipSelect({ dispoKeyStr: oSingleDispo.keyStr });
+        }}
+      >
+        {oSingleDispo.strLabel}
+      </button>
+    );
+  };
+
+  const uiDidntWantBtnGroup = (
+    <div className={`chipCtnr`}>
+      {didntWantCodes.map((dwnObj) => {
+        return uiDidntWantBtn(dwnObj);
+      })}
+    </div>
+  );
+
+  //// Damaged / Defective Inputs ////////////////////////
+
   const damagedCodes = Object.values(activeAllDispos).filter((singleDispo) => {
     return singleDispo.isDamaged === true;
   });
 
-  const aDDdispoFields = damagedCodes.map((iDispo) => {
-    return uiDispoInput(iDispo);
+  const uiDamagedInputField = (ddSingleDispo) => {
+    const refSingleDispo = new SingleDispo({});
+
+    return (
+      <div className={`singleDispoCtnr`} key={ddSingleDispo.keyStr}>
+        <MRVinput width={"5rem"}>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={
+              sessionState.locSt.pageActiveData1.allDisposObj[
+                ddSingleDispo.keyStr
+              ].dispoQty
+            }
+            onChange={(e) => {
+              handleInputQty({ ddKey: ddSingleDispo.keyStr, event: e });
+            }}
+          />
+        </MRVinput>
+        <div className={`body__small color__primary__text`}>
+          {ddSingleDispo.strLabel}
+        </div>
+      </div>
+    );
+  };
+
+  const uiDamagedBtn = (ddSingleDispo) => {
+    const refSingleDispo = new SingleDispo({});
+
+    return (
+      <button
+        className={`chip ${ddSingleDispo.selected ? "selected" : ""}`}
+        key={ddSingleDispo.keyStr}
+        onClick={() => {
+          locMethods.chipSelect({ dispoKeyStr: ddSingleDispo.keyStr });
+        }}
+      >
+        {ddSingleDispo.strLabel}
+      </button>
+    );
+  };
+
+  const uiDamagedInputFieldGroup = (
+    <div className={` inputDisposCtnr`}>
+      {damagedCodes.map((singleDispo) => {
+        return uiDamagedInputField(singleDispo);
+      })}
+    </div>
+  );
+
+  const uiDamagedBtnArr = damagedCodes.map((ddSingleDispo) => {
+    return uiDamagedBtn(ddSingleDispo);
   });
 
-  aDDdispoFields.push(
-    <div className={`singleDispoCtnr spacer`} key={"spacer"}></div>
-  );
+  const activeReasonInput =
+    locState.rPanActiveUI1 === "didntWant"
+      ? uiDidntWantBtnGroup
+      : tMode === "T1" && locState.rPanActiveUI1 === "damaged"
+      ? uiDamagedInputFieldGroup
+      : tMode === "T2" && locState.rPanActiveUI1 === "damaged"
+      ? uiDamagedBtnArr
+      : null;
 
   const uiItemActive = activeDisposObj ? (
     <div className={`main_content gap1rem`}>
@@ -127,28 +187,7 @@ function SetDispos30MRV({
         {tabButton({ category: "damaged", title: "Damaged/Defective" })}
       </section>
 
-      {/*  this was copied over, not sure how relevant.
-            
-                      {locStMI.activeTab === "dwn" ? (
-            <section className={`dwnDispoCtnr`}>
-              <p className={`tinyText reasonExplainer`}>
-                Select all reasons customer doesn't want items
-              </p>
-              {dwnButtonsArr}
-            </section>
-          ) : (
-            <section className={`ddDisposCtnr`}>
-              <p className={`tinyText reasonExplainer`}>
-                Enter types and qtys of any damaged items
-              </p>
-
-              {aDDdispoFields}
-            </section>
-          )}
-            
-             */}
-
-      <div className={` inputDisposCtnr`}>{aDDdispoFields}</div>
+      {activeReasonInput}
       <button className={`secondary maxWidth`}>Confirm</button>
       <div className={`warningCtnr`}></div>
     </div>
@@ -156,7 +195,9 @@ function SetDispos30MRV({
 
   return (
     <section className={`mrvPanel__side color__surface__default SetDispos30`}>
-      <div className={`hBox minFlex padding__both heading__medium`}>Item Details</div>
+      <div className={`hBox minFlex padding__both heading__medium`}>
+        Item Details
+      </div>
       {uiItemActive}
       {/*<div className={`footer_content`}></div> */}
     </section>

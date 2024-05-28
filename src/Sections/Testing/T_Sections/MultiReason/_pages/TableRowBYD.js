@@ -25,7 +25,6 @@ const TableRowBYD = ({
 
   // refit these to use context, but later.
   const sessionSt = sessionState;
-  const setSessionSt = setSessionState;
   const locSt = sessionSt.locSt;
 
 

@@ -61,11 +61,15 @@ function dispoMainMethods({
     setActiveItem({ keyStr: outKeyStr, clone });
   };
 
+  const tabClick = ({ category }) => {
+    setSessionState((draft) => {
+      draft.locSt.rPanActiveUI1 = category;
+    });
+  };
+
   const editDispoQty = ({ dispoKeyStr, qty = 0 }) => {
     const refSingleDispo = new SingleDispo({});
     const refItemDisposObj = new ItemDisposObj({});
-
-    //if (!Number.isInteger(qty)) {qty = "";}
 
     const refLocState = baseLocState({});
 
@@ -77,13 +81,21 @@ function dispoMainMethods({
     });
   };
 
-  const tabClick = ({ category }) => { 
+  const chipSelect = ({ dispoKeyStr = "" }) => {
+    const refSingleDispo = new SingleDispo({});
+
+    const outActiveItem = cloneDeep(locState.pageActiveData1);
+
+    console.log(outActiveItem.allDisposObj, '---', dispoKeyStr);
+    outActiveItem.allDisposObj[dispoKeyStr].isChosen =
+      !outActiveItem.allDisposObj[dispoKeyStr].isChosen;
+
     setSessionState((draft) => {
-      draft.locSt.rPanActiveUI1 = category;
+      draft.locSt.pageActiveData1 = outActiveItem;
     });
   };
 
-  const outMethods = { missingDispos, setActiveItem, editDispoQty, tabClick };
+  const outMethods = { missingDispos, tabClick, setActiveItem, editDispoQty, chipSelect  };
 
   return outMethods;
 }
