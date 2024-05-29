@@ -14,6 +14,8 @@ function MRVitemDetails({
   priceInCents = undefined,
   showQty = true,
   qty = undefined,
+  underArr = [],
+  underArrWithContainer = null
 }) {
   const productContext = useContext(ProductContext);
   const centsToDollars = useCentsToDollars();
@@ -56,6 +58,10 @@ function MRVitemDetails({
           {ctxItemInfo.description}
         </div>
       </section>
+      <section className={`underArr`}>
+        {underArr}
+      </section>
+      {underArrWithContainer}
     </section>
   );
 }

@@ -1,0 +1,27 @@
+.mrv {
+  .badge {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    height: 2rem;
+    padding: 0rem 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    color: white;
+    background-color: magenta;
+
+    &.neutral {
+      background-color: var(--color__surface__lightgrey);
+      color: var(--color__primary);
+    }
+    &.green {
+    }
+    &.gold {
+    }
+    &.red {
+    }
+    &.brandBlue {
+    }
+  }
+}

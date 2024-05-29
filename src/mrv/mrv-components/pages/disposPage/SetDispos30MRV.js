@@ -5,6 +5,8 @@ import {
   baseLocState,
 } from "../../../../globalFunctions/globalJS_classes";
 
+import { useRef } from "react";
+
 import { useImmer, useImmerReducer } from "use-immer";
 import { cloneDeep } from "lodash";
 import { useOutletContext } from "react-router";
@@ -32,6 +34,8 @@ function SetDispos30MRV({
   // this will change if we ever set global state directly.
   const activeDisposObj = locState.pageActiveData1;
 
+  const inputRef = useRef(null);
+
   /////////////////// LOCAL FUNCTIONS //////////////////////
 
   // deal with changes to the input field
@@ -42,6 +46,11 @@ function SetDispos30MRV({
       dispoKeyStr: ddKey,
       qty: inputQty,
     });
+  };
+
+  const handleDamgeTypeSelect = ({ dispoKeyStr }) => {
+    locMethods.damageTypeSelect({ dispoKeyStr });
+    inputRef.current.focus();
   };
 
   /////////////////// UI COMPONENTS //////////////////////
@@ -83,7 +92,6 @@ function SetDispos30MRV({
         className={`chip ${oSingleDispo.isChosen ? "selected" : ""}`}
         key={oSingleDispo.keyStr}
         onClick={() => {
-          console.log("ui", oSingleDispo);
           locMethods.chipSelect({ dispoKeyStr: oSingleDispo.keyStr });
         }}
       >
@@ -142,16 +150,17 @@ function SetDispos30MRV({
         ? "selected"
         : "";
 
+    const numStr = ddSingleDispo.dispoQty > 0 ? `: ${ddSingleDispo.dispoQty}` : "";
+
     return (
       <button
         className={`chip ${style}`}
         key={ddSingleDispo.keyStr}
         onClick={() => {
-          console.log("ui", ddSingleDispo.keyStr);
-          locMethods.damageTypeSelect({ dispoKeyStr: ddSingleDispo.keyStr });
+          handleDamgeTypeSelect({ dispoKeyStr: ddSingleDispo.keyStr });
         }}
       >
-        {ddSingleDispo.strLabel}
+        {`${ddSingleDispo.strLabel} ${numStr}`}
       </button>
     );
   };
@@ -172,11 +181,16 @@ function SetDispos30MRV({
         </div>
         <MRVinput width={"5rem"}>
           <input
+            ref={inputRef}
+            id="damagedQtyInput"
             type="number"
             min="0"
             disabled={!locState.rPanActiveKey1}
             step="1"
-            value={locState?.pageActiveData1?.allDisposObj[locState.rPanActiveKey1]?.dispoQty}
+            value={
+              locState?.pageActiveData1?.allDisposObj[locState.rPanActiveKey1]
+                ?.dispoQty || ""
+            }
             onChange={(e) => {
               handleInputQty({ ddKey: locState.rPanActiveKey1, event: e });
             }}
@@ -224,7 +238,7 @@ function SetDispos30MRV({
         onClick={() => locMethods.handleApply()}
         className={`secondary submitBtn maxWidth goWide`}
       >
-        Confirm
+        Apply
       </button>
       <div className={`warningCtnr`}></div>
     </div>
