@@ -12,12 +12,13 @@ import {
 
 import { MRVitemDetails } from "../../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 
+import { BadgeMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/BadgeMRV";
+
 const TableRowBYD = ({
   thisItemDisposObj = new ItemDisposObj({}),
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
 }) => {
-
   const locMethods = useDispoMainMethods({
     sessionState,
     setSessionState,
@@ -26,7 +27,6 @@ const TableRowBYD = ({
   // refit these to use context, but later.
   const sessionSt = sessionState;
   const locSt = sessionSt.locSt;
-
 
   const refLocState = baseLocState({});
 
@@ -47,6 +47,26 @@ const TableRowBYD = ({
     locMethods.setActiveItem({ keyStr: thisItemNum });
   };
 
+  const allAssignedDisposObj = locMethods.filterAssignedDispos({
+    thisItemDisposObj: thisItemDisposObj,
+  });
+
+  // separating these two in case I want to handle them differently later.
+  const uiAssignedDamaged = allAssignedDisposObj.damaged.map(
+    (thisSingleDispo) => {
+      const refSingleDispo = new SingleDispo({});
+      const badgeText = `${thisSingleDispo.strLabel} : ${thisSingleDispo.dispoQty}`;
+      return <BadgeMRV key={thisSingleDispo.dispoKey} badgeText={badgeText} />;
+    }
+  );
+  const uiAssignedDidntWant = allAssignedDisposObj.didntWant.map(
+    (thisSingleDispo) => {
+      const refSingleDispo = new SingleDispo({});
+      const badgeText = `${thisSingleDispo.strLabel}`;
+      return <BadgeMRV key={thisSingleDispo.dispoKey} badgeText={badgeText} />;
+    }
+  );
+
   return (
     <div
       key={thisItemNum}
@@ -60,6 +80,7 @@ const TableRowBYD = ({
           showPrice={false}
           showQty={false}
           thisItemAtom={thisAtom}
+          underArr={[...uiAssignedDidntWant, ...uiAssignedDamaged]}
         />
       </div>
       <div className={`gCol itemQty`}>

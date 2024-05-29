@@ -25,6 +25,17 @@
             white-space: pre-wrap;
             width: 100%;
             flex: 1 1 0rem;
+
+            & .underArr{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                align-items: center;
+                justify-content: flex-start;
+                flex: 0 0 auto;
+                width: 100%;
+            }
         };
     
         & .textRow{

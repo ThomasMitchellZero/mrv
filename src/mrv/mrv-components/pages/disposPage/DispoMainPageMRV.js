@@ -106,7 +106,7 @@ function dispoMainMethods({
     });
   };
 
-  const dispoAssignedBadger = ({thisItemDisposObj}) => {
+  const filterAssignedDispos = ({thisItemDisposObj}) => {
     const refItemDisposObj = new ItemDisposObj({});
     const refSingleDispo = new SingleDispo({});
     const outFilteredDispos = {
@@ -115,12 +115,12 @@ function dispoMainMethods({
     };
 
     // filter for Damaged dispos that have a qty assigned.
-    outFilteredDispos.damaged = Object.values(thisItemDisposObj.allDisposObj).filter((thisSignleDispo) => {
-      return thisSignleDispo.isDamaged && thisSignleDispo.dispoQty > 0;
+    outFilteredDispos.damaged = Object.values(thisItemDisposObj.allDisposObj).filter((thisSingleDispo) => {
+      return thisSingleDispo.isDamaged && thisSingleDispo.dispoQty > 0;
     });
     // filter for dispos that are not damaged and were chosen.
-    outFilteredDispos.didntWant = Object.values(thisItemDisposObj.allDisposObj).filter((thisSignleDispo) => {
-      return !thisSignleDispo.isDamaged && thisSignleDispo.isChosen;
+    outFilteredDispos.didntWant = Object.values(thisItemDisposObj.allDisposObj).filter((thisSingleDispo) => {
+      return !thisSingleDispo.isDamaged && thisSingleDispo.isChosen;
     });
     return outFilteredDispos;
   }
@@ -145,7 +145,7 @@ function dispoMainMethods({
     editDispoQty,
     chipSelect,
     damageTypeSelect,
-    dispoAssignedBadger,
+    filterAssignedDispos,
     handleApply,
   };
 
