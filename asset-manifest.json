@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/mrv/static/css/main.49e4ea2f.css",
-    "main.js": "/mrv/static/js/main.2393ede0.js",
+    "main.js": "/mrv/static/js/main.36dddd52.js",
     "static/media/Fellix-Regular.otf": "/mrv/static/media/Fellix-Regular.af2bee556f001452e682.otf",
     "static/media/shower.png": "/mrv/static/media/shower.fde7773492bafa96c670.png",
     "static/media/plywood.png": "/mrv/static/media/plywood.fd26abe25835c116223f.png",
@@ -23,10 +23,10 @@
     "static/media/universal-scan.svg": "/mrv/static/media/universal-scan.bbfde7688dd9aad80dad4b61704ca798.svg",
     "static/media/blank.svg": "/mrv/static/media/blank.b787e2f680a11cc96c218e5ec5bb0c85.svg",
     "main.49e4ea2f.css.map": "/mrv/static/css/main.49e4ea2f.css.map",
-    "main.2393ede0.js.map": "/mrv/static/js/main.2393ede0.js.map"
+    "main.36dddd52.js.map": "/mrv/static/js/main.36dddd52.js.map"
   },
   "entrypoints": [
     "static/css/main.49e4ea2f.css",
-    "static/js/main.2393ede0.js"
+    "static/js/main.36dddd52.js"
   ]
 }
