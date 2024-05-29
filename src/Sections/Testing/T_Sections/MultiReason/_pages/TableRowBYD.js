@@ -1,6 +1,11 @@
 //itemCard
 
 import { useOutletContext } from "react-router";
+
+import {
+  centStringifier,
+  centsToDollars,
+} from "../../../../../mrv/MRVhooks/MRVhooks";
 import { useDispoMainMethods } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 import {
   returnAtom,
@@ -76,7 +81,11 @@ const TableRowBYD = ({
       }}
     >
       <div className={`gCol activeBar`}></div>
-      <div className={`gCol itemNum`}></div>
+      <div className={`gCol invoice`}>
+        <div
+          className={`body__small color__primary__text minFlex minWidth`}
+        >#88883333</div>
+      </div>
       <div className="itemDetailsCtnr">
         <MRVitemDetails
           showPrice={false}
@@ -85,22 +94,29 @@ const TableRowBYD = ({
           underArr={[...uiAssignedDidntWant, ...uiAssignedDamaged]}
         />
       </div>
+
+      <div className={`gCol unitPrice`}>
+        <div className={`body bold color__primary__text minFlex minWidth`}>
+          {centStringifier({
+            valueInCents: thisItemDisposObj.dispoItemAtom.atomMoneyObj.subTotal,
+          })}
+        </div>
+      </div>
       <div className={`gCol itemQty`}>
-        <p>fart</p>
-        <div
-          className={`heading__medium color__primary__text hBox minFlex minWidth`}
-        >
+        <div className={`body__small color__primary__text minFlex minWidth`}>
           {thisItemDisposObj.itemQty}
         </div>
       </div>
-      <div className={`gCol dispoQty`}>
-        <div
-          className={`heading__medium ${sProvidedColor} hBox minFlex minWidth`}
-        >
-          {thisItemDisposObj.itemQty - thisItemDisposObj.qtySansDispo}
+      <div className={`gCol totalPrice`}>
+        <div className={`body bold color__primary__text minFlex minWidth`}>
+          {centStringifier({
+            valueInCents:
+              thisItemDisposObj.dispoItemAtom.atomMoneyObj.subTotal *
+              thisItemDisposObj.itemQty,
+          })}
         </div>
       </div>
-      <div className={`gCol disposBadges`}></div>
+      <div className={`gCol status`}></div>
     </div>
   );
 };

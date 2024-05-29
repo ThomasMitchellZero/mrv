@@ -83,6 +83,10 @@
     background-color: var(--color__surface__default);
   }
 
+  & .color__surface__lightgrey {
+    background-color: var(--color__surface__lightgrey);
+  }
+
   & .color__primary__text {
     color: var(--color__primary);
   }

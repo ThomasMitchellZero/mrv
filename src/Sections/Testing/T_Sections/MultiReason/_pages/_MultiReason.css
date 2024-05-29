@@ -1,5 +1,5 @@
 .mrv {
-  & .mrvPage{
+  & .mrvPage {
     background-color: var(--color__surface__default);
   }
   & .multiReason {
@@ -7,11 +7,11 @@
       width: 100%;
     }
 
-    & .mrvPanel__main{
+    & .mrvPanel__main {
       border-right: 0.5rem solid var(--color__surface__subdued);
     }
 
-    & .cardContainer{
+    & .cardContainer {
       gap: 0rem;
     }
     & .disposGrid {
@@ -20,9 +20,10 @@
         [activeBarCol] 0.5rem
         [invoiceCol] 3fr
         [itemDetailsCtnrCol] 16fr
-        [itemQtyCol] 4fr
-        [dispoQtyCol] 4fr
-        [disposBadgesCol] 6fr;
+        [unitPriceCol] 4fr
+        [itemQtyCol] 3fr
+        [totalPriceCol] 4fr
+        [statusCol] 6fr;
       flex: 0 0 auto;
       grid-column-gap: 0;
       width: 100%;
@@ -38,13 +39,12 @@
 
       &:hover {
         cursor: pointer;
-        background-color: #efefef
+        background-color: #efefef;
       }
 
       &.selected {
         & .activeBar {
           background-color: var(--color__interactive);
-          
         }
       }
 
@@ -55,25 +55,40 @@
         justify-content: center;
       }
 
-
+      & .invoice {
+        grid-column: invoiceCol / span 1;
+        background-color: lightgoldenrodyellow;
+      }
 
       & .itemDetailsCtnr {
         grid-column: itemDetailsCtnrCol / span 1;
         background-color: bisque;
       }
+      & .unitPrice {
+        grid-column: unitPriceCol / span 1;
+        background-color: lightblue;
+      }
       & .itemQty {
         grid-column: itemQtyCol / span 1;
         background-color: cyan;
+
+        & div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0rem 0.5rem;
+          border-radius: 4rem;
+          background-color: var(--color__surface__lightgrey);
+        }
       }
-      & .dispoQty {
-        grid-column: dispoQtyCol / span 1;
+      & .totalPrice {
+        grid-column: totalPriceCol / span 1;
         background-color: mediumaquamarine;
       }
-      & .disposBadges {
-        grid-column: disposBadgesCol / span 1;
+      & .status {
+        grid-column: statusCol / span 1;
         background-color: lightcoral;
       }
     }
   }
-
 }
