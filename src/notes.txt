@@ -7655,8 +7655,25 @@ What to do today?
 
     Assuming that is OK, next thing is the multi-chip selection.  
 
+29 May 2024
+    8:45.
+    I woke up feeling rested!  This is it.  Tomorrow we are definitely on-stage, so now we gotta make all the changes we need.
 
+    First thing first.  We ARE NOT going to fiddle with the useRef on T2.  We aren't.  That's the kind of thing we just CANNOT STOP FUCKING WITH and before we know it we've lost 4 critical hours.  
 
+    We still need: 
+        x -Numbers on the chips.
+        - Dispos applied to TR elements
+            - MRV Badge component
+            - a function to filter, badge and add all dispos.
+            - this should live in the top container, since the <trs> could vary and I don't want to have to re-sort it.
+
+        -Possibly numbers in the D/D tab? 
+        -Returns-like styling for the <trs> 
+        -Returns-like number data?
+            -Or I could just take this stupid thing out.
+        
+    I WAS planning to do some validation prior to the test, but I just now realized that 0 actually is a valid quantity.  If they made a mistake we need to allow them to undo it.
 
 
 

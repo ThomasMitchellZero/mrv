@@ -75,7 +75,7 @@ const TableRowBYD = ({
   return (
     <div
       key={thisItemNum}
-      className={`rowStyle hasHover disposGrid BYDtableRow ${isActive}`}
+      className={` disposGrid BYDtableRow ${isActive}`}
       onClick={(e) => {
         handleCardClick(e);
       }}
@@ -84,7 +84,7 @@ const TableRowBYD = ({
       <div className={`gCol invoice`}>
         <div
           className={`body__small color__primary__text minFlex minWidth`}
-        >#88883333</div>
+        >#888333</div>
       </div>
       <div className="itemDetailsCtnr">
         <MRVitemDetails

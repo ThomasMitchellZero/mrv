@@ -22,6 +22,12 @@ function dispoMainMethods({
 }) {
   const locState = sessionState.locSt;
 
+  const clearErrorState = () => {
+    setSessionState((draft) => {
+      draft.locSt.locStError1 = "";
+    });
+  };
+
   const findActiveItem = ({ keyStr = "" }) => {
     // loops through the ReturnItemDispos array and returns the object that matches the keyStr
     const refItemDisposObj = new ItemDisposObj({});
@@ -44,6 +50,7 @@ function dispoMainMethods({
         ? cloneDeep(sessionState.returnItemDispos[itemIndex])
         : sessionState.returnItemDispos[itemIndex];
       draft.locSt.rPanActiveKey1 = "";
+      draft.locSt.locStError1 = "";
     });
   };
 
@@ -65,6 +72,7 @@ function dispoMainMethods({
   const tabClick = ({ category }) => {
     setSessionState((draft) => {
       draft.locSt.rPanActiveUI1 = category;
+      draft.locSt.locStError1 = "";
     });
   };
 
@@ -79,6 +87,7 @@ function dispoMainMethods({
 
     setSessionState((draft) => {
       draft.locSt.pageActiveData1 = outActiveItem;
+      draft.locSt.locStError1 = "";
     });
   };
 
@@ -87,12 +96,12 @@ function dispoMainMethods({
 
     const outActiveItem = cloneDeep(locState.pageActiveData1);
 
-    console.log(outActiveItem.allDisposObj, "---", dispoKeyStr);
     outActiveItem.allDisposObj[dispoKeyStr].isChosen =
       !outActiveItem.allDisposObj[dispoKeyStr].isChosen;
 
     setSessionState((draft) => {
       draft.locSt.pageActiveData1 = outActiveItem;
+      draft.locSt.locStError1 = "";
     });
   };
 
@@ -106,7 +115,7 @@ function dispoMainMethods({
     });
   };
 
-  const filterAssignedDispos = ({thisItemDisposObj}) => {
+  const filterAssignedDispos = ({ thisItemDisposObj }) => {
     const refItemDisposObj = new ItemDisposObj({});
     const refSingleDispo = new SingleDispo({});
     const outFilteredDispos = {
@@ -115,15 +124,19 @@ function dispoMainMethods({
     };
 
     // filter for Damaged dispos that have a qty assigned.
-    outFilteredDispos.damaged = Object.values(thisItemDisposObj.allDisposObj).filter((thisSingleDispo) => {
+    outFilteredDispos.damaged = Object.values(
+      thisItemDisposObj.allDisposObj
+    ).filter((thisSingleDispo) => {
       return thisSingleDispo.isDamaged && thisSingleDispo.dispoQty > 0;
     });
     // filter for dispos that are not damaged and were chosen.
-    outFilteredDispos.didntWant = Object.values(thisItemDisposObj.allDisposObj).filter((thisSingleDispo) => {
+    outFilteredDispos.didntWant = Object.values(
+      thisItemDisposObj.allDisposObj
+    ).filter((thisSingleDispo) => {
       return !thisSingleDispo.isDamaged && thisSingleDispo.isChosen;
     });
     return outFilteredDispos;
-  }
+  };
 
   const handleApply = () => {
     const refItemDisposObj = new ItemDisposObj({});
