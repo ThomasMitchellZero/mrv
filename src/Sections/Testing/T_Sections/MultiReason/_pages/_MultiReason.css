@@ -12,6 +12,15 @@
 
     & .mrvPanel__main {
       border-right: 0.5rem solid var(--color__surface__subdued);
+
+      & .infoCell{
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+        padding: 0rem;
+        width: 100%;
+        padding-bottom: 1rem;
+      }
     }
 
     & .cardContainer {

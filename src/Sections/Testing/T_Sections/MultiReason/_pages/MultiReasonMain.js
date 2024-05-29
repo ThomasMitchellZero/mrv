@@ -84,7 +84,6 @@ function MultiReasonMain({ tMode = "T1" }) {
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
 
-
   const uiMainDispoPage = (
     <DispoMainPageMRV
       sessionState={sessionMRV}
@@ -97,7 +96,9 @@ function MultiReasonMain({ tMode = "T1" }) {
           tMode={tMode}
           headerContent={<HeaderBYDMRV title={"Reason For Return"} />}
           footerContent={
-            <div className={`color__surface__subdued footer_content`}></div>
+            <div className={`color__surface__subdued footer_content`}>
+              <button className={`primary jumbo maxFlex`}>Continue</button>
+            </div>
           }
         />
       }

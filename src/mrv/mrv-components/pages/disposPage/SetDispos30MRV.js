@@ -187,9 +187,6 @@ function SetDispos30MRV({
   const uiDamagedBtnGroup = (
     <div className={`damagedChipsCtnr`}>
       <div className={`singeFieldCtnr`}>
-        <div className={`inputLabel body color__primary__text `}>
-          Select reason & enter qty:
-        </div>
         <MRVinput width={"5rem"}>
           <input
             ref={inputRef}
@@ -207,6 +204,9 @@ function SetDispos30MRV({
             }}
           />
         </MRVinput>
+        <div className={`inputLabel body color__primary__text `}>
+          Select reason & enter qty
+        </div>
       </div>
       <div className={`chipCtnr`}>
         {damagedCodes.map((ddSingleDispo) => {

@@ -11,6 +11,8 @@ import { TableRowBYD } from "./TableRowBYD";
 
 import { HeaderBYDMRV } from "../../../../../mrv/byd_mrv/HeaderBYDMRV";
 
+import { FakeCashTotalBYD } from "./FakeCashTotalBYD";
+
 import { DispoItemCard } from "../../../../../mrv/mrv-components/pages/disposPage/DispoItemCard";
 
 const DispoItems70BYD = ({
@@ -39,6 +41,15 @@ const DispoItems70BYD = ({
 
       <div className={`main_content`}>
         {/*headers*/}
+        <div className={`infoCell color__primary__text body__small bold`}>
+          <div className={`color__primary__text body__small bold`}>
+            Click an item to provide damaged/defective reason
+          </div>
+          <div className={`color__primary__text body__small keepSpace`}>
+            {`Total Invoices: 1        Total Items: 4`}
+          </div>
+        </div>
+
         <div className={`disposGrid BYDheaderRow`}>
           <div className={`gCol activeBar `}></div>
           <div className={`gCol spaceBar `}></div>
@@ -55,18 +66,8 @@ const DispoItems70BYD = ({
         <div className={`cardContainer disposGrid`}>{uiCardArray}</div>
       </div>
       <div className={`footer_content color__surface__subdued`}>
-        {cashTotal}
-        <div
-          onClick={(e) => {
-            console.log("button BG register");
-            e.stopPropagation();
-          }}
-          className={`buttonBox25`}
-        >
-          <button className={`primary jumbo maxFlex`} onClick={handleContinue}>
-            Continue
-          </button>
-        </div>
+        <div className={"hBox maxFlex"} />
+        <FakeCashTotalBYD />
       </div>
     </main>
   );
