@@ -70,11 +70,13 @@ const TableRowBYD = ({
   return (
     <div
       key={thisItemNum}
-      className={`cardStyle hasHover disposGrid BYDtableRow ${isActive}`}
+      className={`rowStyle hasHover disposGrid BYDtableRow ${isActive}`}
       onClick={(e) => {
         handleCardClick(e);
       }}
     >
+      <div className={`gCol activeBar`}></div>
+      <div className={`gCol itemNum`}></div>
       <div className="itemDetailsCtnr">
         <MRVitemDetails
           showPrice={false}

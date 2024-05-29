@@ -1,10 +1,79 @@
 .mrv {
+  & .mrvPage{
+    background-color: var(--color__surface__default);
+  }
   & .multiReason {
-    & .itemTable{
-
+    & .goWide {
+      width: 100%;
     }
-    & .BYDtableRow{
 
+    & .mrvPanel__main{
+      border-right: 0.5rem solid var(--color__surface__subdued);
+    }
+
+    & .cardContainer{
+      gap: 0rem;
+    }
+    & .disposGrid {
+      display: grid;
+      grid-template-columns:
+        [activeBarCol] 0.5rem
+        [invoiceCol] 3fr
+        [itemDetailsCtnrCol] 16fr
+        [itemQtyCol] 4fr
+        [dispoQtyCol] 4fr
+        [disposBadgesCol] 6fr;
+      flex: 0 0 auto;
+      grid-column-gap: 0;
+      width: 100%;
+    }
+
+    & .rowStyle {
+      padding: 1rem 0rem;
+      display: grid;
+      grid-template-columns: subgrid;
+      grid-column: activeBarCol / -1;
+      background-color: var(--color__surface__default);
+      border-bottom: 1.5px solid var(--color__border);
+
+      &:hover {
+        cursor: pointer;
+        background-color: #efefef
+      }
+
+      &.selected {
+        & .activeBar {
+          background-color: var(--color__interactive);
+          
+        }
+      }
+
+      & .gCol {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+
+
+      & .itemDetailsCtnr {
+        grid-column: itemDetailsCtnrCol / span 1;
+        background-color: bisque;
+      }
+      & .itemQty {
+        grid-column: itemQtyCol / span 1;
+        background-color: cyan;
+      }
+      & .dispoQty {
+        grid-column: dispoQtyCol / span 1;
+        background-color: mediumaquamarine;
+      }
+      & .disposBadges {
+        grid-column: disposBadgesCol / span 1;
+        background-color: lightcoral;
+      }
     }
   }
+
 }

@@ -135,10 +135,10 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
       keyStr: "missingParts",
       strLabel: "Missing Parts",
     }),
-    broken: new SingleDispo({
+    rusted: new SingleDispo({
       isDamaged: true,
-      keyStr: "broken",
-      strLabel: "Broken",
+      keyStr: "rusted",
+      strLabel: "Rusted Metal",
     }),
     cosmetic: new SingleDispo({
       isDamaged: true,
@@ -167,6 +167,11 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
       isDamaged: false,
       keyStr: "tooMany",
       strLabel: "Bought Too Many",
+    }),
+    other: new SingleDispo({
+      isDamaged: false,
+      keyStr: "other",
+      strLabel: "Other Reason",
     }),
   };
 

@@ -21,7 +21,7 @@ import { MRVinput } from "../../inputs/MRVinput";
 function SetDispos30MRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
-  inputComponent = null,
+  footerContent = <div className={`footer_content`}></div>,
   tMode = "T1",
 }) {
   const locMethods = useDispoMainMethods({ sessionState, setSessionState });
@@ -150,7 +150,8 @@ function SetDispos30MRV({
         ? "selected"
         : "";
 
-    const numStr = ddSingleDispo.dispoQty > 0 ? `: ${ddSingleDispo.dispoQty}` : "";
+    const numStr =
+      ddSingleDispo.dispoQty > 0 ? `: ${ddSingleDispo.dispoQty}` : "";
 
     return (
       <button
@@ -215,11 +216,12 @@ function SetDispos30MRV({
       : null;
 
   const uiItemActive = activeDisposObj ? (
-    <div className={`main_content gap1rem`}>
+    <>
       <div className={`hBox minFlex goWide`}>
         <MRVitemDetails
           thisItemAtom={activeDisposObj.dispoItemAtom}
           showQty={false}
+          showPrice={false}
         />
       </div>
 
@@ -241,7 +243,7 @@ function SetDispos30MRV({
         Apply
       </button>
       <div className={`warningCtnr`}></div>
-    </div>
+    </>
   ) : null;
 
   return (
@@ -249,8 +251,9 @@ function SetDispos30MRV({
       <div className={`hBox minFlex padding__both heading__medium`}>
         Item Details
       </div>
-      {uiItemActive}
-      {/*<div className={`footer_content`}></div> */}
+      <div className={`main_content gap1rem`}> {uiItemActive}</div>
+
+      {footerContent}
     </section>
   );
 }

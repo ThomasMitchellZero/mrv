@@ -18,6 +18,7 @@ import {
   useDispoMainMethods,
 } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
+
 import { SetDispos30MRV } from "../../../../../mrv/mrv-components/pages/disposPage/SetDispos30MRV";
 
 import {
@@ -31,7 +32,7 @@ import { useImmer } from "use-immer";
 import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
 
 import { StartTest } from "./StartTest";
-import { DispoItems70 } from "./DispoItems70_BYD";
+import { DispoItems70BYD } from "./DispoItems70_BYD";
 
 function MultiReasonMain({ tMode = "T1" }) {
   const testItemAtomsArr = [
@@ -60,7 +61,7 @@ function MultiReasonMain({ tMode = "T1" }) {
       atomItemNum: "660",
       atomItemQty: 10,
       atomMoneyObj: new moneyObj({
-        unitBaseValue: 2250,
+        unitBaseValue: 1799,
       }),
     }),
   ];
@@ -78,6 +79,7 @@ function MultiReasonMain({ tMode = "T1" }) {
   });
   startReturnState.locSt = baseLocState({
     rPanActiveUI1: "didntWant",
+
   });
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
@@ -103,12 +105,14 @@ function MultiReasonMain({ tMode = "T1" }) {
           sessionState={sessionMRV}
           setSessionState={setSessionMRV}
           tMode={tMode}
+          footerContent={<div className={`color__surface__subdued footer_content`}></div>}
         />
       }
       panel70={
-        <DispoItems70
+        <DispoItems70BYD
           sessionState={sessionMRV}
           setSessionState={setSessionMRV}
+          
         />
       }
     />
@@ -116,8 +120,8 @@ function MultiReasonMain({ tMode = "T1" }) {
 
   return (
     <section className={`mrv`}>
-      <section className={`mrvPage testStyle`}>
-        <section className={`mrvPanel__main `}>{uiMainDispoPage}</section>
+      <section className={`mrvPage testStyle multiReason`}>
+        <section className={`mrvPanel__main`}>{uiMainDispoPage}</section>
       </section>
     </section>
   );

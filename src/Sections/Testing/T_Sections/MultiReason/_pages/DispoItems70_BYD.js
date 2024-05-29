@@ -11,9 +11,11 @@ import { TitleBarMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/Ti
 import { CashTotalMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/CashTotalMRV";
 import { TableRowBYD } from "./TableRowBYD";
 
+import { DispoItemCard } from "../../../../../mrv/mrv-components/pages/disposPage/DispoItemCard";
 
 
-const DispoItems70 = ({
+
+const DispoItems70BYD = ({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
   handleContinue = () => console.log("No Continue Handler Provided"),
@@ -45,7 +47,7 @@ const DispoItems70 = ({
       <div className={`main_content`}>
         <div className={`cardContainer disposGrid`}>{uiCardArray}</div>
       </div>
-      <div className={`footer_content`}>
+      <div className={`footer_content color__surface__subdued`}>
         {cashTotal}
         <div
           onClick={(e) => {
@@ -63,4 +65,4 @@ const DispoItems70 = ({
   );
 };
 
-export { DispoItems70 };
+export { DispoItems70BYD };
