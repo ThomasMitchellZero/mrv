@@ -81,6 +81,7 @@ const TableRowBYD = ({
       }}
     >
       <div className={`gCol activeBar`}></div>
+      <div className={`gCol spaceBar`}></div>
       <div className={`gCol invoice`}>
         <div
           className={`body__small color__primary__text minFlex minWidth`}

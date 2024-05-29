@@ -6,6 +6,8 @@ import InvoContext from "../../../../../store/invo-context";
 
 import { useEffect } from "react";
 
+import { HeaderBYDMRV } from "../../../../../mrv/byd_mrv/HeaderBYDMRV";
+
 import {
   useSetSessionInvos,
   useSetSessionItems,
@@ -17,7 +19,6 @@ import {
   DispoMainPageMRV,
   useDispoMainMethods,
 } from "../../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
-
 
 import { SetDispos30MRV } from "../../../../../mrv/mrv-components/pages/disposPage/SetDispos30MRV";
 
@@ -79,7 +80,6 @@ function MultiReasonMain({ tMode = "T1" }) {
   });
   startReturnState.locSt = baseLocState({
     rPanActiveUI1: "didntWant",
-
   });
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
@@ -105,14 +105,16 @@ function MultiReasonMain({ tMode = "T1" }) {
           sessionState={sessionMRV}
           setSessionState={setSessionMRV}
           tMode={tMode}
-          footerContent={<div className={`color__surface__subdued footer_content`}></div>}
+          headerContent={<HeaderBYDMRV title={"Reason For Return"} />}
+          footerContent={
+            <div className={`color__surface__subdued footer_content`}></div>
+          }
         />
       }
       panel70={
         <DispoItems70BYD
           sessionState={sessionMRV}
           setSessionState={setSessionMRV}
-          
         />
       }
     />

@@ -21,6 +21,7 @@ import { MRVinput } from "../../inputs/MRVinput";
 function SetDispos30MRV({
   sessionState = baseReturnState({}),
   setSessionState = () => console.log("No Session State Setter Provided"),
+  headerContent = <TitleBarMRV headerTitle={`Reason For Return`} />,
   footerContent = <div className={`footer_content`}></div>,
   tMode = "T1",
 }) {
@@ -248,9 +249,7 @@ function SetDispos30MRV({
 
   return (
     <section className={`mrvPanel__side color__surface__default SetDispos30`}>
-      <div className={`hBox minFlex padding__both heading__medium`}>
-        Item Details
-      </div>
+      {headerContent}
       <div className={`main_content gap1rem`}> {uiItemActive}</div>
 
       {footerContent}
