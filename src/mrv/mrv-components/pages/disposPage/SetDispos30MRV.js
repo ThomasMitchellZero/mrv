@@ -111,6 +111,15 @@ function SetDispos30MRV({
 
   //// Damaged / Defective Inputs ////////////////////////
 
+  const uiApplyBtn = locMethods.didDispoChange() ? (
+    <button
+      onClick={() => locMethods.handleApply()}
+      className={`secondary submitBtn maxWidth goWide`}
+    >
+      Apply
+    </button>
+  ) : null;
+
   const damagedCodes = Object.values(activeAllDispos).filter((singleDispo) => {
     return singleDispo.isDamaged === true;
   });
@@ -237,12 +246,7 @@ function SetDispos30MRV({
       </section>
 
       {activeReasonInput}
-      <button
-        onClick={() => locMethods.handleApply()}
-        className={`secondary submitBtn maxWidth goWide`}
-      >
-        Apply
-      </button>
+      {uiApplyBtn}
       <div className={`warningCtnr`}></div>
     </>
   ) : null;

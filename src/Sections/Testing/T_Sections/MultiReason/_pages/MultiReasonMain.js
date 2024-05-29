@@ -84,21 +84,11 @@ function MultiReasonMain({ tMode = "T1" }) {
 
   const [sessionMRV, setSessionMRV] = useImmer(startReturnState);
 
-  const uiTitleBar = (
-    <TitleBarMRV
-      showProductName={false}
-      headerTitle={`MultiReason Testing: ${tMode}`}
-      sessionState={sessionMRV}
-      setSessionState={setSessionMRV}
-      hasCluster={false}
-    />
-  );
 
   const uiMainDispoPage = (
     <DispoMainPageMRV
       sessionState={sessionMRV}
       setSessionState={setSessionMRV}
-      titleBar={uiTitleBar}
       cashTotal={null}
       panel30={
         <SetDispos30MRV

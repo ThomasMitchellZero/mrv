@@ -1,4 +1,5 @@
 import "./_Dispositions.css";
+import { isEqual } from "lodash";
 
 import {
   SingleDispo,
@@ -52,6 +53,20 @@ function dispoMainMethods({
       draft.locSt.rPanActiveKey1 = "";
       draft.locSt.locStError1 = "";
     });
+  };
+
+  const didDispoChange = () => {
+    const refItemDisposObj = new ItemDisposObj({});
+    const refSingleDispo = new SingleDispo({});
+
+    const activeDispoItemIndex = findActiveItem({
+      keyStr: locState?.pageActiveData1?.dispoItemNum,
+    });
+
+    return !isEqual(
+      locState?.pageActiveData1,
+      sessionState?.returnItemDispos[activeDispoItemIndex]
+    );
   };
 
   const missingDispos = ({ clone = true }) => {
@@ -142,6 +157,8 @@ function dispoMainMethods({
     const refItemDisposObj = new ItemDisposObj({});
     const refSingleDispo = new SingleDispo({});
 
+    console.log("===", didDispoChange());
+
     const outActiveDispoItem = cloneDeep(locState.pageActiveData1);
     setSessionState((draft) => {
       draft.returnItemDispos[
@@ -150,10 +167,12 @@ function dispoMainMethods({
       draft.locSt.rPanActiveKey1 = "";
     });
   };
+  
 
   const outMethods = {
     missingDispos,
     tabClick,
+    didDispoChange,
     setActiveItem,
     editDispoQty,
     chipSelect,
