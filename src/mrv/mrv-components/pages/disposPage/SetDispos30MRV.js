@@ -111,6 +111,19 @@ function SetDispos30MRV({
 
   //// Damaged / Defective Inputs ////////////////////////
 
+  /*
+  
+    const uiApplyBtn = locMethods.didDispoChange() ? (
+    <button
+      onClick={() => locMethods.handleApply()}
+      className={`secondary submitBtn maxWidth goWide`}
+    >
+      Apply
+    </button>
+  ) : null;
+  
+  */
+
   const uiApplyBtn = locMethods.didDispoChange() ? (
     <button
       onClick={() => locMethods.handleApply()}
@@ -119,6 +132,10 @@ function SetDispos30MRV({
       Apply
     </button>
   ) : null;
+
+  // should probably be an object later.
+  const errorMessage =
+    locState.pageErrorSt1 === "noChange" ? "Enter a reason and/or qty" : "";
 
   const damagedCodes = Object.values(activeAllDispos).filter((singleDispo) => {
     return singleDispo.isDamaged === true;
@@ -246,8 +263,14 @@ function SetDispos30MRV({
       </section>
 
       {activeReasonInput}
-      {uiApplyBtn}
-      <div className={`warningCtnr`}></div>
+
+      <button
+        onClick={() => locMethods.handleApply()}
+        className={`secondary submitBtn maxWidth goWide`}
+      >
+        Apply
+      </button>
+      <div className={`warningCtnr`}>{locState.locStError1}</div>
     </>
   ) : null;
 

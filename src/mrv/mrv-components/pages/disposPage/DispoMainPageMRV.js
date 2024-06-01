@@ -127,6 +127,7 @@ function dispoMainMethods({
     console.log("--method--", dispoKeyStr);
     setSessionState((draft) => {
       draft.locSt.rPanActiveKey1 = dispoKeyStr;
+      draft.locSt.locStError1 = "";
     });
   };
 
@@ -154,22 +155,38 @@ function dispoMainMethods({
   };
 
   const handleApply = () => {
+
     const refItemDisposObj = new ItemDisposObj({});
     const refSingleDispo = new SingleDispo({});
 
     console.log("===", didDispoChange());
 
+
     const outActiveDispoItem = cloneDeep(locState.pageActiveData1);
-    setSessionState((draft) => {
-      draft.returnItemDispos[
-        findActiveItem({ keyStr: outActiveDispoItem.dispoItemNum })
-      ] = outActiveDispoItem;
-      draft.locSt.rPanActiveKey1 = "";
-    });
+
+    if (
+      //
+      didDispoChange() ||
+      locState.pageActiveData1?.allDisposObj?.[locState.rPanActiveKey1]?.dispoQty ||
+      locState.rPanActiveUI1 === "didntWant"
+    ) {
+      setSessionState((draft) => {
+        draft.returnItemDispos[
+          findActiveItem({ keyStr: outActiveDispoItem.dispoItemNum })
+        ] = outActiveDispoItem;
+        draft.locSt.rPanActiveKey1 = "";
+        //draft.locSt.locStError1 = "";
+      });
+    }
+    else {
+      setSessionState((draft) => {
+        draft.locSt.locStError1 = "Enter the quantity.";
+      });
+    }
   };
-  
 
   const outMethods = {
+    clearErrorState,
     missingDispos,
     tabClick,
     didDispoChange,
