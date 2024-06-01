@@ -13,7 +13,7 @@ import { Outlet } from "react-router";
 
 function StoreExchanges() {
 
-  const [sessionSTRX, setSessionStrx] = useImmer(
+  const [sessionMRV, setSessionMRV] = useImmer(
     baseStateSTRX()
   );
 
@@ -21,8 +21,8 @@ function StoreExchanges() {
     <section className={`mrv STRX_top`}>
       <Outlet
         context={{
-          sessionSTRX,
-          setSessionStrx,
+          sessionMRV,
+          setSessionMRV,
         }}
       />
     </section>

@@ -13,13 +13,14 @@ const ItemDetails30STRX = ({
   setParLocState,
   panelConfigStr = "return",
 }) => {
-  const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
 
   const activeAtom = parLocState.activeItemAtom;
   const activeItemNum = activeAtom?.atomItemNum;
 
-  const thisStateAtom = sessionState[stateItemArr].find(
+  const thisStateAtom = sessionMRV[stateItemArr].find(
     (item) => item.atomItemNum === activeItemNum
   );
 

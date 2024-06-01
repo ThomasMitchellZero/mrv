@@ -24,10 +24,15 @@ function TitleBarMRV({
     console.log("No Clear Session Fn");
   },
 }) {
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+
   const uiNavNodeBar = (
     <NavNodeBarMRV
-      sessionState={sessionState}
-      setSessionState={setSessionState}
+      sessionState={sessionMRV}
+      setSessionState={setSessionMRV}
     />
   );
 
@@ -82,8 +87,5 @@ export { TitleBarMRV };
 
 /*
 
-defaultHeight
-
-mainTitle
 
 */

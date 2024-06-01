@@ -11,7 +11,7 @@ import {
   useNodeNavSTRX,
 } from "../../_resources/hooks/STRXhooks";
 
-import { populateDisposArr } from "../../../../mrv/MRVhooks/MRVhooks";
+import { populateDisposArr, useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
@@ -19,10 +19,12 @@ import { RtrnInvosList } from "./RtrnInvosList";
 import { useOutletContext } from "react-router";
 
 function AddItemsAndInvosSTRX() {
-  const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
-  const setSessionState = strxCtx.setSessionStrx;
-  const nodeNavSTRX = useNodeNavSTRX();
+  
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const nodeNav = useNodeNav();
+
 
   const clearableFields = {
     itemNumField: "",
@@ -109,21 +111,21 @@ function AddItemsAndInvosSTRX() {
   };
 
   const handleContinue = () => {
-    console.log(sessionState.returnItems.length);
+    console.log(sessionMRV.returnItems.length);
     if (locStAddRtrns.activeMode === "receipt") {
       setLocStAddRtrns((draft) => {
         draft.activeMode = "item";
         draft.active30 = "AllEntry30";
       });
-    } else if (sessionState.returnItems.length === 0) {
+    } else if (sessionMRV.returnItems.length === 0) {
       setLocStAddRtrns((draft) => {
         draft.activeErrorKey = "noItem";
       });
     } else {
-      setSessionState((draft) => {
-        draft.returnItemDispos = populateDisposArr({sessionSt: sessionState});
+      setSessionMRV((draft) => {
+        draft.returnItemDispos = populateDisposArr({sessionSt: sessionMRV});
       });
-      nodeNavSTRX("reason");
+      nodeNav("reason");
     }
   };
   /* ---- OUTPUT JSX ---- */

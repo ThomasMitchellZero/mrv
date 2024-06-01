@@ -3,20 +3,27 @@ import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mr
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
-import { useCentsToDollars } from "../../../../mrv/MRVhooks/MRVhooks";
+import {
+  useSetSessionInvos,
+  centsToDollars,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import {
   Invoice_SR,
   returnAtom,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import { useSetSessionInvosSTRX } from "../../_resources/hooks/STRXhooks";
+
 
 const RtrnInvosList = ({ parLocState, setParLocState }) => {
-  const strxCtx = useOutletContext();
-  const centsToDollars = useCentsToDollars();
-  const aSessionInvos = strxCtx.sessionSTRX.sessionInvos;
-  const setSessionInvosSTRX = useSetSessionInvosSTRX();
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const setSessionInvosMRV = useSetSessionInvos();
+
+
+
+  const aSessionInvos = sessionMRV.sessionInvos;
 
   const noInvos = Object.entries(aSessionInvos).length === 0;
 
@@ -129,7 +136,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
         <div className={`deleteCol field`}>
           <DeleteCardColMRV
             onClick={(e) => {
-              setSessionInvosSTRX({
+              setSessionInvosMRV({
                 invosRtStr: "sessionInvos",
                 invoNum: invoObj.invoNum,
                 actionType: "remove",
