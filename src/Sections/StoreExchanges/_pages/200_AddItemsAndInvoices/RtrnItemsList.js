@@ -5,6 +5,7 @@ import {
   centsToDollars,
   atomsMonetizer,
   centStringifier,
+  useSetSessionItems,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { greenify } from "../../../../mrv/MRVhooks/MRVhooks";
@@ -14,12 +15,14 @@ import { useSetSessionItemsSTRX } from "../../_resources/hooks/STRXhooks";
 import { cloneDeep } from "lodash";
 
 const RtrnItemsList = ({ parLocState, setParLocState }) => {
-  const strxCtx = useOutletContext();
-  const setSessionItemsSTRX = useSetSessionItemsSTRX();
-  const sessionState = strxCtx.sessionSTRX;
-  const aReturnItems = sessionState.returnItems;
-  const aAtomizedItems = sessionState.atomizedReturnItems;
 
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const setSessionItems = useSetSessionItems();
+
+  const aReturnItems = sessionMRV.returnItems;
+  const aAtomizedItems = sessionMRV.atomizedReturnItems;
   const noItems = aReturnItems.length === 0;
 
   const aMainItems = aReturnItems.filter((returnItem) => {
@@ -29,7 +32,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
   // local function for handling qty changes.
   const handleQtyChange = (e, atomizedItem) => {
     const newQty = e.target.value;
-    setSessionItemsSTRX({
+    setSessionItems({
       itemsArrRouteStr: "returnItems",
       itemAtom: atomizedItem,
       newQty: newQty,
@@ -197,7 +200,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
             description={"Refund Value"}
             greenifyVal={-cardBaseValue}
             onClick={() => {
-              setSessionItemsSTRX({
+              setSessionItems({
                 itemAtom: returnItem,
                 actionType: "remove",
               });

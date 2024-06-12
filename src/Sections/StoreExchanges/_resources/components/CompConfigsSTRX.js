@@ -6,6 +6,7 @@ import { baseReturnState } from "../../../../globalFunctions/globalJS_classes";
 import { NavNodeBarMRV } from "../../../../mrv/mrv-components/inputs/NavNodeBarMRV";
 import { useOutletContext } from "react-router";
 import { useNodeNavSTRX, baseStateSTRX } from "../hooks/STRXhooks";
+import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
 
 const TitleBarSTRX = ({
   hasIcon = null,
@@ -17,15 +18,14 @@ const TitleBarSTRX = ({
     console.log("nothing here");
   },
 }) => {
-  const strxCtx = useOutletContext();
-  const sessionSTRX = strxCtx.sessionSTRX;
-  const setSessionStrx = strxCtx.setSessionStrx;
-  const nodeNavSTRX = useNodeNavSTRX();
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+
+  const nodeNavMRV = useNodeNav();
+
   const navNodeBarSTRX = (
-    <NavNodeBarMRV
-      sessionState={sessionSTRX}
-      setSessionState={setSessionStrx}
-    />
+    <NavNodeBarMRV sessionState={sessionMRV} setSessionState={setSessionMRV} />
   );
 
   return (
@@ -38,8 +38,8 @@ const TitleBarSTRX = ({
       srString=""
       navBtnClick={navBtnClick}
       handleClearSession={() => {
-        nodeNavSTRX("testScenarios");
-        setSessionStrx(() => baseStateSTRX());
+        nodeNavMRV("testScenarios");
+        setSessionMRV(() => baseStateSTRX());
       }}
       navNodeBar={navNodeBarSTRX}
       showNavNodeBar={showNavNodeBar}
@@ -48,6 +48,10 @@ const TitleBarSTRX = ({
 };
 
 export { TitleBarSTRX };
+
+/*
+
+*/
 
 const CashTotalSTRX = ({ mode = "exchDelta" }) => {
   const strxCtx = useOutletContext();

@@ -3,9 +3,11 @@ import "./ReplacementCheck.css";
 import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { useImmer } from "use-immer";
 import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
+import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
 
 function ReplacementCheck() {
-  const nodeNavSTRX = useNodeNavSTRX();
+  const nodeNav = useNodeNav()
+
 
   const defaultState = { activePanel: "askCustomer" };
 
@@ -33,7 +35,7 @@ function ReplacementCheck() {
         <button
           type="button"
           onClick={() => {
-            nodeNavSTRX("returns");
+            nodeNav("returns");
           }}
           className={`mrvBtn maxFlex primary`}
         >
@@ -58,7 +60,7 @@ function ReplacementCheck() {
         <button
           type="button"
           onClick={() => {
-            nodeNavSTRX("testScenarios");
+            nodeNav("testScenarios");
           }}
           className={`mrvBtn maxFlex primary`}
         >

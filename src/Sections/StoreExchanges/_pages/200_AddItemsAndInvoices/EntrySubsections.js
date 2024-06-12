@@ -7,7 +7,7 @@ import { cloneDeep, isEmpty } from "lodash";
 
 import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
-import {} from "../../../../mrv/MRVhooks/MRVhooks";
+import {useSetSessionInvos, useSetSessionItems} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import {
   useSetSessionItemsSTRX,
@@ -150,15 +150,18 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
   const invoCtx = useContext(InvoContext);
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const setSessionInvosSTRX = useSetSessionInvosSTRX();
-  const strxCtx = useOutletContext();
-  const sessionState = strxCtx.sessionSTRX;
-  const noInvos = isEmpty(sessionState.sessionInvos);
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const setSessionInvosMRV = useSetSessionInvos();
+
+  const noInvos = isEmpty(sessionMRV.sessionInvos);
 
   const errorInInvoForm = () => {
     const thisInvoNum = parLocState.receiptNumField;
     const invoNumValid = thisInvoNum in invoCtx;
-    const invoAlreadyAdded = thisInvoNum in sessionState.sessionInvos;
+    const invoAlreadyAdded = thisInvoNum in sessionMRV.sessionInvos;
 
     let outFormError = !invoNumValid
       ? "invalidReceipt"
@@ -194,7 +197,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
         draft.activeErrorKey = invoFormError;
       });
     } else {
-      setSessionInvosSTRX({
+      setSessionInvosMRV({
         invosRtStr: "sessionInvos",
         invoNum: parLocState.receiptNumField,
         actionType: "add",

@@ -190,15 +190,19 @@ const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
 
 export { populateDisposArr };
 
-function useNodeNav({ sessionState, setSessionState }) {
+function useNodeNav() {
   const navigate = useNavigate();
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
 
   const nodeNav = (targetNodeKey = "") => {
     const refBreadcrumbNode = navNode({});
     const refDefaultState = baseReturnState({});
 
-    if (sessionState.oNavNodes[targetNodeKey]) {
-      const outNavNodesObj = cloneDeep(sessionState.oNavNodes);
+    if (sessionMRV.oNavNodes[targetNodeKey]) {
+      const outNavNodesObj = cloneDeep(sessionMRV.oNavNodes);
 
       // all nodes prior to the target remain enabled.
       let nodeAfterTarget = false;
@@ -216,7 +220,7 @@ function useNodeNav({ sessionState, setSessionState }) {
       // activate the target node and make it available.
       outNavNodesObj[targetNodeKey].selected = true;
 
-      setSessionState((draft) => {
+      setSessionMRV((draft) => {
         draft.oNavNodes = outNavNodesObj;
       });
       navigate(outNavNodesObj[targetNodeKey].routeStr);
@@ -239,8 +243,12 @@ export { useNodeNav };
 
 */
 
-function useSetSessionItems({ sessionState, setSessionState }) {
+function useSetSessionItems() {
   const itemsCtx = useContext(ProductContext);
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
 
   function setSessionItems({
     itemsArrRouteStr = "returnItems",
@@ -252,7 +260,7 @@ function useSetSessionItems({ sessionState, setSessionState }) {
     const refDefaultState = baseReturnState({});
     const refAtom = new returnAtom({});
 
-    let outSessionState = cloneDeep(sessionState);
+    let outSessionState = cloneDeep(sessionMRV);
     let outItemsArr = outSessionState[itemsArrRouteStr];
     const thisItemNum = itemAtom.atomItemNum;
 
@@ -301,7 +309,7 @@ function useSetSessionItems({ sessionState, setSessionState }) {
     outSessionState[itemsArrRouteStr] = outItemsArr;
     outSessionState = returnAutoDeriver(outSessionState);
 
-    setSessionState(() => {
+    setSessionMRV(() => {
       return outSessionState;
     });
   }
@@ -309,8 +317,12 @@ function useSetSessionItems({ sessionState, setSessionState }) {
 }
 
 // Make a change to the invos in the Session state
-function useSetSessionInvos({ sessionState, setSessionState }) {
+function useSetSessionInvos() {
   const invosCtx = useContext(InvoContext);
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
 
   const setSessionInvos = ({
     invosRtStr = "sessionInvos",
@@ -320,7 +332,7 @@ function useSetSessionInvos({ sessionState, setSessionState }) {
   }) => {
     const refDefaultState = baseReturnState({});
 
-    let outSessionState = cloneDeep(sessionState);
+    let outSessionState = cloneDeep(sessionMRV);
 
     if (!invosCtx[invoNum]) {
       return false;
@@ -337,7 +349,7 @@ function useSetSessionInvos({ sessionState, setSessionState }) {
 
     actionMethods[actionType]();
     outSessionState = returnAutoDeriver(outSessionState);
-    setSessionState(() => {
+    setSessionMRV(() => {
       return outSessionState;
     });
   };
@@ -397,6 +409,7 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   /////////////////           Atomizaton Layers         //////////////////////////
 
   // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
+  
 
   LoopAtoms_Items_X_Invos: for (const thisItemAtom of outFullyAtomizedArr) {
     const refInvoItem = new Invoice_SR({});

@@ -1,6 +1,11 @@
 import "./CashTotalMRV.css";
 
-import { useCentsToDollars, greenify } from "../../MRVhooks/MRVhooks";
+import {
+  useCentsToDollars,
+  greenify,
+  useNodeNav,
+} from "../../MRVhooks/MRVhooks";
+
 import {
   baseReturnState,
   moneyObj,
@@ -10,11 +15,15 @@ import { useOutletContext } from "react-router";
 
 const CashTotalMRV = ({
   mode = "exchDelta",
-  sessionState = baseReturnState({}),
 }) => {
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const nodeNav = useNodeNav();
+
   const appCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
-  const stateDeltaMO = sessionState.cashDeltaMO;
+  const stateDeltaMO = sessionMRV.cashDeltaMO;
 
   // if it can be derived from info in the moneyObj, then make some fields to do it.
 
