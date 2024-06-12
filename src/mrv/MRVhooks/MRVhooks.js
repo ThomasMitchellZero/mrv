@@ -409,6 +409,7 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   /////////////////           Atomizaton Layers         //////////////////////////
 
   // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
+  
 
   LoopAtoms_Items_X_Invos: for (const thisItemAtom of outFullyAtomizedArr) {
     const refInvoItem = new Invoice_SR({});

@@ -25,8 +25,20 @@ We want to be clean and clear to make it easier on ourselves.  Enforced conscien
     -We expect to have numerous future dependencies on the roots and doing it later only makes more work.
     -We have a clear understanding of the advantage we expect to get.
 
+Class Design        
+    1 Jun 2024
 
+    I've been thinking about this since that scramble to stand up the Multi-Reason input test.  Part of what made it so painful was that for all my classes, there were so many levels in the chain I had to drill down through, and if there's a single category of frustration I hate the most in programming, it's the "Can't read Class XYZ of undefined" cluster.  
 
+    I'm not even sure I did it wrong.  Looking back through my MRV classes, there's no real place I can point to where I say "This was grouped for no reason".  
+
+    But that is a mistake I've made in the past.  So I should do some thinking about how to handle grouping.  
+
+        -If a class contains some subset of fields that will be shared with a different set of fields, I think (?) those should be separate.  
+            -I could.  But I am wondering about something like MoneyObj.  How hard would it really be to just have a MoneyObj() function that returns all the correct fields, and then use destructuring to merge it into all my other classes?  
+
+        -If a class contains a set of fields that I intend to operate on as a group but separate from the whole, those should definitely be nested outside the parent context.
+            -This definitely includes things like Dispos.
 
 
 
@@ -7674,6 +7686,41 @@ What to do today?
             -Or I could just take this stupid thing out.
         
     I WAS planning to do some validation prior to the test, but I just now realized that 0 actually is a valid quantity.  If they made a mistake we need to allow them to undo it.
+
+6 Jun 2024
+    3:00. 
+    Yes, it's a late start.  No, IDGAF.
+
+    OK.  What to do today.  If I knew at 10:00 what I know now, I wouldn't have taken anything today and just taken the day off because this week was fucking HARD.  What I will do instead is commit to working till at least 6:00 and then have some fun.  The question is if I study Groovy or work on my MRV stuff.
+
+    Groovy:
+        +If a genie were to offer me a completed day of studying Groovy or MRV, Groovy would be my answer.  Groovy is my future, and when The Call comes in I need to be ready to go.  This is such a rare opportunity.  When that happens, all of MRV is someone else's problem.  
+
+    MRV:  If it were 10:30, Groovy would be the obvious answer.  My fear is that I'm already  not super dialed in.  I know myself, and I know that going Groovy is the most likely route to having nothing to show for today.
+
+    I think it's gotta be MRV.  I will take a sick day or something this week and just do Groovy.  But I'm not really engaged with the material and I think that this is my best chance at having SOMETHING to show for today.  
+
+    OK.  So if that is the case, what is the BEST thing I can do for MRV?
+
+    -I like the new model that I tried out with Multi-Reason.  Just need to do some thinking about what I like and how to handle it.
+        -I definitely like having a single, common Local State, whether that is in fact truly local or whether it lives in the parent code.  
+            -I guess I have some concern about collisions.  Like if two different components are using the PageData1 property with different expectations then they're going to clash.  
+            -My intuition is telling me this isn't quite the problem I think it is.  
+                -Like, for instance, in Exchanges.  If I switch from the Item Details panel to the Discounts panel, then my rPan values are going to be different, but if they need to be stored in a context outside of rPan, shouldn't they be within Page context to begin with?  
+        -I also like the model of having a single hook for the shared methods within a context.  Makes it easy to share data around and reuse components throughout.  
+    
+    -I still don't REALLY understand the Component Composition pattern.  It's got something to do with the props.children capability.  Somehow, that's the key that unlocks all of this.
+        I realize this isn't coding, but I am going to take a walk to the store and try and understand Component Composition.  
+
+    4:40.
+        OK.  For the time I still intend to work, I think that trying to reconfigure my existing STRX assets to use a common locSt would be a worthy goal.  
+
+        For the time being, I think I'm going to have the locSt live globally.  I think that gives me some nice options in terms of pre-configuring the locSt for any page I am about to navigate to.  
+
+    6:30.
+    I'm actually having an OK time, but the next step is going to be significantly more frustrating and that's not a good fit for where I'm going.
+
+                                                                                                                                                                                                                                                                                                                                                                       
 
 
 
