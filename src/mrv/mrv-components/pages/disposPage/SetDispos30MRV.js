@@ -5,7 +5,7 @@ import {
   baseLocState,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import { useImmer, useImmerReducer } from "use-immer";
 import { cloneDeep } from "lodash";
@@ -35,6 +35,18 @@ function SetDispos30MRV({
   // this will change if we ever set global state directly.
   const activeDisposObj = locState.pageActiveData1;
 
+  // try and do this in the shared session state, but it's fine for now.
+  const [shouldFocus, setShouldFocus] = useState(false);
+
+  useEffect(() => {
+    if (shouldFocus) {
+      inputRef.current.focus();
+      setShouldFocus(false);
+    }
+  }, [shouldFocus]);
+
+
+
   const inputRef = useRef(null);
 
   /////////////////// LOCAL FUNCTIONS //////////////////////
@@ -51,7 +63,7 @@ function SetDispos30MRV({
 
   const handleDamgeTypeSelect = ({ dispoKeyStr }) => {
     locMethods.damageTypeSelect({ dispoKeyStr });
-    inputRef.current.focus();
+    setShouldFocus(true);
   };
 
   /////////////////// UI COMPONENTS //////////////////////
