@@ -61,6 +61,7 @@ function SetDispos30MRV({
     });
   };
 
+
   const handleDamgeTypeSelect = ({ dispoKeyStr }) => {
     locMethods.damageTypeSelect({ dispoKeyStr });
     setShouldFocus(true);
