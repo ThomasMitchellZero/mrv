@@ -11,9 +11,8 @@ function StartXDTX() {
   /* ---- OUTPUT JSX ---- */
 
   const handleClickSc1 = () => {
-    setSessionInvos({ invos: [] });
-
-    nodeNav("choose-items");
+    setSessionInvos({ invoNum: "7775"});
+    nodeNav("returns");
   }
 
 
@@ -27,9 +26,7 @@ function StartXDTX() {
         <div className={`main_content gap2rem alignLeft`}>
           <button
             type="button"
-            onClick={() => {
-              nodeNav("replacementCheck");
-            }}
+            onClick={handleClickSc1}
             className={`mrvBtn primary`}
           >
             Test Scenario 1

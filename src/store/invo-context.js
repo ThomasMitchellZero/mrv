@@ -151,6 +151,50 @@ const invoiceObj = {
       }),
     ],
   }),
+
+  "7775": new Invoice_SR({
+    invoNum: "7775",
+    date: new Date(2022, 3, 8),
+    payment: {
+      [tType.cash]: { tenderType: tType.cash, tenderLabel: "Cash", paid: 0 },
+    },
+
+    itemAtomsArr: [
+      new returnAtom({
+        atomItemNum: "100",
+        atomItemQty: 8,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 4150,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "300",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2415,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "400",
+        atomItemQty: 10,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 1315,
+        }),
+      }),
+      new returnAtom({
+        atomItemNum: "3333WW100",
+        bifrostKey: "3333",
+        parentKey: "100",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 514,
+        }),
+      }),
+    ],
+  }),
+
+
+
   "8881" : new Invoice_SR({ 
     invoNum: "8881",
     store: 1234,

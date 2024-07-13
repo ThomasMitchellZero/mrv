@@ -15,13 +15,13 @@ import { useOutletContext } from "react-router";
 
 const CashTotalMRV = ({
   mode = "exchDelta",
+  modeVALS_exchDelta_returnMinusReplace,
 }) => {
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
   const nodeNav = useNodeNav();
 
-  const appCtx = useOutletContext();
   const centsToDollars = useCentsToDollars();
   const stateDeltaMO = sessionMRV.cashDeltaMO;
 
@@ -29,11 +29,20 @@ const CashTotalMRV = ({
 
   const refMoneyObj = new moneyObj({});
 
+  // this all feels kind of ugly. Probably a neater way to do this.
   const configsObj = {
     exchDelta: {
       aCashLines: [
         { label: "Subtotal Difference", value: stateDeltaMO.unitBaseValue },
         { label: "Tax Difference", value: stateDeltaMO.salesTax },
+      ],
+      finalTotal: stateDeltaMO.unitTotal,
+    },
+    returnMinusReplace: {
+      // THIS IS NOT SET UP YET
+      aCashLines: [
+        { label: "Return Value", value: 42069 },
+        { label: "Replacement Cost", value: 42069 },
       ],
       finalTotal: stateDeltaMO.unitTotal,
     },
