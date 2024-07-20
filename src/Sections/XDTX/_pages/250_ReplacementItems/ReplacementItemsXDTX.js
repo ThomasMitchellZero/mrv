@@ -15,7 +15,7 @@ function ReplacementItemsXDTX() {
       <section className={`mrvPanel__main`}>
         <TitleBarMRV
           showNavNodeBar={true}
-          headerTitle={"Choose Items Being Returned"}
+          headerTitle={"Replacement Items"}
         ></TitleBarMRV>
         <div className={`main_content gap2rem alignLeft`}></div>
 

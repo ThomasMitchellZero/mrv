@@ -356,6 +356,9 @@ function baseLocState({
 }
 
 const baseReturnState = ({
+  sessionConfigs = {
+    negativeReturnVals: true,
+  },
   returnItems = [],
   totalReturnValue = new moneyObj({}),
   atomizedReturnItems = [],
@@ -380,6 +383,13 @@ const baseReturnState = ({
     locSt,
   };
 };
+
+const namedArray = ({ keyStr = "", value = [] }) => {
+  return { keyStr, value };
+};
+
+export { namedArray };
+
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.

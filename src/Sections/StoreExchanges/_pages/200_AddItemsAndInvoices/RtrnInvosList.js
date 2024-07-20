@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
-import { MdChevronRight, MdDeleteOutline } from "react-icons/md";
+import { MdChevronRight, MdDeleteOutline, MdExpandLess, MdExpandMore } from "react-icons/md";
 import {
   useSetSessionInvos,
   centsToDollars,
