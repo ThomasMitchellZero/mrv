@@ -36,11 +36,21 @@ import { ExchScheduleTimes } from "./Sections/Exchanges/_pages/50_ScheduleTimes/
 import { ExchTotalReview } from "./Sections/Exchanges/_pages/60_TotalReview/TotalReview";
 import { ExchReceiptPage } from "./Sections/Exchanges/_pages/70_ReceiptPage/ReceiptPage";
 
+//STRX
+import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 import { StartSTRX } from "./Sections/StoreExchanges/_pages/100_StartSTRX/StartSTRX";
 import { ReplacementCheck } from "./Sections/StoreExchanges/_pages/150_ItemCheck/ReplacementCheck";
-import { StoreExchanges } from "./Sections/StoreExchanges/StoreExchanges";
 import { AddItemsAndInvosSTRX } from "./Sections/StoreExchanges/_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
 import { DispoMainPageSTRX } from "./Sections/StoreExchanges/_pages/250_Dispositions/DispoMainPageSTRX";
+
+//XDTX
+import { XDTX } from "./Sections/XDTX/XDTX";
+import { StartXDTX } from "./Sections/XDTX/_pages/100_Start_XTDX/StartXDTX";
+import { ReturnItemsXDTX } from "./Sections/XDTX/_pages/150_ReturnItems/ReturnItemsXDTX";
+import { ReturnReasonXDTX } from "./Sections/XDTX/_pages/200_ReturnReason/ReturnReasonXDTX";
+import { ReplacementItemsXDTX } from "./Sections/XDTX/_pages/250_ReplacementItems/ReplacementItemsXDTX";
+import { ScheduleDeliveryXDTX } from "./Sections/XDTX/_pages/300_ScheduleDelivery/ScheduleDeliveryXDTX";
+import { TotalReviewXDTX } from "./Sections/XDTX/_pages/350_TotalReview/TotalReviewXDTX";
 
 import { TestIndex } from "./Sections/Testing/TestIndex";
 import { MultiReasonMain } from "./Sections/Testing/T_Sections/MultiReason/_pages/MultiReasonMain";
@@ -108,7 +118,21 @@ function App() {
             />
             <Route path="reason" element={<DispoMainPageSTRX />} />
           </Route>
-          <Route path="test" >
+          <Route path="xdt-exchanges" element={<XDTX />}>
+            <Route index element={<StartXDTX />} />
+            <Route path="return-items" element={<ReturnItemsXDTX />} />
+            <Route path="return-reason" element={<ReturnReasonXDTX />} />
+            <Route
+              path="replacement-items"
+              element={<ReplacementItemsXDTX />}
+            />
+            <Route
+              path="schedule-delivery"
+              element={<ScheduleDeliveryXDTX />}
+            />
+            <Route path="total-review" element={<TotalReviewXDTX />} />
+          </Route>
+          <Route path="test">
             <Route index element={<TestIndex />} />
             <Route
               path="multi-reason-t1"

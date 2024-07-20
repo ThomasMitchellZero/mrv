@@ -1,5 +1,5 @@
 .mrv {
-  & .mrvPage {
+  & .mrvPage.multiReason {
     background-color: var(--color__surface__default);
   }
 

@@ -7720,13 +7720,63 @@ What to do today?
     6:30.
     I'm actually having an OK time, but the next step is going to be significantly more frustrating and that's not a good fit for where I'm going.
 
-                                                                                                                                                                                                                                                                                                                                                                       
+13 Jul 2024
+    11:50.
+    Me and wasting a couple hours looking at fighter planes: name a better combo :p
 
+    OK.  I just feel like working on MRV today.  I'm OK with this.  No telling how long I will remain at Lowe's but until I get the signal, I need to perform like I'll be here forever.
 
+    I have two options here.  I can try to wrap up STRX, or I could try to refactor XDTX.  
 
+        STRX:
+            + IMO, we're fairly close to the finish line on this.  If I just skip manager approval, Receipt Lookup, and NR Rejection I could probably get everything ported to the new common framework today and also implement the Checkout portion.  
+                - Receipt Lookup + Rejection is something we have no ideas for. 
+                    + We could bypass that.  We're already only crediting receipted items.  
 
+        XDTX:
+            + We are making some BIG changes, or at least changes that will be perceived that way.  We're gonna need to test, and probably soon.
+                -It's gonna be cool to put our frameworking to the test, but this is a LOT of work.  
+            -There are some potential landmines here.  Are we REALLY confident we know how to handle a situation where we've a mixture of Ret/Rep pairs and singletons of each?
 
+    This is a complicated one.  I guess the biggest question is what I feel like I'll have to test first.  And that kind of inclines me to XDTX.  I REALLY don't want to end up in a situation where Kumar & Co. start coding something and then I find out there's a real problem with how it is understood.
 
+    OK.  Let's do this.  I'm going to at least get a placeholder in place for XDTX - tab, links, placeholders, etc.  That will get me into the groove.  
+
+    But I have to solve the problem of the pairs.  
+
+    3:40.
+    Well, took a long-ass time to get the basic tent poles up, but that's because it's boring and I don't like it.  What's next?
+
+    x - I need an order to start off with.  
+    -I need to populate the ReturnItems page with the items in that order.
+    -I need to have input fields attached to each item that add those items to the Return.
+    -Gonna skip implementing Return Reasons, but I do need to have the basic page and a button to go to ReplacementItems.
+    -Then I gotta get to work on how to handle the pairs within Exchanges.
+
+    5:25.
+    I am really just dragging ass here.  My head is not in the game to the point where I'm not even 100% sure I took my smart pill this morning.  
+
+    OK.  Here's what we're gonna do.  We are gonna try to jam for one more hour.  If at any point we feel gassed, we'll knock off for the day.  
+
+20 Jul 2024
+    1:00.
+    Not the best start time, but what's done is done.  
+
+    For my first trick today, I want to make an Expando component.  I expect to use this in a few places, so I think this is something I'll need before long.  And besides, I think it'll be fun :d
+
+    OK, how do I want to handle this?
+
+        Categories of children:
+            -Must be able to show named groups of children.
+            -Must ALSO handle situations where it's just a big old bunch.
+        
+        Needs to return a null state if there are no children.  That at least allows me to use the same logic for all.
+
+        -The children are going to be different, so the components that display them have to come from the outside.
+        -When closed, I want to be able to the $ value of the children.  So at some point an array of all the children is gonna have to pass through the Monetizer.  Thinking that should probably happen in the parent component consuming the Expando, since I might want to use different values (final total vs. subtotal, etc.)
+
+    So I guess where this leaves me is a pretty dumb artifact.  Nearly all the logic will come from outside.
+        
 
 
 

@@ -39,7 +39,8 @@ const useDollarsToCents = () => {
 };
 
 const greenify = (numberVal) => {
-  const isNeg = numberVal < 0 && typeof numberVal === "number";
+  // This JUST returns a class.  Not the number, not a UI element.  Just a class.
+  const isNeg = typeof numberVal === "number" && numberVal < 0;
 
   return isNeg ? "color__green__text" : "";
 };
@@ -114,6 +115,24 @@ export {
   moneyObjDelta,
   centStringifier,
 };
+
+function childGrouper({ targetArr = [] }) {
+  let arrToFilter = cloneDeep(targetArr);
+
+  // filter out all the children
+  const outParentsArr = targetArr.filter((thisItem) => {
+    return !thisItem.parentKey;
+  });
+
+  const refItemAtom = new returnAtom({});
+
+  const outGroupedChildren = {
+    allChildren: [],
+    accessories: [],
+    services: [],
+    LPP: [],
+  };
+}
 
 const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
   // returns an array of SingleDispo objects from an array of return items.
@@ -409,7 +428,6 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   /////////////////           Atomizaton Layers         //////////////////////////
 
   // Splits atoms by invo, or no invo if empty. ////////////////////////////////////////
-  
 
   LoopAtoms_Items_X_Invos: for (const thisItemAtom of outFullyAtomizedArr) {
     const refInvoItem = new Invoice_SR({});

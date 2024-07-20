@@ -254,6 +254,7 @@
     flex: 1 1 0rem;
     flex-direction: row;
     box-sizing: border-box;
+    background-color: var(--color__surface__subdued);
     align-items: flex-start;
     --standardBorder: calc(1.5rem / 16) solid var(--color__border);
     --primaryColumn: 25vw;
@@ -504,6 +505,7 @@
   /* ---- MRV CARD STYLES ---- */
 
   & .cardStyle {
+    /* more specific flex in additional class, since we can't know what's needed in advance*/
     --dropShadow__01: 0px 2px 2px 0px #00000012;
     background-color: var(--color__surface__default);
     box-shadow: var(--dropShadow__01);
@@ -715,6 +717,10 @@
 
   & .maxWidth {
     width: 100%;
+  }
+
+  & .minHeight {
+    height: fit-content;
   }
 
   & .nohover {
