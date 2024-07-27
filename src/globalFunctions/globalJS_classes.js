@@ -91,6 +91,18 @@ const productTaxonomyMRV = ({ productKingdomMRV = null }) => {
 
 export { productTaxonomyMRV };
 
+function parentChildGroup({
+  parentAtom = new returnAtom({}),
+  allChildren = [],
+  accessories = [],
+  services = [],
+  LPP = [],
+}) {
+  return { parentAtom, allChildren, accessories, services, LPP };
+}
+
+export { parentChildGroup };
+
 class Product {
   constructor({
     img = "",

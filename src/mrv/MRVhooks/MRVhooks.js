@@ -18,6 +18,7 @@ import {
   ItemDisposObj,
   productKingdomMRV,
   productTaxonomyMRV,
+  parentChildGroup,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -118,67 +119,58 @@ export {
   centStringifier,
 };
 
-function childGrouper({
-  possibleParentAtom = new returnAtom({}),
-  itemAtomsArr = [],
-  itemCatelog = {},
-}) {
-  // Idea is to run this on each entry in an array of returnAtoms to get a breakdown of its children.
-  // this does not itself cyle through the array.  It is meant to be used in a map or filter method.
+function childGrouper({ itemAtomsArr = [], itemCatelog = {} }) {
+  // Accepts an array of itemAtoms and a productCatelog.  Returns an array of objects with children grouped by type.
   // Not intended to change the state.  Only for rendering UI.
-  // returns obj of arrays of itemAtom's children, grouped by type.
 
-  let arrToFilter = cloneDeep(itemAtomsArr);
+  // Filter for only items without parents. Otherwise we would double-count children.
+  const parentArr = itemAtomsArr.filter((thisAtom) => {
+    return !thisAtom.parentKey;
+  });
 
-  const outGroupedChildren = {
-    allChildren: [],
-    accessories: [],
-    services: [],
-    LPP: [],
+  // Function to be used in a map to find all children of a parent atom.
+  const childCollector = (thisParentAtom) => {
+    const outPCgroup = new parentChildGroup({ parentAtom: thisParentAtom });
+
+    // filter ALL children with this parent.  May not need.
+    outPCgroup.allChildren = itemAtomsArr.filter((thisAtom) => {
+      return thisAtom.parentKey === thisParentAtom.atomItemNum;
+    });
+
+    const filterKingdom = (
+      // To be used in a filter method.  Returns true if the atom's productKingdomMRV matches the passed keyStr.
+      thisItemAtom = new returnAtom({}),
+      kingdomKeyStr = productKingdomMRV({})
+    ) => {
+      const itemNum = thisItemAtom.atomItemNum;
+
+      const itemKingdom =
+        itemCatelog?.[itemNum]?.productTaxonomyMRV?.productKingdomMRV;
+
+      return itemKingdom === kingdomKeyStr;
+    };
+
+    // filter the different children by category.
+    outPCgroup.accessories = outPCgroup.allChildren.filter((thisAtom) => {
+      return filterKingdom(thisAtom, productKingdomMRV({ product: true }));
+    });
+
+    outPCgroup.services = outPCgroup.allChildren.filter((thisAtom) => {
+      return filterKingdom(thisAtom, productKingdomMRV({ service: true }));
+    });
+
+    outPCgroup.LPP = outPCgroup.allChildren.filter((thisAtom) => {
+      return filterKingdom(thisAtom, productKingdomMRV({ lpp: true }));
+    });
+
+    return outPCgroup;
   };
 
-  // filter for only items with parents.
-  outGroupedChildren.allChildren = itemAtomsArr.filter((thisAtom) => {
-    return thisAtom.parentKey === possibleParentAtom.atomItemNum;
+  const outGroupedArr = parentArr.map((thisParentAtom) => {
+    return childCollector(thisParentAtom);
   });
 
-  // terminate if the item has no children.  Otherwise we will get duplicates in the output.
-  if (!outGroupedChildren.allChildren.length) {
-    return;
-  }
-
-  const refProductKingdom = new productKingdomMRV({});
-  const refProdctTaxonomy = new productTaxonomyMRV({});
-
-  const filterKingdom = (
-    // To be used in a filter method.  Returns true if the atom's productKingdomMRV matches the passed keyStr.
-    thisItemAtom = new returnAtom({}),
-    kingdomKeyStr = productKingdomMRV({})
-  ) => {
-    const itemNum = thisItemAtom.atomItemNum;
-
-    const itemKingdom =
-      itemCatelog?.[itemNum]?.productTaxonomyMRV?.productKingdomMRV;
-
-    return itemKingdom === kingdomKeyStr;
-  };
-
-  // filter the accessory children.
-  outGroupedChildren.accessories = arrToFilter.filter((thisAtom) => {
-    return filterKingdom(thisAtom, productKingdomMRV({ product: true }));
-  });
-
-  // filter the service children.
-  outGroupedChildren.services = arrToFilter.filter((thisAtom) => {
-    return filterKingdom(thisAtom, productKingdomMRV({ service: true }));
-  });
-
-  // filter the LPP children.
-  outGroupedChildren.LPP = arrToFilter.filter((thisAtom) => {
-    return filterKingdom(thisAtom, productKingdomMRV({ lpp: true }));
-  });
-
-  return outGroupedChildren;
+  return outGroupedArr;
 }
 
 export { childGrouper };
@@ -192,9 +184,8 @@ function useChildGrouper() {
   const setSessionMRV = mrvCtx.setSessionMRV;
 
   // childGrouper configured to target ProductContext
-  const outChildGrouper = ({ possibleParentAtom, itemAtomsArr }) => {
+  const outChildGrouper = (itemAtomsArr = []) => {
     return childGrouper({
-      possibleParentAtom: possibleParentAtom,
       itemAtomsArr: itemAtomsArr,
       itemCatelog: itemsCtx,
     });

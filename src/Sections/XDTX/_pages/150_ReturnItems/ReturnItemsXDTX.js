@@ -1,23 +1,26 @@
 import { TitleBarMRV } from "../../../../mrv/mrv-components/DisplayOutputs/TitleBarMRV";
-import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
+import { useNodeNav, useChildGrouper } from "../../../../mrv/MRVhooks/MRVhooks";
 import { useOutletContext } from "react-router";
 
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 
 import { PrimaryFooterXDTX } from "../../_resources/components/CompConfigs_XTDX";
+import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
 function ReturnItemsXDTX() {
   const nodeNav = useNodeNav();
-
+  const childGrouper = useChildGrouper();
   const mrvCtx = useOutletContext();
+
   const setSessionMRV = mrvCtx.setSessionMRV;
   const sessionMRV = mrvCtx.sessionMRV;
   const oXDTInvos = Object.values(sessionMRV.sessionInvos);
 
-  console.log("oXDTInvos", oXDTInvos);
-
   const aInvoItems = oXDTInvos[0].itemAtomsArr; // FtTB, only one invo per Exchange
-  console.log("aInvoItems", aInvoItems);
+
+  const childGroups = childGrouper(aInvoItems);
+
+  console.log("childGroups", childGroups);
 
   const handleContinue = () => {
     nodeNav("returnReason");
