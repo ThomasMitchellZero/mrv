@@ -206,8 +206,9 @@ const invoiceObj = {
         }),
       }),
 
+      // LPP
       new returnAtom({
-        atomItemNum: "3333WW20100",
+        atomItemNum: "20333WW20100",
         bifrostKey: "20333",
         parentKey: "20100",
         atomItemQty: 2,

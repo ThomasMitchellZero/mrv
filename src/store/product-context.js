@@ -334,7 +334,7 @@ const ProductContext = React.createContext({
     modelNum: "3YY",
     description: "3 Year LPP",
     productTaxonomyMRV: productTaxonomyMRV({
-      productKingdomMRV: productKingdomMRV({ lpp: true }),
+      productKingdomMRV: productKingdomMRV({ service: true }),
     }),
   }),
 });

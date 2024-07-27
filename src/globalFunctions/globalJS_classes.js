@@ -85,7 +85,8 @@ export { productKingdomMRV };
 const productTaxonomyMRV = ({ productKingdomMRV = null }) => {
   // Returns an object with the product's entire taxonomy.
   const outProdTaxonomy = {};
-  outProdTaxonomy.productTypeMRV = productKingdomMRV || productKingdomMRV({});
+  outProdTaxonomy.productKingdomMRV =
+    productKingdomMRV || productKingdomMRV({});
   return outProdTaxonomy;
 };
 
@@ -96,9 +97,9 @@ function parentChildGroup({
   allChildren = [],
   accessories = [],
   services = [],
-  LPP = [],
+  lpp = [],
 }) {
-  return { parentAtom, allChildren, accessories, services, LPP };
+  return { parentAtom, allChildren, accessories, services, lpp };
 }
 
 export { parentChildGroup };

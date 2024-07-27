@@ -142,10 +142,10 @@ function childGrouper({ itemAtomsArr = [], itemCatelog = {} }) {
       thisItemAtom = new returnAtom({}),
       kingdomKeyStr = productKingdomMRV({})
     ) => {
-      const itemNum = thisItemAtom.atomItemNum;
+      const bifrostKey = thisItemAtom.bifrostKey;
 
       const itemKingdom =
-        itemCatelog?.[itemNum]?.productTaxonomyMRV?.productKingdomMRV;
+        itemCatelog?.[bifrostKey]?.productTaxonomyMRV?.productKingdomMRV;
 
       return itemKingdom === kingdomKeyStr;
     };
@@ -159,7 +159,7 @@ function childGrouper({ itemAtomsArr = [], itemCatelog = {} }) {
       return filterKingdom(thisAtom, productKingdomMRV({ service: true }));
     });
 
-    outPCgroup.LPP = outPCgroup.allChildren.filter((thisAtom) => {
+    outPCgroup.lpp = outPCgroup.allChildren.filter((thisAtom) => {
       return filterKingdom(thisAtom, productKingdomMRV({ lpp: true }));
     });
 
