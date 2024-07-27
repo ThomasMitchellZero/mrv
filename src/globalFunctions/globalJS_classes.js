@@ -27,7 +27,6 @@ class moneyObj {
 export { moneyObj };
 
 class SingleDispo {
-
   // keys don't match values, refactor this.
   constructor({
     keyStr,
@@ -72,6 +71,26 @@ class ItemDisposObj {
 
 export { SingleDispo, ItemDisposObj };
 
+const productKingdomMRV = ({
+  lpp = false,
+  service = false,
+  product = false,
+}) => {
+  let outTypeStr = lpp ? "lpp" : service ? "service" : "product";
+  return outTypeStr;
+};
+
+export { productKingdomMRV };
+
+const productTaxonomyMRV = ({ productKingdomMRV = null }) => {
+  // Returns an object with the product's entire taxonomy.
+  const outProdTaxonomy = {};
+  outProdTaxonomy.productTypeMRV = productKingdomMRV || productKingdomMRV({});
+  return outProdTaxonomy;
+};
+
+export { productTaxonomyMRV };
+
 class Product {
   constructor({
     img = "",
@@ -85,6 +104,7 @@ class Product {
     restockFee = null,
     inStock = 99,
     dcLocations = {},
+    productTaxonomyMRV = null,
   }) {
     this.img = img;
     this.price = price;
@@ -98,6 +118,7 @@ class Product {
     this.restockFee = restockFee;
     this.inStock = inStock;
     this.dcLocations = dcLocations;
+    this.productTaxonomyMRV = productTaxonomyMRV;
   }
 }
 
@@ -324,7 +345,6 @@ function baseLocState({
   oClearSts.baseClear = makeBaseClearSt();
 
   return {
-
     pageActiveKey1,
     pageActiveKey2,
     pageActiveUI1,
@@ -389,7 +409,6 @@ const namedArray = ({ keyStr = "", value = [] }) => {
 };
 
 export { namedArray };
-
 
 class returnAtom {
   // Returns object of an item + qty that are identical in EVERY property we use.  Intended to go into an array.

@@ -16,6 +16,8 @@ import {
   navNode,
   SingleDispo,
   ItemDisposObj,
+  productKingdomMRV,
+  productTaxonomyMRV,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -116,15 +118,17 @@ export {
   centStringifier,
 };
 
-function childGrouper({ targetArr = [] }) {
-  let arrToFilter = cloneDeep(targetArr);
+function childGrouper({
+  possibleParentAtom = new returnAtom({}),
+  itemAtomsArr = [],
+  itemCatelog = {},
+}) {
+  // Idea is to run this on each entry in an array of returnAtoms to get a breakdown of its children.
+  // this does not itself cyle through the array.  It is meant to be used in a map or filter method.
+  // Not intended to change the state.  Only for rendering UI.
+  // returns obj of arrays of itemAtom's children, grouped by type.
 
-  // filter out all the children
-  const outParentsArr = targetArr.filter((thisItem) => {
-    return !thisItem.parentKey;
-  });
-
-  const refItemAtom = new returnAtom({});
+  let arrToFilter = cloneDeep(itemAtomsArr);
 
   const outGroupedChildren = {
     allChildren: [],
@@ -132,7 +136,74 @@ function childGrouper({ targetArr = [] }) {
     services: [],
     LPP: [],
   };
+
+  // filter for only items with parents.
+  outGroupedChildren.allChildren = itemAtomsArr.filter((thisAtom) => {
+    return thisAtom.parentKey === possibleParentAtom.atomItemNum;
+  });
+
+  // terminate if the item has no children.  Otherwise we will get duplicates in the output.
+  if (!outGroupedChildren.allChildren.length) {
+    return;
+  }
+
+  const refProductKingdom = new productKingdomMRV({});
+  const refProdctTaxonomy = new productTaxonomyMRV({});
+
+  const filterKingdom = (
+    // To be used in a filter method.  Returns true if the atom's productKingdomMRV matches the passed keyStr.
+    thisItemAtom = new returnAtom({}),
+    kingdomKeyStr = productKingdomMRV({})
+  ) => {
+    const itemNum = thisItemAtom.atomItemNum;
+
+    const itemKingdom =
+      itemCatelog?.[itemNum]?.productTaxonomyMRV?.productKingdomMRV;
+
+    return itemKingdom === kingdomKeyStr;
+  };
+
+  // filter the accessory children.
+  outGroupedChildren.accessories = arrToFilter.filter((thisAtom) => {
+    return filterKingdom(thisAtom, productKingdomMRV({ product: true }));
+  });
+
+  // filter the service children.
+  outGroupedChildren.services = arrToFilter.filter((thisAtom) => {
+    return filterKingdom(thisAtom, productKingdomMRV({ service: true }));
+  });
+
+  // filter the LPP children.
+  outGroupedChildren.LPP = arrToFilter.filter((thisAtom) => {
+    return filterKingdom(thisAtom, productKingdomMRV({ lpp: true }));
+  });
+
+  return outGroupedChildren;
 }
+
+export { childGrouper };
+
+function useChildGrouper() {
+  // childGrouper as a hook.  Prepopulates with the normal values expected within
+  const itemsCtx = useContext(ProductContext);
+
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+
+  // childGrouper configured to target ProductContext
+  const outChildGrouper = ({ possibleParentAtom, itemAtomsArr }) => {
+    return childGrouper({
+      possibleParentAtom: possibleParentAtom,
+      itemAtomsArr: itemAtomsArr,
+      itemCatelog: itemsCtx,
+    });
+  };
+
+  return outChildGrouper;
+}
+
+export { useChildGrouper };
 
 const populateDisposArr = ({ sessionSt = baseReturnState({}) }) => {
   // returns an array of SingleDispo objects from an array of return items.
@@ -474,9 +545,10 @@ const useReturnAtomizer = () => {
 };
 
 const autoAddChildAtoms = (clonedDraft) => {
-  // Papa?  Is it you?
+  // what is the purpose of this function?
+  // This function is to add child atoms from session invoices to the returnItems array if their parent is already in the array.
 
-  // We need this because the only way we can tell if an item has a parent is from the invoice.
+  // Papa?  Is it you?
 
   const refSessionState = baseReturnState({});
   const refItemAtom = new returnAtom({});

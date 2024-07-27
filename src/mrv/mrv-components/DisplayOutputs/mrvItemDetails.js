@@ -11,9 +11,9 @@ import { returnAtom } from "../../../globalFunctions/globalJS_classes";
 function MRVitemDetails({
   thisItemAtom = new returnAtom({ atomItemNum: "noProduct" }),
   showPrice = true,
-  priceInCents = undefined,
+  priceInCents = thisItemAtom.atomMoneyObj.unitTotal || undefined,
   showQty = true,
-  qty = undefined,
+  qty = thisItemAtom.atomItemQty || undefined,
   underArr = [],
   underArrWithContainer = null,
 }) {
@@ -24,19 +24,10 @@ function MRVitemDetails({
 
   // price is normally the unitTotal, but if priceInCents is passed, it will use that instead
   const priceStr =
-    showPrice && priceInCents
-      ? `$ ${centsToDollars(priceInCents)}`
-      : showPrice
-      ? `$ ${centsToDollars(thisItemAtom.atomMoneyObj.unitTotal)}`
-      : null;
+    showPrice && priceInCents ? `$${centsToDollars(priceInCents)}` : null;
 
   // qty is normally the atomItemQty, but if qty is passed, it will use that instead
-  const qtyStr =
-    showQty && qty
-      ? `Qty: ${qty}`
-      : showQty
-      ? `Qty: ${thisItemAtom.atomItemQty}`
-      : null;
+  const qtyStr = showQty && qty ? `${qty}      x` : null;
 
   const itemAndModelStr = `Item# ${thisItemAtom.atomItemNum}    Model# ${ctxItemInfo.modelNum}`;
 
@@ -50,8 +41,8 @@ function MRVitemDetails({
 
       <section className={`textColumn`}>
         <div className={`textRow`}>
-          <div className={`body prodDescription`}>{priceStr}</div>
           <div className={`body prodDescription`}>{qtyStr}</div>
+          <div className={`body prodDescription`}>{priceStr}</div>
         </div>
         <div className={`tinyText itemModel`}>{itemAndModelStr}</div>
         <div className={`body__small description`}>

@@ -15,7 +15,7 @@ import tenderTypes from "../components/global_functions/tenderTypes";
 const tType = tenderTypes;
 
 const invoiceObj = {
-  "7771": new Invoice_SR({
+  7771: new Invoice_SR({
     invoNum: "7771",
     date: new Date(2022, 3, 8),
     payment: {
@@ -56,7 +56,7 @@ const invoiceObj = {
     ],
   }),
 
-  "7772": new Invoice_SR({
+  7772: new Invoice_SR({
     invoNum: "7772",
     store: "2211",
     date: new Date(2022, 1, 22),
@@ -86,7 +86,7 @@ const invoiceObj = {
     ],
   }),
 
-  "7773": new Invoice_SR({
+  7773: new Invoice_SR({
     invoNum: "7773",
     date: new Date(2022, 2, 24),
     payment: {
@@ -115,7 +115,7 @@ const invoiceObj = {
     ],
   }),
 
-  "7774": new Invoice_SR({
+  7774: new Invoice_SR({
     invoNum: "7774",
     store: 1234,
     date: new Date(2022, 4, 4),
@@ -152,7 +152,7 @@ const invoiceObj = {
     ],
   }),
 
-  "7775": new Invoice_SR({
+  7775: new Invoice_SR({
     invoNum: "7775",
     date: new Date(2022, 3, 8),
     payment: {
@@ -160,42 +160,65 @@ const invoiceObj = {
     },
 
     itemAtomsArr: [
+      // The washer
       new returnAtom({
-        atomItemNum: "100",
-        atomItemQty: 8,
-        atomMoneyObj: new moneyObj({
-          unitBaseValue: 4150,
-        }),
-      }),
-      new returnAtom({
-        atomItemNum: "300",
+        atomItemNum: "20100",
         atomItemQty: 2,
         atomMoneyObj: new moneyObj({
-          unitBaseValue: 2415,
+          unitBaseValue: 75000,
         }),
       }),
+      // The dryer
       new returnAtom({
-        atomItemNum: "400",
-        atomItemQty: 10,
-        atomMoneyObj: new moneyObj({
-          unitBaseValue: 1315,
-        }),
-      }),
-      new returnAtom({
-        atomItemNum: "3333WW100",
-        bifrostKey: "3333",
-        parentKey: "100",
+        atomItemNum: "20200",
         atomItemQty: 2,
         atomMoneyObj: new moneyObj({
-          unitBaseValue: 514,
+          unitBaseValue: 110000,
+        }),
+      }),
+      // dryer clamp
+      new returnAtom({
+        atomItemNum: "20900",
+        atomItemQty: 2,
+        parentKey: "20200",
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 500,
+        }),
+      }),
+
+      // dryer duct
+      new returnAtom({
+        atomItemNum: "20910",
+        atomItemQty: 2,
+        parentKey: "20200",
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2500,
+        }),
+      }),
+
+      // washer hose
+      new returnAtom({
+        atomItemNum: "20920",
+        atomItemQty: 2,
+        parentKey: "20100",
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 2000,
+        }),
+      }),
+
+      new returnAtom({
+        atomItemNum: "3333WW20100",
+        bifrostKey: "20333",
+        parentKey: "20100",
+        atomItemQty: 2,
+        atomMoneyObj: new moneyObj({
+          unitBaseValue: 5500,
         }),
       }),
     ],
   }),
 
-
-
-  "8881" : new Invoice_SR({ 
+  8881: new Invoice_SR({
     invoNum: "8881",
     store: 1234,
     date: new Date(2024, 3, 4),
@@ -223,10 +246,9 @@ const invoiceObj = {
         }),
       }),
     ],
-
   }),
 
-  "8882" : new Invoice_SR({ 
+  8882: new Invoice_SR({
     invoNum: "8882",
     store: 1234,
     date: new Date(2024, 2, 1),
@@ -249,7 +271,7 @@ const invoiceObj = {
     ],
   }),
 
-  "88883333" : new Invoice_SR({
+  88883333: new Invoice_SR({
     invoNum: "88883333",
     store: 1234,
     date: new Date(2024, 2, 1),
@@ -292,7 +314,6 @@ const invoiceObj = {
       }),
     ],
   }),
-
 
   ///////////////  Uses MoneyObj + Association     ////////////////////////////////
 };
