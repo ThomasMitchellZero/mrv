@@ -2,12 +2,14 @@ import "./ScanScreenMRV.css";
 import Universal from "../../../assets/lowes-icons/Picture-Icons/universal-scan.svg";
 import Cart from "../../../assets/lowes-icons/Picture-Icons/Cart.svg";
 import Receipt from "../../../assets/lowes-icons/Picture-Icons/Receipt.svg";
+import { DescriptorIcon } from "./DescriptorIcon";
 
 const ScanScreenMRV = ({
   mainTitle = "Main Title",
   subtitle = "Subtitle",
   subtitleJSX = null,
   imgStr = "",
+  iconStr = "box",
 }) => {
   const imgSrc = {
     Universal,
@@ -15,10 +17,20 @@ const ScanScreenMRV = ({
     Receipt,
   };
 
+  const iconConfig = (
+    <DescriptorIcon
+      ctnrSize="8rem"
+      fontSize="6rem"
+      color="color__primary__text"
+      iconStr={iconStr}
+    />
+  );
+
   const activeImg = imgSrc[imgStr] || imgSrc.Universal;
 
   return (
     <div className={`scanScreen`}>
+      {iconConfig}
       <img src={activeImg} alt={"Scanning Graphic"} />
       <h4 className={`heading__medium color__primary__text`}>{mainTitle}</h4>
       <p className={`color__tertiary__text body__large`}>{subtitle}</p>
