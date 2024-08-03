@@ -31,7 +31,7 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
     <ScanScreenMRV
       mainTitle="scan Or Enter Receipts"
       subtitle="Or press 'Items' tab to add items to the cart"
-      imgStr="Receipt"
+      iconStr="receiptLong"
     />
   );
 

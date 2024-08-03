@@ -18,7 +18,6 @@ function HeaderMRV({
   },
 }) {
 
-
   const iconsObj = {
     close: <MdOutlineClose fontSize="1.5rem" />,
     back: <MdArrowBack fontSize="1.5rem" />,

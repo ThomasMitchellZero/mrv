@@ -53,10 +53,6 @@ export { TitleBarSTRX };
 
 */
 
-const CashTotalSTRX = ({ mode = "exchDelta" }) => {
-  const strxCtx = useOutletContext();
-  const sessionSTRX = strxCtx.sessionSTRX;
-  return <CashTotalMRV mode={mode} sessionState={sessionSTRX} />;
-};
+const CashTotalSTRX = () => <CashTotalMRV mode={"returnMinusReplace"} />;
 
 export { CashTotalSTRX };

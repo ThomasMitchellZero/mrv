@@ -41,8 +41,11 @@ const CashTotalMRV = ({
     returnMinusReplace: {
       // THIS IS NOT SET UP YET
       aCashLines: [
-        { label: "Return Value", value: 42069 },
-        { label: "Replacement Cost", value: 42069 },
+        { label: "Return Value", value: sessionMRV.totalReturnValue.unitTotal },
+        {
+          label: "Replacement Cost",
+          value: sessionMRV.totalReplacementValue.unitTotal,
+        },
       ],
       finalTotal: stateDeltaMO.unitTotal,
     },

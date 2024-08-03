@@ -7778,5 +7778,40 @@ What to do today?
     So I guess where this leaves me is a pretty dumb artifact.  Nearly all the logic will come from outside.
         
 
+27 Jul 2024
+    10:50.
+    Not the best start, but could have been much worse!  OK.  I've decided that I am gonna work on MRV today because I don't necessarily know when I will need CI, but I know that I will need this before very long.
+
+    OK, so last time I left I was working on the Expando.  It might also be worthwhile today to revisit Item Details, since I'm a pretty big fan of the different sizes and that whole entity seems pretty clunky.  I remember thinking while working on it that programming it seemed easier than making it in Figma.  
+
+    Let's bag up the Expando and then see where we stand.
+
+3 Aug
+    11:40.
+    OK, let's get to it!  I think today I am going to work on Store Exchanges, since I need to get some tests in the queue and I think I can spin this up the fastest.  
+
+    I actually think that the smartest thing would be to test the target end state first.  If the target end state sucks, I need to know.  
+
+    Currently, I'm going to the Return Reason node.  FttB I am gonna skip this step, since I don't actually know where I am going to put it.
+
+    That mean I need to go to the Replacement items section.  
+
+    I don't know why I am so damn obssessed with the icons, but it seems I am so I am gonna try and run this shit right now and see if I can get past this crap.  Maybe a nice, configurable component for all my FA icons?
+
+    3:00.
+    Well, I spent quite a bit of time fiddlefucking with the icons.  While it isn't critical, I feel like right now I really need to get the money totals right.  I gotta do it anways, so why not just do it now?
+
+    I guess when I am trying to pick "Next Thing To Do" that if something 
+        -has no dependencies and 
+        -I will need it for sure
+    then I can just do that thing at any time.  
+
+
+
+
+
+
+
+
 
 

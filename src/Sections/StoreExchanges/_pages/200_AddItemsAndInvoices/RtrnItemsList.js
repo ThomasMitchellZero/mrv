@@ -43,9 +43,9 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
   // blank screen for no items.
   const uiScanItems = (
     <ScanScreenMRV
-      mainTitle="scan Or Enter Items"
+      mainTitle="scan Or Enter Items Being returned"
       subtitle="Or press 'Receipts' tab to enter receipts"
-      imgStr="Cart"
+      iconStr="box"
     />
   );
 
