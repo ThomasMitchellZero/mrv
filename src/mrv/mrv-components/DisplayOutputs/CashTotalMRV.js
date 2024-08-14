@@ -4,6 +4,7 @@ import {
   useCentsToDollars,
   greenify,
   useNodeNav,
+  moneyObjDelta,
 } from "../../MRVhooks/MRVhooks";
 
 import {
@@ -24,6 +25,10 @@ const CashTotalMRV = ({
 
   const centsToDollars = useCentsToDollars();
   const stateDeltaMO = sessionMRV.cashDeltaMO;
+  const totalCartDeltaMO = moneyObjDelta({
+    refundMo: sessionMRV.totalReturnValue,
+    replaceMo: sessionMRV.totalReplacementValue,
+  })
 
   // if it can be derived from info in the moneyObj, then make some fields to do it.
 
@@ -47,7 +52,7 @@ const CashTotalMRV = ({
           value: sessionMRV.totalReplacementValue.unitTotal,
         },
       ],
-      finalTotal: stateDeltaMO.unitTotal,
+      finalTotal: totalCartDeltaMO.unitTotal,
     },
   };
 
@@ -69,18 +74,18 @@ const CashTotalMRV = ({
     );
   });
 
-  const negTotal = greenify(thisConfig.finalTotal);
+  const totalGreenified = greenify(thisConfig.finalTotal);
 
   return (
     <section className={`cashTotal`}>
       <div className={`breakdownLabelsCol`}>{uiCashLineLabels}</div>
       <div className={`breakdownValsCol`}>{uiCashLineValues}</div>
       <div className={`totalCol `}>
-        <div className={`body__small ${negTotal}`}>
-          {negTotal ? "Total Refund:" : "Total Due:"}
+        <div className={`body__small ${totalGreenified}`}>
+          {totalGreenified ? "Total Refund:" : "Total Due:"}
         </div>
-        <div className={`heading__large ${negTotal}`}>
-          {`$${centsToDollars(thisConfig.finalTotal)}`}
+        <div className={`heading__large ${totalGreenified}`}>
+          {`$${centsToDollars(Math.abs(thisConfig.finalTotal))}`}
         </div>
       </div>
     </section>

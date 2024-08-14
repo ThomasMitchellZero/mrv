@@ -62,8 +62,8 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
     const oVals = {
       invo: hasInvo ? `#${atomizedItem.atomInvoNum}` : "Needs Receipt",
       red: hasInvo ? "" : "color__red__text",
-      unitVal: hasInvo ? `$-${centsToDollars(unitBaseValue)}` : "- -",
-      totalVal: hasInvo ? `$-${centsToDollars(totalValue)}` : "- -",
+      unitVal: hasInvo ? `$${centsToDollars(unitBaseValue)}` : "- -",
+      totalVal: hasInvo ? `$${centsToDollars(totalValue)}` : "- -",
     };
 
     // greenify neg. values because they are stored as positive in the invoices.
@@ -77,14 +77,14 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
         </div>
         <div
           className={`unitPriceCol field body alignRight ${greenify(
-            -unitBaseValue
+            unitBaseValue
           )}`}
         >
           {oVals.unitVal}
         </div>
         <div
           className={`totalPriceCol field alignRight body bold ${greenify(
-            -totalValue
+            totalValue
           )}`}
         >
           {oVals.totalVal}
@@ -177,7 +177,6 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
 
     const cardString = centStringifier({
       valueInCents: cardBaseValue,
-      invertVal: true,
     });
 
     const outSubcardArr = aItemAndChildren.map((thisAtom) => {
@@ -198,7 +197,7 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
           <DeleteCardColMRV
             bigValue={cardString}
             description={"Refund Value"}
-            greenifyVal={-cardBaseValue}
+            greenifyVal={cardBaseValue}
             onClick={() => {
               setSessionItems({
                 itemAtom: returnItem,

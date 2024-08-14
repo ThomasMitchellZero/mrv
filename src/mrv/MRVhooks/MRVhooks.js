@@ -64,8 +64,8 @@ const moneyObjDelta = ({
 }) => {
   const outMoneyObj = new moneyObj({});
 
-  outMoneyObj.unitBaseValue = chargeMo.unitBaseValue - refundMo.unitBaseValue;
-  outMoneyObj.salesTax = chargeMo.salesTax - refundMo.salesTax;
+  outMoneyObj.unitBaseValue = chargeMo.unitBaseValue + refundMo.unitBaseValue;
+  outMoneyObj.salesTax = chargeMo.salesTax + refundMo.salesTax;
 
   return outMoneyObj;
 };
@@ -451,7 +451,7 @@ function useSetSessionInvos() {
 const returnAtomizer = ({
   sessionItemsArr = [],
   sessionInvosObj = {},
-  sessionState = new baseReturnState({}), // not configured to use yet.
+  sessionState = baseReturnState({}), // not configured to use yet.
 }) => {
   // accepts an object of Session Items and an array of Session Invos
 
