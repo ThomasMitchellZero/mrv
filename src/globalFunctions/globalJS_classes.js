@@ -3,10 +3,20 @@
 import cloneDeep from "lodash.clonedeep";
 
 class moneyObj {
-  constructor({ unitBaseValue = 0, salesTax = 0, salesTaxRate = 0.09 }) {
+  constructor({
+    unitBaseValue = 0,
+    salesTax = 0,
+    salesTaxRate = 0.09,
+    makeNegative = true,
+  }) {
     this.unitBaseValue = unitBaseValue;
     this.salesTaxRate = salesTaxRate;
     this.salesTax = salesTax || this.calcSalesTax();
+
+    if (makeNegative) {
+      this.unitBaseValue = -this.unitBaseValue;
+      this.salesTax = -this.salesTax;
+    }
   }
 
   // If I want to auto-calculate sales tax, I can set this.salesTax to 0.
@@ -91,6 +101,15 @@ const productTaxonomyMRV = ({ productKingdomMRV = null }) => {
 };
 
 export { productTaxonomyMRV };
+
+const merchTree = {
+  lpp: {},
+  service:{},
+  item: {},
+  reduction: {},
+}
+
+export { merchTree };
 
 function parentChildGroup({
   parentAtom = new returnAtom({}),

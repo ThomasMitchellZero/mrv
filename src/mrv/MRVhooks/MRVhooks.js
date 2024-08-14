@@ -19,6 +19,7 @@ import {
   productKingdomMRV,
   productTaxonomyMRV,
   parentChildGroup,
+  merchTree,
 } from "../../globalFunctions/globalJS_classes";
 
 import { cloneDeep, isEmpty } from "lodash";
@@ -79,6 +80,8 @@ const atomsMonetizer = (arrayOfAtoms) => {
 
   const outTotalMoneyObj = new moneyObj({ salesTaxRate: undefined });
 
+  const refMerchTree = merchTree;
+
   for (const thisAtom of arrayToSum) {
     const atomQty = thisAtom.atomItemQty;
 
@@ -136,6 +139,8 @@ function childGrouper({ itemAtomsArr = [], itemCatelog = {} }) {
     outPCgroup.allChildren = itemAtomsArr.filter((thisAtom) => {
       return thisAtom.parentKey === thisParentAtom.atomItemNum;
     });
+
+    // THIS IS OLD.  I don't know what the solve is but it's not gonna be this.
 
     const filterKingdom = (
       // To be used in a filter method.  Returns true if the atom's productKingdomMRV matches the passed keyStr.
@@ -333,10 +338,11 @@ function useSetSessionItems() {
 
   function setSessionItems({
     itemsArrRouteStr = "returnItems",
+    REFrouteStr__returnItems_replacementItems,
     itemAtom = new returnAtom({}),
     newQty = 0,
     actionType = "add",
-    add_edit_remove = "add edit remove",
+    REFactionType__add_edit_remove = "add edit remove",
   }) {
     const refDefaultState = baseReturnState({});
     const refAtom = new returnAtom({});
@@ -442,13 +448,18 @@ function useSetSessionInvos() {
 /////////////////         Session Value Derivers       /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
+const returnAtomizer = ({
+  sessionItemsArr = [],
+  sessionInvosObj = {},
+  sessionState = new baseReturnState({}), // not configured to use yet.
+}) => {
   // accepts an object of Session Items and an array of Session Invos
 
   const refInvoItem = new Invoice_SR({});
   const refInvoProd = new InvoProduct({});
   const refSessionItem = new sessionItem({});
   const refSingleDispo = new singleDispo({});
+  const refDefaultState = baseReturnState({});
 
   // Arrays of results for each layer of atomization.  Add to as needed.  Destructuring assignment?
 
@@ -494,6 +505,7 @@ const returnAtomizer = ({ sessionItemsArr = [], sessionInvosObj = {} }) => {
   LoopAtoms_Items_X_Invos: for (const thisItemAtom of outFullyAtomizedArr) {
     const refInvoItem = new Invoice_SR({});
     const refInvoProd = new InvoProduct({});
+    const refAtom = new returnAtom({});
 
     // TODO - call sorting function here.
 
