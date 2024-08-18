@@ -35,19 +35,12 @@ function MRVitemDetails({
   ////CONFIGURABLE DEFAULT VALUES ////
 
   /*
-
-  OLD product image handling.
-  
-  
-      <ProductImageMRV itemAtom={thisItemAtom} size="M" />
   
   */
 
   return (
     <section className={`mrvProdInfo`}>
-      <div className={`prodImgBox`}>
-        <img src={ctxItemInfo.img} alt="test" className={`productImage`} />
-      </div>
+      <ProductImageMRV itemAtom={thisItemAtom} size="L" />
 
       <section className={`textColumn`}>
         <div className={`textRow`}>
