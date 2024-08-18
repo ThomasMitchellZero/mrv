@@ -1,0 +1,56 @@
+.mrv {
+  .productImageMRV {
+    --smallCell: 5.5rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 0rem;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+    height: auto;
+
+    & .childArrowCtnr {
+      display: flex;
+      flex: 0 0 2.5rem;
+      height: auto;
+      color: var(--color__tertiary);
+      align-items: center;
+      justify-content: center;
+    }
+    .imageCtnr {
+      display: flex;
+      flex: 0 0 auto;
+      height: auto;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--radius__small);
+      background-color: var(--color__surface__default);
+    }
+
+    &.S {
+      & .image {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      & .imageCtnr {
+        flex: 0 0 var(--smallCell);
+      }
+    }
+
+    &.M {
+      & .image {
+        width: var(--smallCell);
+        height: var(--smallCell);
+      }
+    }
+    &.L {
+      & .image {
+        width: 8rem;
+        height: 8rem;
+      }
+    }
+  }
+}

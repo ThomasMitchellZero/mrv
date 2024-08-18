@@ -338,11 +338,11 @@ function useSetSessionItems() {
 
   function setSessionItems({
     itemsArrRouteStr = "returnItems",
-    REFrouteStr__returnItems_replacementItems,
+    REF_routeStr____returnItems_replacementItems,
     itemAtom = new returnAtom({}),
     newQty = 0,
     actionType = "add",
-    REFactionType__add_edit_remove = "add edit remove",
+    REF_actionType____add_edit_remove = "add edit remove",
   }) {
     const refDefaultState = baseReturnState({});
     const refAtom = new returnAtom({});

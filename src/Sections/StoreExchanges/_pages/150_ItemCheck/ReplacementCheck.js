@@ -4,10 +4,11 @@ import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 import { useImmer } from "use-immer";
 import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
 import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
+import { ProductImageMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ProductImageMRV";
+import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
 function ReplacementCheck() {
-  const nodeNav = useNodeNav()
-
+  const nodeNav = useNodeNav();
 
   const defaultState = { activePanel: "askCustomer" };
 
@@ -92,7 +93,23 @@ function ReplacementCheck() {
 export { ReplacementCheck };
 
 /*
+        <div className={`prodImgTest`}>
+          <ProductImageMRV
+            itemAtom={new returnAtom({ atomItemNum: "330" })}
+            size="L"
+          />
+          <ProductImageMRV
+            itemAtom={new returnAtom({ atomItemNum: "330" })}
+            size="M"
+            showChildArrow={false}
+            imageOnly={true}
+          />
+          <ProductImageMRV
+            itemAtom={new returnAtom({ atomItemNum: "330" })}
+            size="S"
 
+          />
+        </div>
 
 
 */

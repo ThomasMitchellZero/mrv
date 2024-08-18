@@ -5,6 +5,7 @@ import { useCentsToDollars } from "../../MRVhooks/MRVhooks";
 import ProductContext from "../../../store/product-context";
 import { useContext } from "react";
 import { returnAtom } from "../../../globalFunctions/globalJS_classes";
+import { ProductImageMRV } from "./ProductImageMRV";
 
 // this should work from a completely standard product details object, since the actual product can be changed.
 
@@ -32,6 +33,15 @@ function MRVitemDetails({
   const itemAndModelStr = `Item# ${thisItemAtom.atomItemNum}    Model# ${ctxItemInfo.modelNum}`;
 
   ////CONFIGURABLE DEFAULT VALUES ////
+
+  /*
+
+  OLD product image handling.
+  
+  
+      <ProductImageMRV itemAtom={thisItemAtom} size="M" />
+  
+  */
 
   return (
     <section className={`mrvProdInfo`}>
