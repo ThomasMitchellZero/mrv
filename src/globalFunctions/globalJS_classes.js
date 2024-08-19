@@ -249,10 +249,11 @@ class Invoice_SR {
         return thisAtom;
       });
     }
-    
-    // write a get method that returns the total quantity of all items in the invoice.
-    this.totalItemQty = this.itemAtomsArr.reduce((acc, thisAtom) => {
-      return acc + thisAtom.atomItemQty;
+  }
+
+  get totalItems() {
+    return this.itemAtomsArr.reduce((acc, curr) => {
+      return acc + curr.atomItemQty;
     }, 0);
   }
 }

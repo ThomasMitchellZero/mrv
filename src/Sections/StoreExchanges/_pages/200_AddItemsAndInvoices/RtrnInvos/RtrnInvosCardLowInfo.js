@@ -56,7 +56,16 @@ const RtrnInvosCardLowInfo = ({ invoice = new Invoice_SR({}) }) => {
       </div>
 
       <div className={`invoItemsColumn`}>
-        <BigLabeledValue />
+        <div className={`mergedReceiptCol`}>
+          <BigLabeledValue
+            labelStr="Line Items"
+            valueStr={`${invoice.itemAtomsArr.length}`}
+          />
+          <BigLabeledValue
+            labelStr="Total Items"
+            valueStr={`${invoice.totalItems}`}
+          />
+        </div>
       </div>
 
       <div className={`deleteCol field`}>

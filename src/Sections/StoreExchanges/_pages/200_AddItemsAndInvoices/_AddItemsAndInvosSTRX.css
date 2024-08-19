@@ -177,7 +177,6 @@
           [unitQty] 4rem
           [unitPrice] 8rem
           [unitIcon] 5rem
-          [spacer] 1px
           [trash] var(--DeleteColWidth);
         flex: 0 0 auto;
         gap: 1rem;
@@ -186,14 +185,14 @@
       & .invoItemsColumn {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: invoItemDetails / spacer;
+        grid-column: invoItemDetails / trash;
         gap: 1rem;
       }
 
       & .invoItemCluster {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: invoItemDetails / spacer;
+        grid-column: invoItemDetails / trash;
         gap: 1rem;
 
         &:last-child {
@@ -205,9 +204,16 @@
       & .invoItemSubcard {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: invoItemDetails / spacer;
+        grid-column: invoItemDetails / trash;
         align-items: flex-start;
         box-shadow: none;
+      }
+
+      & .mergedReceiptCol {
+        grid-column: invoItemDetails / trash;
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
       }
 
       & .receiptDetailsCol {
@@ -216,9 +222,6 @@
       }
       & .invoItemDetailsCol {
         grid-column: invoItemDetails / span 1;
-        &.columnTitle {
-          padding-left: 2rem;
-        }
       }
       & .unitQtyCol {
         display: flex;
@@ -234,11 +237,6 @@
       & .unitIconCol {
         grid-column: unitIcon / span 1;
         justify-content: flex-end;
-      }
-      & .spacerCol {
-        grid-column: spacer / span 1;
-        height: 100%;
-        background-color: var(--color__border);
       }
       & .deleteCol {
         grid-column: trash / span 1;
