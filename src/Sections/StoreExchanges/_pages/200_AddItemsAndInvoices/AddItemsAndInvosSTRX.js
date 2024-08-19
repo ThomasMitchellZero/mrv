@@ -15,7 +15,7 @@ import { populateDisposArr, useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItemsList";
-import { RtrnInvosList } from "./RtrnInvosList";
+import { RtrnInvosList } from "./RtrnInvos/RtrnInvosList";
 import { useOutletContext } from "react-router";
 
 function AddItemsAndInvosSTRX() {

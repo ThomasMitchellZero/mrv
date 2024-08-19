@@ -240,10 +240,9 @@
         height: 100%;
         background-color: var(--color__border);
       }
-
       & .deleteCol {
         grid-column: trash / span 1;
-        justify-content: center;
+        justify-content: right;
       }
     }
   }

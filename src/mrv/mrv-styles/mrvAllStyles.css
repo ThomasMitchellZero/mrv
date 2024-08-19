@@ -341,7 +341,7 @@
     /* same but more descriptive b/c I don't want to hunt for the other one..*/
     & .buttonBox25 {
       height: 100%;
-      flex: 0 0 var(--primaryColumn);
+      width: var(--primaryColumn);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -693,12 +693,20 @@
     gap: 1rem;
   }
 
+  & .gap0rem {
+    gap: 0rem;
+  }
+
   & .vw25 {
     width: var(--primaryColumn);
   }
 
   & .alignLeft {
     align-items: flex-start;
+  }
+
+  & .alignCenter {
+    align-items: center;
   }
 
   & .alignRight {

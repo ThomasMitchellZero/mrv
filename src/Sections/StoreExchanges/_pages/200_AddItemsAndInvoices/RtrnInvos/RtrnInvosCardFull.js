@@ -1,27 +1,32 @@
 import { useOutletContext } from "react-router";
-import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
-import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
-import { DeleteCardColMRV } from "../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
-import { MdChevronRight, MdDeleteOutline, MdExpandLess, MdExpandMore } from "react-icons/md";
+import { MRVitemDetails } from "../../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
+import { MRVinput } from "../../../../../mrv/mrv-components/inputs/MRVinput";
+import { DeleteCardColMRV } from "../../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
+import { RtrnInvosCardLowInfo } from "./RtrnInvosCardLowInfo";
+import {
+  MdChevronRight,
+  MdDeleteOutline,
+  MdExpandLess,
+  MdExpandMore,
+} from "react-icons/md";
 import {
   useSetSessionInvos,
   centsToDollars,
-} from "../../../../mrv/MRVhooks/MRVhooks";
-import { ScanScreenMRV } from "../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
+} from "../../../../../mrv/MRVhooks/MRVhooks";
+import { ScanScreenMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import {
   Invoice_SR,
   returnAtom,
-} from "../../../../globalFunctions/globalJS_classes";
+} from "../../../../../globalFunctions/globalJS_classes";
 
 
+//// THIS IS NOT WORKING, I JUST NEED A PLACE TO STASH THIS STUFF SO I DON'T LOSE IT. /////
 
-const RtrnInvosList = ({ parLocState, setParLocState }) => {
+const RtrnInvosCardFull = ({ parLocState, setParLocState }) => {
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
   const setSessionInvosMRV = useSetSessionInvos();
-
-
 
   const aSessionInvos = sessionMRV.sessionInvos;
 
@@ -152,11 +157,8 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
     <div className={`columnTitleRow invos_grid`}>
       <div className={`columnTitle receiptDetailsCol`}>Receipt #</div>
       <div className={`columnTitle invoItemDetailsCol`}>Items In Receipt</div>
-      <div className={`columnTitle unitQtyCol`}>Qty Sold</div>
-      <div className={`columnTitle unitPriceCol`}>Unit Price</div>
-      <div className={`columnTitle unitIconCol`}></div>
-      <div className={`columnTitle `}></div>
-      <div className={`columnTitle trashCol`}></div>
+
+      <div className={`columnTitle deleteCol`}>Receipt Total</div>
     </div>
   );
 
@@ -174,4 +176,4 @@ const RtrnInvosList = ({ parLocState, setParLocState }) => {
   );
 };
 
-export { RtrnInvosList };
+export { RtrnInvosCardFull };

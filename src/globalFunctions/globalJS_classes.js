@@ -104,10 +104,10 @@ export { productTaxonomyMRV };
 
 const merchTree = {
   lpp: {},
-  service:{},
+  service: {},
   item: {},
   reduction: {},
-}
+};
 
 export { merchTree };
 
@@ -194,6 +194,7 @@ export { saleRecordTypes };
 //---- Orders ----
 
 class InvoProduct {
+  // these should be atoms and I want to get rid of this but I think Returns is still using it.
   constructor({
     quantity = 1,
     price = 100,
@@ -248,6 +249,11 @@ class Invoice_SR {
         return thisAtom;
       });
     }
+    
+    // write a get method that returns the total quantity of all items in the invoice.
+    this.totalItemQty = this.itemAtomsArr.reduce((acc, thisAtom) => {
+      return acc + thisAtom.atomItemQty;
+    }, 0);
   }
 }
 
