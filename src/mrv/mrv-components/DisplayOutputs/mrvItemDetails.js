@@ -18,6 +18,9 @@ function MRVitemDetails({
   underArr = [],
   underArrWithContainer = null,
 }) {
+  if (thisItemAtom.atomItemNum === "noProduct") {
+    console.log("no product passed to MRVitemDetails");
+  }
   const productContext = useContext(ProductContext);
   const centsToDollars = useCentsToDollars();
 
