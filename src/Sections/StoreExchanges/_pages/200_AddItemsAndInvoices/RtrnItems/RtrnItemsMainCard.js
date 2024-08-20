@@ -7,7 +7,7 @@ import {
   centStringifier,
   useSetSessionItems,
 } from "../../../../../mrv/MRVhooks/MRVhooks";
-import { ScanScreenMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
+
 import { greenify } from "../../../../../mrv/MRVhooks/MRVhooks";
 import { DeleteCardColMRV } from "../../../../../mrv/mrv-components/inputs/DeleteCardColMRV";
 import { returnAtom } from "../../../../../globalFunctions/globalJS_classes";
@@ -151,9 +151,6 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
   ///////////////////////////////////////////////////////////////////
   //                 Card for the item and its children
   ///////////////////////////////////////////////////////////////////
-
-  // get the total $ value of the card.
-
 
 
   const aCardTiles = aMainPlusChildren.map((thisAtom) => {

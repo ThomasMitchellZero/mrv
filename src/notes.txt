@@ -7806,6 +7806,73 @@ What to do today?
         -I will need it for sure
     then I can just do that thing at any time.  
 
+    OK, so now we got a bigger problem.  How to actually make values negative?  The whole reason I am doing this instead of resurfacing the values in the UI is because not everything in the Replacement bucket is gonna be negative (e.g. Discounts) and if I ever have restock fees that could happen in reverse to the Returns.  OK.  I need groceries, and this would be a perfect time for a walk.  
+
+    4:30.
+    OK, having walked it off, here's what I am thinking:
+        -I think I should just treat Returns as negative and Replacements as plus.  If I ever do end up having to redesign Returns, that's easy enough to change.
+        -2 factors determine Plus or Mins - which bucket it's in, and whether it's a reduction.
+            -Reductions SHOULD be the lone exception, so I just need a way of marking them.
+            -There has just got to be an easier way of defining a set of allowable values.
+
+
+14 Aug 2024
+    1:45.
+    OK.  No more durdling.  Gonna sit my butt in the chair and try to get this prototype rolling.
+
+    The values of the Return items need to be negative.  I THINK if I can just configure that during item addition, everything downstream will follow.  
+        -I think it's just in the SetSessionItems?
+        -Wait, that's not correct because ReturnValue is derived from the invoices.  That means it's happening in the Atomizer.
+            -Of note, AFAICT the Atomizer is only ever used on Return Items.  New items don't have any invoices to match.  
+
+    5:40.
+    Dammit, got distracted by my Real Job.
+    OK. Here's a crazy idea.  A real easy way to do this would be to just make the InvoItems negative.  
+
+    And the EASIEST way is just to change the default value of MakeNegative.  And oh my god it seems to be working?  Lots of problems but I can fix problems.
+
+18 Aug 2024
+    OK, working on the protos.  
+
+    The MOST important thing I need to get our of the first two screens is the Reason Codes.  And while it would probably be fine to proceed, I am hoping that the image size would just be a very quick hit that gets me going.  
+
+    Let's think about the scenarios.
+        -There are gonna be times where I ONLY want the image, and I want that image as small as possible (thinking the minified Item Details but there might be others?)
+        -Not quite sure when, but there could be scenarios where I want the small image but with NO child arrow.
+
+    4:35.
+    First, props to me for guessing that the image bullshit was going to take much longer than anticipated.
+
+    I'm not actually expecting to work all that much more today.  I'm gonna give it another hour and beyond that I am dropping whenever it stops feeling fun.  
+
+    So the question is what to do next.  Options:
+        *Try and update the CSS for the Return Items List.
+            -Not sure this is 100% needed
+                +we had some trouble with this, and if we don't, it isn't really a test, is it?
+        
+19 Aug 2024
+    1:05.
+    Let's get after it.  Our North Star should be to try and defer whatever it is we can.  That said, we do want to make sure we're not just making a mess for ourselves down the road.
+
+    Reading the MDN docs, something really stood out to me.  Paraphrasing, but it was something to the effect of 'Grid works from the layout down, flexbox works from the content up'.  That tracks with what I understand.  Flexbox starts from the content and divvies up any remaining empty space.  I also suspect this is why I've had such a terrible time with truncating text - because a flexbox starts from the size of the content, it's really got no baiss to say "You're overfilling the container" because the container size STARTS from the sizxe of the content.  
+    
+    So yeah, I should probably keep using the grid for a lot of stuff, including the Invoice thing I am doing now.  And I can still use flexboxes WITHIN the grid.  I set my grid coordinates and then set display: flexbox on the content itself.  That means that its CHILDREN will obey flexbox rules within the space it contains, but the container itself is sized and positioned by grid rules.
+
+    And I think at some point I need to come back through and figure out my app-wide spacing, but my intuition is that I'm not using flexbox correctly and I need a lot more fixed values.
+
+    Anyways.  To the card!
+
+    Ahh, fuck.  I am just now realizing that my Add Items & Invos page isn't using the Shared Local State.  So that's gonna have to change at some point.  The siren song of 'Blow it all out and start over' is becoming intense...
+
+    OK.  We know that we're gonna be using some form of grid.  Let's stick to that for the time being.  
+
+    3:15.
+    Still getting those annoying error messages.  I don't know if they are related to CRA, but since that thing is no longer supported, maybe I just eat it and move to Vite?  How bad could it be?  (it could be terrible)
+
+
+
+
+
 
 
 

@@ -73,7 +73,6 @@ const moneyObjDelta = ({
 const atomsMonetizer = (arrayOfAtoms) => {
   // returns a new moneyObj populated from all atoms in the array
   // salesTaxRate set to undefined because there is no guarantee that all atoms will have the same salesTaxRate.
-  console.log("we're in atomsMonetizer");
   const refAtom = new returnAtom({});
 
   let arrayToSum =
@@ -357,7 +356,6 @@ function useSetSessionItems() {
       itemsCtx[itemAtom.bifrostKey] === undefined ||
       !Array.isArray(outItemsArr)
     ) {
-      console.log("You FAIL!");
       return false;
     }
 
