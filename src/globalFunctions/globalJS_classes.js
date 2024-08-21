@@ -320,6 +320,8 @@ const locStFields = {
   activeKey2: "",
   activeUI1: "",
   activeUI2: "",
+  activeMode1: "",
+  activeMode2: "",
   activeData1: null,
   activeData2: null,
   errorSt1: "",

@@ -17,6 +17,7 @@ import { cloneDeep } from "lodash";
 import {
   populateDisposArr,
   useNodeNav,
+  useClearLocErrStates,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { useImmer } from "use-immer";
@@ -24,12 +25,11 @@ import { RtrnItemsList } from "./RtrnItems/RtrnItemsList";
 import { RtrnInvosList } from "./RtrnInvos/RtrnInvosList";
 import { useOutletContext } from "react-router";
 
-
 const locStItemsAndInvos = (() => {
   // base local state to be used in NodeNav.
   const outLocSt = cloneDeep(baseLocState);
-  outLocSt.page.activeUI1 = "AllEntry30";
-  outLocSt.rPan.activeUI1 = "Receipts";
+  outLocSt.rPan.activeUI1 = "AllEntry30";
+  outLocSt.page.activeMode1 = "receipt";
   return outLocSt;
 })();
 
@@ -40,9 +40,14 @@ function AddItemsAndInvosSTRX() {
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
   const nodeNav = useNodeNav();
-  const locSt = mrvCtx.locSt;
+  const locStRt = sessionMRV.locSt;
+  const clearErrors = useClearLocErrStates();
 
-  const clearableFields = {
+  console.log(locStRt)
+
+  /* this is getting cleared
+
+    const clearableFields = {
     itemNumField: "",
     itemQtyField: "",
     receiptNumField: "",
@@ -69,6 +74,9 @@ function AddItemsAndInvosSTRX() {
   };
 
   const [locStAddRtrns, setLocStAddRtrns] = useImmer(defaultState);
+  
+  
+  */
 
   const s70label = {
     item: "Items Being Returned",
@@ -76,93 +84,46 @@ function AddItemsAndInvosSTRX() {
   };
 
   const o30panels = {
-    AllEntry30: (
-      <AllEntry30
-        parLocState={locStAddRtrns}
-        setParLocState={setLocStAddRtrns}
-      />
-    ),
-
-    ItemDetails30: (
-      <ItemDetails30STRX
-        stateItemArr="returnItems"
-        parLocState={locStAddRtrns}
-        setParLocState={setLocStAddRtrns}
-      />
-    ),
+    AllEntry30: <AllEntry30 />,
+    ItemDetails30: <ItemDetails30STRX stateItemArr="returnItems" />,
   };
 
   const o70panels = {
-    item: (
-      <RtrnItemsList
-        parLocState={locStAddRtrns}
-        setParLocState={setLocStAddRtrns}
-      />
-    ),
-    receipt: (
-      <RtrnInvosList
-        parLocState={locStAddRtrns}
-        setParLocState={setLocStAddRtrns}
-      />
-    ),
+    item: <RtrnItemsList />,
+    receipt: <RtrnInvosList />,
   };
 
   const uiContinueWarning = (
     <div className={`footer_text`}>
-      <div className={"buttonBox25 warning"}>
-        {locStAddRtrns.oErrorStates.noItem}
-      </div>
+      <div className={"buttonBox25 warning"}>{"FaRT warning"}</div>
     </div>
   );
 
   /* ---- SHARED FUNCTIONS ---- */
 
   const bgClick = () => {
+    // haven't tried this yet.
+    clearErrors();
     console.log("bgClick");
-    setLocStAddRtrns((draft) => {
-      draft.active30 = "AllEntry30";
-      draft.activeItemAtom = null;
-      draft.activeErrorKey = "";
-    });
   };
 
-  const handleContinue = () => {
-    console.log(sessionMRV.returnItems.length);
-    if (locStAddRtrns.activeMode === "receipt") {
-      setLocStAddRtrns((draft) => {
-        draft.activeMode = "item";
-        draft.active30 = "AllEntry30";
+  const refBaseLocState = baseLocState;
+
+  const handleContinue = (e) => {
+    e.stopPropagation();
+
+    if (locStRt.page.activeMode1 === "receipt") {
+      setSessionMRV((draft) => {
+        draft.locSt.page.activeMode1 = "item";
       });
     } else if (sessionMRV.returnItems.length === 0) {
-      setLocStAddRtrns((draft) => {
-        draft.activeErrorKey = "noItem";
+      setSessionMRV((draft) => {
+        draft.locSt.page.errorSt1 = "noItem";
       });
     } else {
-      setSessionMRV((draft) => {
-        draft.returnItemDispos = populateDisposArr({ sessionSt: sessionMRV });
-      });
       nodeNav("reason");
     }
   };
-
-  const testFn = (prefix) => {
-    const basicObj = {
-      a: 1,
-      b: 2,
-    };
-
-    const outBasicObj = {};
-
-    for (const key of Object.keys(basicObj)) {
-      console.log(key);
-      outBasicObj[`${prefix}${key}`] = basicObj[key];
-    }
-    return outBasicObj;
-  };
-
-  const testObj = testFn("test");
-
-  console.log(testObj);
 
   /* ---- OUTPUT JSX ---- */
 
@@ -172,32 +133,28 @@ function AddItemsAndInvosSTRX() {
         <TitleBarSTRX
           //hasIcon={"back"}
           showProductName={true}
-          headerTitle={s70label[locStAddRtrns.activeMode]}
+          headerTitle={s70label[locStRt.page.activeMode1]}
           showNavNodeBar={true}
         />
         <div className={`main_content`}>
-          {o70panels[locStAddRtrns.activeMode]}
+          {o70panels[locStRt.page.activeMode1]}
         </div>
-        {locStAddRtrns.activeErrorKey === "noItem" ? uiContinueWarning : null}
+        {locStRt.page.errorSt1 === "noItem" ? uiContinueWarning : null}
         <div className={`footer_content`}>
           <CashTotalSTRX />
-          <div
-            onClick={(e) => {
-              console.log("button BG register");
-              e.stopPropagation();
-            }}
-            className={`buttonBox25`}
-          >
+          <div className={`buttonBox25`}>
             <button
               className={`primary jumbo maxFlex`}
-              onClick={handleContinue}
+              onClick={(e) => {
+                handleContinue(e);
+              }}
             >
               Continue
             </button>
           </div>
         </div>
       </main>
-      {o30panels[locStAddRtrns.active30]}
+      {o30panels[locStRt.rPan.activeUI1]}
     </section>
   );
 }
