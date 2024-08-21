@@ -3,7 +3,7 @@ import "./ItemDetails30STRX.css";
 import { TitleBarSTRX } from "./CompConfigsSTRX";
 import { MRVitemDetails } from "../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
-import { useSetSessionItemsSTRX } from "../hooks/STRXhooks";
+import { useSetSessionItems} from "../../../../mrv/MRVhooks/MRVhooks";
 import { cloneDeep } from "lodash";
 import { useOutletContext } from "react-router";
 
@@ -16,6 +16,7 @@ const ItemDetails30STRX = ({
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
+  const setSessionItems = useSetSessionItems();
 
   const activeAtom = parLocState.activeItemAtom;
   const activeItemNum = activeAtom?.atomItemNum;
@@ -38,7 +39,6 @@ const ItemDetails30STRX = ({
   const activeConfig = oConfigs[inputMode];
   const panelConfig = oPanelConfigs[panelConfigStr];
 
-  const setSessionItemsSTRX = useSetSessionItemsSTRX();
 
   const handleClose = () => {
     setParLocState(() => {
@@ -53,14 +53,14 @@ const ItemDetails30STRX = ({
     // This can be used from either Items or Invoices.
     // Item might not yet exist in the session items, so we handle the input conditionally.
     if (outQty && inputMode === "add") {
-      setSessionItemsSTRX({
+      setSessionItems({
         itemsArrRouteStr: "returnItems",
         itemAtom: activeAtom,
         newQty: outQty,
         actionType: "add",
       });
     } else if (inputMode === "edit") {
-      setSessionItemsSTRX({
+      setSessionItems({
         itemsArrRouteStr: "returnItems",
         itemAtom: activeAtom,
         newQty: outQty,

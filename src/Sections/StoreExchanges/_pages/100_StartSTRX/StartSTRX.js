@@ -2,10 +2,11 @@ import { TitleBarSTRX } from "../../_resources/components/CompConfigsSTRX";
 
 import { useNavigate } from "react-router";
 import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
+import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
 
 
 function StartSTRX() {
-  const nodeNavSTRX = useNodeNavSTRX();
+  const nodeNav = useNodeNav();
 
   /* ---- SHARED FUNCTIONS ---- */
 
@@ -19,7 +20,7 @@ function StartSTRX() {
           <button
             type="button"
             onClick={() => {
-              nodeNavSTRX("replacementCheck");
+              nodeNav("replacementCheck");
             }}
             className={`mrvBtn primary`}
           >

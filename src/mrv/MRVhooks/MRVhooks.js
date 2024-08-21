@@ -13,6 +13,7 @@ import {
   singleDispo,
   moneyObj,
   baseReturnState,
+  baseLocState,
   navNode,
   SingleDispo,
   ItemDisposObj,
@@ -286,8 +287,11 @@ function useNodeNav() {
   const nodeNav = (targetNodeKey = "") => {
     const refBreadcrumbNode = navNode({});
     const refDefaultState = baseReturnState({});
+    const refBaseLocState = baseLocState;
 
-    if (sessionMRV.oNavNodes[targetNodeKey]) {
+    const thisTargetNode = sessionMRV.oNavNodes[targetNodeKey];
+
+    if (thisTargetNode) {
       const outNavNodesObj = cloneDeep(sessionMRV.oNavNodes);
 
       // all nodes prior to the target remain enabled.
@@ -308,6 +312,7 @@ function useNodeNav() {
 
       setSessionMRV((draft) => {
         draft.oNavNodes = outNavNodesObj;
+        draft.locSt = thisTargetNode.locSt;
       });
       navigate(outNavNodesObj[targetNodeKey].routeStr);
     }
@@ -324,10 +329,37 @@ export { useNodeNav };
 
 // Make a change to the items in the current session state.
 
-/*
+function clearErrorStates(sessionSt) {
+  // returns a new locSt object with all locStError1 and locStError2 fields cleared.
+  const refDefaultState = baseReturnState({});
+  const refBaseLocState = baseLocState;
+
+  const outSessionState = cloneDeep(sessionSt);
+  const aLocStNodes = Object.keys(sessionSt.locSt);
+
+  for (const thisNode of aLocStNodes) {
+    outSessionState.locSt[thisNode].locStError1 = "";
+    outSessionState.locSt[thisNode].locStError2 = "";
+  }
+}
+
+function useClearLocErrStates() {
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+
+  const clearLocErrStates = () => {
+    setSessionMRV((draft) => {
+      draft.locSt = clearErrorStates(sessionMRV);
+    });
+  };
+  return clearLocErrStates;
+}
+
+export { clearErrorStates, useClearLocErrStates };
 
 
-*/
+
 
 function useSetSessionItems() {
   const itemsCtx = useContext(ProductContext);

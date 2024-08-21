@@ -1,12 +1,11 @@
 import { useOutletContext } from "react-router";
-
-import {
-  useSetSessionItems,
-} from "../../../../../mrv/MRVhooks/MRVhooks";
+import { useSetSessionItems } from "../../../../../mrv/MRVhooks/MRVhooks";
 import { ScanScreenMRV } from "../../../../../mrv/mrv-components/DisplayOutputs/ScanScreenMRV";
 import { RtrnItemsMainCard } from "./RtrnItemsMainCard";
 
 import { cloneDeep } from "lodash";
+
+
 
 const RtrnItemsList = ({ parLocState, setParLocState }) => {
   const mrvCtx = useOutletContext();
@@ -16,13 +15,11 @@ const RtrnItemsList = ({ parLocState, setParLocState }) => {
 
   const aReturnItems = sessionMRV.returnItems;
 
-
   const noItems = aReturnItems.length === 0;
 
   const aMainItems = aReturnItems.filter((returnItem) => {
     return !returnItem.parentKey;
   });
-
 
   // blank screen for no items.
   const uiScanItems = (

@@ -307,10 +307,44 @@ class singleDispo {
 
 export { sessionItem, singleDispo };
 
-//// Return Classes ///////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+//                LOCAL STATE STUFF       
+//////////////////////////////////////////////////////////////////////////////   
 
-// factory function that produces the default Return state object
+const locStMethods = {
+}
 
+
+const locStFields = {
+  activeKey1: "",
+  activeKey2: "",
+  activeUI1: "",
+  activeUI2: "",
+  activeData1: null,
+  activeData2: null,
+  errorSt1: "",
+  errorSt2: "",
+  input1: "",
+  input2: "",
+  input3: "",
+  input4: "",
+};
+
+export { locStFields };
+
+const locStBaseMethods = {
+
+}
+
+const baseLocState = {
+  page: cloneDeep(locStFields),
+  rPan: cloneDeep(locStFields),
+  main: cloneDeep(locStFields),
+};
+
+export { baseLocState };
+
+/*
 function baseLocState({
   pageActiveKey1 = "",
   pageActiveKey2 = "",
@@ -413,6 +447,7 @@ function baseLocState({
     methods,
   };
 }
+ */
 
 const baseReturnState = ({
   sessionConfigs = {
@@ -427,7 +462,7 @@ const baseReturnState = ({
   sessionInvos = {},
   returnItemDispos = [],
   oNavNodes = {},
-  locSt = baseLocState({}),
+  locSt = cloneDeep(baseLocState),
 }) => {
   return {
     returnItems,
@@ -442,6 +477,8 @@ const baseReturnState = ({
     locSt,
   };
 };
+
+export { baseReturnState };
 
 const namedArray = ({ keyStr = "", value = [] }) => {
   return { keyStr, value };
@@ -482,8 +519,9 @@ const navNode = ({
   selected = false,
   disabled = true,
   breadcrumb = false, //may need to conditionally add a breadcrumb to the nav bar
+  locSt = baseLocState,
 }) => {
-  return { keyStr, routeStr, titleStr, selected, disabled, breadcrumb };
+  return { keyStr, routeStr, titleStr, selected, disabled, breadcrumb, locSt };
 };
 
-export { baseLocState, baseReturnState, returnAtom, navNode };
+export { returnAtom, navNode };

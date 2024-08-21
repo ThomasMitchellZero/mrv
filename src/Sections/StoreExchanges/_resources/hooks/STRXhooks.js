@@ -4,6 +4,8 @@ import ProductContext from "../../../../store/product-context";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
+import { locStItemsAndInvos } from "../../_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
+
 import {
   ProdClass,
   InvoProduct,
@@ -20,6 +22,10 @@ import {
 import { cloneDeep, isEmpty } from "lodash";
 
 //// Item Handlers ////
+
+
+
+/*  Shouldn't need this, but keeping it for now.
 
 const useSetSessionItemsSTRX = () => {
   // mrv qty changer, but configured for STRX.
@@ -46,6 +52,8 @@ const useNodeNavSTRX = () => {
   });
 };
 
+*/
+
 const defaultNavNodesSTRX = {
   testScenarios: navNode({
     keyStr: "testScenarios",
@@ -62,6 +70,7 @@ const defaultNavNodesSTRX = {
     titleStr: "Returns",
     breadcrumb: true,
     routeStr: "/mrv/store-exchanges/choose-items-invos",
+    locSt: locStItemsAndInvos,
   }),
   reason: navNode({
     keyStr: "reason",
@@ -89,9 +98,5 @@ const baseStateSTRX = () => {
 };
 
 export {
-  useSetSessionItemsSTRX,
-  useSetSessionInvosSTRX,
-  defaultNavNodesSTRX,
-  useNodeNavSTRX,
   baseStateSTRX,
 };

@@ -5,26 +5,42 @@ import {
   CashTotalSTRX,
 } from "../../_resources/components/CompConfigsSTRX";
 
+import {
+  returnAtom,
+  baseLocState,
+} from "../../../../globalFunctions/globalJS_classes";
+
 import { AllEntry30 } from "./AllEntry30";
 import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";
-import {
-  useNodeNavSTRX,
-} from "../../_resources/hooks/STRXhooks";
+import { cloneDeep } from "lodash";
 
-import { populateDisposArr, useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
+import {
+  populateDisposArr,
+  useNodeNav,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { useImmer } from "use-immer";
 import { RtrnItemsList } from "./RtrnItems/RtrnItemsList";
 import { RtrnInvosList } from "./RtrnInvos/RtrnInvosList";
 import { useOutletContext } from "react-router";
 
+
+const locStItemsAndInvos = (() => {
+  // base local state to be used in NodeNav.
+  const outLocSt = cloneDeep(baseLocState);
+  outLocSt.page.activeUI1 = "AllEntry30";
+  outLocSt.rPan.activeUI1 = "Receipts";
+  return outLocSt;
+})();
+
+export { locStItemsAndInvos };
+
 function AddItemsAndInvosSTRX() {
-  
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
   const nodeNav = useNodeNav();
-
+  const locSt = mrvCtx.locSt;
 
   const clearableFields = {
     itemNumField: "",
@@ -123,11 +139,31 @@ function AddItemsAndInvosSTRX() {
       });
     } else {
       setSessionMRV((draft) => {
-        draft.returnItemDispos = populateDisposArr({sessionSt: sessionMRV});
+        draft.returnItemDispos = populateDisposArr({ sessionSt: sessionMRV });
       });
       nodeNav("reason");
     }
   };
+
+  const testFn = (prefix) => {
+    const basicObj = {
+      a: 1,
+      b: 2,
+    };
+
+    const outBasicObj = {};
+
+    for (const key of Object.keys(basicObj)) {
+      console.log(key);
+      outBasicObj[`${prefix}${key}`] = basicObj[key];
+    }
+    return outBasicObj;
+  };
+
+  const testObj = testFn("test");
+
+  console.log(testObj);
+
   /* ---- OUTPUT JSX ---- */
 
   return (

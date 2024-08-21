@@ -9,10 +9,7 @@ import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
 
 import {useSetSessionInvos, useSetSessionItems} from "../../../../mrv/MRVhooks/MRVhooks";
 
-import {
-  useSetSessionItemsSTRX,
-  useSetSessionInvosSTRX,
-} from "../../_resources/hooks/STRXhooks";
+
 import InvoContext from "../../../../store/invo-context";
 import ProductContext from "../../../../store/product-context";
 
@@ -21,7 +18,8 @@ import ProductContext from "../../../../store/product-context";
 const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
   const parLocState = parentLocSt;
   const setParLocState = setParentLocSt;
-  const setSessionItemsSTRX = useSetSessionItemsSTRX();
+  const setSessionItems = useSetSessionItems();
+  const setSessionInvos = useSetSessionInvos();
   const productCtx = useContext(ProductContext);
   const invoCtx = useContext(InvoContext);
 
@@ -75,7 +73,7 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
         atomItemQty: parLocState.itemQtyField,
       });
 
-      setSessionItemsSTRX({
+      setSessionItems({
         itemAtom: outAtom,
         newQty: parLocState.itemQtyField,
         actionType: "add",

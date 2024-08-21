@@ -4,19 +4,20 @@ import {
 } from "../../../../globalFunctions/globalJS_classes";
 import { DispoMainPageMRV } from "../../../../mrv/mrv-components/pages/disposPage/DispoMainPageMRV";
 
+import { useNodeNav } from "../../../../mrv/MRVhooks/MRVhooks";
+
 import {
   TitleBarSTRX,
   CashTotalSTRX,
 } from "../../_resources/components/CompConfigsSTRX";
 import { useImmer, useImmerReducer } from "use-immer";
-import { useNodeNavSTRX } from "../../_resources/hooks/STRXhooks";
 import { useOutletContext } from "react-router";
 
 function DispoMainPageSTRX() {
   const strxCtx = useOutletContext();
   const sessionStateSTRX = strxCtx.sessionSTRX;
   const setSessionStateSTRX = strxCtx.setSessionSTRX;
-  const nodeNavSTRX = useNodeNavSTRX();
+  const nodeNav = useNodeNav();
 
   return (
     <DispoMainPageMRV
@@ -27,12 +28,10 @@ function DispoMainPageSTRX() {
           headerTitle={`Provide reason for return`}
           showNavNodeBar={true}
           hasIcon={"back"}
-          navBtnClick={() => nodeNavSTRX("returns")}
+          navBtnClick={() => nodeNav("returns")}
         />
       }
-      cashTotal={
-        <CashTotalSTRX />
-      }
+      cashTotal={<CashTotalSTRX />}
     />
   );
 }
