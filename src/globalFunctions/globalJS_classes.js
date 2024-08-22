@@ -1,6 +1,7 @@
 //---- Product ----
 
 import cloneDeep from "lodash.clonedeep";
+import { act } from "react";
 
 class moneyObj {
   constructor({
@@ -308,14 +309,44 @@ class singleDispo {
 export { sessionItem, singleDispo };
 
 ///////////////////////////////////////////////////////////////////////////////
-//                LOCAL STATE STUFF       
-//////////////////////////////////////////////////////////////////////////////   
+//                LOCAL STATE STUFF
+//////////////////////////////////////////////////////////////////////////////
 
-const locStMethods = {
+class errorObj {
+  constructor({ key = "", str = "", bgClickClears = true }) {
+    this.key = key;
+    this.str = str;
+    this.bgClickClears = bgClickClears;
+  }
 }
 
+export { errorObj };
+
+const clearedInputs = {
+  input1: "",
+  input2: "",
+  input3: "",
+  input4: "",
+};
+
+export { clearedInputs };
+
+const clearedErrors = {
+  activeError1: null,
+  activeError2: null,
+};
+
+export { clearedErrors };
+
+const clearedActiveKeys = {
+  activeKey1: "",
+  activeKey2: "",
+};
 
 const locStFields = {
+  ...clearedInputs,
+  ...clearedErrors,
+  _keyStr: "",
   activeKey1: "",
   activeKey2: "",
   activeUI1: "",
@@ -324,19 +355,11 @@ const locStFields = {
   activeMode2: "",
   activeData1: null,
   activeData2: null,
-  errorSt1: "",
-  errorSt2: "",
-  input1: "",
-  input2: "",
-  input3: "",
-  input4: "",
 };
 
 export { locStFields };
 
-const locStBaseMethods = {
-
-}
+const locStBaseMethods = {};
 
 const baseLocState = {
   page: cloneDeep(locStFields),

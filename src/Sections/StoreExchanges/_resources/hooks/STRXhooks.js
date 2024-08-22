@@ -4,7 +4,7 @@ import ProductContext from "../../../../store/product-context";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
-import { locStItemsAndInvos } from "../../_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
+import { locSt_AddItemsAndInvosSTRX } from "../../_pages/200_AddItemsAndInvoices/AddItemsAndInvosSTRX";
 
 import {
   ProdClass,
@@ -70,7 +70,7 @@ const defaultNavNodesSTRX = {
     titleStr: "Returns",
     breadcrumb: true,
     routeStr: "/mrv/store-exchanges/choose-items-invos",
-    locSt: locStItemsAndInvos,
+    locSt: locSt_AddItemsAndInvosSTRX,
   }),
   reason: navNode({
     keyStr: "reason",

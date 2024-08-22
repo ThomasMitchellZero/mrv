@@ -10,7 +10,7 @@ import {
   baseLocState,
 } from "../../../../globalFunctions/globalJS_classes";
 
-import { AllEntry30 } from "./AllEntry30";
+import { AllEntry30, locSt_AllEntry30 } from "./AllEntry30";
 import { ItemDetails30STRX } from "../../_resources/components/ItemDetails30STRX";
 import { cloneDeep } from "lodash";
 
@@ -25,15 +25,60 @@ import { RtrnItemsList } from "./RtrnItems/RtrnItemsList";
 import { RtrnInvosList } from "./RtrnInvos/RtrnInvosList";
 import { useOutletContext } from "react-router";
 
-const locStItemsAndInvos = (() => {
+const locSt_AddItemsAndInvosSTRX = (() => {
   // base local state to be used in NodeNav.
   const outLocSt = cloneDeep(baseLocState);
   outLocSt.rPan.activeUI1 = "AllEntry30";
+  outLocSt[locSt_AllEntry30._keyStr] = locSt_AllEntry30;
   outLocSt.page.activeMode1 = "receipt";
+  outLocSt.page.activeError1 = "receipt";
   return outLocSt;
 })();
 
-export { locStItemsAndInvos };
+export { locSt_AddItemsAndInvosSTRX };
+
+function Methods_AddItemsAndInvosSTRX() {
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+  const nodeNav = useNodeNav();
+  const locStRt = sessionMRV.locSt;
+  const clearErrors = useClearLocErrStates();
+
+  const outMethods = {};
+
+  //-------------------------------------
+
+  const bgClick = () => {
+    clearErrors();
+  };
+
+  outMethods.bgClick = bgClick;
+
+
+  const entryTabClick = ({
+    keyStr = "receipt",
+    REF_keyStr____item_receipt,
+  }) => {
+    // handles toggle between item and receipt entry
+    setSessionMRV((draft) => {
+      draft.locSt.page.activeMode1 = keyStr;
+      draft.locSt.AllEntry30.activeMode1 = keyStr;
+    });
+  };
+  outMethods.entryTabClick = entryTabClick;
+
+  
+
+  //-------------------------------------
+
+  return outMethods;
+}
+export { Methods_AddItemsAndInvosSTRX };
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+//&&&&&&&&&&&&&&&     MAIN COMPONENT    &&&&&&&&&&&&&&&//
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 function AddItemsAndInvosSTRX() {
   const mrvCtx = useOutletContext();
@@ -43,40 +88,7 @@ function AddItemsAndInvosSTRX() {
   const locStRt = sessionMRV.locSt;
   const clearErrors = useClearLocErrStates();
 
-  console.log(locStRt)
-
-  /* this is getting cleared
-
-    const clearableFields = {
-    itemNumField: "",
-    itemQtyField: "",
-    receiptNumField: "",
-    activeItemAtom: null,
-    storeNumField: "",
-    dateField: "",
-    oActiveErrorState: null,
-    activeErrorKey: "",
-    active30: "AllEntry30",
-  };
-
-  const defaultState = {
-    active30: "AllEntry30",
-    activeMode: "receipt",
-    oErrorStates: {
-      noItem: "No items have been added",
-      invalidItem: "Invalid item number",
-      invalidQty: "Invalid quantity",
-      invalidReceipt: "Invalid receipt number",
-      duplicateInvo: "Receipt has already been added",
-    },
-    clearableFields: clearableFields, // lets me see field names in the other components
-    ...clearableFields,
-  };
-
-  const [locStAddRtrns, setLocStAddRtrns] = useImmer(defaultState);
-  
-  
-  */
+  console.log(locStRt);
 
   const s70label = {
     item: "Items Being Returned",

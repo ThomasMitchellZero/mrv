@@ -1,29 +1,59 @@
 import { MRVinput } from "../../../../mrv/mrv-components/inputs/MRVinput";
 import { MessageRibbonMRV } from "../../../../mrv/mrv-components/DisplayOutputs/MessageRibbonMRV";
+
+import { Methods_AddItemsAndInvosSTRX } from "./AddItemsAndInvosSTRX";
 import { useOutletContext } from "react-router";
 import { useContext } from "react";
 
 import { cloneDeep, isEmpty } from "lodash";
 
-import { returnAtom } from "../../../../globalFunctions/globalJS_classes";
+import {
+  returnAtom,
+  baseLocState,
+  locStFields,
+  clearedInputs,
+  errorObj,
+  clearedErrors,
+} from "../../../../globalFunctions/globalJS_classes";
 
-import {useSetSessionInvos, useSetSessionItems} from "../../../../mrv/MRVhooks/MRVhooks";
-
+import {
+  useSetSessionInvos,
+  useSetSessionItems,
+  useResetLocStFields,
+} from "../../../../mrv/MRVhooks/MRVhooks";
 
 import InvoContext from "../../../../store/invo-context";
 import ProductContext from "../../../../store/product-context";
 
 /* &&&&&&&&&&&&&&   Item Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
-const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
-  const parLocState = parentLocSt;
-  const setParLocState = setParentLocSt;
+const ItemEntry = () => {
+  const mrvCtx = useOutletContext();
+  const sessionMRV = mrvCtx.sessionMRV;
+  const setSessionMRV = mrvCtx.setSessionMRV;
+
+  const locStRt = sessionMRV.locSt;
+  const parentRt = sessionMRV.locSt.AllEntry30;
+  const locMethods = Methods_AddItemsAndInvosSTRX({});
+
   const setSessionItems = useSetSessionItems();
-  const setSessionInvos = useSetSessionInvos();
   const productCtx = useContext(ProductContext);
   const invoCtx = useContext(InvoContext);
 
-  const clearableFields = {
+  const oErrors = {
+    invalidItem: new errorObj({
+      str: "Invalid Item Number",
+    }),
+    invalidQty: new errorObj({
+      str: "Invalid Quantity",
+    }),
+  };
+
+  const refClearErrors = clearedErrors;
+  const activeErrorStr = parentRt?.activeError1?.str || "";
+
+  /*
+    const clearableFields = {
     itemNumField: "",
     itemQtyField: "",
     receiptNumField: "",
@@ -39,24 +69,27 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
     invalidItem: {},
     invalidQty: {},
   };
+  */
+
+  const refLocFields = locStFields;
+  const refClearInputs = clearedInputs;
 
   const errorInItemForm = () => {
-    const thisItemNum = parLocState.itemNumField;
-    const thisQty = parLocState.itemQtyField;
-    const itemNumValid = thisItemNum in productCtx;
-    console.log(itemNumValid);
-    console.log(thisQty);
+    const itemNumInput = parentRt.input1;
+    const itemQtyInput = parentRt.input2;
+    const itemNumValid = itemNumInput in productCtx;
+    const itemQtyValid = itemQtyInput > 0;
 
     let outFormError = !itemNumValid
-      ? "invalidItem"
-      : !thisQty
-      ? "invalidQty"
+      ? oErrors.invalidItem
+      : !itemQtyValid
+      ? oErrors.invalidQty
       : false;
 
     return outFormError;
   };
 
-  const itemErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
+  //const itemErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
 
   const handleAddItem = (event) => {
     event.preventDefault();
@@ -64,26 +97,28 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
     const formError = errorInItemForm();
 
     if (formError) {
-      setParLocState((draft) => {
-        draft.activeErrorKey = formError;
+      setSessionMRV((draft) => {
+        draft.locSt.AllEntry30.activeError1 = formError;
       });
     } else {
       const outAtom = new returnAtom({
-        atomItemNum: parLocState.itemNumField,
-        atomItemQty: parLocState.itemQtyField,
+        atomItemNum: parentRt.input1,
+        atomItemQty: parentRt.input2, // is this needed?
       });
 
       setSessionItems({
         itemAtom: outAtom,
-        newQty: parLocState.itemQtyField,
+        newQty: parentRt.input2,
         actionType: "add",
         itemsArrRouteStr: "returnItems",
       });
 
-      // reset the clearable fields in the local state.
-      let outLocState = cloneDeep(parLocState);
-      outLocState = { ...outLocState, ...parLocState.clearableFields };
-      setParLocState(() => outLocState);
+      // clear the inputs and then set the parent's local state.
+      const outParLocSt = { ...cloneDeep(parentRt), ...clearedInputs };
+
+      setSessionMRV((draft) => {
+        draft.locSt.AllEntry30 = outParLocSt;
+      });
     }
   };
 
@@ -96,17 +131,16 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       <MRVinput
         flex={"1 1 0rem"}
         width={`100%`}
-        hasError={parLocState.activeErrorKey === "invalidItem"}
+        hasError={activeErrorStr === oErrors.invalidItem.str}
       >
         <input
           type="text"
-          value={parLocState.itemNumField}
+          value={parentRt.input1}
           placeholder="Item Number"
           onChange={(event) => {
             const itemNumField = event.target.value;
-            setParLocState((draft) => {
-              draft.itemNumField = itemNumField;
-              draft.oActiveErrorState = null;
+            setSessionMRV((draft) => {
+              draft.locSt.AllEntry30.input1 = itemNumField;
             });
           }}
         />
@@ -115,19 +149,18 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
       <div className={`inputRow`}>
         <MRVinput
           width={"8rem"}
-          hasError={parLocState.activeErrorKey === "invalidQty"}
+          hasError={activeErrorStr === oErrors.invalidQty.str}
         >
           <input
             type="number"
             min="0"
             step="1"
             placeholder="Qty"
-            value={parLocState.itemQtyField}
+            value={parentRt.input2}
             onChange={(event) => {
               const inputQty = parseInt(event.target.value) || "";
-              setParLocState((draft) => {
-                draft.itemQtyField = inputQty;
-                draft.oActiveErrorState = null;
+              setSessionMRV((draft) => {
+                draft.locSt.AllEntry30.input1 = inputQty;
               });
             }}
           />
@@ -137,34 +170,50 @@ const ItemEntry = ({ parentLocSt, setParentLocSt }) => {
           Add Item
         </button>
       </div>
-      <p className={`warning`}>{itemErrorStr}</p>
+      <p className={`warning`}>{activeErrorStr}</p>
     </form>
   );
 };
 
 /* &&&&&&&&&&&&&&   Receipt Entry Cluster    &&&&&&&&&&&&&&&&&&& */
 
-const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
-  const invoCtx = useContext(InvoContext);
-  const parLocState = parentLocSt;
-  const setParLocState = setParentLocSt;
-
+const ReceiptEntry = () => {
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
+
+  const parentRt = sessionMRV.locSt.AllEntry30;
+  const locStRt = sessionMRV.locSt;
+  const locMethods = Methods_AddItemsAndInvosSTRX({});
+
+  const setSessionItems = useSetSessionItems();
   const setSessionInvosMRV = useSetSessionInvos();
+  const productCtx = useContext(ProductContext);
 
   const noInvos = isEmpty(sessionMRV.sessionInvos);
 
+  const invoCtx = useContext(InvoContext);
+
+  const oErrors = {
+    invalidReceipt: new errorObj({
+      str: "Invalid Receipt Number",
+    }),
+    duplicateInvo: new errorObj({
+      str: "Receipt Already Added",
+    }),
+  };
+
+  const activeErrorStr = parentRt?.activeError1?.str || "";
+
   const errorInInvoForm = () => {
-    const thisInvoNum = parLocState.receiptNumField;
+    const thisInvoNum = parentRt.input1;
     const invoNumValid = thisInvoNum in invoCtx;
     const invoAlreadyAdded = thisInvoNum in sessionMRV.sessionInvos;
 
     let outFormError = !invoNumValid
-      ? "invalidReceipt"
+      ? oErrors.invalidReceipt
       : invoAlreadyAdded
-      ? "duplicateInvo"
+      ? oErrors.duplicateInvo
       : false;
 
     console.log("outFormError function result was was", outFormError);
@@ -172,39 +221,27 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
     return outFormError;
   };
 
-  const uiInfoMsg = noInvos ? null : (
-    <MessageRibbonMRV
-      message={
-        <>
-          Tip: select an <b>item</b> to add it to this exchange.{" "}
-        </>
-      }
-    />
-  );
-
-  const invoErrorStr = parLocState.oErrorStates[parLocState.activeErrorKey];
-  console.log("invoErrorStr was:", invoErrorStr);
-
   const handleAddInvo = (event) => {
     event.preventDefault();
     const invoFormError = errorInInvoForm();
 
     if (invoFormError) {
       console.log(invoFormError);
-      setParLocState((draft) => {
-        draft.activeErrorKey = invoFormError;
+      setSessionMRV((draft) => {
+        draft.locSt.AllEntry30.activeError1 = invoFormError;
       });
     } else {
       setSessionInvosMRV({
         invosRtStr: "sessionInvos",
-        invoNum: parLocState.receiptNumField,
+        invoNum: parentRt.input1,
         actionType: "add",
       });
 
       // clear the input fields in the local state.
-      let outLocState = cloneDeep(parLocState);
-      outLocState = { ...outLocState, ...parLocState.clearableFields };
-      setParLocState(() => outLocState);
+      let outLocState = { ...cloneDeep(parentRt), ...clearedInputs };
+      setSessionMRV((draft) => {
+        draft.locSt.AllEntry30 = outLocState;
+      });
     }
   };
 
@@ -218,48 +255,28 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
         flex={"1 1 0rem"}
         width={`100%`}
         hasError={
-          parLocState.activeErrorKey === "invalidReceipt" ||
-          parLocState.activeErrorKey === "duplicateInvo"
+          activeErrorStr === oErrors.duplicateInvo.str ||
+          activeErrorStr === oErrors.invalidReceipt.str
         }
       >
         <input
           type="text"
           placeholder="Receipt Number"
-          value={parLocState.receiptNumField}
+          value={parentRt.input1}
           onChange={(event) => {
             const fieldInput = event.target.value.toUpperCase();
-            setParLocState((draft) => {
-              draft.receiptNumField = fieldInput;
+            setSessionMRV((draft) => {
+              draft.locSt.AllEntry30.input1 = fieldInput;
             });
           }}
         />
       </MRVinput>
       <div className={`inputRow`}>
         <MRVinput flex={"2 2 0rem"}>
-          <input
-            placeholder="Store"
-            type="text"
-            value={parLocState.storeNumField}
-            onChange={(event) => {
-              const fieldInput = event.target.value;
-              setParLocState((draft) => {
-                draft.storeNumField = fieldInput;
-              });
-            }}
-          />
+          <input placeholder="Store" type="text" />
         </MRVinput>
         <MRVinput flex={"3 3 0rem"}>
-          <input
-            type="date"
-            placeholder="Sale Date"
-            value={parLocState.dateField}
-            onChange={(event) => {
-              const fieldInput = event.target.value;
-              setParLocState((draft) => {
-                draft.dateField = fieldInput;
-              });
-            }}
-          />
+          <input type="date" placeholder="Sale Date" />
         </MRVinput>
       </div>
       <div className={`inputRow`}>
@@ -271,8 +288,7 @@ const ReceiptEntry = ({ parentLocSt, setParentLocSt }) => {
           Add Receipt
         </button>
       </div>
-      <p className={`warning`}>{invoErrorStr}</p>
-      {uiInfoMsg}
+      <p className={`warning`}>{activeErrorStr}</p>
     </form>
   );
 };
