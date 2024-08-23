@@ -12,7 +12,6 @@ const DeleteCardColMRV = ({
   description = "",
 }) => {
   const greenClass = greenify(greenifyVal);
-  console.log(greenClass)
 
   return (
     <div className={`deleteCardCol`}>

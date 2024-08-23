@@ -1,6 +1,8 @@
 import { useOutletContext } from "react-router";
 import { MRVitemDetails } from "../../../../../mrv/mrv-components/DisplayOutputs/mrvItemDetails";
 import { MRVinput } from "../../../../../mrv/mrv-components/inputs/MRVinput";
+import { DescriptorIcon } from "../../../../../mrv/mrv-components/DisplayOutputs/DescriptorIcon";
+import { ItemReceiptRow } from "./ItemReceiptRow";
 import {
   centsToDollars,
   atomsMonetizer,
@@ -58,11 +60,41 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
   //                     Row for each invoiced Item.
   ///////////////////////////////////////////////////////////////////
 
-  const uiInfoRow = (atomizedItem) => {
-    const hasInvo = atomizedItem.atomInvoNum;
-    const moneyObj = atomizedItem.atomMoneyObj;
+  /*
 
+    const uiReceiptRow = (atomizedItem) => {
+    // invoStatus will eventually include NRR Lifetime Warranty.
+    const invoStatus = atomizedItem.atomInvoNum ? "receipted" : "needsReceipt";
+    const moneyObj = atomizedItem.atomMoneyObj;
     const unitBaseValue = moneyObj.unitBaseValue;
+
+    const iconStyle = {
+      ctnrSize: "2.5rem",
+      fontSize: "2rem",
+      backgroundColor: "color__surface__default",
+      color: "color__primary__text",
+      radius: "100%",
+    };
+
+    const uiRecieptIcon = <DescriptorIcon {...iconStyle} />;
+
+    const oConfigs = {
+      receipted: {
+        color: greenify(unitBaseValue),
+        iconStr: "receipt",
+        unitVal: `$${centsToDollars(atomizedItem.atomMoneyObj.unitBaseValue)}`,
+        totalVal: `$${centsToDollars(
+          atomizedItem.atomMoneyObj.unitBaseValue * atomizedItem.atomItemQty
+        )}`,
+      },
+      needsReceipt: {
+        color: "color__red__text",
+        iconStr: "alert",
+        unitVal: "- -",
+        totalVal: "- -",
+      },
+    };
+
     const totalValue = unitBaseValue * atomizedItem.atomItemQty;
     const oVals = {
       invo: hasInvo ? `#${atomizedItem.atomInvoNum}` : "Needs Receipt",
@@ -97,6 +129,9 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
       </div>
     );
   };
+  
+  
+  */
 
   ///////////////////////////////////////////////////////////////////
   //                     Tile for an item.
@@ -116,7 +151,7 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
     });
 
     const aInfoRowsUI = aInfoRows.map((thisSubAtom) => {
-      return uiInfoRow(thisSubAtom);
+      return ItemReceiptRow(thisSubAtom);
     });
 
     return (
@@ -152,7 +187,6 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
   //                 Card for the item and its children
   ///////////////////////////////////////////////////////////////////
 
-
   const aCardTiles = aMainPlusChildren.map((thisAtom) => {
     return uiItemTile(thisAtom);
   });
@@ -169,7 +203,7 @@ const RtrnItemsMainCard = ({ returnItemAtom }) => {
     >
       <div className={"itemSubcardColumn field"}>{aCardTiles}</div>
 
-      <div className={`deleteCol field`}>
+      <div className={`trashCol field`}>
         <DeleteCardColMRV
           bigValue={cardString}
           description={"Refund Value"}

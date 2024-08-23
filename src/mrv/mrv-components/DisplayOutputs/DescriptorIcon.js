@@ -1,10 +1,10 @@
-import "./DescriptorIcon.css"
+import "./DescriptorIcon.css";
 import { FaBoxOpen } from "react-icons/fa6";
 import {
   MdReceipt,
   MdReceiptLong,
   MdShoppingCart,
-  MdOutlineSick,
+  MdOutlineWarningAmber,
 } from "react-icons/md";
 
 function DescriptorIcon({
@@ -14,7 +14,7 @@ function DescriptorIcon({
   backgroundColor = "color__surface__default",
   color = "color__primary__text",
   radius = "100%",
-  REF_box__receipt__receiptLong__cart = "",
+  REF_box__receipt__receiptLong__cart__alert = "",
 }) {
   const styleObj = {
     fontSize: fontSize,
@@ -25,7 +25,7 @@ function DescriptorIcon({
     receipt: <MdReceipt {...styleObj} />,
     receiptLong: <MdReceiptLong {...styleObj} />,
     cart: <MdShoppingCart {...styleObj} />,
-    sick: <MdOutlineSick {...styleObj} />,
+    alert: <MdOutlineWarningAmber {...styleObj} />,
   };
 
   const outIcon = iconsObj[iconStr] || iconsObj.sick;

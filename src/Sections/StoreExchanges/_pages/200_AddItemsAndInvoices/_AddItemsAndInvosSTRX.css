@@ -4,6 +4,8 @@
     /* --------------   Shared 30   ---------------- */
     /* --------------------------------------------- */
 
+    --stdGap: 1rem;
+
     & .allEntry30 {
       & .tabBox {
         display: flex;
@@ -18,7 +20,7 @@
       flex-direction: column;
       flex: 0 0 auto;
       width: 100%;
-      gap: 1rem;
+      gap: var(--stdGap);
       padding: 2rem 0rem;
 
       & .inputRow {
@@ -26,7 +28,7 @@
         flex-direction: row;
         flex: 0 0 auto;
         width: 100%;
-        gap: 1rem;
+        gap: var(--stdGap);
         justify-content: right;
       }
     }
@@ -37,7 +39,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: var(--stdGap);
 
       & img {
         height: 8rem;
@@ -84,14 +86,14 @@
           [totalPrice] 10rem
           [trash] var(--DeleteColWidth);
         flex: 0 0 auto;
-        gap: 1rem;
+        gap: var(--stdGap);
       }
 
       & .itemSubcardColumn {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: detail / trash;
-        gap: 1rem;
+        gap: var(--stdGap);
       }
 
       /* 1 per individual item in the card.  Main and child are the same. */
@@ -99,7 +101,7 @@
         display: grid;
         grid-template-columns: subgrid;
         grid-column: detail / trash;
-        gap: 1rem;
+        gap: var(--stdGap);
         color: var(--color__primary);
         align-items: flex-start;
         box-shadow: none;
@@ -109,13 +111,20 @@
         display: grid;
         grid-template-columns: subgrid;
         grid-column: receipt / span 4;
-        gap: 1rem;
+        gap: var(--stdGap);
 
         & .invoInfoRow {
           display: grid;
           grid-template-columns: subgrid;
           grid-column: receipt / span 4;
           align-items: center;
+
+          &.merged {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            gap: 0.25rem;
+          }
         }
       }
 
@@ -155,9 +164,9 @@
         grid-column: receipt / span 4;
       }
 
-      & .deleteCol {
+      & .trashCol {
         grid-column: trash / span 1;
-        justify-content: center;
+        justify-content: flex-end;
       }
     }
 
@@ -179,25 +188,25 @@
           [unitIcon] 5rem
           [trash] var(--DeleteColWidth);
         flex: 0 0 auto;
-        gap: 1rem;
+        gap: var(--stdGap);
       }
 
       & .invoItemsColumn {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: invoItemDetails / trash;
-        gap: 1rem;
+        gap: var(--stdGap);
       }
 
       & .invoItemCluster {
         display: grid;
         grid-template-columns: subgrid;
         grid-column: invoItemDetails / trash;
-        gap: 1rem;
+        gap: var(--stdGap);
 
         &:last-child {
           border-bottom: none;
-          padding-bottom: 0rem;
+          gap: var(--stdGap);
         }
       }
 
