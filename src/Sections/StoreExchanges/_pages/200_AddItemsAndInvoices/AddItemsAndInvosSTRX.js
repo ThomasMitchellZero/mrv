@@ -8,6 +8,7 @@ import {
 import {
   returnAtom,
   baseLocState,
+  clearedErrors,
 } from "../../../../globalFunctions/globalJS_classes";
 
 import { AllEntry30, locSt_AllEntry30 } from "./AllEntry30";
@@ -54,9 +55,8 @@ function Methods_AddItemsAndInvosSTRX() {
 
   const defaultReset = () => {
     console.log("defaultReset");
-    resetFields({oResetFields: {...clearErrors}});
-  }
-
+    resetFields({ oResetFields: { ...clearedErrors } });
+  };
 
   const bgClick = () => {
     console.log("bgClick");
@@ -70,10 +70,9 @@ function Methods_AddItemsAndInvosSTRX() {
     console.log("testEz fired");
     setSessionMRV((draft) => {
       draft.test = "TestEz";
-    }); 
+    });
   };
   outMethods.testEz = testEz;
-
 
   const entryTabClick = ({
     keyStr = "receipt",
@@ -90,8 +89,6 @@ function Methods_AddItemsAndInvosSTRX() {
     });
   };
   outMethods.entryTabClick = entryTabClick;
-
-  
 
   //-------------------------------------
 
@@ -136,7 +133,6 @@ function AddItemsAndInvosSTRX() {
   );
 
   /* ---- SHARED FUNCTIONS ---- */
-
 
   const refBaseLocState = baseLocState;
 
