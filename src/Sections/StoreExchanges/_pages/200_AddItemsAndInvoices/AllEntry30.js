@@ -91,17 +91,19 @@ function AllEntry30() {
   /* ########  OUTPUT JSX   ######## */
 
   /*
-        onClick={() =>
-
-      locMethods.bgClick({
-        keyStr: "activeErrorKey",
-      })
-    }
+      onClick={() =>
+        locMethods.bgClick()
+      }
   
   */
 
   return (
-    <main className={`allEntry30 mrvPanel__side color__surface__default`}>
+    <main
+      onClick={() =>
+        locMethods.bgClick()
+      }
+      className={`allEntry30 mrvPanel__side color__surface__default`}
+    >
       <TitleBarSTRX
         hasCluster={false}
         showProductName={false}

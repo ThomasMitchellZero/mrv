@@ -18,6 +18,7 @@ import {
   populateDisposArr,
   useNodeNav,
   useClearLocErrStates,
+  useResetLocStFields,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { useImmer } from "use-immer";
@@ -45,13 +46,22 @@ function Methods_AddItemsAndInvosSTRX() {
   const nodeNav = useNodeNav();
   const locStRt = sessionMRV.locSt;
   const clearErrors = useClearLocErrStates();
+  const resetFields = useResetLocStFields();
 
   const outMethods = {};
 
   //-------------------------------------
 
+  const defaultReset = () => {
+    console.log("defaultReset");
+    resetFields({oResetFields: {...clearErrors}});
+  }
+
+
   const bgClick = () => {
-    clearErrors();
+    console.log("bgClick");
+    //clearErrors();
+    defaultReset();
   };
 
   outMethods.bgClick = bgClick;
@@ -100,6 +110,7 @@ function AddItemsAndInvosSTRX() {
   const nodeNav = useNodeNav();
   const locStRt = sessionMRV.locSt;
   const clearErrors = useClearLocErrStates();
+  const locMethods = Methods_AddItemsAndInvosSTRX();
 
   console.log(locStRt);
 
@@ -126,11 +137,6 @@ function AddItemsAndInvosSTRX() {
 
   /* ---- SHARED FUNCTIONS ---- */
 
-  const bgClick = () => {
-    // haven't tried this yet.
-    //clearErrors();
-    console.log("bgClick");
-  };
 
   const refBaseLocState = baseLocState;
 
@@ -154,7 +160,7 @@ function AddItemsAndInvosSTRX() {
 
   return (
     <section className={`addItemsAndInvos mrvPage color__surface__subdued`}>
-      <main onClick={bgClick} className={`mrvPanel__main`}>
+      <main onClick={locMethods.bgClick} className={`mrvPanel__main`}>
         <TitleBarSTRX
           //hasIcon={"back"}
           showProductName={true}
