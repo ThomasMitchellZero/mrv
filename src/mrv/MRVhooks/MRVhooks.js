@@ -379,7 +379,10 @@ function useResetLocStFields() {
     const refBaseLocState = baseLocState;
     const refLocFields = locStFields;
 
+    console.log(aNodeKeysToReset);
+
     const resetKeys = aNodeKeysToReset || Object.keys(sessionMRV.locSt);
+    console.log(`Resetting ${oResetFields} fields`);
 
     if (Object.keys(oResetFields).length === 0) {
       console.log("No reset vals provided");

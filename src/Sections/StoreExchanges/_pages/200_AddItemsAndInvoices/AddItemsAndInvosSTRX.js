@@ -9,6 +9,7 @@ import {
   returnAtom,
   baseLocState,
   clearedErrors,
+  clearedInputs,
 } from "../../../../globalFunctions/globalJS_classes";
 
 import { AllEntry30, locSt_AllEntry30 } from "./AllEntry30";
@@ -85,7 +86,11 @@ function Methods_AddItemsAndInvosSTRX() {
     setSessionMRV((draft) => {
       draft.locSt.page.activeMode1 = keyStr;
       draft.locSt.AllEntry30.activeMode1 = keyStr;
-      draft.fart = "Fartrell Cluggins";
+    });
+
+    resetFields({
+      aNodeKeysToReset: [locSt_AllEntry30._keyStr],
+      oResetFields: { ...clearedInputs },
     });
   };
   outMethods.entryTabClick = entryTabClick;

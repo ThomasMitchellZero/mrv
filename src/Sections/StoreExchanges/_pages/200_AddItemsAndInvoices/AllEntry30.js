@@ -5,6 +5,7 @@ import {
   returnAtom,
   baseLocState,
   locStFields,
+  clearedInputs,
 } from "../../../../globalFunctions/globalJS_classes";
 
 import { cloneDeep } from "lodash";
@@ -13,6 +14,7 @@ import {
   populateDisposArr,
   useNodeNav,
   useClearLocErrStates,
+  useResetLocStFields,
 } from "../../../../mrv/MRVhooks/MRVhooks";
 
 import { Methods_AddItemsAndInvosSTRX } from "./AddItemsAndInvosSTRX";
@@ -36,24 +38,20 @@ function AllEntry30() {
   const mrvCtx = useOutletContext();
   const sessionMRV = mrvCtx.sessionMRV;
   const setSessionMRV = mrvCtx.setSessionMRV;
-  const nodeNav = useNodeNav();
   const locStRt = sessionMRV.locSt;
   const locMethods = Methods_AddItemsAndInvosSTRX({});
-  const s30Mode = locStRt.page.activeMode1; // think this is wrong, needs to be top state.
-
-  const refLocState = baseLocState;
+  const resetFields = useResetLocStFields();
+  const s30Mode = locStRt.page.activeMode1;
 
   // mode-specific properties
   const oMode = {
     receipt: {
       sLabel: "receipt",
-      sInputLabel: "",
       inputCluster: <ReceiptEntry />,
     },
 
     item: {
       sLabel: "item",
-      sInputLabel: "",
       inputCluster: <ItemEntry />,
     },
   };
@@ -64,15 +62,7 @@ function AllEntry30() {
 
   const handleTabClick = ({ e, btnType }) => {
     e.preventDefault();
-    console.log("Screw Buttons Type", btnType);
-    locMethods.testEz();
     locMethods.entryTabClick({ keyStr: btnType });
-    /*
-      setSessionMRV((draft) => {
-      draft.locSt.page.activeMode1 = btnType;
-      draft.tabs = "Dropped 2 tabs";
-    });
-    */
   };
 
   // Tab Buttons
@@ -99,9 +89,7 @@ function AllEntry30() {
 
   return (
     <main
-      onClick={() =>
-        locMethods.bgClick()
-      }
+      onClick={() => locMethods.bgClick()}
       className={`allEntry30 mrvPanel__side color__surface__default`}
     >
       <TitleBarSTRX
