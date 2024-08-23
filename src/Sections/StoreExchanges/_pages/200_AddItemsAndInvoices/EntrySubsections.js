@@ -160,7 +160,7 @@ const ItemEntry = () => {
             onChange={(event) => {
               const inputQty = parseInt(event.target.value) || "";
               setSessionMRV((draft) => {
-                draft.locSt.AllEntry30.input1 = inputQty;
+                draft.locSt.AllEntry30.input2 = inputQty;
               });
             }}
           />

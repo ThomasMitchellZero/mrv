@@ -62,15 +62,27 @@ function AllEntry30() {
 
   /* ---- UI ELEMENTS ---- */
 
-  // Tab Buttons
-  const uiTabBtn = (btnType) => {
-    const isActive = s30Mode === btnType ? "active" : "";
+  const handleTabClick = ({ e, btnType }) => {
+    e.preventDefault();
+    console.log("Screw Buttons Type", btnType);
+    locMethods.testEz();
+    locMethods.entryTabClick({ keyStr: btnType });
+    /*
+      setSessionMRV((draft) => {
+      draft.locSt.page.activeMode1 = btnType;
+      draft.tabs = "Dropped 2 tabs";
+    });
+    */
+  };
 
-    const handleTabClick = () => {
-      locMethods.entryTabClick({ keyStr: btnType });
-    };
+  // Tab Buttons
+  const uiTabBtn = (btnType = "dong") => {
+    const isActive = s30Mode === btnType ? "active" : "";
     return (
-      <button onClick={handleTabClick} className={`tab fullWidth ${isActive}`}>
+      <button
+        onClick={(e) => handleTabClick({ e: e, btnType: btnType })} // this is the issue
+        className={`tab fullWidth ${isActive}`}
+      >
         {`${oMode[btnType].sLabel}s`}
       </button>
     );
@@ -78,15 +90,18 @@ function AllEntry30() {
 
   /* ########  OUTPUT JSX   ######## */
 
+  /*
+        onClick={() =>
+
+      locMethods.bgClick({
+        keyStr: "activeErrorKey",
+      })
+    }
+  
+  */
+
   return (
-    <main
-      onClick={() =>
-        locMethods.bgClick({
-          keyStr: "activeErrorKey",
-        })
-      }
-      className={`allEntry30 mrvPanel__side color__surface__default`}
-    >
+    <main className={`allEntry30 mrvPanel__side color__surface__default`}>
       <TitleBarSTRX
         hasCluster={false}
         showProductName={false}

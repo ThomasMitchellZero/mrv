@@ -7869,6 +7869,91 @@ What to do today?
     3:15.
     Still getting those annoying error messages.  I don't know if they are related to CRA, but since that thing is no longer supported, maybe I just eat it and move to Vite?  How bad could it be?  (it could be terrible)
 
+20 Aug 2024
+    4:05.
+    I have been working for a while and FINALLY got the ReturnItemsList working and I really don't even know what took so long.  Just really struggling to get everything pointed to the correct values.
+
+    OK.  Next up is to get everything wired to the new standard Local State.  
+
+    I wrote a cute little loop that populates the whole darn thing, but now I'm wondering if this is a mistake.
+
+    There are going to be parts of this I need to reset.  Like, all the fucking time.  And that gets a lot easier if I have one template for common values that I can just say "OK.  mrvCtx.locSt.rPan, I'm resetting you ALL to your default values.  Yeah, that's gotta be the move.
+
+    5:25
+    OK.  Gotta think here.  Do I want ALL my local states stored together in the session state?  This feels like an area where I am able to find the right answer if I am clever.  My two options appear to be:
+
+        A: Keep using local state but in a standard format.
+            + I don't have to manually track and change the local state.  I set what components are visible when the page loads, and when that happens that component is in its default local state automatically.
+                -That means you have to prop drill to pass the local state AND the local state setter down.
+                    +Is that really the end of the world?  Isn't most of the pain from just having to know a bunch of property names, which is no longer an issue?
+            + We can nest components to infinite depth with no fear of namespace collision.
+                -Yeah, but then we face the danger of having to prop-drill MULTIPLE states.
+                -Besides, nothing prevents us from having true local states in something that's gonna be a grandchild.  Actually, nothing prevents us from having TLS as deep as we damn well please.  This works very well for our most common use cases.  
+
+
+        B: Keep all 'local' states in the session.
+            + Makes it very easy to set and clear states throughout the tree with no prop drilling.
+                - At the very least you are going to have to have and set a LOT of default states.
+                    + Don't we have to do that anyways?  I mean, don't we basically start all components with a default state?  Just make that as a separate export in the same file.  Aren't we good then?
+                - Do we have an idea of how to do that?
+                    + Most 'nav' actions that don't use the router are just changing the local state of a parent component.  So we import the default local state, set the parent, and then also set e.g. rPan's state to the default of the incoming child.  It's one more line in the event handler. 
+            + Makes it easy for down-tree components to affect or read from up-tree components.
+                - For re-usables that we can't guarantee will be at the top level, aren't we afraid of namespace collision?  Wouldn't that be an issue with something like the Return Reason cluster?
+                    + We could always add a standard keys to the fauxcal state.  Let's take the RR cluster.  Worst case, we just add another node to the fauxcal state tree, named JUST for RR, so no namespace collision.  Shit, if we really want to, we could pre-populate the fauxcal state with EVERY component local state we expect to use.  Always prevents NSC, and has the added benefit of letting us preserve whatever state we want to, even if the component isn't rendered.  
+            
+            -Aren't we just kind of recreating TLS with extra steps?
+                +
+                Nah, this has some extra benefits.  First, it lets us incorporate reusable children willy nilly.  We know in advance the parameters of the higher context because they're going to be the same everywhere.
+                
+
+            +Something about this feels right.  And if it's a mistake, it's one I haven't made before so I kind of want to try it out.  
+
+21 Aug 2024
+    11:15.
+    Got a few more things to think about before I get started.
+
+    -These fauxcal state objects are going to contain properties I want to access, but never reset.  Thinking things like methods and clear states.  How to handle this?
+
+    -Maybe it's easier to isolate the Clearables, and just keep spreading them into the base state?
+
+    -This probably would be bad with many developers, but as long as I never manually change those fields, they won't ever get reset, right?  
+
+    -So with a little ensaladation and rumination, here's what I am thinking with error states.  I think they should be:
+        - in a common format
+        - probably a Class since I should never be changing the entity itself.
+        - they have to be at least one key-value pair, since human-readable string values can't be used as keys.
+        - wondering if I should include any other properties.  
+            -If I do, they're a little more verbose, since I need at least one extra segment (though short) in the path.
+            -But if I don't, I could really regret it later.  There's at least one set I think I could use, which is clearability.  I could imagine some errors that I don't want getting cleared on the BG click, so that could be valuable.
+        - I think the pattern would be for errors to live at the lowest level that encompasses everything they affect.  That pattern probably works for other stuff, too.
+            -So if an error is triggered in the 30 panel but also shows up in the 70 panel, that error probably lives at the Page level, while if it's just something like an invalid item# it would display (and live) only in the 30 panel.
+    3:40.
+    I kind of wonder if I am going about this ass-backwards.  I spent at least an hour trying to get a universal state-clearing function, and I'm wondering if the actual move is to store and share a bunch of clear states.  
+        -So I start with a default state.
+        -Then, I have my basic clears.  I can also make compound clears by either merging some combination of base clears together (if I only want to clear a few) or by deleting properties (if I want to blow out most of it.)  It seems like a lot but I kind of feel like I was doing that anyways?
+
+    OK, it looks like nothing is altering local states.  Off the top of my head, these appear to be values I defined in the opening state, so I wonder if that's my issue?
+
+    Although... That doesn't seem quite right.  First, I tried setting an error state and the bgclick cleared it just fine.  Also, I set a console.log to fire whenever the IIFE fired, and it only fired on the initial render so I don't think that's it either.
+
+    They aren't changing in either the local state or the console.log of the state.  And yet, the key value of the button is actually being picked up because that IS showing up in my console.logs.  So somewhere between the click and the setting of the state, something is going off the rails.  
+
+    I can set other properties in the SessionState, so that's not it.  
+
+    I can even set properties in the locSt.  Entering item numbers or invo numbers works fine.  What. The Fuck.  
+
+    I tried manually setting the locSt in the tab.  That also had no effect, so that makes it less likely that the problem is happening in the method.
+
+    Here's an idea.  It almost feels like the whole local state is getting reset.  Have I been able to do anything that changes the locSt?
+        -Inputs into the fields have changed the locSt.  
+
+    OK!  I think I found the bug.  When I disabled the bgclick, everything worked fine.  I think what is happening is that:
+        -The base (non-hook) function clones the locSt at runtime.  
+
+        
+
+
+
 
 
 

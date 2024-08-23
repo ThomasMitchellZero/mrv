@@ -29,9 +29,10 @@ const locSt_AddItemsAndInvosSTRX = (() => {
   // base local state to be used in NodeNav.
   const outLocSt = cloneDeep(baseLocState);
   outLocSt.rPan.activeUI1 = "AllEntry30";
+  outLocSt.page.activeError1 = "Fart";
   outLocSt[locSt_AllEntry30._keyStr] = locSt_AllEntry30;
-  outLocSt.page.activeMode1 = "receipt";
-  outLocSt.page.activeError1 = "receipt";
+  outLocSt.page.activeMode1 = "item";
+  console.log("outLocSt setter fired");
   return outLocSt;
 })();
 
@@ -55,15 +56,27 @@ function Methods_AddItemsAndInvosSTRX() {
 
   outMethods.bgClick = bgClick;
 
+  const testEz = () => {
+    console.log("testEz fired");
+    setSessionMRV((draft) => {
+      draft.test = "TestEz";
+    }); 
+  };
+  outMethods.testEz = testEz;
+
 
   const entryTabClick = ({
     keyStr = "receipt",
     REF_keyStr____item_receipt,
   }) => {
     // handles toggle between item and receipt entry
+    console.log("entryTabClick" + keyStr);
+    const refLocFields = baseLocState;
+
     setSessionMRV((draft) => {
       draft.locSt.page.activeMode1 = keyStr;
       draft.locSt.AllEntry30.activeMode1 = keyStr;
+      draft.fart = "Fartrell Cluggins";
     });
   };
   outMethods.entryTabClick = entryTabClick;
@@ -115,7 +128,7 @@ function AddItemsAndInvosSTRX() {
 
   const bgClick = () => {
     // haven't tried this yet.
-    clearErrors();
+    //clearErrors();
     console.log("bgClick");
   };
 
