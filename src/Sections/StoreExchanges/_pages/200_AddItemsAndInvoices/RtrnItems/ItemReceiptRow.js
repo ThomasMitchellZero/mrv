@@ -15,7 +15,7 @@ function ItemReceiptRow(atomizedItem) {
       invoStr: `#${atomizedItem.atomInvoNum}`,
       invoColor: "color__primary__text",
       color: greenify(unitBaseValue),
-      iconStr: "receipt",
+      iconStr: "receiptLong",
       unitVal: `$${centsToDollars(unitBaseValue)}`,
       totalVal: `$${centsToDollars(totalValue)}`,
     },
@@ -32,6 +32,7 @@ function ItemReceiptRow(atomizedItem) {
   const config = oConfigs[invoStatus];
 
   const iconStyle = {
+    iconStr: config.iconStr,
     ctnrSize: "1.5rem",
     fontSize: "1rem",
     color: config.invoColor,
@@ -40,13 +41,15 @@ function ItemReceiptRow(atomizedItem) {
   // greenify neg. values because they are stored as positive in the invoices.
   return (
     <div key={atomizedItem.primaryKey} className={`invoInfoRow`}>
-      <DescriptorIcon {...iconStyle} />
       <div className={`body__small field receiptCol ${config.invoColor}`}>
-        {`${config.invoStr}`}
+        <DescriptorIcon {...iconStyle} />
+        <p className={`truncate`}>{`${config.invoStr}`}</p>
+        <div className={`qty_x body color__primary__text`}>
+          {`${itemQty}`}
+          <p>x</p>
+        </div>
       </div>
-      <div className={`unitQtyCol field body keepSpace color__primary__text`}>
-        {`${itemQty}   x`}
-      </div>
+
       <div className={`unitPriceCol field body alignRight ${config.color}`}>
         {config.unitVal}
       </div>

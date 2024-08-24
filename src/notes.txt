@@ -7934,6 +7934,9 @@ What to do today?
 
     OK, it looks like nothing is altering local states.  Off the top of my head, these appear to be values I defined in the opening state, so I wonder if that's my issue?
 
+23 Aug 2024
+
+    ~11:00.
     Although... That doesn't seem quite right.  First, I tried setting an error state and the bgclick cleared it just fine.  Also, I set a console.log to fire whenever the IIFE fired, and it only fired on the initial render so I don't think that's it either.
 
     They aren't changing in either the local state or the console.log of the state.  And yet, the key value of the button is actually being picked up because that IS showing up in my console.logs.  So somewhere between the click and the setting of the state, something is going off the rails.  
@@ -7949,6 +7952,35 @@ What to do today?
 
     OK!  I think I found the bug.  When I disabled the bgclick, everything worked fine.  I think what is happening is that:
         -The base (non-hook) function clones the locSt at runtime.  
+        -This doesn't appear to be correct.  It looks like the bgClear is firing after both clicks and increment buttons are being pushed.
+
+    So here's my plan.  I do want the bgClick firing when backgrounds are clicked in most cases because it's a PITD to keep specifying manually.  
+        -I think what I need to do is to change it so that instead of re-creating the entire local state, it just looks through and resets only the things I tell it to.  
+        -I don't want to keep it out of interactions because interactions should also clear error states.  
+        -If I ABSOLUTELY cannot solve this problem, I guess I could prevent it at the interactions and then just do it manually in the same function?  I think it's having multiple state-setters triggering in different places that does it?
+            -And now I am wondering if part of the cause is that the input-setters are local while the tab handler is a method of the same object as the bgHandler.  
+
+    3:10.
+    OK.  I think(?) the locSt framework is up and running.  I can add invoices and items and see all my stuff getting matched.  What next?
+
+    -CSS durdling to get the UI to look like the Figma.
+    -Figuring out how to handle the dispos.
+
+    Honestly, it's the CSS I fear the most, so maybe that's the thing to do.  
+        -Refactor the the table header
+        -Refactor the columns so that invoNum gets truncated with qty length
+        -Create a mini-version of the BigNumber display to handle Return Reason
+        -Make the rows handle icons
+
+    Fuck it.  Let's do this.  
+
+14 Aug 2024.
+    10:40.
+    I am looking at what I HOPE is just some straightforward HTML/CSS.  I do fear the text truncation, but I want to try to avoid investing a shitload of time into it.  I've got a fixed width.  How hard could it be?  
+
+        
+
+    
 
         
 

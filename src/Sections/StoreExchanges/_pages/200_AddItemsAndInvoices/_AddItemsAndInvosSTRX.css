@@ -81,7 +81,6 @@
           [detail] 1fr
           [totalQty] 7rem
           [receipt] 9rem
-          [unitQty] 5rem
           [unitPrice] 7rem
           [totalPrice] 10rem
           [trash] var(--DeleteColWidth);
@@ -110,13 +109,13 @@
       & .invoInfoColumn {
         display: grid;
         grid-template-columns: subgrid;
-        grid-column: receipt / span 4;
+        grid-column: receipt / span 3;
         gap: var(--stdGap);
 
         & .invoInfoRow {
           display: grid;
           grid-template-columns: subgrid;
-          grid-column: receipt / span 4;
+          grid-column: receipt / span 3;
           align-items: center;
 
           &.merged {
@@ -139,11 +138,17 @@
       & .receiptCol {
         grid-column: receipt / span 1;
         justify-content: flex-end;
-      }
 
-      & .unitQtyCol {
-        grid-column: unitQty / span 1;
-        justify-content: flex-end;
+        & .receiptNum{
+
+        }
+
+        & .qty_x{
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          gap: 1rem;
+        }
       }
 
       & .unitPriceCol {
