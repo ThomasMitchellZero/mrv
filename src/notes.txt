@@ -7978,6 +7978,15 @@ What to do today?
     10:40.
     I am looking at what I HOPE is just some straightforward HTML/CSS.  I do fear the text truncation, but I want to try to avoid investing a shitload of time into it.  I've got a fixed width.  How hard could it be?  
 
+    12:00.
+    OK.  Speaking of 'How Hard Could It Be?'
+
+    Hot Reload is no longer working.  That itself is not the end of the world.  However, I have to assume that at some point, the end of support for CRA is eventually going to cause me problems I cannot solve.
+
+    I kind of want to start a fresh file, since at this point I don't know what kind of crust I have accumulated over the years I've been working on this.  That also gives me the option of getting back to normal if this all goes completely to shit.
+
+    
+
         
 
     
